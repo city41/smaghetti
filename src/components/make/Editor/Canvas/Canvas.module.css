@@ -1,0 +1,18 @@
+.grid {
+    @apply absolute top-0 left-0 w-full h-full;
+
+ 	background-image: linear-gradient(
+ 			to right,
+ 			var(--grid-color) var(--grid-line-width),
+ 			transparent var(--grid-line-width)
+ 		),
+ 		linear-gradient(
+ 			to bottom,
+ 			var(--grid-color) var(--grid-line-width),
+ 			transparent var(--grid-line-width)
+ 		);
+ 	background-size: var(--grid-width) var(--grid-height),
+ 		var(--grid-width) var(--grid-height);
+
+ 	background-repeat: repeat, repeat, repeat;
+}

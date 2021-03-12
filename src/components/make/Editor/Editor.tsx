@@ -10,8 +10,8 @@ import {
 } from '../editorSlice';
 
 import { Palette } from './Palette';
-import { Canvas } from './components/canvas';
-import { CanvasOffsetContainer } from './components/canvasOffsetContainer';
+import { Canvas } from './Canvas';
+import { CanvasOffsetContainer } from './CanvasOffsetContainer';
 // import { LevelResizer } from './components/levelResizer';
 // import { GoalStartButtons } from './components/goalStartButtons';
 // import { LevelPlayer } from './components/levelPlayer';

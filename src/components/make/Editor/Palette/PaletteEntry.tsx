@@ -6,6 +6,7 @@ import { Entity } from '../../../Entity';
 import {
 	TILE_SIZE,
 	TILE_TYPE_TO_FIRST_TILE_INDEX_MAP,
+	TileType,
 } from '../../../../tiles/constants';
 import { Button } from '../../../Button';
 
@@ -120,7 +121,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 	const item =
 		entry.brushMode === 'tile' ? (
 			<Tile
-				tileIndex={TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[entry.type]}
+				tileIndex={TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[entry.type as TileType]}
 				scale={SCALE}
 			/>
 		) : (
@@ -152,4 +153,5 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 	);
 };
 
-export { PaletteEntry, PaletteEntryProps };
+export { PaletteEntry };
+export type { PaletteEntryProps };

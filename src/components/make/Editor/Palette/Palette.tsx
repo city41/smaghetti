@@ -76,55 +76,54 @@ type PaletteProps = {
 // `;
 
 function Palette({
-		className,
-		currentPaletteEntry,
-		paletteEntries,
-		onPaletteEntryIndexChosen,
-		onPaletteEntryRemove,
-		onPaletteEntryAdded,
-	}: PaletteProps) {
-		const [modalOpen, setModalOpen] = useState(false);
+	className,
+	currentPaletteEntry,
+	paletteEntries,
+	onPaletteEntryIndexChosen,
+	onPaletteEntryRemove,
+	onPaletteEntryAdded,
+}: PaletteProps) {
+	const [modalOpen, setModalOpen] = useState(false);
 
-		for (let i = 0; i < 9; ++i) {
-			useHotkeys((i + 1).toString(), () => onPaletteEntryIndexChosen(i));
-		}
-
-		const entries = paletteEntries.map((pe, i) => (
-			<PaletteEntryCmp
-				key={`${pe.brushMode}-${pe.type}`}
-				buttonsOnHover
-				entry={pe}
-				isCurrent={isEqual(pe, currentPaletteEntry)}
-				className={clsx({ firstEntry: i === 0 })}
-				onClick={() => {
-					onPaletteEntryIndexChosen(i);
-				}}
-				showAdd={false}
-				showRemove={true}
-				onRemoveClick={() => {
-					onPaletteEntryRemove(pe);
-				}}
-			/>
-		));
-
-		return (
-			<div className={className} dir="rtl">
-				{entries}
-				<button onClick={() => setModalOpen(true)}>+</button>
-				<PaletteChoiceModal
-					open={modalOpen}
-					currentPaletteEntries={paletteEntries}
-					onEntryAdded={(addedEntry) => {
-						onPaletteEntryAdded(addedEntry);
-						setModalOpen(false);
-					}}
-					onEntryRemoved={onPaletteEntryRemove}
-					onCancel={() => setModalOpen(false)}
-				/>
-			</div>
-		);
+	for (let i = 0; i < 9; ++i) {
+		useHotkeys((i + 1).toString(), () => onPaletteEntryIndexChosen(i));
 	}
-);
+
+	const entries = paletteEntries.map((pe, i) => (
+		<PaletteEntryCmp
+			key={`${pe.brushMode}-${pe.type}`}
+			buttonsOnHover
+			entry={pe}
+			isCurrent={isEqual(pe, currentPaletteEntry)}
+			className={clsx({ firstEntry: i === 0 })}
+			onClick={() => {
+				onPaletteEntryIndexChosen(i);
+			}}
+			showAdd={false}
+			showRemove={true}
+			onRemoveClick={() => {
+				onPaletteEntryRemove(pe);
+			}}
+		/>
+	));
+
+	return (
+		<div className={className} dir="rtl">
+			{entries}
+			<button onClick={() => setModalOpen(true)}>+</button>
+			<PaletteChoiceModal
+				open={modalOpen}
+				currentPaletteEntries={paletteEntries}
+				onEntryAdded={(addedEntry) => {
+					onPaletteEntryAdded(addedEntry);
+					setModalOpen(false);
+				}}
+				onEntryRemoved={onPaletteEntryRemove}
+				onCancel={() => setModalOpen(false)}
+			/>
+		</div>
+	);
+}
 
 export { Palette };
-export type {PaletteProps };
+export type { PaletteProps };
