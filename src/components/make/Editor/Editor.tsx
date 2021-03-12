@@ -1,7 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
-import styled from 'styled-components';
 import clsx from 'clsx';
-import Loadable from 'react-loadable';
 import { useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
 

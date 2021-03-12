@@ -23,7 +23,6 @@ const actions = bindActionCreators(
 		onScaleIncreased: scaleIncreased,
 		onUndo: undo,
 		onRedo: redo,
-		onToggleGhosts: toggleGhosts,
 		onToggleGrid: toggleGrid,
 		onEraseLevel: eraseLevel,
 		onToggleResizeMode: toggleResizeMode,
@@ -37,7 +36,6 @@ const ConnectedToolbox: FunctionComponent<Partial<ToolboxProps>> = (props) => {
 		mouseMode,
 		canIncreaseScale,
 		canDecreaseScale,
-		showGhosts,
 		showGrid,
 		storedForResizeMode,
 	} = useSelector((state: AppState) => state.editor.present);
@@ -54,7 +52,6 @@ const ConnectedToolbox: FunctionComponent<Partial<ToolboxProps>> = (props) => {
 			canDecreaseScale={canDecreaseScale}
 			canUndo={canUndo}
 			canRedo={canRedo}
-			showGhosts={showGhosts}
 			showGrid={showGrid}
 			resizeMode={!!storedForResizeMode}
 			{...actions}
