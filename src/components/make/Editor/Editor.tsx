@@ -21,10 +21,12 @@ import { PublishButton } from './PublishButton';
 // import { KeyboardHelpModal } from './components/keyboardHelpModal';
 import { Warning } from '../../Warning';
 import { useFirstRender } from '../../../hooks/useFirstRender';
-// import { EarlyPreviewStarburst } from '../components/EarlyPreviewStarburst';
+import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
 // import { LoadLevelError } from './components/LoadLevelError';
 // import { ControlsBanner } from '../components/ControlsBanner';
 // import { PageMenu } from '../components/PageMenu';
+
+import styles from './Editor.module.css';
 
 // const LazyTour = Loadable({
 // 	loader: () => import('../coming-soon/components/tour'),
@@ -205,46 +207,7 @@ type EditorProps = {
 // 	transition: all 0.2s ease-out;
 // `;
 //
-// const PullOut = styled.div`
-// 	transition: transform 0.2s ease-in, opacity 0.2s ease-in;
-//
-// 	--pull-amount: 75%;
-//
-// 	&.shouldPull {
-// 		transform: var(--pull-out);
-// 		opacity: 0.5;
-// 		pointer-events: none;
-// 	}
-//
-// 	&.pullUp {
-// 		/* for the toolbox
-//     TODO: get rid of this */
-// 		pointer-events: none;
-// 		&.isPlaying {
-// 			transform: translateY(calc(var(--pull-amount) * -1));
-// 		}
-// 	}
-//
-// 	&.pullLeft {
-// 		&.shouldPull {
-// 			transform: translateX(calc(var(--pull-amount) * -1));
-// 		}
-// 	}
-//
-// 	&.pullUpRight {
-// 		&.shouldPull {
-// 			transform: translateY(calc(var(--pull-amount) * -1))
-// 				translateX(var(--pull-amount));
-// 		}
-// 	}
-//
-// 	&.pullDown {
-// 		&.shouldPull {
-// 			transform: translateY(calc(var(--pull-amount) * 1.5));
-// 		}
-// 	}
-// `;
-//
+
 // const CanvasContainer = styled.div`
 // 	position: fixed;
 // 	top: 0;
@@ -253,9 +216,6 @@ type EditorProps = {
 // 	height: 100%;
 // `;
 //
-// const StyledLevelPlayer = styled(LevelPlayer)`
-// 	border: 1px solid black;
-// `;
 
 function getQueryVariable(variable: string): string | undefined {
 	const query = window.location.search.substring(1);
@@ -383,20 +343,9 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 	}, []);
 
 	const playingClassName = clsx({ isPlaying });
-	const toolboxPullOutClassName = clsx('toolbox', 'pullUp', { isPlaying });
-	const palettePullOutClassName = clsx('paletteContainer', 'pullLeft', {
-		shouldPull: isPlaying || resizeMode,
-	});
 	const bottomTrayPullOutClassName = clsx('bottomTray', 'pullDown', {
 		shouldPull: isPlaying,
 	});
-	const shareButtonPullOutClassName = clsx(
-		'shareButtonContainer',
-		'pullUpRight',
-		{
-			shouldPull: isPlaying,
-		}
-	);
 
 	return (
 		<>
@@ -404,7 +353,7 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 			{/*	isOpen={showKeyboardHelpModal}*/}
 			{/*	onRequestClose={() => setShowKeyboardHelpModal(false)}*/}
 			{/*/>*/}
-			<Root>
+			<div>
 				{noScript && (
 					<Warning>
 						<div>
@@ -415,7 +364,8 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 				)}
 				{!firstRender && (
 					<CanvasContainer>
-						<StyledLevelPlayer
+						<LevelPlayer>
+							className="border border-black"
 							isPlaying={isPlaying}
 							playerAtStart={playerAtStart}
 							provideSafetyPlatform
@@ -428,54 +378,73 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 								/>
 							</PlayButtonContainerForPlayer>
 							<ControlsBanner />
-						</StyledLevelPlayer>
+						</LevelPlayer>
 						<CanvasOffsetContainer>
 							<Canvas />
-							{resizeMode && (
-								<>
-									<GoalStartButtons corner="upper-left" />
-									<GoalStartButtons corner="upper-right" />
-									<GoalStartButtons corner="lower-left" />
-									<GoalStartButtons corner="lower-right" />
-									<LevelResizer />
-								</>
-							)}
+							{/*{resizeMode && (*/}
+							{/*	<>*/}
+							{/*		<GoalStartButtons corner="upper-left" />*/}
+							{/*		<GoalStartButtons corner="upper-right" />*/}
+							{/*		<GoalStartButtons corner="lower-left" />*/}
+							{/*		<GoalStartButtons corner="lower-right" />*/}
+							{/*		<LevelResizer />*/}
+							{/*	</>*/}
+							{/*)}*/}
 						</CanvasOffsetContainer>
 					</CanvasContainer>
 				)}
-				<Chrome className={playingClassName}>
+				<div className={playingClassName}>
 					<div className="playButtonContainer">
 						<PlayButton
 							isPlaying={isPlaying}
 							onClick={() => setPlaying(!isPlaying)}
 						/>
 					</div>
-					<PullOut className={toolboxPullOutClassName}>
+					<div
+						className={clsx(styles.pullOut, styles.pullUp, 'toolbox', {
+							pulled: isPlaying,
+						})}
+					>
 						<Toolbox />
-					</PullOut>
-					<PullOut className={shareButtonPullOutClassName}>
+					</div>
+					<div
+						className={clsx(
+							styles.pullOut,
+							styles.pullUpRight,
+							'shareButtonContainer',
+							{ pulled: isPlaying }
+						)}
+					>
 						<PublishButton />
-					</PullOut>
-					<PullOut className={palettePullOutClassName}>
+					</div>
+					<div
+						className={clsx(
+							styles.pullOut,
+							styles.pullLeft,
+							'paletteContainer',
+							{ pulled: isPlaying || resizeMode }
+						)}
+					>
 						<Palette />
-					</PullOut>
-					<PullOut className={bottomTrayPullOutClassName}>
+					</div>
+					<div className={clsx(styles.pullOut, bottomTrayPullOutClassName)}>
 						<EarlyPreviewStarburst
 							className="fixed z-10 bottom-4 -left-2 pointer-events-auto"
 							mode="editor"
 						/>
-						<PageMenu
-							className="relative pointer-events-auto mr-8"
-							position="bottom"
-						>
-							<a onClick={() => setShowTour(true)}>help</a>
-						</PageMenu>
-					</PullOut>
-				</Chrome>
-			</Root>
-			<LoadLevelError />
+						{/*<PageMenu*/}
+						{/*	className="relative pointer-events-auto mr-8"*/}
+						{/*	position="bottom"*/}
+						{/*>*/}
+						{/*	<a onClick={() => setShowTour(true)}>help</a>*/}
+						{/*</PageMenu>*/}
+					</div>
+				</div>
+			</div>
+			{/*<LoadLevelError />*/}
 		</>
 	);
 }
 
-export { Editor, EditorProps };
+export { Editor };
+export type { EditorProps };

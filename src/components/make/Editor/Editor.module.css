@@ -1,0 +1,25 @@
+.pullOut {
+    transition: transform 0.2s ease-in, opacity 0.2s ease-in;
+    --pull-amount: 75%;
+}
+
+.pullOut.pulled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.pullOut.pullUp.pulled {
+    transform: translateY(calc(var(--pull-amount) * -1));
+}
+
+.pullOut.pullLeft.pulled {
+    transform: translateX(calc(var(--pull-amount) * -1));
+}
+
+.pullOut.pullUpRight.pulled {
+    transform: translateY(calc(var(--pull-amount) * -1)) translateX(var(--pull-amount));
+}
+
+.pullOut.pullDown.pulled {
+    transform: translateY(calc(var(--pull-amount) * 1.5));
+}

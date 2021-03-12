@@ -1,0 +1,36 @@
+.root {
+    --background-color: #cc5c5c;
+
+    display: grid;
+    place-items: center;
+
+    background-color: var(--background-color);
+    color: white;
+
+    position: relative;
+}
+
+.burst {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    transform-origin: center center;
+    background-color: var(--background-color);
+    z-index: 0;
+}
+
+.burst1 {
+    transform: rotate(30deg);
+}
+
+.burst2 {
+    transform: rotate(-30deg);
+}
+
+.content {
+    z-index: 1;
+    text-align: center;
+}
