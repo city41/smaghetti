@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import { Warning } from '../Warning';
 
 const meta: Meta = {
@@ -9,6 +9,6 @@ const meta: Meta = {
 
 export default meta;
 
-export const SimpleWarning = () => {
+export const Basic = () => {
 	return <Warning>A basic warning</Warning>;
 };

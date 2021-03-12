@@ -1,0 +1,20 @@
+.root > * {
+    @apply shadow-none !important;
+}
+
+.root > *:first-child {
+    @apply mr-0 rounded-tr-none rounded-br-none !important;
+}
+
+.root > *:not(:last-child):not(:first-child) {
+    @apply rounded-none;
+}
+
+.root > *:last-child {
+    @apply rounded-tl-none rounded-bl-none;
+}
+
+.root > *:not(:first-child) {
+    border-left-width: 0;
+    @apply border-l-0;
+}
