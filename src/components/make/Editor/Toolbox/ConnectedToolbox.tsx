@@ -9,7 +9,6 @@ import {
 	scaleDecreased,
 	undo,
 	redo,
-	toggleGhosts,
 	toggleGrid,
 	eraseLevel,
 	toggleResizeMode,

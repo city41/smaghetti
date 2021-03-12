@@ -41,8 +41,6 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 		levelTileWidth,
 		levelTileHeight,
 		scale,
-		showGhosts,
-		ghosts,
 		showGrid,
 	} = useSelector((state: AppState) => state.editor.present);
 
@@ -57,7 +55,6 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 			isSelecting={isSelecting}
 			dragOffset={dragOffset}
 			tiles={tiles}
-			ghosts={showGhosts ? ghosts : []}
 			mouseMode={mouseMode}
 			showGrid={showGrid}
 			{...actions}

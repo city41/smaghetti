@@ -14,7 +14,7 @@ import { Canvas } from './Canvas';
 import { CanvasOffsetContainer } from './CanvasOffsetContainer';
 // import { LevelResizer } from './components/levelResizer';
 // import { GoalStartButtons } from './components/goalStartButtons';
-// import { LevelPlayer } from './components/levelPlayer';
+import { LevelPlayer } from './LevelPlayer';
 import { Toolbox } from './Toolbox';
 import { PlayButton } from './PlayButton';
 import { PublishButton } from './PublishButton';
@@ -208,15 +208,6 @@ type EditorProps = {
 // `;
 //
 
-// const CanvasContainer = styled.div`
-// 	position: fixed;
-// 	top: 0;
-// 	left: 0;
-// 	width: 100%;
-// 	height: 100%;
-// `;
-//
-
 function getQueryVariable(variable: string): string | undefined {
 	const query = window.location.search.substring(1);
 	const vars = query.split('&');
@@ -363,21 +354,21 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 					</Warning>
 				)}
 				{!firstRender && (
-					<CanvasContainer>
-						<LevelPlayer>
+					<div className="fixed top-0 left-0 w-full h-full">
+						<LevelPlayer
 							className="border border-black"
 							isPlaying={isPlaying}
 							playerAtStart={playerAtStart}
 							provideSafetyPlatform
 							checkeredBackground
 						>
-							<PlayButtonContainerForPlayer>
+							<div>
 								<PlayButton
 									isPlaying={isPlaying}
 									onClick={() => setPlaying((p) => !p)}
 								/>
-							</PlayButtonContainerForPlayer>
-							<ControlsBanner />
+							</div>
+							{/*<ControlsBanner />*/}
 						</LevelPlayer>
 						<CanvasOffsetContainer>
 							<Canvas />
@@ -391,7 +382,7 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 							{/*	</>*/}
 							{/*)}*/}
 						</CanvasOffsetContainer>
-					</CanvasContainer>
+					</div>
 				)}
 				<div className={playingClassName}>
 					<div className="playButtonContainer">

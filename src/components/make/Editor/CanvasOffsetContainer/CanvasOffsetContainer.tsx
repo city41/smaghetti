@@ -1,8 +1,10 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import clsx from 'clsx';
-import { checkerboard } from '../../../styles/checkerboard';
 
 import { EditorFocusRect, MouseMode } from '../../editorSlice';
+
+import checkerboardStyles from '../../../../styles/checkerboard.module.css';
+import styles from './CanvasOffsetContainer.module.css';
 
 type CanvasOffsetContainerProps = {
 	className?: string;
@@ -16,7 +18,7 @@ type CanvasOffsetContainerProps = {
 	onPressForPan: () => void;
 	onLiftFromPan: () => void;
 	onEditorVisibleWindowChanged: (rect: EditorFocusRect) => void;
-	children: ReactNode;
+	children?: ReactNode;
 };
 
 // const Root = styled.div`
@@ -235,7 +237,13 @@ function CanvasOffsetContainer({
 	};
 
 	return (
-		<div className={finalClassName} onMouseDown={handleMouseDown}>
+		<div
+			className={clsx(className, checkerboardStyles.checkerboard, {
+				[styles.pan]: mouseMode === 'pan',
+				[styles.panning]: mouseDownRef.current,
+			})}
+			onMouseDown={handleMouseDown}
+		>
 			<div style={absoluteStyle}>{children}</div>
 			<div ref={selectBoxRef} />
 		</div>
