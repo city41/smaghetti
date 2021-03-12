@@ -1,6 +1,8 @@
 import React from 'react';
 import { IndexPage } from '../components/index/IndexPage';
 
-export default function NextIndexPage() {
+function NextIndexPage() {
   return <IndexPage />
 }
+
+export default NextIndexPage;
