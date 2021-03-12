@@ -3,3 +3,4 @@
 /// <reference types="images" />
 /// <reference types="css" />
 /// <reference types="audio" />
+/// <reference types="smaghetti" />

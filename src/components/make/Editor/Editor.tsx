@@ -9,24 +9,22 @@ import {
 	saveToLocalStorage,
 } from '../editorSlice';
 
-import { Palette } from './components/palette';
+import { Palette } from './Palette';
 import { Canvas } from './components/canvas';
 import { CanvasOffsetContainer } from './components/canvasOffsetContainer';
-import { LevelResizer } from './components/levelResizer';
-import { GoalStartButtons } from './components/goalStartButtons';
-import { LevelPlayer } from './components/levelPlayer';
-import { Toolbox } from './components/toolbox';
-import { PlayButton } from './components/playButton';
-import { PublishButton } from './components/publishButton';
-import { TooSmall } from './components/TooSmall';
-import { KeyboardHelpModal } from './components/keyboardHelpModal';
-import { Warning } from '../components/Warning';
-import { useFirstRender } from '../hooks/useFirstRender';
-import { EarlyPreviewStarburst } from '../components/EarlyPreviewStarburst';
-import { LoadLevelError } from './components/LoadLevelError';
-import { useGamepads } from '../hooks/useGamepads';
-import { ControlsBanner } from '../components/ControlsBanner';
-import { PageMenu } from '../components/PageMenu';
+// import { LevelResizer } from './components/levelResizer';
+// import { GoalStartButtons } from './components/goalStartButtons';
+// import { LevelPlayer } from './components/levelPlayer';
+import { Toolbox } from './Toolbox';
+import { PlayButton } from './PlayButton';
+import { PublishButton } from './PublishButton';
+// import { KeyboardHelpModal } from './components/keyboardHelpModal';
+import { Warning } from '../../Warning';
+import { useFirstRender } from '../../../hooks/useFirstRender';
+// import { EarlyPreviewStarburst } from '../components/EarlyPreviewStarburst';
+// import { LoadLevelError } from './components/LoadLevelError';
+// import { ControlsBanner } from '../components/ControlsBanner';
+// import { PageMenu } from '../components/PageMenu';
 
 // const LazyTour = Loadable({
 // 	loader: () => import('../coming-soon/components/tour'),
@@ -38,226 +36,226 @@ type EditorProps = {
 	resizeMode: boolean;
 };
 
-const Root = styled.div`
-	user-select: none;
-	width: 100%;
-	height: 100%;
-
-	@media (max-width: 890px), (max-height: 515px) {
-		display: none;
-	}
-`;
-
-const Chrome = styled.div`
-	/* used throughout the children for consistency */
-	--color-text: var(--color-black);
-	--item-spacing: 24px;
-	--short-edge-spacing: 16px;
-	--long-edge-spacing: 32px;
-	--chrome-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.75);
-	--item-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.75);
-	--chrome-background-color: rgba(60, 120, 80, 0.35);
-	--chrome-backdrop-filter: blur(16px);
-	--chrome-edge-radius: 16px;
-	--chrome-border: 8px solid white;
-
-	pointer-events: none;
-
-	position: fixed;
-	z-index: 2;
-
-	top: 0;
-	left: 0;
-
-	width: 100%;
-	height: 100%;
-
-	display: grid;
-	grid-template-columns: min-content 1fr min-content;
-	grid-template-rows: min-content 1fr 60px;
-
-	& .toolbox {
-		grid-column: 2;
-		grid-row: 1;
-	}
-
-	& .muteButton {
-		grid-column: 3;
-		grid-row: 1;
-		padding: 16px;
-	}
-
-	& .playButtonContainer,
-	& .shareButtonContainer {
-		display: flex;
-
-		align-items: center;
-		justify-content: center;
-		background-color: rgba(0, 0, 0, 0.5);
-
-		z-index: 5;
-		pointer-events: all;
-		box-shadow: var(--chrome-box-shadow);
-
-		height: 52px;
-
-		cursor: pointer;
-	}
-
-	& .playButtonContainer {
-		grid-column: 1;
-		grid-row: 1;
-		border-right: var(--chrome-border);
-		border-bottom: var(--chrome-border);
-		border-bottom-right-radius: var(--chrome-edge-radius);
-		transition: all 0.2s ease-out;
-
-		width: 52px;
-	}
-
-	& .shareButtonContainer {
-		grid-column: 3;
-		grid-row: 1;
-		border-left: var(--chrome-border);
-		border-bottom: var(--chrome-border);
-		border-bottom-left-radius: var(--chrome-edge-radius);
-
-		width: 90px;
-	}
-
-	& .paletteContainer {
-		grid-column: 1;
-		grid-row: 2;
-
-		pointer-events: all;
-
-		align-self: center;
-	}
-
-	& .bottomTray {
-		grid-column: 1 / -1;
-		grid-row: 3;
-		width: 100%;
-
-		pointer-events: none;
-		justify-self: center;
-
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: flex-end;
-	}
-
-	& .playerContainer {
-		grid-column: 2 / -1;
-		grid-row: 2 / -1;
-	}
-
-	& .player {
-		position: relative;
-
-		border: 16px solid var(--color-chrome-shadow);
-		border-bottom: 32px solid var(--color-chrome-shadow);
-
-		/* TODO: this is a nasty hard code */
-		width: calc(1080px + 32px);
-		height: calc(720px + 48px);
-	}
-
-	& .instructions {
-		position: absolute;
-		z-index: 10;
-
-		left: 16px;
-		bottom: -24px;
-		width: 100%;
-
-		text-align: center;
-		font-size: 14px;
-		color: rgba(255, 255, 255, 0.5);
-	}
-
-	& .undoRedo {
-		grid-column: 1;
-		grid-row: 3;
-		align-self: flex-end;
-		justify-self: center;
-		padding-bottom: 16px;
-	}
-`;
-
-// HACK: this is to jam the play button into the modal so
-// mouse users can get back to editing.
-// TODO: fix this
-const PlayButtonContainerForPlayer = styled.div`
-	--chrome-border: 8px solid white;
-	--chrome-edge-radius: 16px;
-
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 10;
-
-	height: 52px;
-	width: 52px;
-
-	border-right: var(--chrome-border);
-	border-bottom: var(--chrome-border);
-	border-bottom-right-radius: var(--chrome-edge-radius);
-	transition: all 0.2s ease-out;
-`;
-
-const PullOut = styled.div`
-	transition: transform 0.2s ease-in, opacity 0.2s ease-in;
-
-	--pull-amount: 75%;
-
-	&.shouldPull {
-		transform: var(--pull-out);
-		opacity: 0.5;
-		pointer-events: none;
-	}
-
-	&.pullUp {
-		/* for the toolbox
-    TODO: get rid of this */
-		pointer-events: none;
-		&.isPlaying {
-			transform: translateY(calc(var(--pull-amount) * -1));
-		}
-	}
-
-	&.pullLeft {
-		&.shouldPull {
-			transform: translateX(calc(var(--pull-amount) * -1));
-		}
-	}
-
-	&.pullUpRight {
-		&.shouldPull {
-			transform: translateY(calc(var(--pull-amount) * -1))
-				translateX(var(--pull-amount));
-		}
-	}
-
-	&.pullDown {
-		&.shouldPull {
-			transform: translateY(calc(var(--pull-amount) * 1.5));
-		}
-	}
-`;
-
-const CanvasContainer = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-`;
-
-const StyledLevelPlayer = styled(LevelPlayer)`
-	border: 1px solid black;
-`;
+// const Root = styled.div`
+// 	user-select: none;
+// 	width: 100%;
+// 	height: 100%;
+//
+// 	@media (max-width: 890px), (max-height: 515px) {
+// 		display: none;
+// 	}
+// `;
+//
+// const Chrome = styled.div`
+// 	/* used throughout the children for consistency */
+// 	--color-text: var(--color-black);
+// 	--item-spacing: 24px;
+// 	--short-edge-spacing: 16px;
+// 	--long-edge-spacing: 32px;
+// 	--chrome-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.75);
+// 	--item-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.75);
+// 	--chrome-background-color: rgba(60, 120, 80, 0.35);
+// 	--chrome-backdrop-filter: blur(16px);
+// 	--chrome-edge-radius: 16px;
+// 	--chrome-border: 8px solid white;
+//
+// 	pointer-events: none;
+//
+// 	position: fixed;
+// 	z-index: 2;
+//
+// 	top: 0;
+// 	left: 0;
+//
+// 	width: 100%;
+// 	height: 100%;
+//
+// 	display: grid;
+// 	grid-template-columns: min-content 1fr min-content;
+// 	grid-template-rows: min-content 1fr 60px;
+//
+// 	& .toolbox {
+// 		grid-column: 2;
+// 		grid-row: 1;
+// 	}
+//
+// 	& .muteButton {
+// 		grid-column: 3;
+// 		grid-row: 1;
+// 		padding: 16px;
+// 	}
+//
+// 	& .playButtonContainer,
+// 	& .shareButtonContainer {
+// 		display: flex;
+//
+// 		align-items: center;
+// 		justify-content: center;
+// 		background-color: rgba(0, 0, 0, 0.5);
+//
+// 		z-index: 5;
+// 		pointer-events: all;
+// 		box-shadow: var(--chrome-box-shadow);
+//
+// 		height: 52px;
+//
+// 		cursor: pointer;
+// 	}
+//
+// 	& .playButtonContainer {
+// 		grid-column: 1;
+// 		grid-row: 1;
+// 		border-right: var(--chrome-border);
+// 		border-bottom: var(--chrome-border);
+// 		border-bottom-right-radius: var(--chrome-edge-radius);
+// 		transition: all 0.2s ease-out;
+//
+// 		width: 52px;
+// 	}
+//
+// 	& .shareButtonContainer {
+// 		grid-column: 3;
+// 		grid-row: 1;
+// 		border-left: var(--chrome-border);
+// 		border-bottom: var(--chrome-border);
+// 		border-bottom-left-radius: var(--chrome-edge-radius);
+//
+// 		width: 90px;
+// 	}
+//
+// 	& .paletteContainer {
+// 		grid-column: 1;
+// 		grid-row: 2;
+//
+// 		pointer-events: all;
+//
+// 		align-self: center;
+// 	}
+//
+// 	& .bottomTray {
+// 		grid-column: 1 / -1;
+// 		grid-row: 3;
+// 		width: 100%;
+//
+// 		pointer-events: none;
+// 		justify-self: center;
+//
+// 		display: flex;
+// 		flex-direction: row;
+// 		align-items: center;
+// 		justify-content: flex-end;
+// 	}
+//
+// 	& .playerContainer {
+// 		grid-column: 2 / -1;
+// 		grid-row: 2 / -1;
+// 	}
+//
+// 	& .player {
+// 		position: relative;
+//
+// 		border: 16px solid var(--color-chrome-shadow);
+// 		border-bottom: 32px solid var(--color-chrome-shadow);
+//
+// 		/* TODO: this is a nasty hard code */
+// 		width: calc(1080px + 32px);
+// 		height: calc(720px + 48px);
+// 	}
+//
+// 	& .instructions {
+// 		position: absolute;
+// 		z-index: 10;
+//
+// 		left: 16px;
+// 		bottom: -24px;
+// 		width: 100%;
+//
+// 		text-align: center;
+// 		font-size: 14px;
+// 		color: rgba(255, 255, 255, 0.5);
+// 	}
+//
+// 	& .undoRedo {
+// 		grid-column: 1;
+// 		grid-row: 3;
+// 		align-self: flex-end;
+// 		justify-self: center;
+// 		padding-bottom: 16px;
+// 	}
+// `;
+//
+// // HACK: this is to jam the play button into the modal so
+// // mouse users can get back to editing.
+// // TODO: fix this
+// const PlayButtonContainerForPlayer = styled.div`
+// 	--chrome-border: 8px solid white;
+// 	--chrome-edge-radius: 16px;
+//
+// 	position: fixed;
+// 	top: 0;
+// 	left: 0;
+// 	z-index: 10;
+//
+// 	height: 52px;
+// 	width: 52px;
+//
+// 	border-right: var(--chrome-border);
+// 	border-bottom: var(--chrome-border);
+// 	border-bottom-right-radius: var(--chrome-edge-radius);
+// 	transition: all 0.2s ease-out;
+// `;
+//
+// const PullOut = styled.div`
+// 	transition: transform 0.2s ease-in, opacity 0.2s ease-in;
+//
+// 	--pull-amount: 75%;
+//
+// 	&.shouldPull {
+// 		transform: var(--pull-out);
+// 		opacity: 0.5;
+// 		pointer-events: none;
+// 	}
+//
+// 	&.pullUp {
+// 		/* for the toolbox
+//     TODO: get rid of this */
+// 		pointer-events: none;
+// 		&.isPlaying {
+// 			transform: translateY(calc(var(--pull-amount) * -1));
+// 		}
+// 	}
+//
+// 	&.pullLeft {
+// 		&.shouldPull {
+// 			transform: translateX(calc(var(--pull-amount) * -1));
+// 		}
+// 	}
+//
+// 	&.pullUpRight {
+// 		&.shouldPull {
+// 			transform: translateY(calc(var(--pull-amount) * -1))
+// 				translateX(var(--pull-amount));
+// 		}
+// 	}
+//
+// 	&.pullDown {
+// 		&.shouldPull {
+// 			transform: translateY(calc(var(--pull-amount) * 1.5));
+// 		}
+// 	}
+// `;
+//
+// const CanvasContainer = styled.div`
+// 	position: fixed;
+// 	top: 0;
+// 	left: 0;
+// 	width: 100%;
+// 	height: 100%;
+// `;
+//
+// const StyledLevelPlayer = styled(LevelPlayer)`
+// 	border: 1px solid black;
+// `;
 
 function getQueryVariable(variable: string): string | undefined {
 	const query = window.location.search.substring(1);
@@ -273,7 +271,7 @@ function getQueryVariable(variable: string): string | undefined {
 	return undefined;
 }
 
-const Editor: FunctionComponent<EditorProps> = ({ noScript, resizeMode }) => {
+function Editor({ noScript, resizeMode }: EditorProps) {
 	const [showTour, setShowTour] = useState(false);
 	const [isPlaying, setPlaying] = useState(false);
 	const [playerAtStart, setPlayerAtStart] = useState(false);
@@ -369,18 +367,6 @@ const Editor: FunctionComponent<EditorProps> = ({ noScript, resizeMode }) => {
 		[isPlaying]
 	);
 
-	useGamepads(
-		(gamepadData) => {
-			if (gamepadData[0]?.jumpJustPressed) {
-				if (!showKeyboardHelpModal && !isPlaying) {
-					setPlayerAtStart(true);
-					setPlaying(true);
-				}
-			}
-		},
-		{ ignoreKeyboard: true }
-	);
-
 	useEffect(() => {
 		let originalOverflow = '';
 
@@ -414,11 +400,10 @@ const Editor: FunctionComponent<EditorProps> = ({ noScript, resizeMode }) => {
 
 	return (
 		<>
-			<KeyboardHelpModal
-				isOpen={showKeyboardHelpModal}
-				onRequestClose={() => setShowKeyboardHelpModal(false)}
-			/>
-			<TooSmall />
+			{/*<KeyboardHelpModal*/}
+			{/*	isOpen={showKeyboardHelpModal}*/}
+			{/*	onRequestClose={() => setShowKeyboardHelpModal(false)}*/}
+			{/*/>*/}
 			<Root>
 				{noScript && (
 					<Warning>
@@ -491,6 +476,6 @@ const Editor: FunctionComponent<EditorProps> = ({ noScript, resizeMode }) => {
 			<LoadLevelError />
 		</>
 	);
-};
+}
 
 export { Editor, EditorProps };
