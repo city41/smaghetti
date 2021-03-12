@@ -24,11 +24,18 @@
     "@types/react-redux": "^7.1.16",
     "autoprefixer": "^9",
     "clsx": "^1.1.1",
+    "file-loader": "^6.2.0",
     "howler": "^2.2.1",
+    "imagemin-mozjpeg": "^9.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^9.0.0",
     "lodash.isequal": "^4.5.0",
     "lodash.sortby": "^4.7.0",
     "lodash.uniqby": "^4.7.0",
     "next": "latest",
+    "next-compose-plugins": "^2.2.1",
+    "next-optimized-classnames": "^1.0.1",
+    "next-optimized-images": "^2.6.2",
     "postcss": "^7",
     "prettier": "^2.2.1",
     "react": "^17.0.1",
@@ -42,7 +49,8 @@
     "redux-undo": "^1.0.1",
     "storybook-css-modules-preset": "^1.0.6",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.3",
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
