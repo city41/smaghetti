@@ -1,0 +1,12 @@
+.root {}
+
+.buttonsOnHover button {
+    @apply invisible;
+}
+
+.buttonsOnHover:hover button {
+    @apply visible;
+}
+
+.isCurrent {
+}

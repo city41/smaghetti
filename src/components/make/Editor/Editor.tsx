@@ -38,16 +38,6 @@ type EditorProps = {
 	resizeMode: boolean;
 };
 
-// const Root = styled.div`
-// 	user-select: none;
-// 	width: 100%;
-// 	height: 100%;
-//
-// 	@media (max-width: 890px), (max-height: 515px) {
-// 		display: none;
-// 	}
-// `;
-//
 // const Chrome = styled.div`
 // 	/* used throughout the children for consistency */
 // 	--color-text: var(--color-black);
@@ -334,9 +324,6 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 	}, []);
 
 	const playingClassName = clsx({ isPlaying });
-	const bottomTrayPullOutClassName = clsx('bottomTray', 'pullDown', {
-		shouldPull: isPlaying,
-	});
 
 	return (
 		<>
@@ -344,7 +331,7 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 			{/*	isOpen={showKeyboardHelpModal}*/}
 			{/*	onRequestClose={() => setShowKeyboardHelpModal(false)}*/}
 			{/*/>*/}
-			<div>
+			<div className="hidden sm:block select-none w-full h-full">
 				{noScript && (
 					<Warning>
 						<div>
@@ -384,8 +371,18 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 						</CanvasOffsetContainer>
 					</div>
 				)}
-				<div className={playingClassName}>
-					<div className="playButtonContainer">
+				<div
+					className={clsx(
+						styles.chrome,
+						'fixed z-10 top-0 left-0 w-full h-full grid pointer-events-none'
+					)}
+				>
+					<div
+						className={clsx(
+							styles.playButtonContainer,
+							'rounded-br-xl border-r-4 border-b-4 border-white'
+						)}
+					>
 						<PlayButton
 							isPlaying={isPlaying}
 							onClick={() => setPlaying(!isPlaying)}
@@ -393,7 +390,7 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 					</div>
 					<div
 						className={clsx(styles.pullOut, styles.pullUp, 'toolbox', {
-							pulled: isPlaying,
+							[styles.pulled]: isPlaying,
 						})}
 					>
 						<Toolbox />
@@ -402,8 +399,9 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 						className={clsx(
 							styles.pullOut,
 							styles.pullUpRight,
-							'shareButtonContainer',
-							{ pulled: isPlaying }
+							styles.shareButtonContainer,
+							'rounded-bl-xl border-l-4 border-b-4 border-white',
+							{ [styles.pulled]: isPlaying }
 						)}
 					>
 						<PublishButton />
@@ -412,13 +410,20 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 						className={clsx(
 							styles.pullOut,
 							styles.pullLeft,
-							'paletteContainer',
-							{ pulled: isPlaying || resizeMode }
+							styles.paletteContainer,
+							{ [styles.pulled]: isPlaying || resizeMode }
 						)}
 					>
 						<Palette />
 					</div>
-					<div className={clsx(styles.pullOut, bottomTrayPullOutClassName)}>
+					<div
+						className={clsx(
+							styles.pullOut,
+							styles.pullDown,
+							styles.bottomTray,
+							{ [styles.pulled]: isPlaying }
+						)}
+					>
 						<EarlyPreviewStarburst
 							className="fixed z-10 bottom-4 -left-2 pointer-events-auto"
 							mode="editor"

@@ -1,3 +1,7 @@
+.root {
+	transform: translateX(var(--translation)) translateY(var(--translation)) scale(var(--scale));
+}
+
 .grid {
     @apply absolute top-0 left-0 w-full h-full;
 

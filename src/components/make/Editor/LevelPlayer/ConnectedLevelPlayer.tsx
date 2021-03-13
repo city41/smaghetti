@@ -1,5 +1,7 @@
 import React, { ReactNode } from 'react';
 
+import { LevelPlayer } from '../../../LevelPlayer';
+
 type LevelPlayerProps = {
 	className?: string;
 	isPlaying: boolean;
@@ -10,12 +12,7 @@ type LevelPlayerProps = {
 };
 
 function ConnectedLevelPlayer(props: LevelPlayerProps) {
-	return (
-		<div>
-			LevelPlayer stub
-			<div>{props.children}</div>
-		</div>
-	);
+	return <LevelPlayer {...props} />;
 }
 
 export { ConnectedLevelPlayer };

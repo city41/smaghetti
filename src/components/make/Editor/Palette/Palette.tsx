@@ -7,6 +7,8 @@ import { PaletteEntry } from '../../editorSlice';
 import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
 import { PaletteChoiceModal } from './PaletteChoiceModal';
 
+import styles from './Palette.module.css';
+
 type PaletteProps = {
 	className?: string;
 	currentPaletteEntry?: PaletteEntry;
@@ -15,65 +17,6 @@ type PaletteProps = {
 	onPaletteEntryRemove: (removedEntry: PaletteEntry) => void;
 	onPaletteEntryAdded: (addedEntry: PaletteEntry) => void;
 };
-
-// const Root = styled.div`
-// 	display: grid;
-// 	grid-template-columns: max-content;
-//
-// 	max-height: 80vh;
-// 	overflow-y: auto;
-//
-// 	justify-items: center;
-// 	align-items: center;
-//
-// 	background-color: rgb(255, 255, 255, 0.125);
-// 	backdrop-filter: blur(20px);
-//
-// 	border-top-right-radius: 14px;
-// 	border-bottom-right-radius: 14px;
-// 	border-top: 3px solid white;
-// 	border-right: 3px solid white;
-// 	border-bottom: 3px solid white;
-//
-// 	box-shadow: var(--item-box-shadow, 0 4px 6px 1px rgba(0, 0, 0, 0.5));
-//
-// 	& .firstEntry {
-// 		padding-top: 12px;
-// 	}
-//
-// 	::-webkit-scrollbar {
-// 		width: 8px;
-// 	}
-//
-// 	::-webkit-scrollbar-track {
-// 		background-color: #aaaaaa77;
-// 	}
-//
-// 	::-webkit-scrollbar-thumb {
-// 		background-color: #aaa;
-// 	}
-// `;
-//
-// const Add = styled.div`
-// 	width: 50px;
-// 	height: 50px;
-//
-// 	margin: 8px 8px 12px 8px;
-//
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-//
-// 	font-size: 36px;
-// 	font-weight: bold;
-//
-// 	border: 2px dashed #ddd;
-// 	color: white;
-//
-// 	justify-self: center;
-//
-// 	cursor: pointer;
-// `;
 
 function Palette({
 	className,
@@ -108,9 +51,14 @@ function Palette({
 	));
 
 	return (
-		<div className={className} dir="rtl">
+		<div className={clsx(className, styles.root)} dir="rtl">
 			{entries}
-			<button onClick={() => setModalOpen(true)}>+</button>
+			<button
+				className="w-16 h-16 m-4 mb-6 flex items-center justify-center font-bold text-xl border-dashed border-2 border-white cursor-pointer"
+				onClick={() => setModalOpen(true)}
+			>
+				+
+			</button>
 			<PaletteChoiceModal
 				open={modalOpen}
 				currentPaletteEntries={paletteEntries}

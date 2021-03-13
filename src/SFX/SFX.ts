@@ -21,11 +21,11 @@ const SFX = {
 	},
 
 	buttonClicked() {
-		p(getResource('cut').resource as Howl);
+		p(getResource('buttonClicked').resource as Howl);
 	},
 
 	tilePainted() {
-		p(getResource('playCard').resource as Howl);
+		p(getResource('tilePainted').resource as Howl);
 	},
 };
 

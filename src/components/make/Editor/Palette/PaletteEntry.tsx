@@ -8,10 +8,8 @@ import {
 	TILE_TYPE_TO_FIRST_TILE_INDEX_MAP,
 	TileType,
 } from '../../../../tiles/constants';
-import { Button } from '../../../Button';
 
-// import { TiDelete } from 'react-icons/ti';
-// import { RiAddLine } from 'react-icons/ri';
+import styles from './PaletteEntry.module.css';
 
 const SCALE = 50 / TILE_SIZE;
 
@@ -134,20 +132,24 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 			/>
 		);
 
-	const finalClassName = clsx(className, { isCurrent, buttonsOnHover });
-
 	return (
-		<div className={finalClassName} onClick={onClick}>
+		<div
+			className={clsx(className, {
+				[styles.isCurrent]: isCurrent,
+				[styles.buttonsOnHover]: buttonsOnHover,
+			})}
+			onClick={onClick}
+		>
 			{item}
 			{showAdd && (
-				<Button className="button" onClick={onAddClick}>
+				<button className="bg-green-900 text-white" onClick={onAddClick}>
 					choose
-				</Button>
+				</button>
 			)}
 			{showRemove && (
-				<Button className="button" onClick={onRemoveClick}>
+				<button className="bg-red-700 text-white" onClick={onRemoveClick}>
 					remove
-				</Button>
+				</button>
 			)}
 		</div>
 	);

@@ -23,7 +23,10 @@ const EarlyPreviewStarburst: FunctionComponent<EarlyPreviewStarburstProps> = ({
 				mode={mode}
 			/>
 			<Starburst
-				className={clsx(className, 'w-20 h-20 font-bold -rotate-12 text-sm')}
+				className={clsx(
+					className,
+					'w-20 h-20 font-bold transform -rotate-12 text-sm'
+				)}
 			>
 				early preview!
 				<a

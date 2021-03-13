@@ -238,10 +238,15 @@ function CanvasOffsetContainer({
 
 	return (
 		<div
-			className={clsx(className, checkerboardStyles.checkerboard, {
-				[styles.pan]: mouseMode === 'pan',
-				[styles.panning]: mouseDownRef.current,
-			})}
+			className={clsx(
+				className,
+				checkerboardStyles.checkerboard,
+				'relative overflow-hidden h-full',
+				{
+					[styles.pan]: mouseMode === 'pan',
+					[styles.panning]: mouseDownRef.current,
+				}
+			)}
 			onMouseDown={handleMouseDown}
 		>
 			<div style={absoluteStyle}>{children}</div>

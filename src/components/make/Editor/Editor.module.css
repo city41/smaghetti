@@ -1,3 +1,113 @@
+.chrome {
+    grid-template-columns: min-content 1fr min-content;
+    grid-template-rows: min-content 1fr 60px;
+
+    --item-spacing: 1rem;
+}
+
+.chrome .toolbox {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.chrome .muteButton {
+    grid-column: 3;
+    grid-row: 1;
+    padding: 16px;
+}
+
+.chrome .playButtonContainer,
+.chrome .shareButtonContainer {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    z-index: 5;
+    pointer-events: all;
+    box-shadow: var(--chrome-box-shadow);
+
+    height: 52px;
+
+    cursor: pointer;
+}
+
+.chrome .playButtonContainer {
+    grid-column: 1;
+    grid-row: 1;
+    transition: all 0.2s ease-out;
+
+    width: 52px;
+}
+
+.chrome .shareButtonContainer {
+    grid-column: 3;
+    grid-row: 1;
+
+    width: 90px;
+}
+
+.chrome .paletteContainer {
+    grid-column: 1;
+    grid-row: 2;
+
+    pointer-events: all;
+
+    align-self: center;
+}
+
+.chrome .bottomTray {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    width: 100%;
+
+    pointer-events: none;
+    justify-self: center;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.chrome .playerContainer {
+    grid-column: 2 / -1;
+    grid-row: 2 / -1;
+}
+
+.chrome .player {
+    position: relative;
+
+    border: 16px solid var(--color-chrome-shadow);
+    border-bottom: 32px solid var(--color-chrome-shadow);
+
+    /*TODO: this is a nasty hard code */
+    width: calc(1080px + 32px);
+    height: calc(720px + 48px);
+}
+
+.chrome .instructions {
+    position: absolute;
+    z-index: 10;
+
+    left: 16px;
+    bottom: -24px;
+    width: 100%;
+
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.chrome .undoRedo {
+    grid-column: 1;
+    grid-row: 3;
+    align-self: flex-end;
+    justify-self: center;
+    padding-bottom: 16px;
+}
+
 .pullOut {
     transition: transform 0.2s ease-in, opacity 0.2s ease-in;
     --pull-amount: 75%;

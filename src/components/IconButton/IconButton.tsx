@@ -179,13 +179,6 @@ const IconButton: FunctionComponent<IconButtonProps> = ({
 }) => {
 	const Icon = icon;
 
-	const buttonClassName = clsx(className, {
-		toggled,
-		disabled,
-		[`${anchor || ''}Anchor`]: !!anchor,
-		text: !(icon && label),
-	});
-
 	const buttonVariables = {
 		'--background-color': toggleable ? TOGGLE_BG_COLOR : BG_COLOR,
 		'--hover-color': toggleable ? TOGGLE_HOVER_COLOR : HOVER_COLOR,
@@ -212,6 +205,7 @@ const IconButton: FunctionComponent<IconButtonProps> = ({
 			)}
 			style={buttonStyle}
 			key="button"
+			disabled={disabled}
 			tabIndex={-1}
 			title={(icon && label && label.toString()) || ''}
 			onMouseDown={(e) => {
@@ -232,12 +226,12 @@ const IconButton: FunctionComponent<IconButtonProps> = ({
 			}}
 		>
 			<div
-				className={clsx('w-full h-full grid place-items-center', {
+				className={clsx('w-full h-full grid place-items-center text-2xl', {
 					'border-b-4 border-black': toggled,
+					'opacity-25': disabled,
 				})}
 			>
 				{children ||
-					(typeof Icon === 'string' && <span>NO!</span>) ||
 					(Icon && <Icon />) ||
 					(href && (
 						<Link href={href!} passHref>

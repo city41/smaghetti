@@ -69,7 +69,7 @@ function PlayButton({ className, isPlaying, onClick }: PlayButtonProps) {
 
 	return (
 		<div
-			className={clsx(className, '', { '': isPlaying })}
+			className={clsx(className, 'text-2xl text-white', { '': isPlaying })}
 			title={`${title} (p)`}
 			onClick={() => {
 				SFX.buttonClicked();

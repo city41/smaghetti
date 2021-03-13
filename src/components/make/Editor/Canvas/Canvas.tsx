@@ -410,11 +410,17 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 			: 'none';
 
 	return (
+		// TODO: why is border on its own div? probably due to scaling?
 		<div className="border-2 border-black">
 			<div
-				className={clsx(className, 'relative shadow-lg', {
-					'cursor-crosshair': mouseMode === 'draw' || mouseMode === 'fill',
-				})}
+				className={clsx(
+					className,
+					styles.root,
+					'relative shadow-lg bg-blue-200',
+					{
+						'cursor-crosshair': mouseMode === 'draw' || mouseMode === 'fill',
+					}
+				)}
 				ref={(div) => {
 					setDivRef(div);
 				}}

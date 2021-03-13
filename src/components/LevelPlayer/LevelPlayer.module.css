@@ -1,0 +1,3 @@
+.root {
+    grid-template-rows: 1fr max-content;
+}

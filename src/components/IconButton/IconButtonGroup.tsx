@@ -43,7 +43,13 @@ const IconButtonGroup: FunctionComponent<IconButtonGroupProps> = ({
 	children,
 }) => {
 	return (
-		<div className={clsx(className, styles.root, 'flex flex-row')}>
+		<div
+			className={clsx(
+				className,
+				styles.root,
+				'flex flex-row rounded-bl-xl rounded-br-xl shadow-lg'
+			)}
+		>
 			{children}
 		</div>
 	);
