@@ -3,12 +3,6 @@ type Bounds = {
 	lowerRight: Point;
 };
 
-type GoalStartCorner =
-	| 'upper-left'
-	| 'upper-right'
-	| 'lower-left'
-	| 'lower-right';
-
 type IDable = { id: number };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,8 +56,6 @@ type SerializedTileLayer = {
 type LevelData = {
 	entities: Entity[];
 	tileLayer: TileLayer;
-	startCorner: GoalStartCorner;
-	goalCorner: GoalStartCorner;
 };
 
 type SerializedTileEntity = {

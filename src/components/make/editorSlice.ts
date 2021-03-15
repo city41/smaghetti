@@ -68,7 +68,7 @@ type EditorFocusRect = {
 	height: number;
 };
 
-const nonDeletableEntityTypes = ['Player', 'Start', 'Goal'];
+const nonDeletableEntityTypes = ['Player'];
 
 const playerScale = getPlayerScaleFromWindow();
 const scales: number[] = [
@@ -110,9 +110,6 @@ type InternalEditorState = {
 
 	loadingLevel: boolean;
 	loadLevelError?: string | null;
-
-	goalCorner: GoalStartCorner;
-	startCorner: GoalStartCorner;
 };
 
 const initialScale = playerScale;
@@ -144,20 +141,6 @@ const defaultInitialState: InternalEditorState = {
 			y: TILE_SIZE * INITIAL_PLAYER_Y_TILE,
 			type: 'Player',
 		},
-		{
-			id: 2,
-			x: 0,
-			y: (INITIAL_LEVEL_TILE_HEIGHT - 2) * TILE_SIZE,
-			type: 'Start',
-			disableDrag: true,
-		},
-		{
-			id: 3,
-			x: TILE_SIZE * (INITIAL_LEVEL_TILE_WIDTH - 6),
-			y: TILE_SIZE * (INITIAL_LEVEL_TILE_HEIGHT - 2),
-			type: 'Goal',
-			disableDrag: true,
-		},
 	],
 	tiles: [],
 	savingLevel: false,
@@ -178,12 +161,11 @@ const defaultInitialState: InternalEditorState = {
 	showGrid: true,
 
 	paletteEntries: [
-		// { brushMode: 'tile', type: 'grass' },
+		{ brushMode: 'tile', type: 'brick' },
+		{ brushMode: 'tile', type: 'coin' },
 		{ brushMode: 'entity', type: 'Goomba' },
 	],
 	currentPaletteEntry: { brushMode: 'entity', type: 'Goomba' },
-	goalCorner: 'lower-right',
-	startCorner: 'lower-left',
 	focused: {},
 	dragOffset: null,
 	isSelecting: false,
@@ -509,30 +491,6 @@ function ensurePlayerIsInView(state: InternalEditorState, offsetDelta: Point) {
 		0,
 		(state.levelTileHeight - 1) * TILE_SIZE
 	);
-
-	// // don't let the player go down inside the Start or Goal
-	// // TODO: this is super primitive, could be way better
-	// const goal = state.entities.find((e) => e.type === 'Goal')!;
-	// const start = state.entities.find((e) => e.type === 'Start')!;
-	//
-	// const playerBounds = getEntityPixelBounds(player);
-	// const startBounds = getEntityPixelBounds(start);
-	// const goalBounds = getEntityPixelBounds(goal);
-	//
-	// const playerHeight = playerBounds.lowerRight.y - playerBounds.upperLeft.y;
-	// const playerWidth = playerBounds.lowerRight.x - playerBounds.upperLeft.x;
-	//
-	// if (overlap(playerBounds, startBounds)) {
-	// 	const startBoundsWidth = startBounds.lowerRight.x - startBounds.upperLeft.x;
-	// 	player.x = startBounds.upperLeft.x + startBoundsWidth / 2 - playerWidth / 2;
-	// 	player.y = startBounds.upperLeft.y - playerHeight;
-	// }
-	//
-	// if (overlap(playerBounds, goalBounds)) {
-	// 	const goalBoundsWidth = goalBounds.lowerRight.x - goalBounds.upperLeft.x;
-	// 	player.x = goalBounds.upperLeft.x + goalBoundsWidth / 2 - playerWidth / 2;
-	// 	player.y = goalBounds.upperLeft.y - playerHeight;
-	// }
 }
 
 /**
@@ -632,65 +590,6 @@ function centerLevelInWindow(state: InternalEditorState) {
 	state.scrollOffset.y = -upperPixels / state.scale;
 }
 
-function setToCorner(state: InternalEditorState, type: 'Goal' | 'Start') {
-	const entity = state.entities.find((e) => e.type === type)!;
-	const entityTileWidth = type === 'Goal' ? 6 : 3;
-
-	const corner = type === 'Goal' ? state.goalCorner : state.startCorner;
-
-	switch (corner) {
-		case 'upper-left': {
-			entity.x = 0;
-			entity.y = 2 * TILE_SIZE;
-			break;
-		}
-		case 'lower-left': {
-			entity.x = 0;
-			entity.y = (state.levelTileHeight - 2) * TILE_SIZE;
-			break;
-		}
-		case 'upper-right': {
-			entity.x = (state.levelTileWidth - entityTileWidth) * TILE_SIZE;
-			entity.y = 2 * TILE_SIZE;
-			break;
-		}
-		case 'lower-right': {
-			entity.x = (state.levelTileWidth - entityTileWidth) * TILE_SIZE;
-			entity.y = (state.levelTileHeight - 2) * TILE_SIZE;
-			break;
-		}
-	}
-
-	// TODO: use getEntityTileBounds to get the goal bounds (need to setup editor metadata for Goal)
-	deleteEntitiesWithin(
-		state.entities,
-		{
-			upperLeft: { x: entity.x / TILE_SIZE, y: entity.y / TILE_SIZE },
-			lowerRight: {
-				x: entity.x / TILE_SIZE + entityTileWidth - 1,
-				y: entity.y / TILE_SIZE + 1,
-			},
-		},
-		['Goal', 'Start']
-	);
-
-	deleteTilesWithin(state.tiles, {
-		upperLeft: { x: entity.x / TILE_SIZE, y: entity.y / TILE_SIZE },
-		lowerRight: {
-			x: entity.x / TILE_SIZE + entityTileWidth - 1,
-			y: entity.y / TILE_SIZE + 1,
-		},
-	});
-	// TODO: should group the affected tiles here
-}
-
-const oppositeCorner: Record<GoalStartCorner, GoalStartCorner> = {
-	'upper-left': 'upper-right',
-	'upper-right': 'upper-left',
-	'lower-left': 'lower-right',
-	'lower-right': 'lower-left',
-};
-
 function selectEntireTileEntity(
 	focused: Record<number, boolean>,
 	tiles: TileMatrix,
@@ -750,30 +649,6 @@ const editorSlice = createSlice({
 	name: 'editor',
 	initialState,
 	reducers: {
-		moveGoalToCorner(
-			state: InternalEditorState,
-			action: PayloadAction<GoalStartCorner>
-		) {
-			if (state.startCorner === action.payload) {
-				state.startCorner = oppositeCorner[action.payload];
-				setToCorner(state, 'Start');
-			}
-
-			state.goalCorner = action.payload;
-			setToCorner(state, 'Goal');
-		},
-		moveStartToCorner(
-			state: InternalEditorState,
-			action: PayloadAction<GoalStartCorner>
-		) {
-			if (state.goalCorner === action.payload) {
-				state.goalCorner = oppositeCorner[action.payload];
-				setToCorner(state, 'Goal');
-			}
-
-			state.startCorner = action.payload;
-			setToCorner(state, 'Start');
-		},
 		addPaletteEntry(
 			state: InternalEditorState,
 			action: PayloadAction<PaletteEntry>
@@ -1089,9 +964,6 @@ const editorSlice = createSlice({
 
 			start.x = 0;
 			start.y = TILE_SIZE * (state.levelTileHeight - 2);
-
-			setToCorner(state, 'Goal');
-			setToCorner(state, 'Start');
 		},
 		resizeLevelComplete(state: InternalEditorState) {
 			const newScale = determineResizeScale(state);
@@ -1104,9 +976,6 @@ const editorSlice = createSlice({
 
 			state.tiles = [];
 			state.entities = defaultInitialState.entities.map((e) => ({ ...e }));
-
-			state.startCorner = 'lower-left';
-			state.goalCorner = 'lower-right';
 
 			if (state.storedForResizeMode) {
 				const newScale = determineResizeScale(state);
@@ -1218,8 +1087,6 @@ const editorSlice = createSlice({
 			state.tiles = levelData.tileLayer.data;
 			state.levelTileWidth = levelData.tileLayer.width;
 			state.levelTileHeight = levelData.tileLayer.height;
-			state.startCorner = levelData.startCorner;
-			state.goalCorner = levelData.goalCorner;
 
 			const player = state.entities.find((e) => e.type === 'Player')!;
 			player.x = TILE_SIZE * INITIAL_PLAYER_X_TILE;
@@ -1527,8 +1394,6 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 		const levelData: LevelData = {
 			entities: putPlayerAtStart(editorState.entities),
 			tileLayer,
-			startCorner: editorState.startCorner,
-			goalCorner: editorState.goalCorner,
 		};
 
 		const serializedLevelData = serialize(levelData);
@@ -1632,8 +1497,6 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 		const localStorageData: LevelData = {
 			entities: editorState.entities,
 			tileLayer,
-			startCorner: editorState.startCorner,
-			goalCorner: editorState.goalCorner,
 		};
 
 		const serializedLevelData = serialize(localStorageData);
@@ -1683,8 +1546,6 @@ const {
 	clearFocusedEntity,
 	setEntitySettings,
 	eraseLevel,
-	moveGoalToCorner,
-	moveStartToCorner,
 } = editorSlice.actions;
 
 const reducer = editorSlice.reducer;
@@ -1698,8 +1559,6 @@ function cleanUpReducer(state: InternalEditorState, action: Action) {
 	const newState = reducer(state, action);
 
 	const nextState = produce(newState, (draftState) => {
-		setToCorner(draftState, 'Start');
-		setToCorner(draftState, 'Goal');
 		ensurePlayerIsInView(draftState, { x: 0, y: 0 });
 		ensureLevelIsInView(draftState);
 
@@ -1868,6 +1727,4 @@ export {
 	loadFromLocalStorage,
 	saveToLocalStorage,
 	eraseLevel,
-	moveGoalToCorner,
-	moveStartToCorner,
 };

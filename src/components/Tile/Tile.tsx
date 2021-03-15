@@ -113,6 +113,7 @@ const Tile = memo(
 			backgroundPositionY: yPos,
 			width: TILE_SIZE * scale,
 			height: TILE_SIZE * scale,
+			backgroundImage: `url(${getResourceUrl('tiles')})`,
 		};
 
 		const tileType = getTileType(tileIndex) as TileHasEntityType;

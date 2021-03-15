@@ -4,6 +4,7 @@ import { image_resources } from './resources_generated_images';
 
 import buttonClickedMp3 from './buttonClicked.mp3';
 import tilePaintedMp3 from './tilePainted.mp3';
+import tilesPng from '!file-loader?name=static/[name]-[hash].[ext]!./tiles.png';
 
 type Resource = {
 	src: string;
@@ -34,6 +35,12 @@ const resources: Record<string, Resource> = {
 		loaded: false,
 		resource: null,
 	},
+	tiles: {
+		src: tilesPng,
+		loaded: false,
+		type: 'image',
+		resource: getImageResourceObject(),
+	} as Resource,
 };
 
 const totalResources = Object.keys(resources).length;

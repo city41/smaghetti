@@ -111,7 +111,28 @@ type PaletteChoiceModalEntry = {
 	info: { title: string; description: string; limitationsId?: string };
 };
 
-const terrain: PaletteChoiceModalEntry[] = [];
+const terrain: PaletteChoiceModalEntry[] = [
+	{
+		entry: {
+			brushMode: 'tile',
+			type: 'brick',
+		},
+		info: {
+			title: 'Brick',
+			description: 'Flexible, can be terrain, smashed, and contain items',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'tile',
+			type: 'coin',
+		},
+		info: {
+			title: 'Coin',
+			description: 'The ever present coin',
+		},
+	},
+];
 
 const enemies: PaletteChoiceModalEntry[] = [
 	{

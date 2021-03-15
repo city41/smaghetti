@@ -1,5 +1,4 @@
-// TODO: move this into tiles/constants.ts
-type GroupType = 'x' | 'y' | 'xy' | 'xytopper';
+import { TileGroupType } from '../tiles/constants';
 
 const xyAndXytopper = {
 	// 1
@@ -285,7 +284,8 @@ const xyAndXytopper = {
 	'000010000': 0,
 };
 
-const groupingTileMap: Record<GroupType, Record<string, number>> = {
+const groupingTileMap: Record<TileGroupType, Record<string, number>> = {
+	none: {},
 	// <left><right>
 	x: {
 		'00': 0,
@@ -305,4 +305,3 @@ const groupingTileMap: Record<GroupType, Record<string, number>> = {
 } as const;
 
 export { groupingTileMap };
-export type { GroupType };
