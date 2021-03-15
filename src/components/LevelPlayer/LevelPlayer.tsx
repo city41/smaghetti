@@ -11,7 +11,7 @@ type LevelPlayerProps = {
 	style?: CSSProperties;
 	isPlaying: boolean;
 	entities: Entity[];
-	// tileLayer: TileLayer;
+	tileLayer: TileLayer;
 	biosFile: Uint8Array;
 	romFile: Uint8Array;
 	emptySaveFile: Uint8Array;
@@ -26,6 +26,7 @@ type LevelPlayerProps = {
 function LevelPlayer({
 	isPlaying,
 	entities,
+	tileLayer,
 	biosFile,
 	romFile,
 	emptySaveFile,
@@ -48,7 +49,7 @@ function LevelPlayer({
 				biosFile={biosFile}
 				romFile={romFile}
 				emptySaveFile={emptySaveFile}
-				levelData={createLevelData(entities)}
+				levelData={createLevelData(entities, tileLayer)}
 				isPlaying={isPlaying}
 			/>
 			{children}

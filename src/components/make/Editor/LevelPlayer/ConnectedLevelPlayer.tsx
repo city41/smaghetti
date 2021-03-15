@@ -13,7 +13,9 @@ type LevelPlayerProps = {
 };
 
 function ConnectedLevelPlayer(props: LevelPlayerProps) {
-	const { entities } = useSelector((state: AppState) => state.editor.present);
+	const { entities, tiles, levelTileWidth, levelTileHeight } = useSelector(
+		(state: AppState) => state.editor.present
+	);
 
 	const romFile = getRom();
 	const biosFile = getBios();
@@ -25,9 +27,16 @@ function ConnectedLevelPlayer(props: LevelPlayerProps) {
 		);
 	}
 
+	const tileLayer = {
+		width: levelTileWidth,
+		height: levelTileHeight,
+		data: tiles,
+	};
+
 	return (
 		<LevelPlayer
 			{...props}
+			tileLayer={tileLayer}
 			romFile={romFile}
 			biosFile={biosFile}
 			emptySaveFile={emptySaveFile}

@@ -31,12 +31,12 @@ const TILE_TYPE_TO_TILE_ENTITY_TYPE: Record<
 
 const TILE_TYPE_TO_SERIALIZE_ID_MAP: Record<TileType, string> = {
 	brick: 'br',
-	coin: '$',
+	coin: 'co',
 };
 
 const TILE_SERIALIZED_ID_TO_TYPE_MAP: Record<string, TileType> = {
 	br: 'brick',
-	$: 'coin',
+	co: 'coin',
 };
 
 const TILE_TYPE_TO_GROUP_TYPE_MAP: Record<TileType, TileGroupType> = {

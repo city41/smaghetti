@@ -1,4 +1,5 @@
 import { convertASCIIToLevelName } from './util';
+import { TILE_SIZE, TileType } from '../tiles/constants';
 
 type Tuple<T, N extends number> = N extends N ? T[] : _TupleOf<T, N, []>;
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N
@@ -13,6 +14,8 @@ type Room = {
 	blockPathMovementData: number[];
 	autoScrollMovementData: number[];
 };
+
+const MAX_Y = 0x1b;
 
 function getHeader(): Tuple<number, 5> {
 	// copying the values from classic 1-2 for now
@@ -37,7 +40,7 @@ function getLevelName(name: string): number[] {
 
 function getObjectHeader(): Tuple<number, 11> {
 	return [
-		0x03, // time, hundreds digit
+		0x09, // time, hundreds digit
 		0x00, // time, tens and ones
 		0x00, // 16 bit value that is unknown, copied from classic 1-2
 		0x02, // ----
@@ -65,14 +68,6 @@ const Goomba = [
 	0x0f, // X
 	0x1a, // Y
 ];
-
-const bricks = [
-	0x5f, // 0x01011111 -> (01)(011111) -> bank 1, length of 32
-	0x1b, // y
-	0x01, // x
-	0x0f, // breakable brick
-	0,
-]; // vertical height of 1
 
 // level settings for room 0
 const Classic1_2LevelSettings = [
@@ -110,14 +105,107 @@ const Classic1_2LevelSettings = [
 	0,
 ];
 
-function getRoom(_entities: Entity[]): Room {
+const bricks = [
+	0x5f, // 0x01011111 -> (01)(011111) -> bank 1, length of 32
+	0x1b, // y
+	0x01, // x
+	0x0f, // breakable brick
+	0, // vertical height of 1
+];
+
+const tileTypeToObjectId: Record<TileType, number> = {
+	brick: 0xf,
+	coin: 0x16,
+};
+
+function getObjects(tileLayer: TileLayer): number[] {
+	function getObjectsForRow(row: Array<null | Tile>): number[] {
+		const rowObjects: number[] = [];
+
+		let i = 0;
+
+		while (i < row.length) {
+			while (i < row.length && !row[i]) {
+				++i;
+			}
+
+			if (i === row.length) {
+				break;
+			}
+
+			const start = i;
+			const startType = row[start]!.tileType;
+
+			if (!startType) debugger;
+
+			while (i < row.length && row[i]?.tileType === startType) {
+				++i;
+			}
+
+			const end = i;
+
+			const bank = 1;
+			const length = end - start;
+			// length - 1 because the length is stored minus one
+			const bankAndLength = (bank << 6) | (length - 1);
+
+			const tileY = row[start]!.y;
+			const yDiff = tileLayer.height - (tileY + 1);
+			const y = MAX_Y - yDiff;
+			const x = row[start]!.x;
+			// height is zero because it's stored minus one
+			const height = 0;
+
+			rowObjects.push(
+				...[
+					bankAndLength,
+					y,
+					x,
+					tileTypeToObjectId[row[start]!.tileType],
+					height,
+				]
+			);
+		}
+
+		return rowObjects;
+	}
+
+	return tileLayer.data.reduce<number[]>((building, row) => {
+		if (row === null) {
+			return building;
+		}
+
+		return building.concat(getObjectsForRow(row));
+	}, []);
+}
+
+function getSprites(entities: Entity[], levelHeightInTiles: number): number[] {
+	return entities.reduce<number[]>((building, entity) => {
+		if (entity.type === 'Player') {
+			return building;
+		}
+
+		const entityTileY = Math.floor(entity.y / TILE_SIZE);
+		const yDiff = levelHeightInTiles - (entityTileY + 1);
+
+		return building.concat([
+			0x00, // bank 0 or 1
+			0x72, // sprite Id, 0x72 = goomba
+			Math.floor(entity.x / TILE_SIZE),
+			MAX_Y - yDiff,
+		]);
+	}, []);
+}
+
+function getRoom(entities: Entity[], tileLayer: TileLayer): Room {
 	const objectHeader = getObjectHeader();
-	const objects = CoinStrip.concat(bricks);
+	const objects = getObjects(tileLayer); // CoinStrip.concat(bricks);
+	console.log('objects:', objects.map((o) => o?.toString(16)).join(', '));
 
 	const levelSettings = Classic1_2LevelSettings;
 
 	const spriteHeader = [0x00];
-	const sprites = Goomba;
+	const sprites = getSprites(entities, tileLayer.height); // Goomba;
 
 	return {
 		objects: objectHeader.concat(objects, [0xff]),
@@ -155,8 +243,8 @@ function getFullRoomData(room: Room): number[] {
 	);
 }
 
-function createLevelData(entities: Entity[]): Uint8Array {
-	const room0 = getRoom(entities);
+function createLevelData(entities: Entity[], tileLayer: TileLayer): Uint8Array {
+	const room0 = getRoom(entities, tileLayer);
 	// const room1 = null;
 	// const room2 = null;
 	// const room3 = null;
