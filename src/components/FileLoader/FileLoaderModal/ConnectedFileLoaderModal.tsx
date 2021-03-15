@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { AppState, dispatch } from '../../../store';
 import { FileLoaderModal } from './FileLoaderModal';
-import { loadBios, loadRom } from '../fileLoaderSlice';
+import { loadBios, loadRom, loadEmptySave } from '../fileLoaderSlice';
 
 type ConnectedFileLoaderModalProps = {
 	isOpen: boolean;
@@ -19,11 +19,16 @@ const actions = bindActionCreators(
 );
 
 function ConnectedFileLoaderModal({ isOpen }: ConnectedFileLoaderModalProps) {
+	useEffect(() => {
+		dispatch(loadEmptySave());
+	}, []);
+
 	const {
 		isLoadingBios,
 		isLoadingRom,
-		// loadBiosError,
-		// loadRomError
+		loadBiosError,
+		loadRomError,
+		loadEmptySaveError,
 	} = useSelector((state: AppState) => state.fileLoader);
 
 	return (
@@ -31,6 +36,9 @@ function ConnectedFileLoaderModal({ isOpen }: ConnectedFileLoaderModalProps) {
 			isOpen={isOpen}
 			isLoadingBios={isLoadingBios}
 			isLoadingRom={isLoadingRom}
+			loadBiosError={loadBiosError}
+			loadRomError={loadRomError}
+			loadEmptySaveError={loadEmptySaveError}
 			{...actions}
 		/>
 	);

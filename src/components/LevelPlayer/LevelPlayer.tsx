@@ -14,6 +14,7 @@ type LevelPlayerProps = {
 	// tileLayer: TileLayer;
 	biosFile: Uint8Array;
 	romFile: Uint8Array;
+	emptySaveFile: Uint8Array;
 	onPlayerDied?: () => boolean;
 	onLevelCompleted?: () => void;
 	checkeredBackground?: boolean;
@@ -27,6 +28,7 @@ function LevelPlayer({
 	entities,
 	biosFile,
 	romFile,
+	emptySaveFile,
 	children,
 	checkeredBackground,
 }: LevelPlayerProps) {
@@ -45,6 +47,7 @@ function LevelPlayer({
 			<GBAPlayer
 				biosFile={biosFile}
 				romFile={romFile}
+				emptySaveFile={emptySaveFile}
 				levelData={createLevelData(entities)}
 				isPlaying={isPlaying}
 			/>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-// import { injectLevelIntoSave } from '../lib/injectLevelIntoSave';
+import { injectLevelIntoSave } from '../../levelData/injectLevelIntoSave';
 
 import styles from './GBAPlayer.module.css';
 
@@ -9,6 +9,7 @@ type GBAPlayerProps = {
 	className?: string;
 	biosFile: Uint8Array;
 	romFile: Uint8Array;
+	emptySaveFile: Uint8Array;
 	levelData: Uint8Array;
 	isPlaying: boolean;
 };
@@ -17,8 +18,8 @@ declare global {
 	interface _GameBoyAdvance {
 		new (): _GameBoyAdvance;
 		setCanvas: (canvas: HTMLCanvasElement) => void;
-		setBios: (bios: Uint8Array) => void;
-		setRom: (rom: Uint8Array) => void;
+		setBios: (bios: ArrayBuffer) => void;
+		setRom: (rom: ArrayBuffer) => void;
 		runStable: () => void;
 		pause: () => void;
 		setSavedata: (data: ArrayBuffer) => void;
@@ -35,45 +36,38 @@ function GBAPlayer({
 	className,
 	biosFile,
 	romFile,
+	emptySaveFile,
 	levelData,
 	isPlaying,
 }: GBAPlayerProps) {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const gbaRef = useRef<InstanceType<Window['GameBoyAdvance']> | null>(null);
 
-	// function injectLevelData(
-	// 	levelData: Uint8Array | null,
-	// 	callback?: () => void
-	// ) {
-	// 	window.loadRom('/empty.sav', (saveFile) => {
-	// 		let saveFileArray = new Uint8Array(saveFile);
-	// 		if (levelData) {
-	// 			saveFileArray = injectLevelIntoSave(
-	// 				new Uint8Array(saveFile),
-	// 				levelData
-	// 			);
-	// 		}
-	//
-	// 		gbaRef.current.setSavedata(saveFileArray.buffer);
-	//
-	// 		callback?.();
-	// 		gbaRef.current.runStable();
-	// 		gbaRef.current.audio.masterVolume = 0;
-	// 	});
-	// }
-
 	function playRom(
 		gba: Window['GameBoyAdvance'],
 		canvas: HTMLCanvasElement,
 		bios: Uint8Array,
 		rom: Uint8Array,
-		levelData: Uint8Array | null
+		emptySaveFile: Uint8Array,
+		levelData: Uint8Array
 	) {
 		canvas.getContext('2d')!.imageSmoothingEnabled = false;
 
+		const saveFileWithInjectedLevel = injectLevelIntoSave(
+			emptySaveFile,
+			levelData
+		);
+
+		// const url = window.URL.createObjectURL(
+		// 	new Blob([levelData.buffer], { type: 'application/octet-stream' })
+		// );
+		//
+		// window.open(url);
+
 		gba.setCanvas(canvas);
-		gba.setBios(bios);
-		gba.setRom(rom);
+		gba.setBios(bios.buffer);
+		gba.setRom(rom.buffer);
+		gba.setSavedata(saveFileWithInjectedLevel.buffer);
 		gba.runStable();
 	}
 
@@ -87,13 +81,21 @@ function GBAPlayer({
 					canvasRef.current,
 					biosFile,
 					romFile,
+					emptySaveFile,
 					levelData
 				);
 			}
 		} else {
 			gbaRef.current.pause();
 		}
-	}, [isPlaying, romFile, levelData, biosFile, canvasRef.current]);
+	}, [
+		isPlaying,
+		// romFile,
+		// levelData,
+		// biosFile,
+		// emptySaveFile,
+		// canvasRef.current,
+	]);
 
 	return (
 		<canvas

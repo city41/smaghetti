@@ -4,6 +4,8 @@
 
 body {
     @apply w-full h-full;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
 }
 
 .ReactModalPortal {
