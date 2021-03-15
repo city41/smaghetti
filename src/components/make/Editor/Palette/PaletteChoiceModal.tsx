@@ -111,219 +111,28 @@ type PaletteChoiceModalEntry = {
 	info: { title: string; description: string; limitationsId?: string };
 };
 
-const terrain: PaletteChoiceModalEntry[] = [
-	{
-		entry: {
-			brushMode: 'tile',
-			type: 'grass',
-		},
-		info: {
-			title: 'Grass',
-			description: 'Player can stand on it, and jump up through from below.',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'tile',
-			type: 'metal',
-		},
-		info: {
-			title: 'Steel',
-			description: 'Solid and indestructible',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'tile',
-			type: 'spike',
-		},
-		info: {
-			title: 'Spikes',
-			description: 'Instant death!',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'tile',
-			type: 'ladder',
-		},
-		info: {
-			title: 'Ladder',
-			description: 'Climb up and down',
-		},
-	},
-];
+const terrain: PaletteChoiceModalEntry[] = [];
 
 const enemies: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
 			brushMode: 'entity',
-			type: 'GusGus',
+			type: 'Goomba',
 		},
 		info: {
-			title: 'GusGus',
-			description:
-				'Basic enemy, easily stomped on. Will turn around instead of falling off a cliff.',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Skrusher',
-		},
-		info: {
-			title: 'Skrusher',
-			description: 'Comes crashing down when the player is near.',
+			title: 'Goomba',
+			description: '',
 		},
 	},
 ];
 
-const items: PaletteChoiceModalEntry[] = [
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Box',
-		},
-		info: {
-			title: 'Box',
-			description: 'Player can stand on it. But it can be destroyed too...',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Coin',
-		},
-		info: {
-			title: 'Coin',
-			description: 'Good for ... points, I guess?',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Arrow',
-		},
-		info: {
-			title: 'Arrow',
-			description: 'Point something out to the player.',
-		},
-	},
-];
+const items: PaletteChoiceModalEntry[] = [];
 
-const gizmos: PaletteChoiceModalEntry[] = [
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Cannon',
-		},
-		info: {
-			title: 'Cannon',
-			description:
-				'Excels at launching the player at high velocity. Once loaded, press jump to launch.',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'AutoCannon',
-		},
-		info: {
-			title: 'Auto-Cannon',
-			description:
-				'Just like Cannon, but automatically launches the player once loaded.',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Spring',
-		},
-		info: {
-			title: 'Spring',
-			description: 'Bouncing around the room',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'tile',
-			type: 'conveyor',
-		},
-		info: {
-			title: 'Conveyor Belt',
-			description: 'Kick back and let the floor do the walking.',
-		},
-	},
-];
+const gizmos: PaletteChoiceModalEntry[] = [];
 
-const electricGizmos: PaletteChoiceModalEntry[] = [
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'OnOff',
-		},
-		info: {
-			title: 'Switch',
-			description:
-				'Turns electricity on or off. All of the items in this section change their behavior when electricity is toggled.',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'PlusBlock',
-		},
-		info: {
-			title: 'Plus Block',
-			description: 'Solid when electricity is on',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'MinusBlock',
-		},
-		info: {
-			title: 'Minus Block',
-			description: 'Solid when electricity is off',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'tile',
-			type: 'electroMagneticWall',
-		},
-		info: {
-			title: 'Electro-Magnetic Wall',
-			description:
-				'Player can cling to it and wall jump from it when electricity is on.',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'tile',
-			type: 'reverseGravityBlock',
-		},
-		info: {
-			title: 'Gravity Zone',
-			description:
-				'Create a zone out of these. When electricity is on, gravity is reversed in that zone.',
-		},
-	},
-];
+const electricGizmos: PaletteChoiceModalEntry[] = [];
 
-const powerUps: PaletteChoiceModalEntry[] = [
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Feather',
-		},
-		info: {
-			title: 'Feather',
-			description: 'Slow your descent by holding the jump button',
-		},
-	},
-];
+const powerUps: PaletteChoiceModalEntry[] = [];
 
 type LimitationsLinkProps = {
 	id: string;

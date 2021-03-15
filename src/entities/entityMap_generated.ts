@@ -2,72 +2,20 @@
 // /home/matt/dev/jumpclub/entityPipeline/generate.ts
 
 const entityMap = {
-	Arrow: {
-		width: 8,
-		height: 8,
-	},
-	AutoCannon: {
-		width: 8,
-		height: 8,
-	},
-	Box: {
-		width: 8,
-		height: 8,
-	},
-	Cannon: {
-		width: 8,
-		height: 8,
-	},
-	Coin: {
-		width: 2,
-		height: 2,
-	},
-	ElectroMagneticWall: {
-		width: 224,
-		height: 16,
-	},
-	Feather: {
-		width: 8,
-		height: 8,
-	},
-	Goal: {
-		width: 48,
-		height: 16,
-	},
-	GusGus: {
-		width: 8,
-		height: 8,
-	},
-	MinusBlock: {
-		width: 8,
-		height: 8,
-	},
-	OnOff: {
-		width: 8,
-		height: 8,
-	},
-	Player: {
-		width: 8,
-		height: 8,
-	},
-	PlusBlock: {
-		width: 8,
-		height: 8,
-	},
-	SafetyPlatform: {
-		width: 96,
-		height: 8,
-	},
-	Skrusher: {
+	Goomba: {
 		width: 16,
 		height: 16,
 	},
-	Spring: {
-		width: 8,
-		height: 8,
+	Player: {
+		width: 16,
+		height: 16,
+	},
+	Goal: {
+		width: 16,
+		height: 16,
 	},
 	Start: {
-		width: 24,
+		width: 16,
 		height: 16,
 	},
 };

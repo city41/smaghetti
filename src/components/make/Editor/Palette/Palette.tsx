@@ -55,7 +55,9 @@ function Palette({
 			{entries}
 			<button
 				className="w-16 h-16 m-4 mb-6 flex items-center justify-center font-bold text-xl border-dashed border-2 border-white cursor-pointer"
-				onClick={() => setModalOpen(true)}
+				onClick={() => {
+					setModalOpen(true);
+				}}
 			>
 				+
 			</button>

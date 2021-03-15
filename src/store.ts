@@ -7,13 +7,19 @@ import {
 	reducer as editorReducer,
 	EditorState,
 } from './components/make/editorSlice';
+import {
+	reducer as fileLoaderReducer,
+	FileLoaderState,
+} from './components/FileLoader/fileLoaderSlice';
 
 type AppState = {
 	editor: EditorState;
+	fileLoader: FileLoaderState;
 };
 
 const rootReducer = combineReducers({
 	editor: editorReducer,
+	fileLoader: fileLoaderReducer,
 });
 
 const store = configureStore({

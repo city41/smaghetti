@@ -178,10 +178,10 @@ const defaultInitialState: InternalEditorState = {
 	showGrid: true,
 
 	paletteEntries: [
-		{ brushMode: 'tile', type: 'grass' },
-		{ brushMode: 'entity', type: 'GusGus' },
+		// { brushMode: 'tile', type: 'grass' },
+		{ brushMode: 'entity', type: 'Goomba' },
 	],
-	currentPaletteEntry: { brushMode: 'tile', type: 'grass' },
+	currentPaletteEntry: { brushMode: 'entity', type: 'Goomba' },
 	goalCorner: 'lower-right',
 	startCorner: 'lower-left',
 	focused: {},
@@ -510,29 +510,29 @@ function ensurePlayerIsInView(state: InternalEditorState, offsetDelta: Point) {
 		(state.levelTileHeight - 1) * TILE_SIZE
 	);
 
-	// don't let the player go down inside the Start or Goal
-	// TODO: this is super primitive, could be way better
-	const goal = state.entities.find((e) => e.type === 'Goal')!;
-	const start = state.entities.find((e) => e.type === 'Start')!;
-
-	const playerBounds = getEntityPixelBounds(player);
-	const startBounds = getEntityPixelBounds(start);
-	const goalBounds = getEntityPixelBounds(goal);
-
-	const playerHeight = playerBounds.lowerRight.y - playerBounds.upperLeft.y;
-	const playerWidth = playerBounds.lowerRight.x - playerBounds.upperLeft.x;
-
-	if (overlap(playerBounds, startBounds)) {
-		const startBoundsWidth = startBounds.lowerRight.x - startBounds.upperLeft.x;
-		player.x = startBounds.upperLeft.x + startBoundsWidth / 2 - playerWidth / 2;
-		player.y = startBounds.upperLeft.y - playerHeight;
-	}
-
-	if (overlap(playerBounds, goalBounds)) {
-		const goalBoundsWidth = goalBounds.lowerRight.x - goalBounds.upperLeft.x;
-		player.x = goalBounds.upperLeft.x + goalBoundsWidth / 2 - playerWidth / 2;
-		player.y = goalBounds.upperLeft.y - playerHeight;
-	}
+	// // don't let the player go down inside the Start or Goal
+	// // TODO: this is super primitive, could be way better
+	// const goal = state.entities.find((e) => e.type === 'Goal')!;
+	// const start = state.entities.find((e) => e.type === 'Start')!;
+	//
+	// const playerBounds = getEntityPixelBounds(player);
+	// const startBounds = getEntityPixelBounds(start);
+	// const goalBounds = getEntityPixelBounds(goal);
+	//
+	// const playerHeight = playerBounds.lowerRight.y - playerBounds.upperLeft.y;
+	// const playerWidth = playerBounds.lowerRight.x - playerBounds.upperLeft.x;
+	//
+	// if (overlap(playerBounds, startBounds)) {
+	// 	const startBoundsWidth = startBounds.lowerRight.x - startBounds.upperLeft.x;
+	// 	player.x = startBounds.upperLeft.x + startBoundsWidth / 2 - playerWidth / 2;
+	// 	player.y = startBounds.upperLeft.y - playerHeight;
+	// }
+	//
+	// if (overlap(playerBounds, goalBounds)) {
+	// 	const goalBoundsWidth = goalBounds.lowerRight.x - goalBounds.upperLeft.x;
+	// 	player.x = goalBounds.upperLeft.x + goalBoundsWidth / 2 - playerWidth / 2;
+	// 	player.y = goalBounds.upperLeft.y - playerHeight;
+	// }
 }
 
 /**

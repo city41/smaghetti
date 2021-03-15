@@ -36,7 +36,7 @@ type HasYEndCapType =
 type Interaction = 'climb' | 'damage';
 type TileInteractionType = 'ladder' | 'spike';
 
-const TILE_SIZE = 8;
+const TILE_SIZE = 16;
 const TILE_TYPE_COUNT = 9;
 
 const TILE_TYPE_TO_FIRST_TILE_INDEX_MAP: Record<TileType, number> = {

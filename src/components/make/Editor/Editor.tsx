@@ -345,8 +345,6 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 						<LevelPlayer
 							className="border border-black"
 							isPlaying={isPlaying}
-							playerAtStart={playerAtStart}
-							provideSafetyPlatform
 							checkeredBackground
 						>
 							<div>

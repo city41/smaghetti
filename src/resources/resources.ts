@@ -1,5 +1,7 @@
 import type { Howl } from 'howler';
 
+import { image_resources } from './resources_generated_images';
+
 import buttonClickedMp3 from './buttonClicked.mp3';
 import tilePaintedMp3 from './tilePainted.mp3';
 
@@ -10,7 +12,18 @@ type Resource = {
 	resource: HTMLImageElement | Howl | null;
 };
 
+function getImageResourceObject() {
+	if (typeof window !== 'undefined') {
+		return new Image();
+	}
+	return {
+		width: 0,
+		height: 0,
+	};
+}
+
 const resources: Record<string, Resource> = {
+	...image_resources,
 	buttonClicked: {
 		src: buttonClickedMp3,
 		loaded: false,
@@ -39,5 +52,12 @@ function hasAResource(key: string): key is ResourceKey {
 	return key in resources;
 }
 
-export { resources, totalResources, getResource, getResourceUrl, hasAResource };
+export {
+	resources,
+	totalResources,
+	getResource,
+	getResourceUrl,
+	hasAResource,
+	getImageResourceObject,
+};
 export type { Resource, ResourceKey };

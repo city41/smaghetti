@@ -3,18 +3,20 @@ import clsx from 'clsx';
 
 import styles from './LevelPlayer.module.css';
 import checkerboardStyles from '../../styles/checkerboard.module.css';
+import { GBAPlayer } from './GBAPlayer';
+import { createLevelData } from '../../levelData/createLevelData';
 
 type LevelPlayerProps = {
 	className?: string;
 	style?: CSSProperties;
 	isPlaying: boolean;
-	// entities: Entity[];
+	entities: Entity[];
 	// tileLayer: TileLayer;
+	biosFile: Uint8Array;
+	romFile: Uint8Array;
 	onPlayerDied?: () => boolean;
 	onLevelCompleted?: () => void;
-	provideSafetyPlatform?: boolean;
 	checkeredBackground?: boolean;
-	playerAtStart?: boolean;
 	editUrl?: string;
 	showEarlyPreviewStarburst?: boolean;
 	children?: ReactNode;
@@ -22,17 +24,30 @@ type LevelPlayerProps = {
 
 function LevelPlayer({
 	isPlaying,
+	entities,
+	biosFile,
+	romFile,
 	children,
 	checkeredBackground,
 }: LevelPlayerProps) {
 	return (
 		<div
-			className={clsx(styles.root, 'w-full h-full overflow-hidden', {
-				hidden: !isPlaying,
-				grid: isPlaying,
-				[checkerboardStyles.checkerboard]: checkeredBackground,
-			})}
+			className={clsx(
+				styles.root,
+				'w-full h-full overflow-hidden grid items-center justify-center',
+				{
+					hidden: !isPlaying,
+					grid: isPlaying,
+					[checkerboardStyles.checkerboard]: checkeredBackground,
+				}
+			)}
 		>
+			<GBAPlayer
+				biosFile={biosFile}
+				romFile={romFile}
+				levelData={createLevelData(entities)}
+				isPlaying={isPlaying}
+			/>
 			{children}
 		</div>
 	);

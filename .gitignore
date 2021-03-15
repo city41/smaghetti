@@ -31,3 +31,7 @@ yarn-error.log*
 .vercel
 
 .idea
+
+# copyrighted files
+/public/sma4.gba
+/public/bios.bin
