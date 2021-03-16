@@ -145,11 +145,14 @@ function Modal({
 }: ModalProps) {
 	const overlayClassName = clsx('modalOverlay', { animate: !noAnimation });
 
-	const modalClassName = clsx({
-		hasOkButton: !!onOkClick,
-		hasTitle: !!title,
-		hasXButton: !!onXClick,
-	});
+	const modalClassName = clsx(
+		'bg-gray-700 text-white rounded-xl px-4 pb-4 pt-3 shadow-lg',
+		{
+			hasOkButton: !!onOkClick,
+			hasTitle: !!title,
+			hasXButton: !!onXClick,
+		}
+	);
 
 	return (
 		<ReactModal
@@ -158,7 +161,9 @@ function Modal({
 			overlayClassName={overlayClassName}
 			closeTimeoutMS={noAnimation ? 0 : 250}
 		>
-			{!!title && <h2 className="title">{title}</h2>}
+			{!!title && (
+				<h2 className="font-bold text-xl pb-3 text-center">{title}</h2>
+			)}
 			<div>{children}</div>
 			{onOkClick && (
 				<Button className="okButton" onClick={onOkClick} disabled={okDisabled}>

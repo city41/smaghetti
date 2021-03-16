@@ -1,191 +1,163 @@
 import { createSlice, Action, PayloadAction } from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
+// @ts-ignore no types
+import * as sha1 from 'js-sha1';
 import { AppState } from '../../store';
-import {
-	setBios,
-	setRom,
-	setEmptySave,
-	getBios,
-	getRom,
-	getEmptySave,
-} from './files';
+import { setBios, setRom, setEmptySave } from './files';
+
+type RomFileState =
+	| 'not-chosen'
+	| 'loading'
+	| 'success'
+	| 'checksum-error'
+	| 'error';
+type OtherFilesState = 'loading' | 'success' | 'error';
 
 type FileLoaderState = {
-	isLoadingBios: boolean;
-	isLoadingRom: boolean;
-	isLoadingEmptySave: boolean;
-	loadBiosError: string | null;
-	loadRomError: string | null;
-	loadEmptySaveError: string | null;
+	romFileState: RomFileState;
+	biosFileState: OtherFilesState;
+	emptySaveFileState: OtherFilesState;
+	otherFilesState: OtherFilesState;
 	allFilesReady: boolean;
 };
 
+const SMA4_SHA = '532f3307021637474b6dd37da059ca360f612337';
+
 const defaultInitialState: FileLoaderState = {
-	isLoadingBios: false,
-	isLoadingRom: false,
-	isLoadingEmptySave: false,
-	loadBiosError: null,
-	loadRomError: null,
-	loadEmptySaveError: null,
+	romFileState: 'not-chosen',
+	biosFileState: 'loading',
+	emptySaveFileState: 'loading',
+	otherFilesState: 'loading',
 	allFilesReady: false,
 };
 
 const initialState = defaultInitialState;
 
-function areAllFilesReady(): boolean {
-	return !!(getBios() && getRom() && getEmptySave());
+function settleState(state: FileLoaderState) {
+	if (state.emptySaveFileState === 'error' || state.biosFileState === 'error') {
+		state.otherFilesState = 'error';
+	} else if (
+		state.emptySaveFileState === 'loading' ||
+		state.biosFileState === 'loading'
+	) {
+		state.otherFilesState = 'loading';
+	} else {
+		state.otherFilesState = 'success';
+	}
+
+	state.allFilesReady =
+		state.otherFilesState === 'success' && state.romFileState === 'success';
 }
 
 const fileLoaderSlice = createSlice({
 	name: 'fileLoader',
 	initialState,
 	reducers: {
-		loadingBios(state: FileLoaderState, action: PayloadAction<boolean>) {
-			state.isLoadingBios = action.payload;
+		biosState(state: FileLoaderState, action: PayloadAction<OtherFilesState>) {
+			state.biosFileState = action.payload;
+			settleState(state);
 		},
-		loadBiosError(
+		romState(state: FileLoaderState, action: PayloadAction<RomFileState>) {
+			state.romFileState = action.payload;
+			settleState(state);
+		},
+		emptySaveState(
 			state: FileLoaderState,
-			action: PayloadAction<string | null>
+			action: PayloadAction<OtherFilesState>
 		) {
-			state.loadBiosError = action.payload;
-		},
-		biosLoaded(state: FileLoaderState, action: PayloadAction<Uint8Array>) {
-			setBios(action.payload);
-			state.allFilesReady = areAllFilesReady();
-		},
-		loadingRom(state: FileLoaderState, action: PayloadAction<boolean>) {
-			state.isLoadingRom = action.payload;
-		},
-		loadRomError(state: FileLoaderState, action: PayloadAction<string | null>) {
-			state.loadRomError = action.payload;
-		},
-		romLoaded(state: FileLoaderState, action: PayloadAction<Uint8Array>) {
-			setRom(action.payload);
-			state.allFilesReady = areAllFilesReady();
-		},
-		loadingEmptySave(state: FileLoaderState, action: PayloadAction<boolean>) {
-			state.isLoadingEmptySave = action.payload;
-		},
-		loadEmptySaveError(
-			state: FileLoaderState,
-			action: PayloadAction<string | null>
-		) {
-			state.loadEmptySaveError = action.payload;
-		},
-		emptySaveLoaded(state: FileLoaderState, action: PayloadAction<Uint8Array>) {
-			setEmptySave(action.payload);
-			state.allFilesReady = areAllFilesReady();
+			state.emptySaveFileState = action.payload;
+			settleState(state);
 		},
 	},
 });
 
 type FileLoaderThunk = ThunkAction<void, AppState, null, Action>;
 
-const loadBios = (file: File): FileLoaderThunk => async (dispatch) => {
-	try {
-		dispatch(fileLoaderSlice.actions.loadBiosError(null));
-		dispatch(fileLoaderSlice.actions.loadingBios(true));
-
-		const reader = new FileReader();
-		reader.addEventListener('loadend', () => {
-			dispatch(
-				fileLoaderSlice.actions.biosLoaded(
-					new Uint8Array(reader.result as ArrayBuffer)
-				)
-			);
-		});
-
-		reader.addEventListener('error', () => {
-			dispatch(
-				fileLoaderSlice.actions.loadBiosError('Error reading the bios file')
-			);
-		});
-
-		reader.readAsArrayBuffer(file);
-	} catch (e) {
-		dispatch(
-			fileLoaderSlice.actions.loadBiosError(
-				'An unknown error occurred while loading the bios: ' + e?.message ??
-					e ??
-					''
-			)
-		);
-	} finally {
-		dispatch(fileLoaderSlice.actions.loadingBios(false));
-	}
-};
-
 const loadRom = (file: File): FileLoaderThunk => async (dispatch) => {
 	try {
-		dispatch(fileLoaderSlice.actions.loadRomError(null));
-		dispatch(fileLoaderSlice.actions.loadingRom(true));
+		dispatch(fileLoaderSlice.actions.romState('loading'));
 
 		const reader = new FileReader();
 		reader.addEventListener('loadend', () => {
-			dispatch(
-				fileLoaderSlice.actions.romLoaded(
-					new Uint8Array(reader.result as ArrayBuffer)
-				)
-			);
+			const romFile = new Uint8Array(reader.result as ArrayBuffer);
+
+			const sha = sha1(romFile);
+
+			if (sha !== SMA4_SHA) {
+				dispatch(fileLoaderSlice.actions.romState('checksum-error'));
+			} else {
+				setRom(romFile);
+				dispatch(fileLoaderSlice.actions.romState('success'));
+			}
 		});
 
 		reader.addEventListener('error', () => {
-			dispatch(
-				fileLoaderSlice.actions.loadRomError('Error reading the rom file')
-			);
+			dispatch(fileLoaderSlice.actions.romState('error'));
 		});
 
 		reader.readAsArrayBuffer(file);
 	} catch (e) {
-		dispatch(
-			fileLoaderSlice.actions.loadRomError(
-				'An unknown error occurred while loading the rom: ' + e?.message ??
-					e ??
-					''
-			)
-		);
-	} finally {
-		dispatch(fileLoaderSlice.actions.loadingRom(false));
+		dispatch(fileLoaderSlice.actions.romState('error'));
 	}
 };
 
 const loadEmptySave = (): FileLoaderThunk => async (dispatch) => {
 	try {
-		dispatch(fileLoaderSlice.actions.loadEmptySaveError(null));
-		dispatch(fileLoaderSlice.actions.loadingEmptySave(true));
+		dispatch(fileLoaderSlice.actions.emptySaveState('loading'));
 
 		fetch('/empty.sav')
 			.then((r) => r.blob())
 			.then((blob) => {
 				const reader = new FileReader();
 				reader.addEventListener('loadend', () => {
-					dispatch(
-						fileLoaderSlice.actions.emptySaveLoaded(
-							new Uint8Array(reader.result as ArrayBuffer)
-						)
-					);
+					setEmptySave(new Uint8Array(reader.result as ArrayBuffer));
+					dispatch(fileLoaderSlice.actions.emptySaveState('success'));
 				});
 
-				reader.addEventListener('error', () => {
-					dispatch(
-						fileLoaderSlice.actions.loadEmptySaveError(
-							'Error reading the rom file'
-						)
-					);
+				reader.addEventListener('error', (e) => {
+					console.error('failed to load empty save', e);
+					dispatch(fileLoaderSlice.actions.emptySaveState('error'));
 				});
 
 				reader.readAsArrayBuffer(blob);
+			})
+			.catch((e) => {
+				console.error('failed to load empty save', e);
+				dispatch(fileLoaderSlice.actions.biosState('error'));
 			});
 	} catch (e) {
-		dispatch(
-			fileLoaderSlice.actions.loadEmptySaveError(
-				'An unknown error occurred while loading the rom: ' + e?.message ??
-					e ??
-					''
-			)
-		);
-	} finally {
-		dispatch(fileLoaderSlice.actions.loadingEmptySave(false));
+		console.error('failed to load empty save', e);
+		dispatch(fileLoaderSlice.actions.emptySaveState('error'));
+	}
+};
+
+const loadBios = (): FileLoaderThunk => async (dispatch) => {
+	try {
+		dispatch(fileLoaderSlice.actions.biosState('loading'));
+
+		fetch('/bios.bin')
+			.then((r) => r.blob())
+			.then((blob) => {
+				const reader = new FileReader();
+				reader.addEventListener('loadend', () => {
+					setBios(new Uint8Array(reader.result as ArrayBuffer));
+					dispatch(fileLoaderSlice.actions.biosState('success'));
+				});
+
+				reader.addEventListener('error', (e) => {
+					console.error('failed to load bios', e);
+					dispatch(fileLoaderSlice.actions.biosState('error'));
+				});
+
+				reader.readAsArrayBuffer(blob);
+			})
+			.catch((e) => {
+				console.error('failed to load bios', e);
+				dispatch(fileLoaderSlice.actions.biosState('error'));
+			});
+	} catch (e) {
+		console.error('failed to load bios', e);
+		dispatch(fileLoaderSlice.actions.biosState('error'));
 	}
 };
 

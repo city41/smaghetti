@@ -22,9 +22,13 @@ function ConnectedLevelPlayer(props: LevelPlayerProps) {
 	const emptySaveFile = getEmptySave();
 
 	if (!romFile || !biosFile || !emptySaveFile) {
-		throw new Error(
-			'ConnectedLevelPlayer: invoked before bios/rom/empty save set'
-		);
+		if (props.isPlaying) {
+			throw new Error(
+				'ConnectedLevelPlayer: invoked before bios/rom/empty save set'
+			);
+		} else {
+			return null;
+		}
 	}
 
 	const tileLayer = {

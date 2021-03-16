@@ -13,7 +13,6 @@ type ConnectedFileLoaderModalProps = {
 const actions = bindActionCreators(
 	{
 		onRomFileChosen: loadRom,
-		onBiosFileChosen: loadBios,
 	},
 	dispatch
 );
@@ -21,24 +20,18 @@ const actions = bindActionCreators(
 function ConnectedFileLoaderModal({ isOpen }: ConnectedFileLoaderModalProps) {
 	useEffect(() => {
 		dispatch(loadEmptySave());
+		dispatch(loadBios());
 	}, []);
 
-	const {
-		isLoadingBios,
-		isLoadingRom,
-		loadBiosError,
-		loadRomError,
-		loadEmptySaveError,
-	} = useSelector((state: AppState) => state.fileLoader);
+	const { romFileState, otherFilesState } = useSelector(
+		(state: AppState) => state.fileLoader
+	);
 
 	return (
 		<FileLoaderModal
 			isOpen={isOpen}
-			isLoadingBios={isLoadingBios}
-			isLoadingRom={isLoadingRom}
-			loadBiosError={loadBiosError}
-			loadRomError={loadRomError}
-			loadEmptySaveError={loadEmptySaveError}
+			romFileState={romFileState}
+			otherFilesState={otherFilesState}
 			{...actions}
 		/>
 	);

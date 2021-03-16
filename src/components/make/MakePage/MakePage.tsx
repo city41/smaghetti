@@ -12,7 +12,7 @@ function MakePage({ allFilesReady }: MakePageProps) {
 	return (
 		<>
 			<FileLoaderModal isOpen={!allFilesReady} />
-			{allFilesReady && <Editor />}
+			<Editor />
 		</>
 	);
 }
