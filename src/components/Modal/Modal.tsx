@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import ReactModal, { Props as ReactModalProps } from 'react-modal';
+import { RiCloseFill } from 'react-icons/ri';
 
 import { Button } from '../Button';
 
@@ -146,11 +147,11 @@ function Modal({
 	const overlayClassName = clsx('modalOverlay', { animate: !noAnimation });
 
 	const modalClassName = clsx(
-		'bg-gray-700 text-white rounded-xl px-4 pb-4 pt-3 shadow-lg',
+		'bg-gray-700 text-white rounded-xl px-4 pb-4 pt-3 shadow-lg outline-none',
 		{
 			hasOkButton: !!onOkClick,
 			hasTitle: !!title,
-			hasXButton: !!onXClick,
+			relative: !!onXClick,
 		}
 	);
 
@@ -170,7 +171,14 @@ function Modal({
 					okay
 				</Button>
 			)}
-			{onXClick && <button onClick={onXClick}>x</button>}
+			{onXClick && (
+				<button
+					className="absolute top-1 right-1 text-xl text-white outline-none"
+					onClick={onXClick}
+				>
+					<RiCloseFill />
+				</button>
+			)}
 		</ReactModal>
 	);
 }

@@ -143,7 +143,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 			{item}
 			{showAdd && (
 				<button
-					className={clsx(styles.button, 'bg-green-900 text-white')}
+					className={clsx(styles.button, 'bg-green-600 text-white')}
 					onClick={onAddClick}
 				>
 					choose

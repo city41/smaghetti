@@ -7,6 +7,8 @@ import { PaletteEntry } from '../../editorSlice';
 import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
 import { ExternalLink } from '../../../ExternalLink';
 
+import styles from './PaletteChoiceModal.module.css';
+
 type PaletteChoiceModalProps = {
 	open: boolean;
 	currentPaletteEntries: PaletteEntry[];
@@ -15,103 +17,14 @@ type PaletteChoiceModalProps = {
 	onCancel: () => void;
 };
 
-// const Root = styled.div`
-// 	display: grid;
-// 	grid-template-columns: 1fr 200px;
-// 	min-height: 300px;
-// 	max-height: 60vh;
-// 	min-width: 800px;
-// 	max-width: 60vw;
-// `;
-//
-// const TabContainer = styled.div`
-// 	display: grid;
-// 	grid-template-rows: max-content 1fr;
-// `;
-//
-// const Tabs = styled.ul`
-// 	width: calc(100% + 6px);
-// 	display: flex;
-// 	flex-wrap: wrap;
-// 	justify-content: space-between;
-//
-// 	flex-direction: row;
-// 	list-style-type: none;
-// 	padding: 0;
-// 	margin: -20px 0 0 -6px;
-// 	font-size: 14px;
-// 	z-index: 100;
-//
-// 	& li {
-// 		height: 40px;
-// 		cursor: pointer;
-// 		font-weight: bold;
-// 		white-space: nowrap;
-// 		display: grid;
-// 		place-items: center;
-// 		padding: 0 16px;
-// 	}
-//
-// 	& .current {
-// 		background-color: rgba(140, 180, 255, 0.8);
-// 	}
-// `;
-//
-// const CurrentEntries = styled.div`
-// 	display: flex;
-// 	flex-direction: row;
-// 	flex-wrap: wrap;
-// 	align-items: flex-start;
-//
-// 	padding-top: 24px;
-//
-// 	height: 300px;
-// 	overflow-y: auto;
-//
-// 	& > * {
-// 		margin: 8px;
-// 	}
-//
-// 	& .faded {
-// 		opacity: 0.25;
-// 	}
-// `;
-//
-// const NoEntries = styled.div`
-// 	width: 100%;
-// 	height: 100%;
-// 	padding: 0;
-// 	margin: 0;
-//
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-// `;
-//
-// const Details = styled.div`
-// 	background-color: rgba(0, 0, 0, 0.5);
-// 	color: white;
-//
-// 	border-bottom-right-radius: 8px;
-// 	margin: -16px -16px -16px 0;
-// 	padding: 16px 32px;
-// `;
-
-const tabs = [
-	'Terrain',
-	'Enemies',
-	'Items',
-	'Gizmos',
-	'Electric Gizmos',
-	'Power Ups',
-];
+const tabs = ['Objects', 'Enemies', 'Items', 'Gizmos', 'Power Ups'];
 
 type PaletteChoiceModalEntry = {
 	entry: PaletteEntry;
 	info: { title: string; description: string; limitationsId?: string };
 };
 
-const terrain: PaletteChoiceModalEntry[] = [
+const objects: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
 			brushMode: 'tile',
@@ -151,8 +64,6 @@ const items: PaletteChoiceModalEntry[] = [];
 
 const gizmos: PaletteChoiceModalEntry[] = [];
 
-const electricGizmos: PaletteChoiceModalEntry[] = [];
-
 const powerUps: PaletteChoiceModalEntry[] = [];
 
 type LimitationsLinkProps = {
@@ -184,7 +95,7 @@ const LimitationsLink: FunctionComponent<LimitationsLinkProps> = ({ id }) => {
 	);
 };
 
-const entries = [terrain, enemies, items, gizmos, electricGizmos, powerUps];
+const entries = [objects, enemies, items, gizmos, powerUps];
 
 const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 	open,
@@ -205,13 +116,13 @@ const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 			onRequestClose={onCancel}
 			onXClick={onCancel}
 		>
-			<div>
-				<div>
-					<div>
+			<div className={styles.root}>
+				<div className={styles.tabContainer}>
+					<div className={styles.tabs}>
 						{tabs.map((t, i) => (
 							<li
 								key={t}
-								className={clsx({ current: i === currentTabIndex })}
+								className={clsx({ [styles.currentTab]: i === currentTabIndex })}
 								onClick={() => {
 									setCurrentTabIndex(i);
 									setCurrentEntryIndex(0);
@@ -221,7 +132,7 @@ const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 							</li>
 						))}
 					</div>
-					<div>
+					<div className={styles.currentEntries}>
 						{currentEntries.map((ce, i) => {
 							return (
 								<PaletteEntryCmp
@@ -232,6 +143,7 @@ const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 									isCurrent={currentEntryIndex === i}
 									entry={ce.entry}
 									onClick={() => setCurrentEntryIndex(i)}
+									buttonsOnHover
 									showAdd
 									showRemove={false}
 									onAddClick={() => {
@@ -241,12 +153,14 @@ const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 							);
 						})}
 						{currentEntries.length === 0 && (
-							<div>No {tabs[currentTabIndex].toLowerCase()} yet!</div>
+							<div className={styles.noEntries}>
+								No {tabs[currentTabIndex].toLowerCase()} yet!
+							</div>
 						)}
 					</div>
 				</div>
 
-				<div>
+				<div className={styles.details}>
 					{currentEntry && <h2>{currentEntry.info.title}</h2>}
 					{currentEntry && <p>{currentEntry.info.description}</p>}
 					{currentEntry?.info.limitationsId && (
