@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 
 import { Modal } from '../Modal';
@@ -25,6 +25,18 @@ function GamePadButton({ children }: { children: ReactNode }) {
 }
 
 function ControlsHelpModal({ isOpen, onRequestClose }: ControlsHelpModalProps) {
+	useEffect(() => {
+		if (isOpen) {
+			window._gba?.pause();
+		} else {
+			window._gba?.runStable();
+		}
+
+		return () => {
+			window._gba?.runStable();
+		};
+	}, [isOpen]);
+
 	return (
 		<Modal
 			isOpen={isOpen}
@@ -33,20 +45,18 @@ function ControlsHelpModal({ isOpen, onRequestClose }: ControlsHelpModalProps) {
 			title="Controls"
 		>
 			<div className="grid grid-cols-2 gap-x-4">
-				<div>
+				<div className="bg-gray-600 p-4">
 					<FaGamepad className="text-4xl mx-auto mb-4" />
 					<div className="space-y-4">
+						<p>Press a button on your USB gamepad to register it.</p>
 						<p>
-							Plug in a USB gamepad and press a button on it. It should get
-							recognized and work.
-						</p>
-						<p>
-							On an Xbox One controller, <GamePadButton>A</GamePadButton> is
-							jump and <GamePadButton>X</GamePadButton> is run.
+							For an Xbox One controller, <GamePadButton>A</GamePadButton> is
+							jump and <GamePadButton>X</GamePadButton> is run. Other
+							controllers should be similar.
 						</p>
 					</div>
 				</div>
-				<div>
+				<div className="bg-gray-600 p-4">
 					<FaKeyboard className="text-4xl mx-auto mb-4" />
 					<ul className="space-y-2 text-center">
 						<li>

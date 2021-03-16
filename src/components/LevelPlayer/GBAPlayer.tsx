@@ -14,24 +14,6 @@ type GBAPlayerProps = {
 	isPlaying: boolean;
 };
 
-declare global {
-	interface _GameBoyAdvance {
-		new (): _GameBoyAdvance;
-		setCanvas: (canvas: HTMLCanvasElement) => void;
-		setBios: (bios: ArrayBuffer) => void;
-		setRom: (rom: ArrayBuffer) => void;
-		runStable: () => void;
-		pause: () => void;
-		setSavedata: (data: ArrayBuffer) => void;
-		downloadSavedata: () => void;
-	}
-
-	interface Window {
-		GameBoyAdvance: _GameBoyAdvance;
-		loadRom: (url: string, callback: (result: ArrayBuffer) => void) => void;
-	}
-}
-
 function GBAPlayer({
 	className,
 	biosFile,
@@ -41,7 +23,6 @@ function GBAPlayer({
 	isPlaying,
 }: GBAPlayerProps) {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
-	const gbaRef = useRef<InstanceType<Window['GameBoyAdvance']> | null>(null);
 
 	function playRom(
 		gba: Window['GameBoyAdvance'],
@@ -72,12 +53,12 @@ function GBAPlayer({
 	}
 
 	useEffect(() => {
-		gbaRef.current = gbaRef.current || new window.GameBoyAdvance();
+		window._gba = window._gba || new window.GameBoyAdvance();
 
 		if (isPlaying) {
 			if (canvasRef.current) {
 				playRom(
-					gbaRef.current,
+					window._gba,
 					canvasRef.current,
 					biosFile,
 					romFile,
@@ -86,7 +67,7 @@ function GBAPlayer({
 				);
 			}
 		} else {
-			gbaRef.current.pause();
+			window._gba.pause();
 		}
 	}, [
 		isPlaying,

@@ -4,3 +4,4 @@
 /// <reference types="css" />
 /// <reference types="audio" />
 /// <reference types="smaghetti" />
+/// <reference types="global" />

@@ -12,10 +12,12 @@ function ControlsBanner({ className }: ControlsBannerProps) {
 
 	return (
 		<>
-			<ControlsHelpModal
-				isOpen={showHelp}
-				onRequestClose={() => setShowHelp(false)}
-			/>
+			{showHelp && (
+				<ControlsHelpModal
+					isOpen={showHelp}
+					onRequestClose={() => setShowHelp(false)}
+				/>
+			)}
 			<div
 				className={clsx(
 					className,
