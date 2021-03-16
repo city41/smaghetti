@@ -200,7 +200,6 @@ function getSprites(entities: Entity[], levelHeightInTiles: number): number[] {
 function getRoom(entities: Entity[], tileLayer: TileLayer): Room {
 	const objectHeader = getObjectHeader();
 	const objects = getObjects(tileLayer); // CoinStrip.concat(bricks);
-	console.log('objects:', objects.map((o) => o?.toString(16)).join(', '));
 
 	const levelSettings = Classic1_2LevelSettings;
 

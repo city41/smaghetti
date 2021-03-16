@@ -18,8 +18,6 @@ function NoSaveStatesDisclaimerModal({
 		forceOpen || !localStorage.getItem(LOCALSTORAGE_KEY)
 	);
 
-	console.log({ isOpen });
-
 	return (
 		<Modal
 			isOpen={isOpen}

@@ -16,6 +16,14 @@ function Kbd({ children }: { children: ReactNode }) {
 	);
 }
 
+function GamePadButton({ children }: { children: ReactNode }) {
+	return (
+		<span className="inline-block px-2 py-1 bg-gray-500 text-white font-bold rounded-md">
+			{children}
+		</span>
+	);
+}
+
 function ControlsHelpModal({ isOpen, onRequestClose }: ControlsHelpModalProps) {
 	return (
 		<Modal
@@ -27,10 +35,16 @@ function ControlsHelpModal({ isOpen, onRequestClose }: ControlsHelpModalProps) {
 			<div className="grid grid-cols-2 gap-x-4">
 				<div>
 					<FaGamepad className="text-4xl mx-auto mb-4" />
-					<p>
-						Plug in a USB gamepad and press a button on it. It should get
-						recognized and work.
-					</p>
+					<div className="space-y-4">
+						<p>
+							Plug in a USB gamepad and press a button on it. It should get
+							recognized and work.
+						</p>
+						<p>
+							On an Xbox One controller, <GamePadButton>A</GamePadButton> is
+							jump and <GamePadButton>X</GamePadButton> is run.
+						</p>
+					</div>
 				</div>
 				<div>
 					<FaKeyboard className="text-4xl mx-auto mb-4" />
