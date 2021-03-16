@@ -2,8 +2,8 @@
 
 import { Resource, getImageResourceObject } from './resources';
 
-import Goomba from '!file-loader?name=static/[name]-[hash].[ext]!./Goomba.png';
-import Player from '!file-loader?name=static/[name]-[hash].[ext]!./Player.png';
+import Goomba from './Goomba.png';
+import Player from './Player.png';
 
 const image_resources = {
 	Goomba: {

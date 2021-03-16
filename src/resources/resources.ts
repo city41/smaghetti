@@ -4,7 +4,7 @@ import { image_resources } from './resources_generated_images';
 
 import buttonClickedMp3 from './buttonClicked.mp3';
 import tilePaintedMp3 from './tilePainted.mp3';
-import tilesPng from '!file-loader?name=static/[name]-[hash].[ext]!./tiles.png';
+import tilesPng from './tiles.png';
 
 type Resource = {
 	src: string;

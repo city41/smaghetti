@@ -1,12 +1,20 @@
-.root {}
+.root {
+    @apply relative w-16 h-16 m-4 cursor-pointer flex flex-col items-center justify-center;
+}
 
-.buttonsOnHover button {
-    @apply invisible;
+.button {
+    @apply invisible absolute z-10 outline-none border-none text-white rounded-lg p-0 w-full text-xs h-4 -bottom-2;
+}
+
+.svg {
+    width: 16px;
+    height: 16px;
 }
 
 .buttonsOnHover:hover button {
     @apply visible;
 }
 
-.isCurrent {
+.isCurrent, .root:hover {
+    background-color: rgba(255, 255, 255, 0.25);
 }

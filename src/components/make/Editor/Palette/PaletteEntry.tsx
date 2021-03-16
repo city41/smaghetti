@@ -134,7 +134,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 
 	return (
 		<div
-			className={clsx(className, {
+			className={clsx(className, styles.root, {
 				[styles.isCurrent]: isCurrent,
 				[styles.buttonsOnHover]: buttonsOnHover,
 			})}
@@ -142,12 +142,18 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 		>
 			{item}
 			{showAdd && (
-				<button className="bg-green-900 text-white" onClick={onAddClick}>
+				<button
+					className={clsx(styles.button, 'bg-green-900 text-white')}
+					onClick={onAddClick}
+				>
 					choose
 				</button>
 			)}
 			{showRemove && (
-				<button className="bg-red-700 text-white" onClick={onRemoveClick}>
+				<button
+					className={clsx(styles.button, 'bg-red-700 text-white')}
+					onClick={onRemoveClick}
+				>
 					remove
 				</button>
 			)}
