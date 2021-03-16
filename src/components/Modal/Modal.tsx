@@ -167,9 +167,15 @@ function Modal({
 			)}
 			<div>{children}</div>
 			{onOkClick && (
-				<Button className="okButton" onClick={onOkClick} disabled={okDisabled}>
-					okay
-				</Button>
+				<div className="flex flex-col items-center justify-center pt-6 pb-1">
+					<Button
+						className="bg-purple-400 px-4 py-2"
+						onClick={onOkClick}
+						disabled={okDisabled}
+					>
+						okay
+					</Button>
+				</div>
 			)}
 			{onXClick && (
 				<button
