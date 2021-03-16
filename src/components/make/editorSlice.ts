@@ -28,8 +28,7 @@ import { groupTiles } from '../../level/groupTiles';
 import { serialize } from '../../level/serialize';
 import { deserialize } from '../../level/deserialize';
 // import { detailsPanes } from '../../entities/components/detailsPanes';
-import isEqual from 'lodash.isequal';
-import uniqBy from 'lodash.uniqby';
+import isEqual from 'lodash/isEqual';
 
 import { SFX } from '../../SFX';
 

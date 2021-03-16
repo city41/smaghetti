@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import clsx from 'clsx';
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash/isEqual';
 
 import { Modal } from '../../../Modal';
 import { PaletteEntry } from '../../editorSlice';

@@ -1,7 +1,7 @@
 import React, { useState, memo } from 'react';
 import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash/isEqual';
 
 import { PaletteEntry } from '../../editorSlice';
 import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
