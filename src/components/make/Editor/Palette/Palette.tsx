@@ -54,7 +54,10 @@ function Palette({
 		<div className={clsx(className, styles.root)} dir="rtl">
 			{entries}
 			<button
-				className="w-16 h-16 m-4 mb-6 flex items-center justify-center font-bold text-xl border-dashed border-2 border-white cursor-pointer"
+				className={clsx(
+					styles.addButton,
+					'w-16 h-16 m-4 mb-6 flex items-center justify-center font-bold text-xl border-dashed border-2 border-white cursor-pointer outline-none'
+				)}
 				onClick={() => {
 					setModalOpen(true);
 				}}
