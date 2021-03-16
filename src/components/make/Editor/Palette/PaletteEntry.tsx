@@ -151,7 +151,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 			)}
 			{showRemove && (
 				<button
-					className={clsx(styles.button, 'bg-red-700 text-white')}
+					className={clsx(styles.button, 'bg-red-600 text-white')}
 					onClick={onRemoveClick}
 				>
 					remove
