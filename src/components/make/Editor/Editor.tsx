@@ -17,7 +17,7 @@ import { CanvasOffsetContainer } from './CanvasOffsetContainer';
 import { LevelPlayer } from './LevelPlayer';
 import { Toolbox } from './Toolbox';
 import { PlayButton } from './PlayButton';
-import { PublishButton } from './PublishButton';
+// import { PublishButton } from './PublishButton';
 // import { KeyboardHelpModal } from './components/keyboardHelpModal';
 import { Warning } from '../../Warning';
 import { useFirstRender } from '../../../hooks/useFirstRender';
@@ -393,17 +393,17 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 					>
 						<Toolbox />
 					</div>
-					<div
-						className={clsx(
-							styles.pullOut,
-							styles.pullUpRight,
-							styles.shareButtonContainer,
-							'rounded-bl-xl border-l-4 border-b-4 border-white',
-							{ [styles.pulled]: isPlaying }
-						)}
-					>
-						<PublishButton />
-					</div>
+					{/*<div*/}
+					{/*	className={clsx(*/}
+					{/*		styles.pullOut,*/}
+					{/*		styles.pullUpRight,*/}
+					{/*		styles.shareButtonContainer,*/}
+					{/*		'rounded-bl-xl border-l-4 border-b-4 border-white',*/}
+					{/*		{ [styles.pulled]: isPlaying }*/}
+					{/*	)}*/}
+					{/*>*/}
+					{/*	<PublishButton />*/}
+					{/*</div>*/}
 					<div
 						className={clsx(
 							styles.pullOut,
