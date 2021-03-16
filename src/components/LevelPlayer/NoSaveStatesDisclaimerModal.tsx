@@ -29,7 +29,7 @@ function NoSaveStatesDisclaimerModal({
 				setOpen(false);
 			}}
 		>
-			<div style={{ width: 550 }}>
+			<div>
 				<p className="text-center pb-4">
 					Your level is an e-reader level, here's how to get to it
 				</p>

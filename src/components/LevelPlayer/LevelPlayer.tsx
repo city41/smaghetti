@@ -6,6 +6,7 @@ import checkerboardStyles from '../../styles/checkerboard.module.css';
 import { GBAPlayer } from './GBAPlayer';
 import { createLevelData } from '../../levelData/createLevelData';
 import { NoSaveStatesDisclaimerModal } from './NoSaveStatesDisclaimerModal';
+import { ControlsBanner } from '../ControlsBanner';
 
 type LevelPlayerProps = {
 	className?: string;
@@ -21,7 +22,6 @@ type LevelPlayerProps = {
 	checkeredBackground?: boolean;
 	editUrl?: string;
 	showEarlyPreviewStarburst?: boolean;
-	children?: ReactNode;
 };
 
 function LevelPlayer({
@@ -31,7 +31,6 @@ function LevelPlayer({
 	biosFile,
 	romFile,
 	emptySaveFile,
-	children,
 	checkeredBackground,
 }: LevelPlayerProps) {
 	return (
@@ -55,7 +54,7 @@ function LevelPlayer({
 					levelData={createLevelData(entities, tileLayer)}
 					isPlaying={isPlaying}
 				/>
-				{children}
+				<ControlsBanner className="rounded-tl-lg rounded-tr-lg" />
 			</div>
 		</>
 	);
