@@ -89,6 +89,16 @@ const enemies: PaletteChoiceModalEntry[] = [
 			description: 'Turns around at cliffs',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'Spiny',
+		},
+		info: {
+			title: 'Spiny',
+			description: '',
+		},
+	},
 ];
 
 const items: PaletteChoiceModalEntry[] = [];

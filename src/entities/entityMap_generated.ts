@@ -14,6 +14,10 @@ const entityMap = {
 		width: 16,
 		height: 16,
 	},
+	Spiny: {
+		width: 16,
+		height: 16,
+	},
 	Player: {
 		width: 16,
 		height: 16,

@@ -3,6 +3,7 @@
 import { Resource, getImageResourceObject } from './resources';
 
 import Goomba from './Goomba.png';
+import Spiny from './Spiny.png';
 import GreenKoopaTroopa from './GreenKoopaTroopa.png';
 import RedKoopaTroopa from './RedKoopaTroopa.png';
 import Player from './Player.png';
@@ -23,6 +24,12 @@ const image_resources = {
 	} as Resource,
 	Goomba: {
 		src: Goomba,
+		loaded: false,
+		type: 'image',
+		resource: getImageResourceObject(),
+	} as Resource,
+	Spiny: {
+		src: Spiny,
 		loaded: false,
 		type: 'image',
 		resource: getImageResourceObject(),

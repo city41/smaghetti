@@ -217,6 +217,7 @@ const entityTypeToSpriteId: Record<EntityType, number> = {
 	GreenKoopaTroopa: 0x6c,
 	RedKoopaTroopa: 0x6d,
 	CardSlotMachine: 0x41,
+	Spiny: 0x71,
 };
 
 function getSprites(entities: Entity[], levelHeightInTiles: number): number[] {
