@@ -9,14 +9,14 @@ type IfNotTooSmallProps = {
 const MIN_WIDTH = 891;
 const MIN_HEIGHT = 516;
 
+function isTooSmall(): boolean {
+	return window.innerWidth < MIN_WIDTH || window.innerHeight < MIN_HEIGHT;
+}
+
 function IfNotTooSmall({ tooSmallDisplay, children }: IfNotTooSmallProps) {
 	if (typeof window === 'undefined') {
 		return <>{children()}</>;
 	}
-
-	const isTooSmall = () => {
-		return window.innerWidth < MIN_WIDTH || window.innerHeight < MIN_HEIGHT;
-	};
 
 	const [tooSmall, setTooSmall] = useState(isTooSmall());
 
