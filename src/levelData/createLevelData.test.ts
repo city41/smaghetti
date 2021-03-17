@@ -14,12 +14,12 @@ describe('createLevelData', () => {
 				height: 2,
 				data: [
 					[
-						{ id: 1, x: 0, y: 0, tileType: 'brick' },
-						{ id: 2, x: 1, y: 0, tileType: 'brick' },
+						{ id: 1, x: 0, y: 0, tileType: 'brick', tileIndex: 0 },
+						{ id: 2, x: 1, y: 0, tileType: 'brick', tileIndex: 0 },
 					],
 					[
-						{ id: 3, x: 0, y: 1, tileType: 'brick' },
-						{ id: 4, x: 1, y: 1, tileType: 'brick' },
+						{ id: 3, x: 0, y: 1, tileType: 'brick', tileIndex: 0 },
+						{ id: 4, x: 1, y: 1, tileType: 'brick', tileIndex: 0 },
 					],
 				],
 			};

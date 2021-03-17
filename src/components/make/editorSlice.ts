@@ -954,15 +954,6 @@ const editorSlice = createSlice({
 				MIN_LEVEL_TILE_HEIGHT,
 				MAX_LEVEL_TILE_HEIGHT
 			);
-
-			const goal = state.entities.find((e) => e.type === 'Goal')!;
-			const start = state.entities.find((e) => e.type === 'Start')!;
-
-			goal.x = TILE_SIZE * (state.levelTileWidth - 6);
-			goal.y = TILE_SIZE * (state.levelTileHeight - 2);
-
-			start.x = 0;
-			start.y = TILE_SIZE * (state.levelTileHeight - 2);
 		},
 		resizeLevelComplete(state: InternalEditorState) {
 			const newScale = determineResizeScale(state);
@@ -986,21 +977,21 @@ const editorSlice = createSlice({
 			state: InternalEditorState,
 			action: PayloadAction<EntityType>
 		) {
-			if (action.payload === 'Goal') {
-				const goal = state.entities.find((e) => e.type === 'Goal')!;
-
-				state.scrollOffset.x =
-					goal.x - (PLAY_WINDOW_TILE_WIDTH / 2) * TILE_SIZE;
-				state.scrollOffset.y =
-					goal.y - (PLAY_WINDOW_TILE_HEIGHT / 2) * TILE_SIZE;
-			} else if (action.payload === 'Player') {
-				const player = state.entities.find((e) => e.type === 'Player')!;
-
-				state.scrollOffset.x =
-					player.x - (PLAY_WINDOW_TILE_WIDTH / 2) * TILE_SIZE;
-				state.scrollOffset.y =
-					player.y - (PLAY_WINDOW_TILE_HEIGHT / 2) * TILE_SIZE;
-			}
+			// if (action.payload === 'Goal') {
+			// 	const goal = state.entities.find((e) => e.type === 'Goal')!;
+			//
+			// 	state.scrollOffset.x =
+			// 		goal.x - (PLAY_WINDOW_TILE_WIDTH / 2) * TILE_SIZE;
+			// 	state.scrollOffset.y =
+			// 		goal.y - (PLAY_WINDOW_TILE_HEIGHT / 2) * TILE_SIZE;
+			// } else if (action.payload === 'Player') {
+			// 	const player = state.entities.find((e) => e.type === 'Player')!;
+			//
+			// 	state.scrollOffset.x =
+			// 		player.x - (PLAY_WINDOW_TILE_WIDTH / 2) * TILE_SIZE;
+			// 	state.scrollOffset.y =
+			// 		player.y - (PLAY_WINDOW_TILE_HEIGHT / 2) * TILE_SIZE;
+			// }
 		},
 		resetOffset(state: InternalEditorState) {
 			state.scrollOffset.x = 0;
@@ -1358,25 +1349,6 @@ const editorSlice = createSlice({
 
 type LevelThunk = ThunkAction<void, AppState, null, Action>;
 
-function putPlayerAtStart(entities: Entity[]): Entity[] {
-	const start = entities.find((e) => e.type === 'Start');
-
-	if (!start) {
-		throw new Error('putPlayerAtStart, no start found');
-	}
-
-	return entities.map((e) => {
-		if (e.type !== 'Player') {
-			return e;
-		}
-		return {
-			...e,
-			x: start.x + 1 * TILE_SIZE,
-			y: start.y - 1 * TILE_SIZE,
-		};
-	});
-}
-
 const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 	try {
 		dispatch(editorSlice.actions.saveLevelError(null));
@@ -1391,7 +1363,7 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 		};
 
 		const levelData: LevelData = {
-			entities: putPlayerAtStart(editorState.entities),
+			entities: editorState.entities,
 			tileLayer,
 		};
 

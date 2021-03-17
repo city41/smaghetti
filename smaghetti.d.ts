@@ -22,6 +22,7 @@ type NewTile = {
 	x: number;
 	y: number;
 	tileType: import('./src/tiles/constants').TileType;
+	tileIndex: number;
 	entityGroupId?: number;
 	entitySettings?: EntitySettings;
 };
