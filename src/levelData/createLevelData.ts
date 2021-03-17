@@ -211,7 +211,10 @@ function getObjects(tileLayer: TileLayer): number[] {
 }
 
 const entityTypeToSpriteId: Record<EntityType, number> = {
+	// TODO: Player is not needed in this map
+	Player: Number.MAX_SAFE_INTEGER,
 	Goomba: 0x72,
+	GreenKoopaTroopa: 0x6c,
 	CardSlotMachine: 0x41,
 };
 

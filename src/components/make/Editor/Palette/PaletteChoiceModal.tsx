@@ -69,6 +69,16 @@ const enemies: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'GreenKoopaTroopa',
+		},
+		info: {
+			title: 'Green Koopa Troopa',
+			description: 'Walks in a straight line, only turns if hits a wall',
+		},
+	},
 ];
 
 const items: PaletteChoiceModalEntry[] = [];

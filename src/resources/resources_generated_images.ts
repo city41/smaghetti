@@ -3,10 +3,17 @@
 import { Resource, getImageResourceObject } from './resources';
 
 import Goomba from './Goomba.png';
+import GreenKoopaTroopa from './GreenKoopaTroopa.png';
 import Player from './Player.png';
 import CardSlotMachine from './CardSlotMachine.png';
 
 const image_resources = {
+	GreenKoopaTroopa: {
+		src: GreenKoopaTroopa,
+		loaded: false,
+		type: 'image',
+		resource: getImageResourceObject(),
+	} as Resource,
 	Goomba: {
 		src: Goomba,
 		loaded: false,

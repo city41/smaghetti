@@ -189,6 +189,26 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 		//   );
 		// }
 
+		// if (type === 'GreenKoopaTroopa') {
+		// 	debugger;
+		// }
+
+		let backgroundWidth, backgroundHeight;
+
+		// if outer is square, this entity might be going into something like the palette,
+		// scale it so it fits proportionately. For entities that are actually square,
+		// this still ends up doing the right thing
+		if (outerWidthHeight.width === outerWidthHeight.height) {
+			const maxDimension = Math.max(width, height);
+			const backgroundWidthNum = (width / maxDimension) * 100;
+			const backgroundHeightNum = (height / maxDimension) * 100;
+			backgroundWidth = `${backgroundWidthNum}%`;
+			backgroundHeight = `${backgroundHeightNum}%`;
+		} else {
+			backgroundWidth = '100%';
+			backgroundHeight = '100%';
+		}
+
 		return (
 			<div
 				style={{
@@ -208,7 +228,9 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 						...offsetStyle,
 						...transformStyle,
 						backgroundImage: `url(${imageUrl})`,
-						backgroundSize: 'cover',
+						backgroundSize: `${backgroundWidth} ${backgroundHeight}`,
+						backgroundPosition: 'center',
+						backgroundRepeat: 'no-repeat',
 						transformOrigin: 'center center',
 						opacity,
 					}}

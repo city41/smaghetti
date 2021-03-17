@@ -2,6 +2,10 @@
 // /home/matt/dev/jumpclub/entityPipeline/generate.ts
 
 const entityMap = {
+	GreenKoopaTroopa: {
+		width: 16,
+		height: 32,
+	},
 	Goomba: {
 		width: 16,
 		height: 16,
