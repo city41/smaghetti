@@ -6,7 +6,7 @@ function A(props: Omit<JSX.IntrinsicElements['a'], 'className'>) {
 
 function IndexPage() {
 	return (
-		<div className="w-full max-w-xl mx-auto pt-8">
+		<div className="w-full max-w-xl mx-auto p-8">
 			<h1 className="text-3xl font-bold">Smaghetti</h1>
 			<div className="space-y-4 pt-4 pb-16">
 				<p>A level editor for Super Mario Advance 4</p>

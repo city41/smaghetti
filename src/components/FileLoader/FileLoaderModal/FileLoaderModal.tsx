@@ -19,22 +19,6 @@ type FileLoaderModalProps = {
 
 const ROM_KEY = 'sma4_rom';
 
-function basename(url: string): string {
-	const split = url.split('/');
-	return split.pop() as string;
-}
-
-// function loadFile(url: string, callback: (file: File) => void) {
-// 	fetch(url)
-// 		.then((r) => r.blob())
-// 		.then((blob) => {
-// 			callback(new File([blob], basename(url)));
-// 		})
-// 		.catch((e) => {
-// 			console.error(e);
-// 		});
-// }
-
 function DropZone({
 	onFileChosen,
 	children,
