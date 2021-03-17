@@ -10,13 +10,9 @@ const entityMap = {
 		width: 16,
 		height: 16,
 	},
-	Goal: {
-		width: 16,
-		height: 16,
-	},
-	Start: {
-		width: 16,
-		height: 16,
+	CardSlotMachine: {
+		width: 26,
+		height: 26,
 	},
 };
 

@@ -4,6 +4,7 @@ import { Resource, getImageResourceObject } from './resources';
 
 import Goomba from './Goomba.png';
 import Player from './Player.png';
+import CardSlotMachine from './CardSlotMachine.png';
 
 const image_resources = {
 	Goomba: {
@@ -14,6 +15,12 @@ const image_resources = {
 	} as Resource,
 	Player: {
 		src: Player,
+		loaded: false,
+		type: 'image',
+		resource: getImageResourceObject(),
+	} as Resource,
+	CardSlotMachine: {
+		src: CardSlotMachine,
 		loaded: false,
 		type: 'image',
 		resource: getImageResourceObject(),

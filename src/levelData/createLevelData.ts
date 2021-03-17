@@ -1,6 +1,7 @@
 import { convertASCIIToLevelName } from './util';
 import { TILE_SIZE, TileType } from '../tiles/constants';
 import cloneDeep from 'lodash/cloneDeep';
+import { EntityType } from '../entities/entityMap_generated';
 
 type Tuple<T, N extends number> = N extends N ? T[] : _TupleOf<T, N, []>;
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N
@@ -63,11 +64,11 @@ const CoinStrip = [
 	0x01, // vertical length
 ];
 
-const Goomba = [
+const CardSlotMachine = [
 	0x00, // bank 0 or 1
-	0x72, // sprite Id, 0x72 = goomba
-	0x0f, // X
-	0x1a, // Y
+	0x41, // sprite Id, 0x41 = card slot machine
+	0x12, // X
+	0x15, // Y
 ];
 
 // level settings for room 0
@@ -209,6 +210,11 @@ function getObjects(tileLayer: TileLayer): number[] {
 	return objects;
 }
 
+const entityTypeToSpriteId: Record<EntityType, number> = {
+	Goomba: 0x72,
+	CardSlotMachine: 0x41,
+};
+
 function getSprites(entities: Entity[], levelHeightInTiles: number): number[] {
 	return entities.reduce<number[]>((building, entity) => {
 		if (entity.type === 'Player') {
@@ -220,7 +226,7 @@ function getSprites(entities: Entity[], levelHeightInTiles: number): number[] {
 
 		return building.concat([
 			0x00, // bank 0 or 1
-			0x72, // sprite Id, 0x72 = goomba
+			entityTypeToSpriteId[entity.type],
 			Math.floor(entity.x / TILE_SIZE),
 			MAX_Y - yDiff,
 		]);

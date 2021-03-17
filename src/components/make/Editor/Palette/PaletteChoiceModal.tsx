@@ -45,6 +45,17 @@ const objects: PaletteChoiceModalEntry[] = [
 			description: 'The ever present coin',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'CardSlotMachine',
+		},
+		info: {
+			title: 'Card Slot Machine',
+			description:
+				'Required to be in your level somewhere. Getting the card ends the level.',
+		},
+	},
 ];
 
 const enemies: PaletteChoiceModalEntry[] = [
