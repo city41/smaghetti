@@ -10,7 +10,9 @@ type MuteButtonProps = {
 };
 
 function MuteButton({ className }: MuteButtonProps) {
-	const [isMuted, setMuted] = useState(false);
+	const [isMuted, setMuted] = useState(
+		process.env.NODE_ENV === 'development' ? true : false
+	);
 
 	const icon = isMuted ? FaVolumeMute : FaVolumeDown;
 
