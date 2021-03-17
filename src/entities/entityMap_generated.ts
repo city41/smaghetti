@@ -6,6 +6,10 @@ const entityMap = {
 		width: 16,
 		height: 32,
 	},
+	RedKoopaTroopa: {
+		width: 16,
+		height: 32,
+	},
 	Goomba: {
 		width: 16,
 		height: 16,

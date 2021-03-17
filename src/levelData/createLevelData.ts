@@ -215,6 +215,7 @@ const entityTypeToSpriteId: Record<EntityType, number> = {
 	Player: Number.MAX_SAFE_INTEGER,
 	Goomba: 0x72,
 	GreenKoopaTroopa: 0x6c,
+	RedKoopaTroopa: 0x6d,
 	CardSlotMachine: 0x41,
 };
 
