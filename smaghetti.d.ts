@@ -22,7 +22,6 @@ type NewTile = {
 	x: number;
 	y: number;
 	tileType: import('./src/tiles/constants').TileType;
-	tileIndex: number;
 	entityGroupId?: number;
 	entitySettings?: EntitySettings;
 };
@@ -36,7 +35,8 @@ type Point = {
 	y: number;
 };
 
-type TileMatrix = Array<null | Array<null | Tile>>;
+type TileRow = Array<Tile | null>;
+type TileMatrix = Array<TileRow | null>;
 
 type TileLayer = {
 	width: number;

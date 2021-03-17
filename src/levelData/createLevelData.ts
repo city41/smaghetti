@@ -1,5 +1,6 @@
 import { convertASCIIToLevelName } from './util';
 import { TILE_SIZE, TileType } from '../tiles/constants';
+import cloneDeep from 'lodash/cloneDeep';
 
 type Tuple<T, N extends number> = N extends N ? T[] : _TupleOf<T, N, []>;
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N
@@ -119,64 +120,93 @@ const tileTypeToObjectId: Record<TileType, number> = {
 };
 
 function getObjects(tileLayer: TileLayer): number[] {
-	function getObjectsForRow(row: Array<null | Tile>): number[] {
-		const rowObjects: number[] = [];
+	const clone = cloneDeep(tileLayer);
+	const objects: number[] = [];
 
-		let i = 0;
+	function getEndX(row: TileRow, startTile: Tile): Tile {
+		let x = startTile.x;
 
-		while (i < row.length) {
-			while (i < row.length && !row[i]) {
-				++i;
+		while (row[x]?.tileType === startTile.tileType) {
+			++x;
+		}
+
+		// x goes one too far, so our tile is one back
+		return row[x - 1] as Tile;
+	}
+
+	function getMaxY(tile: Tile): number {
+		let y = tile.y;
+
+		while (clone.data[y]?.[tile.x]?.tileType === tile.tileType) {
+			++y;
+		}
+
+		return y - 1;
+	}
+
+	function getBestY(startTile: Tile, endTile: Tile): number {
+		let curBest = Number.MAX_SAFE_INTEGER;
+
+		for (let x = startTile.x; x <= endTile.x; ++x) {
+			const thisColMaxY = getMaxY(clone.data[startTile.y]![x]!);
+
+			curBest = Math.min(curBest, thisColMaxY);
+		}
+
+		return curBest;
+	}
+
+	function erase(startY: number, endY: number, startX: number, endX: number) {
+		for (let y = startY; y <= endY; ++y) {
+			const row = clone.data[y]!;
+
+			for (let x = startX; x <= endX; ++x) {
+				row[x] = null;
+			}
+		}
+	}
+
+	for (let y = 0; y < clone.height; ++y) {
+		const row = clone.data[y];
+
+		if (!row) {
+			continue;
+		}
+
+		for (let x = 0; x < row.length; ++x) {
+			const tile = row[x];
+
+			if (!tile) {
+				continue;
 			}
 
-			if (i === row.length) {
-				break;
-			}
-
-			const start = i;
-			const startType = row[start]!.tileType;
-
-			if (!startType) debugger;
-
-			while (i < row.length && row[i]?.tileType === startType) {
-				++i;
-			}
-
-			const end = i;
+			const endXTile = getEndX(row, tile);
+			const bestY = getBestY(tile, endXTile);
 
 			const bank = 1;
-			const length = end - start;
-			// length - 1 because the length is stored minus one
-			const bankAndLength = (bank << 6) | (length - 1);
+			// length/height - 1 because they are stored 1 less than actual
+			const length = endXTile.x - tile.x;
+			const height = bestY - tile.y;
+			const bankAndLength = (bank << 6) | length;
 
-			const tileY = row[start]!.y;
-			const yDiff = tileLayer.height - (tileY + 1);
-			const y = MAX_Y - yDiff;
-			const x = row[start]!.x;
-			// height is zero because it's stored minus one
-			const height = 0;
+			const yDiff = tileLayer.height - (y + 1);
+			const encodedY = MAX_Y - yDiff;
 
-			rowObjects.push(
+			objects.push(
 				...[
 					bankAndLength,
-					y,
+					encodedY,
 					x,
-					tileTypeToObjectId[row[start]!.tileType],
+					tileTypeToObjectId[tile.tileType],
 					height,
 				]
 			);
-		}
 
-		return rowObjects;
+			erase(tile.y, bestY, tile.x, endXTile.x);
+		}
 	}
 
-	return tileLayer.data.reduce<number[]>((building, row) => {
-		if (row === null) {
-			return building;
-		}
-
-		return building.concat(getObjectsForRow(row));
-	}, []);
+	return objects;
 }
 
 function getSprites(entities: Entity[], levelHeightInTiles: number): number[] {
@@ -199,12 +229,12 @@ function getSprites(entities: Entity[], levelHeightInTiles: number): number[] {
 
 function getRoom(entities: Entity[], tileLayer: TileLayer): Room {
 	const objectHeader = getObjectHeader();
-	const objects = getObjects(tileLayer); // CoinStrip.concat(bricks);
+	const objects = getObjects(tileLayer);
 
 	const levelSettings = Classic1_2LevelSettings;
 
 	const spriteHeader = [0x00];
-	const sprites = getSprites(entities, tileLayer.height); // Goomba;
+	const sprites = getSprites(entities, tileLayer.height);
 
 	return {
 		objects: objectHeader.concat(objects, [0xff]),
