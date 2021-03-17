@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply w-full h-full;
+    @apply w-full h-full bg-gray-700 text-white;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
 }
