@@ -53,8 +53,6 @@ function GBAPlayer({
 	}
 
 	useEffect(() => {
-		window._gba = window._gba || new window.GameBoyAdvance();
-
 		if (isPlaying) {
 			if (canvasRef.current) {
 				playRom(

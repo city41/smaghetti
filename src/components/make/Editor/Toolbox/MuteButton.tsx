@@ -25,6 +25,7 @@ function MuteButton({ className }: MuteButtonProps) {
 			onClick={() => {
 				setMuted(!isMuted);
 				SFX.muted = !isMuted;
+				window._gba.audio.masterVolume = !isMuted ? 0 : 1;
 			}}
 		/>
 	);

@@ -7,6 +7,10 @@ interface _GameBoyAdvance {
 	pause: () => void;
 	setSavedata: (data: ArrayBuffer) => void;
 	downloadSavedata: () => void;
+	audio: {
+		masterVolume: number;
+		context: AudioContext;
+	};
 }
 
 interface Window {
