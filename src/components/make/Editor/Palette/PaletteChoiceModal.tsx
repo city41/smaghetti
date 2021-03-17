@@ -173,7 +173,9 @@ const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 				</div>
 
 				<div className={styles.details}>
-					{currentEntry && <h2>{currentEntry.info.title}</h2>}
+					{currentEntry && (
+						<h2 className="font-bold mb-4">{currentEntry.info.title}</h2>
+					)}
 					{currentEntry && <p>{currentEntry.info.description}</p>}
 					{currentEntry?.info.limitationsId && (
 						<LimitationsLink id={currentEntry.info.limitationsId} />
