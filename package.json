@@ -32,6 +32,7 @@
     "imagemin-svgo": "^9.0.0",
     "jest": "^26.6.3",
     "js-sha1": "^0.6.0",
+    "localforage": "^1.9.0",
     "lodash": "^4.17.21",
     "next": "latest",
     "next-compose-plugins": "^2.2.1",

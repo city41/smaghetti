@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { Modal } from '../../Modal';
 import { LoadingBar } from '../../LoadingBar';
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import localForage from 'localforage';
 
 type FileLoaderModalProps = {
 	isOpen: boolean;
@@ -16,21 +17,23 @@ type FileLoaderModalProps = {
 	onRomFileChosen: (romFile: File) => void;
 };
 
+const ROM_KEY = 'sma4_rom';
+
 function basename(url: string): string {
 	const split = url.split('/');
 	return split.pop() as string;
 }
 
-function loadFile(url: string, callback: (file: File) => void) {
-	fetch(url)
-		.then((r) => r.blob())
-		.then((blob) => {
-			callback(new File([blob], basename(url)));
-		})
-		.catch((e) => {
-			console.error(e);
-		});
-}
+// function loadFile(url: string, callback: (file: File) => void) {
+// 	fetch(url)
+// 		.then((r) => r.blob())
+// 		.then((blob) => {
+// 			callback(new File([blob], basename(url)));
+// 		})
+// 		.catch((e) => {
+// 			console.error(e);
+// 		});
+// }
 
 function DropZone({
 	onFileChosen,
@@ -78,19 +81,24 @@ function FileLoaderModal({
 	onRomFileChosen,
 }: FileLoaderModalProps) {
 	useEffect(() => {
-		if (process.env.NODE_ENV !== 'production') {
-			loadFile('/sma4.gba', (romFile) => {
-				onRomFileChosen(romFile);
-			});
-		}
+		localForage.getItem<File>(ROM_KEY).then((cachedRomFile) => {
+			if (cachedRomFile) {
+				onRomFileChosen(cachedRomFile);
+			}
+		});
 	}, []);
+
+	function cacheRomThenOnChosen(romFile: File) {
+		localForage.setItem<File>(ROM_KEY, romFile);
+		onRomFileChosen(romFile);
+	}
 
 	let romBody;
 
 	switch (romFileState) {
 		case 'not-chosen':
 			romBody = (
-				<DropZone onFileChosen={onRomFileChosen}>
+				<DropZone onFileChosen={cacheRomThenOnChosen}>
 					<p className="pointer-events-none">
 						Please drag the US ROM of
 						<br />
@@ -106,7 +114,7 @@ function FileLoaderModal({
 								const file = e.target.files?.[0];
 
 								if (file) {
-									onRomFileChosen(file);
+									cacheRomThenOnChosen(file);
 								}
 							}}
 						/>
@@ -132,7 +140,7 @@ function FileLoaderModal({
 			break;
 		case 'checksum-error':
 			romBody = (
-				<DropZone onFileChosen={onRomFileChosen}>
+				<DropZone onFileChosen={cacheRomThenOnChosen}>
 					<div className="flex flex-row">
 						<FaExclamationCircle className="text-2xl text-red-200" />
 						<div className="ml-2">
