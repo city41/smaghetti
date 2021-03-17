@@ -43,6 +43,11 @@ function Modal({
 			className={modalClassName}
 			overlayClassName={overlayClassName}
 			closeTimeoutMS={noAnimation ? 0 : 250}
+			appElement={
+				typeof window !== 'undefined'
+					? document.querySelector('#__next')!
+					: undefined
+			}
 		>
 			{!!title && (
 				<h2 className="font-bold text-xl pb-3 text-center">{title}</h2>
