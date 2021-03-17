@@ -111,6 +111,7 @@ const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 
 	return (
 		<Modal
+			className={styles.modal}
 			noAnimation={true}
 			isOpen={open}
 			onRequestClose={onCancel}

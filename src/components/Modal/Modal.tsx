@@ -8,6 +8,7 @@ import { Button } from '../Button';
 import styles from './Modal.module.css';
 
 type ModalProps = ReactModalProps & {
+	className?: string;
 	title?: string;
 	onOkClick?: () => void;
 	okDisabled?: boolean;
@@ -17,6 +18,7 @@ type ModalProps = ReactModalProps & {
 };
 
 function Modal({
+	className,
 	onOkClick,
 	okDisabled,
 	onXClick,
@@ -28,6 +30,7 @@ function Modal({
 	const overlayClassName = clsx('modalOverlay', { animate: !noAnimation });
 
 	const modalClassName = clsx(
+		className,
 		styles.root,
 		'bg-gray-700 text-white rounded-xl px-4 pb-4 pt-3 shadow-lg outline-none',
 		{
