@@ -21,7 +21,7 @@ function ControlsBanner({ className }: ControlsBannerProps) {
 			<div
 				className={clsx(
 					className,
-					'flex flex-row items-center justify-center space-x-2 p-2 bg-white'
+					'flex flex-row items-center justify-center space-x-2 p-2 bg-gray-700 text-white'
 				)}
 			>
 				<div>use</div>
@@ -29,7 +29,7 @@ function ControlsBanner({ className }: ControlsBannerProps) {
 				<div>or</div>
 				<FaKeyboard className="text-xl" />
 				<a
-					className="text-blue-500 underline"
+					className="text-blue-300 underline"
 					onClick={() => setShowHelp((h) => !h)}
 				>
 					help
