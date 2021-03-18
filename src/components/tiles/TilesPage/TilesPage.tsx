@@ -14,6 +14,7 @@ type TilesPageProps = {
 function TilesPage({ allFilesReady, onDumpTiles, pages }: TilesPageProps) {
 	const [pageIndex, setPageIndex] = useState(0);
 	const [showIndices, setShowIndices] = useState(false);
+	const [offsetText, setOffsetText] = useState('');
 
 	const curPage = pages[pageIndex];
 
@@ -55,6 +56,25 @@ function TilesPage({ allFilesReady, onDumpTiles, pages }: TilesPageProps) {
 							}}
 						>
 							{showIndices ? 'hide indices' : 'show indices'}
+						</Button>
+						<input
+							className="w-28 text-black px-1"
+							type="text"
+							value={offsetText}
+							onChange={(e) => setOffsetText(e.target.value)}
+						/>
+						<Button
+							onClick={() => {
+								const offset = parseInt(offsetText, 16);
+
+								const matchingPage = pages.find((p) => p.address === offset);
+
+								if (matchingPage) {
+									setPageIndex(pages.indexOf(matchingPage));
+								}
+							}}
+						>
+							Go
 						</Button>
 					</h1>
 					<div
