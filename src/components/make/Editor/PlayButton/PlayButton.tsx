@@ -3,8 +3,6 @@ import clsx from 'clsx';
 
 import { FaPlay, FaHammer } from 'react-icons/fa';
 
-import { SFX } from '../../../../SFX';
-
 type PlayButtonProps = {
 	className?: string;
 	isPlaying: boolean;
@@ -72,7 +70,6 @@ function PlayButton({ className, isPlaying, onClick }: PlayButtonProps) {
 			className={clsx(className, 'text-2xl text-white', { '': isPlaying })}
 			title={`${title} (p)`}
 			onClick={() => {
-				SFX.buttonClicked();
 				onClick?.();
 
 				// modern browsers only allow audio after the user has indicated they want it, ie via a button click

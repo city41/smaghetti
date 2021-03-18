@@ -4,6 +4,13 @@ import { ThunkAction } from 'redux-thunk';
 import * as sha1 from 'js-sha1';
 import { AppState } from '../../store';
 import { setBios, setRom, setEmptySave } from './files';
+import { EntityType } from '../../entities/entityMap_generated';
+import { resources, ExtractedResource } from '../../resources/resources';
+import { getRom } from './files';
+import {
+	extractResource,
+	cleanup as extractCleanup,
+} from '../../tiles/extractResource';
 
 type RomFileState =
 	| 'not-chosen'
@@ -13,12 +20,16 @@ type RomFileState =
 	| 'error';
 type OtherFilesState = 'loading' | 'success' | 'error';
 
+type ExtractionState = 'not-started' | 'extracting' | 'complete';
+
 type FileLoaderState = {
 	romFileState: RomFileState;
 	biosFileState: OtherFilesState;
 	emptySaveFileState: OtherFilesState;
 	otherFilesState: OtherFilesState;
 	allFilesReady: boolean;
+	overallExtractionState: ExtractionState;
+	extractedGraphicsState: Partial<Record<EntityType, ExtractionState>>;
 };
 
 const SMA4_SHA = '532f3307021637474b6dd37da059ca360f612337';
@@ -29,6 +40,8 @@ const defaultInitialState: FileLoaderState = {
 	emptySaveFileState: 'loading',
 	otherFilesState: 'loading',
 	allFilesReady: false,
+	overallExtractionState: 'not-started',
+	extractedGraphicsState: {},
 };
 
 const initialState = defaultInitialState;
@@ -53,6 +66,7 @@ const fileLoaderSlice = createSlice({
 	name: 'fileLoader',
 	initialState,
 	reducers: {
+		// reducers related to the base files
 		biosState(state: FileLoaderState, action: PayloadAction<OtherFilesState>) {
 			state.biosFileState = action.payload;
 			settleState(state);
@@ -67,6 +81,22 @@ const fileLoaderSlice = createSlice({
 		) {
 			state.emptySaveFileState = action.payload;
 			settleState(state);
+		},
+
+		// reducers related to graphic extraction
+		overallExtractionState(
+			state: FileLoaderState,
+			action: PayloadAction<ExtractionState>
+		) {
+			state.overallExtractionState = action.payload;
+		},
+		resourceExtractionState(
+			state: FileLoaderState,
+			action: PayloadAction<{ type: EntityType; state: ExtractionState }>
+		) {
+			const { type, state: extractionState } = action.payload;
+
+			state.extractedGraphicsState[type] = extractionState;
 		},
 	},
 });
@@ -161,8 +191,29 @@ const loadBios = (): FileLoaderThunk => async (dispatch) => {
 	}
 };
 
+const extract = (): FileLoaderThunk => async (dispatch) => {
+	const rom = getRom();
+
+	if (!rom) {
+		throw new Error('fileLoaderSlice#extract: called before rom is set');
+	}
+
+	dispatch(fileLoaderSlice.actions.overallExtractionState('extracting'));
+
+	const entries = Object.entries(resources);
+
+	const resourcesToLoad = entries.filter((e) => e[1].type === 'extracted');
+
+	for (let i = 0; i < resourcesToLoad.length; ++i) {
+		await extractResource(rom, resourcesToLoad[i][1] as ExtractedResource);
+	}
+
+	extractCleanup();
+	dispatch(fileLoaderSlice.actions.overallExtractionState('complete'));
+};
+
 const reducer = fileLoaderSlice.reducer;
 
 export type { FileLoaderState };
 
-export { reducer, loadBios, loadRom, loadEmptySave };
+export { reducer, loadBios, loadRom, loadEmptySave, extract };

@@ -3,7 +3,6 @@ import React, { FunctionComponent, useState } from 'react';
 import { FaVolumeDown, FaVolumeMute } from 'react-icons/fa';
 
 import { IconButton } from '../../../IconButton';
-import { SFX } from '../../../../SFX';
 
 type MuteButtonProps = {
 	className?: string;
@@ -26,7 +25,6 @@ function MuteButton({ className }: MuteButtonProps) {
 			toggled={isMuted}
 			onClick={() => {
 				setMuted(!isMuted);
-				SFX.muted = !isMuted;
 				window._gba.audio.masterVolume = !isMuted ? 0 : 1;
 			}}
 		/>

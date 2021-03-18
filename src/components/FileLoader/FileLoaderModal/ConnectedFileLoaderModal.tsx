@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import { AppState, dispatch } from '../../../store';
 import { FileLoaderModal } from './FileLoaderModal';
-import { loadBios, loadRom, loadEmptySave } from '../fileLoaderSlice';
+import { loadBios, loadRom, loadEmptySave, extract } from '../fileLoaderSlice';
 
 type ConnectedFileLoaderModalProps = {
 	isOpen: boolean;
@@ -18,18 +18,29 @@ const actions = bindActionCreators(
 );
 
 function ConnectedFileLoaderModal({ isOpen }: ConnectedFileLoaderModalProps) {
+	const { overallExtractionState, romFileState, otherFilesState } = useSelector(
+		(state: AppState) => state.fileLoader
+	);
+
 	useEffect(() => {
 		dispatch(loadEmptySave());
 		dispatch(loadBios());
 	}, []);
 
-	const { romFileState, otherFilesState } = useSelector(
-		(state: AppState) => state.fileLoader
-	);
+	useEffect(() => {
+		if (
+			overallExtractionState === 'not-started' &&
+			romFileState === 'success' &&
+			otherFilesState === 'success'
+		) {
+			dispatch(extract());
+		}
+	}, [overallExtractionState, romFileState, otherFilesState]);
 
 	return (
 		<FileLoaderModal
 			isOpen={isOpen}
+			extractionState={overallExtractionState}
 			romFileState={romFileState}
 			otherFilesState={otherFilesState}
 			{...actions}

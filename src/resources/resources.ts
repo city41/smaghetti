@@ -1,17 +1,21 @@
-import type { Howl } from 'howler';
-
 import { image_resources } from './resources_generated_images';
 
-import buttonClickedMp3 from './buttonClicked.mp3';
-import tilePaintedMp3 from './tilePainted.mp3';
 import tilesPng from './tiles.png';
 
-type Resource = {
-	src: string;
-	loaded: boolean;
-	// type: 'image' | 'audio';
-	resource: HTMLImageElement | Howl | null;
+type ImageResource = {
+	type: 'image';
+	url: string;
 };
+
+type ExtractedResource = {
+	type: 'extracted';
+	url: string;
+	romOffset: number;
+	tiles: number[][];
+	palette?: number[];
+};
+
+type Resource = ImageResource | ExtractedResource;
 
 function getImageResourceObject() {
 	if (typeof window !== 'undefined') {
@@ -25,22 +29,10 @@ function getImageResourceObject() {
 
 const resources: Record<string, Resource> = {
 	...image_resources,
-	buttonClicked: {
-		src: buttonClickedMp3,
-		loaded: false,
-		resource: null,
-	},
-	tilePainted: {
-		src: tilePaintedMp3,
-		loaded: false,
-		resource: null,
-	},
 	tiles: {
-		src: tilesPng,
-		loaded: false,
+		url: tilesPng,
 		type: 'image',
-		resource: getImageResourceObject(),
-	} as Resource,
+	},
 };
 
 const totalResources = Object.keys(resources).length;
@@ -52,7 +44,7 @@ function getResource(key: ResourceKey): Resource {
 }
 
 function getResourceUrl(key: ResourceKey): string {
-	return getResource(key).src;
+	return getResource(key).url;
 }
 
 function hasAResource(key: string): key is ResourceKey {
@@ -67,4 +59,4 @@ export {
 	hasAResource,
 	getImageResourceObject,
 };
-export type { Resource, ResourceKey };
+export type { ExtractedResource, Resource, ResourceKey };

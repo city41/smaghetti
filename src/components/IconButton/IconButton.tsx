@@ -7,8 +7,6 @@ import React, {
 import clsx from 'clsx';
 import Link from 'next/link';
 
-import { SFX } from '../../SFX';
-
 type IconButtonProps = {
 	className?: string;
 	style?: CSSProperties;
@@ -222,7 +220,6 @@ const IconButton: FunctionComponent<IconButtonProps> = ({
 					return;
 				}
 				onClick?.(e);
-				SFX.buttonClicked();
 			}}
 		>
 			<div

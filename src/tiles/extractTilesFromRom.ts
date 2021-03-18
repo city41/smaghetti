@@ -175,5 +175,5 @@ function extractTilesFromRom(rom: Uint8Array): TilePage[] {
 	});
 }
 
-export { extractTilesFromRom };
+export { extractTilesFromRom, decompress };
 export type { TilePage };

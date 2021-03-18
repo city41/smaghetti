@@ -15,6 +15,7 @@ type FileLoaderModalProps = {
 		| 'error';
 	otherFilesState: 'loading' | 'success' | 'error';
 	onRomFileChosen: (romFile: File) => void;
+	extractionState: 'not-started' | 'extracting' | 'complete';
 };
 
 const ROM_KEY = 'sma4_rom';
@@ -58,26 +59,20 @@ function DropZone({
 	);
 }
 
-function FileLoaderModal({
-	isOpen,
-	otherFilesState,
+function BaseFiles({
 	romFileState,
+	otherFilesState,
 	onRomFileChosen,
-}: FileLoaderModalProps) {
-	useEffect(() => {
-		localForage.getItem<File>(ROM_KEY).then((cachedRomFile) => {
-			if (cachedRomFile) {
-				onRomFileChosen(cachedRomFile);
-			}
-		});
-	}, []);
-
+}: Pick<
+	FileLoaderModalProps,
+	'romFileState' | 'otherFilesState' | 'onRomFileChosen'
+>) {
 	function cacheRomThenOnChosen(romFile: File) {
 		localForage.setItem<File>(ROM_KEY, romFile);
 		onRomFileChosen(romFile);
 	}
 
-	let romBody;
+	let romBody = null;
 
 	switch (romFileState) {
 		case 'not-chosen':
@@ -146,7 +141,7 @@ function FileLoaderModal({
 			break;
 	}
 
-	let otherFilesBody;
+	let otherFilesBody = null;
 
 	switch (otherFilesState) {
 		case 'loading':
@@ -176,20 +171,62 @@ function FileLoaderModal({
 	}
 
 	return (
-		<Modal isOpen={isOpen} title="Before You Can Start">
-			<div className="grid grid-cols-2 gap-x-4">
-				<div className="h-40 border border-dashed border-gray-300 bg-gray-600 text-center space-y-4 flex flex-col items-stretch justify-center">
-					{romBody}
-				</div>
-				<div className="p-4 xbg-gray-600 text-center grid place-items-center justify-items-stretch">
-					{otherFilesBody}
-				</div>
+		<div className="grid grid-cols-2 gap-x-4">
+			<div className="h-40 border border-dashed border-gray-300 bg-gray-600 text-center space-y-4 flex flex-col items-stretch justify-center">
+				{romBody}
 			</div>
+			<div className="p-4 xbg-gray-600 text-center grid place-items-center justify-items-stretch">
+				{otherFilesBody}
+			</div>
+		</div>
+	);
+}
+
+function ExtractingResources() {
+	return (
+		<div>
+			Extracting Graphics ...
+			<LoadingBar percent={100} />
+		</div>
+	);
+}
+
+function FileLoaderModal({
+	isOpen,
+	otherFilesState,
+	romFileState,
+	onRomFileChosen,
+	extractionState,
+}: FileLoaderModalProps) {
+	useEffect(() => {
+		localForage.getItem<File>(ROM_KEY).then((cachedRomFile) => {
+			if (cachedRomFile) {
+				onRomFileChosen(cachedRomFile);
+			}
+		});
+	}, []);
+
+	let body;
+	if (extractionState === 'not-started') {
+		body = (
+			<BaseFiles
+				romFileState={romFileState}
+				otherFilesState={otherFilesState}
+				onRomFileChosen={onRomFileChosen}
+			/>
+		);
+	} else {
+		body = <ExtractingResources />;
+	}
+
+	return (
+		<Modal isOpen={isOpen} title="Before You Can Start">
+			{body}
 			<div className="mt-4 px-4 py-2 border-red-400">
 				<span className="inline-block font-bold text-lg bg-red-400 text-white px-2 mr-1">
 					Heads up!
 				</span>{' '}
-				Smaghetti is very early stage. Bugs and missing features galore.
+				Smaghetti is very early stage. Lots of bugs, lots of missing features.
 			</div>
 		</Modal>
 	);

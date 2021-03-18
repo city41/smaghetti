@@ -30,8 +30,6 @@ import { deserialize } from '../../level/deserialize';
 // import { detailsPanes } from '../../entities/components/detailsPanes';
 import isEqual from 'lodash/isEqual';
 
-import { SFX } from '../../SFX';
-
 import {
 	TileType,
 	TILE_SIZE,
@@ -782,10 +780,6 @@ const editorSlice = createSlice({
 						if (state.currentPaletteEntry?.brushMode === 'tile') {
 							// replace a tile
 							if (existingTile) {
-								if (existingTile.tileType !== state.currentPaletteEntry.type) {
-									SFX.tilePainted();
-								}
-
 								existingTile.tileIndex =
 									TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[
 										state.currentPaletteEntry.type
@@ -793,8 +787,6 @@ const editorSlice = createSlice({
 								existingTile.tileType = state.currentPaletteEntry.type;
 							} else {
 								// paint a new tile
-								SFX.tilePainted();
-
 								state.tiles[indexY] = state.tiles[indexY] || [];
 								state.tiles[indexY]![indexX] = {
 									id: idCounter++,
