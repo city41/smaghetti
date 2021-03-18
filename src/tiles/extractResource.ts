@@ -1,6 +1,6 @@
 import memoize from 'lodash/memoize';
 import { ExtractedResource, TileExtractionSpec } from '../resources';
-import { decompress } from './extractTilesFromRom';
+import { decompress } from './extractCompressedTilesFromRom';
 
 const memoDecompress = memoize(decompress, (rom, offset) => offset);
 

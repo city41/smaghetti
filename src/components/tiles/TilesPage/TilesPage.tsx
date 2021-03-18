@@ -1,34 +1,68 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
-import { TilePage } from '../../../tiles/extractTilesFromRom';
+import { TilePage } from '../../../tiles/extractCompressedTilesFromRom';
 import { TileImage } from './TileImage';
 import { Button } from '../../Button';
 
 type TilesPageProps = {
 	allFilesReady: boolean;
-	onDumpTiles: () => void;
+	onDumpCompressedTiles: () => void;
+	onDumpUncompressedTiles: () => void;
+	dumpType: 'compressed' | 'uncompressed';
 	pages: TilePage[];
+	shift: number;
+	onSetShift: (newShift: number) => void;
 };
 
-function TilesPage({ allFilesReady, onDumpTiles, pages }: TilesPageProps) {
+function TilesPage({
+	allFilesReady,
+	onDumpCompressedTiles,
+	onDumpUncompressedTiles,
+	dumpType,
+	pages,
+	shift,
+	onSetShift,
+}: TilesPageProps) {
 	const [pageIndex, setPageIndex] = useState(0);
 	const [showIndices, setShowIndices] = useState(false);
 	const [offsetText, setOffsetText] = useState('');
+	const [cols, setGridCols] = useState(32);
 
 	const curPage = pages[pageIndex];
 
 	return (
 		<>
 			<FileLoaderModal isOpen={!allFilesReady} />
-			<div className="py-2">
+			<div className={clsx('py-2', { hidden: pages.length > 0 })}>
 				<p>
-					This page shows all the graphics inside a SMA4 rom, press "dump" to
-					begin
+					This page shows all the graphics inside a SMA4 rom, choose a dump type
+					to begin
 				</p>
-				<Button disabled={!allFilesReady} onClick={onDumpTiles}>
-					dump
-				</Button>
+				<ul className="-ml-4 pl-4 space-y-2 py-4">
+					<li>
+						<Button
+							className="mr-4"
+							disabled={!allFilesReady}
+							onClick={onDumpCompressedTiles}
+						>
+							dump compressed
+						</Button>
+						all the graphics in the game that were compressed with LZ77
+					</li>
+					<li>
+						<Button
+							className="mr-4"
+							disabled={!allFilesReady}
+							onClick={onDumpUncompressedTiles}
+						>
+							dump uncompressed
+						</Button>
+						all the graphics that are directly in the rom and not compressed
+					</li>
+				</ul>
+
+				<div className="space-x-4"></div>
 			</div>
 			{curPage && (
 				<div>
@@ -76,10 +110,20 @@ function TilesPage({ allFilesReady, onDumpTiles, pages }: TilesPageProps) {
 						>
 							Go
 						</Button>
+						{dumpType === 'uncompressed' && (
+							<>
+								<div className="inline-block">shift: {shift}</div>
+								<Button onClick={() => onSetShift(shift - 4)}>-</Button>
+								<Button onClick={() => onSetShift(shift + 4)}>+</Button>
+							</>
+						)}
+						<div className="inline-block">cols: {cols}</div>
+						<Button onClick={() => setGridCols(cols - 1)}>-</Button>
+						<Button onClick={() => setGridCols(cols + 1)}>+</Button>
 					</h1>
 					<div
 						className="grid"
-						style={{ gridTemplateColumns: 'repeat(32, 1fr)' }}
+						style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}
 					>
 						{curPage.tiles.map((tile, i) => (
 							<TileImage

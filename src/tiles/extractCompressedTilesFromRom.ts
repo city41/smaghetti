@@ -164,7 +164,7 @@ function getTiles(rom: Uint8Array, offset: number): Array<number[]> {
 	return tiles;
 }
 
-function extractTilesFromRom(rom: Uint8Array): TilePage[] {
+function extractCompressedTilesFromRom(rom: Uint8Array): TilePage[] {
 	const compressionOffsets = getCompressionOffsets(rom);
 
 	return compressionOffsets.map((offset) => {
@@ -175,5 +175,5 @@ function extractTilesFromRom(rom: Uint8Array): TilePage[] {
 	});
 }
 
-export { extractTilesFromRom, decompress };
+export { extractCompressedTilesFromRom, decompress };
 export type { TilePage };

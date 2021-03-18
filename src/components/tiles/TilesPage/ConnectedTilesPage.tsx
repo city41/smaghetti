@@ -4,11 +4,13 @@ import { bindActionCreators } from 'redux';
 
 import { TilesPage } from './TilesPage';
 import { AppState, dispatch } from '../../../store';
-import { dump } from '../tilesSlice';
+import { dumpCompressed, dumpUncompressed, setShift } from '../tilesSlice';
 
 const actions = bindActionCreators(
 	{
-		onDumpTiles: dump,
+		onDumpCompressedTiles: dumpCompressed,
+		onDumpUncompressedTiles: dumpUncompressed,
+		onSetShift: setShift,
 	},
 	dispatch
 );
@@ -16,9 +18,19 @@ const actions = bindActionCreators(
 function ConnectedTilesPage() {
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
 
-	const { pages } = useSelector((state: AppState) => state.tiles);
+	const { pages, shift, dumpType } = useSelector(
+		(state: AppState) => state.tiles
+	);
 
-	return <TilesPage allFilesReady={allFilesReady} pages={pages} {...actions} />;
+	return (
+		<TilesPage
+			allFilesReady={allFilesReady}
+			pages={pages}
+			shift={shift}
+			dumpType={dumpType}
+			{...actions}
+		/>
+	);
 }
 
 export { ConnectedTilesPage };
