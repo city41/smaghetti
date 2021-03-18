@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 
 type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'ref'> & {
 	className?: string;
@@ -40,7 +41,11 @@ type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'ref'> & {
 
 function Button({ className, onClick, children, ...rest }: ButtonProps) {
 	return (
-		<button className={className} onClick={onClick} {...rest}>
+		<button
+			className={clsx(className, 'px-2 py-1 bg-green-400')}
+			onClick={onClick}
+			{...rest}
+		>
 			{children}
 		</button>
 	);

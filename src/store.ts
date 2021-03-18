@@ -11,15 +11,21 @@ import {
 	reducer as fileLoaderReducer,
 	FileLoaderState,
 } from './components/FileLoader/fileLoaderSlice';
+import {
+	reducer as tilesReducer,
+	TilesState,
+} from './components/tiles/tilesSlice';
 
 type AppState = {
 	editor: EditorState;
 	fileLoader: FileLoaderState;
+	tiles: TilesState;
 };
 
 const rootReducer = combineReducers({
 	editor: editorReducer,
 	fileLoader: fileLoaderReducer,
+	tiles: tilesReducer,
 });
 
 const store = configureStore({
