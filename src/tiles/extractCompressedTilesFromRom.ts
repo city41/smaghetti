@@ -68,9 +68,9 @@ function getCompressionOffsets(rom: Uint8Array): number[] {
 			const header = view.getUint32(i + 1) >> 8;
 
 			if (
-				header % SIZE_MULTIPLE === 0 &&
-				header < MAX_SIZE &&
-				header > 0 &&
+				// header % SIZE_MULTIPLE === 0 &&
+				// header < MAX_SIZE &&
+				// header > 0 &&
 				canBeUncompressed(rom, i) &&
 				!IGNORED_OFFSETS.includes(i)
 			) {
@@ -167,12 +167,18 @@ function getTiles(rom: Uint8Array, offset: number): Array<number[]> {
 function extractCompressedTilesFromRom(rom: Uint8Array): TilePage[] {
 	const compressionOffsets = getCompressionOffsets(rom);
 
-	return compressionOffsets.map((offset) => {
-		return {
-			address: offset,
-			tiles: getTiles(rom, offset),
-		};
-	});
+	return compressionOffsets.reduce<TilePage[]>((building, address) => {
+		const tiles = getTiles(rom, address);
+
+		if (tiles.length === 0) {
+			return building;
+		}
+
+		return building.concat({
+			address,
+			tiles,
+		});
+	}, []);
 }
 
 export { extractCompressedTilesFromRom, decompress };

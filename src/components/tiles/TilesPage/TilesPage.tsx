@@ -28,7 +28,6 @@ function TilesPage({
 	const [showIndices, setShowIndices] = useState(false);
 	const [offsetText, setOffsetText] = useState('');
 	const [cols, setGridCols] = useState(32);
-	const [ignored, setIgnored] = useState(new Set<number>());
 
 	const curPage = pages[pageIndex];
 
@@ -67,13 +66,6 @@ function TilesPage({
 			</div>
 			{curPage && (
 				<div>
-					<div>
-						const IGNORED_PAGES = [
-						{Array.from(ignored.values())
-							.map((v) => `0x${v.toString(16)}`)
-							.join(', ')}
-						];
-					</div>
 					<h1 className="text-xl font-bold mb-2 space-x-4">
 						<Button
 							onClick={() => setPageIndex((p) => Math.max(0, p - 1))}
@@ -128,18 +120,6 @@ function TilesPage({
 						<div className="inline-block">cols: {cols}</div>
 						<Button onClick={() => setGridCols(cols - 1)}>-</Button>
 						<Button onClick={() => setGridCols(cols + 1)}>+</Button>
-						<Button
-							onClick={() => {
-								setIgnored((s) => {
-									const newSet = new Set<number>(s);
-									newSet.add(curPage.address);
-									return newSet;
-								});
-								setPageIndex((p) => Math.min(pages.length - 1, p + 1));
-							}}
-						>
-							ignore
-						</Button>
 					</h1>
 					<div
 						className="grid"
