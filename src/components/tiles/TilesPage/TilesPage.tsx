@@ -20,7 +20,11 @@ function TilesPage({ allFilesReady, onDumpTiles, pages }: TilesPageProps) {
 	return (
 		<>
 			<FileLoaderModal isOpen={!allFilesReady} />
-			<div>
+			<div className="py-2">
+				<p>
+					This page shows all the graphics inside a SMA4 rom, press "dump" to
+					begin
+				</p>
 				<Button disabled={!allFilesReady} onClick={onDumpTiles}>
 					dump
 				</Button>
