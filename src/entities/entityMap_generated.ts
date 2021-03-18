@@ -23,8 +23,8 @@ const entityMap = {
 		height: 16,
 	},
 	CardSlotMachine: {
-		width: 26,
-		height: 26,
+		width: 32,
+		height: 32,
 	},
 };
 

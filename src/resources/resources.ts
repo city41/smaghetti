@@ -7,11 +7,17 @@ type ImageResource = {
 	url: string;
 };
 
+type TileExtractionSpec = {
+	romOffset: number;
+	tileIndex: number;
+	flip?: 'h' | 'v' | 'hv';
+};
+
 type ExtractedResource = {
 	type: 'extracted';
 	url: string;
-	romOffset: number;
-	tiles: number[][];
+	romOffset?: number;
+	tiles: Array<Array<number | TileExtractionSpec>>;
 	palette?: number[];
 };
 
@@ -59,4 +65,4 @@ export {
 	hasAResource,
 	getImageResourceObject,
 };
-export type { ExtractedResource, Resource, ResourceKey };
+export type { ExtractedResource, TileExtractionSpec, Resource, ResourceKey };

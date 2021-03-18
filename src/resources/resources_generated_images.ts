@@ -46,8 +46,34 @@ const image_resources: Record<EntityType, Resource> = {
 		type: 'image',
 	},
 	CardSlotMachine: {
-		url: CardSlotMachine,
-		type: 'image',
+		type: 'extracted',
+		tiles: [
+			[
+				{ romOffset: 0x1d0b58, tileIndex: 0 },
+				{ romOffset: 0x1d0b58, tileIndex: 1 },
+				{ romOffset: 0x1d0b58, tileIndex: 1 },
+				{ romOffset: 0x1d0b58, tileIndex: 0, flip: 'h' },
+			],
+			[
+				{ romOffset: 0x1d0b58, tileIndex: 3 },
+				{ romOffset: 0x24b5b8, tileIndex: 10 },
+				{ romOffset: 0x24b5b8, tileIndex: 11 },
+				{ romOffset: 0x1d0b58, tileIndex: 3, flip: 'h' },
+			],
+			[
+				{ romOffset: 0x1d0b58, tileIndex: 3 },
+				{ romOffset: 0x24b5b8, tileIndex: 26 },
+				{ romOffset: 0x24b5b8, tileIndex: 27 },
+				{ romOffset: 0x1d0b58, tileIndex: 3, flip: 'h' },
+			],
+			[
+				{ romOffset: 0x1d0b58, tileIndex: 0, flip: 'v' },
+				{ romOffset: 0x1d0b58, tileIndex: 1, flip: 'v' },
+				{ romOffset: 0x1d0b58, tileIndex: 1, flip: 'v' },
+				{ romOffset: 0x1d0b58, tileIndex: 0, flip: 'hv' },
+			],
+		],
+		url: '',
 	},
 };
 
