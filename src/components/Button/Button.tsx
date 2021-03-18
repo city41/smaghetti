@@ -42,7 +42,10 @@ type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'ref'> & {
 function Button({ className, onClick, children, ...rest }: ButtonProps) {
 	return (
 		<button
-			className={clsx(className, 'px-2 py-1 bg-green-400')}
+			className={clsx(
+				className,
+				'px-2 py-1 bg-green-400 hover:bg-green-300 hover:text-green-900'
+			)}
 			onClick={onClick}
 			{...rest}
 		>
