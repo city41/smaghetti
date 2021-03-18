@@ -4,6 +4,7 @@ import {
 	TilePage,
 } from '../../tiles/extractCompressedTilesFromRom';
 import { getRom } from '../FileLoader/files';
+import { ignoredPages } from '../../tiles/ignoredPages';
 
 type TilesState = {
 	pages: TilePage[];
@@ -27,6 +28,10 @@ function divideIntoPages(
 	const pages: TilePage[] = [];
 
 	for (let i = 0; i < data.length; i += size) {
+		if (ignoredPages.includes(i)) {
+			continue;
+		}
+
 		const chunk = data.slice(i + shift, i + size + shift);
 
 		const tiles: number[][] = [];
