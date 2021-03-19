@@ -1,45 +1,39 @@
 import React, { useEffect, useRef } from 'react';
 import clsx from 'clsx';
+import { drawTile, rgbToGBA16 } from '../../../tiles/extractResource';
 
 type TileImageProps = {
 	className?: string;
 	index: number | null;
 	tile: number[];
+	focused?: boolean;
 };
 
-let palette: number[] = [];
+const FOCUSED_PALETTE: number[] = (function () {
+	let p = [];
+	for (let i = 0; i < 16; ++i) {
+		const red = Math.floor((i / 15) * 255);
+		const green = Math.floor((i / 15) * 100);
+		const blue = Math.floor((i / 15) * 20);
 
-for (let i = 0; i < 16; ++i) {
-	palette[i] = 255 * (i / 15);
-}
+		p[i] = rgbToGBA16(red, green, blue);
+	}
 
-function TileImage({ className, index, tile }: TileImageProps) {
+	return p;
+})();
+
+function TileImage({ className, index, tile, focused }: TileImageProps) {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
 	useEffect(() => {
 		if (canvasRef.current) {
-			const context = canvasRef.current.getContext('2d')!;
+			const palette = focused ? FOCUSED_PALETTE : undefined;
+			const tileCanvas = drawTile(tile, palette);
 
-			const imageData = context.getImageData(0, 0, 8, 8);
-
-			for (let i = 0; i < tile.length; ++i) {
-				const lowerPixel = (tile[i] >> 4) & 0xf;
-				const upperPixel = tile[i] & 0xf;
-
-				imageData.data[i * 8 + 0] = palette[upperPixel];
-				imageData.data[i * 8 + 1] = palette[upperPixel];
-				imageData.data[i * 8 + 2] = palette[upperPixel];
-				imageData.data[i * 8 + 3] = upperPixel === 0 ? 0 : 255;
-
-				imageData.data[i * 8 + 4] = palette[lowerPixel];
-				imageData.data[i * 8 + 5] = palette[lowerPixel];
-				imageData.data[i * 8 + 6] = palette[lowerPixel];
-				imageData.data[i * 8 + 7] = lowerPixel === 0 ? 0 : 255;
-			}
-
-			context.putImageData(imageData, 0, 0);
+			canvasRef.current?.getContext('2d')!.clearRect(0, 0, 8, 8);
+			canvasRef.current.getContext('2d')!.drawImage(tileCanvas, 0, 0);
 		}
-	}, [tile]);
+	}, [tile, focused]);
 
 	return (
 		<div

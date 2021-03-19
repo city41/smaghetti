@@ -43,8 +43,8 @@ const DEFAULT_PALETTE: number[] = (function () {
 })();
 
 function drawTile(
-	tile: TileExtractionSpecWithData,
-	palette: Tuple<number, 16>,
+	tileData: number[],
+	palette: Tuple<number, 16> = DEFAULT_PALETTE,
 	options: { firstColorOpaque: boolean } = { firstColorOpaque: false }
 ): HTMLCanvasElement {
 	const canvas = document.createElement('canvas');
@@ -54,9 +54,9 @@ function drawTile(
 
 	const imageData = context.getImageData(0, 0, 8, 8);
 
-	for (let p = 0; p < tile.data.length; ++p) {
-		const lowerPixel = (tile.data[p] >> 4) & 0xf;
-		const upperPixel = tile.data[p] & 0xf;
+	for (let p = 0; p < tileData.length; ++p) {
+		const lowerPixel = (tileData[p] >> 4) & 0xf;
+		const upperPixel = tileData[p] & 0xf;
 
 		const upperColor = gba16ToRgb(palette[upperPixel]);
 		const lowerColor = gba16ToRgb(palette[lowerPixel]);
@@ -126,7 +126,7 @@ function renderTiles(
 		for (let x = 0; x < tileData[y].length; ++x) {
 			const spec = tileData[y][x];
 
-			let tileCanvas = drawTile(spec, palette, options);
+			let tileCanvas = drawTile(spec.data, palette, options);
 			tileCanvas = flip(tileCanvas, spec.flip);
 
 			context.drawImage(tileCanvas, x * 8, y * 8, 8, 8);
@@ -213,5 +213,12 @@ function cleanup() {
 	memoDecompress.cache.clear?.();
 }
 
-export { extractResource, renderTiles, extractResourceTileData, cleanup };
+export {
+	extractResource,
+	rgbToGBA16,
+	drawTile,
+	renderTiles,
+	extractResourceTileData,
+	cleanup,
+};
 export type { ExtractedEntityTileData };

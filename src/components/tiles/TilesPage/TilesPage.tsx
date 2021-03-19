@@ -15,6 +15,52 @@ type TilesPageProps = {
 	onSetShift: (newShift: number) => void;
 };
 
+function parseBytes(byteStr: string): number[] {
+	byteStr = byteStr.trim();
+
+	if (!byteStr.includes(' ')) {
+		// no spaces? probably copied from mGBA
+		const bytes = [];
+		for (let i = 0; i < byteStr.length; i += 2) {
+			const bs = byteStr.substr(i, 2);
+
+			bytes.push(parseInt(bs, 16));
+		}
+
+		return bytes;
+	}
+
+	const split = byteStr.split(' ');
+
+	return split.reduce<number[]>((building, s) => {
+		const byte = parseInt(s.trim(), 16);
+
+		if (isNaN(byte)) {
+			return building;
+		} else {
+			return building.concat(byte);
+		}
+	}, []);
+}
+
+function doesTileMatchBytes(tile: number[], bytes: number[]): boolean {
+	if (bytes.length === 0) {
+		return false;
+	}
+
+	for (let i = 0; i < bytes.length; ++i) {
+		if (i >= tile.length) {
+			return true;
+		}
+
+		if (tile[i] !== bytes[i]) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 function TilesPage({
 	allFilesReady,
 	onDumpCompressedTiles,
@@ -28,6 +74,8 @@ function TilesPage({
 	const [showIndices, setShowIndices] = useState(false);
 	const [offsetText, setOffsetText] = useState('');
 	const [cols, setGridCols] = useState(32);
+	const [byteSearchString, setByteSearchString] = useState('');
+	const [focusedIndex, setFocusedIndex] = useState(-1);
 
 	const curPage = pages[pageIndex];
 
@@ -120,6 +168,33 @@ function TilesPage({
 						<div className="inline-block">cols: {cols}</div>
 						<Button onClick={() => setGridCols(cols - 1)}>-</Button>
 						<Button onClick={() => setGridCols(cols + 1)}>+</Button>
+						<input
+							className="w-64 text-black px-1"
+							type="text"
+							value={byteSearchString}
+							onChange={(e) => setByteSearchString(e.target.value)}
+						/>
+						<Button
+							onClick={() => {
+								const bytes = parseBytes(byteSearchString);
+
+								const matchingPage = pages.find((p) => {
+									return p.tiles.some((t) => {
+										return doesTileMatchBytes(t, bytes);
+									});
+								});
+
+								if (matchingPage) {
+									setPageIndex(pages.indexOf(matchingPage));
+									const tileIndex = matchingPage.tiles.findIndex((t) =>
+										doesTileMatchBytes(t, bytes)
+									);
+									setFocusedIndex(tileIndex);
+								}
+							}}
+						>
+							Search
+						</Button>
 					</h1>
 					<div
 						className="grid"
@@ -131,6 +206,7 @@ function TilesPage({
 									'border border-white': showIndices,
 								})}
 								key={i}
+								focused={focusedIndex === i}
 								index={showIndices ? i : null}
 								tile={tile}
 							/>
