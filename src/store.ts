@@ -15,17 +15,23 @@ import {
 	reducer as tilesReducer,
 	TilesState,
 } from './components/tiles/tilesSlice';
+import {
+	reducer as palettesReducer,
+	PalettesState,
+} from './components/palettes/palettesSlice';
 
 type AppState = {
 	editor: EditorState;
 	fileLoader: FileLoaderState;
 	tiles: TilesState;
+	palettes: PalettesState;
 };
 
 const rootReducer = combineReducers({
 	editor: editorReducer,
 	fileLoader: fileLoaderReducer,
 	tiles: tilesReducer,
+	palettes: palettesReducer,
 });
 
 const store = configureStore({

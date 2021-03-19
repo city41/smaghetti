@@ -3,11 +3,6 @@ import { TILE_SIZE, TileType } from '../tiles/constants';
 import cloneDeep from 'lodash/cloneDeep';
 import { EntityType } from '../entities/entityMap_generated';
 
-type Tuple<T, N extends number> = N extends N ? T[] : _TupleOf<T, N, []>;
-type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N
-	? R
-	: _TupleOf<T, N, [T, ...R]>;
-
 type Room = {
 	objects: number[];
 	levelSettings: number[];

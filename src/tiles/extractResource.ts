@@ -2,24 +2,50 @@ import memoize from 'lodash/memoize';
 import { ExtractedResource, TileExtractionSpec } from '../resources';
 import { decompress } from './extractCompressedTilesFromRom';
 
+type TileExtractionSpecWithData = TileExtractionSpec & { data: number[] };
+type ExtractedEntityTileData = Array<Array<TileExtractionSpecWithData>>;
+
 const memoDecompress = memoize(decompress, (rom, offset) => offset);
 
 const BYTES_PER_TILE = 32;
 
+function rgbToGBA16(r: number, g: number, b: number): number {
+	const gbaR = Math.floor((31 * r) / 255);
+	const gbaG = Math.floor((31 * g) / 255);
+	const gbaB = Math.floor((31 * b) / 255);
+
+	return (gbaB << 10) | (gbaG << 5) | gbaR;
+}
+
+function gba16ToRgb(gba16: number): [number, number, number] {
+	const red5 = gba16 & 0x1f;
+	const green5 = (gba16 >> 5) & 0x1f;
+	const blue5 = (gba16 >> 10) & 0x1f;
+
+	const red8 = Math.floor((red5 / 31) * 255);
+	const green8 = Math.floor((green5 / 31) * 255);
+	const blue8 = Math.floor((blue5 / 31) * 255);
+
+	return [red8, green8, blue8];
+}
+
 const DEFAULT_PALETTE: number[] = (function () {
 	let p = [];
 	for (let i = 0; i < 16; ++i) {
-		p[i] = 255 * (i / 15);
+		const red = Math.floor((i / 15) * 255);
+		const green = Math.floor((i / 15) * 255);
+		const blue = Math.floor((i / 15) * 255);
+
+		p[i] = rgbToGBA16(red, green, blue);
 	}
 
 	return p;
 })();
 
-type TileExtractionSpecWithData = TileExtractionSpec & { data: number[] };
-
 function drawTile(
 	tile: TileExtractionSpecWithData,
-	palette: number[]
+	palette: Tuple<number, 16>,
+	options: { firstColorOpaque: boolean } = { firstColorOpaque: false }
 ): HTMLCanvasElement {
 	const canvas = document.createElement('canvas');
 	canvas.width = 8;
@@ -32,15 +58,20 @@ function drawTile(
 		const lowerPixel = (tile.data[p] >> 4) & 0xf;
 		const upperPixel = tile.data[p] & 0xf;
 
-		imageData.data[p * 8 + 0] = palette[upperPixel];
-		imageData.data[p * 8 + 1] = palette[upperPixel];
-		imageData.data[p * 8 + 2] = palette[upperPixel];
-		imageData.data[p * 8 + 3] = upperPixel === 0 ? 0 : 255;
+		const upperColor = gba16ToRgb(palette[upperPixel]);
+		const lowerColor = gba16ToRgb(palette[lowerPixel]);
 
-		imageData.data[p * 8 + 4] = palette[lowerPixel];
-		imageData.data[p * 8 + 5] = palette[lowerPixel];
-		imageData.data[p * 8 + 6] = palette[lowerPixel];
-		imageData.data[p * 8 + 7] = lowerPixel === 0 ? 0 : 255;
+		imageData.data[p * 8 + 0] = upperColor[0];
+		imageData.data[p * 8 + 1] = upperColor[1];
+		imageData.data[p * 8 + 2] = upperColor[2];
+		imageData.data[p * 8 + 3] =
+			upperPixel === 0 && !options.firstColorOpaque ? 0 : 255;
+
+		imageData.data[p * 8 + 4] = lowerColor[0];
+		imageData.data[p * 8 + 5] = lowerColor[1];
+		imageData.data[p * 8 + 6] = lowerColor[2];
+		imageData.data[p * 8 + 7] =
+			lowerPixel === 0 && !options.firstColorOpaque ? 0 : 255;
 	}
 
 	context.putImageData(imageData, 0, 0);
@@ -81,11 +112,12 @@ function flip(
 	return canvas;
 }
 
-function tileToDataUrl(
-	tileData: Array<Array<TileExtractionSpecWithData>>,
-	palette: number[]
-): string {
-	const canvas = document.createElement('canvas');
+function renderTiles(
+	canvas: HTMLCanvasElement,
+	tileData: ExtractedEntityTileData,
+	palette: number[],
+	options?: { firstColorOpaque: boolean }
+) {
 	canvas.height = tileData.length * 8;
 	canvas.width = tileData[0].length * 8;
 	const context = canvas.getContext('2d')!;
@@ -94,20 +126,28 @@ function tileToDataUrl(
 		for (let x = 0; x < tileData[y].length; ++x) {
 			const spec = tileData[y][x];
 
-			let tileCanvas = drawTile(spec, palette);
+			let tileCanvas = drawTile(spec, palette, options);
 			tileCanvas = flip(tileCanvas, spec.flip);
 
 			context.drawImage(tileCanvas, x * 8, y * 8, 8, 8);
 		}
 	}
+}
+
+function tileToDataUrl(
+	tileData: Array<Array<TileExtractionSpecWithData>>,
+	palette: number[]
+): string {
+	const canvas = document.createElement('canvas');
+	renderTiles(canvas, tileData, palette);
 
 	return canvas.toDataURL();
 }
 
-async function extractResource(
+function extractResourceTileData(
 	rom: Uint8Array,
 	resource: ExtractedResource
-): Promise<void> {
+): ExtractedEntityTileData {
 	const tileData: Array<Array<TileExtractionSpecWithData>> = resource.tiles.map(
 		(tileIndexRow) => {
 			return tileIndexRow.map((t) => {
@@ -148,8 +188,12 @@ async function extractResource(
 		}
 	);
 
-	const dataUrl = tileToDataUrl(tileData, resource.palette ?? DEFAULT_PALETTE);
+	return tileData;
+}
 
+function extractResource(rom: Uint8Array, resource: ExtractedResource) {
+	const tileData = extractResourceTileData(rom, resource);
+	const dataUrl = tileToDataUrl(tileData, resource.palette ?? DEFAULT_PALETTE);
 	resource.url = dataUrl;
 }
 
@@ -157,4 +201,5 @@ function cleanup() {
 	memoDecompress.cache.clear?.();
 }
 
-export { extractResource, cleanup };
+export { extractResource, renderTiles, extractResourceTileData, cleanup };
+export type { ExtractedEntityTileData };
