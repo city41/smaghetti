@@ -23,7 +23,6 @@ function PalettesPage({
 		<>
 			<FileLoaderModal isOpen={!allFilesReady} />
 			<div className="flex flex-row space-x-2">
-				<div>{curEntity?.type}</div>
 				<Button onClick={() => setCurEntityIndex((ci) => Math.max(0, ci - 1))}>
 					prev
 				</Button>
@@ -34,6 +33,7 @@ function PalettesPage({
 				>
 					next
 				</Button>
+				<div>{curEntity?.type}</div>
 			</div>
 			<div className="grid grid-flow-row grid-cols-8 gap-x-2 gap-y-2 items-stretch">
 				{curEntity &&
