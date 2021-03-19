@@ -1394,13 +1394,7 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 };
 
 // 1.0.0: first localstorage implementation
-// 1.1.0: ??? one of these introduced the short character codes
-// 1.2.0: ??? (ie 'gr' for 'grass')
-// 1.3.0: goalCorner, startCorner
-// 1.3.1: goalCorner, startCorner, actually read it this time
-// 1.4.0: data -> levelData, added editorData for paletteEntries
-// 1.5.0: serializing tile entity settings
-const LOCALSTORAGE_KEY = 'jumpclub_level_state_v1.5.0';
+const LOCALSTORAGE_KEY = 'smaghetti_1.0.0';
 
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {
