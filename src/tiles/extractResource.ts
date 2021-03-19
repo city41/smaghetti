@@ -159,18 +159,30 @@ function extractResourceTileData(
 					throw new Error('extractResource: romOffset not specified');
 				}
 
-				const offsetData = memoDecompress(rom, romOffset);
+				let data;
 
-				if (!offsetData) {
-					throw new Error(
-						`extractResource: romOffset does not yield tile data: ${romOffset}`
+				if (typeof t === 'number' || !t.uncompressed) {
+					const offsetData = memoDecompress(rom, romOffset);
+
+					if (!offsetData) {
+						throw new Error(
+							`extractResource: romOffset does not yield tile data: ${romOffset}`
+						);
+					}
+
+					data = offsetData.slice(
+						tileIndex * BYTES_PER_TILE,
+						(tileIndex + 1) * BYTES_PER_TILE
+					);
+				} else {
+					const offsetData = rom.subarray(romOffset + (t.shift ?? 0));
+					data = Array.from(
+						offsetData.slice(
+							tileIndex * BYTES_PER_TILE,
+							(tileIndex + 1) * BYTES_PER_TILE
+						)
 					);
 				}
-
-				const data = offsetData.slice(
-					tileIndex * BYTES_PER_TILE,
-					(tileIndex + 1) * BYTES_PER_TILE
-				);
 
 				if (typeof t === 'number') {
 					return {

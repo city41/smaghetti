@@ -11,6 +11,8 @@ type TileExtractionSpec = {
 	romOffset: number;
 	tileIndex: number;
 	flip?: 'h' | 'v' | 'hv';
+	uncompressed?: boolean;
+	shift?: number;
 };
 
 type ExtractedResource = {
