@@ -82,8 +82,6 @@ const getPalettes = (): PalettesThunk => async (dispatch) => {
 			palettes.push(Array.from(rawPaletteBlob.slice(i, i + 16)));
 		}
 
-		console.log(palettes[17].map((p) => p.toString(16)).join(', '));
-
 		dispatch(palettesSlice.actions.setPalettes(palettes));
 	};
 

@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
+import useClipboard from 'react-use-clipboard';
 import {
 	ExtractedEntityTileData,
 	renderTiles,
@@ -21,6 +22,9 @@ function drawEntity(
 
 function PalettedEntity({ className, palette, entity }: PalettedEntityProps) {
 	const ref = useRef<HTMLCanvasElement | null>(null);
+	const [hasCopied, setHasCopied] = useClipboard(
+		`[${palette.map((c) => `0x${c.toString(16)}`).join(', ')}]`
+	);
 
 	useEffect(() => {
 		if (ref.current) {
@@ -29,14 +33,20 @@ function PalettedEntity({ className, palette, entity }: PalettedEntityProps) {
 	}, [palette, entity]);
 
 	return (
-		<canvas
-			ref={ref}
-			className={clsx(className, 'bg-red-100 w-full h-full')}
-			width={entity[0].length * 8}
-			height={entity.length * 8}
-		>
-			{palette[0]}, {entity[0][0].romOffset}
-		</canvas>
+		<div className={clsx(className, { relative: hasCopied })}>
+			<canvas
+				ref={ref}
+				className="bg-red-100 w-full h-full"
+				width={entity[0].length * 8}
+				height={entity.length * 8}
+				onClick={() => setHasCopied()}
+			/>
+			{hasCopied && (
+				<div className="absolute bottom-0 left-0 z-10 w-full text-center bg-black text-white">
+					copied!
+				</div>
+			)}
+		</div>
 	);
 }
 
