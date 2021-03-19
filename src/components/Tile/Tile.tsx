@@ -1,17 +1,11 @@
-import React, {
-	FunctionComponent,
-	CSSProperties,
-	forwardRef,
-	RefObject,
-	memo,
-} from 'react';
+import React, { CSSProperties, forwardRef, RefObject, memo } from 'react';
 import clsx from 'clsx';
 
-import { getResourceUrl } from '../../resources';
 import {
 	TILE_TYPE_COUNT,
 	TILE_SIZE,
 	TileHasEntityType,
+	FIRST_TILE_INDEX_TO_TILE_TYPE_MAP,
 } from '../../tiles/constants';
 // import { focused } from '../../../styles/focused';
 // import { detailsPanes } from '../../../entities/components/detailsPanes';
@@ -86,41 +80,29 @@ const Tile = memo(
 		}: TileProps,
 		ref
 	) {
-		const xPos =
-			((tileIndex % TILE_TYPE_COUNT || TILE_TYPE_COUNT) - 1) *
-			-TILE_SIZE *
-			scale;
-		const yPos =
-			Math.floor((tileIndex - 1) / TILE_TYPE_COUNT) * -TILE_SIZE * scale;
-
-		const backgroundSizeStyle =
-			scale === 1 ? {} : { backgroundSize: `${TILE_TYPE_COUNT * 100}%` };
-
 		const leftStyle =
 			typeof left === 'number' ? ({ position: 'absolute', left } as const) : {};
 		const topStyle =
 			typeof top === 'number' ? ({ position: 'absolute', top } as const) : {};
 
 		const opacityStyle = { opacity };
+		const tileType = getTileType(tileIndex) as TileHasEntityType;
 
 		const finalStyle = {
 			...style,
-			...backgroundSizeStyle,
 			...leftStyle,
 			...topStyle,
 			...opacityStyle,
-			backgroundPositionX: xPos,
-			backgroundPositionY: yPos,
+			backgroundPositionX: 0,
+			backgroundPositionY: 0,
+			backgroundSize: 'cover',
 			width: TILE_SIZE * scale,
 			height: TILE_SIZE * scale,
-			backgroundImage: `url(${getResourceUrl('tiles')})`,
 		};
-
-		const tileType = getTileType(tileIndex) as TileHasEntityType;
 
 		// const showingDetailsEditPane =
 		// 	soleGroupFocused && !!detailsPanes[tileType]?.edit && !!settings;
-		const finalClassName = clsx(className, {
+		const finalClassName = clsx(className, `${tileType}-bg`, {
 			animateIn,
 			focused,
 			// showingDetailsEditPane,

@@ -158,8 +158,8 @@ const defaultInitialState: InternalEditorState = {
 	showGrid: true,
 
 	paletteEntries: [
-		{ brushMode: 'tile', type: 'brick' },
-		{ brushMode: 'tile', type: 'coin' },
+		{ brushMode: 'tile', type: 'Brick' },
+		{ brushMode: 'tile', type: 'Coin' },
 		{ brushMode: 'entity', type: 'Goomba' },
 	],
 	currentPaletteEntry: { brushMode: 'entity', type: 'Goomba' },

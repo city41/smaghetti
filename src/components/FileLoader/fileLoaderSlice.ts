@@ -10,6 +10,7 @@ import { getRom } from './files';
 import {
 	extractResource,
 	cleanup as extractCleanup,
+	createStylesheet,
 } from '../../tiles/extractResource';
 
 type RomFileState =
@@ -209,6 +210,7 @@ const extract = (): FileLoaderThunk => async (dispatch) => {
 	}
 
 	extractCleanup();
+	createStylesheet();
 	dispatch(fileLoaderSlice.actions.overallExtractionState('complete'));
 };
 

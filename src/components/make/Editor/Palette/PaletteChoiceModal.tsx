@@ -28,7 +28,7 @@ const objects: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
 			brushMode: 'tile',
-			type: 'brick',
+			type: 'Brick',
 		},
 		info: {
 			title: 'Brick',
@@ -38,7 +38,7 @@ const objects: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
 			brushMode: 'tile',
-			type: 'coin',
+			type: 'Coin',
 		},
 		info: {
 			title: 'Coin',

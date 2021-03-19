@@ -27,10 +27,6 @@ type Resource = ImageResource | ExtractedResource;
 
 const resources: Record<string, Resource> = {
 	...image_resources,
-	tiles: {
-		url: tilesPng,
-		type: 'image',
-	},
 };
 
 const totalResources = Object.keys(resources).length;

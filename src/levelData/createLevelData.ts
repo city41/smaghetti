@@ -111,8 +111,8 @@ const bricks = [
 ];
 
 const tileTypeToObjectId: Record<TileType, number> = {
-	brick: 0xf,
-	coin: 0x16,
+	Brick: 0xf,
+	Coin: 0x16,
 };
 
 function getObjects(tileLayer: TileLayer): number[] {

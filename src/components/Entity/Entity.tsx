@@ -1,5 +1,4 @@
 import React, {
-	FunctionComponent,
 	useCallback,
 	forwardRef,
 	RefObject,
@@ -9,7 +8,6 @@ import React, {
 import clsx from 'clsx';
 
 import { entityMap, EntityType } from '../../entities/entityMap_generated';
-import { getResourceUrl, hasAResource } from '../../resources';
 // import { focused } from '../../../styles/focused';
 // import { detailsPanes } from '../detailsPanes';
 import { getEntityOffset } from '../../entities/util';
@@ -105,8 +103,6 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 		},
 		ref
 	) => {
-		const imageUrl = (hasAResource(type) && getResourceUrl(type)) || '';
-
 		// const showingDetailsEditPane = soleFocused && !!detailsPanes[type]?.edit;
 
 		const finalClassName = clsx(className, {
@@ -223,11 +219,11 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 				data-entity-tile={tile}
 			>
 				<div
+					className={`${type}-bg`}
 					style={{
 						...entityWidthHeight,
 						...offsetStyle,
 						...transformStyle,
-						backgroundImage: `url(${imageUrl})`,
 						backgroundSize: `${backgroundWidth} ${backgroundHeight}`,
 						backgroundPosition: 'center',
 						backgroundRepeat: 'no-repeat',

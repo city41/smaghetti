@@ -1,5 +1,5 @@
 import memoize from 'lodash/memoize';
-import { ExtractedResource, TileExtractionSpec } from '../resources';
+import { ExtractedResource, resources, TileExtractionSpec } from '../resources';
 import { decompress } from './extractCompressedTilesFromRom';
 
 type TileExtractionSpecWithData = TileExtractionSpec & { data: number[] };
@@ -213,12 +213,25 @@ function cleanup() {
 	memoDecompress.cache.clear?.();
 }
 
+function createStylesheet() {
+	const css = Object.keys(resources).reduce<string>((building, key) => {
+		return `${building}\n.${key}-bg { background-image: url(${resources[key].url}); }`;
+	}, '');
+
+	const textNode = document.createTextNode(css);
+	const style = document.createElement('style');
+	style.append(textNode);
+
+	document.head.appendChild(style);
+}
+
 export {
 	extractResource,
 	rgbToGBA16,
 	drawTile,
 	renderTiles,
 	extractResourceTileData,
+	createStylesheet,
 	cleanup,
 };
 export type { ExtractedEntityTileData };

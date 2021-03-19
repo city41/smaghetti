@@ -2,8 +2,63 @@
 
 import { EntityType } from '../entities/entityMap_generated';
 import { Resource } from './resources';
+import { TileType } from '../tiles/constants';
 
-const image_resources: Record<EntityType, Resource> = {
+const image_resources: Record<EntityType | TileType, Resource> = {
+	Coin: {
+		type: 'extracted',
+		url: '',
+		romOffset: 0x176be8,
+		palette: [
+			0x7f96,
+			0x7fff,
+			0x0,
+			0x209,
+			0x228e,
+			0x3732,
+			0x47b7,
+			0x1f4,
+			0x29a,
+			0x37f,
+			0x15,
+			0xd9d,
+			0x2bf,
+			0x3600,
+			0x4aa5,
+			0x5b29,
+		],
+		tiles: [
+			[220, 222],
+			[221, 223],
+		],
+	},
+	Brick: {
+		type: 'extracted',
+		url: '',
+		romOffset: 0x131fe0,
+		palette: [
+			0x7f96,
+			0x7fff,
+			0x0,
+			0x209,
+			0x228e,
+			0x3732,
+			0x47b7,
+			0x1f4,
+			0x29a,
+			0x37f,
+			0x15,
+			0xd9d,
+			0x2bf,
+			0x3600,
+			0x4aa5,
+			0x5b29,
+		],
+		tiles: [
+			[308, 310],
+			[309, 311],
+		],
+	},
 	RedKoopaTroopa: {
 		type: 'extracted',
 		url: '',

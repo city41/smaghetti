@@ -15,8 +15,8 @@ export const Basic = () => {
 		<div className="inline-block p-4 bg-blue-200">
 			<Palette
 				paletteEntries={[
-					{ brushMode: 'tile', type: 'brick' },
-					{ brushMode: 'tile', type: 'coin' },
+					{ brushMode: 'tile', type: 'Brick' },
+					{ brushMode: 'tile', type: 'Coin' },
 					{ brushMode: 'entity', type: 'Goomba' },
 				]}
 				onPaletteEntryIndexChosen={() => {}}
