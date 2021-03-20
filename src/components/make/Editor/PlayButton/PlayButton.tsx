@@ -66,8 +66,11 @@ function PlayButton({ className, isPlaying, onClick }: PlayButtonProps) {
 	const title = isPlaying ? 'edit your level' : 'preview your level';
 
 	return (
-		<div
-			className={clsx(className, 'text-2xl text-white', { '': isPlaying })}
+		<button
+			className={clsx(
+				className,
+				'w-full h-full text-2xl text-white grid place-items-center'
+			)}
 			title={`${title} (p)`}
 			onClick={() => {
 				onClick?.();
@@ -79,7 +82,7 @@ function PlayButton({ className, isPlaying, onClick }: PlayButtonProps) {
 			}}
 		>
 			<Icon />
-		</div>
+		</button>
 	);
 }
 
