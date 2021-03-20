@@ -8,7 +8,6 @@ import undoable, {
 } from 'redux-undo';
 import produce from 'immer';
 import { AppState } from '../../store';
-import { EntityType, entityMap } from '../../entities/entityMap_generated';
 import {
 	MIN_LEVEL_TILE_WIDTH,
 	MAX_LEVEL_TILE_WIDTH,
@@ -36,6 +35,7 @@ import {
 	TILE_TYPE_TO_FIRST_TILE_INDEX_MAP,
 	TILE_TYPE_TO_GROUP_TYPE_MAP,
 } from '../../tiles/constants';
+import { spriteMap, SpriteType } from '../../entities/entityMap';
 
 type LocalStorageData = {
 	levelData: SerializedLevelData;
@@ -54,7 +54,7 @@ type TilePaletteEntry = {
 
 type EntityPaletteEntry = {
 	brushMode: 'entity';
-	type: EntityType;
+	type: SpriteType;
 };
 
 export type PaletteEntry = TilePaletteEntry | EntityPaletteEntry;
@@ -65,7 +65,7 @@ type EditorFocusRect = {
 	height: number;
 };
 
-const nonDeletableEntityTypes = ['Player'];
+const nonDeletableSpriteTypes = ['Player'];
 
 const playerScale = getPlayerScaleFromWindow();
 const scales: number[] = [
@@ -303,9 +303,9 @@ function hasEditorMetaData(clazz: unknown): clazz is MetadataEntity {
 }
 
 function getEntityPixelBounds(entity: NewEntity): Bounds {
-	const size = entityMap[entity.type];
-	const width = Math.max(size.width, TILE_SIZE);
-	const height = Math.max(size.height, TILE_SIZE);
+	const spriteDef = spriteMap[entity.type];
+	const width = Math.max(spriteDef.tiles[0].length * TILE_SIZE, TILE_SIZE);
+	const height = Math.max(spriteDef.tiles.length * TILE_SIZE, TILE_SIZE);
 
 	return {
 		upperLeft: { x: entity.x, y: entity.y },
@@ -314,15 +314,10 @@ function getEntityPixelBounds(entity: NewEntity): Bounds {
 }
 
 function getEntityTileBounds(entity: NewEntity): Bounds {
-	let tileWidth = 1;
-	let tileHeight = 1;
+	const spriteDef = spriteMap[entity.type];
 
-	const entityClass = entityMap[entity.type as keyof typeof entityMap];
-
-	if (hasEditorMetaData(entityClass)) {
-		tileWidth = (entityClass as MetadataEntity).editor.tiling.width;
-		tileHeight = (entityClass as MetadataEntity).editor.tiling.height;
-	}
+	const tileWidth = spriteDef.tiles[0].length;
+	const tileHeight = spriteDef.tiles.length;
 
 	const minX = Math.floor(entity.x / TILE_SIZE);
 	const minY = Math.floor(entity.y / TILE_SIZE);
@@ -402,38 +397,18 @@ function canDrop(entity: NewEntity | Entity, entities: Entity[]) {
 	});
 }
 
-function getEntityX(inputX: number, type: EntityType): number {
-	const tileX = Math.floor(inputX / TILE_SIZE) * TILE_SIZE;
-
-	const entityClass = entityMap[type];
-
-	let offsetX = 0;
-
-	if (hasEditorMetaData(entityClass)) {
-		offsetX = (entityClass as MetadataEntity).editor.tiling.offsetX;
-	}
-
-	return tileX + offsetX;
+function getEntityX(inputX: number, type: SpriteType): number {
+	return Math.floor(inputX / TILE_SIZE) * TILE_SIZE;
 }
 
-function getEntityY(inputY: number, type: EntityType): number {
-	const tileY = Math.floor(inputY / TILE_SIZE) * TILE_SIZE;
-
-	const entityClass = entityMap[type];
-
-	let offsetY = 0;
-
-	if (hasEditorMetaData(entityClass)) {
-		offsetY = (entityClass as MetadataEntity).editor.tiling.offsetY;
-	}
-
-	return tileY + offsetY;
+function getEntityY(inputY: number, type: SpriteType): number {
+	return Math.floor(inputY / TILE_SIZE) * TILE_SIZE;
 }
 
 function deleteEntitiesWithin(
 	entities: Entity[],
 	bounds: Bounds,
-	ignore: EntityType[] = []
+	ignore: SpriteType[] = []
 ) {
 	const entitiestoClobber = entities.filter((e) => {
 		return overlap(getEntityTileBounds(e), bounds);
@@ -528,7 +503,7 @@ function removeOutOfBoundsEntities(state: InternalEditorState) {
 	};
 
 	state.entities = state.entities.filter((e) => {
-		if (nonDeletableEntityTypes.includes(e.type)) {
+		if (nonDeletableSpriteTypes.includes(e.type)) {
 			return true;
 		}
 
@@ -764,7 +739,7 @@ const editorSlice = createSlice({
 
 						if (
 							existingEntity &&
-							!nonDeletableEntityTypes.includes(existingEntity.type)
+							!nonDeletableSpriteTypes.includes(existingEntity.type)
 						) {
 							state.entities = state.entities.filter(
 								(e) => e !== existingEntity
@@ -863,7 +838,7 @@ const editorSlice = createSlice({
 		},
 		deleteFocused(state: InternalEditorState) {
 			state.entities = state.entities.filter((e) => {
-				return nonDeletableEntityTypes.includes(e.type) || !state.focused[e.id];
+				return nonDeletableSpriteTypes.includes(e.type) || !state.focused[e.id];
 			});
 
 			let minX = state.levelTileWidth;
@@ -967,7 +942,7 @@ const editorSlice = createSlice({
 		},
 		moveOffsetToEntity(
 			state: InternalEditorState,
-			action: PayloadAction<EntityType>
+			action: PayloadAction<SpriteType>
 		) {
 			// if (action.payload === 'Goal') {
 			// 	const goal = state.entities.find((e) => e.type === 'Goal')!;
@@ -1065,7 +1040,7 @@ const editorSlice = createSlice({
 
 			// quick sanity check, if there is a type in local storage that we don't
 			// know about, just throw it away
-			state.entities = levelData.entities.filter((e) => !!entityMap[e.type]);
+			state.entities = levelData.entities.filter((e) => !!spriteMap[e.type]);
 			state.tiles = levelData.tileLayer.data;
 			state.levelTileWidth = levelData.tileLayer.width;
 			state.levelTileHeight = levelData.tileLayer.height;
@@ -1177,7 +1152,7 @@ const editorSlice = createSlice({
 				state.entities.forEach((e) => {
 					if (
 						overlap(getEntityPixelBounds(e), scaledBounds) &&
-						!nonDeletableEntityTypes.includes(e.type)
+						!nonDeletableSpriteTypes.includes(e.type)
 					) {
 						state.focused[e.id] = true;
 					}
@@ -1394,7 +1369,9 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 };
 
 // 1.0.0: first localstorage implementation
-const LOCALSTORAGE_KEY = 'smaghetti_1.0.0';
+// 1.0.1: changed some tile serialization ids
+// const LOCALSTORAGE_KEY = 'smaghetti_1.0.0';
+const LOCALSTORAGE_KEY = 'smaghetti_1.0.1';
 
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {

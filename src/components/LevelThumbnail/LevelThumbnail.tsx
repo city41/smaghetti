@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef, memo } from 'react';
 
-import { getResourceUrl } from '../../resources';
 // import { Entity } from '../entities/components/entity';
 // import { getEntityOffset } from '../entities/util';
 // import { TILE_TYPE_COUNT } from '../tiles/constants';
@@ -112,7 +111,7 @@ LevelThumbnailProps) {
 	});
 
 	useEffect(() => {
-		imageRef.current!.src = getResourceUrl('tiles');
+		// imageRef.current!.src = getResourceUrl('tiles');
 	}, []);
 
 	useEffect(() => {

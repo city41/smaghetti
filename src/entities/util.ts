@@ -1,16 +1,11 @@
-import { entityMap, EntityType } from './entityMap_generated';
-import { TILE_SIZE } from '../tiles/constants';
+export function getBankLength(bank: 0 | 1, length: number): number {
+	return (bank << 6) | length;
+}
 
-export function getEntityOffset(type: EntityType): { x: number; y: number } {
-  const size = entityMap[type];
-
-  const remainderX = size.width % TILE_SIZE;
-  const remainderY = size.height % TILE_SIZE;
-
-  const offset = {
-    x: remainderX === 0 ? 0 : (TILE_SIZE - remainderX) / 2,
-    y: remainderY === 0 ? 0 : (TILE_SIZE - remainderY) / 2,
-  };
-
-  return offset;
+export function simpleSpriteBinary(
+	x: number,
+	y: number,
+	objectId: number
+): [number, number, number, number] {
+	return [0, objectId, x, y];
 }

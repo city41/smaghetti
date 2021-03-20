@@ -1,7 +1,7 @@
 import { convertASCIIToLevelName } from './util';
 import { TILE_SIZE, TileType } from '../tiles/constants';
 import cloneDeep from 'lodash/cloneDeep';
-import { EntityType } from '../entities/entityMap_generated';
+import { objectMap, spriteMap, SpriteType } from '../entities/entityMap';
 
 type Room = {
 	objects: number[];
@@ -51,21 +51,6 @@ function getObjectHeader(): Tuple<number, 11> {
 	];
 }
 
-const CoinStrip = [
-	0x41, // top 2 bits: bank, bottom 6: length
-	0x11, // y
-	0x36, // x
-	0x0f, // object Id, F = breakable brick
-	0x01, // vertical length
-];
-
-const CardSlotMachine = [
-	0x00, // bank 0 or 1
-	0x41, // sprite Id, 0x41 = card slot machine
-	0x12, // X
-	0x15, // Y
-];
-
 // level settings for room 0
 const Classic1_2LevelSettings = [
 	0xbf,
@@ -102,19 +87,6 @@ const Classic1_2LevelSettings = [
 	0,
 ];
 
-const bricks = [
-	0x5f, // 0x01011111 -> (01)(011111) -> bank 1, length of 32
-	0x1b, // y
-	0x01, // x
-	0x0f, // breakable brick
-	0, // vertical height of 1
-];
-
-const tileTypeToObjectId: Record<TileType, number> = {
-	Brick: 0xf,
-	Coin: 0x16,
-};
-
 function getObjects(tileLayer: TileLayer): number[] {
 	const clone = cloneDeep(tileLayer);
 	const objects: number[] = [];
@@ -131,6 +103,10 @@ function getObjects(tileLayer: TileLayer): number[] {
 	}
 
 	function getMaxY(tile: Tile): number {
+		if (objectMap[tile.tileType].dimensions === 1) {
+			return tile.y;
+		}
+
 		let y = tile.y;
 
 		while (clone.data[y]?.[tile.x]?.tileType === tile.tileType) {
@@ -179,24 +155,16 @@ function getObjects(tileLayer: TileLayer): number[] {
 			const endXTile = getEndX(row, tile);
 			const bestY = getBestY(tile, endXTile);
 
-			const bank = 1;
 			// length/height - 1 because they are stored 1 less than actual
 			const length = endXTile.x - tile.x;
 			const height = bestY - tile.y;
-			const bankAndLength = (bank << 6) | length;
 
 			const yDiff = tileLayer.height - (y + 1);
 			const encodedY = MAX_Y - yDiff;
 
-			objects.push(
-				...[
-					bankAndLength,
-					encodedY,
-					x,
-					tileTypeToObjectId[tile.tileType],
-					height,
-				]
-			);
+			const objectDef = objectMap[tile.tileType];
+
+			objects.push(...objectDef.toBinary(x, encodedY, length, height, {}));
 
 			erase(tile.y, bestY, tile.x, endXTile.x);
 		}
@@ -205,31 +173,20 @@ function getObjects(tileLayer: TileLayer): number[] {
 	return objects;
 }
 
-const entityTypeToSpriteId: Record<EntityType, number> = {
-	// TODO: Player is not needed in this map
-	Player: Number.MAX_SAFE_INTEGER,
-	Goomba: 0x72,
-	GreenKoopaTroopa: 0x6c,
-	RedKoopaTroopa: 0x6d,
-	CardSlotMachine: 0x41,
-	Spiny: 0x71,
-};
-
 function getSprites(entities: Entity[], levelHeightInTiles: number): number[] {
 	return entities.reduce<number[]>((building, entity) => {
 		if (entity.type === 'Player') {
 			return building;
 		}
 
+		const x = Math.floor(entity.x / TILE_SIZE);
 		const entityTileY = Math.floor(entity.y / TILE_SIZE);
 		const yDiff = levelHeightInTiles - (entityTileY + 1);
+		const y = MAX_Y - yDiff;
 
-		return building.concat([
-			0x00, // bank 0 or 1
-			entityTypeToSpriteId[entity.type],
-			Math.floor(entity.x / TILE_SIZE),
-			MAX_Y - yDiff,
-		]);
+		const entityDef = spriteMap[entity.type as SpriteType];
+
+		return building.concat(entityDef.toBinary(x, y, {}));
 	}, []);
 }
 
@@ -239,7 +196,7 @@ function getRoom(entities: Entity[], tileLayer: TileLayer): Room {
 
 	const levelSettings = Classic1_2LevelSettings;
 
-	const spriteHeader = [0x00];
+	const spriteHeader = [0x0];
 	const sprites = getSprites(entities, tileLayer.height);
 
 	return {
@@ -288,7 +245,7 @@ function createLevelData(entities: Entity[], tileLayer: TileLayer): Uint8Array {
 	// four rooms, each with six pointers, pointers are two bytes
 	const pointers: Tuple<number, 48> = new Array(4 * 6 * 2);
 	// empty bytes between pointer and name so that name starts at 0x40
-	const nullBytes = new Array(11);
+	const nullBytes = new Array(11).fill(0);
 	const name = getLevelName('SMAGHETTI');
 
 	const pointerOffset =

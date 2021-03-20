@@ -1,6 +1,6 @@
 import memoize from 'lodash/memoize';
-import { ExtractedResource, resources, TileExtractionSpec } from '../resources';
 import { decompress } from './extractCompressedTilesFromRom';
+import { ResourceEntity, TileExtractionSpec } from '../entities/types';
 
 type TileExtractionSpecWithData = TileExtractionSpec & { data: number[] };
 type ExtractedEntityTileData = Array<Array<TileExtractionSpecWithData>>;
@@ -146,14 +146,14 @@ function tileToDataUrl(
 
 function extractResourceTileData(
 	rom: Uint8Array,
-	resource: ExtractedResource
+	entity: ResourceEntity
 ): ExtractedEntityTileData {
-	const tileData: Array<Array<TileExtractionSpecWithData>> = resource.tiles.map(
+	const tileData: Array<Array<TileExtractionSpecWithData>> = entity.tiles.map(
 		(tileIndexRow) => {
 			return tileIndexRow.map((t) => {
 				const tileIndex = typeof t === 'number' ? t : t.tileIndex;
 				const romOffset =
-					typeof t === 'number' ? resource.romOffset : t.romOffset;
+					typeof t === 'number' ? entity.romOffset : t.romOffset;
 
 				if (typeof romOffset !== 'number') {
 					throw new Error('extractResource: romOffset not specified');
@@ -203,35 +203,38 @@ function extractResourceTileData(
 	return tileData;
 }
 
-function extractResource(rom: Uint8Array, resource: ExtractedResource) {
-	const tileData = extractResourceTileData(rom, resource);
-	const dataUrl = tileToDataUrl(tileData, resource.palette ?? DEFAULT_PALETTE);
-	resource.url = dataUrl;
+function extractResource(rom: Uint8Array, entity: ResourceEntity): string {
+	const tileData = extractResourceTileData(rom, entity);
+	return tileToDataUrl(tileData, entity.palette ?? DEFAULT_PALETTE);
 }
 
-function cleanup() {
-	memoDecompress.cache.clear?.();
-}
+async function extractResourcesToStylesheet(
+	rom: Uint8Array,
+	entities: ResourceEntity[]
+) {
+	let css = '';
 
-function createStylesheet() {
-	const css = Object.keys(resources).reduce<string>((building, key) => {
-		return `${building}\n.${key}-bg { background-image: url(${resources[key].url}); }`;
-	}, '');
+	for (let i = 0; i < entities.length; ++i) {
+		const entity = entities[i];
+		const dataUrl = await extractResource(rom, entity);
+
+		css = `${css}\n.${entity.type}-bg { background-image: url(${dataUrl}); }`;
+	}
 
 	const textNode = document.createTextNode(css);
 	const style = document.createElement('style');
 	style.append(textNode);
 
 	document.head.appendChild(style);
+
+	memoDecompress.cache.clear?.();
 }
 
 export {
-	extractResource,
+	extractResourcesToStylesheet,
 	rgbToGBA16,
 	drawTile,
 	renderTiles,
 	extractResourceTileData,
-	createStylesheet,
-	cleanup,
 };
 export type { ExtractedEntityTileData };

@@ -47,6 +47,16 @@ const objects: PaletteChoiceModalEntry[] = [
 	},
 	{
 		entry: {
+			brushMode: 'tile',
+			type: 'QuestionBlock',
+		},
+		info: {
+			title: 'Question Block',
+			description: 'Can contain a coin, power up or other things',
+		},
+	},
+	{
+		entry: {
 			brushMode: 'entity',
 			type: 'CardSlotMachine',
 		},

@@ -6,6 +6,7 @@ import {
 	TILE_SIZE,
 	TileHasEntityType,
 	FIRST_TILE_INDEX_TO_TILE_TYPE_MAP,
+	TileType,
 } from '../../tiles/constants';
 // import { focused } from '../../../styles/focused';
 // import { detailsPanes } from '../../../entities/components/detailsPanes';
@@ -15,7 +16,7 @@ type TileProps = {
 	className?: string;
 	ref?: RefObject<HTMLDivElement> | null;
 	id?: number;
-	tileIndex: number;
+	tileType: TileType;
 	scale?: number;
 	style?: CSSProperties;
 	top?: number;
@@ -65,7 +66,7 @@ const Tile = memo(
 		{
 			className,
 			id,
-			tileIndex,
+			tileType,
 			scale = 1,
 			style = {},
 			top,
@@ -86,7 +87,6 @@ const Tile = memo(
 			typeof top === 'number' ? ({ position: 'absolute', top } as const) : {};
 
 		const opacityStyle = { opacity };
-		const tileType = getTileType(tileIndex) as TileHasEntityType;
 
 		const finalStyle = {
 			...style,
@@ -145,7 +145,7 @@ const Tile = memo(
 				ref={ref}
 				className={finalClassName}
 				style={finalStyle}
-				data-tileid={tileIndex}
+				data-tiletype={tileType}
 				data-editor-type="tile"
 				onClick={onClick}
 			>

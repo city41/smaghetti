@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { ExtractedEntityTileData } from '../../../tiles/extractResource';
-import { EntityType } from '../../../entities/entityMap_generated';
+import { ExtractedEntityTileData } from '../../../tiles/extractResourcesToStylesheet';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { PalettedEntity } from './PalettedEntity';
 import { Button } from '../../Button';
+import { ObjectType, SpriteType } from '../../../entities/entityMap';
 
 type PalettesPageProps = {
 	allFilesReady: boolean;
 	palettes: Array<Tuple<number, 16>>;
-	entities: Array<{ type: EntityType; data: ExtractedEntityTileData }>;
+	entities: Array<{
+		type: SpriteType | ObjectType;
+		data: ExtractedEntityTileData;
+	}>;
 };
 
 function PalettesPage({
@@ -23,13 +26,29 @@ function PalettesPage({
 		<>
 			<FileLoaderModal isOpen={!allFilesReady} />
 			<div className="flex flex-row space-x-2">
-				<Button onClick={() => setCurEntityIndex((ci) => Math.max(0, ci - 1))}>
+				<Button
+					onClick={() => {
+						setCurEntityIndex((ci) => {
+							if (ci === 0) {
+								return entities.length - 1;
+							} else {
+								return ci - 1;
+							}
+						});
+					}}
+				>
 					prev
 				</Button>
 				<Button
-					onClick={() =>
-						setCurEntityIndex((ci) => Math.min(entities.length - 1, ci + 1))
-					}
+					onClick={() => {
+						setCurEntityIndex((ci) => {
+							if (ci === entities.length - 1) {
+								return 0;
+							} else {
+								return ci + 1;
+							}
+						});
+					}}
 				>
 					next
 				</Button>

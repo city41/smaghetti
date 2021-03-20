@@ -134,7 +134,7 @@ const TileRow: FunctionComponent<TileRowProps> = memo(function TileRow({
 					left={x * TILE_SIZE}
 					key={t.id}
 					id={t.id}
-					tileIndex={t.tileIndex}
+					tileType={t.tileType}
 					animateIn
 					focused={isFocused}
 					soleGroupFocused={soleGroupFocused}
@@ -161,7 +161,7 @@ const TileRow: FunctionComponent<TileRowProps> = memo(function TileRow({
 						top={dragOffset.y}
 						key={`dragging-${t.id}`}
 						id={t.id}
-						tileIndex={t.tileIndex}
+						tileType={t.tileType}
 						focused
 					/>
 				);
@@ -488,11 +488,7 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 							position: 'fixed',
 							zIndex: 200,
 						}}
-						tileIndex={
-							TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[
-								currentPaletteEntry.type as TileType
-							]
-						}
+						tileType={currentPaletteEntry.type as TileType}
 					/>
 				)}
 				{currentPaletteEntry?.brushMode === 'entity' && (

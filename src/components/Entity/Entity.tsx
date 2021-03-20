@@ -6,18 +6,18 @@ import React, {
 	Ref,
 } from 'react';
 import clsx from 'clsx';
+import { spriteMap, SpriteType } from '../../entities/entityMap';
+import { TILE_SIZE } from '../../tiles/constants';
 
-import { entityMap, EntityType } from '../../entities/entityMap_generated';
 // import { focused } from '../../../styles/focused';
 // import { detailsPanes } from '../detailsPanes';
-import { getEntityOffset } from '../../entities/util';
 
 type EntityProps = {
 	className?: string;
 	ref?: RefObject<HTMLDivElement> | Ref<HTMLDivElement> | null;
 	id?: number;
 	style?: CSSProperties;
-	type: EntityType;
+	type: SpriteType;
 	width?: number;
 	height?: number;
 	maxWidth?: number;
@@ -39,16 +39,21 @@ type EntityProps = {
 };
 
 function getEntitySize(
-	entityType: EntityType
+	entityType: SpriteType
 ): { width: number; height: number } {
-	return entityMap[entityType];
+	const spriteDef = spriteMap[entityType];
+
+	return {
+		width: spriteDef.tiles[0].length * 8,
+		height: spriteDef.tiles.length * 8,
+	};
 }
 
-function getEntityWidth(entityType: EntityType): number {
+function getEntityWidth(entityType: SpriteType): number {
 	return getEntitySize(entityType).width;
 }
 
-function getEntityHeight(entityType: EntityType): number {
+function getEntityHeight(entityType: SpriteType): number {
 	return getEntitySize(entityType).height;
 }
 
@@ -129,21 +134,14 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 		const transformStyle =
 			transforms.length === 0 ? {} : { transform: transforms.join(' ') };
 
-		const offset = getEntityOffset(type);
-
 		const outerWidthHeight = {
-			width: (width + offset.x * 2) * scale,
-			height: (height + offset.y * 2) * scale,
+			width: width * scale,
+			height: height * scale,
 		};
 
 		const entityWidthHeight = {
 			width: width * scale,
 			height: height * scale,
-		};
-
-		const offsetStyle = {
-			top: offset.y * scale,
-			left: offset.x * scale,
 		};
 
 		if (maxWidth && maxHeight) {
@@ -222,7 +220,6 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 					className={`${type}-bg`}
 					style={{
 						...entityWidthHeight,
-						...offsetStyle,
 						...transformStyle,
 						backgroundSize: `${backgroundWidth} ${backgroundHeight}`,
 						backgroundPosition: 'center',

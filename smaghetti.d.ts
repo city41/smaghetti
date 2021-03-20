@@ -11,7 +11,7 @@ type EntitySettings = Record<string, any>;
 type NewEntity = {
 	x: number;
 	y: number;
-	type: import('./src/entities/entityMap_generated').EntityType;
+	type: import('./src/entities/entityMap').SpriteType;
 	disableDrag?: boolean;
 	settings?: EntitySettings;
 };
@@ -21,7 +21,7 @@ type Entity = NewEntity & IDable;
 type NewTile = {
 	x: number;
 	y: number;
-	tileType: import('./src/tiles/constants').TileType;
+	tileType: import('./src/entities/entityMap').ObjectType;
 	tileIndex: number;
 	entityGroupId?: number;
 	entitySettings?: EntitySettings;
@@ -91,6 +91,7 @@ type SerializedLevel = Omit<Level, 'data'> & { data: SerializedLevelData };
 
 type User = { id: string; username: string };
 
+// TODO: these types don't fully work, for example when used as the return type of a function
 type Tuple<T, N extends number> = N extends N ? T[] : _TupleOf<T, N, []>;
 type _TupleOf<T, N extends number, R extends unknown[]> = R['length'] extends N
 	? R

@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import clsx from 'clsx';
-import { drawTile, rgbToGBA16 } from '../../../tiles/extractResource';
+import {
+	drawTile,
+	rgbToGBA16,
+} from '../../../tiles/extractResourcesToStylesheet';
 
 type TileImageProps = {
 	className?: string;

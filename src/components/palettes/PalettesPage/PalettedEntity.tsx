@@ -4,7 +4,7 @@ import useClipboard from 'react-use-clipboard';
 import {
 	ExtractedEntityTileData,
 	renderTiles,
-} from '../../../tiles/extractResource';
+} from '../../../tiles/extractResourcesToStylesheet';
 
 type PalettedEntityProps = {
 	className?: string;

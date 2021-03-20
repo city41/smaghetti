@@ -4,14 +4,15 @@ import { ThunkAction } from 'redux-thunk';
 import * as sha1 from 'js-sha1';
 import { AppState } from '../../store';
 import { setBios, setRom, setEmptySave } from './files';
-import { EntityType } from '../../entities/entityMap_generated';
-import { resources, ExtractedResource } from '../../resources/resources';
 import { getRom } from './files';
 import {
-	extractResource,
-	cleanup as extractCleanup,
-	createStylesheet,
-} from '../../tiles/extractResource';
+	spriteMap,
+	objectMap,
+	ObjectType,
+	SpriteType,
+} from '../../entities/entityMap';
+import { extractResourcesToStylesheet } from '../../tiles/extractResourcesToStylesheet';
+import { ResourceEntity } from '../../entities/types';
 
 type RomFileState =
 	| 'not-chosen'
@@ -30,7 +31,9 @@ type FileLoaderState = {
 	otherFilesState: OtherFilesState;
 	allFilesReady: boolean;
 	overallExtractionState: ExtractionState;
-	extractedGraphicsState: Partial<Record<EntityType, ExtractionState>>;
+	extractedGraphicsState: Partial<
+		Record<SpriteType | ObjectType, ExtractionState>
+	>;
 };
 
 const SMA4_SHA = '532f3307021637474b6dd37da059ca360f612337';
@@ -93,7 +96,10 @@ const fileLoaderSlice = createSlice({
 		},
 		resourceExtractionState(
 			state: FileLoaderState,
-			action: PayloadAction<{ type: EntityType; state: ExtractionState }>
+			action: PayloadAction<{
+				type: SpriteType | ObjectType;
+				state: ExtractionState;
+			}>
 		) {
 			const { type, state: extractionState } = action.payload;
 
@@ -201,16 +207,14 @@ const extract = (): FileLoaderThunk => async (dispatch) => {
 
 	dispatch(fileLoaderSlice.actions.overallExtractionState('extracting'));
 
-	const entries = Object.entries(resources);
+	const sprites = Object.values(spriteMap);
+	const objects = Object.values(objectMap);
+	const resources = (sprites as ResourceEntity[]).concat(
+		objects as ResourceEntity[]
+	);
 
-	const resourcesToLoad = entries.filter((e) => e[1].type === 'extracted');
+	await extractResourcesToStylesheet(rom, resources);
 
-	for (let i = 0; i < resourcesToLoad.length; ++i) {
-		await extractResource(rom, resourcesToLoad[i][1] as ExtractedResource);
-	}
-
-	extractCleanup();
-	createStylesheet();
 	dispatch(fileLoaderSlice.actions.overallExtractionState('complete'));
 };
 

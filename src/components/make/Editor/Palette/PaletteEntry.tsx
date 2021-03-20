@@ -118,10 +118,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 }) => {
 	const item =
 		entry.brushMode === 'tile' ? (
-			<Tile
-				tileIndex={TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[entry.type as TileType]}
-				scale={SCALE}
-			/>
+			<Tile tileType={entry.type as TileType} scale={SCALE} />
 		) : (
 			<Entity
 				scale={6.25}
