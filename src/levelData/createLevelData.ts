@@ -18,10 +18,10 @@ function getHeader(): Tuple<number, 5> {
 	// copying the values from classic 1-2 for now
 	return [
 		0, // whether it has an ecoin
-		1, // number of ace coins
-		1, // eLevel class
-		2, // eLevel number
-		1, // eLevel icon
+		0, // number of ace coins
+		0, // eLevel class
+		0, // eLevel number
+		0, // eLevel icon
 	];
 }
 
