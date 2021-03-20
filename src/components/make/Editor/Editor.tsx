@@ -12,7 +12,7 @@ import {
 import { Palette } from './Palette';
 import { Canvas } from './Canvas';
 import { CanvasOffsetContainer } from './CanvasOffsetContainer';
-// import { LevelResizer } from './components/levelResizer';
+import { LevelResizer } from './LevelResizer';
 // import { GoalStartButtons } from './components/goalStartButtons';
 import { LevelPlayer } from './LevelPlayer';
 import { Toolbox } from './Toolbox';
@@ -23,7 +23,6 @@ import { Warning } from '../../Warning';
 import { useFirstRender } from '../../../hooks/useFirstRender';
 import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
 // import { LoadLevelError } from './components/LoadLevelError';
-// import { ControlsBanner } from '../components/ControlsBanner';
 // import { PageMenu } from '../components/PageMenu';
 
 import styles from './Editor.module.css';
@@ -353,19 +352,10 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 									onClick={() => setPlaying((p) => !p)}
 								/>
 							</div>
-							{/*<ControlsBanner />*/}
 						</LevelPlayer>
 						<CanvasOffsetContainer>
 							<Canvas />
-							{/*{resizeMode && (*/}
-							{/*	<>*/}
-							{/*		<GoalStartButtons corner="upper-left" />*/}
-							{/*		<GoalStartButtons corner="upper-right" />*/}
-							{/*		<GoalStartButtons corner="lower-left" />*/}
-							{/*		<GoalStartButtons corner="lower-right" />*/}
-							{/*		<LevelResizer />*/}
-							{/*	</>*/}
-							{/*)}*/}
+							{resizeMode && <LevelResizer />}
 						</CanvasOffsetContainer>
 					</div>
 				)}

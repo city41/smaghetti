@@ -411,7 +411,7 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 
 	return (
 		// TODO: why is border on its own div? probably due to scaling?
-		<div className="border-2 border-black">
+		<div className="border-2 border-black" style={borderStyle}>
 			<div
 				className={clsx(
 					className,

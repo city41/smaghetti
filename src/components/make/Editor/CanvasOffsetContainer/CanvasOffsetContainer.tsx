@@ -225,11 +225,6 @@ function CanvasOffsetContainer({
 		onSelectDrag({ bounds, startingPoint: startingMousePoint.current });
 	};
 
-	const finalClassName = clsx(className, {
-		pan: mouseMode === 'pan',
-		panning: mouseDownRef.current,
-	});
-
 	const absoluteStyle = {
 		position: 'absolute' as const,
 		left: -offset.x * scale,
@@ -241,7 +236,7 @@ function CanvasOffsetContainer({
 			className={clsx(
 				className,
 				checkerboardStyles.checkerboard,
-				'relative overflow-hidden h-full',
+				'relative overflow-hidden w-full h-full',
 				{
 					[styles.pan]: mouseMode === 'pan',
 					[styles.panning]: mouseDownRef.current,
