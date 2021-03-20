@@ -298,14 +298,10 @@ type MetadataEntity = {
 	};
 };
 
-function hasEditorMetaData(clazz: unknown): clazz is MetadataEntity {
-	return typeof clazz === 'function' && 'editor' in clazz;
-}
-
 function getEntityPixelBounds(entity: NewEntity): Bounds {
 	const spriteDef = spriteMap[entity.type];
-	const width = Math.max(spriteDef.tiles[0].length * TILE_SIZE, TILE_SIZE);
-	const height = Math.max(spriteDef.tiles.length * TILE_SIZE, TILE_SIZE);
+	const width = Math.max(spriteDef.tiles[0].length * 8, TILE_SIZE);
+	const height = Math.max(spriteDef.tiles.length * 8, TILE_SIZE);
 
 	return {
 		upperLeft: { x: entity.x, y: entity.y },
@@ -316,8 +312,8 @@ function getEntityPixelBounds(entity: NewEntity): Bounds {
 function getEntityTileBounds(entity: NewEntity): Bounds {
 	const spriteDef = spriteMap[entity.type];
 
-	const tileWidth = spriteDef.tiles[0].length;
-	const tileHeight = spriteDef.tiles.length;
+	const tileWidth = spriteDef.tiles[0].length / 2;
+	const tileHeight = spriteDef.tiles.length / 2;
 
 	const minX = Math.floor(entity.x / TILE_SIZE);
 	const minY = Math.floor(entity.y / TILE_SIZE);

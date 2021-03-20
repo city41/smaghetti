@@ -191,14 +191,14 @@ const IconButton: FunctionComponent<IconButtonProps> = ({
 		<button
 			className={clsx(
 				className,
-				'flex items-center justify-center w-12 h-12 bg-green-100 text-black border-4 rounded-xl border-white text-lg pointer-events-auto overflow-hidden',
+				'flex items-center justify-center w-12 h-12 bg-purple-200 text-black border-4 rounded-xl border-white text-lg pointer-events-auto overflow-hidden',
 				{
 					'rounded-t-none border-t-0': anchor === 'top',
 					'rounded-l-none border-l-0': anchor === 'left',
 					'rounded-r-none border-r-0': anchor === 'right',
 					'rounded-b-none border-b-0': anchor === 'bottom',
-					'bg-green-300 cursor-default': toggled,
-					'hover:bg-green-500 hover:text-white': !toggled,
+					'bg-purple-400 cursor-default': toggled,
+					'hover:bg-purple-600 hover:text-white': !toggled,
 				}
 			)}
 			style={buttonStyle}
