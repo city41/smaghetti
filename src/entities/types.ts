@@ -35,7 +35,9 @@ type SpriteEntity = BaseEntity & {
 		x: number,
 		y: number,
 		settings: Record<string, any>
-	) => [number, number, number, number];
+	) =>
+		| [number, number, number, number]
+		| [number, number, number, number, number];
 };
 
 type ResourceEntity = ObjectEntity | SpriteEntity;

@@ -81,6 +81,7 @@ const Tile = memo(
 			const DetailsEditComponent = detailsMap[tileType]!.edit;
 
 			detailsEdit = (
+				// @ts-ignore does not have any construct or call signatures???
 				<DetailsEditComponent
 					settings={settings ?? {}}
 					onEntitySettingsChange={(settings: EntitySettings) => {

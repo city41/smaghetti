@@ -14,11 +14,17 @@ type Room = {
 
 const MAX_Y = 0x1b;
 
-function getHeader(): Tuple<number, 5> {
+function getHeader(aceCoinCount: number): Tuple<number, 5> {
+	if (aceCoinCount > 5) {
+		throw new Error(
+			`createLevelData: this level has too many ace coins. max of 5, but given ${aceCoinCount}`
+		);
+	}
+
 	// copying the values from classic 1-2 for now
 	return [
 		0, // whether it has an ecoin
-		0, // number of ace coins
+		aceCoinCount, // number of ace coins
 		0, // eLevel class
 		0, // eLevel number
 		0, // eLevel icon
@@ -164,7 +170,9 @@ function getObjects(tileLayer: TileLayer): number[] {
 
 			const objectDef = objectMap[tile.tileType];
 
-			objects.push(...objectDef.toBinary(x, encodedY, length, height, {}));
+			objects.push(
+				...objectDef.toBinary(x, encodedY, length, height, tile.settings ?? {})
+			);
 
 			erase(tile.y, bestY, tile.x, endXTile.x);
 		}
@@ -186,7 +194,7 @@ function getSprites(entities: Entity[], levelHeightInTiles: number): number[] {
 
 		const entityDef = spriteMap[entity.type as SpriteType];
 
-		return building.concat(entityDef.toBinary(x, y, {}));
+		return building.concat(entityDef.toBinary(x, y, entity.settings ?? {}));
 	}, []);
 }
 
@@ -241,7 +249,9 @@ function createLevelData(entities: Entity[], tileLayer: TileLayer): Uint8Array {
 	// const room2 = null;
 	// const room3 = null;
 
-	const header = getHeader();
+	const aceCoinCount = entities.filter((e) => e.type === 'AceCoin').length;
+
+	const header = getHeader(aceCoinCount);
 	// four rooms, each with six pointers, pointers are two bytes
 	const pointers: Tuple<number, 48> = new Array(4 * 6 * 2);
 	// empty bytes between pointer and name so that name starts at 0x40

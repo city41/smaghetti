@@ -1,6 +1,7 @@
 import { ComponentType } from 'react';
 import { ObjectType, SpriteType } from '../../entities/entityMap';
 
+import { AceCoinViewDetails } from './AceCoinViewDetails';
 import { QuestionBlockViewDetails } from './QuestionBlockViewDetails';
 import { QuestionBlockEditDetails } from './QuestionBlockEditDetails';
 
@@ -18,13 +19,16 @@ const detailsMap: Partial<
 		SpriteType | ObjectType,
 		{
 			view?: ComponentType<DetailsViewProps>;
-			edit: ComponentType<DetailsEditProps>;
+			edit?: ComponentType<DetailsEditProps>;
 		}
 	>
 > = {
 	QuestionBlock: {
 		view: QuestionBlockViewDetails,
 		edit: QuestionBlockEditDetails,
+	},
+	AceCoin: {
+		view: AceCoinViewDetails,
 	},
 };
 

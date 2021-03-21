@@ -613,6 +613,26 @@ function findTile(tiles: TileMatrix, id: number): Tile | null {
 	return null;
 }
 
+// Each ace coin is given a specific index, so the game can keep track of
+// which coins have been collected. Whenever a new ace coin is added or deleted,
+// the indices need to be updated
+function assignAceCoinIndices(entities: Entity[]) {
+	let aceCoinIndex = 0;
+
+	for (let i = 0; i < entities.length; ++i) {
+		const e = entities[i];
+
+		if (e.type === 'AceCoin') {
+			e.settings = { aceCoinIndex };
+			aceCoinIndex += 1;
+
+			if (aceCoinIndex === 5) {
+				break;
+			}
+		}
+	}
+}
+
 const editorSlice = createSlice({
 	name: 'editor',
 	initialState,
@@ -740,6 +760,10 @@ const editorSlice = createSlice({
 							state.entities = state.entities.filter(
 								(e) => e !== existingEntity
 							);
+
+							if (existingEntity.type === 'AceCoin') {
+								assignAceCoinIndices(state.entities);
+							}
 						} else if (state.tiles[indexY]) {
 							// TODO: why is the assertion needed?
 							state.tiles[indexY]![indexX] = null;
@@ -780,13 +804,19 @@ const editorSlice = createSlice({
 							}
 						} else if (state.currentPaletteEntry?.brushMode === 'entity') {
 							// place an entity
+							const type = state.currentPaletteEntry.type;
+
 							const newEntity: NewEntity = {
 								x: getEntityX(point.x, state.currentPaletteEntry.type),
 								y: getEntityY(point.y, state.currentPaletteEntry.type),
-								type: state.currentPaletteEntry.type,
+								type,
 							};
 
-							if (canDrop(newEntity, state.entities)) {
+							if (
+								canDrop(newEntity, state.entities) &&
+								(type !== 'AceCoin' ||
+									state.entities.filter((e) => e.type === 'AceCoin').length < 5)
+							) {
 								const completeEntity: Entity = {
 									...newEntity,
 									id: idCounter++,
@@ -798,6 +828,9 @@ const editorSlice = createSlice({
 								// if (completeEntity.type in detailsPanes) {
 								// 	state.focused = { [completeEntity.id]: true };
 								// }
+								if (type === 'AceCoin') {
+									assignAceCoinIndices(state.entities);
+								}
 							}
 						}
 						break;
@@ -884,6 +917,8 @@ const editorSlice = createSlice({
 				state.levelTileHeight,
 				() => idCounter++
 			);
+
+			assignAceCoinIndices(state.entities);
 		},
 		mouseModeChanged(
 			state: InternalEditorState,

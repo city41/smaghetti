@@ -10,7 +10,7 @@ import { spriteMap, SpriteType } from '../../entities/entityMap';
 
 import focusedStyles from '../../styles/focused.module.css';
 
-// import { detailsPanes } from '../detailsPanes';
+import { detailsMap } from '../details';
 
 type EntityProps = {
 	className?: string;
@@ -108,7 +108,7 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 		},
 		ref
 	) => {
-		// const showingDetailsEditPane = soleFocused && !!detailsPanes[type]?.edit;
+		const showingDetailsEditPane = soleFocused && !!detailsMap[type]?.edit;
 
 		const finalClassName = clsx(className, {
 			disableDrag,
@@ -152,40 +152,31 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 			entityWidthHeight.height = Math.min(maxHeight, entityWidthHeight.height);
 		}
 
-		// let detailsEdit = null;
-		// let detailsView = null;
-		//
-		// if (
-		//   soleFocused &&
-		//   detailsPanes[type]?.edit &&
-		//   onEntitySettingsChange &&
-		//   id
-		// ) {
-		//   const DetailsEditComponent = detailsPanes[type]!.edit;
-		//
-		//   detailsEdit = (
-		//     // @ts-ignore does not have any construct or call signatures???
-		//     <DetailsEditComponent
-		//       settings={settings ?? {}}
-		//       onEntitySettingsChange={(settings: EntitySettings) => {
-		//         onEntitySettingsChange({ id, settings });
-		//       }}
-		//     />
-		//   );
-		// }
-		//
-		// if (detailsPanes[type]?.view && id) {
-		//   const DetailsViewComponent = detailsPanes[type]!.view;
-		//
-		//   detailsView = (
-		//     // @ts-ignore does not have any construct or call signatures???
-		//     <DetailsViewComponent settings={settings ?? {}} />
-		//   );
-		// }
+		let detailsEdit = null;
+		let detailsView = null;
 
-		// if (type === 'GreenKoopaTroopa') {
-		// 	debugger;
-		// }
+		if (soleFocused && detailsMap[type]?.edit && onEntitySettingsChange && id) {
+			const DetailsEditComponent = detailsMap[type]!.edit;
+
+			detailsEdit = (
+				// @ts-ignore does not have any construct or call signatures???
+				<DetailsEditComponent
+					settings={settings ?? {}}
+					onEntitySettingsChange={(settings: EntitySettings) => {
+						onEntitySettingsChange({ id, settings });
+					}}
+				/>
+			);
+		}
+
+		if (detailsMap[type]?.view && id) {
+			const DetailsViewComponent = detailsMap[type]!.view;
+
+			detailsView = (
+				// @ts-ignore does not have any construct or call signatures???
+				<DetailsViewComponent settings={settings ?? {}} />
+			);
+		}
 
 		let backgroundWidth, backgroundHeight;
 
@@ -228,8 +219,8 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 						opacity,
 					}}
 				/>
-				{/*{detailsView}*/}
-				{/*{detailsEdit}*/}
+				{detailsView}
+				{detailsEdit}
 			</div>
 		);
 	}

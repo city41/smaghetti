@@ -35,7 +35,6 @@ const objects: PaletteChoiceModalEntry[] = [
 			description: 'Flexible, can be terrain, smashed, and contain items',
 		},
 	},
-	,
 	{
 		entry: {
 			brushMode: 'tile',
@@ -151,6 +150,17 @@ const items: PaletteChoiceModalEntry[] = [
 		info: {
 			title: 'Coin',
 			description: 'The ever present coin',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'AceCoin',
+		},
+		info: {
+			title: 'Ace Coin',
+			description:
+				'Special coins to search for. At most a level can have five of them.',
 		},
 	},
 ];
