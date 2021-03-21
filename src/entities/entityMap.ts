@@ -6,10 +6,12 @@ import { CardSlotMachine } from './CardSlotMachine';
 import { Coin } from './Coin';
 import { Goomba } from './Goomba';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
+import { GreenParaTroopa } from './GreenParaTroopa';
 import { Mushroom } from './Mushroom';
 import { Player } from './Player';
 import { QuestionBlock } from './QuestionBlock';
 import { RedKoopaTroopa } from './RedKoopaTroopa';
+import { RedParaTroopa } from './RedParaTroopa';
 import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
 
@@ -18,9 +20,11 @@ type SpriteType =
 	| 'CardSlotMachine'
 	| 'Goomba'
 	| 'GreenKoopaTroopa'
+	| 'GreenParaTroopa'
 	| 'Mushroom'
 	| 'Player'
 	| 'RedKoopaTroopa'
+	| 'RedParaTroopa'
 	| 'Spiny'
 	| 'SpringBoard';
 
@@ -31,9 +35,11 @@ const spriteMap: Record<SpriteType, SpriteEntity> = {
 	CardSlotMachine,
 	Goomba,
 	GreenKoopaTroopa,
+	GreenParaTroopa,
 	Mushroom,
 	Player,
 	RedKoopaTroopa,
+	RedParaTroopa,
 	Spiny,
 	SpringBoard,
 };

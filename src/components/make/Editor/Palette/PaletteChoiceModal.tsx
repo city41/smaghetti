@@ -102,11 +102,31 @@ const enemies: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
 			brushMode: 'entity',
+			type: 'GreenParaTroopa',
+		},
+		info: {
+			title: 'Green Para Troopa',
+			description: 'Bounces along',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'entity',
 			type: 'RedKoopaTroopa',
 		},
 		info: {
 			title: 'Red Koopa Troopa',
 			description: 'Turns around at cliffs',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'RedParaTroopa',
+		},
+		info: {
+			title: 'Red Para Troopa',
+			description: 'Flies up and down',
 		},
 	},
 	{
