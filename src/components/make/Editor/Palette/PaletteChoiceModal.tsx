@@ -149,6 +149,16 @@ const enemies: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'Lakitu',
+		},
+		info: {
+			title: 'Lakitu',
+			description: "Dammit it's Lakitu!",
+		},
+	},
 ];
 
 const items: PaletteChoiceModalEntry[] = [];
