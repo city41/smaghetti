@@ -135,7 +135,18 @@ const items: PaletteChoiceModalEntry[] = [];
 
 const gizmos: PaletteChoiceModalEntry[] = [];
 
-const powerUps: PaletteChoiceModalEntry[] = [];
+const powerUps: PaletteChoiceModalEntry[] = [
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'Mushroom',
+		},
+		info: {
+			title: 'Mushroom',
+			description: '',
+		},
+	},
+];
 
 type LimitationsLinkProps = {
 	id: string;
