@@ -143,7 +143,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 					className={clsx(styles.button, 'bg-green-600 text-white')}
 					onClick={onAddClick}
 				>
-					choose
+					add
 				</button>
 			)}
 			{showRemove && (
