@@ -47,8 +47,9 @@ function IndexPage() {
 				<div className="space-y-4 pt-4 pb-16">
 					<p>
 						Over the years tons of people have researched, reverse engineered
-						and built tools for SMA4. They have all been very helpful and I
-						couldn't have built this without them.
+						and built tools for SMA4. Also all the people out there who have
+						built GBA emulators were key in this working. They have all been
+						very helpful and I couldn't have built this without them.
 					</p>
 					<p>
 						A proper credit page will be built before Smaghetti fully launches.
