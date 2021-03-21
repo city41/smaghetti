@@ -6,6 +6,8 @@ const OBJECT_ID = 0x16;
 const Coin: ObjectEntity = {
 	type: 'Coin',
 	mode: 'Object',
+	settingsType: 'none',
+	defaultSettings: {},
 	dimensions: 2,
 	romOffset: 0x176be8,
 	palette: [

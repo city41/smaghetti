@@ -120,14 +120,6 @@ const TileRow: FunctionComponent<TileRowProps> = memo(function TileRow({
 	const tileEls = tiles.map((t, x) => {
 		const isFocused = !dragOffset && t !== null && focused[t.id];
 
-		const soleGroupFocused =
-			isFocused &&
-			t !== null &&
-			!!t.entityGroupId &&
-			focusedTiles.every((f) => {
-				return t !== null && f.entityGroupId === t.entityGroupId;
-			});
-
 		return (
 			t && (
 				<Tile
@@ -137,8 +129,7 @@ const TileRow: FunctionComponent<TileRowProps> = memo(function TileRow({
 					tileType={t.tileType}
 					animateIn
 					focused={isFocused}
-					soleGroupFocused={soleGroupFocused}
-					settings={t.entitySettings}
+					settings={t.settings}
 					onEntitySettingsChange={onEntitySettingsChange}
 					opacity={dragOffset && focused[t.id] ? 0.3 : 1}
 				/>

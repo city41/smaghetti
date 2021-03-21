@@ -4,6 +4,8 @@ import { getBankLength } from './util';
 const QuestionBlock: ObjectEntity = {
 	type: 'QuestionBlock',
 	mode: 'Object',
+	settingsType: 'single',
+	defaultSettings: { payload: 'Coin' },
 	dimensions: 1,
 	romOffset: 0x131fe0,
 	palette: [
@@ -30,7 +32,9 @@ const QuestionBlock: ObjectEntity = {
 	],
 
 	toBinary(x, y, w, h, settings) {
-		// TODO: actually get settings going
+		// TODO: this should be a strip of coins, but it crashes the game
+		// return [0x43, 0x17, 0xb, 0x10, 0x0];
+
 		// if (settings.payload === 'Mushroom') {
 		return [0, y, x, 0x10];
 		// } else {

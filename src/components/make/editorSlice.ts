@@ -35,7 +35,7 @@ import {
 	TILE_TYPE_TO_FIRST_TILE_INDEX_MAP,
 	TILE_TYPE_TO_GROUP_TYPE_MAP,
 } from '../../tiles/constants';
-import { spriteMap, SpriteType } from '../../entities/entityMap';
+import { objectMap, spriteMap, SpriteType } from '../../entities/entityMap';
 
 type LocalStorageData = {
 	levelData: SerializedLevelData;
@@ -769,6 +769,14 @@ const editorSlice = createSlice({
 											state.currentPaletteEntry.type
 										],
 								};
+
+								const objectDef = objectMap[state.currentPaletteEntry.type];
+
+								if (objectDef.settingsType === 'single') {
+									state.tiles[indexY]![indexX]!.settings = {
+										...objectDef.defaultSettings,
+									};
+								}
 							}
 						} else if (state.currentPaletteEntry?.brushMode === 'entity') {
 							// place an entity
@@ -1171,7 +1179,7 @@ const editorSlice = createSlice({
 				const focusedId = Object.keys(state.focused).pop();
 				const tile = findTile(state.tiles, Number(focusedId));
 
-				if (tile && !!tile.entitySettings) {
+				if (tile && !!tile.settings) {
 					// there is only one focused tile, and it is the head of a tile entity
 					// so select the entire entity
 					selectEntireTileEntity(state.focused, state.tiles, tile);
@@ -1296,8 +1304,8 @@ const editorSlice = createSlice({
 				const tile = findTile(state.tiles, id);
 
 				if (tile) {
-					tile.entitySettings = {
-						...tile.entitySettings,
+					tile.settings = {
+						...tile.settings,
 						...settings,
 					};
 

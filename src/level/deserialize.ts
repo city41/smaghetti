@@ -4,6 +4,7 @@ import {
 	TILE_TYPE_TO_FIRST_TILE_INDEX_MAP,
 } from '../tiles/constants';
 import { groupTiles } from './groupTiles';
+import { objectMap } from '../entities/entityMap';
 
 /**
  * scrub through the entities and make sure they all
@@ -53,14 +54,21 @@ function deserialize(
 			}
 
 			const tileType = TILE_SERIALIZED_ID_TO_TYPE_MAP[cell];
-			const tileEntityData = levelData.tileEntities.find(
+			const tileSettings = levelData.tileSettings.find(
 				(f) => f.x === x && f.y === y
 			);
 
-			if (tileEntityData) {
-				levelData.tileEntities = levelData.tileEntities.filter(
-					(te) => te !== tileEntityData
+			if (tileSettings) {
+				levelData.tileSettings = levelData.tileSettings.filter(
+					(te) => te !== tileSettings
 				);
+			}
+
+			const objectDef = objectMap[tileType];
+			let settings = tileSettings?.s;
+
+			if (!settings && objectDef.settingsType === 'single') {
+				settings = { ...objectDef.defaultSettings };
 			}
 
 			return {
@@ -69,7 +77,7 @@ function deserialize(
 				y,
 				tileType,
 				tileIndex: TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[tileType],
-				entitySettings: tileEntityData?.s,
+				settings,
 			};
 		});
 	});

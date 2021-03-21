@@ -365,10 +365,8 @@ function regroupTileEntities(tiles: TileMatrix, toGroup: Tile, id: number) {
 
 		for (let t = startX; t <= endX; ++t) {
 			const tile = tiles[y]![t]!;
-			tile.entityGroupId = id;
 
-			tile.entitySettings =
-				t === startX ? tile.entitySettings ?? {} : undefined;
+			tile.settings = t === startX ? tile.settings ?? {} : undefined;
 		}
 	} else if (groupType === 'y') {
 		const x = toGroup.x;
@@ -386,10 +384,8 @@ function regroupTileEntities(tiles: TileMatrix, toGroup: Tile, id: number) {
 
 		for (let t = startY; t <= endY; ++t) {
 			const tile = tiles[t]![x]!;
-			tile.entityGroupId = id;
 
-			tile.entitySettings =
-				t === startY ? tile.entitySettings ?? {} : undefined;
+			tile.settings = t === startY ? tile.settings ?? {} : undefined;
 		}
 	}
 }

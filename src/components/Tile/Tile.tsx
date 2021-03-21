@@ -3,8 +3,7 @@ import clsx from 'clsx';
 
 import { TILE_SIZE, TileType } from '../../tiles/constants';
 import focusedStyles from '../../styles/focused.module.css';
-// import { detailsPanes } from '../../../entities/components/detailsPanes';
-import { getTileType } from '../../tiles/util';
+import { detailsMap } from '../details';
 
 import styles from './Tile.module.css';
 
@@ -19,7 +18,6 @@ type TileProps = {
 	left?: number;
 	animateIn?: boolean;
 	focused?: boolean;
-	soleGroupFocused?: boolean;
 	settings?: EntitySettings;
 	onEntitySettingsChange?: (arg: {
 		id: number;
@@ -41,7 +39,6 @@ const Tile = memo(
 			left,
 			animateIn,
 			focused,
-			soleGroupFocused,
 			settings,
 			onEntitySettingsChange,
 			opacity = 1,
@@ -68,45 +65,43 @@ const Tile = memo(
 			height: TILE_SIZE * scale,
 		};
 
-		// const showingDetailsEditPane =
-		// 	soleGroupFocused && !!detailsPanes[tileType]?.edit && !!settings;
-		const finalClassName = clsx(className, styles.root, `${tileType}-bg`, {
+		const showingDetailsEditPane =
+			focused && !!detailsMap[tileType]?.edit && !!settings;
+
+		let detailsEdit = null;
+		let detailsView = null;
+		//
+		if (
+			focused &&
+			detailsMap[tileType]?.edit &&
+			!!settings &&
+			onEntitySettingsChange &&
+			id
+		) {
+			const DetailsEditComponent = detailsMap[tileType]!.edit;
+
+			detailsEdit = (
+				<DetailsEditComponent
+					settings={settings ?? {}}
+					onEntitySettingsChange={(settings: EntitySettings) => {
+						onEntitySettingsChange({ id, settings });
+					}}
+				/>
+			);
+		}
+
+		if (detailsMap[tileType]?.view && id && settings) {
+			const DetailsViewComponent = detailsMap[tileType]!.view;
+
+			// @ts-ignore does not have any construct or call signatures???
+			detailsView = <DetailsViewComponent settings={settings ?? {}} />;
+		}
+
+		const finalClassName = clsx(className, styles.root, {
 			[styles.animateIn]: animateIn,
-			[focusedStyles.focused]: focused,
-			// showingDetailsEditPane,
+			[focusedStyles.focused]: focused && !detailsEdit,
+			'z-10': showingDetailsEditPane,
 		});
-
-		// let detailsEdit = null;
-		// let detailsView = null;
-		//
-		// if (
-		// 	soleGroupFocused &&
-		// 	detailsPanes[tileType]?.edit &&
-		// 	!!settings &&
-		// 	onEntitySettingsChange &&
-		// 	id
-		// ) {
-		// 	const DetailsEditComponent = detailsPanes[tileType]!.edit;
-		//
-		// 	detailsEdit = (
-		// 		// @ts-ignore does not have any construct or call signatures???
-		// 		<DetailsEditComponent
-		// 			settings={settings ?? {}}
-		// 			onEntitySettingsChange={(settings: EntitySettings) => {
-		// 				onEntitySettingsChange({ id, settings });
-		// 			}}
-		// 		/>
-		// 	);
-		// }
-
-		// if (detailsPanes[tileType]?.view && id && settings) {
-		// 	const DetailsViewComponent = detailsPanes[tileType]!.view;
-		//
-		// 	detailsView = (
-		// 		// @ts-ignore does not have any construct or call signatures???
-		// 		<DetailsViewComponent settings={settings ?? {}} />
-		// 	);
-		// }
 
 		return (
 			<div
@@ -117,8 +112,9 @@ const Tile = memo(
 				data-editor-type="tile"
 				onClick={onClick}
 			>
-				{/*{detailsView}*/}
-				{/*{detailsEdit}*/}
+				<div className={`${tileType}-bg w-full h-full bg-cover`} />
+				{detailsView}
+				{detailsEdit}
 			</div>
 		);
 	})

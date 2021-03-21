@@ -23,8 +23,7 @@ type NewTile = {
 	y: number;
 	tileType: import('./src/entities/entityMap').ObjectType;
 	tileIndex: number;
-	entityGroupId?: number;
-	entitySettings?: EntitySettings;
+	settings?: EntitySettings;
 };
 
 type Tile = NewTile & IDable;
@@ -59,7 +58,7 @@ type LevelData = {
 	tileLayer: TileLayer;
 };
 
-type SerializedTileEntity = {
+type SerializedTileSettings = {
 	x: number;
 	y: number;
 	s: EntitySettings;
@@ -67,7 +66,7 @@ type SerializedTileEntity = {
 
 type SerializedLevelData = Omit<LevelData, 'tileLayer'> & {
 	tileLayer: SerializedTileLayer;
-	tileEntities: SerializedTileEntity[];
+	tileSettings: SerializedTileSettings[];
 };
 
 type LevelPlaySession = {

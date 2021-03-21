@@ -1,10 +1,12 @@
 import { TILE_TYPE_TO_SERIALIZE_ID_MAP } from '../tiles/constants';
+import isEqual from 'lodash/isEqual';
+import { objectMap } from '../entities/entityMap';
 
 function serialize(levelData: LevelData): SerializedLevelData {
 	const tiles = levelData.tileLayer.data;
 
 	const serializedTiles = [];
-	const serializedTileEntities: SerializedTileEntity[] = [];
+	const serializedTileSettings: SerializedTileSettings[] = [];
 
 	for (let y = 0; y < tiles.length; y += 1) {
 		const row = tiles[y];
@@ -21,11 +23,13 @@ function serialize(levelData: LevelData): SerializedLevelData {
 				} else {
 					serializedRow.push(TILE_TYPE_TO_SERIALIZE_ID_MAP[tile.tileType]);
 
+					// TODO: don't serialize the settings if they are all defaults
 					if (
-						tile.entitySettings &&
-						Object.keys(tile.entitySettings).length > 0
+						tile.settings &&
+						Object.keys(tile.settings).length > 0 &&
+						!isEqual(objectMap[tile.tileType].defaultSettings, tile.settings)
 					) {
-						serializedTileEntities.push({ x, y, s: tile.entitySettings });
+						serializedTileSettings.push({ x, y, s: tile.settings });
 					}
 				}
 			}
@@ -41,7 +45,7 @@ function serialize(levelData: LevelData): SerializedLevelData {
 	return {
 		...levelData,
 		tileLayer,
-		tileEntities: serializedTileEntities,
+		tileSettings: serializedTileSettings,
 	};
 }
 

@@ -6,6 +6,8 @@ const OBJECT_ID = 0xf;
 const Brick: ObjectEntity = {
 	type: 'Brick',
 	mode: 'Object',
+	settingsType: 'none',
+	defaultSettings: {},
 	dimensions: 2,
 	romOffset: 0x131fe0,
 	palette: [
