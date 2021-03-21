@@ -1,21 +1,33 @@
-# Next.js + Tailwind CSS Example
+# Smaghetti - SMA4 Level Editor
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) (v2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+This is a web based level editor for the game Super Mario Advance 4: Super Mario Bros 3 for the GameBoy Advance.
 
-## Deploy your own
+## Try it
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+It is available here: https://smaghetti.com
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+## Status
 
-## How to use
+Very early. The editor itself was from a previous project and is pretty mature. But there is still a lot of work to do reverse engineering the game and adding missing features.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+## Editor quick start
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+The editor is at https://smaghetti.com/make
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+It is very user friendly and takes loose inspiration from Nintendo's Mario Maker. 
+
+Proper documentation and tutorial videos will come later, but for now some features that are less obvious:
+
+* keyboard shortcuts, all the toolbar buttons show their shortcut in their tooltip. Also you can focus certain entities in the palete on the left side using numbers 1 through 9. ctrl/cmnd-z undoes, and ctrl/cmnd-shift-z redoes.
+* Hold the space bar then click and drag on the canvas to pan it around
+* Use your mouse's scrollwheel to zoom in and out
+* drag and select entities, then move them.
+* select a single entity to edit details about it. Only some entities support this, try the question block.
+
+## License
+
+Smaghetti is MIT licensed. See the LICENSE file. Also see the licenses directory for third party licenses.
+
+## Contributing
+
+I am definitely interested in help. Let me know if you want to pitch in. You can start a discussion here on GitHub.
