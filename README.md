@@ -2,6 +2,8 @@
 
 This is a web based level editor for the game Super Mario Advance 4: Super Mario Bros 3 for the GameBoy Advance.
 
+![screenshot](https://github.com/city41/smaghetti/blob/main/screenshot.png?raw=true)
+
 ## Try it
 
 It is available here: https://smaghetti.com
