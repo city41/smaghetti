@@ -1,14 +1,8 @@
 import React, { CSSProperties, forwardRef, RefObject, memo } from 'react';
 import clsx from 'clsx';
 
-import {
-	TILE_TYPE_COUNT,
-	TILE_SIZE,
-	TileHasEntityType,
-	FIRST_TILE_INDEX_TO_TILE_TYPE_MAP,
-	TileType,
-} from '../../tiles/constants';
-// import { focused } from '../../../styles/focused';
+import { TILE_SIZE, TileType } from '../../tiles/constants';
+import focusedStyles from '../../styles/focused.module.css';
 // import { detailsPanes } from '../../../entities/components/detailsPanes';
 import { getTileType } from '../../tiles/util';
 
@@ -78,7 +72,7 @@ const Tile = memo(
 		// 	soleGroupFocused && !!detailsPanes[tileType]?.edit && !!settings;
 		const finalClassName = clsx(className, styles.root, `${tileType}-bg`, {
 			[styles.animateIn]: animateIn,
-			focused,
+			[focusedStyles.focused]: focused,
 			// showingDetailsEditPane,
 		});
 

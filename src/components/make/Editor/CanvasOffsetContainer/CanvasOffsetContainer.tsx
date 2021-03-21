@@ -245,7 +245,12 @@ function CanvasOffsetContainer({
 			onMouseDown={handleMouseDown}
 		>
 			<div style={absoluteStyle}>{children}</div>
-			<div ref={selectBoxRef} />
+			<div
+				ref={selectBoxRef}
+				className="absolute border-2 border-white pointer-events-none z-100"
+			>
+				<div className="bg-white opacity-25 w-full h-full" />
+			</div>
 		</div>
 	);
 }

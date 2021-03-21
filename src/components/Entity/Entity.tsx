@@ -7,9 +7,9 @@ import React, {
 } from 'react';
 import clsx from 'clsx';
 import { spriteMap, SpriteType } from '../../entities/entityMap';
-import { TILE_SIZE } from '../../tiles/constants';
 
-// import { focused } from '../../../styles/focused';
+import focusedStyles from '../../styles/focused.module.css';
+
 // import { detailsPanes } from '../detailsPanes';
 
 type EntityProps = {
@@ -113,7 +113,7 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 		const finalClassName = clsx(className, {
 			disableDrag,
 			// showingDetailsEditPane: showingDetailsEditPane,
-			focused: focused, // && !showingDetailsEditPane,
+			[focusedStyles.focused]: focused, // && !showingDetailsEditPane,
 		});
 
 		const handleClick = useCallback(() => {
