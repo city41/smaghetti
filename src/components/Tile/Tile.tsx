@@ -12,6 +12,8 @@ import {
 // import { detailsPanes } from '../../../entities/components/detailsPanes';
 import { getTileType } from '../../tiles/util';
 
+import styles from './Tile.module.css';
+
 type TileProps = {
 	className?: string;
 	ref?: RefObject<HTMLDivElement> | null;
@@ -32,34 +34,6 @@ type TileProps = {
 	opacity?: number;
 	onClick?: () => void;
 };
-
-// const spawn = keyframes`
-//   0% {
-//     transform: scale(0);
-//   }
-//   75% {
-//     transform: scale(1);
-//   }
-//   90% {
-//     transform: scale(1.15);
-//   }
-// `;
-//
-// const Container = styled.div`
-// 	background-image: url(${getResourceUrl('tiles')});
-//
-// 	&.animateIn {
-// 		animation: ${spawn} 0.2s ease-in;
-// 	}
-//
-// 	z-index: 10;
-//
-// 	&.showingDetailsEditPane {
-// 		z-index: 100;
-// 	}
-//
-// 	${focused}
-// `;
 
 const Tile = memo(
 	forwardRef<HTMLDivElement, TileProps>(function Tile(
@@ -102,8 +76,8 @@ const Tile = memo(
 
 		// const showingDetailsEditPane =
 		// 	soleGroupFocused && !!detailsPanes[tileType]?.edit && !!settings;
-		const finalClassName = clsx(className, `${tileType}-bg`, {
-			animateIn,
+		const finalClassName = clsx(className, styles.root, `${tileType}-bg`, {
+			[styles.animateIn]: animateIn,
 			focused,
 			// showingDetailsEditPane,
 		});
