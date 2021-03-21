@@ -35,16 +35,7 @@ const objects: PaletteChoiceModalEntry[] = [
 			description: 'Flexible, can be terrain, smashed, and contain items',
 		},
 	},
-	{
-		entry: {
-			brushMode: 'tile',
-			type: 'Coin',
-		},
-		info: {
-			title: 'Coin',
-			description: 'The ever present coin',
-		},
-	},
+	,
 	{
 		entry: {
 			brushMode: 'tile',
@@ -64,16 +55,6 @@ const objects: PaletteChoiceModalEntry[] = [
 			title: 'Card Slot Machine',
 			description:
 				'Required to be in your level somewhere. Getting the card ends the level.',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'SpringBoard',
-		},
-		info: {
-			title: 'Spring Board',
-			description: 'Bounce high. Pick it up and move it if needed.',
 		},
 	},
 ];
@@ -161,9 +142,31 @@ const enemies: PaletteChoiceModalEntry[] = [
 	},
 ];
 
-const items: PaletteChoiceModalEntry[] = [];
+const items: PaletteChoiceModalEntry[] = [
+	{
+		entry: {
+			brushMode: 'tile',
+			type: 'Coin',
+		},
+		info: {
+			title: 'Coin',
+			description: 'The ever present coin',
+		},
+	},
+];
 
-const gizmos: PaletteChoiceModalEntry[] = [];
+const gizmos: PaletteChoiceModalEntry[] = [
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'SpringBoard',
+		},
+		info: {
+			title: 'Spring Board',
+			description: 'Bounce high. Pick it up and move it if needed.',
+		},
+	},
+];
 
 const powerUps: PaletteChoiceModalEntry[] = [
 	{
@@ -174,6 +177,16 @@ const powerUps: PaletteChoiceModalEntry[] = [
 		info: {
 			title: 'Mushroom',
 			description: '',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'CapeFeather',
+		},
+		info: {
+			title: 'Cape Feather',
+			description: 'The cape power-up from Super Mario World',
 		},
 	},
 ];
