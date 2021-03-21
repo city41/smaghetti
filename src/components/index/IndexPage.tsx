@@ -10,12 +10,15 @@ function IndexPage() {
 			<h1 className="text-3xl font-bold">Smaghetti</h1>
 			<div className="space-y-4 pt-4 pb-16">
 				<p>A level editor for Super Mario Advance 4</p>
-				<p className="inline-block bg-red-100 text-red-900 text-3xl p-2">
+				<p className="block bg-red-100 text-red-900 text-3xl p-2">
 					Very early days, still tons of work to do!
 				</p>
-				<p>
-					You can try it <A href="/make">here</A>
-				</p>
+				<a
+					className="inline-block p-4 rounded-lg bg-green-300 text-green-900 hover:text-white hover:bg-green-600 text-2xl font-bold"
+					href="/make"
+				>
+					Try the editor
+				</a>
 			</div>
 			<h2 className="text-2xl font-bold">Status</h2>
 			<div className="space-y-4 pt-4 pb-16">
