@@ -66,6 +66,16 @@ const objects: PaletteChoiceModalEntry[] = [
 				'Required to be in your level somewhere. Getting the card ends the level.',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'SpringBoard',
+		},
+		info: {
+			title: 'Spring Board',
+			description: 'Bounce high. Pick it up and move it if needed.',
+		},
+	},
 ];
 
 const enemies: PaletteChoiceModalEntry[] = [
