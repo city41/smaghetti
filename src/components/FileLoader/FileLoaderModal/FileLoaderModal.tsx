@@ -127,7 +127,20 @@ function BaseFiles({
 							<br /> wrong ROM?
 						</div>
 					</div>
-					<div>Please try again, drag a file here or click to choose</div>
+					<label className="italic cursor-pointer hover:bg-gray-700">
+						Please try again, drag a file here or click to choose
+						<input
+							style={{ width: 0.01, height: 0.01 }}
+							type="file"
+							onChange={(e) => {
+								const file = e.target.files?.[0];
+
+								if (file) {
+									cacheRomThenOnChosen(file);
+								}
+							}}
+						/>
+					</label>
 				</DropZone>
 			);
 			break;
