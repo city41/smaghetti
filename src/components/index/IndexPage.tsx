@@ -1,5 +1,7 @@
 import React from 'react';
 
+import logoPng from './logo.png';
+
 function A(props: Omit<JSX.IntrinsicElements['a'], 'className'>) {
 	return <a {...props} className="underline text-blue-300" />;
 }
@@ -7,7 +9,14 @@ function A(props: Omit<JSX.IntrinsicElements['a'], 'className'>) {
 function IndexPage() {
 	return (
 		<div className="w-full max-w-xl mx-auto p-8">
-			<h1 className="text-3xl font-bold">Smaghetti</h1>
+			<h1 className="text-3xl font-bold flex flex-row items-center">
+				Smaghetti{' '}
+				<img
+					className="block ml-4 w-12 h-auto"
+					src={logoPng}
+					alt="smaghetti logo"
+				/>
+			</h1>
 			<div className="space-y-4 pt-4 pb-16">
 				<p>A level editor for Super Mario Advance 4</p>
 				<p className="block bg-red-100 text-red-900 text-3xl p-2">
