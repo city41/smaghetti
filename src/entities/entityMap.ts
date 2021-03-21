@@ -1,6 +1,7 @@
 import { ObjectEntity, SpriteEntity } from './types';
 
 import { Brick } from './Brick';
+import { BuzzyBeetle } from './BuzzyBeetle';
 import { CardSlotMachine } from './CardSlotMachine';
 import { Coin } from './Coin';
 import { Goomba } from './Goomba';
@@ -13,6 +14,7 @@ import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
 
 type SpriteType =
+	| 'BuzzyBeetle'
 	| 'CardSlotMachine'
 	| 'Goomba'
 	| 'GreenKoopaTroopa'
@@ -21,9 +23,11 @@ type SpriteType =
 	| 'RedKoopaTroopa'
 	| 'Spiny'
 	| 'SpringBoard';
+
 type ObjectType = 'Brick' | 'Coin' | 'QuestionBlock';
 
 const spriteMap: Record<SpriteType, SpriteEntity> = {
+	BuzzyBeetle,
 	CardSlotMachine,
 	Goomba,
 	GreenKoopaTroopa,

@@ -119,6 +119,16 @@ const enemies: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'BuzzyBeetle',
+		},
+		info: {
+			title: 'Buzzy Beetle',
+			description: '',
+		},
+	},
 ];
 
 const items: PaletteChoiceModalEntry[] = [];
