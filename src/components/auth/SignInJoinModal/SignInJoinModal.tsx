@@ -49,6 +49,11 @@ function Input({
 	);
 }
 
+const BLANK_CREDENTIALS = {
+	email: '',
+	password: '',
+};
+
 function SignInJoinModal({
 	onCancel,
 	initialMode = 'sign-in',
@@ -57,11 +62,17 @@ function SignInJoinModal({
 	onJoin,
 	error,
 }: PublicSignInJoinModalProps & InternalSignInJoinModalProps) {
-	const [mode, setMode] = useState<SignInJoinModalMode>(initialMode);
-	const [credentials, setCredentials] = useState<Credentials>({
-		email: '',
-		password: '',
-	});
+	const [mode, _setMode] = useState<SignInJoinModalMode>(initialMode);
+	const [credentials, setCredentials] = useState<Credentials>(
+		BLANK_CREDENTIALS
+	);
+
+	function setMode(newMode: SignInJoinModalMode) {
+		if (newMode !== mode) {
+			_setMode(newMode);
+			setCredentials(BLANK_CREDENTIALS);
+		}
+	}
 
 	const title = titles[mode];
 
