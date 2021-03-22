@@ -17,7 +17,10 @@ function Footer({ className }: FooterProps) {
 		>
 			<div className="w-full max-w-6xl mx-auto flex flex-col space-y-2">
 				<div className="text-gray-500">
-					<p>Mario and Super Mario Advance are owned by Nintendo</p>
+					<p>
+						Mario and Super Mario Advance are owned by Nintendo. This site is
+						not associated with or endorsed by Nintendo in any way.
+					</p>
 				</div>
 				<div>
 					Made by{' '}

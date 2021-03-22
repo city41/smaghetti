@@ -19,12 +19,17 @@ import {
 	reducer as palettesReducer,
 	PalettesState,
 } from './components/palettes/palettesSlice';
+import {
+	reducer as profileReducer,
+	ProfileState,
+} from './components/profile/profileSlice';
 
 type AppState = {
 	editor: EditorState;
 	fileLoader: FileLoaderState;
 	tiles: TilesState;
 	palettes: PalettesState;
+	profile: ProfileState;
 };
 
 const rootReducer = combineReducers({
@@ -32,6 +37,7 @@ const rootReducer = combineReducers({
 	fileLoader: fileLoaderReducer,
 	tiles: tilesReducer,
 	palettes: palettesReducer,
+	profile: profileReducer,
 });
 
 const store = configureStore({
