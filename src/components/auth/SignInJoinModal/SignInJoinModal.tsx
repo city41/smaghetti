@@ -62,6 +62,7 @@ function SignInJoinModal({
 	onJoin,
 	error,
 }: PublicSignInJoinModalProps & InternalSignInJoinModalProps) {
+	const [showDisclaimer, setShowDisclaimer] = useState(false);
 	const [mode, _setMode] = useState<SignInJoinModalMode>(initialMode);
 	const [credentials, setCredentials] = useState<Credentials>(
 		BLANK_CREDENTIALS
@@ -111,11 +112,34 @@ function SignInJoinModal({
 					alt="smaghetti logo"
 				/>
 				{mode === 'join' && (
-					<div className="p-2 text-sm">
+					<div className="px-4 py-2 text-sm">
 						joining means you agree to our{' '}
 						<a className={aClassName} href="/privacy" target="_blank">
 							privacy policy
+						</a>{' '}
+						and understand Smaghetti is in early preview, it will be a{' '}
+						<span className="px-1 bg-red-700 text-white font-bold">
+							rough ride
+						</span>{' '}
+						at times (
+						<a
+							className={aClassName}
+							onClick={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
+								setShowDisclaimer(true);
+							}}
+						>
+							what?
 						</a>
+						)
+					</div>
+				)}
+				{showDisclaimer && (
+					<div className="p-4 bg-gray-200 text-gray-900 text-sm">
+						Since we are still building the site, things are going to change a
+						lot. You might find a level you made no longer works and possibly
+						many other headaches.
 					</div>
 				)}
 				{(message || error) && (
