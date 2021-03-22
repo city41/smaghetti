@@ -413,7 +413,7 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 						)}
 					>
 						<EarlyPreviewStarburst
-							className="fixed z-10 bottom-4 -left-2 pointer-events-auto"
+							className="fixed z-10 bottom-2 left-2 pointer-events-auto"
 							mode="editor"
 						/>
 						<PageMenu position="bottom" className="pointer-events-auto" />
