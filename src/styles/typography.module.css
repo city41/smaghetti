@@ -1,0 +1,23 @@
+.typography a {
+    @apply text-blue-300 underline;
+}
+
+.typography h1 {
+    @apply text-2xl font-bold mb-8;
+}
+
+.typography h2 {
+    @apply text-xl font-bold mb-4;
+}
+
+.typography h3 {
+    @apply text-lg font-bold mb-4;
+}
+
+.typography p {
+    @apply my-8
+}
+
+.typography ul {
+    @apply list-disc space-y-4 my-4;
+}

@@ -116,8 +116,12 @@ function SignInJoinModal({
 						joining means you agree to our{' '}
 						<a className={aClassName} href="/privacy" target="_blank">
 							privacy policy
-						</a>{' '}
-						and understand Smaghetti is in early preview, it will be a{' '}
+						</a>
+						, our{' '}
+						<a className={aClassName} href="/tos" target="_blank">
+							terms of service
+						</a>
+						, and understand Smaghetti is in early preview, it will be a{' '}
 						<span className="px-1 bg-red-700 text-white font-bold">
 							rough ride
 						</span>{' '}

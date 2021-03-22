@@ -1,0 +1,23 @@
+.background {
+    /*background-image: url(./bg-grid.svg), linear-gradient(to right, #2E4902, #598E03);*/
+    /*background-size: 320px, 100% 100%;*/
+    /*background-repeat: repeat;*/
+
+    min-height: 100vh;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    padding: 4px;
+}
+
+.main {
+    max-width: min(calc(100vw - 4rem), 80rem);
+}
+
+@media (max-width: 768px) {
+    .main {
+        max-width: calc(100vw - 2rem);
+    }
+}
