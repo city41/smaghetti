@@ -1,6 +1,6 @@
 import React from 'react';
 
-import logoPng from './logo.png';
+import logoPng from '../../images/logo.png';
 
 function A(props: Omit<JSX.IntrinsicElements['a'], 'className'>) {
 	return <a {...props} className="underline text-blue-300" />;

@@ -23,7 +23,7 @@ import { Warning } from '../../Warning';
 import { useFirstRender } from '../../../hooks/useFirstRender';
 import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
 // import { LoadLevelError } from './components/LoadLevelError';
-// import { PageMenu } from '../components/PageMenu';
+import { PageMenu } from '../../PageMenu';
 
 import styles from './Editor.module.css';
 
@@ -416,12 +416,7 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 							className="fixed z-10 bottom-4 -left-2 pointer-events-auto"
 							mode="editor"
 						/>
-						{/*<PageMenu*/}
-						{/*	className="relative pointer-events-auto mr-8"*/}
-						{/*	position="bottom"*/}
-						{/*>*/}
-						{/*	<a onClick={() => setShowTour(true)}>help</a>*/}
-						{/*</PageMenu>*/}
+						<PageMenu position="bottom" className="pointer-events-auto" />
 					</div>
 				</div>
 			</div>

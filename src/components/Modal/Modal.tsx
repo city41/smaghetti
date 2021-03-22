@@ -15,6 +15,7 @@ type ModalProps = ReactModalProps & {
 	onXClick?: () => void;
 	noAnimation?: boolean;
 	children: ReactNode;
+	flexWidth?: boolean;
 };
 
 function Modal({
@@ -25,15 +26,17 @@ function Modal({
 	noAnimation,
 	title,
 	children,
+	flexWidth,
 	...rest
 }: ModalProps) {
 	const overlayClassName = clsx('modalOverlay', { animate: !noAnimation });
 
 	const modalClassName = clsx(
 		className,
-		styles.root,
 		'bg-gray-700 text-white rounded-xl px-4 pb-4 pt-3 shadow-lg outline-none',
 		{
+			[styles.root]: !flexWidth,
+			'w-auto': flexWidth,
 			hasOkButton: !!onOkClick,
 			hasTitle: !!title,
 			relative: !!onXClick,

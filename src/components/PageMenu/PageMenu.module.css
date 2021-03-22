@@ -1,0 +1,18 @@
+.root a {
+    @apply cursor-pointer hover:underline;
+}
+
+.preDivider {
+    @apply relative;
+}
+
+.preDivider::before {
+    content: '|';
+    @apply inline-block text-gray-700 font-bold mr-4;
+}
+
+.homeLink {
+    @apply w-10 h-8 bg-center bg-no-repeat;
+    background-image: url(../../images/logo.png);
+    background-size: 90%;
+}
