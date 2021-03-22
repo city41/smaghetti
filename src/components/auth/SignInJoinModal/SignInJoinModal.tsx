@@ -139,7 +139,7 @@ function SignInJoinModal({
 						)
 					</div>
 				)}
-				{showDisclaimer && (
+				{showDisclaimer && mode === 'join' && (
 					<div className="p-4 bg-gray-200 text-gray-900 text-sm">
 						Since we are still building the site, things are going to change a
 						lot. You might find a level you made no longer works and possibly
