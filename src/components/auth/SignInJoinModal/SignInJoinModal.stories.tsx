@@ -11,12 +11,19 @@ const meta: Meta = {
 export default meta;
 
 export const Basic = () => {
-	return <SignInJoinModal onSignIn={() => {}} onJoin={() => {}} />;
+	return (
+		<SignInJoinModal onSignIn={() => {}} onJoin={() => {}} onClose={() => {}} />
+	);
 };
 
 export const Join = () => {
 	return (
-		<SignInJoinModal initialMode="join" onSignIn={() => {}} onJoin={() => {}} />
+		<SignInJoinModal
+			initialMode="join"
+			onSignIn={() => {}}
+			onJoin={() => {}}
+			onClose={() => {}}
+		/>
 	);
 };
 
@@ -26,6 +33,7 @@ export const JoinToSave = () => {
 			initialMode="join-to-save"
 			onSignIn={() => {}}
 			onJoin={() => {}}
+			onClose={() => {}}
 		/>
 	);
 };
@@ -36,6 +44,7 @@ export const HasError = () => {
 			error="user does not exist"
 			onSignIn={() => {}}
 			onJoin={() => {}}
+			onClose={() => {}}
 		/>
 	);
 };
@@ -47,6 +56,18 @@ export const JoinHasError = () => {
 			error="username already taken"
 			onSignIn={() => {}}
 			onJoin={() => {}}
+			onClose={() => {}}
+		/>
+	);
+};
+
+export const AfterJoin = () => {
+	return (
+		<SignInJoinModal
+			initialMode="after-join"
+			onSignIn={() => {}}
+			onJoin={() => {}}
+			onClose={() => {}}
 		/>
 	);
 };
@@ -57,6 +78,7 @@ export const HasMessage = () => {
 			message="please check your email"
 			onSignIn={() => {}}
 			onJoin={() => {}}
+			onClose={() => {}}
 		/>
 	);
 };

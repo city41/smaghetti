@@ -3,7 +3,7 @@ import { ProfilePage } from './ProfilePage';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../../store';
 import { loadProfile } from '../profileSlice';
-import { client } from '../../../remoteData/client';
+import { client, isLoggedIn } from '../../../remoteData/client';
 import { SignInJoinModal } from '../../auth/SignInJoinModal';
 
 function ConnectedProfilePage() {
@@ -21,13 +21,20 @@ function ConnectedProfilePage() {
 	}, []);
 
 	useEffect(() => {
-		if (localUser) {
+		if (localUser && isLoggedIn()) {
 			dispatch(loadProfile());
 		}
-	}, [localUser, dispatch]);
+	}, [localUser, dispatch, isLoggedIn()]);
 
 	if (!localUser) {
-		return <SignInJoinModal onUser={(user) => setLocalUser(user)} />;
+		return (
+			<SignInJoinModal
+				onUser={(user) => setLocalUser(user)}
+				onClose={() => {
+					window.location.replace('/');
+				}}
+			/>
+		);
 	}
 
 	return <ProfilePage loading={loading} user={user} levels={levels} />;

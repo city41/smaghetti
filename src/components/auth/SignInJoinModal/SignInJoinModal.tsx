@@ -1,29 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { Modal } from '../../Modal';
 
 import logoPng from '../../../images/logo.png';
+import { Button } from '../../Button';
 
-type SignInJoinModalMode = 'sign-in' | 'join' | 'join-to-save';
+type SignInJoinModalMode = 'sign-in' | 'join' | 'join-to-save' | 'after-join';
 type Credentials = { username?: string; email: string; password: string };
 
 type PublicSignInJoinModalProps = {
 	className?: string;
 	initialMode?: SignInJoinModalMode;
 	message?: string;
-	onCancel?: () => void;
+	onClose: () => void;
 };
 
 type InternalSignInJoinModalProps = {
 	onSignIn: (value: Credentials) => void;
 	onJoin: (value: Credentials) => void;
 	error?: string | null;
+	joinSuccessful?: boolean;
 };
 
 const titles: Record<SignInJoinModalMode, string> = {
 	'sign-in': 'Sign In',
 	join: 'Join',
 	'join-to-save': 'Join to save your level',
+	'after-join': 'Check your email',
 };
 
 function Input({
@@ -56,11 +59,12 @@ const BLANK_CREDENTIALS = {
 };
 
 function SignInJoinModal({
-	onCancel,
+	onClose,
 	initialMode = 'sign-in',
 	message,
 	onSignIn,
 	onJoin,
+	joinSuccessful,
 	error,
 }: PublicSignInJoinModalProps & InternalSignInJoinModalProps) {
 	const [showDisclaimer, setShowDisclaimer] = useState(false);
@@ -78,50 +82,71 @@ function SignInJoinModal({
 		}
 	}
 
+	useEffect(() => {
+		if (joinSuccessful) {
+			setMode('after-join');
+		}
+	}, [joinSuccessful]);
+
 	const title = titles[mode];
 
 	const aClassName = 'text-blue-400 underline cursor-pointer';
 
-	const toggle =
-		mode === 'sign-in' ? (
+	const logoImg = (
+		<img
+			className="block w-20 mx-auto py-6"
+			src={logoPng}
+			alt="smaghetti logo"
+		/>
+	);
+
+	let body;
+
+	if (mode === 'after-join') {
+		body = (
 			<>
-				No account?{' '}
-				<a className={aClassName} onClick={() => setMode('join')}>
-					create one
-				</a>
-			</>
-		) : (
-			<>
-				Already a member?{' '}
-				<a className={aClassName} onClick={() => setMode('sign-in')}>
-					sign in
-				</a>
+				{logoImg}
+				<div className="px-4 space-y-4">
+					<p>Please check your email to verify your account.</p>
+					<p>
+						If you made a level don't worry, it is saved in your browser. You
+						will be able to upload it after logging in.
+					</p>
+				</div>
+				<div className="mt-4">
+					<Button onClick={onClose}>Okay</Button>
+				</div>
 			</>
 		);
+	} else {
+		const toggle =
+			mode === 'sign-in' ? (
+				<>
+					No account?{' '}
+					<a className={aClassName} onClick={() => setMode('join')}>
+						create one
+					</a>
+				</>
+			) : (
+				<>
+					Already a member?{' '}
+					<a className={aClassName} onClick={() => setMode('sign-in')}>
+						sign in
+					</a>
+				</>
+			);
 
-	const upperArea =
-		mode === 'join-to-save' ? (
-			<div className="p-4 bg-gray-200 text-gray-900 text-sm space-y-2 mb-4">
-				You need an account to save your level. Accounts are free.
-			</div>
-		) : (
-			<img
-				className="block w-20 mx-auto py-6"
-				src={logoPng}
-				alt="smaghetti logo"
-			/>
-		);
+		const upperArea =
+			mode === 'join-to-save' ? (
+				<div className="p-4 bg-gray-200 text-gray-900 text-sm space-y-2 mb-4">
+					You need an account to save your level. Accounts are free.
+				</div>
+			) : (
+				logoImg
+			);
 
-	return (
-		<Modal
-			className="w-20"
-			isOpen
-			title={title}
-			onRequestClose={onCancel}
-			onXClick={onCancel}
-			flexWidth
-		>
-			<div className="flex flex-col items-center w-80 -mx-4">
+		body = (
+			<>
 				{upperArea}
 				{isJoining && (
 					<div className="px-4 py-2 text-sm">
@@ -160,7 +185,7 @@ function SignInJoinModal({
 				)}
 				{(message || error) && (
 					<div
-						className={clsx('w-full text-center py-2', {
+						className={clsx('w-full text-center py-2 my-4', {
 							'bg-yellow-100 text-yellow-900': !!message,
 							'bg-red-100 text-red-900': !!error,
 						})}
@@ -169,21 +194,6 @@ function SignInJoinModal({
 					</div>
 				)}
 				<form className="flex flex-col w-44">
-					{isJoining && (
-						<Input
-							label="public display name"
-							type="text"
-							value={credentials.username}
-							onChange={(newValue) => {
-								setCredentials((c) => {
-									return {
-										...c,
-										username: newValue,
-									};
-								});
-							}}
-						/>
-					)}
 					<Input
 						label="email"
 						type="email"
@@ -225,7 +235,20 @@ function SignInJoinModal({
 					/>
 				</form>
 				<div className="pt-6 text-sm text-gray-300">{toggle}</div>
-			</div>
+			</>
+		);
+	}
+
+	return (
+		<Modal
+			className="w-20"
+			isOpen
+			title={title}
+			onRequestClose={onClose}
+			onXClick={onClose}
+			flexWidth
+		>
+			<div className="flex flex-col items-center w-80 -mx-4">{body}</div>
 		</Modal>
 	);
 }

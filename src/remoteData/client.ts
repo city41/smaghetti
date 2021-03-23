@@ -5,4 +5,8 @@ const client = createClient(
 	process.env.NEXT_PUBLIC_SUPABASE_KEY as string
 );
 
-export { client };
+function isLoggedIn() {
+	return !!client.auth.user()?.confirmed_at;
+}
+
+export { client, isLoggedIn };

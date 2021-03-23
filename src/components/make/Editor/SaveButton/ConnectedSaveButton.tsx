@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { client } from '../../../../remoteData/client';
+import {
+	client,
+	isLoggedIn as supabaseIsLoggedIn,
+} from '../../../../remoteData/client';
 import { bindActionCreators } from 'redux';
 
 import { saveLevel } from '../../editorSlice';
@@ -18,13 +21,13 @@ const actions = bindActionCreators(
 );
 
 function ConnectedSaveButton(props: PublicSaveButtonProps) {
-	const [isLoggedIn, setIsLoggedIn] = useState(!!client.auth.user());
+	const [isLoggedIn, setIsLoggedIn] = useState(supabaseIsLoggedIn());
 	const [showModal, setShowModal] = useState(false);
 	const { saveLevelState } = useSelector((s: AppState) => s.editor.present);
 
 	useEffect(() => {
 		client.auth.onAuthStateChange(() => {
-			setIsLoggedIn(!!client.auth.user());
+			setIsLoggedIn(supabaseIsLoggedIn());
 		});
 	}, []);
 
@@ -44,7 +47,7 @@ function ConnectedSaveButton(props: PublicSaveButtonProps) {
 	const modal = showModal ? (
 		<SignInJoinModal
 			initialMode="join-to-save"
-			onCancel={() => setShowModal(false)}
+			onClose={() => setShowModal(false)}
 			onUser={handleUser}
 		/>
 	) : null;
