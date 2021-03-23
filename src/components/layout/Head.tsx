@@ -10,10 +10,10 @@ type HeadProps = {
 };
 
 function getPageTitle(incomingTitle: string): string {
-	if (incomingTitle.toLowerCase().includes('stepcharts')) {
+	if (incomingTitle.toLowerCase().includes('smaghetti')) {
 		return incomingTitle;
 	} else {
-		return `${incomingTitle} | Stepcharts`;
+		return `${incomingTitle} | Smaghetti`;
 	}
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	client,
 	isLoggedIn as supabaseIsLoggedIn,
@@ -13,6 +13,12 @@ function ConnectedPageMenu(props: PublicPageMenuProps) {
 		setSignInJoinModalMode,
 	] = useState<SignInJoinModalMode | null>(null);
 	const [isLoggedIn, setIsLoggedIn] = useState(supabaseIsLoggedIn());
+
+	useEffect(() => {
+		client.auth.onAuthStateChange(() => {
+			setIsLoggedIn(supabaseIsLoggedIn());
+		});
+	}, []);
 
 	return (
 		<>
