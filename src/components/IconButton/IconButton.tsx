@@ -1,18 +1,14 @@
-import React, {
-	FunctionComponent,
-	CSSProperties,
-	ReactNode,
-	ElementType,
-} from 'react';
+import React, { CSSProperties, ReactNode, ElementType } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 
 type IconButtonProps = {
 	className?: string;
 	style?: CSSProperties;
-	anchor?: 'top' | 'left' | 'right' | 'bottom';
+	anchor?: 'top' | 'left' | 'right' | 'bottom' | 'top-right' | 'top-left';
 	icon?: ElementType;
 	label?: ReactNode;
+	alternate?: boolean;
 	toggleable?: boolean;
 	toggled?: boolean;
 	disabled?: boolean;
@@ -20,188 +16,46 @@ type IconButtonProps = {
 	href?: string;
 };
 
-// const TOGGLE_BG_COLOR = '#ffa50055';
-const BG_COLOR = 'rgba(140, 180, 255, 0.8)';
-const TOGGLE_BG_COLOR = BG_COLOR;
-const TOGGLE_HOVER_COLOR = 'orange';
-const HOVER_COLOR = 'orange';
-
-// const Button = styled.button`
-// 	pointer-events: all;
-// 	outline: none;
-// 	font-family: 'Helvetica Neue', sans-serif;
-//
-// 	--border-color: white;
-// 	--size: 60px;
-// 	background-color: var(--background-color);
-//
-// 	width: var(--size);
-//
-// 	max-height: var(--size);
-// 	height: var(--size);
-//
-// 	font-size: 26px;
-//
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-//
-// 	&.text,
-// 	& .text {
-// 		display: inline-block;
-// 		width: initial;
-// 		min-width: var(--size);
-// 		height: 100%;
-// 		line-height: calc(var(--size) - 16px);
-// 		font-weight: bold;
-// 		color: white;
-// 		font-size: 1.2rem;
-// 		padding: 0 8px;
-// 		text-decoration: none;
-// 	}
-//
-// 	border: 8px solid var(--border-color);
-// 	border-top-width: 8px;
-// 	border-radius: 14px;
-//
-// 	padding: 0;
-//
-// 	box-shadow: var(--item-box-shadow, 0 4px 6px 1px rgba(0, 0, 0, 0.5));
-//
-// 	cursor: pointer;
-//
-// 	&.topAnchor {
-// 		border-top-width: 0;
-// 		border-top-left-radius: 0;
-// 		border-top-right-radius: 0;
-// 		max-height: calc(var(--size) - 8px);
-// 		height: calc(var(--size) - 8px);
-// 	}
-//
-// 	&.leftAnchor {
-// 		border-left-width: 0;
-// 		border-top-left-radius: 0;
-// 		border-bottom-left-radius: 0;
-// 	}
-//
-// 	&.rightAnchor {
-// 		border-right-width: 0;
-// 		border-top-right-radius: 0;
-// 		border-bottom-right-radius: 0;
-// 	}
-//
-// 	&.bottomAnchor {
-// 		border-bottom-width: 0;
-// 		border-bottom-left-radius: 0;
-// 		border-bottom-right-radius: 0;
-// 	}
-//
-// 	&:hover {
-// 		background-image: linear-gradient(
-// 			to top,
-// 			var(--hover-color),
-// 			var(--background-color)
-// 		);
-//
-// 		& img {
-// 			width: 24px;
-// 			height: 24px;
-// 		}
-// 	}
-//
-// 	&.toggled {
-// 		position: relative;
-//
-// 		&:after {
-// 			content: '';
-// 			position: absolute;
-// 			bottom: 0;
-// 			left: 0;
-//
-// 			width: 100%;
-// 			height: 4px;
-// 			background-color: black;
-// 		}
-// 	}
-//
-// 	&.toggled,
-// 	&:active {
-// 		background-color: var(--hover-color);
-// 		& img {
-// 			width: 28px;
-// 			height: 28px;
-// 		}
-// 	}
-//
-// 	&.toggled:hover {
-// 		background-color: var(--hover-color);
-// 		background-image: none;
-// 	}
-//
-// 	& .iconImg {
-// 		width: 20px;
-// 		height: 20px;
-// 	}
-//
-// 	&.disabled {
-// 		& .iconImg {
-// 			opacity: 0.2;
-// 		}
-// 		&:hover {
-// 			background-image: none;
-//
-// 			& .iconImg {
-// 				width: 20px;
-// 				height: 20px;
-// 			}
-// 		}
-// 	}
-//
-// 	& svg {
-// 		fill: black;
-// 	}
-// `;
-
-const IconButton: FunctionComponent<IconButtonProps> = ({
+function IconButton({
 	className,
 	style,
 	icon,
 	label,
 	anchor,
-	toggleable = false,
+	alternate,
 	toggled = false,
 	disabled = false,
 	onClick,
 	href,
-	children,
-}) => {
+}: IconButtonProps) {
 	const Icon = icon;
-
-	const buttonVariables = {
-		'--background-color': toggleable ? TOGGLE_BG_COLOR : BG_COLOR,
-		'--hover-color': toggleable ? TOGGLE_HOVER_COLOR : HOVER_COLOR,
-	} as CSSProperties;
-
-	const buttonStyle = {
-		...style,
-		...buttonVariables,
-	};
 
 	return (
 		<button
 			className={clsx(
 				className,
-				'flex items-center justify-center w-12 h-12 bg-purple-200 text-black border-4 rounded-xl border-white text-lg pointer-events-auto overflow-hidden',
+				'flex items-center justify-center w-12 h-12 border-4 rounded-xl border-white text-lg pointer-events-auto overflow-hidden',
 				{
+					'bg-purple-200 text-black': !alternate,
+					'bg-gray-500 text-white': alternate,
 					'rounded-t-none border-t-0': anchor === 'top',
+					'rounded-t-none border-t-0 border-r-0 rounded-br-none':
+						anchor === 'top-right',
+					'rounded-t-none border-t-0 border-l-0 rounded-bl-none':
+						anchor === 'top-left',
 					'rounded-l-none border-l-0': anchor === 'left',
 					'rounded-r-none border-r-0': anchor === 'right',
 					'rounded-b-none border-b-0': anchor === 'bottom',
 					'bg-purple-400 cursor-default': toggled,
-					'hover:bg-purple-600 hover:text-white': !toggled,
+					'hover:bg-purple-600 hover:text-white':
+						!toggled && !alternate && !disabled,
+					'hover:bg-gray-600 hover:text-white':
+						!toggled && alternate && !disabled,
+					'cursor-default': disabled,
+					'cursor-pointer': !disabled,
 				}
 			)}
-			style={buttonStyle}
+			style={style}
 			key="button"
 			disabled={disabled}
 			tabIndex={-1}
@@ -228,18 +82,17 @@ const IconButton: FunctionComponent<IconButtonProps> = ({
 					'opacity-25': disabled,
 				})}
 			>
-				{children ||
-					(Icon && <Icon />) ||
+				{(Icon && <Icon />) ||
 					(href && (
 						<Link href={href!} passHref>
-							<a>{children || label}</a>
+							<a>{label}</a>
 						</Link>
 					)) ||
 					label}
 			</div>
 		</button>
 	);
-};
+}
 
 export { IconButton };
 export type { IconButtonProps };

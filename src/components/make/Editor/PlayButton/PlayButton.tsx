@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { FaPlay, FaHammer } from 'react-icons/fa';
+import { IconButton } from '../../../IconButton';
 
 type PlayButtonProps = {
 	className?: string;
@@ -66,12 +67,12 @@ function PlayButton({ className, isPlaying, onClick }: PlayButtonProps) {
 	const title = isPlaying ? 'edit your level' : 'preview your level';
 
 	return (
-		<button
-			className={clsx(
-				className,
-				'w-full h-full text-2xl text-white grid place-items-center'
-			)}
-			title={`${title} (p)`}
+		<IconButton
+			className={className}
+			anchor="top-left"
+			label={`${title} (p)`}
+			icon={Icon}
+			alternate
 			onClick={() => {
 				onClick?.();
 
@@ -80,9 +81,7 @@ function PlayButton({ className, isPlaying, onClick }: PlayButtonProps) {
 				// to mute it, it would still be muted in that case
 				window._gba.audio.context.resume();
 			}}
-		>
-			<Icon />
-		</button>
+		/>
 	);
 }
 

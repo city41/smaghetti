@@ -14,7 +14,7 @@ import {
 	CopyLevelToClipboardLink,
 } from './ShareLevelViaSocialMediaLinks';
 
-type PublishModalProps = {
+type SaveModalProps = {
 	className?: string;
 	isOpen?: boolean;
 	onClose: () => void;
@@ -124,7 +124,7 @@ const SCALE = 0.75;
 
 const MAX_AMOUNT_OF_LEVEL_TO_SHOW = (INITIAL_LEVEL_TILE_WIDTH * 2) / 3;
 
-function PublishModal({
+function SaveModal({
 	isOpen,
 	onClose,
 	levelTileWidth,
@@ -135,7 +135,7 @@ function PublishModal({
 	savingLevel,
 	saveLevelError,
 	levelUrl,
-}: PublishModalProps) {
+}: SaveModalProps) {
 	useEffect(() => {
 		saveLevel();
 	}, []);
@@ -191,5 +191,5 @@ function PublishModal({
 	);
 }
 
-export { PublishModal };
-export type { PublishModalProps };
+export { SaveModal };
+export type { SaveModalProps };

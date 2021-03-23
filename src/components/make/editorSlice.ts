@@ -17,8 +17,6 @@ import {
 	INITIAL_LEVEL_TILE_WIDTH,
 	INITIAL_PLAYER_Y_TILE,
 	INITIAL_PLAYER_X_TILE,
-	PLAY_WINDOW_TILE_WIDTH,
-	PLAY_WINDOW_TILE_HEIGHT,
 } from './constants';
 import { getPlayerScaleFromWindow } from '../../util/getPlayerScaleFromWindow';
 import { saveLevel as saveLevelMutation } from '../../remoteData/saveLevel';
@@ -26,7 +24,6 @@ import { getLevel as getLevelQuery } from '../../remoteData/getLevel';
 import { groupTiles } from '../../level/groupTiles';
 import { serialize } from '../../level/serialize';
 import { deserialize } from '../../level/deserialize';
-// import { detailsPanes } from '../../entities/components/detailsPanes';
 import isEqual from 'lodash/isEqual';
 
 import {
@@ -78,6 +75,9 @@ const scales: number[] = [
 ];
 
 type InternalEditorState = {
+	metadata: {
+		name: string;
+	};
 	paintedGroup: string;
 	entities: Entity[];
 	tiles: TileMatrix;
@@ -130,6 +130,9 @@ function calcYForScrollToBottom() {
 }
 
 const defaultInitialState: InternalEditorState = {
+	metadata: {
+		name: 'new level',
+	},
 	paintedGroup: '',
 	entities: [
 		{
@@ -637,6 +640,9 @@ const editorSlice = createSlice({
 	name: 'editor',
 	initialState,
 	reducers: {
+		setLevelName(state: InternalEditorState, action: PayloadAction<string>) {
+			state.metadata.name = action.payload.trim() || 'new level';
+		},
 		addPaletteEntry(
 			state: InternalEditorState,
 			action: PayloadAction<PaletteEntry>
@@ -1495,6 +1501,7 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 };
 
 const {
+	setLevelName,
 	entityDropped,
 	mouseModeChanged,
 	painted,
@@ -1545,6 +1552,7 @@ function cleanUpReducer(state: InternalEditorState, action: Action) {
 // @ts-ignore not sure why this ignore is needed...
 const undoableReducer = undoable(cleanUpReducer, {
 	filter: excludeAction([
+		setLevelName.toString(),
 		mouseModeChanged.toString(),
 		editorVisibleWindowChanged.toString(),
 		scaleIncreased.toString(),
@@ -1672,6 +1680,7 @@ export {
 	neverUndoRedoCertainStateReducer as reducer,
 	undo,
 	redo,
+	setLevelName,
 	entityDropped,
 	mouseModeChanged,
 	painted,

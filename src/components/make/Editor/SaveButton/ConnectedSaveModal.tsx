@@ -2,18 +2,15 @@ import React, { FunctionComponent, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AppState } from '../../../../store';
-import { PublishModal } from './PublishModal';
+import { SaveModal } from './SaveModal';
 import { saveLevel } from '../../editorSlice';
 
-type ConnectedPublishModalProps = {
+type ConnectedSaveModalProps = {
 	isOpen: boolean;
 	onClose: () => void;
 };
 
-const ConnectedPublishModal: FunctionComponent<ConnectedPublishModalProps> = ({
-	isOpen,
-	onClose,
-}) => {
+function ConnectedSaveModal({ isOpen, onClose }: ConnectedSaveModalProps) {
 	const dispatch = useDispatch();
 
 	const {
@@ -36,7 +33,7 @@ const ConnectedPublishModal: FunctionComponent<ConnectedPublishModalProps> = ({
 		undefined;
 
 	return (
-		<PublishModal
+		<SaveModal
 			isOpen={isOpen}
 			onClose={onClose}
 			tileData={tiles}
@@ -49,6 +46,6 @@ const ConnectedPublishModal: FunctionComponent<ConnectedPublishModalProps> = ({
 			levelUrl={levelUrl}
 		/>
 	);
-};
+}
 
-export { ConnectedPublishModal };
+export { ConnectedSaveModal };

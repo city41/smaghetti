@@ -13,7 +13,7 @@ export default meta;
 export const Basic = () => {
 	return (
 		<PageMenu
-			position="bottom"
+			anchor="bottom"
 			isLoggedIn={false}
 			onSignInClicked={() => {}}
 			onJoinClicked={() => {}}

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -13,19 +13,20 @@ import { Palette } from './Palette';
 import { Canvas } from './Canvas';
 import { CanvasOffsetContainer } from './CanvasOffsetContainer';
 import { LevelResizer } from './LevelResizer';
-// import { GoalStartButtons } from './components/goalStartButtons';
 import { LevelPlayer } from './LevelPlayer';
 import { Toolbox } from './Toolbox';
 import { PlayButton } from './PlayButton';
-// import { PublishButton } from './PublishButton';
+import { SaveButton } from './SaveButton';
 // import { KeyboardHelpModal } from './components/keyboardHelpModal';
 import { Warning } from '../../Warning';
 import { useFirstRender } from '../../../hooks/useFirstRender';
 import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
 // import { LoadLevelError } from './components/LoadLevelError';
+import { MetadataMenu } from './MetadataMenu';
 import { PageMenu } from '../../PageMenu';
 
 import styles from './Editor.module.css';
+import { IconButtonGroup } from '../../IconButton/IconButtonGroup';
 
 // const LazyTour = Loadable({
 // 	loader: () => import('../coming-soon/components/tour'),
@@ -365,35 +366,22 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 						'fixed z-10 top-0 left-0 w-full h-full grid pointer-events-none'
 					)}
 				>
-					<div
-						className={clsx(
-							styles.playButtonContainer,
-							'rounded-br-xl border-r-4 border-b-4 border-white'
-						)}
-					>
-						<PlayButton
-							isPlaying={isPlaying}
-							onClick={() => setPlaying(!isPlaying)}
-						/>
+					<div className={styles.playButtonContainer}>
+						<IconButtonGroup>
+							<PlayButton
+								isPlaying={isPlaying}
+								onClick={() => setPlaying(!isPlaying)}
+							/>
+							<SaveButton />
+						</IconButtonGroup>
 					</div>
 					<div
 						className={clsx(styles.pullOut, styles.pullUp, 'toolbox', {
 							[styles.pulled]: isPlaying,
 						})}
 					>
-						<Toolbox />
+						<Toolbox className="ml-8" />
 					</div>
-					{/*<div*/}
-					{/*	className={clsx(*/}
-					{/*		styles.pullOut,*/}
-					{/*		styles.pullUpRight,*/}
-					{/*		styles.shareButtonContainer,*/}
-					{/*		'rounded-bl-xl border-l-4 border-b-4 border-white',*/}
-					{/*		{ [styles.pulled]: isPlaying }*/}
-					{/*	)}*/}
-					{/*>*/}
-					{/*	<PublishButton />*/}
-					{/*</div>*/}
 					<div
 						className={clsx(
 							styles.pullOut,
@@ -412,11 +400,14 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 							{ [styles.pulled]: isPlaying }
 						)}
 					>
-						<EarlyPreviewStarburst
-							className="fixed z-10 bottom-2 left-2 pointer-events-auto"
-							mode="editor"
-						/>
-						<PageMenu position="bottom" className="pointer-events-auto" />
+						<MetadataMenu />
+						<div className="flex flex-row">
+							<EarlyPreviewStarburst
+								className="fixed z-10 bottom-2 -left-4 pointer-events-auto"
+								mode="editor"
+							/>
+							<PageMenu anchor="bottom-right" className="pointer-events-auto" />
+						</div>
 					</div>
 				</div>
 			</div>

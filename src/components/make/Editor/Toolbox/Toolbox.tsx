@@ -97,12 +97,12 @@ const Toolbox = memo(function Toolbox({
 		<div
 			className={clsx(
 				className,
-				'flex flex-row flex-wrap items-end pointer-events-none'
+				'flex flex-row flex-wrap items-start pointer-events-none space-x-8'
 			)}
 		>
 			<IconButtonGroup>{buttons}</IconButtonGroup>
 
-			<div style={{ flex: 1 }} />
+			{/*<div style={{ flex: 1 }} />*/}
 
 			<Zoom
 				onScaleDecreased={onScaleDecreased}
@@ -110,8 +110,6 @@ const Toolbox = memo(function Toolbox({
 				canIncreaseScale={canIncreaseScale}
 				canDecreaseScale={canDecreaseScale}
 			/>
-
-			<div style={{ flex: 1 }} />
 
 			<IconButtonGroup>
 				<IconButton
@@ -135,18 +133,11 @@ const Toolbox = memo(function Toolbox({
 				<MuteButton />
 			</IconButtonGroup>
 
-			<div style={{ width: 'var(--item-spacing)' }} />
+			{/*<div style={{ width: 'var(--item-spacing)' }} />*/}
 
-			<IconButton
-				label="erase entire level"
-				anchor="top"
-				icon={FaBomb}
-				onClick={() => onEraseLevel()}
-			/>
+			{/*<div style={{ width: 'var(--item-spacing)' }} />*/}
 
-			<div style={{ width: 'var(--item-spacing)' }} />
-
-			<IconButtonGroup className="undoRedoButtons">
+			<IconButtonGroup className="undoRedoButtons" anchor="top-right">
 				<IconButton
 					label="undo"
 					anchor="top"
@@ -162,6 +153,15 @@ const Toolbox = memo(function Toolbox({
 					disabled={!canRedo}
 				/>
 			</IconButtonGroup>
+
+			<div style={{ flex: 1 }} />
+
+			<IconButton
+				label="erase entire level"
+				anchor="top-right"
+				icon={FaBomb}
+				onClick={() => onEraseLevel()}
+			/>
 		</div>
 	);
 });
