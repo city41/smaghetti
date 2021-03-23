@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ExtractedEntityTileData } from '../../../tiles/extractResourcesToStylesheet';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { PalettedEntity } from './PalettedEntity';

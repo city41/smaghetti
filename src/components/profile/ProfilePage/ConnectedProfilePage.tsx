@@ -10,6 +10,7 @@ function ConnectedProfilePage() {
 	const [localUser, setLocalUser] = useState(client.auth.user());
 	const dispatch = useDispatch();
 
+	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
 	const { loading, user, levels } = useSelector(
 		(state: AppState) => state.profile
 	);
@@ -37,7 +38,14 @@ function ConnectedProfilePage() {
 		);
 	}
 
-	return <ProfilePage loading={loading} user={user} levels={levels} />;
+	return (
+		<ProfilePage
+			allFilesReady={allFilesReady}
+			loading={loading}
+			user={user}
+			levels={levels}
+		/>
+	);
 }
 
 export { ConnectedProfilePage };

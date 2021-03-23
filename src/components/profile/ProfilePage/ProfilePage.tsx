@@ -1,26 +1,38 @@
 import React from 'react';
 import { Root } from '../../layout/Root';
-// import { LevelEntry } from '../../levels/components/levelEntry';
+import { LevelEntry } from './LevelEntry';
+import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 
 type ProfilePageProps = {
+	allFilesReady: boolean;
 	loading: boolean;
 	user: User | null;
 	levels: Level[] | null;
 };
 
-function ProfilePage({ loading, user, levels }: ProfilePageProps) {
+function ProfilePage({
+	allFilesReady,
+	loading,
+	user,
+	levels,
+}: ProfilePageProps) {
 	if (loading || !user || !levels) {
 		return <div>loading...</div>;
 	} else {
 		return (
-			<Root title="Profile" metaDescription="">
-				<div className="max-w-2xl mx-auto pt-16">
-					<h1 className="text-3xl font-bold mb-16">{user?.username}</h1>
-					{levels.map((l) => {
-						return <div key={l.id}>level with id {l.id}</div>;
-					})}
-				</div>
-			</Root>
+			<>
+				<FileLoaderModal isOpen={!allFilesReady} />
+				<Root title="Profile" metaDescription="">
+					<div className="max-w-2xl mx-auto pt-16">
+						<h1 className="text-3xl font-bold mb-16">Your Levels</h1>
+						{allFilesReady
+							? levels.map((l) => {
+									return <LevelEntry key={l.id} level={l} />;
+							  })
+							: null}
+					</div>
+				</Root>
+			</>
 		);
 	}
 }

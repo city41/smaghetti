@@ -1,30 +1,30 @@
 import { client } from './client';
 
 type ProfileData = {
-  user: User;
-  levels: Level[];
+	user: User;
+	levels: SerializedLevel[];
 };
 
 export async function getProfile(id: string): Promise<ProfileData> {
-  const { data: userData, error: userError } = await client
-    .from<User>('users')
-    // TODO: username
-    .select('id, username')
-    .eq('id', id)
-    .single();
+	const { data: userData, error: userError } = await client
+		.from<User>('users')
+		// TODO: username
+		.select('id, username')
+		.eq('id', id)
+		.single();
 
-  if (userError) {
-    throw userError;
-  }
+	if (userError) {
+		throw userError;
+	}
 
-  if (!userData) {
-    throw new Error(`User with id ${id} not found`);
-  }
+	if (!userData) {
+		throw new Error(`User with id ${id} not found`);
+	}
 
-  const { data: userLevels, error: levelsError } = await client
-    .from<Level>('levels')
-    .select(
-      `
+	const { data: userLevels, error: levelsError } = await client
+		.from<Level>('levels')
+		.select(
+			`
       id,
       name,
       description,
@@ -36,19 +36,19 @@ export async function getProfile(id: string): Promise<ProfileData> {
         deaths
       )
     `
-    )
-    // @ts-ignore TODO, figure out the types between client and supabase
-    .eq('user_id', userData.id);
+		)
+		// @ts-ignore TODO, figure out the types between client and supabase
+		.eq('user_id', userData.id);
 
-  if (levelsError) {
-    throw levelsError;
-  }
+	if (levelsError) {
+		throw levelsError;
+	}
 
-  if (!userLevels) {
-    throw new Error(`Failed to get levels for user with id ${id}`);
-  }
+	if (!userLevels) {
+		throw new Error(`Failed to get levels for user with id ${id}`);
+	}
 
-  return { user: userData, levels: userLevels };
+	return { user: userData, levels: userLevels };
 }
 
 export type { ProfileData };

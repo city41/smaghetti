@@ -4,6 +4,7 @@ import { AppState } from '../../store';
 import { getProfile } from '../../remoteData/getProfile';
 import type { ProfileData } from '../../remoteData/getProfile';
 import { client } from '../../remoteData/client';
+import { deserialize } from '../../level/deserialize';
 
 type ProfileState = {
 	user: User | null;
@@ -31,7 +32,12 @@ const profileSlice = createSlice({
 			action: PayloadAction<ProfileData>
 		) => {
 			state.user = action.payload.user;
-			state.levels = action.payload.levels;
+			state.levels = action.payload.levels.map((l) => {
+				return {
+					...l,
+					data: deserialize(l.data).levelData,
+				};
+			});
 		},
 		loadError: (state: ProfileState, action: PayloadAction<string>) => {
 			state.loadError = action.payload;
