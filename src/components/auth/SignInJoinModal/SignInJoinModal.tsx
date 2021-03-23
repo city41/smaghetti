@@ -4,7 +4,7 @@ import { Modal } from '../../Modal';
 
 import logoPng from '../../../images/logo.png';
 
-type SignInJoinModalMode = 'sign-in' | 'join';
+type SignInJoinModalMode = 'sign-in' | 'join' | 'join-to-save';
 type Credentials = { username?: string; email: string; password: string };
 
 type PublicSignInJoinModalProps = {
@@ -23,6 +23,7 @@ type InternalSignInJoinModalProps = {
 const titles: Record<SignInJoinModalMode, string> = {
 	'sign-in': 'Sign In',
 	join: 'Join',
+	'join-to-save': 'Join to save your level',
 };
 
 function Input({
@@ -68,6 +69,8 @@ function SignInJoinModal({
 		BLANK_CREDENTIALS
 	);
 
+	const isJoining = mode === 'join' || mode === 'join-to-save';
+
 	function setMode(newMode: SignInJoinModalMode) {
 		if (newMode !== mode) {
 			_setMode(newMode);
@@ -96,6 +99,19 @@ function SignInJoinModal({
 			</>
 		);
 
+	const upperArea =
+		mode === 'join-to-save' ? (
+			<div className="p-4 bg-gray-200 text-gray-900 text-sm space-y-2 mb-4">
+				You need an account to save your level. Accounts are free.
+			</div>
+		) : (
+			<img
+				className="block w-20 mx-auto py-6"
+				src={logoPng}
+				alt="smaghetti logo"
+			/>
+		);
+
 	return (
 		<Modal
 			className="w-20"
@@ -106,12 +122,8 @@ function SignInJoinModal({
 			flexWidth
 		>
 			<div className="flex flex-col items-center w-80 -mx-4">
-				<img
-					className="block w-20 mx-auto py-6"
-					src={logoPng}
-					alt="smaghetti logo"
-				/>
-				{mode === 'join' && (
+				{upperArea}
+				{isJoining && (
 					<div className="px-4 py-2 text-sm">
 						joining means you agree to our{' '}
 						<a className={aClassName} href="/privacy" target="_blank">
@@ -139,8 +151,8 @@ function SignInJoinModal({
 						)
 					</div>
 				)}
-				{showDisclaimer && mode === 'join' && (
-					<div className="p-4 bg-gray-200 text-gray-900 text-sm">
+				{showDisclaimer && isJoining && (
+					<div className="p-4 bg-gray-200 text-gray-900 text-sm my-4">
 						Since we are still building the site, things are going to change a
 						lot. You might find a level you made no longer works and possibly
 						many other headaches.
@@ -157,9 +169,9 @@ function SignInJoinModal({
 					</div>
 				)}
 				<form className="flex flex-col w-44">
-					{mode === 'join' && (
+					{isJoining && (
 						<Input
-							label="username"
+							label="public display name"
 							type="text"
 							value={credentials.username}
 							onChange={(newValue) => {

@@ -101,9 +101,8 @@ type InternalEditorState = {
 	dragOffset: Point | null;
 	isSelecting: boolean;
 
-	savingLevel: boolean;
 	savedLevelId?: string;
-	saveLevelError?: string | null;
+	saveLevelState: 'dormant' | 'saving' | 'error' | 'success';
 
 	loadingLevel: boolean;
 	loadLevelError?: string | null;
@@ -143,7 +142,7 @@ const defaultInitialState: InternalEditorState = {
 		},
 	],
 	tiles: [],
-	savingLevel: false,
+	saveLevelState: 'dormant',
 	loadingLevel: false,
 	mouseMode: 'draw',
 	levelTileWidth: INITIAL_LEVEL_TILE_WIDTH,
@@ -1050,14 +1049,11 @@ const editorSlice = createSlice({
 				centerLevelInWindow(state);
 			}
 		},
-		saveLevelError(
+		setSaveLevelState(
 			state: InternalEditorState,
-			action: PayloadAction<string | null>
+			action: PayloadAction<InternalEditorState['saveLevelState']>
 		) {
-			state.saveLevelError = action.payload;
-		},
-		savingLevel(state: InternalEditorState, action: PayloadAction<boolean>) {
-			state.savingLevel = action.payload;
+			state.saveLevelState = action.payload;
 		},
 		setSavedLevelId(state: InternalEditorState, action: PayloadAction<string>) {
 			state.savedLevelId = action.payload;
@@ -1363,8 +1359,7 @@ type LevelThunk = ThunkAction<void, AppState, null, Action>;
 
 const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 	try {
-		dispatch(editorSlice.actions.saveLevelError(null));
-		dispatch(editorSlice.actions.savingLevel(true));
+		dispatch(editorSlice.actions.setSaveLevelState('saving'));
 
 		const editorState = getState().editor.present;
 
@@ -1389,13 +1384,18 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 				serializedLevelData
 			);
 			dispatch(editorSlice.actions.setSavedLevelId(createdLevelId));
+			dispatch(editorSlice.actions.setSaveLevelState('success'));
 		} catch (e) {
-			dispatch(editorSlice.actions.saveLevelError('Failed to save the level'));
+			console.log('error', e);
+			dispatch(editorSlice.actions.setSaveLevelState('error'));
 		}
 	} catch (e) {
-		dispatch(editorSlice.actions.saveLevelError('An unknown error occurred'));
+		console.log('error2', e);
+		dispatch(editorSlice.actions.setSaveLevelState('error'));
 	} finally {
-		dispatch(editorSlice.actions.savingLevel(false));
+		setTimeout(() => {
+			dispatch(editorSlice.actions.setSaveLevelState('dormant'));
+		}, 2000);
 	}
 };
 
@@ -1462,8 +1462,7 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 
 const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 	try {
-		dispatch(editorSlice.actions.saveLevelError(null));
-		dispatch(editorSlice.actions.savingLevel(true));
+		dispatch(editorSlice.actions.setSaveLevelState('saving'));
 
 		const editorState = getState().editor.present;
 
@@ -1491,12 +1490,16 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 			const asJson = JSON.stringify(dataToWrite);
 			window.localStorage[LOCALSTORAGE_KEY] = asJson;
 		} catch (e) {
-			dispatch(editorSlice.actions.saveLevelError('Failed to save the level'));
+			dispatch(editorSlice.actions.setSaveLevelState('error'));
 		}
+
+		dispatch(editorSlice.actions.setSaveLevelState('success'));
 	} catch (e) {
-		dispatch(editorSlice.actions.saveLevelError('An unknown error occurred'));
+		dispatch(editorSlice.actions.setSaveLevelState('error'));
 	} finally {
-		dispatch(editorSlice.actions.savingLevel(false));
+		setTimeout(() => {
+			dispatch(editorSlice.actions.setSaveLevelState('dormant'));
+		}, 2000);
 	}
 };
 

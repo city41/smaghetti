@@ -1,1 +1,1 @@
-export { SaveButton } from './SaveButton';
+export { ConnectedSaveButton as SaveButton } from './ConnectedSaveButton';

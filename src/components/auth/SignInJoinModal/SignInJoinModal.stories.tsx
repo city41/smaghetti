@@ -20,6 +20,16 @@ export const Join = () => {
 	);
 };
 
+export const JoinToSave = () => {
+	return (
+		<SignInJoinModal
+			initialMode="join-to-save"
+			onSignIn={() => {}}
+			onJoin={() => {}}
+		/>
+	);
+};
+
 export const HasError = () => {
 	return (
 		<SignInJoinModal

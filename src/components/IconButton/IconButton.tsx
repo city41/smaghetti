@@ -1,6 +1,7 @@
 import React, { CSSProperties, ReactNode, ElementType } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { RiLoaderFill } from 'react-icons/ri';
 
 type IconButtonProps = {
 	className?: string;
@@ -12,6 +13,7 @@ type IconButtonProps = {
 	toggleable?: boolean;
 	toggled?: boolean;
 	disabled?: boolean;
+	loading?: boolean;
 	onClick?: (e: React.MouseEvent) => void;
 	href?: string;
 };
@@ -25,10 +27,11 @@ function IconButton({
 	alternate,
 	toggled = false,
 	disabled = false,
+	loading = false,
 	onClick,
 	href,
 }: IconButtonProps) {
-	const Icon = icon;
+	const Icon = loading ? RiLoaderFill : icon;
 
 	return (
 		<button
@@ -80,6 +83,7 @@ function IconButton({
 				className={clsx('w-full h-full grid place-items-center text-2xl', {
 					'border-b-4 border-black': toggled,
 					'opacity-25': disabled,
+					'animate-spin': loading,
 				})}
 			>
 				{(Icon && <Icon />) ||

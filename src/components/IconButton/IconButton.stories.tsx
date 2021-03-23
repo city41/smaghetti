@@ -20,6 +20,35 @@ export const Basic = () => {
 	);
 };
 
+export const Loading = () => {
+	return (
+		<div className="p-4 bg-blue-300">
+			<IconButton icon={FaPencilAlt} label="undo" loading />
+		</div>
+	);
+};
+
+export const Alternate = () => {
+	return (
+		<div className="p-4 bg-blue-300">
+			<IconButton icon={FaPencilAlt} label="undo" alternate />
+		</div>
+	);
+};
+
+export const Anchored = () => {
+	return (
+		<div className="flex flex-row p-4 bg-blue-300 space-x-4">
+			<IconButton icon={FaPencilAlt} label="undo" anchor="top" />
+			<IconButton icon={FaPencilAlt} label="undo" anchor="left" />
+			<IconButton icon={FaPencilAlt} label="undo" anchor="right" />
+			<IconButton icon={FaPencilAlt} label="undo" anchor="bottom" />
+			<IconButton icon={FaPencilAlt} label="undo" anchor="top-left" />
+			<IconButton icon={FaPencilAlt} label="undo" anchor="top-right" />
+		</div>
+	);
+};
+
 export const Group = () => {
 	return (
 		<div className="p-4 bg-blue-300">
