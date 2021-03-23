@@ -9,7 +9,9 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "type-check": "tsc --noemit",
-    "test": "yarn jest"
+    "test": "yarn jest",
+    "migrations-up": "node-pg-migrate up -m database/migrations",
+    "migrations-down": "node-pg-migrate down -m database/migrations"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
@@ -38,6 +40,8 @@
     "next-compose-plugins": "^2.2.1",
     "next-optimized-classnames": "^1.0.1",
     "next-optimized-images": "^2.6.2",
+    "node-pg-migrate": "^5.9.0",
+    "pg": "^8.5.1",
     "postcss": "^7",
     "prettier": "^2.2.1",
     "react": "^17.0.1",
