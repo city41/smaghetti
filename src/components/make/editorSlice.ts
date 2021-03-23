@@ -35,6 +35,9 @@ import {
 import { objectMap, spriteMap, SpriteType } from '../../entities/entityMap';
 
 type LocalStorageData = {
+	metadata: {
+		name: string;
+	};
 	levelData: SerializedLevelData;
 	editorData: {
 		paletteEntries: PaletteEntry[];
@@ -1415,8 +1418,8 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 
 // 1.0.0: first localstorage implementation
 // 1.0.1: changed some tile serialization ids
-// const LOCALSTORAGE_KEY = 'smaghetti_1.0.0';
-const LOCALSTORAGE_KEY = 'smaghetti_1.0.1';
+// 1.1.0: added metadata.name
+const LOCALSTORAGE_KEY = 'smaghetti_1.1.0';
 
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {
@@ -1445,6 +1448,12 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 						editorSlice.actions.setPaletteEntries(
 							localStorageData.editorData.paletteEntries
 						)
+					);
+				}
+
+				if (localStorageData?.metadata?.name) {
+					dispatch(
+						editorSlice.actions.setLevelName(localStorageData.metadata.name)
 					);
 				}
 			} catch (e) {
@@ -1480,6 +1489,9 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 		const serializedLevelData = serialize(localStorageData);
 
 		const dataToWrite: LocalStorageData = {
+			metadata: {
+				...editorState.metadata,
+			},
 			levelData: serializedLevelData,
 			editorData: {
 				paletteEntries: editorState.paletteEntries,
