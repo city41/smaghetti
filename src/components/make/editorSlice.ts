@@ -1384,7 +1384,7 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 		try {
 			const createdLevelId = await saveLevelMutation(
 				editorState.savedLevelId ?? null,
-				'auto name',
+				editorState.metadata.name?.trim() ?? 'new level',
 				'auto desc',
 				serializedLevelData
 			);
