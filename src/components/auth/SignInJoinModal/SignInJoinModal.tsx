@@ -34,22 +34,36 @@ function Input({
 	type,
 	value,
 	onChange,
+	pattern,
+	patternMessage,
 }: {
 	label: string;
 	type: 'email' | 'password' | 'text';
 	value: string | undefined;
 	onChange: (value: string) => void;
+	pattern?: string;
+	patternMessage?: string;
 }) {
+	const patternProp = pattern
+		? { pattern, title: patternMessage ?? 'invalid' }
+		: {};
+
 	return (
-		<label className="w-full text-xs my-2 text-gray-400">
-			<div className="pb-0.5">{label}</div>
+		<>
+			<label htmlFor={type} className="w-full text-xs mt-2 text-gray-400">
+				{label}
+			</label>
 			<input
-				className="p-2 text-black w-full"
+				id={type}
+				name={type}
+				className="p-1 text-black w-full"
 				type={type}
 				value={value}
 				onChange={(e) => onChange(e.target.value)}
+				{...patternProp}
+				required
 			/>
-		</label>
+		</>
 	);
 }
 
@@ -193,10 +207,23 @@ function SignInJoinModal({
 						{error || message}
 					</div>
 				)}
-				<form className="flex flex-col w-44">
+				<form
+					className="flex flex-col w-44"
+					onSubmit={(e) => {
+						e.preventDefault();
+						e.stopPropagation();
+						if (mode === 'sign-in') {
+							onSignIn(credentials);
+						} else {
+							onJoin(credentials);
+						}
+					}}
+				>
 					<Input
-						label="email"
-						type="email"
+						label="username"
+						type="text"
+						pattern="[^@]+"
+						patternMessage="@ symbols are not allowed"
 						value={credentials.email}
 						onChange={(newValue) => {
 							setCredentials((c) => {
@@ -220,19 +247,7 @@ function SignInJoinModal({
 							});
 						}}
 					/>
-					<input
-						type="submit"
-						className="w-full p-2 mt-4 bg-green-500 text-white"
-						onClick={(e) => {
-							e.preventDefault();
-							e.stopPropagation();
-							if (mode === 'sign-in') {
-								onSignIn(credentials);
-							} else {
-								onJoin(credentials);
-							}
-						}}
-					/>
+					<Button className="mt-4">submit</Button>
 				</form>
 				<div className="pt-6 text-sm text-gray-300">{toggle}</div>
 			</>
