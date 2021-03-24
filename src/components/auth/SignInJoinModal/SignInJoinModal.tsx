@@ -5,7 +5,7 @@ import { Modal } from '../../Modal';
 import logoPng from '../../../images/logo.png';
 import { Button } from '../../Button';
 
-type SignInJoinModalMode = 'sign-in' | 'join' | 'join-to-save' | 'after-join';
+type SignInJoinModalMode = 'sign-in' | 'join' | 'join-to-save';
 type Credentials = { username?: string; email: string; password: string };
 
 type PublicSignInJoinModalProps = {
@@ -19,14 +19,12 @@ type InternalSignInJoinModalProps = {
 	onSignIn: (value: Credentials) => void;
 	onJoin: (value: Credentials) => void;
 	error?: string | null;
-	joinSuccessful?: boolean;
 };
 
 const titles: Record<SignInJoinModalMode, string> = {
 	'sign-in': 'Sign In',
 	join: 'Join',
 	'join-to-save': 'Join to save your level',
-	'after-join': 'Check your email',
 };
 
 function Input({
@@ -38,7 +36,7 @@ function Input({
 	patternMessage,
 }: {
 	label: string;
-	type: 'email' | 'password' | 'text';
+	type: 'password' | 'text';
 	value: string | undefined;
 	onChange: (value: string) => void;
 	pattern?: string;
@@ -78,7 +76,6 @@ function SignInJoinModal({
 	message,
 	onSignIn,
 	onJoin,
-	joinSuccessful,
 	error,
 }: PublicSignInJoinModalProps & InternalSignInJoinModalProps) {
 	const [showDisclaimer, setShowDisclaimer] = useState(false);
@@ -96,12 +93,6 @@ function SignInJoinModal({
 		}
 	}
 
-	useEffect(() => {
-		if (joinSuccessful) {
-			setMode('after-join');
-		}
-	}, [joinSuccessful]);
-
 	const title = titles[mode];
 
 	const aClassName = 'text-blue-400 underline cursor-pointer';
@@ -114,53 +105,42 @@ function SignInJoinModal({
 		/>
 	);
 
-	let body;
-
-	if (mode === 'after-join') {
-		body = (
+	const toggle =
+		mode === 'sign-in' ? (
 			<>
-				{logoImg}
-				<div className="px-4 space-y-4">
-					<p>Please check your email to verify your account.</p>
-					<p>
-						If you made a level don't worry, it is saved in your browser. You
-						will be able to upload it after logging in.
-					</p>
-				</div>
-				<div className="mt-4">
-					<Button onClick={onClose}>Okay</Button>
-				</div>
+				No account?{' '}
+				<a className={aClassName} onClick={() => setMode('join')}>
+					create one
+				</a>
+			</>
+		) : (
+			<>
+				Already a member?{' '}
+				<a className={aClassName} onClick={() => setMode('sign-in')}>
+					sign in
+				</a>
 			</>
 		);
-	} else {
-		const toggle =
-			mode === 'sign-in' ? (
-				<>
-					No account?{' '}
-					<a className={aClassName} onClick={() => setMode('join')}>
-						create one
-					</a>
-				</>
-			) : (
-				<>
-					Already a member?{' '}
-					<a className={aClassName} onClick={() => setMode('sign-in')}>
-						sign in
-					</a>
-				</>
-			);
 
-		const upperArea =
-			mode === 'join-to-save' ? (
-				<div className="p-4 bg-gray-200 text-gray-900 text-sm space-y-2 mb-4">
-					You need an account to save your level. Accounts are free.
-				</div>
-			) : (
-				logoImg
-			);
+	const upperArea =
+		mode === 'join-to-save' ? (
+			<div className="p-4 bg-gray-200 text-gray-900 text-sm space-y-2 mb-4">
+				You need an account to save your level. Accounts are free.
+			</div>
+		) : (
+			logoImg
+		);
 
-		body = (
-			<>
+	return (
+		<Modal
+			className="w-20"
+			isOpen
+			title={title}
+			onRequestClose={onClose}
+			onXClick={onClose}
+			flexWidth
+		>
+			<div className="flex flex-col items-center w-80 -mx-4">
 				{upperArea}
 				{isJoining && (
 					<div className="px-4 py-2 text-sm">
@@ -250,20 +230,7 @@ function SignInJoinModal({
 					<Button className="mt-4">submit</Button>
 				</form>
 				<div className="pt-6 text-sm text-gray-300">{toggle}</div>
-			</>
-		);
-	}
-
-	return (
-		<Modal
-			className="w-20"
-			isOpen
-			title={title}
-			onRequestClose={onClose}
-			onXClick={onClose}
-			flexWidth
-		>
-			<div className="flex flex-col items-center w-80 -mx-4">{body}</div>
+			</div>
 		</Modal>
 	);
 }

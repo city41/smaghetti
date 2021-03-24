@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-	client,
-	isLoggedIn as supabaseIsLoggedIn,
-} from '../../remoteData/client';
+import { client } from '../../remoteData/client';
 import { PageMenu, PublicPageMenuProps } from './PageMenu';
 import { SignInJoinModal } from '../auth/SignInJoinModal';
 import type { SignInJoinModalMode } from '../auth/SignInJoinModal';
@@ -12,11 +9,11 @@ function ConnectedPageMenu(props: PublicPageMenuProps) {
 		signInModalMode,
 		setSignInJoinModalMode,
 	] = useState<SignInJoinModalMode | null>(null);
-	const [isLoggedIn, setIsLoggedIn] = useState(supabaseIsLoggedIn());
+	const [isLoggedIn, setIsLoggedIn] = useState(!!client.auth.user());
 
 	useEffect(() => {
 		client.auth.onAuthStateChange(() => {
-			setIsLoggedIn(supabaseIsLoggedIn());
+			setIsLoggedIn(!!client.auth.user());
 		});
 	}, []);
 

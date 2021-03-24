@@ -30,7 +30,6 @@ function ConnectedSignInJoinModal({
 	...publicProps
 }: ConnectedSignInJoinModalProps) {
 	const [supabaseError, _setSupabaseError] = useState<null | string>(null);
-	const [joinSuccessful, setJoinSuccessful] = useState(false);
 
 	function setSupabaseError(error: string) {
 		_setSupabaseError(convertError(error));
@@ -50,7 +49,7 @@ function ConnectedSignInJoinModal({
 		const result = await client.auth.signUp(convertCredentials(credentials));
 
 		if (result.user) {
-			setJoinSuccessful(true);
+			onUser(result.user);
 		} else {
 			setSupabaseError(
 				convertError(result.error?.message ?? 'Uh oh, something went wrong')
@@ -64,7 +63,6 @@ function ConnectedSignInJoinModal({
 			onJoin={handleJoin}
 			onSignIn={handleSignIn}
 			error={supabaseError}
-			joinSuccessful={joinSuccessful}
 		/>
 	);
 }
