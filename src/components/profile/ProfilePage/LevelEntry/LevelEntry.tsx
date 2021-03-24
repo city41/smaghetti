@@ -14,7 +14,7 @@ type LevelEntryProps = {
 function LevelEntry({ className, level }: LevelEntryProps) {
 	return (
 		<div className={clsx(className, 'p-2 border border-gray-500')}>
-			<h2 className="text-xl font-bold">{level.name}</h2>
+			<h3 className="text-xl font-bold">{level.name}</h3>
 			<div className="grid grid-cols-3">
 				<div className="col-span-2">
 					<LevelThumbnail

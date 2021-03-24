@@ -24,7 +24,8 @@ function ProfilePage({
 				<FileLoaderModal isOpen={!allFilesReady} />
 				<Root title="Profile" metaDescription="">
 					<div className="max-w-2xl mx-auto pt-16">
-						<h1 className="text-3xl font-bold mb-16">Your Levels</h1>
+						<h1 className="text-3xl font-bold">{user.username}</h1>
+						<h2 className="text-2xl font-bold mb-16">Your Levels</h2>
 						{allFilesReady
 							? levels.map((l) => {
 									return <LevelEntry key={l.id} level={l} />;
