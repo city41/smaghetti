@@ -17,6 +17,8 @@ import {
 	INITIAL_LEVEL_TILE_WIDTH,
 	INITIAL_PLAYER_Y_TILE,
 	INITIAL_PLAYER_X_TILE,
+	PLAY_WINDOW_TILE_WIDTH,
+	PLAY_WINDOW_TILE_HEIGHT,
 } from './constants';
 import { getPlayerScaleFromWindow } from '../../util/getPlayerScaleFromWindow';
 import { saveLevel as saveLevelMutation } from '../../remoteData/saveLevel';
@@ -45,7 +47,6 @@ type LocalStorageData = {
 };
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
-type BrushMode = 'tile' | 'entity';
 
 type TilePaletteEntry = {
 	brushMode: 'tile';
@@ -107,8 +108,7 @@ type InternalEditorState = {
 	savedLevelId?: string;
 	saveLevelState: 'dormant' | 'saving' | 'error' | 'success';
 
-	loadingLevel: boolean;
-	loadLevelError?: string | null;
+	loadLevelState: 'dormant' | 'loading' | 'error' | 'success';
 };
 
 const initialScale = playerScale;
@@ -146,7 +146,7 @@ const defaultInitialState: InternalEditorState = {
 	],
 	tiles: [],
 	saveLevelState: 'dormant',
-	loadingLevel: false,
+	loadLevelState: 'dormant',
 	mouseMode: 'draw',
 	levelTileWidth: INITIAL_LEVEL_TILE_WIDTH,
 	levelTileHeight: INITIAL_LEVEL_TILE_HEIGHT,
@@ -174,6 +174,16 @@ const defaultInitialState: InternalEditorState = {
 };
 
 const initialState = defaultInitialState;
+
+const EMPTY_LEVEL: SerializedLevelData = {
+	entities: [...initialState.entities],
+	tileSettings: [],
+	tileLayer: {
+		data: [],
+		width: PLAY_WINDOW_TILE_WIDTH,
+		height: PLAY_WINDOW_TILE_HEIGHT,
+	},
+};
 
 let idCounter = 10;
 
@@ -1061,14 +1071,11 @@ const editorSlice = createSlice({
 		setSavedLevelId(state: InternalEditorState, action: PayloadAction<string>) {
 			state.savedLevelId = action.payload;
 		},
-		loadLevelError(
+		setLoadLevelState(
 			state: InternalEditorState,
-			action: PayloadAction<string | null>
+			action: PayloadAction<InternalEditorState['loadLevelState']>
 		) {
-			state.loadLevelError = action.payload;
-		},
-		loadingLevel(state: InternalEditorState, action: PayloadAction<boolean>) {
-			state.loadingLevel = action.payload;
+			state.loadLevelState = action.payload;
 		},
 		setPaletteEntries(
 			state: InternalEditorState,
@@ -1404,15 +1411,17 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 
 const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 	try {
-		dispatch(editorSlice.actions.loadLevelError(null));
-		dispatch(editorSlice.actions.loadingLevel(true));
+		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
+		dispatch(editorSlice.actions.setLevelName(''));
+		dispatch(editorSlice.actions.setLoadLevelState('loading'));
 
 		const result = await getLevelQuery(id);
 		dispatch(editorSlice.actions.setLevelDataFromLoad(result.data));
+		dispatch(editorSlice.actions.setLevelName(result.name));
+		dispatch(editorSlice.actions.setSavedLevelId(result.id));
+		dispatch(editorSlice.actions.setLoadLevelState('success'));
 	} catch (e) {
-		dispatch(editorSlice.actions.loadLevelError('Failed to load the level'));
-	} finally {
-		dispatch(editorSlice.actions.loadingLevel(false));
+		dispatch(editorSlice.actions.setLoadLevelState('error'));
 	}
 };
 
@@ -1423,9 +1432,6 @@ const LOCALSTORAGE_KEY = 'smaghetti_1.1.0';
 
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {
-		dispatch(editorSlice.actions.loadLevelError(null));
-		dispatch(editorSlice.actions.loadingLevel(true));
-
 		const rawJson = window.localStorage[LOCALSTORAGE_KEY];
 
 		if (rawJson) {
@@ -1457,15 +1463,11 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 					);
 				}
 			} catch (e) {
-				dispatch(
-					editorSlice.actions.loadLevelError('Failed to load the level')
-				);
+				dispatch(editorSlice.actions.setLoadLevelState('error'));
 			}
 		}
 	} catch (e) {
-		dispatch(editorSlice.actions.loadLevelError('An unknown error occurred'));
-	} finally {
-		dispatch(editorSlice.actions.loadingLevel(false));
+		dispatch(editorSlice.actions.setLoadLevelState('error'));
 	}
 };
 
@@ -1683,13 +1685,7 @@ function neverUndoRedoCertainStateReducer(
 	}
 }
 
-export type {
-	EditorState,
-	InternalEditorState,
-	EditorFocusRect,
-	BrushMode,
-	MouseMode,
-};
+export type { EditorState, InternalEditorState, EditorFocusRect, MouseMode };
 
 export {
 	neverUndoRedoCertainStateReducer as reducer,

@@ -7,11 +7,17 @@ import { AppState } from '../../../store';
 type ConnectedEditorProps = Partial<EditorProps>;
 
 const ConnectedEditor: FunctionComponent<ConnectedEditorProps> = (props) => {
-	const { storedForResizeMode } = useSelector(
+	const { storedForResizeMode, loadLevelState } = useSelector(
 		(state: AppState) => state.editor.present
 	);
 
-	return <Editor resizeMode={!!storedForResizeMode} {...props} />;
+	return (
+		<Editor
+			resizeMode={!!storedForResizeMode}
+			loadLevelState={loadLevelState}
+			{...props}
+		/>
+	);
 };
 
 export { ConnectedEditor };

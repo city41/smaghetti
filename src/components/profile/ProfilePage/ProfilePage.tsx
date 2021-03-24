@@ -12,6 +12,7 @@ type ProfilePageProps = {
 	loadState: 'dormant' | 'loading' | 'success' | 'error';
 	user: User | null;
 	levels: Level[];
+	onEditLevel: (level: Level) => void;
 	onDeleteLevel: (level: Level) => void;
 };
 
@@ -22,6 +23,7 @@ function ProfilePage({
 	loadState,
 	user,
 	levels,
+	onEditLevel,
 	onDeleteLevel,
 }: ProfilePageProps) {
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -45,6 +47,7 @@ function ProfilePage({
 							<LevelEntry
 								key={l.id}
 								level={l}
+								onEdit={() => onEditLevel(l)}
 								onDelete={() => onDeleteLevel(l)}
 							/>
 						);

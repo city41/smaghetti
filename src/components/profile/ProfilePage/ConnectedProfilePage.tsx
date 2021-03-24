@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { ProfilePage } from './ProfilePage';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState, dispatch } from '../../../store';
@@ -15,6 +16,7 @@ const actions = bindActionCreators(
 );
 
 function ConnectedProfilePage() {
+	const router = useRouter();
 	const [localUser, setLocalUser] = useState(client.auth.user());
 
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
@@ -45,12 +47,17 @@ function ConnectedProfilePage() {
 		);
 	}
 
+	function handleEditLevel(level: Level) {
+		router.push(`/make/${level.id}`);
+	}
+
 	return (
 		<ProfilePage
 			allFilesReady={allFilesReady}
 			loadState={loadState}
 			user={user}
 			levels={levels}
+			onEditLevel={handleEditLevel}
 			{...actions}
 		/>
 	);

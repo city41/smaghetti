@@ -12,12 +12,13 @@ import { IconButtonGroup } from '../../../IconButton/IconButtonGroup';
 type LevelEntryProps = {
 	className?: string;
 	level: Level;
+	onEdit: () => void;
 	onDelete: () => void;
 };
 
 const THUMBNAIL_HEIGHT = PLAY_WINDOW_TILE_HEIGHT * 1.5 + 1;
 
-function LevelEntry({ className, level, onDelete }: LevelEntryProps) {
+function LevelEntry({ className, level, onEdit, onDelete }: LevelEntryProps) {
 	const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
 	return (
@@ -46,7 +47,13 @@ function LevelEntry({ className, level, onDelete }: LevelEntryProps) {
 				/>
 			</div>
 			<IconButtonGroup className="self-end" anchor="left">
-				<IconButton anchor="left" icon={MdEdit} label="Edit level" alternate />
+				<IconButton
+					anchor="left"
+					icon={MdEdit}
+					label="Edit level"
+					alternate
+					onClick={onEdit}
+				/>
 				<IconButton
 					anchor="left"
 					icon={MdShare}

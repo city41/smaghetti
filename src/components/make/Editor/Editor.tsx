@@ -27,15 +27,12 @@ import { PageMenu } from '../../PageMenu';
 
 import styles from './Editor.module.css';
 import { IconButtonGroup } from '../../IconButton/IconButtonGroup';
-
-// const LazyTour = Loadable({
-// 	loader: () => import('../coming-soon/components/tour'),
-// 	loading: () => null,
-// });
+import { LoadingBar } from '../../LoadingBar';
 
 type EditorProps = {
 	noScript?: boolean;
 	resizeMode: boolean;
+	loadLevelState: 'dormant' | 'loading' | 'success' | 'error';
 };
 
 // const Chrome = styled.div`
@@ -212,7 +209,7 @@ function getQueryVariable(variable: string): string | undefined {
 	return undefined;
 }
 
-function Editor({ noScript, resizeMode }: EditorProps) {
+function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 	const [showTour, setShowTour] = useState(false);
 	const [isPlaying, setPlaying] = useState(false);
 	const [playerAtStart, setPlayerAtStart] = useState(false);
@@ -412,6 +409,15 @@ function Editor({ noScript, resizeMode }: EditorProps) {
 				</div>
 			</div>
 			{/*<LoadLevelError />*/}
+			{loadLevelState === 'loading' && (
+				<>
+					<div className="fixed top-0 left-0 w-screen h-screen opacity-75 bg-gray-700 z-10" />
+					<div className="fixed top-1/3 left-1/3 w-1/3 grid place-items-center z-10">
+						<div>Loading level data ...</div>
+						<LoadingBar className="w-48" percent={100} />
+					</div>
+				</>
+			)}
 		</>
 	);
 }
