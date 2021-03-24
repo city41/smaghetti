@@ -176,7 +176,6 @@ END;
 };
 
 exports.down = (pgm) => {
-	pgm.dropTrigger(LEVEL_TABLE, UNIQUE_LEVEL_ID_TRIGGER_NAME);
 	pgm.dropFunction(UNIQUE_LEVEL_ID_FUNCTION_NAME, []);
 	pgm.dropFunction(SAVE_LEVEL_FUNCTION_NAME, SAVE_LEVEL_FUNCTION_PARAMS);
 	pgm.dropTable(LEVEL_PLAY_SESSIONS_TABLE);
