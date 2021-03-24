@@ -1,6 +1,5 @@
 const { USER_TABLE } = require('./1614821764814_users');
 const LEVEL_TABLE = 'levels';
-const LEVEL_PLAY_SESSIONS_TABLE = 'level_play_sessions';
 
 const UNIQUE_LEVEL_ID_FUNCTION_NAME = 'unique_level_id';
 const SAVE_LEVEL_FUNCTION_NAME = 'save_level';
@@ -10,6 +9,8 @@ const SAVE_LEVEL_FUNCTION_PARAMS = [
 	'description text',
 	'data json',
 ];
+const POLICY_NAME_INSERT_LEVELS = 'allow users insert their own levels';
+const POLICY_NAME_UPDATE_LEVELS = 'allow users update their own levels';
 
 exports.up = (pgm) => {
 	pgm.createTable(LEVEL_TABLE, {
@@ -50,38 +51,6 @@ exports.up = (pgm) => {
 			default: pgm.func('current_timestamp'),
 		},
 		updated_at: {
-			type: 'timestamp',
-			notNull: true,
-			default: pgm.func('current_timestamp'),
-		},
-	});
-
-	pgm.createTable(LEVEL_PLAY_SESSIONS_TABLE, {
-		id: 'id',
-		level_id: {
-			type: 'string',
-			notNull: true,
-			references: `public.${LEVEL_TABLE}(id)`,
-			onDelete: 'cascade',
-		},
-		user_id: {
-			type: 'uuid',
-			references: `public.${USER_TABLE}(id)`,
-			onDelete: 'set null',
-		},
-		duration: {
-			type: 'integer',
-			notNull: true,
-		},
-		cleared: {
-			type: 'boolean',
-			notNull: true,
-		},
-		deaths: {
-			type: 'integer',
-			notNull: true,
-		},
-		created_at: {
 			type: 'timestamp',
 			notNull: true,
 			default: pgm.func('current_timestamp'),
@@ -173,11 +142,40 @@ END;
     return created_level_id;
   end;`
 	);
+
+	pgm.sql('alter table public.levels enable row level security');
+
+	pgm.createPolicy(
+		{ schema: 'public', name: 'levels' },
+		POLICY_NAME_INSERT_LEVELS,
+		{
+			command: 'INSERT',
+			check: 'auth.uid() = user_id',
+		}
+	);
+
+	pgm.createPolicy(
+		{ schema: 'public', name: 'levels' },
+		POLICY_NAME_UPDATE_LEVELS,
+		{
+			command: 'UPDATE',
+			using: 'auth.uid() = user_id',
+		}
+	);
 };
 
 exports.down = (pgm) => {
+	pgm.dropPolicy(
+		{ schema: 'public', name: 'levels' },
+		POLICY_NAME_INSERT_LEVELS,
+		{ ifExists: true }
+	);
+	pgm.dropPolicy(
+		{ schema: 'public', name: 'levels' },
+		POLICY_NAME_UPDATE_LEVELS,
+		{ ifExists: true }
+	);
 	pgm.dropFunction(UNIQUE_LEVEL_ID_FUNCTION_NAME, []);
 	pgm.dropFunction(SAVE_LEVEL_FUNCTION_NAME, SAVE_LEVEL_FUNCTION_PARAMS);
-	pgm.dropTable(LEVEL_PLAY_SESSIONS_TABLE);
 	pgm.dropTable(LEVEL_TABLE);
 };
