@@ -9,9 +9,10 @@ import tabStyles from '../../../styles/tabs.module.css';
 
 type ProfilePageProps = {
 	allFilesReady: boolean;
-	loadState: 'initial' | 'loading' | 'success' | 'error';
+	loadState: 'dormant' | 'loading' | 'success' | 'error';
 	user: User | null;
 	levels: Level[];
+	onDeleteLevel: (level: Level) => void;
 };
 
 const tabs = ['Levels', 'Settings'];
@@ -21,6 +22,7 @@ function ProfilePage({
 	loadState,
 	user,
 	levels,
+	onDeleteLevel,
 }: ProfilePageProps) {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	let body;
@@ -39,7 +41,13 @@ function ProfilePage({
 					}}
 				>
 					{levels.map((l) => {
-						return <LevelEntry key={l.id} level={l} />;
+						return (
+							<LevelEntry
+								key={l.id}
+								level={l}
+								onDelete={() => onDeleteLevel(l)}
+							/>
+						);
 					})}
 				</div>
 			);
@@ -51,7 +59,7 @@ function ProfilePage({
 	}
 
 	switch (loadState) {
-		case 'initial':
+		case 'dormant':
 		case 'loading':
 			body = (
 				<div className="mt-24 grid place-items-center">

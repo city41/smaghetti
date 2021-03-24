@@ -34,7 +34,7 @@ const blankLevel: Level = {
 export const Basic = () => {
 	return (
 		<div className="inline-block">
-			<LevelEntry level={blankLevel} />
+			<LevelEntry level={blankLevel} onDelete={() => {}} />
 		</div>
 	);
 };

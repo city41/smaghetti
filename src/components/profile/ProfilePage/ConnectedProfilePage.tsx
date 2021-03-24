@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { ProfilePage } from './ProfilePage';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../../../store';
-import { loadProfile } from '../profileSlice';
+import { AppState, dispatch } from '../../../store';
+import { loadProfile, deleteLevel } from '../profileSlice';
 import { client } from '../../../remoteData/client';
 import { SignInJoinModal } from '../../auth/SignInJoinModal';
+import { bindActionCreators } from 'redux';
+
+const actions = bindActionCreators(
+	{
+		onDeleteLevel: deleteLevel,
+	},
+	dispatch
+);
 
 function ConnectedProfilePage() {
 	const [localUser, setLocalUser] = useState(client.auth.user());
-	const dispatch = useDispatch();
 
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
 	const { loadState, user, levels } = useSelector(
@@ -43,7 +50,8 @@ function ConnectedProfilePage() {
 			allFilesReady={allFilesReady}
 			loadState={loadState}
 			user={user}
-			levels={levels ?? []}
+			levels={levels}
+			{...actions}
 		/>
 	);
 }
