@@ -26,8 +26,8 @@ exports.up = (pgm) => {
 		},
 		`
 begin
-  insert into public.${USER_TABLE} (id)
-  values (new.id);
+  insert into public.${USER_TABLE} (id, username)
+  values (new.id, substring(new.email from 1 for position('@smaghetti.com' in new.email) - 1));
   return new;
 end;
 `
