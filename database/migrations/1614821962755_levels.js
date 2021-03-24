@@ -10,6 +10,8 @@ const SAVE_LEVEL_FUNCTION_PARAMS = [
 	'description text',
 	'data json',
 ];
+const POLICY_NAME_INSERT_LEVELS = 'allow users insert their own levels';
+const POLICY_NAME_UPDATE_LEVELS = 'allow users update their own levels';
 
 exports.up = (pgm) => {
 	pgm.createTable(LEVEL_TABLE, {
@@ -173,9 +175,39 @@ END;
     return created_level_id;
   end;`
 	);
+
+	pgm.sql('alter table public.levels enable row level security');
+
+	pgm.createPolicy(
+		{ schema: 'public', name: 'levels' },
+		POLICY_NAME_INSERT_LEVELS,
+		{
+			command: 'INSERT',
+			check: 'auth.uid() = user_id',
+		}
+	);
+
+	pgm.createPolicy(
+		{ schema: 'public', name: 'levels' },
+		POLICY_NAME_UPDATE_LEVELS,
+		{
+			command: 'UPDATE',
+			using: 'auth.uid() = user_id',
+		}
+	);
 };
 
 exports.down = (pgm) => {
+	pgm.dropPolicy(
+		{ schema: 'public', name: 'levels' },
+		POLICY_NAME_INSERT_LEVELS,
+		{ ifExists: true }
+	);
+	pgm.dropPolicy(
+		{ schema: 'public', name: 'levels' },
+		POLICY_NAME_UPDATE_LEVELS,
+		{ ifExists: true }
+	);
 	pgm.dropFunction(UNIQUE_LEVEL_ID_FUNCTION_NAME, []);
 	pgm.dropFunction(SAVE_LEVEL_FUNCTION_NAME, SAVE_LEVEL_FUNCTION_PARAMS);
 	pgm.dropTable(LEVEL_PLAY_SESSIONS_TABLE);
