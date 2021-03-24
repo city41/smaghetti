@@ -22,7 +22,7 @@ export async function getProfile(id: string): Promise<ProfileData> {
 	}
 
 	const { data: userLevels, error: levelsError } = await client
-		.from<Level>('levels')
+		.from<SerializedLevel>('levels')
 		.select(
 			`
       id,

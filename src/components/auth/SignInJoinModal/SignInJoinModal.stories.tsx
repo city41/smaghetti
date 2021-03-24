@@ -61,17 +61,6 @@ export const JoinHasError = () => {
 	);
 };
 
-export const AfterJoin = () => {
-	return (
-		<SignInJoinModal
-			initialMode="after-join"
-			onSignIn={() => {}}
-			onJoin={() => {}}
-			onClose={() => {}}
-		/>
-	);
-};
-
 export const HasMessage = () => {
 	return (
 		<SignInJoinModal

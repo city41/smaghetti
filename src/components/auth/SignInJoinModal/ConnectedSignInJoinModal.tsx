@@ -12,34 +12,48 @@ type ConnectedSignInJoinModalProps = PublicSignInJoinModalProps & {
 	onUser: (user: User) => void;
 };
 
+function convertCredentials(credentials: Credentials) {
+	return {
+		...credentials,
+		email: credentials.email + '@smaghetti.com',
+	};
+}
+
+function convertError(err: string): string {
+	return err
+		.replace(/email address/g, 'username')
+		.replace(/email/g, 'username');
+}
+
 function ConnectedSignInJoinModal({
 	onUser,
 	...publicProps
 }: ConnectedSignInJoinModalProps) {
-	const [supabaseError, setSupabaseError] = useState<null | string>(null);
-	const [joinSuccessful, setJoinSuccessful] = useState(false);
+	const [supabaseError, _setSupabaseError] = useState<null | string>(null);
+
+	function setSupabaseError(error: string) {
+		_setSupabaseError(convertError(error));
+	}
 
 	async function handleSignIn(credentials: Credentials) {
-		// HACK; doesn't seem supabase updates the token if one already exists.
-		// and one will exist if a user who has not verified their email is logged in.
-		// so a workaround is just delete the token, signing in will then create a new one
-		localStorage.removeItem('supabase.auth.token');
-		const result = await client.auth.signIn(credentials);
+		const result = await client.auth.signIn(convertCredentials(credentials));
 
 		if (result.user) {
 			onUser(result.user);
 		} else {
-			setSupabaseError(result.error?.message ?? null);
+			setSupabaseError(convertError(result.error?.message ?? ''));
 		}
 	}
 
 	async function handleJoin(credentials: Credentials) {
-		const result = await client.auth.signUp(credentials);
+		const result = await client.auth.signUp(convertCredentials(credentials));
 
 		if (result.user) {
-			setJoinSuccessful(true);
+			onUser(result.user);
 		} else {
-			setSupabaseError(result.error?.message ?? 'Uh oh, something went wrong');
+			setSupabaseError(
+				convertError(result.error?.message ?? 'Uh oh, something went wrong')
+			);
 		}
 	}
 
@@ -49,7 +63,6 @@ function ConnectedSignInJoinModal({
 			onJoin={handleJoin}
 			onSignIn={handleSignIn}
 			error={supabaseError}
-			joinSuccessful={joinSuccessful}
 		/>
 	);
 }
