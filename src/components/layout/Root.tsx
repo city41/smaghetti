@@ -38,7 +38,7 @@ function Root({
 				metaDescription={metaDescription}
 				metaImg={socialMediaImg}
 			/>
-			<header className="border-b border-gray-500 bg-gray-900">
+			<header className="xborder-b border-gray-500 bg-gray-900">
 				<div className="bg-heading h-16 flex flex-row items-center justify-between lg:px-4">
 					<div className="flex flex-row items-center justify-start space-x-6 max-w-7xl mx-auto w-full">
 						<div className="flex flex-row items-center">

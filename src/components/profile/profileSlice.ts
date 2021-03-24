@@ -7,30 +7,28 @@ import { client } from '../../remoteData/client';
 import { deserialize } from '../../level/deserialize';
 
 type ProfileState = {
+	loadState: 'initial' | 'loading' | 'error' | 'success';
 	user: User | null;
 	levels: Level[] | null;
-	loading: boolean;
-	loadError?: string | null;
 };
 
 const initialState: ProfileState = {
+	loadState: 'initial',
 	user: null,
 	levels: null,
-	loading: false,
-	loadError: null,
 };
 
 const profileSlice = createSlice({
 	name: 'profile',
 	initialState,
 	reducers: {
-		loadingProfile: (state: ProfileState, action: PayloadAction<boolean>) => {
-			state.loading = action.payload;
-		},
-		profileLoadSuccess: (
+		setLoadState: (
 			state: ProfileState,
-			action: PayloadAction<ProfileData>
+			action: PayloadAction<ProfileState['loadState']>
 		) => {
+			state.loadState = action.payload;
+		},
+		setProfile(state: ProfileState, action: PayloadAction<ProfileData>) {
 			state.user = action.payload.user;
 			state.levels = action.payload.levels.map((l) => {
 				return {
@@ -39,16 +37,13 @@ const profileSlice = createSlice({
 				};
 			});
 		},
-		loadError: (state: ProfileState, action: PayloadAction<string>) => {
-			state.loadError = action.payload;
-		},
 	},
 });
 
 type ProfileSliceThunk = ThunkAction<void, AppState, null, Action>;
 
 const loadProfile = (): ProfileSliceThunk => async (dispatch) => {
-	dispatch(profileSlice.actions.loadingProfile(true));
+	dispatch(profileSlice.actions.setLoadState('loading'));
 
 	const user = client.auth.user();
 
@@ -58,11 +53,10 @@ const loadProfile = (): ProfileSliceThunk => async (dispatch) => {
 
 	try {
 		const profileData = await getProfile(user.id);
-		dispatch(profileSlice.actions.profileLoadSuccess(profileData));
+		dispatch(profileSlice.actions.setProfile(profileData));
+		dispatch(profileSlice.actions.setLoadState('success'));
 	} catch (e) {
-		dispatch(profileSlice.actions.loadError(e.message || ''));
-	} finally {
-		dispatch(profileSlice.actions.loadingProfile(false));
+		dispatch(profileSlice.actions.setLoadState('error'));
 	}
 };
 

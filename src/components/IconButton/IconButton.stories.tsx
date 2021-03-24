@@ -79,3 +79,15 @@ export const ToggleGroup = () => {
 		</div>
 	);
 };
+
+export const AnchoredLeftGroup = () => {
+	return (
+		<div className="p-4 bg-blue-300">
+			<IconButtonGroup anchor="left">
+				<IconButton icon={FaPencilAlt} label="undo" anchor="left" />
+				<IconButton icon={FaPencilAlt} label="redo" anchor="left" />
+				<IconButton icon={FaPencilAlt} label="more" anchor="left" />
+			</IconButtonGroup>
+		</div>
+	);
+};

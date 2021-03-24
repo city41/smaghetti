@@ -1,0 +1,11 @@
+.tabs {
+    @apply flex flex-wrap flex-row items-center content-between h-8 text-sm z-10;
+}
+
+.tabs li {
+    @apply h-full cursor-pointer font-bold whitespace-nowrap grid place-items-center px-4;
+}
+
+.tabs .currentTab {
+    background-color: rgba(0, 0, 0, 0.5);
+}

@@ -16,24 +16,6 @@
 	grid-template-rows: max-content 1fr;
 }
 
- .tabs {
-	 @apply flex flex-wrap flex-row items-center content-between -mt-3 h-8 text-sm z-10;
- }
-
- .tabs li {
-	/*height: 40px;*/
-	 @apply h-full;
-	cursor: pointer;
-	font-weight: bold;
-	white-space: nowrap;
-	display: grid;
-	place-items: center;
-	padding: 0 16px;
-}
-
-.tabs .currentTab {
-	background-color: rgba(0, 0, 0, 0.5);
-}
 
  .currentEntries {
 	 display: flex;
@@ -44,6 +26,7 @@
 	 padding-top: 24px;
 
 	 height: 300px;
+	 width: 600px;
 	 overflow-y: auto;
  }
 

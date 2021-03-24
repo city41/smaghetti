@@ -5,9 +5,9 @@ import isEqual from 'lodash/isEqual';
 import { Modal } from '../../../Modal';
 import { PaletteEntry } from '../../editorSlice';
 import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
-import { ExternalLink } from '../../../ExternalLink';
 
 import styles from './PaletteChoiceModal.module.css';
+import tabStyles from '../../../../styles/tabs.module.css';
 
 type PaletteChoiceModalProps = {
 	open: boolean;
@@ -201,35 +201,6 @@ const powerUps: PaletteChoiceModalEntry[] = [
 	},
 ];
 
-type LimitationsLinkProps = {
-	id: string;
-};
-
-// const LimitationsLinkRoot = styled.div`
-// 	padding: 8px;
-// 	margin-top: 32px;
-// 	background-color: rgb(200 100 100);
-// 	color: white;
-// 	font-weight: bold;
-// 	text-align: center;
-//
-// 	& a {
-// 		display: block;
-// 		color: blue;
-// 		font-size: 0.9em;
-// 		margin-top: 8px;
-// 	}
-// `;
-
-const LimitationsLink: FunctionComponent<LimitationsLinkProps> = ({ id }) => {
-	return (
-		<div>
-			this item has issues!
-			<ExternalLink href={`/limitations/#${id}`}>learn more</ExternalLink>
-		</div>
-	);
-};
-
 const entries = [objects, enemies, items, gizmos, powerUps];
 
 const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
@@ -254,11 +225,13 @@ const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 		>
 			<div className={styles.root}>
 				<div className={styles.tabContainer}>
-					<div className={styles.tabs}>
+					<div className={clsx(tabStyles.tabs, '-mt-3')}>
 						{tabs.map((t, i) => (
 							<li
 								key={t}
-								className={clsx({ [styles.currentTab]: i === currentTabIndex })}
+								className={clsx({
+									[tabStyles.currentTab]: i === currentTabIndex,
+								})}
 								onClick={() => {
 									setCurrentTabIndex(i);
 									setCurrentEntryIndex(0);
@@ -301,9 +274,6 @@ const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 						<h2 className="font-bold mb-4">{currentEntry.info.title}</h2>
 					)}
 					{currentEntry && <p>{currentEntry.info.description}</p>}
-					{currentEntry?.info.limitationsId && (
-						<LimitationsLink id={currentEntry.info.limitationsId} />
-					)}
 				</div>
 			</div>
 		</Modal>

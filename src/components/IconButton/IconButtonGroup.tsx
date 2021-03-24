@@ -5,7 +5,7 @@ import styles from './IconButtonGroup.module.css';
 
 type IconButtonGroupProps = {
 	className?: string;
-	anchor?: 'top' | 'top-right';
+	anchor?: 'top' | 'top-right' | 'left';
 };
 
 // const Root = styled.div`
@@ -46,14 +46,13 @@ const IconButtonGroup: FunctionComponent<IconButtonGroupProps> = ({
 }) => {
 	return (
 		<div
-			className={clsx(
-				className,
-				styles.root,
-				'flex flex-row rounded-bl-xl shadow-lg',
-				{
-					'rounded-br-xl': anchor !== 'top-right',
-				}
-			)}
+			className={clsx(className, styles.root, 'flex rounded-bl-xl shadow-lg', {
+				[styles.horizontal]: anchor !== 'left',
+				[styles.vertical]: anchor === 'left',
+				'flex-row': anchor !== 'left',
+				'flex-col': anchor === 'left',
+				'rounded-br-xl': anchor !== 'top-right',
+			})}
 		>
 			{children}
 		</div>

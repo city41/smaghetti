@@ -108,7 +108,7 @@ function LevelThumbnail({
 
 	return (
 		<div
-			className={clsx(className, 'relative bg-blue-100')}
+			className={clsx(className, 'relative overflow-hidden')}
 			style={{ width, height }}
 		>
 			{tileRows}

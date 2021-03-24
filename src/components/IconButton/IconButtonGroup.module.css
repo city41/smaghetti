@@ -2,19 +2,39 @@
     @apply shadow-none !important;
 }
 
-.root > *:first-child {
-    @apply mr-0 rounded-tr-none rounded-br-none !important;
-}
 
 .root > *:not(:last-child):not(:first-child) {
     @apply rounded-none;
 }
 
-.root > *:last-child {
-    @apply rounded-tl-none rounded-bl-none;
+
+/** HORIZONTAL GROUP **/
+
+.root.horizontal > *:first-child {
+    @apply mr-0 rounded-tr-none rounded-br-none !important;
 }
 
-.root > *:not(:first-child) {
+.root.horizontal > *:not(:first-child) {
     border-left-width: 0;
     @apply border-l-0;
 }
+
+.root.horizontal > *:last-child {
+    @apply rounded-tl-none rounded-bl-none;
+}
+
+/** VERTICAL GROUP **/
+
+.root.vertical > *:first-child {
+    @apply mr-0 rounded-bl-none rounded-br-none !important;
+}
+
+.root.vertical > *:not(:first-child) {
+    border-top-width: 0;
+    @apply border-t-0;
+}
+
+.root.vertical > *:last-child {
+    @apply rounded-tl-none rounded-tr-none;
+}
+

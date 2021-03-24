@@ -12,7 +12,7 @@
 }
 
 .homeLink {
-    @apply w-10 h-8 bg-center bg-no-repeat;
+    @apply w-12 h-12 bg-center bg-no-repeat;
     background-image: url(../../images/logo.png);
     background-size: 90%;
 }

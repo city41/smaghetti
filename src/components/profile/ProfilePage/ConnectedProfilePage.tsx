@@ -11,7 +11,7 @@ function ConnectedProfilePage() {
 	const dispatch = useDispatch();
 
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
-	const { loading, user, levels } = useSelector(
+	const { loadState, user, levels } = useSelector(
 		(state: AppState) => state.profile
 	);
 
@@ -41,9 +41,9 @@ function ConnectedProfilePage() {
 	return (
 		<ProfilePage
 			allFilesReady={allFilesReady}
-			loading={loading}
+			loadState={loadState}
 			user={user}
-			levels={levels}
+			levels={levels ?? []}
 		/>
 	);
 }
