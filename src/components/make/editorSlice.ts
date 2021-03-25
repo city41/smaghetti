@@ -108,7 +108,7 @@ type InternalEditorState = {
 	savedLevelId?: string;
 	saveLevelState: 'dormant' | 'saving' | 'error' | 'success';
 
-	loadLevelState: 'dormant' | 'loading' | 'error' | 'success';
+	loadLevelState: 'dormant' | 'loading' | 'error' | 'missing' | 'success';
 };
 
 const initialScale = playerScale;
@@ -1416,10 +1416,15 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 		dispatch(editorSlice.actions.setLoadLevelState('loading'));
 
 		const result = await getLevelQuery(id);
-		dispatch(editorSlice.actions.setLevelDataFromLoad(result.data));
-		dispatch(editorSlice.actions.setLevelName(result.name));
-		dispatch(editorSlice.actions.setSavedLevelId(result.id));
-		dispatch(editorSlice.actions.setLoadLevelState('success'));
+
+		if (!result) {
+			dispatch(editorSlice.actions.setLoadLevelState('missing'));
+		} else {
+			dispatch(editorSlice.actions.setLevelDataFromLoad(result.data));
+			dispatch(editorSlice.actions.setLevelName(result.name));
+			dispatch(editorSlice.actions.setSavedLevelId(result.id));
+			dispatch(editorSlice.actions.setLoadLevelState('success'));
+		}
 	} catch (e) {
 		dispatch(editorSlice.actions.setLoadLevelState('error'));
 	}

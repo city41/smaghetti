@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -21,7 +22,6 @@ import { SaveButton } from './SaveButton';
 import { Warning } from '../../Warning';
 import { useFirstRender } from '../../../hooks/useFirstRender';
 import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
-// import { LoadLevelError } from './components/LoadLevelError';
 import { MetadataMenu } from './MetadataMenu';
 import { PageMenu } from '../../PageMenu';
 
@@ -32,7 +32,7 @@ import { LoadingBar } from '../../LoadingBar';
 type EditorProps = {
 	noScript?: boolean;
 	resizeMode: boolean;
-	loadLevelState: 'dormant' | 'loading' | 'success' | 'error';
+	loadLevelState: 'dormant' | 'loading' | 'success' | 'missing' | 'error';
 };
 
 // const Chrome = styled.div`
@@ -210,6 +210,7 @@ function getQueryVariable(variable: string): string | undefined {
 }
 
 function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
+	const router = useRouter();
 	const [showTour, setShowTour] = useState(false);
 	const [isPlaying, setPlaying] = useState(false);
 	const [playerAtStart, setPlayerAtStart] = useState(false);
@@ -408,13 +409,51 @@ function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 					</div>
 				</div>
 			</div>
-			{/*<LoadLevelError />*/}
 			{loadLevelState === 'loading' && (
 				<>
 					<div className="fixed top-0 left-0 w-screen h-screen opacity-75 bg-gray-700 z-10" />
 					<div className="fixed top-1/3 left-1/3 w-1/3 grid place-items-center z-10">
 						<div>Loading level data ...</div>
 						<LoadingBar className="w-48" percent={100} />
+					</div>
+				</>
+			)}
+			{loadLevelState === 'missing' && (
+				<>
+					<div className="fixed top-0 left-0 w-screen h-screen opacity-75 bg-gray-700 z-10" />
+					<div className="fixed top-1/3 left-1/3 w-1/3 grid place-items-center z-10 p-4 bg-red-200 text-black">
+						<h1 className="text-xl font-bold">Level not found</h1>
+						<p>
+							It may have been deleted or is owned by someone else. Copying
+							other people's levels is not supported yet.
+						</p>
+						<a
+							className="block mt-4 text-blue-700 cursor-pointer"
+							onClick={() => {
+								router.replace('/make');
+							}}
+						>
+							start a fresh level instead
+						</a>
+					</div>
+				</>
+			)}
+			{loadLevelState === 'error' && (
+				<>
+					<div className="fixed top-0 left-0 w-screen h-screen opacity-75 bg-gray-700 z-10" />
+					<div className="fixed top-1/3 left-1/3 w-1/3 grid place-items-center z-10 p-4 bg-red-200 text-black">
+						<h1 className="text-xl font-bold">Error loading level</h1>
+						<p>
+							Something went wrong. Try refreshing the page or{' '}
+							<a
+								className="text-blue-700 cursor-pointer"
+								onClick={() => {
+									router.replace('/make');
+								}}
+							>
+								start a fresh level instead
+							</a>
+						</p>
 					</div>
 				</>
 			)}
