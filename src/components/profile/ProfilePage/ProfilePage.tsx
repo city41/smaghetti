@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
+import Link from 'next/link';
 import { Root } from '../../layout/Root';
 import { LevelEntry } from './LevelEntry';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
@@ -52,6 +53,14 @@ function ProfilePage({
 							/>
 						);
 					})}
+					{levels.length === 0 && (
+						<div>
+							You have no levels, who not{' '}
+							<Link href="/make" passHref>
+								<a className="text-blue-300 cursor-pointer">go make one?</a>
+							</Link>
+						</div>
+					)}
 				</div>
 			);
 			break;
