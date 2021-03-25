@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 import { ControlsHelpModal } from './ControlsHelpModal';
+import { FirefoxWarning } from './FirefoxWarning';
 
 type ControlsBannerProps = {
 	className?: string;
@@ -9,6 +10,13 @@ type ControlsBannerProps = {
 
 function ControlsBanner({ className }: ControlsBannerProps) {
 	const [showHelp, setShowHelp] = useState(false);
+	const [showFirefoxWarning, setShowFirefoxWarning] = useState(false);
+
+	useEffect(() => {
+		setShowFirefoxWarning(
+			navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+		);
+	}, []);
 
 	return (
 		<>
@@ -35,6 +43,7 @@ function ControlsBanner({ className }: ControlsBannerProps) {
 					help
 				</a>
 			</div>
+			{showFirefoxWarning && <FirefoxWarning />}
 		</>
 	);
 }
