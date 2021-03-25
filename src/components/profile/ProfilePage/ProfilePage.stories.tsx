@@ -18,6 +18,7 @@ export const Loading = () => {
 			user={null}
 			levels={[]}
 			onDeleteLevel={() => {}}
+			onEditLevel={() => {}}
 		/>
 	);
 };
@@ -30,6 +31,7 @@ export const Error = () => {
 			user={null}
 			levels={[]}
 			onDeleteLevel={() => {}}
+			onEditLevel={() => {}}
 		/>
 	);
 };
@@ -42,6 +44,7 @@ export const Basic = () => {
 			user={{ id: '1', username: 'Mario' }}
 			levels={[]}
 			onDeleteLevel={() => {}}
+			onEditLevel={() => {}}
 		/>
 	);
 };
