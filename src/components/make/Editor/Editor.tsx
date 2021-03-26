@@ -344,14 +344,7 @@ function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 							className="border border-black"
 							isPlaying={isPlaying}
 							checkeredBackground
-						>
-							<div>
-								<PlayButton
-									isPlaying={isPlaying}
-									onClick={() => setPlaying((p) => !p)}
-								/>
-							</div>
-						</LevelPlayer>
+						/>
 						<CanvasOffsetContainer>
 							<Canvas />
 							{resizeMode && <LevelResizer />}
@@ -370,7 +363,7 @@ function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 								isPlaying={isPlaying}
 								onClick={() => setPlaying(!isPlaying)}
 							/>
-							<SaveButton />
+							{!isPlaying && <SaveButton />}
 						</IconButtonGroup>
 					</div>
 					<div

@@ -33,6 +33,7 @@ const SaveButton = memo(function SaveButton({
 
 	return (
 		<>
+			{toast}
 			<IconButton
 				anchor="top"
 				className={className}
@@ -42,7 +43,6 @@ const SaveButton = memo(function SaveButton({
 				alternate
 				loading={saveLevelState === 'saving'}
 			/>
-			{toast}
 		</>
 	);
 });
