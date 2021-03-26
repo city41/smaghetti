@@ -1,10 +1,11 @@
 import type { SpriteEntity } from './types';
 import { simpleSpriteBinary } from './util';
 
-const OBJECT_ID = 0xd1;
+// this is a coin snake just hanging out in the level, not inside a block
+const OBJECT_ID = 0xdc;
 
-const StarMan: SpriteEntity = {
-	type: 'StarMan',
+const CoinSnake: SpriteEntity = {
+	type: 'CoinSnake',
 	mode: 'Sprite',
 	palette: [
 		0x7f96,
@@ -35,4 +36,4 @@ const StarMan: SpriteEntity = {
 	},
 };
 
-export { StarMan };
+export { CoinSnake };

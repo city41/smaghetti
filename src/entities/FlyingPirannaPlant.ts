@@ -1,10 +1,11 @@
 import type { SpriteEntity } from './types';
 import { simpleSpriteBinary } from './util';
 
-const OBJECT_ID = 0xd1;
+// in underground levels its tail is messed up
+const OBJECT_ID = 0xd8;
 
-const StarMan: SpriteEntity = {
-	type: 'StarMan',
+const FlyingPirannaPlant: SpriteEntity = {
+	type: 'FlyingPirannaPlant',
 	mode: 'Sprite',
 	palette: [
 		0x7f96,
@@ -35,4 +36,4 @@ const StarMan: SpriteEntity = {
 	},
 };
 
-export { StarMan };
+export { FlyingPirannaPlant };

@@ -1,10 +1,11 @@
 import type { SpriteEntity } from './types';
 import { simpleSpriteBinary } from './util';
 
-const OBJECT_ID = 0xd1;
+// this is an empty bubble
+const OBJECT_ID = 0xdb;
 
-const StarMan: SpriteEntity = {
-	type: 'StarMan',
+const Bubble: SpriteEntity = {
+	type: 'Bubble',
 	mode: 'Sprite',
 	palette: [
 		0x7f96,
@@ -35,4 +36,4 @@ const StarMan: SpriteEntity = {
 	},
 };
 
-export { StarMan };
+export { Bubble };
