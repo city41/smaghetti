@@ -19,6 +19,7 @@ import { RedKoopaTroopa } from './RedKoopaTroopa';
 import { RedParaTroopa } from './RedParaTroopa';
 import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
+import { StarMan } from './StarMan';
 
 type SpriteType =
 	| 'AceCoin'
@@ -35,7 +36,8 @@ type SpriteType =
 	| 'RedKoopaTroopa'
 	| 'RedParaTroopa'
 	| 'Spiny'
-	| 'SpringBoard';
+	| 'SpringBoard'
+	| 'StarMan';
 
 type ObjectType = 'Brick' | 'Coin' | 'IndestructibleBrick' | 'QuestionBlock';
 
@@ -55,6 +57,7 @@ const spriteMap: Record<SpriteType, SpriteEntity> = {
 	RedParaTroopa,
 	Spiny,
 	SpringBoard,
+	StarMan,
 };
 
 const objectMap: Record<ObjectType, ObjectEntity> = {

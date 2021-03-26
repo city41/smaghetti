@@ -7,6 +7,7 @@ const payloadToObjectId = {
 	OneUpMushroom: 0x1b,
 	Mushroom: 0x16,
 	Coin: 0x1a,
+	StarMan: 0x18,
 };
 
 const Brick: ObjectEntity = {
