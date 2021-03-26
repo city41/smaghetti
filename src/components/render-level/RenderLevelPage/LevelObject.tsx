@@ -24,8 +24,9 @@ function Raw({ bytes }: { bytes: number[] }) {
 	const bank = bytes[0] >> 6;
 	return (
 		<div
+			style={{ zIndex: 99999 }}
 			className={clsx(
-				'absolute z-10 left-0 -bottom-14 w-52 bg-gray-200 text-gray-900 grid',
+				'absolute left-0 -bottom-14 w-52 bg-gray-200 text-gray-900 grid',
 				{
 					'grid-cols-4': bank === 0,
 					'grid-cols-5': bank === 1,
