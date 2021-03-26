@@ -26,7 +26,7 @@ function MuteButton({ className }: MuteButtonProps) {
 	}, []);
 
 	useEffect(() => {
-		window._gba.audio.masterVolume = isMuted ? 0 : 1;
+		window._gba._shouldMute = isMuted;
 		localStorage.setItem(LOCALSTORAGE_KEY, isMuted.toString());
 	}, [isMuted]);
 

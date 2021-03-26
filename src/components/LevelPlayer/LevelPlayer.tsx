@@ -5,7 +5,6 @@ import styles from './LevelPlayer.module.css';
 import checkerboardStyles from '../../styles/checkerboard.module.css';
 import { GBAPlayer } from './GBAPlayer';
 import { createLevelData } from '../../levelData/createLevelData';
-import { NoSaveStatesDisclaimerModal } from './NoSaveStatesDisclaimerModal';
 import { ControlsBanner } from '../ControlsBanner';
 
 type LevelPlayerProps = {
@@ -34,29 +33,26 @@ function LevelPlayer({
 	checkeredBackground,
 }: LevelPlayerProps) {
 	return (
-		<>
-			{isPlaying && <NoSaveStatesDisclaimerModal />}
-			<div
-				className={clsx(
-					styles.root,
-					'w-full h-full overflow-hidden grid items-center justify-center',
-					{
-						hidden: !isPlaying,
-						grid: isPlaying,
-						[checkerboardStyles.checkerboard]: checkeredBackground,
-					}
-				)}
-			>
-				<GBAPlayer
-					biosFile={biosFile}
-					romFile={romFile}
-					emptySaveFile={emptySaveFile}
-					levelData={createLevelData(entities, tileLayer)}
-					isPlaying={isPlaying}
-				/>
-				<ControlsBanner className="rounded-tl-lg rounded-tr-lg" />
-			</div>
-		</>
+		<div
+			className={clsx(
+				styles.root,
+				'w-full h-full overflow-hidden grid items-center justify-center',
+				{
+					hidden: !isPlaying,
+					grid: isPlaying,
+					[checkerboardStyles.checkerboard]: checkeredBackground,
+				}
+			)}
+		>
+			<GBAPlayer
+				biosFile={biosFile}
+				romFile={romFile}
+				emptySaveFile={emptySaveFile}
+				levelData={createLevelData(entities, tileLayer)}
+				isPlaying={isPlaying}
+			/>
+			<ControlsBanner className="rounded-tl-lg rounded-tr-lg" />
+		</div>
 	);
 }
 

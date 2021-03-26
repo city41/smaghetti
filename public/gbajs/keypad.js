@@ -33,15 +33,39 @@ GameBoyAdvanceKeypad = function GameBoyAdvanceKeypad() {
 	this.R = 8;
 	this.L = 9;
 
-	this.currentDown = 0x03ff;
+	this._currentDown = 0x03ff;
+	this.ignoreInput = false;
 	this.eatInput = false;
 
+	this._fedInput = 0;
+
 	this.gamepadConnected = false;
+
+	Object.defineProperty(this, 'currentDown', {
+		get() {
+			if (this._fedInput !== 0x03ff) {
+				const toReturn = this._fedInput;
+				this._fedInput = 0x03ff;
+				return toReturn;
+			} else if (this.ignoreInput) {
+				return 0x03ff;
+			} else {
+				return this._currentDown;
+			}
+		},
+	});
+};
+
+GameBoyAdvanceKeypad.prototype.feed = function (inputValue) {
+	this._fedInput = 0x03ff & ~(1 << inputValue);
 };
 
 GameBoyAdvanceKeypad.prototype.keyboardHandler = function (e) {
 	var toggle = 0;
 	switch (e.keyCode) {
+		// purposely not letting users press start, to help ensure
+		// the automation doesn't get off track
+
 		case this.KEYCODE_START:
 			toggle = this.START;
 			break;
@@ -78,9 +102,9 @@ GameBoyAdvanceKeypad.prototype.keyboardHandler = function (e) {
 
 	toggle = 1 << toggle;
 	if (e.type == 'keydown') {
-		this.currentDown &= ~toggle;
+		this._currentDown &= ~toggle;
 	} else {
-		this.currentDown |= toggle;
+		this._currentDown |= toggle;
 	}
 
 	if (this.eatInput) {
@@ -90,6 +114,12 @@ GameBoyAdvanceKeypad.prototype.keyboardHandler = function (e) {
 
 GameBoyAdvanceKeypad.prototype.gamepadHandler = function (gamepad) {
 	let value = 0;
+
+	// purposely not letting users press start, to help ensure
+	// the automation doesn't get off track
+	// if (gamepad.buttons[this.GAMEPAD_START].pressed) {
+	// 	value |= 1 << this.START;
+	// }
 
 	if (gamepad.buttons[this.GAMEPAD_LEFT].pressed) {
 		value |= 1 << this.LEFT;
@@ -102,9 +132,6 @@ GameBoyAdvanceKeypad.prototype.gamepadHandler = function (gamepad) {
 	}
 	if (gamepad.buttons[this.GAMEPAD_DOWN].pressed) {
 		value |= 1 << this.DOWN;
-	}
-	if (gamepad.buttons[this.GAMEPAD_START].pressed) {
-		value |= 1 << this.START;
 	}
 	if (gamepad.buttons[this.GAMEPAD_SELECT].pressed) {
 		value |= 1 << this.SELECT;
@@ -122,7 +149,7 @@ GameBoyAdvanceKeypad.prototype.gamepadHandler = function (gamepad) {
 		value |= 1 << this.R;
 	}
 
-	this.currentDown = ~value & 0x3ff;
+	this._currentDown = ~value & 0x3ff;
 };
 
 GameBoyAdvanceKeypad.prototype.gamepadConnectHandler = function () {

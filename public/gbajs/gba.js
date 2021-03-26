@@ -1,4 +1,153 @@
+const A_BUTTON = 0;
+const START = 3;
+const RIGHT = 4;
+const DOWN = 7;
+
+const prepScript = [
+	{
+		// GameBoy Player screen
+		frameDelay: 30,
+		input: START,
+		description: 'Press start to move past GB Player screen',
+		predicate: {
+			// upper left corner of the 'G'
+			address: 0x60085c0,
+			value: [0x37, 0x1a, 0x01, 0x01, 0x01],
+		},
+	},
+	{
+		// opening cinema
+		input: START,
+		description: 'press start to move past opening cinema',
+		predicate: {
+			// the checkerboard pattern in upper left
+			address: 0x6003a00,
+			value: [0x33, 0x33, 0x33, 0x44],
+		},
+	},
+	{
+		// title screen
+		frameDelay: 45,
+		input: START,
+		description: 'press start to choose 1p at title screen',
+		predicate: {
+			// the top of the "S" in "Super Mario Advance 4" on title screen
+			// tile starts at 40, but looking at second row as values are more distinct
+			address: 0x06004450,
+			value: [0xfa, 0xfa, 0x8b, 0xf8, 0xf8, 0xf8],
+		},
+	},
+	{
+		// choose SMB3 or Mario Bros
+		frameDelay: 45,
+		input: START,
+		description: 'press start to choose SMB3',
+		predicate: {
+			// the checkerboard pattern in upper left
+			address: 0x6003a00,
+			value: [0x33, 0x33, 0x33, 0x44],
+		},
+	},
+	{
+		// opening curtain animation for SMB3 title screen
+		frameDelay: 50,
+		input: START,
+		description: 'Press start to move past curtain',
+		predicate: {
+			// upper left corner of curtain
+			address: 0x06003e00,
+			value: [0x46, 0x65, 0x77, 0x66],
+		},
+	},
+	{
+		// title screen, koopas walk across
+		// just wait a bit and press start again
+		description: 'Press start to get into title screen menu',
+		frameDelay: 20,
+		input: START,
+	},
+	{
+		// file load screen
+		// just wait a bit and press down
+		description: 'first press down on file screen',
+		frameDelay: 10,
+		input: DOWN,
+	},
+	{
+		// file load screen
+		// just wait a bit and press down
+		description: 'second press down on file screen',
+		frameDelay: 10,
+		input: DOWN,
+	},
+	{
+		// file load screen
+		// just wait a bit and press down
+		description: 'third press down on file screen',
+		frameDelay: 10,
+		input: DOWN,
+	},
+	{
+		// file load screen
+		// just wait a bit and press start to choose e-reader world
+		description: 'press start to enter e-reader world',
+		frameDelay: 10,
+		input: START,
+	},
+	{
+		callbackWithStatus: 'ready-to-inject',
+		ignoreInput: true,
+		pause: true,
+		proceedIfInjected: true,
+	},
+];
+
+const goIntoLevelScript = [
+	{
+		// e-reader world
+		// move right
+		description: 'First right in e-reader world',
+		frameDelay: 100,
+		input: RIGHT,
+	},
+	{
+		// e-reader world
+		// move right
+		description: 'Second right in e-reader world',
+		frameDelay: 20,
+		input: RIGHT,
+	},
+	{
+		// e-reader world
+		// choose to go into level menu
+		description: 'A to go into level menu',
+		frameDelay: 20,
+		input: A_BUTTON,
+	},
+	{
+		// e-reader world
+		// choose to play first level
+		description: 'A to choose first level',
+		frameDelay: 50,
+		input: A_BUTTON,
+	},
+	{
+		// e-reader world
+		// confirm play first level
+		description: 'A to confirm first level',
+		frameDelay: 70,
+		input: A_BUTTON,
+	},
+	{
+		callbackWithStatus: 'level-ready',
+		ignoreInput: false,
+		pause: false,
+	},
+];
+
 GameBoyAdvance = function GameBoyAdvance() {
+	this.statusCallback = null;
+
 	this.LOG_ERROR = 1;
 	this.LOG_WARN = 2;
 	this.LOG_STUB = 4;
@@ -72,6 +221,9 @@ GameBoyAdvance = function GameBoyAdvance() {
 	this.video.vblankCallback = function () {
 		self.seenFrame = true;
 	};
+
+	this.scriptIndex = 0;
+	this.script = null;
 };
 
 GameBoyAdvance.prototype.setCanvas = function (canvas) {
@@ -149,11 +301,59 @@ GameBoyAdvance.prototype.reset = function () {
 	this.mmu.mmap(this.mmu.REGION_OAM, this.video.renderPath.oam);
 
 	this.cpu.resetCPU(0);
+	this.keypad.ignoreInput = true;
+	this.audio.masterVolume = 0;
+
+	this.scriptIndex = 0;
+	this.script = prepScript;
+
+	if (this.statusCallback) {
+		this.statusCallback('reset');
+		this.runStable();
+	}
 };
 
 GameBoyAdvance.prototype.step = function () {
 	while (this.doStep()) {
 		this.cpu.step();
+	}
+
+	if (this.script && this.scriptIndex < this.script.length) {
+		const entry = this.script[this.scriptIndex];
+
+		if (entry.callbackWithStatus && this.statusCallback) {
+			this.statusCallback(entry.callbackWithStatus);
+			this.keypad.ignoreInput = entry.ignoreInput;
+
+			if (!this.keypad.ignoreInput) {
+				this.audio.masterVolume = this._shouldMute ? 0 : 1;
+			}
+
+			if (entry.proceedIfInjected && this._saveToInject) {
+				this.setSavedata(this._saveToInject);
+				this._saveToInject = null;
+				this.script = goIntoLevelScript;
+				this.scriptIndex = -1;
+				this.scriptFrameDelay = 0;
+			} else if (entry.pause) {
+				this.pause();
+			}
+			this.scriptIndex += 1;
+		} else if (this.scriptFrameDelay) {
+			this.scriptFrameDelay -= 1;
+
+			if (this.scriptFrameDelay === 0) {
+				this.keypad.feed(entry.input);
+				this.scriptIndex += 1;
+			}
+		} else {
+			if (
+				!entry.predicate ||
+				this.mmu.memoryMatches(entry.predicate.address, entry.predicate.value)
+			) {
+				this.scriptFrameDelay = entry.frameDelay || 1;
+			}
+		}
 	}
 };
 
@@ -184,6 +384,17 @@ GameBoyAdvance.prototype.advanceFrame = function () {
 	} else if (this.mmu.saveNeedsFlush()) {
 		this.seenSave = true;
 		this.mmu.flushSave();
+	}
+};
+
+GameBoyAdvance.prototype.injectSaveFile = function (saveFileBuffer) {
+	if (this.script === prepScript && this.scriptIndex < this.script.length) {
+		this._saveToInject = saveFileBuffer;
+	} else {
+		this.setSavedata(saveFileBuffer);
+		this.script = goIntoLevelScript;
+		this.scriptIndex = 0;
+		this.runStable();
 	}
 };
 
