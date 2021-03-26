@@ -99,7 +99,7 @@ function getObjects(tileLayer: TileLayer): number[] {
 	const objects: number[] = [];
 
 	function getEndX(row: TileRow, startTile: Tile): Tile {
-		if (objectMap[startTile.tileType].dimensions === 'x') {
+		if (objectMap[startTile.tileType].dimensions === 'y') {
 			return startTile;
 		}
 
