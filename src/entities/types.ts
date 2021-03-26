@@ -1,3 +1,5 @@
+import { LevelObject } from '../tiles/parseObjectsFromLevelFile';
+
 type TileExtractionSpec = {
 	romOffset: number;
 	tileIndex: number;
@@ -27,6 +29,10 @@ type ObjectEntity = BaseEntity & {
 	) =>
 		| [number, number, number, number]
 		| [number, number, number, number, number];
+
+	// only need to implement this if parsing is different from the basic
+	// parsing provided in parseObjectsFromLevelFile
+	parseBinary?: (bytes: number[]) => LevelObject;
 };
 
 type SpriteEntity = BaseEntity & {

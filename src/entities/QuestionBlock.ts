@@ -1,5 +1,6 @@
 import type { ObjectEntity } from './types';
 import { getBankLength } from './util';
+import { LevelObject } from '../tiles/parseObjectsFromLevelFile';
 
 const QuestionBlock: ObjectEntity = {
 	type: 'QuestionBlock',
@@ -40,6 +41,17 @@ const QuestionBlock: ObjectEntity = {
 		// } else {
 		// 	throw new Error('QuestionBlock: only Mushroom payload is implemented');
 		// }
+	},
+
+	parseBinary(rawBytes: number[]): LevelObject {
+		return {
+			id: rawBytes[3],
+			x: rawBytes[2],
+			y: rawBytes[1],
+			width: (rawBytes[0] & 0x3f) + 1,
+			height: 1,
+			rawBytes,
+		};
 	},
 };
 

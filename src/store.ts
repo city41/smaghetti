@@ -23,6 +23,10 @@ import {
 	reducer as profileReducer,
 	ProfileState,
 } from './components/profile/profileSlice';
+import {
+	reducer as renderLevelReducer,
+	RenderLevelState,
+} from './components/render-level/renderLevelSlice';
 
 type AppState = {
 	editor: EditorState;
@@ -30,6 +34,7 @@ type AppState = {
 	tiles: TilesState;
 	palettes: PalettesState;
 	profile: ProfileState;
+	'render-level': RenderLevelState;
 };
 
 const rootReducer = combineReducers({
@@ -38,6 +43,7 @@ const rootReducer = combineReducers({
 	tiles: tilesReducer,
 	palettes: palettesReducer,
 	profile: profileReducer,
+	'render-level': renderLevelReducer,
 });
 
 const store = configureStore({

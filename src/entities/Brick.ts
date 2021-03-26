@@ -1,7 +1,7 @@
 import type { ObjectEntity } from './types';
 import { getBankLength } from './util';
-
-const OBJECT_ID = 0xf;
+import { tileTypeToObjectId } from './objectIdMap';
+import { TileType } from '../tiles/constants';
 
 const Brick: ObjectEntity = {
 	type: 'Brick',
@@ -34,7 +34,13 @@ const Brick: ObjectEntity = {
 	],
 
 	toBinary(x, y, w, h) {
-		return [getBankLength(1, w), y, x, OBJECT_ID, h];
+		return [
+			getBankLength(1, w),
+			y,
+			x,
+			tileTypeToObjectId[this.type as TileType],
+			h,
+		];
 	},
 };
 
