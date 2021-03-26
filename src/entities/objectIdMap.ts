@@ -10,6 +10,7 @@ const bank1ObjectIdToTileType: Record<number, TileType> = {
 };
 
 const bank0ObjectIdToTileType: Record<number, TileType> = {
+	0x10: 'QuestionBlock', // with mushroom/fire flower inside
 	0x16: 'Brick', // with mushroom/fire flower inside
 	0x1b: 'Brick', // with a one up mushroom in it
 	0x1a: 'Brick', // with a coin cache inside
