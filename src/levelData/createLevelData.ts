@@ -2,6 +2,7 @@ import { convertASCIIToLevelName } from './util';
 import { TILE_SIZE, TileType } from '../tiles/constants';
 import cloneDeep from 'lodash/cloneDeep';
 import { objectMap, spriteMap, SpriteType } from '../entities/entityMap';
+import isEqual from 'lodash/isEqual';
 
 type Room = {
 	objects: number[];
@@ -100,7 +101,10 @@ function getObjects(tileLayer: TileLayer): number[] {
 	function getEndX(row: TileRow, startTile: Tile): Tile {
 		let x = startTile.x;
 
-		while (row[x]?.tileType === startTile.tileType) {
+		while (
+			row[x]?.tileType === startTile.tileType &&
+			isEqual(row[x]?.settings, startTile.settings)
+		) {
 			++x;
 		}
 
@@ -115,7 +119,10 @@ function getObjects(tileLayer: TileLayer): number[] {
 
 		let y = tile.y;
 
-		while (clone.data[y]?.[tile.x]?.tileType === tile.tileType) {
+		while (
+			clone.data[y]?.[tile.x]?.tileType === tile.tileType &&
+			isEqual(clone.data[y]?.[tile.x]?.settings, tile.settings)
+		) {
 			++y;
 		}
 

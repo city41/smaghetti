@@ -1,8 +1,12 @@
 import { ROOM0_OBJECT_POINTER_ADDRESS } from '../levelData/constants';
 import { objectMap } from '../entities/entityMap';
-import { objectIdToTileType } from '../entities/objectIdMap';
+import {
+	bank0ObjectIdToTileType,
+	bank1ObjectIdToTileType,
+} from '../entities/objectIdMap';
 
 type LevelObject = {
+	bank: 0 | 1;
 	x: number;
 	y: number;
 	width: number;
@@ -20,6 +24,8 @@ function extractObject(
 	const width = bankAndWidth & 0x3f;
 	const id = levelData[objectIndex + 3];
 
+	const objectIdToTileType =
+		bank === 0 ? bank0ObjectIdToTileType : bank1ObjectIdToTileType;
 	const ObjectType = objectMap[objectIdToTileType[id]];
 
 	const rawByteLength = bank === 0 ? 4 : 5;
@@ -31,6 +37,7 @@ function extractObject(
 		return ObjectType.parseBinary(rawBytes);
 	} else if (bank === 0) {
 		return {
+			bank,
 			id: levelData[objectIndex + 3],
 			x: levelData[objectIndex + 2],
 			y: levelData[objectIndex + 1],
@@ -38,8 +45,9 @@ function extractObject(
 			height: 1,
 			rawBytes: Array.from(levelData.slice(objectIndex, objectIndex + 4)),
 		};
-	} else {
+	} else if (bank === 1) {
 		return {
+			bank,
 			id: levelData[objectIndex + 3],
 			x: levelData[objectIndex + 2],
 			y: levelData[objectIndex + 1],
@@ -47,6 +55,8 @@ function extractObject(
 			height: levelData[objectIndex + 4] + 1,
 			rawBytes: Array.from(levelData.slice(objectIndex, objectIndex + 5)),
 		};
+	} else {
+		throw new Error('whoa, an object in bank ' + bank);
 	}
 }
 

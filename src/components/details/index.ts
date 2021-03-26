@@ -4,6 +4,8 @@ import { ObjectType, SpriteType } from '../../entities/entityMap';
 import { AceCoinViewDetails } from './AceCoinViewDetails';
 import { QuestionBlockViewDetails } from './QuestionBlockViewDetails';
 import { QuestionBlockEditDetails } from './QuestionBlockEditDetails';
+import { BrickViewDetails } from './BrickViewDetails';
+import { BrickEditDetails } from './BrickEditDetails';
 
 type DetailsViewProps = {
 	settings: EntitySettings;
@@ -23,6 +25,10 @@ const detailsMap: Partial<
 		}
 	>
 > = {
+	Brick: {
+		view: BrickViewDetails,
+		edit: BrickEditDetails,
+	},
 	QuestionBlock: {
 		view: QuestionBlockViewDetails,
 		edit: QuestionBlockEditDetails,

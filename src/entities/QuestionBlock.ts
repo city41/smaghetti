@@ -45,6 +45,7 @@ const QuestionBlock: ObjectEntity = {
 
 	parseBinary(rawBytes: number[]): LevelObject {
 		return {
+			bank: (rawBytes[0] >> 6) as 0 | 1,
 			id: rawBytes[3],
 			x: rawBytes[2],
 			y: rawBytes[1],

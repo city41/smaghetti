@@ -1,12 +1,18 @@
 import type { ObjectEntity } from './types';
 import { getBankLength } from './util';
-import { tileTypeToObjectId } from './objectIdMap';
-import { TileType } from '../tiles/constants';
+
+const OBJECT_ID = 0xf;
+
+const payloadToObjectId = {
+	OneUpMushroom: 0x1b,
+	Mushroom: 0x16,
+	Coin: 0x1a,
+};
 
 const Brick: ObjectEntity = {
 	type: 'Brick',
 	mode: 'Object',
-	settingsType: 'none',
+	settingsType: 'single',
 	defaultSettings: {},
 	dimensions: 2,
 	romOffset: 0x131fe0,
@@ -33,15 +39,25 @@ const Brick: ObjectEntity = {
 		[309, 311],
 	],
 
-	toBinary(x, y, w, h) {
-		return [
-			getBankLength(1, w),
-			y,
-			x,
-			tileTypeToObjectId[this.type as TileType],
-			h,
-		];
+	toBinary(x, y, w, h, settings): number[] {
+		if (settings.payload in payloadToObjectId) {
+			// if there is a payload then need to split this up into individual brick objects
+
+			let binaries: number[] = [];
+			const objectId =
+				payloadToObjectId[settings.payload as keyof typeof payloadToObjectId];
+
+			for (let by = 0; by < h + 1; ++by) {
+				for (let bx = 0; bx < w + 1; ++bx) {
+					binaries = binaries.concat([0, y + by, x + bx, objectId]);
+				}
+			}
+
+			return binaries;
+		} else {
+			return [getBankLength(1, w), y, x, OBJECT_ID, h];
+		}
 	},
 };
 
-export { Brick };
+export { Brick, payloadToObjectId };

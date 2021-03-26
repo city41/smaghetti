@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { LevelObject as LevelObjectType } from '../../../tiles/parseObjectsFromLevelFile';
 import { TILE_SIZE as ACTUAL_TILE_SIZE } from '../../../tiles/constants';
-import { objectIdToTileType } from '../../../entities/objectIdMap';
-import { raw } from '@storybook/react';
+import {
+	bank0ObjectIdToTileType,
+	bank1ObjectIdToTileType,
+} from '../../../entities/objectIdMap';
 
 type LevelObjectProps = {
 	object: LevelObjectType;
@@ -45,7 +47,10 @@ function Raw({ bytes }: { bytes: number[] }) {
 
 function LevelObject({ object }: LevelObjectProps) {
 	const [showRaw, setShowRaw] = useState(false);
-	const tileType = objectIdToTileType[object.id];
+	const tileType =
+		object.bank === 0
+			? bank0ObjectIdToTileType[object.id]
+			: bank1ObjectIdToTileType[object.id];
 
 	const x = object.x * TILE_SIZE;
 	const y = object.y * TILE_SIZE;

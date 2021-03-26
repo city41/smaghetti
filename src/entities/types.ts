@@ -26,9 +26,7 @@ type ObjectEntity = BaseEntity & {
 		w: number,
 		h: number,
 		settings: Record<string, any>
-	) =>
-		| [number, number, number, number]
-		| [number, number, number, number, number];
+	) => number[];
 
 	// only need to implement this if parsing is different from the basic
 	// parsing provided in parseObjectsFromLevelFile
