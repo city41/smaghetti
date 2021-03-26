@@ -17,56 +17,10 @@ type PaletteChoiceModalProps = {
 	onCancel: () => void;
 };
 
-const tabs = ['Objects', 'Enemies', 'Items', 'Gizmos', 'Power Ups'];
-
 type PaletteChoiceModalEntry = {
 	entry: PaletteEntry;
 	info: { title: string; description: string; limitationsId?: string };
 };
-
-const objects: PaletteChoiceModalEntry[] = [
-	{
-		entry: {
-			brushMode: 'tile',
-			type: 'Brick',
-		},
-		info: {
-			title: 'Brick',
-			description: 'Flexible, can be terrain, smashed, and contain items',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'tile',
-			type: 'IndestructibleBrick',
-		},
-		info: {
-			title: 'Indestructible Brick',
-			description: 'I always thought these looked like chocolate',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'tile',
-			type: 'QuestionBlock',
-		},
-		info: {
-			title: 'Question Block',
-			description: 'Can contain a coin, power up or other things',
-		},
-	},
-	{
-		entry: {
-			brushMode: 'entity',
-			type: 'CardSlotMachine',
-		},
-		info: {
-			title: 'Card Slot Machine',
-			description:
-				'Required to be in your level somewhere. Getting the card ends the level.',
-		},
-	},
-];
 
 const enemies: PaletteChoiceModalEntry[] = [
 	{
@@ -151,6 +105,53 @@ const enemies: PaletteChoiceModalEntry[] = [
 	},
 ];
 
+const objects: PaletteChoiceModalEntry[] = [
+	{
+		entry: {
+			brushMode: 'tile',
+			type: 'QuestionBlock',
+		},
+		info: {
+			title: 'Question Block',
+			description: 'Can contain a coin, power up or other things',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'CardSlotMachine',
+		},
+		info: {
+			title: 'Card Slot Machine',
+			description:
+				'Required to be in your level somewhere. Getting the card ends the level.',
+		},
+	},
+];
+
+const terrain: PaletteChoiceModalEntry[] = [
+	{
+		entry: {
+			brushMode: 'tile',
+			type: 'Brick',
+		},
+		info: {
+			title: 'Brick',
+			description: 'Flexible, can be terrain, smashed, and contain items',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'tile',
+			type: 'IndestructibleBrick',
+		},
+		info: {
+			title: 'Indestructible Brick',
+			description: 'I always thought these looked like chocolate',
+		},
+	},
+];
+
 const items: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
@@ -211,7 +212,8 @@ const powerUps: PaletteChoiceModalEntry[] = [
 	},
 ];
 
-const entries = [objects, enemies, items, gizmos, powerUps];
+const tabs = ['Enemies', 'Objects', 'Terrain', 'Items', 'Gizmos', 'Power Ups'];
+const entries = [enemies, objects, terrain, items, gizmos, powerUps];
 
 const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 	open,
