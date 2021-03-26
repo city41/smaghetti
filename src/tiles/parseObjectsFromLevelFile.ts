@@ -6,7 +6,7 @@ import {
 } from '../entities/objectIdMap';
 
 type LevelObject = {
-	bank: 0 | 1;
+	bank: 0 | 1 | 2;
 	x: number;
 	y: number;
 	width: number;
@@ -45,7 +45,7 @@ function extractObject(
 			height: 1,
 			rawBytes: Array.from(levelData.slice(objectIndex, objectIndex + 4)),
 		};
-	} else if (bank === 1) {
+	} else if (bank === 1 || bank === 2) {
 		return {
 			bank,
 			id: levelData[objectIndex + 3],
