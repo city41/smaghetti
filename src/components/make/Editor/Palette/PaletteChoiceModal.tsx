@@ -210,6 +210,16 @@ const powerUps: PaletteChoiceModalEntry[] = [
 			description: 'The cape power-up from Super Mario World',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'StarMan',
+		},
+		info: {
+			title: 'Star Man',
+			description: 'I can hear the song now...',
+		},
+	},
 ];
 
 const tabs = ['Enemies', 'Objects', 'Terrain', 'Items', 'Gizmos', 'Power Ups'];
