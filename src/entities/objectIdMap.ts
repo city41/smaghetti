@@ -14,6 +14,7 @@ const bank0ObjectIdToObjectType: Record<number, ObjectType> = {
 	0x16: 'Brick', // with mushroom/fire flower inside
 	0x1b: 'Brick', // with a one up mushroom in it
 	0x1a: 'Brick', // with a coin cache inside
+	0x18: 'Brick', // with a coin cache inside
 };
 
 const bank1ObjectTypeToObjectId: Record<ObjectType, number> = (function () {
