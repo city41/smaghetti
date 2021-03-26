@@ -3,8 +3,8 @@ import clsx from 'clsx';
 import { LevelObject as LevelObjectType } from '../../../tiles/parseObjectsFromLevelFile';
 import { TILE_SIZE as ACTUAL_TILE_SIZE } from '../../../tiles/constants';
 import {
-	bank0ObjectIdToTileType,
-	bank1ObjectIdToTileType,
+	bank0ObjectIdToObjectType,
+	bank1ObjectIdToObjectType,
 } from '../../../entities/objectIdMap';
 
 type LevelObjectProps = {
@@ -49,8 +49,8 @@ function LevelObject({ object }: LevelObjectProps) {
 	const [showRaw, setShowRaw] = useState(false);
 	const tileType =
 		object.bank === 0
-			? bank0ObjectIdToTileType[object.id]
-			: bank1ObjectIdToTileType[object.id];
+			? bank0ObjectIdToObjectType[object.id]
+			: bank1ObjectIdToObjectType[object.id];
 
 	const x = object.x * TILE_SIZE;
 	const y = object.y * TILE_SIZE;

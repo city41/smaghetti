@@ -9,6 +9,7 @@ import { Coin } from './Coin';
 import { Goomba } from './Goomba';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
+import { IndestructibleBrick } from './IndestructibleBrick';
 import { Lakitu } from './Lakitu';
 import { Mushroom } from './Mushroom';
 import { OneUpMushroom } from './OneUpMushroom';
@@ -36,7 +37,7 @@ type SpriteType =
 	| 'Spiny'
 	| 'SpringBoard';
 
-type ObjectType = 'Brick' | 'Coin' | 'QuestionBlock';
+type ObjectType = 'Brick' | 'Coin' | 'IndestructibleBrick' | 'QuestionBlock';
 
 const spriteMap: Record<SpriteType, SpriteEntity> = {
 	AceCoin,
@@ -59,6 +60,7 @@ const spriteMap: Record<SpriteType, SpriteEntity> = {
 const objectMap: Record<ObjectType, ObjectEntity> = {
 	Brick,
 	Coin,
+	IndestructibleBrick,
 	QuestionBlock,
 };
 

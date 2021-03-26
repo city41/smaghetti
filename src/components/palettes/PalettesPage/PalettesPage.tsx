@@ -52,6 +52,21 @@ function PalettesPage({
 				>
 					next
 				</Button>
+				<select
+					className="text-black"
+					value={curEntity?.type}
+					onChange={(e) =>
+						setCurEntityIndex(
+							entities.findIndex((ent) => ent.type === e.target.value)
+						)
+					}
+				>
+					{entities.map((e) => (
+						<option key={e.type} value={e.type}>
+							{e.type}
+						</option>
+					))}
+				</select>
 				<div>{curEntity?.type}</div>
 			</div>
 			<div className="grid grid-flow-row grid-cols-8 gap-x-2 gap-y-2 items-stretch">

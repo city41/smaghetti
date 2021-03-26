@@ -4,9 +4,9 @@ import { PaletteEntry as PaletteEntryType } from '../../editorSlice';
 import { Tile } from '../../../Tile';
 import { Entity } from '../../../Entity';
 import {
+	ObjectType,
 	TILE_SIZE,
 	TILE_TYPE_TO_FIRST_TILE_INDEX_MAP,
-	TileType,
 } from '../../../../tiles/constants';
 
 import styles from './PaletteEntry.module.css';
@@ -118,7 +118,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 }) => {
 	const item =
 		entry.brushMode === 'tile' ? (
-			<Tile tileType={entry.type as TileType} scale={SCALE} />
+			<Tile tileType={entry.type as ObjectType} scale={SCALE} />
 		) : (
 			<Entity
 				scale={6.25}

@@ -1,40 +1,40 @@
-import { TileType } from '../tiles/constants';
+import { ObjectType } from './entityMap';
 
 // this is weird because the ids dont really map 1:1 to a tile type
 // TODO: need to figure this out better?
-// also TODO: this is duplicating info found at for example Brick.ts
-const bank1ObjectIdToTileType: Record<number, TileType> = {
+const bank1ObjectIdToObjectType: Record<number, ObjectType> = {
 	0xf: 'Brick',
 	0x16: 'Coin',
 	0x10: 'QuestionBlock',
+	0x80: 'IndestructibleBrick',
 };
 
-const bank0ObjectIdToTileType: Record<number, TileType> = {
+const bank0ObjectIdToObjectType: Record<number, ObjectType> = {
 	0x10: 'QuestionBlock', // with mushroom/fire flower inside
 	0x16: 'Brick', // with mushroom/fire flower inside
 	0x1b: 'Brick', // with a one up mushroom in it
 	0x1a: 'Brick', // with a coin cache inside
 };
 
-const bank1TileTypeToObjectId: Record<TileType, number> = (function () {
-	return Object.entries(bank1ObjectIdToTileType).reduce((building, entry) => {
+const bank1ObjectTypeToObjectId: Record<ObjectType, number> = (function () {
+	return Object.entries(bank1ObjectIdToObjectType).reduce((building, entry) => {
 		// @ts-ignore
 		building[entry[1]] = parseInt(entry[0], 16);
 		return building;
-	}, {}) as Record<TileType, number>;
+	}, {}) as Record<ObjectType, number>;
 })();
 
-const bank0TileTypeToObjectId: Record<TileType, number> = (function () {
-	return Object.entries(bank0ObjectIdToTileType).reduce((building, entry) => {
+const bank0ObjectTypeToObjectId: Record<ObjectType, number> = (function () {
+	return Object.entries(bank0ObjectIdToObjectType).reduce((building, entry) => {
 		// @ts-ignore
 		building[entry[1]] = parseInt(entry[0], 16);
 		return building;
-	}, {}) as Record<TileType, number>;
+	}, {}) as Record<ObjectType, number>;
 })();
 
 export {
-	bank1ObjectIdToTileType,
-	bank0TileTypeToObjectId,
-	bank0ObjectIdToTileType,
-	bank1TileTypeToObjectId,
+	bank1ObjectIdToObjectType,
+	bank0ObjectTypeToObjectId,
+	bank0ObjectIdToObjectType,
+	bank1ObjectTypeToObjectId,
 };

@@ -14,7 +14,7 @@ const Brick: ObjectEntity = {
 	mode: 'Object',
 	settingsType: 'single',
 	defaultSettings: {},
-	dimensions: 2,
+	dimensions: 'xy',
 	romOffset: 0x131fe0,
 	palette: [
 		0x7f96,

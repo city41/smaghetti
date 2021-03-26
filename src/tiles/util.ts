@@ -1,12 +1,12 @@
 import {
 	TILE_TYPE_COUNT,
 	FIRST_TILE_INDEX_TO_TILE_TYPE_MAP,
-	TileType,
+	ObjectType,
 } from './constants';
 
 function getTileType(
 	tileIndex: number | null | undefined
-): TileType | undefined {
+): ObjectType | undefined {
 	if (!tileIndex) {
 		return undefined;
 	}

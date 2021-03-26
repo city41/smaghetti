@@ -29,12 +29,16 @@ import { deserialize } from '../../level/deserialize';
 import isEqual from 'lodash/isEqual';
 
 import {
-	TileType,
 	TILE_SIZE,
 	TILE_TYPE_TO_FIRST_TILE_INDEX_MAP,
 	TILE_TYPE_TO_GROUP_TYPE_MAP,
 } from '../../tiles/constants';
-import { objectMap, spriteMap, SpriteType } from '../../entities/entityMap';
+import {
+	objectMap,
+	ObjectType,
+	spriteMap,
+	SpriteType,
+} from '../../entities/entityMap';
 
 type LocalStorageData = {
 	metadata: {
@@ -48,17 +52,17 @@ type LocalStorageData = {
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
 
-type TilePaletteEntry = {
+type ObjectPaletteEntry = {
 	brushMode: 'tile';
-	type: TileType;
+	type: ObjectType;
 };
 
-type EntityPaletteEntry = {
+type SpritePaletteEntry = {
 	brushMode: 'entity';
 	type: SpriteType;
 };
 
-export type PaletteEntry = TilePaletteEntry | EntityPaletteEntry;
+export type PaletteEntry = ObjectPaletteEntry | SpritePaletteEntry;
 
 type EditorFocusRect = {
 	offset: Point;
@@ -200,7 +204,7 @@ type FloodBounds = {
 
 function floodFill(
 	tiles: TileMatrix,
-	floodTileType: TileType,
+	floodTileType: ObjectType,
 	indexX: number,
 	indexY: number,
 	levelTileWidth: number,

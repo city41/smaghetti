@@ -1,17 +1,18 @@
 import React, { CSSProperties, forwardRef, RefObject, memo } from 'react';
 import clsx from 'clsx';
 
-import { TILE_SIZE, TileType } from '../../tiles/constants';
+import { TILE_SIZE } from '../../tiles/constants';
 import focusedStyles from '../../styles/focused.module.css';
 import { detailsMap } from '../details';
 
 import styles from './Tile.module.css';
+import { ObjectType } from '../../entities/entityMap';
 
 type TileProps = {
 	className?: string;
 	ref?: RefObject<HTMLDivElement> | null;
 	id?: number;
-	tileType: TileType;
+	tileType: ObjectType;
 	scale?: number;
 	style?: CSSProperties;
 	top?: number;

@@ -1,5 +1,5 @@
 import { convertASCIIToLevelName } from './util';
-import { TILE_SIZE, TileType } from '../tiles/constants';
+import { TILE_SIZE } from '../tiles/constants';
 import cloneDeep from 'lodash/cloneDeep';
 import { objectMap, spriteMap, SpriteType } from '../entities/entityMap';
 import isEqual from 'lodash/isEqual';
@@ -99,6 +99,10 @@ function getObjects(tileLayer: TileLayer): number[] {
 	const objects: number[] = [];
 
 	function getEndX(row: TileRow, startTile: Tile): Tile {
+		if (objectMap[startTile.tileType].dimensions === 'x') {
+			return startTile;
+		}
+
 		let x = startTile.x;
 
 		while (
@@ -113,7 +117,7 @@ function getObjects(tileLayer: TileLayer): number[] {
 	}
 
 	function getMaxY(tile: Tile): number {
-		if (objectMap[tile.tileType].dimensions === 1) {
+		if (objectMap[tile.tileType].dimensions === 'x') {
 			return tile.y;
 		}
 

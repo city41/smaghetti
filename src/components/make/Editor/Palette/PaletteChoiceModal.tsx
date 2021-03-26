@@ -38,6 +38,16 @@ const objects: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
 			brushMode: 'tile',
+			type: 'IndestructibleBrick',
+		},
+		info: {
+			title: 'Indestructible Brick',
+			description: 'I always thought these looked like chocolate',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'tile',
 			type: 'QuestionBlock',
 		},
 		info: {

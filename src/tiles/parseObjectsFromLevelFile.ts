@@ -1,8 +1,8 @@
 import { ROOM0_OBJECT_POINTER_ADDRESS } from '../levelData/constants';
 import { objectMap } from '../entities/entityMap';
 import {
-	bank0ObjectIdToTileType,
-	bank1ObjectIdToTileType,
+	bank0ObjectIdToObjectType,
+	bank1ObjectIdToObjectType,
 } from '../entities/objectIdMap';
 
 type LevelObject = {
@@ -24,9 +24,9 @@ function extractObject(
 	const width = bankAndWidth & 0x3f;
 	const id = levelData[objectIndex + 3];
 
-	const objectIdToTileType =
-		bank === 0 ? bank0ObjectIdToTileType : bank1ObjectIdToTileType;
-	const ObjectType = objectMap[objectIdToTileType[id]];
+	const objectIdToObjectType =
+		bank === 0 ? bank0ObjectIdToObjectType : bank1ObjectIdToObjectType;
+	const ObjectType = objectMap[objectIdToObjectType[id]];
 
 	const rawByteLength = bank === 0 ? 4 : 5;
 	const rawBytes = Array.from(

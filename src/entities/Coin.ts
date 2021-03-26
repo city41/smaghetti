@@ -8,7 +8,7 @@ const Coin: ObjectEntity = {
 	mode: 'Object',
 	settingsType: 'none',
 	defaultSettings: {},
-	dimensions: 2,
+	dimensions: 'xy',
 	romOffset: 0x176be8,
 	palette: [
 		0x7f96,

@@ -1,5 +1,4 @@
 import {
-	TileType,
 	ToppedType,
 	TopperType,
 	HasXEndCapType,
@@ -14,6 +13,7 @@ import {
 	TILE_TYPE_TO_TILE_ENTITY_TYPE,
 	TileHasEntityType,
 	TileGroupType,
+	ObjectType,
 } from '../tiles/constants';
 import { groupingTileMap } from './groupingTileMap';
 import { topperTileMap } from './topperTileMap';
@@ -21,7 +21,7 @@ import { topperTileMap } from './topperTileMap';
 function getSolidity(
 	y: number,
 	x: number,
-	tileTypes: (TileType | undefined)[],
+	tileTypes: (ObjectType | undefined)[],
 	tiles: TileMatrix,
 	width: number,
 	height: number
@@ -36,7 +36,7 @@ function getSolidity(
 function buildKey(
 	tiles: TileMatrix,
 	groupType: TileGroupType,
-	tileTypes: (TileType | undefined)[],
+	tileTypes: (ObjectType | undefined)[],
 	x: number,
 	y: number,
 	width: number,
@@ -98,7 +98,7 @@ function buildKey(
 function determineTopperTileIndex(
 	tile: Tile,
 	tiles: TileMatrix,
-	topsType: TileType
+	topsType: ObjectType
 ): number {
 	const tileToLeft = tiles[tile.y]?.[tile.x - 1];
 	const tileToDownLeftTileParentId = tiles[tile.y + 1]?.[tile.x - 1]?.tileType;
@@ -426,7 +426,7 @@ function groupTiles(
 
 			const tileTypes = (typeof toppedType === 'string'
 				? [tile.tileType, toppedType]
-				: [tile.tileType]) as TileType[];
+				: [tile.tileType]) as ObjectType[];
 
 			const key = buildKey(
 				tiles,
