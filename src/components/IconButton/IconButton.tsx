@@ -80,7 +80,7 @@ function IconButton({
 			}}
 		>
 			<div
-				className={clsx('w-full h-full grid place-items-center text-2xl', {
+				className={clsx('w-full h-11 grid place-items-center text-2xl', {
 					'border-b-4 border-black': toggled,
 					'opacity-25': disabled,
 					'animate-spin': loading,
