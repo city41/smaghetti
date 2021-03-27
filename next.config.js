@@ -15,7 +15,7 @@ module.exports = withPlugins(
 	{
 		pageExtensions: ['tsx'],
 		trailingSlash: true,
-		serverRuntimeConfig: {
+		publicRuntimeConfig: {
 			PROJECT_ROOT: __dirname,
 			ROOT_DOMAIN: 'smaghetti.com',
 		},

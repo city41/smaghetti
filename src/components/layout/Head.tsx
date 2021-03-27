@@ -1,6 +1,5 @@
 import NextHead from 'next/head';
 import React from 'react';
-import getConfig from 'next/config';
 import fallbackImg from './fallback_openGraph.png';
 
 type HeadProps = {
@@ -26,7 +25,7 @@ function getAbsoluteUrl(url: string): string {
 		url = url.substring(1);
 	}
 
-	const domain = getConfig()?.serverRuntimeConfig.ROOT_DOMAIN;
+	const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
 	return `https://${domain}/${url}`;
 }
@@ -42,7 +41,10 @@ function Head({ title, metaDescription, metaImg }: HeadProps) {
 
 			<meta charSet="utf-8" />
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
-			<meta name="description" content={metaDescription} />
+			<meta
+				name="description"
+				content={metaDescription || 'A level editor for Super Mario Advance 4'}
+			/>
 
 			{/* Twitter */}
 			<meta name="twitter:creator" content="@mattegreer" key="twhandle" />
