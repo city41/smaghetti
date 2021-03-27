@@ -61,6 +61,12 @@ function Root({
 						>
 							editor
 						</a>
+						<a
+							className="className text-link cursor-pointer hover:underline"
+							href="/tools"
+						>
+							tools
+						</a>
 					</div>
 				</div>
 				{subheading && (
