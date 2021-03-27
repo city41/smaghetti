@@ -1,6 +1,7 @@
 import { ObjectEntity, SpriteEntity } from './types';
 
 import { AceCoin } from './AceCoin';
+import { Bobomb } from './Bobomb';
 import { Brick } from './Brick';
 import { BuzzyBeetle } from './BuzzyBeetle';
 import { CapeFeather } from './CapeFeather';
@@ -25,6 +26,7 @@ import { StarMan } from './StarMan';
 
 type SpriteType =
 	| 'AceCoin'
+	| 'Bobomb'
 	| 'BuzzyBeetle'
 	| 'CapeFeather'
 	| 'CardSlotMachine'
@@ -47,6 +49,7 @@ type ObjectType = 'Brick' | 'Coin' | 'IndestructibleBrick' | 'QuestionBlock';
 
 const spriteMap: Record<SpriteType, SpriteEntity> = {
 	AceCoin,
+	Bobomb,
 	BuzzyBeetle,
 	CapeFeather,
 	CardSlotMachine,

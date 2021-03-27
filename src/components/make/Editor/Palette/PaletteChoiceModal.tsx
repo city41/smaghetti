@@ -106,6 +106,16 @@ const enemies: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
 			brushMode: 'entity',
+			type: 'Bobomb',
+		},
+		info: {
+			title: 'Bobomb',
+			description: '',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'entity',
 			type: 'Lakitu',
 		},
 		info: {
