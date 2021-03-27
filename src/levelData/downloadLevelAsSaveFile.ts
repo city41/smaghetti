@@ -2,6 +2,8 @@ import { getEmptySave } from '../components/FileLoader/files';
 import { createLevelData } from './createLevelData';
 import { injectLevelIntoSave } from './injectLevelIntoSave';
 
+type LevelToSave = Omit<NewLevel, 'created_at' | 'level_play_sessions'>;
+
 function sendFileToAnchorTag(data: Uint8Array, fileName: string) {
 	// stupid browser hack needed to download the file with a usable name
 	const a = document.createElement('a');
@@ -23,7 +25,7 @@ function getSafeFileName(levelName: string): string {
 	return `${levelName}.sav`;
 }
 
-function downloadLevelAsSaveFile(level: Level) {
+function downloadLevelAsSaveFile(level: LevelToSave) {
 	const emptySave = getEmptySave();
 
 	if (!emptySave) {
@@ -40,3 +42,4 @@ function downloadLevelAsSaveFile(level: Level) {
 }
 
 export { downloadLevelAsSaveFile };
+export type { LevelToSave };

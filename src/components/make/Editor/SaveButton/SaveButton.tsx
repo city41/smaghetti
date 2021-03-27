@@ -35,9 +35,9 @@ const SaveButton = memo(function SaveButton({
 		<>
 			{toast}
 			<IconButton
-				anchor="top"
 				className={className}
-				label="save your level"
+				anchor="top"
+				label="save this level"
 				onClick={onClick}
 				icon={AiFillSave}
 				alternate

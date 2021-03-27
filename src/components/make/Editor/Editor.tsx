@@ -18,6 +18,7 @@ import { LevelPlayer } from './LevelPlayer';
 import { Toolbox } from './Toolbox';
 import { PlayButton } from './PlayButton';
 import { SaveButton } from './SaveButton';
+import { DownloadButton } from './DownloadButton';
 // import { KeyboardHelpModal } from './components/keyboardHelpModal';
 import { Warning } from '../../Warning';
 import { useFirstRender } from '../../../hooks/useFirstRender';
@@ -364,6 +365,7 @@ function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 								onClick={() => setPlaying(!isPlaying)}
 							/>
 							{!isPlaying && <SaveButton />}
+							{!isPlaying && <DownloadButton />}
 						</IconButtonGroup>
 					</div>
 					<div
