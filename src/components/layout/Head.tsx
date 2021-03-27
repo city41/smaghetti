@@ -50,7 +50,7 @@ function Head({ title, metaDescription, metaImg }: HeadProps) {
 			<meta name="twitter:creator" content="@mattegreer" key="twhandle" />
 			<meta name="twitter:site" content="@mattegreer" />
 			<meta name="twitter:title" content={title} />
-			<meta name="twitter:card" content="summary" />
+			<meta name="twitter:card" content="summary_large_image" />
 			<meta name="twitter:image" content={finalMetaImg} />
 
 			{/* open graph, Twitter also uses some of these */}
