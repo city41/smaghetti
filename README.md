@@ -33,10 +33,34 @@ Proper documentation and tutorial videos will come later, but for now some featu
 
 Smaghetti is MIT licensed. See the LICENSE file. Also see the licenses directory for third party licenses.
 
-## Contributing
+# Contributing
 
-I am definitely interested in help. Let me know if you want to pitch in. You can start a discussion here on GitHub.
+A lot more work needs to be done, help is awesome! Here are ways to help
 
-## Reverse Engineering
+## Reverse engineering
 
-There is still a *lot* of reverse engineering to be done on SMA4. I have been building some (very raw) tools to help. You can see them here: https://smaghetti.com/tools
+Please see the [wiki](https://github.com/city41/smaghetti/wiki) to see what has been reverse engineered so far. Anything not found in the wiki and/or [here in the codebase](https://github.com/city41/smaghetti/tree/main/src/entities) has not been figured out yet. If you can figure a new sprite id, object parameter, whatever out, it would be great!
+
+TODO: write up a doc showing good ways to reverse engineer
+
+I have made some (very raw) tools to help with reverse engineering: https://smaghetti.com/tools, as well as the many tools made by the community such as Solar Magic Advance and NLZ-GBA.
+
+## Code contributions
+
+PRs are welcome, but please open an issue and discuss with me first before starting any work. That way no one does any wasted effort
+
+## Emulation help
+
+Are you good at GBA emulation and/or ARM assembly? I am in need of a way to jump the user straight to their level when they are editing, to get a faster feedback loop. This could be done...
+
+* using save states, but so far no web based GBA emulator supports them
+* patching the SMA4 rom to jump straight to the e-reader world as quickly as possible
+* possibly some other way?
+
+So far I have done a hokey "automation" where Smaghetti enters button inputs to get the user to their level as quickly as possible, but it's not great...
+
+## Bug reports
+
+Since Smaghetti is so young, there is a ton of bugs. Feel free to file them here as an issue
+
+
