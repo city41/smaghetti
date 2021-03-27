@@ -5,6 +5,7 @@ import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { IfNotTooSmall } from '../../IfNotTooSmall';
 import { TooSmall } from './TooSmall';
 import { NoscriptWarning } from './NoscriptWarning';
+import { Head } from '../../layout/Head';
 
 type MakePageProps = {
 	allFilesReady: boolean;
@@ -12,27 +13,36 @@ type MakePageProps = {
 
 function MakePage({ allFilesReady }: MakePageProps) {
 	const [afterFirstRender, setAfterFirstRender] = useState(false);
+	const head = <Head title="Level Editor" metaDescription="" />;
 
 	useEffect(() => {
 		setAfterFirstRender(true);
 	}, []);
 
 	if (!afterFirstRender) {
-		return <NoscriptWarning />;
+		return (
+			<>
+				{head}
+				<NoscriptWarning />;
+			</>
+		);
 	}
 
 	return (
-		<IfNotTooSmall tooSmallDisplay={<TooSmall />}>
-			{() => {
-				return (
-					<Fragment>
-						<NoscriptWarning />
-						<FileLoaderModal isOpen={!allFilesReady} />
-						<Editor />
-					</Fragment>
-				);
-			}}
-		</IfNotTooSmall>
+		<>
+			{head}
+			<IfNotTooSmall tooSmallDisplay={<TooSmall />}>
+				{() => {
+					return (
+						<Fragment>
+							<NoscriptWarning />
+							<FileLoaderModal isOpen={!allFilesReady} />
+							<Editor />
+						</Fragment>
+					);
+				}}
+			</IfNotTooSmall>
+		</>
 	);
 }
 
