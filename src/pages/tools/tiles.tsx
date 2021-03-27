@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import { TilesPage } from '../components/tiles/TilesPage';
-import { store } from '../store';
+import { TilesPage } from '../../components/tiles/TilesPage';
+import { store } from '../../store';
 
 function NextTilesPage() {
 	return (

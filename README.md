@@ -36,3 +36,7 @@ Smaghetti is MIT licensed. See the LICENSE file. Also see the licenses directory
 ## Contributing
 
 I am definitely interested in help. Let me know if you want to pitch in. You can start a discussion here on GitHub.
+
+## Reverse Engineering
+
+There is still a *lot* of reverse engineering to be done on SMA4. I have been building some (very raw) tools to help. You can see them here: https://smaghetti.com/tools

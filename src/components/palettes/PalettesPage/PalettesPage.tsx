@@ -25,6 +25,7 @@ function PalettesPage({
 	return (
 		<>
 			<FileLoaderModal isOpen={!allFilesReady} />
+			<p>Click on a sprite to copy its palette to your clipboard</p>
 			<div className="flex flex-row space-x-2">
 				<Button
 					onClick={() => {

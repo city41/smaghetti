@@ -22,6 +22,10 @@ function RenderLevelPage({
 		<>
 			<FileLoaderModal isOpen={!allFilesReady} />
 			<div>
+				<p>
+					You will need a *.level file for this tool. level files are the binary
+					data for the e-reader levels in SMA4.
+				</p>
 				<input
 					className="block"
 					type="file"
