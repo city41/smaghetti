@@ -36,6 +36,16 @@ const enemies: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
 			brushMode: 'entity',
+			type: 'ShoeGoomba',
+		},
+		info: {
+			title: 'Shoe Goomba',
+			description: 'Kuribo is the Japanese name for Goombas',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'entity',
 			type: 'GreenKoopaTroopa',
 		},
 		info: {

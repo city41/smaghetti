@@ -18,6 +18,7 @@ import { Player } from './Player';
 import { QuestionBlock } from './QuestionBlock';
 import { RedKoopaTroopa } from './RedKoopaTroopa';
 import { RedParaTroopa } from './RedParaTroopa';
+import { ShoeGoomba } from './ShoeGoomba';
 import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
 import { StarMan } from './StarMan';
@@ -37,6 +38,7 @@ type SpriteType =
 	| 'Player'
 	| 'RedKoopaTroopa'
 	| 'RedParaTroopa'
+	| 'ShoeGoomba'
 	| 'Spiny'
 	| 'SpringBoard'
 	| 'StarMan';
@@ -58,6 +60,7 @@ const spriteMap: Record<SpriteType, SpriteEntity> = {
 	Player,
 	RedKoopaTroopa,
 	RedParaTroopa,
+	ShoeGoomba,
 	Spiny,
 	SpringBoard,
 	StarMan,
