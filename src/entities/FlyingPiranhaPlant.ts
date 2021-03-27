@@ -8,8 +8,8 @@ import { simpleSpriteBinary } from './util';
 
 const OBJECT_ID = 0xd8;
 
-const FlyingPirannaPlant: SpriteEntity = {
-	type: 'FlyingPirannaPlant',
+const FlyingPiranhaPlant: SpriteEntity = {
+	type: 'FlyingPiranhaPlant',
 	mode: 'Sprite',
 	palette: [
 		0x7f96,
@@ -40,4 +40,4 @@ const FlyingPirannaPlant: SpriteEntity = {
 	},
 };
 
-export { FlyingPirannaPlant };
+export { FlyingPiranhaPlant };
