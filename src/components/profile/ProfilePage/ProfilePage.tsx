@@ -15,6 +15,7 @@ type ProfilePageProps = {
 	levels: Level[];
 	onEditLevel: (level: Level) => void;
 	onDeleteLevel: (level: Level) => void;
+	onDownloadLevel: (level: Level) => void;
 };
 
 const tabs = ['Levels', 'Settings'];
@@ -26,6 +27,7 @@ function ProfilePage({
 	levels,
 	onEditLevel,
 	onDeleteLevel,
+	onDownloadLevel,
 }: ProfilePageProps) {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	let body;
@@ -50,6 +52,7 @@ function ProfilePage({
 								level={l}
 								onEdit={() => onEditLevel(l)}
 								onDelete={() => onDeleteLevel(l)}
+								onDownload={() => onDownloadLevel(l)}
 							/>
 						);
 					})}

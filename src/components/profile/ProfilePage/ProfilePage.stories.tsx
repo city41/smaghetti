@@ -19,6 +19,7 @@ export const Loading = () => {
 			levels={[]}
 			onDeleteLevel={() => {}}
 			onEditLevel={() => {}}
+			onDownloadLevel={() => {}}
 		/>
 	);
 };
@@ -32,6 +33,7 @@ export const Error = () => {
 			levels={[]}
 			onDeleteLevel={() => {}}
 			onEditLevel={() => {}}
+			onDownloadLevel={() => {}}
 		/>
 	);
 };
@@ -45,6 +47,7 @@ export const Basic = () => {
 			levels={[]}
 			onDeleteLevel={() => {}}
 			onEditLevel={() => {}}
+			onDownloadLevel={() => {}}
 		/>
 	);
 };

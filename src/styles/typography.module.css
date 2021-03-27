@@ -21,3 +21,8 @@
 .typography ul {
     @apply list-disc space-y-4 my-4;
 }
+
+.typography code {
+    font-family: monospace;
+    @apply px-1 py-0.5 bg-gray-500 text-gray-200;
+}

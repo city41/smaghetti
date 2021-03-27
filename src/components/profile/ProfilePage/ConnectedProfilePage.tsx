@@ -7,6 +7,7 @@ import { loadProfile, deleteLevel } from '../profileSlice';
 import { client } from '../../../remoteData/client';
 import { SignInJoinModal } from '../../auth/SignInJoinModal';
 import { bindActionCreators } from 'redux';
+import { downloadLevelAsSaveFile } from '../../../levelData/downloadLevelAsSaveFile';
 
 const actions = bindActionCreators(
 	{
@@ -51,6 +52,10 @@ function ConnectedProfilePage() {
 		router.push(`/make/${level.id}`);
 	}
 
+	function handleDownloadLevel(level: Level) {
+		downloadLevelAsSaveFile(level);
+	}
+
 	return (
 		<ProfilePage
 			allFilesReady={allFilesReady}
@@ -58,6 +63,7 @@ function ConnectedProfilePage() {
 			user={user}
 			levels={levels}
 			onEditLevel={handleEditLevel}
+			onDownloadLevel={handleDownloadLevel}
 			{...actions}
 		/>
 	);
