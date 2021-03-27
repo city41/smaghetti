@@ -2,14 +2,14 @@ import type { SpriteEntity } from './types';
 import { simpleSpriteBinary } from './util';
 
 /**
- * this is a coin snake just hanging out in the level, not inside a block
- *  todo: tiles and palette, figure out how to make it a payload
+ * Bobomb
+ *
+ * TODO: tiles, palette
  */
+const OBJECT_ID = 0x55;
 
-const OBJECT_ID = 0xdc;
-
-const CoinSnake: SpriteEntity = {
-	type: 'CoinSnake',
+const Bobomb: SpriteEntity = {
+	type: 'Bobomb',
 	mode: 'Sprite',
 	palette: [
 		0x7f96,
@@ -40,4 +40,4 @@ const CoinSnake: SpriteEntity = {
 	},
 };
 
-export { CoinSnake };
+export { Bobomb };

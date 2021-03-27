@@ -1,6 +1,11 @@
 import type { SpriteEntity } from './types';
 import { simpleSpriteBinary } from './util';
 
+/**
+ * this entity was made so it can become a payload inside a brick
+ * TODO: make it standalone, figure out id, tile and palette
+ */
+
 const OBJECT_ID = 0xd1;
 
 const StarMan: SpriteEntity = {

@@ -1,7 +1,10 @@
 import type { SpriteEntity } from './types';
 import { simpleSpriteBinary } from './util';
 
-// TODO: figure out 1up mushroom's id
+/**
+ * this entity was made so it can become a payload inside a brick
+ * TODO: make it standalone, figure out id, tile and palette
+ */
 const OBJECT_ID = 0x6e;
 
 const OneUpMushroom: SpriteEntity = {

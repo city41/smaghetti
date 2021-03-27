@@ -1,7 +1,11 @@
 import type { SpriteEntity } from './types';
 import { simpleSpriteBinary } from './util';
 
-// in underground levels its tail is messed up
+/**
+ * TODO: palette, tiles and figure out which level type it can reside in
+ * in underground levels its tail is messed up
+ */
+
 const OBJECT_ID = 0xd8;
 
 const FlyingPirannaPlant: SpriteEntity = {

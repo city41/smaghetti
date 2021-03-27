@@ -1,7 +1,11 @@
 import type { SpriteEntity } from './types';
 import { simpleSpriteBinary } from './util';
 
-// this is an empty bubble
+/**
+ * this is an empty bubble, it can take payloads
+ *
+ * TODO: tiles, palette, figure out how to give it payloads
+ */
 const OBJECT_ID = 0xdb;
 
 const Bubble: SpriteEntity = {
