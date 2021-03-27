@@ -203,6 +203,16 @@ const powerUps: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
 			brushMode: 'entity',
+			type: 'FireFlower',
+		},
+		info: {
+			title: 'Fire Flower',
+			description: '',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'entity',
 			type: 'CapeFeather',
 		},
 		info: {
