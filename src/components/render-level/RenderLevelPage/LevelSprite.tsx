@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { LevelObject as LevelObjectType } from '../../../levelData/parseObjectsFromLevelFile';
+import { LevelSprite as LevelSpriteType } from '../../../levelData/parseSpritesFromLevelFile';
 import { TILE_SIZE as ACTUAL_TILE_SIZE } from '../../../tiles/constants';
 import {
-	bank0ObjectIdToObjectType,
-	bank1ObjectIdToObjectType,
-} from '../../../entities/objectIdMap';
+	bank0SpriteIdToSpriteType,
+	bank1SpriteIdToSpriteType,
+} from '../../../entities/spriteIdMap';
 
-type LevelObjectProps = {
-	object: LevelObjectType;
+type LevelSpriteProps = {
+	sprite: LevelSpriteType;
 };
 
 const SCALE = 2;
 const TILE_SIZE = ACTUAL_TILE_SIZE * SCALE;
 
 const rawBytesDesc = {
-	0: 'b/w',
-	1: 'y',
+	0: 'bnk',
+	1: 'id',
 	2: 'x',
-	3: 'id',
-	4: 'h',
+	3: 'y',
+	4: '?',
+	5: '?',
 };
 
 function Raw({ bytes }: { bytes: number[] }) {
@@ -28,10 +29,10 @@ function Raw({ bytes }: { bytes: number[] }) {
 		<div
 			style={{ zIndex: 99999 }}
 			className={clsx(
-				'absolute left-0 -bottom-14 w-52 bg-gray-200 text-gray-900 grid',
+				'absolute left-0 -bottom-14 w-60 bg-gray-200 text-gray-900 grid',
 				{
 					'grid-cols-4': bank === 0,
-					'grid-cols-5': bank === 1,
+					'grid-cols-6': bank > 0,
 				}
 			)}
 		>
@@ -45,33 +46,34 @@ function Raw({ bytes }: { bytes: number[] }) {
 	);
 }
 
-function LevelObject({ object }: LevelObjectProps) {
+function LevelSprite({ sprite }: LevelSpriteProps) {
 	const [showRaw, setShowRaw] = useState(false);
-	const tileType =
-		object.bank === 0
-			? bank0ObjectIdToObjectType[object.id]
-			: bank1ObjectIdToObjectType[object.id];
+	const spriteType =
+		sprite.bank === 0
+			? bank0SpriteIdToSpriteType[sprite.id]
+			: bank1SpriteIdToSpriteType[sprite.id];
 
-	const x = object.x * TILE_SIZE;
-	const y = object.y * TILE_SIZE;
-	const width = object.width * TILE_SIZE;
-	const height = object.height * TILE_SIZE;
+	const x = sprite.x * TILE_SIZE;
+	const y = sprite.y * TILE_SIZE;
+	// hmmm....
+	const width = 1 * TILE_SIZE;
+	const height = 1 * TILE_SIZE;
 
 	const style = { left: x, top: y, width, height, backgroundSize: TILE_SIZE };
 
-	const bgClass = `${tileType}-bg`;
+	const bgClass = `${spriteType}-bg`;
 
 	return (
 		<div
 			className={clsx(bgClass, 'absolute', {
-				'bg-gray-300': !tileType,
+				'bg-green-300': !spriteType,
 			})}
 			style={style}
 			onClick={() => setShowRaw((sr) => !sr)}
 		>
-			{showRaw && <Raw bytes={object.rawBytes} />}
+			{showRaw && <Raw bytes={sprite.rawBytes} />}
 		</div>
 	);
 }
 
-export { LevelObject };
+export { LevelSprite };

@@ -1,6 +1,5 @@
 import type { ObjectEntity } from './types';
-import { getBankLength } from './util';
-import { LevelObject } from '../tiles/parseObjectsFromLevelFile';
+import { LevelObject } from '../levelData/parseObjectsFromLevelFile';
 
 const QuestionBlock: ObjectEntity = {
 	type: 'QuestionBlock',

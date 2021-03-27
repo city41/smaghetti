@@ -1,9 +1,5 @@
 import { createLevelData } from './createLevelData';
-import {
-	BREAKABLE_BRICK_OBJECT_ID,
-	OBJECT_HEADER_SIZE,
-	ROOM0_OBJECT_POINTER_ADDRESS,
-} from './constants';
+import { OBJECT_HEADER_SIZE, ROOM0_OBJECT_POINTER_ADDRESS } from './constants';
 import { getObjectCount, parseObject } from './objects';
 
 describe('createLevelData', () => {
@@ -37,7 +33,7 @@ describe('createLevelData', () => {
 			expect(parsedObject.bank).toEqual(1);
 			expect(parsedObject.width).toEqual(2);
 			expect(parsedObject.height).toEqual(2);
-			expect(parsedObject.id).toEqual(BREAKABLE_BRICK_OBJECT_ID);
+			expect(parsedObject.id).toEqual(0xf);
 
 			// 26 because SMA4 stores Ys very strangely.
 			expect(parsedObject.y).toEqual(26);

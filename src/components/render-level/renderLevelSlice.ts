@@ -1,15 +1,21 @@
 import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../../store';
-import { parseObjectsFromLevelFile } from '../../tiles/parseObjectsFromLevelFile';
-import type { LevelObject } from '../../tiles/parseObjectsFromLevelFile';
+import { parseObjectsFromLevelFile } from '../../levelData/parseObjectsFromLevelFile';
+import type { LevelObject } from '../../levelData/parseObjectsFromLevelFile';
+import {
+	LevelSprite,
+	parseSpritesFromLevelFile,
+} from '../../levelData/parseSpritesFromLevelFile';
 
 type RenderLevelState = {
 	objects: LevelObject[];
+	sprites: LevelSprite[];
 };
 
 const defaultInitialState: RenderLevelState = {
 	objects: [],
+	sprites: [],
 };
 
 const initialState = defaultInitialState;
@@ -20,6 +26,9 @@ const renderLevelSlice = createSlice({
 	reducers: {
 		setObjects(state: RenderLevelState, action: PayloadAction<LevelObject[]>) {
 			state.objects = action.payload;
+		},
+		setSprites(state: RenderLevelState, action: PayloadAction<LevelSprite[]>) {
+			state.sprites = action.payload;
 		},
 	},
 });
@@ -32,10 +41,14 @@ const loadLevel = (levelFile: File): RenderLevelSliceThunk => async (
 	const reader = new FileReader();
 
 	reader.onloadend = () => {
-		const objects = parseObjectsFromLevelFile(
-			new Uint8Array(reader.result as ArrayBuffer)
-		);
+		const data = new Uint8Array(reader.result as ArrayBuffer);
+
+		const objects = parseObjectsFromLevelFile(data);
 		dispatch(renderLevelSlice.actions.setObjects(objects));
+
+		const sprites = parseSpritesFromLevelFile(data);
+		console.log('sprites', sprites);
+		dispatch(renderLevelSlice.actions.setSprites(sprites));
 	};
 
 	reader.readAsArrayBuffer(levelFile);

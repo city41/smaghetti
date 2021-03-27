@@ -34,8 +34,8 @@ const bank0ObjectTypeToObjectId: Record<ObjectType, number> = (function () {
 })();
 
 export {
-	bank1ObjectIdToObjectType,
 	bank0ObjectTypeToObjectId,
 	bank0ObjectIdToObjectType,
 	bank1ObjectTypeToObjectId,
+	bank1ObjectIdToObjectType,
 };

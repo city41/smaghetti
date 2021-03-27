@@ -33,9 +33,9 @@ const AceCoin: SpriteEntity = {
 	],
 
 	toBinary(x, y, settings) {
-		if (typeof settings.aceCoinIndex !== 'number') {
-			throw new Error('AceCoin#toBinary: no aceCoinIndex setting found');
-		}
+		// if (typeof settings.aceCoinIndex !== 'number') {
+		// 	throw new Error('AceCoin#toBinary: no aceCoinIndex setting found');
+		// }
 
 		return [0, OBJECT_ID, x, y, settings.aceCoinIndex];
 	},
