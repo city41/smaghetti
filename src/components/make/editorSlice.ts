@@ -1000,6 +1000,8 @@ const editorSlice = createSlice({
 				scaleTo(state, newScale);
 				centerLevelInWindow(state);
 			}
+
+			state.metadata.name = defaultInitialState.metadata.name;
 		},
 		moveOffsetToEntity(
 			state: InternalEditorState,
