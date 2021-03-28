@@ -252,8 +252,29 @@ const powerUps: PaletteChoiceModalEntry[] = [
 	// },
 ];
 
-const tabs = ['Enemies', 'Objects', 'Terrain', 'Items', 'Gizmos', 'Power Ups'];
-const entries = [enemies, objects, terrain, items, gizmos, powerUps];
+const bosses: PaletteChoiceModalEntry[] = [
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'BoomBoom',
+		},
+		info: {
+			title: 'Boom Boom',
+			description: '',
+		},
+	},
+];
+
+const tabs = [
+	'Enemies',
+	'Objects',
+	'Terrain',
+	'Items',
+	'Gizmos',
+	'Power Ups',
+	'Bosses',
+];
+const entries = [enemies, objects, terrain, items, gizmos, powerUps, bosses];
 
 const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 	open,
