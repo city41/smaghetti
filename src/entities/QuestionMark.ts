@@ -3,8 +3,6 @@ import { simpleSpriteBinary } from './util';
 
 /**
  * A question mark icon that once touched, completes the level.
- *
- * TODO: palette and tiles
  */
 
 const OBJECT_ID = 0x4a;
@@ -12,28 +10,28 @@ const OBJECT_ID = 0x4a;
 const QuestionMark: SpriteEntity = {
 	type: 'QuestionMark',
 	mode: 'Sprite',
-	romOffset: 0x2282e4,
+	romOffset: 0x16ea40,
 	palette: [
 		0x7f96,
 		0x7fff,
 		0x18c6,
-		0x11dc,
-		0x169e,
-		0x1b5f,
+		0x101a,
+		0x10bf,
+		0x125f,
 		0x25fd,
 		0x369e,
 		0x475f,
-		0x111d,
-		0x1a1f,
-		0x329f,
-		0x4b7f,
-		0x7bda,
-		0x6b55,
-		0x56b1,
+		0x139f,
+		0x177,
+		0x21c,
+		0x29f,
+		0x47bf,
+		0x137f,
+		0x25f,
 	],
 	tiles: [
-		[394, 395],
-		[426, 427],
+		[238, 239],
+		[254, 255],
 	],
 
 	toBinary(x, y) {

@@ -3,8 +3,6 @@ import { simpleSpriteBinary } from './util';
 
 /**
  * Bobomb
- *
- * TODO: tiles, palette
  */
 const OBJECT_ID = 0x55;
 

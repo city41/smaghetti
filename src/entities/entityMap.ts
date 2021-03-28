@@ -19,6 +19,7 @@ import { Mushroom } from './Mushroom';
 import { OneUpMushroom } from './OneUpMushroom';
 import { Player } from './Player';
 import { QuestionBlock } from './QuestionBlock';
+import { QuestionMark } from './QuestionMark';
 import { RedKoopaTroopa } from './RedKoopaTroopa';
 import { RedParaTroopa } from './RedParaTroopa';
 import { ShoeGoomba } from './ShoeGoomba';
@@ -42,6 +43,7 @@ type SpriteType =
 	| 'Mushroom'
 	| 'OneUpMushroom'
 	| 'Player'
+	| 'QuestionMark'
 	| 'RedKoopaTroopa'
 	| 'RedParaTroopa'
 	| 'ShoeGoomba'
@@ -67,6 +69,7 @@ const spriteMap: Record<SpriteType, SpriteEntity> = {
 	Mushroom,
 	OneUpMushroom,
 	Player,
+	QuestionMark,
 	RedKoopaTroopa,
 	RedParaTroopa,
 	ShoeGoomba,

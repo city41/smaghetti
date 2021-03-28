@@ -143,8 +143,17 @@ const objects: PaletteChoiceModalEntry[] = [
 		},
 		info: {
 			title: 'Card Slot Machine',
-			description:
-				'Required to be in your level somewhere. Getting the card ends the level.',
+			description: 'Touching this completes the level.',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'QuestionMark',
+		},
+		info: {
+			title: 'Question Mark Ball',
+			description: 'Touching this completes the level.',
 		},
 	},
 ];
