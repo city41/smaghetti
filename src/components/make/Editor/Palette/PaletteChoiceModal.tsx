@@ -270,16 +270,26 @@ const powerUps: PaletteChoiceModalEntry[] = [
 			description: 'The cape power-up from Super Mario World',
 		},
 	},
-	// {
-	// 	entry: {
-	// 		brushMode: 'entity',
-	// 		type: 'StarMan',
-	// 	},
-	// 	info: {
-	// 		title: 'Star Man',
-	// 		description: 'I can hear the song now...',
-	// 	},
-	// },
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'StarMan',
+		},
+		info: {
+			title: 'Star Man',
+			description: 'I can hear the song now...',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'OneUpMushroom',
+		},
+		info: {
+			title: '1 Up Mushroom',
+			description: '',
+		},
+	},
 ];
 
 const bosses: PaletteChoiceModalEntry[] = [
