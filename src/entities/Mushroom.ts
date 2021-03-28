@@ -1,7 +1,7 @@
 import type { SpriteEntity } from './types';
 import { simpleSpriteBinary } from './util';
 
-const OBJECT_ID = 0x6e;
+const OBJECT_ID = 0xd;
 
 const Mushroom: SpriteEntity = {
 	type: 'Mushroom',
