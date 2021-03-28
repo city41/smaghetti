@@ -4,6 +4,7 @@ import { AceCoin } from './AceCoin';
 import { Bobomb } from './Bobomb';
 import { BoomBoom } from './BoomBoom';
 import { Brick } from './Brick';
+import { Bubble } from './Bubble';
 import { BuzzyBeetle } from './BuzzyBeetle';
 import { CapeFeather } from './CapeFeather';
 import { CardSlotMachine } from './CardSlotMachine';
@@ -31,6 +32,7 @@ type SpriteType =
 	| 'AceCoin'
 	| 'Bobomb'
 	| 'BoomBoom'
+	| 'Bubble'
 	| 'BuzzyBeetle'
 	| 'CapeFeather'
 	| 'CardSlotMachine'
@@ -57,6 +59,7 @@ const spriteMap: Record<SpriteType, SpriteEntity> = {
 	AceCoin,
 	Bobomb,
 	BoomBoom,
+	Bubble,
 	BuzzyBeetle,
 	CapeFeather,
 	CardSlotMachine,

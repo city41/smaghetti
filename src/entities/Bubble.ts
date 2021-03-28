@@ -4,7 +4,7 @@ import { simpleSpriteBinary } from './util';
 /**
  * this is an empty bubble, it can take payloads
  *
- * TODO: tiles, palette, figure out how to give it payloads
+ * TODO: figure out how to give it payloads
  */
 const OBJECT_ID = 0xdb;
 
@@ -29,10 +29,12 @@ const Bubble: SpriteEntity = {
 		0x137f,
 		0x25f,
 	],
-	romOffset: 0x134104,
+	romOffset: 0x18af80,
 	tiles: [
-		[268, 269],
-		[300, 301],
+		[134, 135, 136, 137],
+		[166, 167, 168, 169],
+		[198, 199, 200, 201],
+		[230, 231, 232, 233],
 	],
 
 	toBinary(x, y) {

@@ -213,6 +213,17 @@ const items: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'Bubble',
+		},
+		info: {
+			title: 'Bubble',
+			description:
+				'Can put things inside of it, need to throw vegetables at it to get at the item.',
+		},
+	},
 ];
 
 const gizmos: PaletteChoiceModalEntry[] = [
