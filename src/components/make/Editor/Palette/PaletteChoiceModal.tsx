@@ -194,6 +194,16 @@ const items: PaletteChoiceModalEntry[] = [
 				'Special coins to search for. At most a level can have five of them.',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'Key',
+		},
+		info: {
+			title: 'Key',
+			description: '',
+		},
+	},
 ];
 
 const gizmos: PaletteChoiceModalEntry[] = [

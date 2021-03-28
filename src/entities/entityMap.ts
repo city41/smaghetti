@@ -13,6 +13,7 @@ import { Goomba } from './Goomba';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
 import { IndestructibleBrick } from './IndestructibleBrick';
+import { Key } from './Key';
 import { Lakitu } from './Lakitu';
 import { Mushroom } from './Mushroom';
 import { OneUpMushroom } from './OneUpMushroom';
@@ -36,6 +37,7 @@ type SpriteType =
 	| 'Goomba'
 	| 'GreenKoopaTroopa'
 	| 'GreenParaTroopa'
+	| 'Key'
 	| 'Lakitu'
 	| 'Mushroom'
 	| 'OneUpMushroom'
@@ -60,6 +62,7 @@ const spriteMap: Record<SpriteType, SpriteEntity> = {
 	Goomba,
 	GreenKoopaTroopa,
 	GreenParaTroopa,
+	Key,
 	Lakitu,
 	Mushroom,
 	OneUpMushroom,
