@@ -286,7 +286,17 @@ const powerUps: PaletteChoiceModalEntry[] = [
 			type: 'OneUpMushroom',
 		},
 		info: {
-			title: '1 Up Mushroom',
+			title: '1up Mushroom',
+			description: '',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'ThreeUpMoon',
+		},
+		info: {
+			title: '3up Moon',
 			description: '',
 		},
 	},
