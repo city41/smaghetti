@@ -200,6 +200,7 @@ GameBoyAdvance.prototype.reset = function () {
 
 	this.cpu.resetCPU(0);
 	this.keypad.reset();
+	this.keypad.ignoreInput = true;
 
 	if (this.statusCallback) {
 		this.statusCallback('reset');
@@ -311,6 +312,9 @@ GameBoyAdvance.prototype.runStable = function () {
 			try {
 				if (self.paused) {
 					return;
+				} else if (self.keypad.ignoreInput) {
+					// currently automating? run the emulator as fast as possible
+					setTimeout(runFunc, 1);
 				} else {
 					requestAnimationFrame(runFunc);
 				}
