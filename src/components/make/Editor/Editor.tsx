@@ -212,35 +212,14 @@ function getQueryVariable(variable: string): string | undefined {
 
 function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 	const router = useRouter();
-	const [showTour, setShowTour] = useState(false);
 	const [isPlaying, setPlaying] = useState(false);
-	const [playerAtStart, setPlayerAtStart] = useState(false);
 	const [showKeyboardHelpModal, setShowKeyboardHelpModal] = useState(false);
 	const dispatch = useDispatch();
 
 	const firstRender = useFirstRender();
 
 	useEffect(() => {
-		const levelId = getQueryVariable('levelId');
-
-		if (levelId) {
-			dispatch(loadLevel(levelId));
-			window.history.replaceState({}, 'make', '/make');
-		} else {
-			dispatch(loadFromLocalStorage());
-		}
-
-		if (process.env.NODE_ENV !== 'production') {
-			const debugPlay = getQueryVariable('debugPlay');
-			if (debugPlay) {
-				window.history.replaceState({}, 'make', '/make');
-				setPlayerAtStart(true);
-				setPlaying(true);
-				setTimeout(() => {
-					document.querySelector('canvas')?.focus();
-				}, 1000);
-			}
-		}
+		dispatch(loadFromLocalStorage());
 	}, []);
 
 	useEffect(() => {
@@ -275,7 +254,6 @@ function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 		'p',
 		() => {
 			if (!showKeyboardHelpModal) {
-				setPlayerAtStart(false);
 				setPlaying((p) => !p);
 			}
 		},
@@ -286,25 +264,10 @@ function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 		'shift+p',
 		() => {
 			if (!showKeyboardHelpModal) {
-				setPlayerAtStart(true);
 				setPlaying((p) => !p);
 			}
 		},
 		[showKeyboardHelpModal]
-	);
-
-	useHotkeys(
-		'q',
-		() => {
-			if (isPlaying) {
-				setPlaying((p) => !p);
-			} else {
-				fetch('/api/pck').then(() => {
-					window.location.href = '/make?debugPlay=true';
-				});
-			}
-		},
-		[isPlaying]
 	);
 
 	useEffect(() => {
