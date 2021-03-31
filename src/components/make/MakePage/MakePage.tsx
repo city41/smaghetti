@@ -23,7 +23,7 @@ function MakePage({ allFilesReady }: MakePageProps) {
 		return (
 			<>
 				{head}
-				<NoscriptWarning />;
+				<NoscriptWarning />
 			</>
 		);
 	}
