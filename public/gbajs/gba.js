@@ -110,14 +110,9 @@ GameBoyAdvance = function GameBoyAdvance() {
 	this.seenSave = false;
 	this.lastVblank = 0;
 
-	this.queue = null;
 	this.reportFPS = null;
-	this.throttle = 16; // This is rough, but the 2/3ms difference gives us a good overhead
 
 	var self = this;
-	window.queueFrame = function (f) {
-		self.queue = window.setTimeout(f, self.throttle);
-	};
 
 	window.URL = window.URL || window.webkitURL;
 
@@ -250,10 +245,6 @@ GameBoyAdvance.prototype.waitFrame = function () {
 GameBoyAdvance.prototype.pause = function () {
 	this.paused = true;
 	this.audio.pause(true);
-	if (this.queue) {
-		clearTimeout(this.queue);
-		this.queue = null;
-	}
 };
 
 GameBoyAdvance.prototype.advanceFrame = function () {
@@ -279,7 +270,7 @@ GameBoyAdvance.prototype.injectSaveFile = function (saveFileBuffer) {
 };
 
 GameBoyAdvance.prototype.runStable = function () {
-	if (this.interval) {
+	if (!this.paused) {
 		return; // Already running
 	}
 	var self = this;
@@ -297,7 +288,7 @@ GameBoyAdvance.prototype.runStable = function () {
 				if (self.paused) {
 					return;
 				} else {
-					queueFrame(runFunc);
+					requestAnimationFrame(runFunc);
 				}
 				start = Date.now();
 				self.advanceFrame();
@@ -321,7 +312,7 @@ GameBoyAdvance.prototype.runStable = function () {
 				if (self.paused) {
 					return;
 				} else {
-					queueFrame(runFunc);
+					requestAnimationFrame(runFunc);
 				}
 				self.advanceFrame();
 			} catch (exception) {
@@ -333,7 +324,7 @@ GameBoyAdvance.prototype.runStable = function () {
 			}
 		};
 	}
-	queueFrame(runFunc);
+	requestAnimationFrame(runFunc);
 };
 
 GameBoyAdvance.prototype.setSavedata = function (data) {
