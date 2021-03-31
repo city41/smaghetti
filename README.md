@@ -49,16 +49,6 @@ I have made some (very raw) tools to help with reverse engineering: https://smag
 
 PRs are welcome, but please open an issue and discuss with me first before starting any work. That way no one does any wasted effort
 
-## Emulation help
-
-Are you good at GBA emulation and/or ARM assembly? I am in need of a way to jump the user straight to their level when they are editing, to get a faster feedback loop. This could be done...
-
-* using save states, but so far no web based GBA emulator supports them
-* patching the SMA4 rom to jump straight to the e-reader world as quickly as possible
-* possibly some other way?
-
-So far I have done a hokey "automation" where Smaghetti enters button inputs to get the user to their level as quickly as possible, but it's not great...
-
 ## Bug reports
 
 Since Smaghetti is so young, there is a ton of bugs. Feel free to file them here as an issue
