@@ -16,6 +16,11 @@ function NextToolsIndexPage() {
 				</p>
 				<ul>
 					<li>
+						<a href="./hex-editor">Hex Editor</a>: A very raw and crappy hex
+						editor, but it has the advantage of immediately injecting the
+						changes into a running SMA4 game for a nice feedback loop.
+					</li>
+					<li>
 						<a href="./palettes">Palettes</a>: renders the currently extracted
 						sprites in a bunch of palettes pulled from the game. This is to help
 						find the correct palette to assign to a sprite or object in the
