@@ -12,34 +12,34 @@ const goIntoLevelScript = [
 	{
 		// e-reader world
 		description: 'first right in e-reader world',
-		frameDelay: 100,
+		frameDelay: 90,
 		input: RIGHT_BUTTON,
 	},
 	{
 		// e-reader world
 		description: 'second right in e-reader world',
-		frameDelay: 20,
+		frameDelay: 16,
 		input: RIGHT_BUTTON,
 	},
 	{
 		// e-reader world
 		// choose to go into level menu
 		description: 'A to go into level menu',
-		frameDelay: 20,
+		frameDelay: 16,
 		input: A_BUTTON,
 	},
 	{
 		// e-reader world
 		// choose to play first level
 		description: 'A to choose first level',
-		frameDelay: 50,
+		frameDelay: 40,
 		input: A_BUTTON,
 	},
 	{
 		// e-reader world
 		// confirm play first level
 		description: 'A to confirm first level',
-		frameDelay: 70,
+		frameDelay: 60,
 		input: A_BUTTON,
 	},
 	{
