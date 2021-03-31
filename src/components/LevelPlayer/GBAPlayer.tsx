@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
+import cloneDeep from 'lodash/cloneDeep';
 
 import { injectLevelIntoSave } from '../../levelData/injectLevelIntoSave';
 
 import styles from './GBAPlayer.module.css';
-import { LoadingBar } from '../LoadingBar';
 
 type GBAPlayerProps = {
 	className?: string;
 	biosFile: Uint8Array;
 	romFile: Uint8Array;
 	emptySaveFile: Uint8Array;
+	saveState: object;
 	levelData: Uint8Array;
 	isPlaying: boolean;
 };
@@ -20,6 +21,7 @@ function GBAPlayer({
 	biosFile,
 	romFile,
 	emptySaveFile,
+	saveState,
 	levelData,
 	isPlaying,
 }: GBAPlayerProps) {
@@ -27,38 +29,37 @@ function GBAPlayer({
 	const [gbaStatus, setGbaStatus] = useState<GBAStatus>('reset');
 
 	useEffect(() => {
+		window._gba.setCanvas(canvasRef.current!);
+		window._gba.setBios(biosFile.buffer);
+
 		window._gba.statusCallback = (status) => {
 			console.log('gba status', status);
 			setGbaStatus(status);
+
+			if (status === 'ready-to-inject') {
+				const saveFileWithInjectedLevel = injectLevelIntoSave(
+					emptySaveFile,
+					levelData
+				);
+				window._gba.injectSaveFile(saveFileWithInjectedLevel.buffer);
+			}
 		};
 
 		return () => {
 			window._gba.statusCallback = undefined;
 		};
-	}, []);
+	}, [levelData]);
 
 	useEffect(() => {
 		if (isPlaying) {
-			const saveFileWithInjectedLevel = injectLevelIntoSave(
-				emptySaveFile,
-				levelData
-			);
-
-			// const url = window.URL.createObjectURL(
-			// 	new Blob([levelData.buffer], { type: 'application/octet-stream' })
-			// );
-			//
-			// window.open(url);
-
 			canvasRef.current!.getContext('2d')!.imageSmoothingEnabled = false;
 
-			window._gba.injectSaveFile(saveFileWithInjectedLevel.buffer);
-		} else {
-			console.log('setting rom');
-			window._gba.setCanvas(canvasRef.current!);
-			window._gba.setBios(biosFile.buffer);
 			window._gba.setRom(romFile.buffer);
+			window._gba.defrost(cloneDeep(saveState));
 			window._gba.setSavedata(emptySaveFile.buffer);
+			window._gba.runStable();
+		} else {
+			window._gba.pause();
 		}
 	}, [isPlaying]);
 
@@ -74,15 +75,8 @@ function GBAPlayer({
 			{gbaStatus !== 'level-ready' && (
 				<>
 					<div className="absolute top-0 left-0 w-full h-full opacity-75 bg-gray-700 z-10" />
-					<div className="absolute top-16 left-10 grid place-items-center z-10">
-						<div style={{ fontSize: '0.25rem' }}>getting to your level ...</div>
-						<LoadingBar className="w-28" percent={100} />
-						<div
-							style={{ fontSize: '0.25rem' }}
-							className="mt-1 px-0.5 py-0.5 bg-green-500 text-white"
-						>
-							Letting you jump straight into your level is on the todo list!
-						</div>
+					<div className="absolute bottom-1 left-1 z-10 text-xs">
+						one moment...
 					</div>
 				</>
 			)}

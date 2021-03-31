@@ -16,6 +16,7 @@ type LevelPlayerProps = {
 	biosFile: Uint8Array;
 	romFile: Uint8Array;
 	emptySaveFile: Uint8Array;
+	saveState: object;
 	onPlayerDied?: () => boolean;
 	onLevelCompleted?: () => void;
 	checkeredBackground?: boolean;
@@ -30,6 +31,7 @@ function LevelPlayer({
 	biosFile,
 	romFile,
 	emptySaveFile,
+	saveState,
 	checkeredBackground,
 }: LevelPlayerProps) {
 	return (
@@ -48,6 +50,7 @@ function LevelPlayer({
 				biosFile={biosFile}
 				romFile={romFile}
 				emptySaveFile={emptySaveFile}
+				saveState={saveState}
 				levelData={createLevelData(entities, tileLayer)}
 				isPlaying={isPlaying}
 			/>

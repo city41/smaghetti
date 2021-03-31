@@ -37,7 +37,7 @@ GameBoyAdvanceKeypad = function GameBoyAdvanceKeypad() {
 	this.ignoreInput = false;
 	this.eatInput = false;
 
-	this._fedInput = 0;
+	this._fedInput = 0x3ff;
 
 	this.gamepadConnected = false;
 
@@ -54,6 +54,10 @@ GameBoyAdvanceKeypad = function GameBoyAdvanceKeypad() {
 			}
 		},
 	});
+};
+
+GameBoyAdvanceKeypad.prototype.reset = function () {
+	this._currentDown = 0x03ff;
 };
 
 GameBoyAdvanceKeypad.prototype.feed = function (inputValue) {

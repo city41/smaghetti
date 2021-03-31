@@ -7,7 +7,7 @@ interface _GameBoyAdvance {
 	setRom: (rom: ArrayBuffer) => void;
 	runStable: () => void;
 	pause: () => void;
-	safeReset: () => void;
+	reset: () => void;
 	setSavedata: (data: ArrayBuffer) => void;
 	downloadSavedata: () => void;
 	audio: {
@@ -18,6 +18,9 @@ interface _GameBoyAdvance {
 	statusCallback: ((status: GBAStatus) => void) | undefined;
 	injectSaveFile: (buffer: ArrayBuffer) => void;
 	_shouldMute?: boolean;
+
+	freeze: () => any;
+	defrost: (saveState: any) => void;
 }
 
 interface Window {

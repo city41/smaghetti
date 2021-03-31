@@ -42,6 +42,11 @@ class MyDocument extends Document {
 					<link rel="shortcut icon" href="/favicon.ico?v=2020" />
 					<meta name="msapplication-TileColor" content="#da532c" />
 					<meta name="theme-color" content="#ffffff" />
+					<script
+						src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+						integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+						crossOrigin="anonymous"
+					></script>
 					<script type="text/javascript" src="/gbajs/util.js"></script>
 					<script type="text/javascript" src="/gbajs/core.js"></script>
 					<script type="text/javascript" src="/gbajs/arm.js"></script>

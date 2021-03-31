@@ -345,8 +345,8 @@ GameBoyAdvanceMMU.prototype.clear = function () {
 
 GameBoyAdvanceMMU.prototype.freeze = function () {
 	return {
-		ram: Serializer.prefix(this.memory[this.REGION_WORKING_RAM].buffer),
-		iram: Serializer.prefix(this.memory[this.REGION_WORKING_IRAM].buffer),
+		ram: _.cloneDeep(this.memory[this.REGION_WORKING_RAM].buffer),
+		iram: _.cloneDeep(this.memory[this.REGION_WORKING_IRAM].buffer),
 	};
 };
 

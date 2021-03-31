@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 // @ts-ignore no types
 import * as sha1 from 'js-sha1';
 import { AppState } from '../../store';
-import { setBios, setRom, setEmptySave } from './files';
+import { setBios, setRom, setEmptySave, setSaveState } from './files';
 import { getRom } from './files';
 import {
 	spriteMap,
@@ -13,6 +13,7 @@ import {
 } from '../../entities/entityMap';
 import { extractResourcesToStylesheet } from '../../tiles/extractResourcesToStylesheet';
 import { ResourceEntity } from '../../entities/types';
+import { deserialize } from '../../saveStates/serializer';
 
 type RomFileState =
 	| 'not-chosen'
@@ -28,6 +29,7 @@ type FileLoaderState = {
 	romFileState: RomFileState;
 	biosFileState: OtherFilesState;
 	emptySaveFileState: OtherFilesState;
+	saveStateJsonState: OtherFilesState;
 	otherFilesState: OtherFilesState;
 	allFilesReady: boolean;
 	overallExtractionState: ExtractionState;
@@ -42,6 +44,7 @@ const defaultInitialState: FileLoaderState = {
 	romFileState: 'not-chosen',
 	biosFileState: 'loading',
 	emptySaveFileState: 'loading',
+	saveStateJsonState: 'loading',
 	otherFilesState: 'loading',
 	allFilesReady: false,
 	overallExtractionState: 'not-started',
@@ -51,11 +54,16 @@ const defaultInitialState: FileLoaderState = {
 const initialState = defaultInitialState;
 
 function settleState(state: FileLoaderState) {
-	if (state.emptySaveFileState === 'error' || state.biosFileState === 'error') {
+	if (
+		state.emptySaveFileState === 'error' ||
+		state.biosFileState === 'error' ||
+		state.saveStateJsonState === 'error'
+	) {
 		state.otherFilesState = 'error';
 	} else if (
 		state.emptySaveFileState === 'loading' ||
-		state.biosFileState === 'loading'
+		state.biosFileState === 'loading' ||
+		state.saveStateJsonState === 'loading'
 	) {
 		state.otherFilesState = 'loading';
 	} else {
@@ -84,6 +92,13 @@ const fileLoaderSlice = createSlice({
 			action: PayloadAction<OtherFilesState>
 		) {
 			state.emptySaveFileState = action.payload;
+			settleState(state);
+		},
+		saveStateJsonState(
+			state: FileLoaderState,
+			action: PayloadAction<OtherFilesState>
+		) {
+			state.saveStateJsonState = action.payload;
 			settleState(state);
 		},
 
@@ -160,11 +175,32 @@ const loadEmptySave = (): FileLoaderThunk => async (dispatch) => {
 			})
 			.catch((e) => {
 				console.error('failed to load empty save', e);
-				dispatch(fileLoaderSlice.actions.biosState('error'));
+				dispatch(fileLoaderSlice.actions.emptySaveState('error'));
 			});
 	} catch (e) {
 		console.error('failed to load empty save', e);
 		dispatch(fileLoaderSlice.actions.emptySaveState('error'));
+	}
+};
+
+const loadSaveState = (): FileLoaderThunk => async (dispatch) => {
+	try {
+		dispatch(fileLoaderSlice.actions.saveStateJsonState('loading'));
+
+		fetch('/justOutsideEReaderMenu.json')
+			.then((r) => r.text())
+			.then((saveStateText) => {
+				const saveState = deserialize(saveStateText);
+				setSaveState(saveState);
+				dispatch(fileLoaderSlice.actions.saveStateJsonState('success'));
+			})
+			.catch((e) => {
+				console.error('failed to load save state json', e);
+				dispatch(fileLoaderSlice.actions.saveStateJsonState('error'));
+			});
+	} catch (e) {
+		console.error('failed to load save state json', e);
+		dispatch(fileLoaderSlice.actions.saveStateJsonState('error'));
 	}
 };
 
@@ -222,4 +258,4 @@ const reducer = fileLoaderSlice.reducer;
 
 export type { FileLoaderState };
 
-export { reducer, loadBios, loadRom, loadEmptySave, extract };
+export { reducer, loadBios, loadRom, loadEmptySave, loadSaveState, extract };

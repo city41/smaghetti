@@ -1,10 +1,16 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { AppState, dispatch } from '../../../store';
 import { FileLoaderModal } from './FileLoaderModal';
-import { loadBios, loadRom, loadEmptySave, extract } from '../fileLoaderSlice';
+import {
+	loadBios,
+	loadRom,
+	loadEmptySave,
+	loadSaveState,
+	extract,
+} from '../fileLoaderSlice';
 
 type ConnectedFileLoaderModalProps = {
 	isOpen: boolean;
@@ -25,6 +31,7 @@ function ConnectedFileLoaderModal({ isOpen }: ConnectedFileLoaderModalProps) {
 	useEffect(() => {
 		dispatch(loadEmptySave());
 		dispatch(loadBios());
+		dispatch(loadSaveState());
 	}, []);
 
 	useEffect(() => {
