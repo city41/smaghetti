@@ -166,6 +166,16 @@ const objects: PaletteChoiceModalEntry[] = [
 			description: 'Touching this completes the level.',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'tile',
+			type: 'TriangularBlock',
+		},
+		info: {
+			title: 'Triangular Block',
+			description: 'Lets Mario run up walls and ceilings',
+		},
+	},
 ];
 
 const terrain: PaletteChoiceModalEntry[] = [

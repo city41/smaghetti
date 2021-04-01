@@ -6,6 +6,7 @@ const PSwitch: ObjectEntity = {
 	mode: 'Object',
 	settingsType: 'none',
 	dimensions: 'x',
+	defaultSettings: {},
 	romOffset: 0x16ea40,
 	palette: [
 		0x7f96,

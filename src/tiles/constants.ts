@@ -15,11 +15,14 @@ type HasYEndCapType = never;
 const TILE_SIZE = 16;
 const TILE_TYPE_COUNT = 2;
 
+// TODO: get rid of this
 const TILE_TYPE_TO_FIRST_TILE_INDEX_MAP: Record<ObjectType, number> = {
 	Brick: 1,
 	IndestructibleBrick: 2,
 	Coin: 3,
 	QuestionBlock: 4,
+	TriangularBlock: 5,
+	PSwitch: 6,
 };
 
 const FIRST_TILE_INDEX_TO_TILE_TYPE_MAP: Record<number, ObjectType> = {
@@ -38,6 +41,8 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Record<ObjectType, string> = {
 	IndestructibleBrick: 'In',
 	Coin: '$',
 	QuestionBlock: '?',
+	PSwitch: 'Ps',
+	TriangularBlock: 'Tb',
 };
 
 const TILE_SERIALIZED_ID_TO_TYPE_MAP: Record<string, ObjectType> = {
@@ -45,6 +50,8 @@ const TILE_SERIALIZED_ID_TO_TYPE_MAP: Record<string, ObjectType> = {
 	In: 'IndestructibleBrick',
 	$: 'Coin',
 	'?': 'QuestionBlock',
+	Ps: 'PSwitch',
+	Tb: 'TriangularBlock',
 };
 
 const TILE_TYPE_TO_GROUP_TYPE_MAP: Record<ObjectType, TileGroupType> = {
@@ -52,6 +59,8 @@ const TILE_TYPE_TO_GROUP_TYPE_MAP: Record<ObjectType, TileGroupType> = {
 	IndestructibleBrick: 'none',
 	Coin: 'none',
 	QuestionBlock: 'none',
+	PSwitch: 'none',
+	TriangularBlock: 'none',
 };
 
 const TILE_TOPPER_TO_TOPPED_MAP: Record<TopperType, ObjectType> = {};

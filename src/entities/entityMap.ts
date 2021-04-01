@@ -30,6 +30,7 @@ import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
 import { StarMan } from './StarMan';
 import { ThreeUpMoon } from './ThreeUpMoon';
+import { TriangularBlock } from './TriangularBlock';
 
 type SpriteType =
 	| 'AceCoin'
@@ -58,13 +59,6 @@ type SpriteType =
 	| 'StarMan'
 	| 'ThreeUpMoon';
 
-type ObjectType =
-	| 'Brick'
-	| 'Coin'
-	| 'IndestructibleBrick'
-	| 'PSwitch'
-	| 'QuestionBlock';
-
 const spriteMap: Record<SpriteType, SpriteEntity> = {
 	AceCoin,
 	Bobomb,
@@ -83,7 +77,6 @@ const spriteMap: Record<SpriteType, SpriteEntity> = {
 	Mushroom,
 	OneUpMushroom,
 	Player,
-	PSwitch,
 	QuestionMark,
 	RedKoopaTroopa,
 	RedParaTroopa,
@@ -94,12 +87,21 @@ const spriteMap: Record<SpriteType, SpriteEntity> = {
 	ThreeUpMoon,
 };
 
+type ObjectType =
+	| 'Brick'
+	| 'Coin'
+	| 'IndestructibleBrick'
+	| 'PSwitch'
+	| 'QuestionBlock'
+	| 'TriangularBlock';
+
 const objectMap: Record<ObjectType, ObjectEntity> = {
 	Brick,
 	Coin,
 	IndestructibleBrick,
 	PSwitch,
 	QuestionBlock,
+	TriangularBlock,
 };
 
 export { spriteMap, objectMap };
