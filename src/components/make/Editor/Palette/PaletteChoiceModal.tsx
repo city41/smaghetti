@@ -139,6 +139,16 @@ const objects: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
 			brushMode: 'tile',
+			type: 'HiddenBlock',
+		},
+		info: {
+			title: 'Hidden Block',
+			description: 'Pretty much an invisible Question Block',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'tile',
 			type: 'PSwitch',
 		},
 		info: {

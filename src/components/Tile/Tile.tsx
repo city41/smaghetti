@@ -103,6 +103,8 @@ const Tile = memo(
 			[styles.animateIn]: animateIn,
 			[focusedStyles.focused]: focused && !detailsEdit,
 			'z-10': showingDetailsEditPane,
+			'border-2 border-dashed border-green-300 bg-green-50':
+				tileType === 'HiddenBlock',
 		});
 
 		return (

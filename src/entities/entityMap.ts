@@ -13,6 +13,7 @@ import { FireFlower } from './FireFlower';
 import { Goomba } from './Goomba';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
+import { HiddenBlock } from './HiddenBlock';
 import { IndestructibleBrick } from './IndestructibleBrick';
 import { Key } from './Key';
 import { Lakitu } from './Lakitu';
@@ -93,6 +94,7 @@ const spriteMap: Record<SpriteType, SpriteEntity> = {
 type ObjectType =
 	| 'Brick'
 	| 'Coin'
+	| 'HiddenBlock'
 	| 'IndestructibleBrick'
 	| 'Muncher'
 	| 'MusicBlock'
@@ -104,6 +106,7 @@ type ObjectType =
 const objectMap: Record<ObjectType, ObjectEntity> = {
 	Brick,
 	Coin,
+	HiddenBlock,
 	IndestructibleBrick,
 	Muncher,
 	MusicBlock,

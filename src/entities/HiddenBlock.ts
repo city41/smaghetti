@@ -1,18 +1,18 @@
 import type { ObjectEntity } from './types';
 
 const payloadToObjectId = {
-	FireFlower: 0x21,
-	Leaf: 0x22,
-	StarMan: 0x23,
+	MusicBlock: 0x20,
+	OneUpMushroom: 0x1f,
+	Coin: 0x1e,
 };
 
-const MusicBlock: ObjectEntity = {
-	type: 'MusicBlock',
+const HiddenBlock: ObjectEntity = {
+	type: 'HiddenBlock',
 	mode: 'Object',
 	settingsType: 'single',
-	defaultSettings: { payload: 'FireFlower' },
+	defaultSettings: { payload: 'MusicBlock' },
 	dimensions: 'none',
-	romOffset: 0x131fe0,
+	romOffset: 0x16ea40,
 	palette: [
 		0x7f96,
 		0x7fff,
@@ -32,8 +32,11 @@ const MusicBlock: ObjectEntity = {
 		0x0,
 	],
 	tiles: [
-		[312, 314],
-		[313, 315],
+		// HACK: since this block is hidden, it doesn't actually
+		// have any graphics, so these are empty tiles, just to
+		// satisfy the current constraints
+		[250, 250],
+		[250, 250],
 	],
 
 	toBinary(x, y, w, h, settings): number[] {
@@ -44,4 +47,4 @@ const MusicBlock: ObjectEntity = {
 	},
 };
 
-export { MusicBlock, payloadToObjectId };
+export { HiddenBlock, payloadToObjectId };

@@ -30,6 +30,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Record<ObjectType, string> = {
 	MusicBlock: 'Mb',
 	Muncher: 'Mu',
 	Stalactite: 'St',
+	HiddenBlock: 'Hb',
 };
 
 const TILE_SERIALIZED_ID_TO_TYPE_MAP: Record<string, ObjectType> = {
@@ -42,6 +43,7 @@ const TILE_SERIALIZED_ID_TO_TYPE_MAP: Record<string, ObjectType> = {
 	Mb: 'MusicBlock',
 	Mu: 'Muncher',
 	St: 'Stalactite',
+	Hb: 'HiddenBlock',
 };
 
 const TILE_TYPE_TO_GROUP_TYPE_MAP: Record<ObjectType, TileGroupType> = {
@@ -54,6 +56,7 @@ const TILE_TYPE_TO_GROUP_TYPE_MAP: Record<ObjectType, TileGroupType> = {
 	MusicBlock: 'none',
 	Muncher: 'none',
 	Stalactite: 'none',
+	HiddenBlock: 'none',
 };
 
 const TILE_TOPPER_TO_TOPPED_MAP: Record<TopperType, ObjectType> = {};
