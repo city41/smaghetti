@@ -3,10 +3,13 @@ import clsx from 'clsx';
 
 import styles from './HexEditor.module.css';
 import { convertCharacterToASCII } from '../../../levelData/util';
+import { Button } from '../../Button';
 
 type HexEditorProps = {
 	className?: string;
-	data: Uint8Array | null;
+	data: Uint8Array;
+	onDataChange: (newData: Uint8Array) => void;
+	mode: 'empty' | 'full';
 };
 
 function toHexString(b: number): string {
@@ -366,18 +369,49 @@ function Cell({ className, data, index, pointer, label = '' }: CellProps) {
 	);
 }
 
-function HexEditor({ className, data }: HexEditorProps) {
+function HexEditor({ className, data, onDataChange, mode }: HexEditorProps) {
 	const [addressToFocusText, setAddressToFocusText] = useState('');
 	const [_, forceRender] = useState(0);
-	if (!data) {
-		return null;
-	}
+	const [spriteInjectionText, setSpriteInjectionText] = useState('');
+	const [objectInjectionText, setObjectInjectionText] = useState('');
 
 	const bytes = [];
 	const dynamicCells = getDynamicCells(data);
 	const titleCells = getTitleCells(data);
 	const cellMetaData = { ...ConstantCells, ...dynamicCells, ...titleCells };
 	const pointers = getPointers(data);
+
+	function handleInjectSpriteText() {
+		const byteStrings = spriteInjectionText.split(' ');
+
+		// sprites start with an empty byte for some reason...
+		const spriteData = [0].concat(
+			byteStrings.map((bs) => parseInt(bs.trim(), 16))
+		);
+
+		const view = new DataView(data.buffer);
+		const spriteIndex = view.getUint16(0xb, true);
+
+		const beforeSprites = data.slice(0, spriteIndex);
+
+		// +3 for the 0xff terminator for sprites, as well as the terminators for blockpath movement
+		// and autoscroll data, which both come after sprites
+		const newData = new Uint8Array(
+			beforeSprites.length + spriteData.length + 3
+		);
+		newData.set(beforeSprites, 0);
+		newData.set(spriteData, beforeSprites.length);
+		newData.set([0xff, 0xff, 0xff], newData.length - 3);
+
+		// now need to update pointers, first blockpath movement at 0xd
+		view.setInt16(0xd, newData.length - 2, true);
+		// then autoscroll data at 0xf
+		view.setInt16(0xf, newData.length - 1, true);
+
+		onDataChange(newData);
+	}
+
+	function handleInjectObjectText() {}
 
 	for (let i = 0; i < data.length; ++i) {
 		const meta = cellMetaData[i];
@@ -432,6 +466,34 @@ function HexEditor({ className, data }: HexEditorProps) {
 				go to
 			</button>
 			<div className={clsx('grid', styles.grid)}>{bytes}</div>
+			{mode === 'empty' && (
+				<div className="grid grid-cols-2">
+					<div className="flex flex-row">
+						<label>
+							sprites
+							<input
+								className="text-black"
+								type="text"
+								onChange={(e) => setSpriteInjectionText(e.target.value)}
+								value={spriteInjectionText}
+							/>
+						</label>
+						<Button onClick={handleInjectSpriteText}>inject</Button>
+					</div>
+					<div className="flex flex-row">
+						<label>
+							objects
+							<input
+								className="text-black"
+								type="text"
+								onChange={(e) => setObjectInjectionText(e.target.value)}
+								value={objectInjectionText}
+							/>
+						</label>
+						<Button onClick={handleInjectObjectText}>inject</Button>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

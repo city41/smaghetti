@@ -68,7 +68,14 @@ function HexEditorPage({ allFilesReady }: HexEditorPageProps) {
 					className="overflow-y-auto"
 					style={{ height: 'calc(100% - 200px)' }}
 				>
-					<HexEditor data={levelData} />
+					{levelData && (
+						<HexEditor
+							key={levelData.length}
+							data={levelData}
+							mode={editMode}
+							onDataChange={(newData) => setLevelData(newData)}
+						/>
+					)}
 				</div>
 			</div>
 		</>
