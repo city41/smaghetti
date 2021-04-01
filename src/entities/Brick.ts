@@ -10,6 +10,7 @@ const payloadToObjectId = {
 	Leaf: 0x17,
 	OneUpMushroom: 0x1b,
 	StarMan: 0x18,
+	PSwitch: 0x1d,
 };
 
 const Brick: ObjectEntity = {
