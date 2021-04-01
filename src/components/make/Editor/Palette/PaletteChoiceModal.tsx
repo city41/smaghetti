@@ -219,6 +219,16 @@ const terrain: PaletteChoiceModalEntry[] = [
 			description: 'Small, but mighty.',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'tile',
+			type: 'Stalactite',
+		},
+		info: {
+			title: 'Stalactite',
+			description: '',
+		},
+	},
 ];
 
 const items: PaletteChoiceModalEntry[] = [

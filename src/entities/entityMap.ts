@@ -30,6 +30,7 @@ import { RedParaTroopa } from './RedParaTroopa';
 import { ShoeGoomba } from './ShoeGoomba';
 import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
+import { Stalactite } from './Stalactite';
 import { StarMan } from './StarMan';
 import { ThreeUpMoon } from './ThreeUpMoon';
 import { TriangularBlock } from './TriangularBlock';
@@ -97,6 +98,7 @@ type ObjectType =
 	| 'MusicBlock'
 	| 'PSwitch'
 	| 'QuestionBlock'
+	| 'Stalactite'
 	| 'TriangularBlock';
 
 const objectMap: Record<ObjectType, ObjectEntity> = {
@@ -107,6 +109,7 @@ const objectMap: Record<ObjectType, ObjectEntity> = {
 	MusicBlock,
 	PSwitch,
 	QuestionBlock,
+	Stalactite,
 	TriangularBlock,
 };
 
