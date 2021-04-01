@@ -13,6 +13,7 @@ import {
 	SpriteType,
 } from '../../entities/entityMap';
 import { ResourceEntity } from '../../entities/types';
+import { Resource, resourceMap } from '../../resources/resourceMap';
 
 type ExtractedEntity = {
 	type: SpriteType | ObjectType;
@@ -50,12 +51,13 @@ const palettesSlice = createSlice({
 
 			const sprites = Object.values(spriteMap);
 			const objects = Object.values(objectMap);
+			const resources = Object.values(resourceMap);
 
-			const resources = (sprites as ResourceEntity[]).concat(
-				objects as ResourceEntity[]
-			);
+			const toExtract = (sprites as Array<Resource | ResourceEntity>)
+				.concat(objects as ResourceEntity[], resources as Resource[])
+				.filter((r) => 'tiles' in r);
 
-			state.entities = resources.map((resource) => {
+			state.entities = toExtract.map((resource) => {
 				const data = extractResourceTileData(rom, resource);
 
 				return {

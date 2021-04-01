@@ -50,4 +50,10 @@ type SpriteEntity = BaseEntity & {
 
 type ResourceEntity = ObjectEntity | SpriteEntity;
 
-export type { TileExtractionSpec, ResourceEntity, ObjectEntity, SpriteEntity };
+export type {
+	TileExtractionSpec,
+	ResourceEntity,
+	BaseEntity,
+	ObjectEntity,
+	SpriteEntity,
+};

@@ -11,6 +11,7 @@ const payloadToObjectId = {
 	OneUpMushroom: 0x1b,
 	StarMan: 0x18,
 	PSwitch: 0x1d,
+	ClimbingVineHead: 0x1c,
 };
 
 const Brick: ObjectEntity = {

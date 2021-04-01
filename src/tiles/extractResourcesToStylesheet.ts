@@ -147,8 +147,14 @@ function tileToCanvas(
 
 function extractResourceTileData(
 	rom: Uint8Array,
-	entity: ResourceEntity
+	entity: Resource | ResourceEntity
 ): ExtractedEntityTileData {
+	if (!('tiles' in entity)) {
+		throw new Error(
+			'extractResourceTileData: called with a non static resource'
+		);
+	}
+
 	const tileData: Array<Array<TileExtractionSpecWithData>> = entity.tiles.map(
 		(tileIndexRow) => {
 			return tileIndexRow.map((t) => {
