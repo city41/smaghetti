@@ -23,6 +23,7 @@ const TILE_TYPE_TO_FIRST_TILE_INDEX_MAP: Record<ObjectType, number> = {
 	QuestionBlock: 4,
 	TriangularBlock: 5,
 	PSwitch: 6,
+	MusicBlock: 7,
 };
 
 const FIRST_TILE_INDEX_TO_TILE_TYPE_MAP: Record<number, ObjectType> = {
@@ -43,6 +44,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Record<ObjectType, string> = {
 	QuestionBlock: '?',
 	PSwitch: 'Ps',
 	TriangularBlock: 'Tb',
+	MusicBlock: 'Mb',
 };
 
 const TILE_SERIALIZED_ID_TO_TYPE_MAP: Record<string, ObjectType> = {
@@ -52,6 +54,7 @@ const TILE_SERIALIZED_ID_TO_TYPE_MAP: Record<string, ObjectType> = {
 	'?': 'QuestionBlock',
 	Ps: 'PSwitch',
 	Tb: 'TriangularBlock',
+	Mb: 'MusicBlock',
 };
 
 const TILE_TYPE_TO_GROUP_TYPE_MAP: Record<ObjectType, TileGroupType> = {
@@ -61,6 +64,7 @@ const TILE_TYPE_TO_GROUP_TYPE_MAP: Record<ObjectType, TileGroupType> = {
 	QuestionBlock: 'none',
 	PSwitch: 'none',
 	TriangularBlock: 'none',
+	MusicBlock: 'none',
 };
 
 const TILE_TOPPER_TO_TOPPED_MAP: Record<TopperType, ObjectType> = {};

@@ -199,6 +199,16 @@ const terrain: PaletteChoiceModalEntry[] = [
 			description: 'I always thought these looked like chocolate',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'tile',
+			type: 'MusicBlock',
+		},
+		info: {
+			title: 'Music Block',
+			description: 'Bouncy bounce, and can also contain items!',
+		},
+	},
 ];
 
 const items: PaletteChoiceModalEntry[] = [

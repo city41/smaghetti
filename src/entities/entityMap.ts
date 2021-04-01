@@ -18,6 +18,7 @@ import { Key } from './Key';
 import { Lakitu } from './Lakitu';
 import { Leaf } from './Leaf';
 import { Mushroom } from './Mushroom';
+import { MusicBlock } from './MusicBlock';
 import { OneUpMushroom } from './OneUpMushroom';
 import { Player } from './Player';
 import { PSwitch } from './PSwitch';
@@ -91,6 +92,7 @@ type ObjectType =
 	| 'Brick'
 	| 'Coin'
 	| 'IndestructibleBrick'
+	| 'MusicBlock'
 	| 'PSwitch'
 	| 'QuestionBlock'
 	| 'TriangularBlock';
@@ -99,6 +101,7 @@ const objectMap: Record<ObjectType, ObjectEntity> = {
 	Brick,
 	Coin,
 	IndestructibleBrick,
+	MusicBlock,
 	PSwitch,
 	QuestionBlock,
 	TriangularBlock,

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import { DetailsViewProps } from './index';
 
-function BrickViewDetails({ settings }: DetailsViewProps) {
+function PayloadViewDetails({ settings }: DetailsViewProps) {
 	if (!settings.payload) {
 		return null;
 	}
@@ -18,4 +18,4 @@ function BrickViewDetails({ settings }: DetailsViewProps) {
 	);
 }
 
-export { BrickViewDetails };
+export { PayloadViewDetails };

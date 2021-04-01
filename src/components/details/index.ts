@@ -4,10 +4,11 @@ import { ObjectType, SpriteType } from '../../entities/entityMap';
 import { AceCoinViewDetails } from './AceCoinViewDetails';
 import { QuestionBlockViewDetails } from './QuestionBlockViewDetails';
 import { QuestionBlockEditDetails } from './QuestionBlockEditDetails';
-import { BrickViewDetails } from './BrickViewDetails';
+import { PayloadViewDetails } from './PayloadViewDetails';
 import { BrickEditDetails } from './BrickEditDetails';
 import { TriangularBlockViewDetails } from './TriangularBlockViewDetails';
 import { AngleEditDetails } from './AngleEditDetails';
+import { MusicBlockEditDetails } from './MusicBlockEditDetails';
 
 type DetailsViewProps = {
 	settings: EntitySettings;
@@ -28,7 +29,7 @@ const detailsMap: Partial<
 	>
 > = {
 	Brick: {
-		view: BrickViewDetails,
+		view: PayloadViewDetails,
 		edit: BrickEditDetails,
 	},
 	QuestionBlock: {
@@ -41,6 +42,10 @@ const detailsMap: Partial<
 	TriangularBlock: {
 		view: TriangularBlockViewDetails,
 		edit: AngleEditDetails,
+	},
+	MusicBlock: {
+		view: PayloadViewDetails,
+		edit: MusicBlockEditDetails,
 	},
 };
 
