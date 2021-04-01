@@ -1,8 +1,4 @@
-import {
-	TILE_SERIALIZED_ID_TO_TYPE_MAP,
-	TILE_SIZE,
-	TILE_TYPE_TO_FIRST_TILE_INDEX_MAP,
-} from '../tiles/constants';
+import { TILE_SERIALIZED_ID_TO_TYPE_MAP } from '../tiles/constants';
 import { groupTiles } from './groupTiles';
 import { objectMap } from '../entities/entityMap';
 
@@ -76,7 +72,8 @@ function deserialize(
 				x,
 				y,
 				tileType,
-				tileIndex: TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[tileType],
+				// TODO: tileIndex isn't really used anymore
+				tileIndex: 0,
 				settings,
 			};
 		});

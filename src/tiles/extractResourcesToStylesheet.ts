@@ -239,7 +239,9 @@ async function extractResourcesToStylesheet(
 		if (isResourceEntity(resource)) {
 			dataUrl = await extractResourceToDataUrl(rom, resource);
 		} else {
-			dataUrl = resource.extract(rom);
+			dataUrl = (resource as { extract: (rom: Uint8Array) => string }).extract(
+				rom
+			);
 		}
 
 		css = `${css}\n.${resource.type}-bg { background-image: url(${dataUrl}); }`;

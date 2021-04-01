@@ -28,11 +28,7 @@ import { serialize } from '../../level/serialize';
 import { deserialize } from '../../level/deserialize';
 import isEqual from 'lodash/isEqual';
 
-import {
-	TILE_SIZE,
-	TILE_TYPE_TO_FIRST_TILE_INDEX_MAP,
-	TILE_TYPE_TO_GROUP_TYPE_MAP,
-} from '../../tiles/constants';
+import { TILE_SIZE, TILE_TYPE_TO_GROUP_TYPE_MAP } from '../../tiles/constants';
 import {
 	objectMap,
 	ObjectType,
@@ -252,8 +248,6 @@ function floodFill(
 
 		if (tileAtPoint) {
 			if (tileAtPoint.tileType === targetType) {
-				tileAtPoint.tileIndex =
-					TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[floodTileType];
 				tileAtPoint.tileType = floodTileType;
 				exploreNeighbors = true;
 			}
@@ -264,7 +258,7 @@ function floodFill(
 				x: point.x,
 				y: point.y,
 				tileType: floodTileType,
-				tileIndex: TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[floodTileType],
+				tileIndex: 0,
 			};
 			exploreNeighbors = true;
 		}
@@ -797,10 +791,6 @@ const editorSlice = createSlice({
 						if (state.currentPaletteEntry?.brushMode === 'tile') {
 							// replace a tile
 							if (existingTile) {
-								existingTile.tileIndex =
-									TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[
-										state.currentPaletteEntry.type
-									];
 								existingTile.tileType = state.currentPaletteEntry.type;
 							} else {
 								// paint a new tile
@@ -810,10 +800,8 @@ const editorSlice = createSlice({
 									x: indexX,
 									y: indexY,
 									tileType: state.currentPaletteEntry.type,
-									tileIndex:
-										TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[
-											state.currentPaletteEntry.type
-										],
+									// TODO: tileIndex isn't really used anymore
+									tileIndex: 0,
 								};
 
 								const objectDef = objectMap[state.currentPaletteEntry.type];

@@ -3,11 +3,7 @@ import clsx from 'clsx';
 import { PaletteEntry as PaletteEntryType } from '../../editorSlice';
 import { Tile } from '../../../Tile';
 import { Entity } from '../../../Entity';
-import {
-	ObjectType,
-	TILE_SIZE,
-	TILE_TYPE_TO_FIRST_TILE_INDEX_MAP,
-} from '../../../../tiles/constants';
+import { ObjectType, TILE_SIZE } from '../../../../tiles/constants';
 
 import styles from './PaletteEntry.module.css';
 

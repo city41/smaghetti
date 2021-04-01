@@ -209,6 +209,16 @@ const terrain: PaletteChoiceModalEntry[] = [
 			description: 'Bouncy bounce, and can also contain items!',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'tile',
+			type: 'Muncher',
+		},
+		info: {
+			title: 'Muncher',
+			description: 'Small, but mighty.',
+		},
+	},
 ];
 
 const items: PaletteChoiceModalEntry[] = [

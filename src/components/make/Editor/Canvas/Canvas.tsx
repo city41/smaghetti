@@ -10,11 +10,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 
 import { Entity } from '../../../Entity';
 import { Tile } from '../../../Tile';
-import {
-	ObjectType,
-	TILE_SIZE,
-	TILE_TYPE_TO_FIRST_TILE_INDEX_MAP,
-} from '../../../../tiles/constants';
+import { ObjectType, TILE_SIZE } from '../../../../tiles/constants';
 import { MouseMode, PaletteEntry } from '../../editorSlice';
 import {
 	PLAY_WINDOW_TILE_WIDTH,

@@ -6,7 +6,6 @@ import {
 	TILE_TYPE_TO_GROUP_TYPE_MAP,
 	TILE_TOPPED_TO_TOPPER_MAP,
 	TILE_TOPPER_TO_TOPPED_MAP,
-	TILE_TYPE_TO_FIRST_TILE_INDEX_MAP,
 	TILE_TYPE_COUNT,
 	TILE_TYPE_TO_X_ENDCAPS_MAP,
 	TILE_TYPE_TO_Y_ENDCAPS_MAP,
@@ -438,9 +437,7 @@ function groupTiles(
 				levelTileHeight
 			);
 
-			const newTileIndex =
-				groupingTileMap[groupType][key] * TILE_TYPE_COUNT +
-				TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[tile.tileType];
+			const newTileIndex = 0;
 
 			if (newTileIndex) {
 				// TODO: this should probably just be tile entities that have editor time settings
@@ -455,9 +452,7 @@ function groupTiles(
 							tile,
 							tiles,
 							TILE_TOPPER_TO_TOPPED_MAP[tile.tileType as TopperType]
-						) *
-							TILE_TYPE_COUNT +
-						TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[tile.tileType];
+						) * TILE_TYPE_COUNT;
 				} else if (
 					TILE_TYPE_TO_GROUP_TYPE_MAP[tile.tileType] === 'y' &&
 					TILE_TYPE_TO_Y_ENDCAPS_MAP[tile.tileType as HasYEndCapType] !== 'none'
@@ -470,9 +465,7 @@ function groupTiles(
 					);
 
 					if (determinedTileIndex !== null) {
-						tile.tileIndex =
-							determinedTileIndex * TILE_TYPE_COUNT +
-							TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[tile.tileType];
+						tile.tileIndex = determinedTileIndex * TILE_TYPE_COUNT;
 					}
 				} else if (
 					TILE_TYPE_TO_GROUP_TYPE_MAP[tile.tileType] === 'x' &&
@@ -486,9 +479,7 @@ function groupTiles(
 					);
 
 					if (determinedTileIndex !== null) {
-						tile.tileIndex =
-							determinedTileIndex * TILE_TYPE_COUNT +
-							TILE_TYPE_TO_FIRST_TILE_INDEX_MAP[tile.tileType];
+						tile.tileIndex = determinedTileIndex * TILE_TYPE_COUNT;
 					}
 				} else {
 					tile.tileIndex = newTileIndex;
