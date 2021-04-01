@@ -418,8 +418,9 @@ function HexEditor({ className, data, onDataChange, mode }: HexEditorProps) {
 	function handleInjectObjectText() {
 		const byteStrings = objectInjectionText.split(' ');
 
-		// trailing 0xff is the terminator
-		const objectData = ([] as number[]).concat(
+		// trailing 0xff is the terminator, like sprites objects start
+		// with a zero for some reason
+		const objectData = [0].concat(
 			byteStrings.map((bs) => parseInt(bs.trim(), 16)),
 			[0xff]
 		);
