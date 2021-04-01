@@ -138,6 +138,16 @@ const objects: PaletteChoiceModalEntry[] = [
 	},
 	{
 		entry: {
+			brushMode: 'tile',
+			type: 'PSwitch',
+		},
+		info: {
+			title: 'P-Switch',
+			description: '',
+		},
+	},
+	{
+		entry: {
 			brushMode: 'entity',
 			type: 'CardSlotMachine',
 		},

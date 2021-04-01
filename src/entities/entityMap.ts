@@ -20,6 +20,7 @@ import { Leaf } from './Leaf';
 import { Mushroom } from './Mushroom';
 import { OneUpMushroom } from './OneUpMushroom';
 import { Player } from './Player';
+import { PSwitch } from './PSwitch';
 import { QuestionBlock } from './QuestionBlock';
 import { QuestionMark } from './QuestionMark';
 import { RedKoopaTroopa } from './RedKoopaTroopa';
@@ -57,7 +58,12 @@ type SpriteType =
 	| 'StarMan'
 	| 'ThreeUpMoon';
 
-type ObjectType = 'Brick' | 'Coin' | 'IndestructibleBrick' | 'QuestionBlock';
+type ObjectType =
+	| 'Brick'
+	| 'Coin'
+	| 'IndestructibleBrick'
+	| 'PSwitch'
+	| 'QuestionBlock';
 
 const spriteMap: Record<SpriteType, SpriteEntity> = {
 	AceCoin,
@@ -77,6 +83,7 @@ const spriteMap: Record<SpriteType, SpriteEntity> = {
 	Mushroom,
 	OneUpMushroom,
 	Player,
+	PSwitch,
 	QuestionMark,
 	RedKoopaTroopa,
 	RedParaTroopa,
@@ -91,6 +98,7 @@ const objectMap: Record<ObjectType, ObjectEntity> = {
 	Brick,
 	Coin,
 	IndestructibleBrick,
+	PSwitch,
 	QuestionBlock,
 };
 
