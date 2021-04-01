@@ -4,9 +4,11 @@ import { getBankLength } from './util';
 const OBJECT_ID = 0xf;
 
 const payloadToObjectId = {
+	Coin: 0x19,
+	CoinCache: 0x1a,
+	FireFlower: 0x16,
+	Leaf: 0x17,
 	OneUpMushroom: 0x1b,
-	Mushroom: 0x16,
-	Coin: 0x1a,
 	StarMan: 0x18,
 };
 

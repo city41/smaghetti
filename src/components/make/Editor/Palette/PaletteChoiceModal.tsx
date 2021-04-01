@@ -263,6 +263,17 @@ const powerUps: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
 			brushMode: 'entity',
+			type: 'Leaf',
+		},
+		info: {
+			title: 'Leaf',
+			description:
+				'Not great on its own, as it just floats off the screen. Probably better inside a brick.',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'entity',
 			type: 'CapeFeather',
 		},
 		info: {

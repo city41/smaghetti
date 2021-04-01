@@ -16,6 +16,7 @@ import { GreenParaTroopa } from './GreenParaTroopa';
 import { IndestructibleBrick } from './IndestructibleBrick';
 import { Key } from './Key';
 import { Lakitu } from './Lakitu';
+import { Leaf } from './Leaf';
 import { Mushroom } from './Mushroom';
 import { OneUpMushroom } from './OneUpMushroom';
 import { Player } from './Player';
@@ -43,6 +44,7 @@ type SpriteType =
 	| 'GreenParaTroopa'
 	| 'Key'
 	| 'Lakitu'
+	| 'Leaf'
 	| 'Mushroom'
 	| 'OneUpMushroom'
 	| 'Player'
@@ -71,6 +73,7 @@ const spriteMap: Record<SpriteType, SpriteEntity> = {
 	GreenParaTroopa,
 	Key,
 	Lakitu,
+	Leaf,
 	Mushroom,
 	OneUpMushroom,
 	Player,

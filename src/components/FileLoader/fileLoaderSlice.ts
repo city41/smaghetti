@@ -14,6 +14,7 @@ import {
 import { extractResourcesToStylesheet } from '../../tiles/extractResourcesToStylesheet';
 import { ResourceEntity } from '../../entities/types';
 import { deserialize } from '../../saveStates/serializer';
+import { Resource, resourceMap } from '../../resources/resourceMap';
 
 type RomFileState =
 	| 'not-chosen'
@@ -245,11 +246,12 @@ const extract = (): FileLoaderThunk => async (dispatch) => {
 
 	const sprites = Object.values(spriteMap);
 	const objects = Object.values(objectMap);
-	const resources = (sprites as ResourceEntity[]).concat(
-		objects as ResourceEntity[]
-	);
+	const resources = Object.values(resourceMap);
+	const toExtract: Array<Resource | ResourceEntity> = (sprites as Array<
+		Resource | ResourceEntity
+	>).concat(objects as ResourceEntity[], resources as Resource[]);
 
-	await extractResourcesToStylesheet(rom, resources);
+	await extractResourcesToStylesheet(rom, toExtract);
 
 	dispatch(fileLoaderSlice.actions.overallExtractionState('complete'));
 };

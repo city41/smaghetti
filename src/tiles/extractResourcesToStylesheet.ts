@@ -1,6 +1,7 @@
 import memoize from 'lodash/memoize';
 import { decompress } from './extractCompressedTilesFromRom';
 import { ResourceEntity, TileExtractionSpec } from '../entities/types';
+import { Resource } from '../resources/resourceMap';
 
 type TileExtractionSpecWithData = TileExtractionSpec & { data: number[] };
 type ExtractedEntityTileData = Array<Array<TileExtractionSpecWithData>>;
@@ -134,14 +135,14 @@ function renderTiles(
 	}
 }
 
-function tileToDataUrl(
+function tileToCanvas(
 	tileData: Array<Array<TileExtractionSpecWithData>>,
 	palette: number[]
-): string {
+): HTMLCanvasElement {
 	const canvas = document.createElement('canvas');
 	renderTiles(canvas, tileData, palette);
 
-	return canvas.toDataURL();
+	return canvas;
 }
 
 function extractResourceTileData(
@@ -156,7 +157,7 @@ function extractResourceTileData(
 					typeof t === 'number' ? entity.romOffset : t.romOffset;
 
 				if (typeof romOffset !== 'number') {
-					throw new Error('extractResource: romOffset not specified');
+					throw new Error('extractResourceToDataUrl: romOffset not specified');
 				}
 
 				let data;
@@ -203,22 +204,39 @@ function extractResourceTileData(
 	return tileData;
 }
 
-function extractResource(rom: Uint8Array, entity: ResourceEntity): string {
+function extractResourceToDataUrl(
+	rom: Uint8Array,
+	entity: ResourceEntity
+): string {
 	const tileData = extractResourceTileData(rom, entity);
-	return tileToDataUrl(tileData, entity.palette ?? DEFAULT_PALETTE);
+	const canvas = tileToCanvas(tileData, entity.palette ?? DEFAULT_PALETTE);
+
+	return canvas.toDataURL();
+}
+
+function isResourceEntity(
+	obj: Resource | ResourceEntity
+): obj is ResourceEntity {
+	return !('extract' in obj);
 }
 
 async function extractResourcesToStylesheet(
 	rom: Uint8Array,
-	entities: ResourceEntity[]
+	resources: Array<ResourceEntity | Resource>
 ) {
 	let css = '';
 
-	for (let i = 0; i < entities.length; ++i) {
-		const entity = entities[i];
-		const dataUrl = await extractResource(rom, entity);
+	for (let i = 0; i < resources.length; ++i) {
+		const resource = resources[i];
 
-		css = `${css}\n.${entity.type}-bg { background-image: url(${dataUrl}); }`;
+		let dataUrl;
+		if (isResourceEntity(resource)) {
+			dataUrl = await extractResourceToDataUrl(rom, resource);
+		} else {
+			dataUrl = resource.extract(rom);
+		}
+
+		css = `${css}\n.${resource.type}-bg { background-image: url(${dataUrl}); }`;
 	}
 
 	const textNode = document.createTextNode(css);
@@ -236,5 +254,6 @@ export {
 	drawTile,
 	renderTiles,
 	extractResourceTileData,
+	tileToCanvas,
 };
 export type { ExtractedEntityTileData };
