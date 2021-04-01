@@ -1,11 +1,18 @@
 import type { ObjectEntity } from './types';
 
+const angleToObjectId: Record<number, number> = {
+	0: 0x50,
+	90: 0x51,
+	180: 0x53,
+	270: 0x52,
+};
+
 const TriangularBlock: ObjectEntity = {
 	type: 'TriangularBlock',
 	mode: 'Object',
-	settingsType: 'none',
+	settingsType: 'single',
 	dimensions: 'x',
-	defaultSettings: { rotation: 0 },
+	defaultSettings: { angle: 0 },
 	romOffset: 0x20e4f0,
 	palette: [
 		0x23df,
@@ -31,7 +38,7 @@ const TriangularBlock: ObjectEntity = {
 	],
 
 	toBinary(x, y, w, h, settings) {
-		return [0, y, x, 0x50];
+		return [0, y, x, angleToObjectId[settings.angle as number]];
 	},
 };
 

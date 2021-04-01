@@ -6,35 +6,6 @@ type VerticalEditDetailsProps = {
 	children: ReactNode;
 };
 
-// const spawn = keyframes`
-//   0% {
-//     transform: scale(0);
-//   }
-//   75% {
-//     transform: scale(1);
-//   }
-//   90% {
-//     transform: scale(1.15);
-//   }
-// `;
-//
-// const Root = styled.div`
-// 	position: absolute;
-// 	top: -1px;
-// 	left: -1px;
-// 	z-index: -1;
-//
-// 	width: 15px;
-// 	padding: 1px;
-//
-// 	display: flex;
-// 	flex-direction: column;
-// 	align-items: flex-end;
-//
-// 	background-color: rgba(255, 165, 0, 0.65);
-// 	animation: ${spawn} 0.1s ease-in;
-// `;
-
 function VerticalEditDetails({
 	className,
 	children,

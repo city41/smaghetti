@@ -6,6 +6,8 @@ import { QuestionBlockViewDetails } from './QuestionBlockViewDetails';
 import { QuestionBlockEditDetails } from './QuestionBlockEditDetails';
 import { BrickViewDetails } from './BrickViewDetails';
 import { BrickEditDetails } from './BrickEditDetails';
+import { TriangularBlockViewDetails } from './TriangularBlockViewDetails';
+import { AngleEditDetails } from './AngleEditDetails';
 
 type DetailsViewProps = {
 	settings: EntitySettings;
@@ -35,6 +37,10 @@ const detailsMap: Partial<
 	},
 	AceCoin: {
 		view: AceCoinViewDetails,
+	},
+	TriangularBlock: {
+		view: TriangularBlockViewDetails,
+		edit: AngleEditDetails,
 	},
 };
 
