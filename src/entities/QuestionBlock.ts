@@ -6,7 +6,7 @@ const QuestionBlock: ObjectEntity = {
 	mode: 'Object',
 	settingsType: 'single',
 	defaultSettings: { payload: 'Coin' },
-	dimensions: 'x',
+	dimensions: 'none',
 	romOffset: 0x131fe0,
 	palette: [
 		0x7f96,

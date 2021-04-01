@@ -11,7 +11,7 @@ const TriangularBlock: ObjectEntity = {
 	type: 'TriangularBlock',
 	mode: 'Object',
 	settingsType: 'single',
-	dimensions: 'x',
+	dimensions: 'none',
 	defaultSettings: { angle: 0 },
 	romOffset: 0x20e4f0,
 	palette: [

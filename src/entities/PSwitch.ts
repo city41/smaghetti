@@ -5,7 +5,7 @@ const PSwitch: ObjectEntity = {
 	type: 'PSwitch',
 	mode: 'Object',
 	settingsType: 'none',
-	dimensions: 'x',
+	dimensions: 'none',
 	defaultSettings: {},
 	romOffset: 0x16ea40,
 	palette: [

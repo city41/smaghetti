@@ -14,7 +14,7 @@ const MusicBlock: ObjectEntity = {
 	mode: 'Object',
 	settingsType: 'single',
 	defaultSettings: { payload: 'FireFlower' },
-	dimensions: 'xy',
+	dimensions: 'none',
 	romOffset: 0x131fe0,
 	palette: [
 		0x7f96,

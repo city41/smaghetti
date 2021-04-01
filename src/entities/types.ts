@@ -17,7 +17,7 @@ type BaseEntity = {
 
 type ObjectEntity = BaseEntity & {
 	mode: 'Object';
-	dimensions: 'x' | 'y' | 'xy';
+	dimensions: 'none' | 'x' | 'y' | 'xy';
 	settingsType: 'none' | 'single' | 'grouped';
 	defaultSettings: Record<string, any>;
 	toBinary: (

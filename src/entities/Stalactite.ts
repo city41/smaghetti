@@ -8,7 +8,7 @@ const Stalactite: ObjectEntity = {
 	mode: 'Object',
 	settingsType: 'none',
 	defaultSettings: {},
-	dimensions: 'x',
+	dimensions: 'none',
 	romOffset: 0x16ea40,
 	palette: [
 		0x7f96,

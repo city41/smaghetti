@@ -7,7 +7,7 @@ const Muncher: ObjectEntity = {
 	mode: 'Object',
 	defaultSettings: {},
 	settingsType: 'none',
-	dimensions: 'x',
+	dimensions: 'none',
 	palette: [
 		0x7f96,
 		0x7fff,
