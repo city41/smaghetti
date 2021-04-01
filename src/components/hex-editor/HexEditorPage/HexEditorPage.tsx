@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { GBAPlayer } from '../../LevelPlayer/GBAPlayer';
 import { HexEditor } from './HexEditor';
@@ -8,13 +8,15 @@ import {
 	getRom,
 	getSaveState,
 } from '../../FileLoader/files';
+import { Button } from '../../Button';
+import { createLevelData } from '../../../levelData/createLevelData';
 
 type HexEditorPageProps = {
 	allFilesReady: boolean;
 };
 
 function HexEditorPage({ allFilesReady }: HexEditorPageProps) {
-	const [injectCount, setInjectCount] = useState(0);
+	const [editMode, setEditMode] = useState<'empty' | 'full'>('full');
 	const [levelData, setLevelData] = useState<Uint8Array | null>(null);
 	const [editState, setEditState] = useState<'editing' | 'running'>('editing');
 
@@ -28,30 +30,27 @@ function HexEditorPage({ allFilesReady }: HexEditorPageProps) {
 		reader.readAsArrayBuffer(e.target.files![0]);
 	}
 
-	function handleClick() {
+	function handleRunningEditToggle() {
 		setEditState((e) => (e === 'editing' ? 'running' : 'editing'));
 	}
 
-	function handleInject() {
-		// forcing a rerender should cause an injection to happen
-		setInjectCount((c) => c + 1);
+	function handleStartEmpty() {
+		setLevelData(createLevelData([], { width: 0, height: 0, data: [] }));
+		setEditMode('empty');
 	}
 
 	return (
 		<>
 			<FileLoaderModal isOpen={!allFilesReady} />
 			<div className="h-screen overflow-hidden">
-				<div className="bg-white shadow-lg w-full">
-					<label>
+				<div className="bg-white shadow-lg w-full space-x-2 p-1">
+					<label className="text-black">
 						level file
 						<input type="file" accept=".level" onChange={handleLevelFile} />
 					</label>
-					<button className="bg-blue-100 px-2 py-1" onClick={handleClick}>
-						{editState}
-					</button>
-					<button className="bg-blue-100 px-2 py-1" onClick={handleInject}>
-						inject
-					</button>
+
+					<Button onClick={handleStartEmpty}>start empty</Button>
+					<Button onClick={handleRunningEditToggle}>{editState}</Button>
 				</div>
 				{allFilesReady && levelData && (
 					<GBAPlayer

@@ -382,10 +382,7 @@ function HexEditor({ className, data }: HexEditorProps) {
 	for (let i = 0; i < data.length; ++i) {
 		const meta = cellMetaData[i];
 		bytes.push(
-			<div
-				key={`${i}-${data[i]}`}
-				className={clsx('p-2 focus-within:bg-blue-500')}
-			>
+			<div key={i} className={clsx('p-2 focus-within:bg-blue-500')}>
 				<div className="text-xs text-white">{i.toString(16)}</div>
 				<Cell
 					className={
