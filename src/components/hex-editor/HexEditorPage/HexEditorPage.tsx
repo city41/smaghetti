@@ -50,19 +50,23 @@ function HexEditorPage({ allFilesReady }: HexEditorPageProps) {
 					</label>
 
 					<Button onClick={handleStartEmpty}>start empty</Button>
-					<Button onClick={handleRunningEditToggle}>{editState}</Button>
 				</div>
 				{allFilesReady && levelData && (
-					<GBAPlayer
-						className="inline-block"
-						romFile={getRom()!}
-						biosFile={getBios()!}
-						emptySaveFile={getEmptySave()!}
-						saveState={getSaveState()!}
-						levelData={levelData}
-						isPlaying={editState === 'running'}
-						scale={1}
-					/>
+					<div className="flex flex-row items-center">
+						<GBAPlayer
+							className="inline-block"
+							romFile={getRom()!}
+							biosFile={getBios()!}
+							emptySaveFile={getEmptySave()!}
+							saveState={getSaveState()!}
+							levelData={levelData}
+							isPlaying={editState === 'running'}
+							scale={1}
+						/>
+						<Button onClick={handleRunningEditToggle}>
+							{editState === 'editing' ? 'paused' : 'running'}
+						</Button>
+					</div>
 				)}
 				<div
 					className="overflow-y-auto"

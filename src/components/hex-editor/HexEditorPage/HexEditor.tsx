@@ -404,14 +404,75 @@ function HexEditor({ className, data, onDataChange, mode }: HexEditorProps) {
 		newData.set([0xff, 0xff, 0xff], newData.length - 3);
 
 		// now need to update pointers, first blockpath movement at 0xd
-		view.setInt16(0xd, newData.length - 2, true);
+		const newView = new DataView(newData.buffer);
+		newView.setInt16(0xd, newData.length - 2, true);
 		// then autoscroll data at 0xf
-		view.setInt16(0xf, newData.length - 1, true);
+		newView.setInt16(0xf, newData.length - 1, true);
 
 		onDataChange(newData);
 	}
 
-	function handleInjectObjectText() {}
+	// TODO: this assumes there are no objects to start with, support injecting new objects
+	// into a level which already has objects
+	// really these injection methods could be way better in general...
+	function handleInjectObjectText() {
+		const byteStrings = objectInjectionText.split(' ');
+
+		// trailing 0xff is the terminator
+		const objectData = ([] as number[]).concat(
+			byteStrings.map((bs) => parseInt(bs.trim(), 16)),
+			[0xff]
+		);
+
+		const view = new DataView(data.buffer);
+
+		// +11 because of the object header, which is fine as is
+		const objectIndex = view.getUint16(5, true) + 11;
+
+		const beforeObjects = data.slice(0, objectIndex);
+
+		// +1 to ignore the 0xff terminator
+		const afterObjects = data.slice(objectIndex + 1);
+
+		const newData = new Uint8Array(
+			beforeObjects.length + objectData.length + afterObjects.length
+		);
+
+		newData.set(beforeObjects, 0);
+		newData.set(objectData, beforeObjects.length);
+		newData.set(afterObjects, beforeObjects.length + objectData.length);
+
+		// now need to update pointers
+		debugger;
+		const newView = new DataView(newData.buffer);
+		newView.setUint16(
+			0x7,
+			newView.getUint16(0x7, true) + objectData.length - 1,
+			true
+		);
+		newView.setUint16(
+			0x9,
+			newView.getUint16(0x9, true) + objectData.length - 1,
+			true
+		);
+		newView.setUint16(
+			0xb,
+			newView.getUint16(0xb, true) + objectData.length - 1,
+			true
+		);
+		newView.setUint16(
+			0xd,
+			newView.getUint16(0xd, true) + objectData.length - 1,
+			true
+		);
+		newView.setUint16(
+			0xf,
+			newView.getUint16(0xf) + objectData.length - 1,
+			true
+		);
+
+		onDataChange(newData);
+	}
 
 	for (let i = 0; i < data.length; ++i) {
 		const meta = cellMetaData[i];
