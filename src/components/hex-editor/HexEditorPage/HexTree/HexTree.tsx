@@ -30,6 +30,7 @@ import {
 } from '../../../../entities/spriteIdMap';
 import clsx from 'clsx';
 import { useLocalStorage } from './useLocalStorage';
+import useClipboard from 'react-use-clipboard';
 
 type HexTreeProps = {
 	data: Uint8Array;
@@ -371,6 +372,7 @@ function LevelObject({
 						onChange={onExcludeChange}
 					/>
 				</label>
+				<Copy rawBytes={data.rawBytes} />
 			</div>
 			<Notes className="m-2 w-80" bank={data.bank} id={data.id} type="object" />
 		</div>
@@ -413,6 +415,12 @@ function InsertBytes({ onInsert }: { onInsert: (b: number[]) => void }) {
 			<button onClick={handleClick}>insert</button>
 		</div>
 	);
+}
+
+function Copy({ rawBytes }: { rawBytes: number[] }) {
+	const [, copy] = useClipboard(rawBytes.map((b) => b.toString(16)).join(' '));
+
+	return <button onClick={copy}>copy</button>;
 }
 
 function Notes({
@@ -483,6 +491,7 @@ function Sprite({
 						onChange={onExcludeChange}
 					/>
 				</label>
+				<Copy rawBytes={data.rawBytes} />
 			</div>
 			<Notes className="m-2 w-80" bank={data.bank} id={data.id} type="sprite" />
 		</div>
@@ -692,10 +701,6 @@ function injestPendingBytes(tree: LevelTree): LevelTree {
 	const keys = Object.keys(tree) as Array<keyof LevelTree>;
 
 	return keys.reduce<Partial<LevelTree>>((building, key) => {
-		if (key === 'header') {
-			building[key] = tree[key];
-		}
-
 		if (key.startsWith('room')) {
 			const room = tree[key] as LevelTreeRoom;
 			const roomIndex = parseInt(key.replace('room', '')) as 0 | 1 | 2 | 3;
@@ -719,6 +724,9 @@ function injestPendingBytes(tree: LevelTree): LevelTree {
 
 			// @ts-ignore
 			building[key] = newRoom;
+		} else {
+			// @ts-ignore
+			building[key] = tree[key];
 		}
 
 		return building;
@@ -787,7 +795,11 @@ function HexTree({ data, onDataChange }: HexTreeProps) {
 
 		const data = parsed[`room${i}` as keyof LevelTree] as LevelTreeRoom;
 
-		if (data.objects.objects.length > 0 || data.sprites.sprites.length > 0) {
+		if (
+			i === 0 ||
+			data.objects.objects.length > 0 ||
+			data.sprites.sprites.length > 0
+		) {
 			rooms.push(
 				<TreeItem key={ii} nodeId={`room${ii}`} label={`Room ${ii}`}>
 					<Room
