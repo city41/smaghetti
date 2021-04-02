@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
 import { convertLevelNameToASCII } from '../../../../levelData/util';
@@ -25,6 +25,7 @@ import {
 	bank1SpriteIdToSpriteType,
 } from '../../../../entities/spriteIdMap';
 import clsx from 'clsx';
+import { useLocalStorage } from './useLocalStorage';
 
 type HexTreeProps = {
 	data: Uint8Array;
@@ -320,32 +321,35 @@ function Object({
 	onExcludeChange: () => void;
 }) {
 	return (
-		<div className="ml-8 bg-gray-600 p-2 m-2 flex flex-row items-center space-x-2">
-			<div className={clsx('bg-blue-400 w-4 h-4')} />
-			<div
-				style={{ zIndex: 99999 }}
-				className={clsx('w-60 bg-gray-200 text-gray-900 grid', {
-					'grid-cols-4': data.bank === 0,
-					'grid-cols-6': data.bank > 0,
-				})}
-			>
-				{data.rawBytes.map((b, i) => (
-					<div key={i} className="border border-black">
-						<div>0x{b.toString(16)}</div>
-						<div>
-							{objectRawBytesDesc[i as keyof typeof objectRawBytesDesc]}
+		<div className="ml-8 bg-gray-600 p-2 m-2 flex flex-col">
+			<div className="flex flex-row items-center space-x-2">
+				<div className={clsx('bg-blue-400 w-4 h-4')} />
+				<div
+					style={{ zIndex: 99999 }}
+					className={clsx('w-60 bg-gray-200 text-gray-900 grid', {
+						'grid-cols-4': data.bank === 0,
+						'grid-cols-6': data.bank > 0,
+					})}
+				>
+					{data.rawBytes.map((b, i) => (
+						<div key={i} className="border border-black">
+							<div>0x{b.toString(16)}</div>
+							<div>
+								{objectRawBytesDesc[i as keyof typeof objectRawBytesDesc]}
+							</div>
 						</div>
-					</div>
-				))}
+					))}
+				</div>
+				<label>
+					exclude
+					<input
+						type="checkbox"
+						checked={data.exclude}
+						onChange={onExcludeChange}
+					/>
+				</label>
 			</div>
-			<label>
-				exclude
-				<input
-					type="checkbox"
-					checked={data.exclude}
-					onChange={onExcludeChange}
-				/>
-			</label>
+			<Notes className="m-2 w-80" bank={data.bank} id={data.id} type="object" />
 		</div>
 	);
 }
@@ -367,6 +371,35 @@ const objectRawBytesDesc = {
 	4: 'h',
 };
 
+function Notes({
+	className,
+	bank,
+	id,
+	type,
+}: {
+	className?: string;
+	bank: number;
+	id: number;
+	type: 'sprite' | 'object';
+}) {
+	const [value, setValue, refreshValue] = useLocalStorage(
+		`${type}-${bank}-${id}`,
+		''
+	);
+
+	return (
+		<div className="flex flex-row space-x-2 p-1">
+			<input
+				className={clsx(className, 'text-black')}
+				type="text"
+				value={value}
+				onChange={(e) => setValue(e.target.value)}
+			/>
+			<button onClick={refreshValue}>r</button>
+		</div>
+	);
+}
+
 function Sprite({
 	data,
 	onExcludeChange,
@@ -380,32 +413,35 @@ function Sprite({
 			: bank1SpriteIdToSpriteType[data.id];
 
 	return (
-		<div className="ml-8 bg-gray-600 p-2 m-2 flex flex-row items-center space-x-2">
-			<div className={clsx(`${spriteType}-bg`, 'w-4 h-4')} />
-			<div
-				style={{ zIndex: 99999 }}
-				className={clsx('w-60 bg-gray-200 text-gray-900 grid', {
-					'grid-cols-4': data.bank === 0,
-					'grid-cols-6': data.bank > 0,
-				})}
-			>
-				{data.rawBytes.map((b, i) => (
-					<div key={i} className="border border-black">
-						<div>0x{b.toString(16)}</div>
-						<div>
-							{spriteRawBytesDesc[i as keyof typeof spriteRawBytesDesc]}
+		<div className="ml-8 bg-gray-600 p-2 m-2 flex flex-col">
+			<div className="flex flex-row items-center space-x-2">
+				<div className={clsx(`${spriteType}-bg`, 'w-4 h-4')} />
+				<div
+					style={{ zIndex: 99999 }}
+					className={clsx('w-60 bg-gray-200 text-gray-900 grid', {
+						'grid-cols-4': data.bank === 0,
+						'grid-cols-6': data.bank > 0,
+					})}
+				>
+					{data.rawBytes.map((b, i) => (
+						<div key={i} className="border border-black">
+							<div>0x{b.toString(16)}</div>
+							<div>
+								{spriteRawBytesDesc[i as keyof typeof spriteRawBytesDesc]}
+							</div>
 						</div>
-					</div>
-				))}
+					))}
+				</div>
+				<label>
+					exclude
+					<input
+						type="checkbox"
+						checked={data.exclude}
+						onChange={onExcludeChange}
+					/>
+				</label>
 			</div>
-			<label>
-				exclude
-				<input
-					type="checkbox"
-					checked={data.exclude}
-					onChange={onExcludeChange}
-				/>
-			</label>
+			<Notes className="m-2 w-80" bank={data.bank} id={data.id} type="sprite" />
 		</div>
 	);
 }
