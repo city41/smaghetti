@@ -14,7 +14,7 @@ type LevelSprite = {
 };
 
 function extractSprite(
-	levelData: Uint8Array,
+	levelData: Uint8Array | number[],
 	spriteIndex: number
 ): LevelSprite {
 	const bank = levelData[spriteIndex];
@@ -42,6 +42,21 @@ function extractSprite(
 	}
 }
 
+function parseSprites(
+	data: Uint8Array | number[],
+	index: number
+): LevelSprite[] {
+	const sprites = [];
+
+	while (data[index] !== 0xff && index < data.length) {
+		const sprite = extractSprite(data, index);
+		sprites.push(sprite);
+		index += sprite.rawBytes.length;
+	}
+
+	return sprites;
+}
+
 function parseSpritesFromLevelFile(
 	levelData: Uint8Array,
 	roomIndex: 0 | 1 | 2 | 3 = 0
@@ -55,15 +70,7 @@ function parseSpritesFromLevelFile(
 	// byte to kick things off that needs to be skipped
 	spriteIndex += 1;
 
-	const sprites = [];
-
-	while (levelData[spriteIndex] !== 0xff && spriteIndex < levelData.length) {
-		const sprite = extractSprite(levelData, spriteIndex);
-		sprites.push(sprite);
-		spriteIndex += sprite.rawBytes.length;
-	}
-
-	return sprites;
+	return parseSprites(levelData, spriteIndex);
 }
-export { parseSpritesFromLevelFile };
+export { parseSpritesFromLevelFile, parseSprites };
 export type { LevelSprite };

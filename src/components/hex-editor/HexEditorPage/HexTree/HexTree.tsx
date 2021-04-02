@@ -4,9 +4,13 @@ import TreeItem from '@material-ui/lab/TreeItem';
 import { convertLevelNameToASCII } from '../../../../levelData/util';
 import {
 	parseObjectHeader,
+	parseObjects,
 	parseObjectsFromLevelFile,
 } from '../../../../levelData/parseObjectsFromLevelFile';
-import { parseSpritesFromLevelFile } from '../../../../levelData/parseSpritesFromLevelFile';
+import {
+	parseSprites,
+	parseSpritesFromLevelFile,
+} from '../../../../levelData/parseSpritesFromLevelFile';
 import {
 	POINTER_AREA_SIZE_IN_BYTES,
 	ROOM_AUTOSCROLL_POINTERS,
@@ -333,7 +337,7 @@ function Header({ data }: { data: LevelHeader }) {
 	);
 }
 
-function Object({
+function LevelObject({
 	data,
 	onExcludeChange,
 }: {
@@ -345,7 +349,6 @@ function Object({
 			<div className="flex flex-row items-center space-x-2">
 				<div className={clsx('bg-blue-400 w-4 h-4')} />
 				<div
-					style={{ zIndex: 99999 }}
 					className={clsx('w-60 bg-gray-200 text-gray-900 grid', {
 						'grid-cols-4': data.bank === 0,
 						'grid-cols-6': data.bank > 0,
@@ -400,8 +403,9 @@ function InsertBytes({ onInsert }: { onInsert: (b: number[]) => void }) {
 	}
 
 	return (
-		<div className="flex flex-col space-x-2 p-2">
+		<div className="flex flex-row space-x-2 p-2">
 			<input
+				className="text-black"
 				type="text"
 				value={byteString}
 				onChange={(e) => setByteString(e.target.value)}
@@ -457,7 +461,6 @@ function Sprite({
 			<div className="flex flex-row items-center space-x-2">
 				<div className={clsx(`${spriteType}-bg`, 'w-4 h-4')} />
 				<div
-					style={{ zIndex: 99999 }}
 					className={clsx('w-60 bg-gray-200 text-gray-900 grid', {
 						'grid-cols-4': data.bank === 0,
 						'grid-cols-6': data.bank > 0,
@@ -505,10 +508,10 @@ function Room({
 		<>
 			<TreeItem nodeId={`room${room}-objects`} label="Objects">
 				<div className="ml-16 flex flex-col w-96">
-					<InsertBytes onInsert={(b) => onInsertSpriteBytes(b)} />
+					<InsertBytes onInsert={(b) => onInsertObjectBytes(b)} />
 					{data.objects.objects.map((o, i) => (
-						<Object
-							key={i}
+						<LevelObject
+							key={`${i}-${o.rawBytes.join('-')}`}
 							data={o}
 							onExcludeChange={() => onObjectExcludeChange(i)}
 						/>
@@ -517,10 +520,10 @@ function Room({
 			</TreeItem>
 			<TreeItem nodeId={`room${room}-sprites`} label="Sprites">
 				<div className="ml-16 flex flex-col w-96">
-					<InsertBytes onInsert={(b) => onInsertObjectBytes(b)} />
+					<InsertBytes onInsert={(b) => onInsertSpriteBytes(b)} />
 					{data.sprites.sprites.map((s, i) => (
 						<Sprite
-							key={i}
+							key={`${i}-${s.rawBytes.join('-')}`}
 							data={s}
 							onExcludeChange={() => onSpriteExcludeChange(i)}
 						/>
@@ -685,11 +688,48 @@ function parsedToBinary(parsed: LevelTree): Uint8Array {
 	return new Uint8Array(fullData);
 }
 
+function injestPendingBytes(tree: LevelTree): LevelTree {
+	const keys = Object.keys(tree) as Array<keyof LevelTree>;
+
+	return keys.reduce<Partial<LevelTree>>((building, key) => {
+		if (key === 'header') {
+			building[key] = tree[key];
+		}
+
+		if (key.startsWith('room')) {
+			const room = tree[key] as LevelTreeRoom;
+			const roomIndex = parseInt(key.replace('room', '')) as 0 | 1 | 2 | 3;
+			const newRoom = {
+				...room,
+				objects: {
+					...room.objects,
+					objects: room.objects.objects.concat(
+						parseObjects(room.objects.pendingRawBytes, roomIndex)
+					),
+					pendingRawBytes: [],
+				},
+				sprites: {
+					...room.sprites,
+					sprites: parseSprites(room.sprites.pendingRawBytes, roomIndex).concat(
+						room.sprites.sprites
+					),
+					pendingRawBytes: [],
+				},
+			};
+
+			// @ts-ignore
+			building[key] = newRoom;
+		}
+
+		return building;
+	}, {}) as LevelTree;
+}
+
 function HexTree({ data, onDataChange }: HexTreeProps) {
 	const [parsed, _setParsed] = useState(parseToTree(data));
 
 	function setParsed(callback: (oldTree: LevelTree) => LevelTree) {
-		const newParsed = callback(parsed);
+		const newParsed = injestPendingBytes(callback(parsed));
 
 		const newData = parsedToBinary(newParsed);
 		onDataChange(newData);
@@ -703,7 +743,8 @@ function HexTree({ data, onDataChange }: HexTreeProps) {
 	) {
 		setParsed((p) => {
 			const room = p[`room${roomIndex}` as keyof LevelTree] as LevelTreeRoom;
-			const elements = type === 'sprites' ? room.sprites : room.objects.objects;
+			// @ts-ignore
+			const elements = room[type][type];
 			// @ts-ignore
 			const patchedElements = elements.map((e, i) => {
 				if (i === index) {
@@ -720,7 +761,10 @@ function HexTree({ data, onDataChange }: HexTreeProps) {
 				type === 'sprites'
 					? {
 							...room,
-							sprites: patchedElements,
+							sprites: {
+								...room.sprites,
+								sprites: patchedElements,
+							},
 					  }
 					: {
 							...room,
@@ -747,7 +791,7 @@ function HexTree({ data, onDataChange }: HexTreeProps) {
 			rooms.push(
 				<TreeItem key={ii} nodeId={`room${ii}`} label={`Room ${ii}`}>
 					<Room
-						key={ii}
+						key={`${ii}-${data.sprites.sprites.length}-${data.objects.objects.length}`}
 						room={ii}
 						data={data}
 						onSpriteExcludeChange={(spriteIndex) =>

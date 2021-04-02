@@ -19,7 +19,7 @@ type LevelObject = {
 };
 
 function extractObject(
-	levelData: Uint8Array,
+	levelData: Uint8Array | number[],
 	objectIndex: number
 ): LevelObject {
 	const bankAndWidth = levelData[objectIndex];
@@ -81,6 +81,21 @@ function parseObjectHeader(
 	};
 }
 
+function parseObjects(
+	data: Uint8Array | number[],
+	index: number
+): LevelObject[] {
+	const objects = [];
+
+	while (data[index] !== 0xff && index < data.length) {
+		const object = extractObject(data, index);
+		objects.push(object);
+		index += object.rawBytes.length;
+	}
+
+	return objects;
+}
+
 function parseObjectsFromLevelFile(
 	levelData: Uint8Array,
 	roomIndex: 0 | 1 | 2 | 3 = 0
@@ -96,16 +111,8 @@ function parseObjectsFromLevelFile(
 	// byte to kick things off that needs to be skipped
 	objectIndex += 1;
 
-	const objects = [];
-
-	while (levelData[objectIndex] !== 0xff && objectIndex < levelData.length) {
-		const object = extractObject(levelData, objectIndex);
-		objects.push(object);
-		objectIndex += object.rawBytes.length;
-	}
-
-	return objects;
+	return parseObjects(levelData, objectIndex);
 }
 
-export { parseObjectHeader, parseObjectsFromLevelFile };
+export { parseObjectHeader, parseObjectsFromLevelFile, parseObjects };
 export type { LevelObject };
