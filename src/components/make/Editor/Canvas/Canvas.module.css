@@ -1,5 +1,13 @@
 .root {
 	transform: translateX(var(--translation)) translateY(var(--translation)) scale(var(--scale));
+	@apply relative;
+}
+
+.root::after {
+	content: '';
+	@apply absolute top-0 left-0 w-full h-full;
+	background-color: rgba(205, 205, 205, 0.75);
+	z-index: -1;
 }
 
 .grid {

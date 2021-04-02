@@ -319,16 +319,16 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 	const tileGridStyles = {
 		'--grid-width': `${TILE_SIZE}px`,
 		'--grid-height': `${TILE_SIZE}px`,
-		'--grid-line-width': '0.25px',
-		'--grid-color': 'rgba(255, 255, 255, 0.25)',
+		'--grid-line-width': '0.3px',
+		'--grid-color': 'rgba(0, 0, 0, 0.3)',
 		display: gridDisplay,
 	} as CSSProperties;
 
 	const viewportGridStyles = {
 		'--grid-width': `${TILE_SIZE * PLAY_WINDOW_TILE_WIDTH}px`,
 		'--grid-height': `${TILE_SIZE * PLAY_WINDOW_TILE_HEIGHT}px`,
-		'--grid-line-width': '0.75px',
-		'--grid-color': 'rgba(140, 180, 255, 0.8)',
+		'--grid-line-width': '0.8px',
+		'--grid-color': 'white',
 		backgroundPosition: 'left bottom',
 		display: gridDisplay,
 	} as CSSProperties;
@@ -403,6 +403,7 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 				className={clsx(
 					className,
 					styles.root,
+					'UndergroundBackground-bg',
 					'relative shadow-lg bg-blue-200',
 					{
 						'cursor-crosshair': mouseMode === 'draw' || mouseMode === 'fill',
