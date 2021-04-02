@@ -20,6 +20,11 @@ import {
 	getLevelName,
 	setPointer,
 } from '../../../../levelData/createLevelData';
+import {
+	bank0SpriteIdToSpriteType,
+	bank1SpriteIdToSpriteType,
+} from '../../../../entities/spriteIdMap';
+import clsx from 'clsx';
 
 type HexTreeProps = {
 	data: Uint8Array;
@@ -315,34 +320,52 @@ function Object({
 	onExcludeChange: () => void;
 }) {
 	return (
-		<div className="ml-8 bg-gray-600 p-2 m-2">
-			<table>
-				<tbody>
-					<tr>
-						<td>id</td>
-						<td>{data.id.toString(16)}</td>
-
-						<td>bank</td>
-						<td>{data.bank}</td>
-
-						<td>
-							({data.x},{data.y})
-						</td>
-						<td>{data.rawBytes.join(' ')}</td>
-						<td>
-							<input
-								className="ml-4"
-								type="checkbox"
-								checked={data.exclude}
-								onChange={onExcludeChange}
-							/>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<div className="ml-8 bg-gray-600 p-2 m-2 flex flex-row items-center space-x-2">
+			<div className={clsx('bg-blue-400 w-4 h-4')} />
+			<div
+				style={{ zIndex: 99999 }}
+				className={clsx('w-60 bg-gray-200 text-gray-900 grid', {
+					'grid-cols-4': data.bank === 0,
+					'grid-cols-6': data.bank > 0,
+				})}
+			>
+				{data.rawBytes.map((b, i) => (
+					<div key={i} className="border border-black">
+						<div>0x{b.toString(16)}</div>
+						<div>
+							{objectRawBytesDesc[i as keyof typeof objectRawBytesDesc]}
+						</div>
+					</div>
+				))}
+			</div>
+			<label>
+				exclude
+				<input
+					type="checkbox"
+					checked={data.exclude}
+					onChange={onExcludeChange}
+				/>
+			</label>
 		</div>
 	);
 }
+
+const spriteRawBytesDesc = {
+	0: 'bnk',
+	1: 'id',
+	2: 'x',
+	3: 'y',
+	4: '?',
+	5: '?',
+};
+
+const objectRawBytesDesc = {
+	0: 'b/w',
+	1: 'y',
+	2: 'x',
+	3: 'id',
+	4: 'h',
+};
 
 function Sprite({
 	data,
@@ -351,32 +374,38 @@ function Sprite({
 	data: LevelTreeSprite;
 	onExcludeChange: () => void;
 }) {
+	const spriteType =
+		data.bank === 0
+			? bank0SpriteIdToSpriteType[data.id]
+			: bank1SpriteIdToSpriteType[data.id];
+
 	return (
-		<div className="ml-8 bg-gray-600 p-2 m-2">
-			<table>
-				<tbody>
-					<tr>
-						<td>id</td>
-						<td>{data.id.toString(16)}</td>
-
-						<td>bank</td>
-						<td>{data.bank}</td>
-
-						<td>
-							({data.x},{data.y})
-						</td>
-						<td>{data.rawBytes.join(' ')}</td>
-						<td>
-							<input
-								className="ml-4"
-								type="checkbox"
-								checked={data.exclude}
-								onChange={onExcludeChange}
-							/>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<div className="ml-8 bg-gray-600 p-2 m-2 flex flex-row items-center space-x-2">
+			<div className={clsx(`${spriteType}-bg`, 'w-4 h-4')} />
+			<div
+				style={{ zIndex: 99999 }}
+				className={clsx('w-60 bg-gray-200 text-gray-900 grid', {
+					'grid-cols-4': data.bank === 0,
+					'grid-cols-6': data.bank > 0,
+				})}
+			>
+				{data.rawBytes.map((b, i) => (
+					<div key={i} className="border border-black">
+						<div>0x{b.toString(16)}</div>
+						<div>
+							{spriteRawBytesDesc[i as keyof typeof spriteRawBytesDesc]}
+						</div>
+					</div>
+				))}
+			</div>
+			<label>
+				exclude
+				<input
+					type="checkbox"
+					checked={data.exclude}
+					onChange={onExcludeChange}
+				/>
+			</label>
 		</div>
 	);
 }
@@ -627,23 +656,28 @@ function HexTree({ data, onDataChange }: HexTreeProps) {
 	}
 
 	const rooms = [];
-	for (let i = 0; i < 3; ++i) {
+	for (let i = 0; i < 4; ++i) {
 		const ii = i as 0 | 1 | 2 | 3;
-		rooms.push(
-			<TreeItem key={ii} nodeId={`room${ii}`} label={`Room ${ii}`}>
-				<Room
-					key={ii}
-					room={ii}
-					data={parsed[`room${i}` as keyof LevelTree] as LevelTreeRoom}
-					onSpriteExcludeChange={(spriteIndex) =>
-						handleExcludeChange(ii, 'sprites', spriteIndex)
-					}
-					onObjectExcludeChange={(objectIndex) =>
-						handleExcludeChange(ii, 'objects', objectIndex)
-					}
-				/>
-			</TreeItem>
-		);
+
+		const data = parsed[`room${i}` as keyof LevelTree] as LevelTreeRoom;
+
+		if (data.objects.objects.length > 0 || data.sprites.length > 0) {
+			rooms.push(
+				<TreeItem key={ii} nodeId={`room${ii}`} label={`Room ${ii}`}>
+					<Room
+						key={ii}
+						room={ii}
+						data={data}
+						onSpriteExcludeChange={(spriteIndex) =>
+							handleExcludeChange(ii, 'sprites', spriteIndex)
+						}
+						onObjectExcludeChange={(objectIndex) =>
+							handleExcludeChange(ii, 'objects', objectIndex)
+						}
+					/>
+				</TreeItem>
+			);
+		}
 	}
 
 	return (
