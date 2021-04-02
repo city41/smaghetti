@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { HexEditorPage } from '../../components/hex-editor/HexEditorPage';
 import { store } from '../../store';
 
-function NextHexEditorPage() {
+function NextHexTreePage() {
 	return (
 		<Provider store={store}>
 			<HexEditorPage />
@@ -12,4 +12,4 @@ function NextHexEditorPage() {
 	);
 }
 
-export default NextHexEditorPage;
+export default NextHexTreePage;

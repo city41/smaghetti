@@ -16,9 +16,10 @@ function NextToolsIndexPage() {
 				</p>
 				<ul>
 					<li>
-						<a href="./hex-editor">Hex Editor</a>: A very raw and crappy hex
-						editor, but it has the advantage of immediately injecting the
-						changes into a running SMA4 game for a nice feedback loop.
+						<a href="./hex-tree">Hex Tree</a>: A very raw tool that parses a
+						level's data into a tree structure, and from there lets you mess
+						with it and see how it changes in the running level (Work in
+						progress).
 					</li>
 					<li>
 						<a href="./palettes">Palettes</a>: renders the currently extracted

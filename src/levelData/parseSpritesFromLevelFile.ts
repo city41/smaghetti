@@ -1,4 +1,4 @@
-import { ROOM0_SPRITE_POINTER_ADDRESS } from '../levelData/constants';
+import { ROOM_SPRITE_POINTERS } from '../levelData/constants';
 import { spriteMap } from '../entities/entityMap';
 import {
 	bank0SpriteIdToSpriteType,
@@ -42,10 +42,14 @@ function extractSprite(
 	}
 }
 
-function parseSpritesFromLevelFile(levelData: Uint8Array): LevelSprite[] {
+function parseSpritesFromLevelFile(
+	levelData: Uint8Array,
+	roomIndex: 0 | 1 | 2 | 3 = 0
+): LevelSprite[] {
 	const view = new DataView(levelData.buffer);
 
-	let spriteIndex = view.getUint16(ROOM0_SPRITE_POINTER_ADDRESS, true);
+	const pointer = ROOM_SPRITE_POINTERS[roomIndex];
+	let spriteIndex = view.getUint16(pointer, true);
 
 	// technically this is where the sprites start, but there is always a null
 	// byte to kick things off that needs to be skipped
@@ -53,7 +57,7 @@ function parseSpritesFromLevelFile(levelData: Uint8Array): LevelSprite[] {
 
 	const sprites = [];
 
-	while (levelData[spriteIndex] !== 0xff) {
+	while (levelData[spriteIndex] !== 0xff && spriteIndex < levelData.length) {
 		const sprite = extractSprite(levelData, spriteIndex);
 		sprites.push(sprite);
 		spriteIndex += sprite.rawBytes.length;

@@ -1,5 +1,8 @@
 import { createLevelData } from './createLevelData';
-import { OBJECT_HEADER_SIZE, ROOM0_OBJECT_POINTER_ADDRESS } from './constants';
+import {
+	ROOM_OBJECT_HEADER_SIZE_IN_BYTES,
+	ROOM_OBJECT_POINTERS,
+} from './constants';
 import { getObjectCount, parseObject } from './objects';
 
 describe('createLevelData', () => {
@@ -23,7 +26,7 @@ describe('createLevelData', () => {
 			const levelData = createLevelData([], tileLayer);
 
 			const objectAddr =
-				levelData[ROOM0_OBJECT_POINTER_ADDRESS] + OBJECT_HEADER_SIZE;
+				levelData[ROOM_OBJECT_POINTERS[0]] + ROOM_OBJECT_HEADER_SIZE_IN_BYTES;
 
 			const objectCount = getObjectCount(levelData, objectAddr);
 			expect(objectCount).toEqual(1);

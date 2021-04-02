@@ -1,4 +1,7 @@
-import { ROOM0_OBJECT_POINTER_ADDRESS } from '../levelData/constants';
+import {
+	ROOM_OBJECT_HEADER_SIZE_IN_BYTES,
+	ROOM_OBJECT_POINTERS,
+} from '../levelData/constants';
 import { objectMap } from '../entities/entityMap';
 import {
 	bank0ObjectIdToObjectType,
@@ -58,14 +61,44 @@ function extractObject(
 	}
 }
 
-function parseObjectsFromLevelFile(levelData: Uint8Array): LevelObject[] {
+function parseObjectHeader(
+	levelData: Uint8Array,
+	roomIndex: 0 | 1 | 2 | 3 = 0
+) {
+	const view = new DataView(levelData.buffer);
+	const pointer = ROOM_OBJECT_POINTERS[roomIndex];
+	const objectIndex = view.getUint16(pointer, true);
+
+	return {
+		timeLimit: 0,
+		roomLength: 0,
+		rawBytes: Array.from(
+			levelData.subarray(
+				objectIndex,
+				objectIndex + ROOM_OBJECT_HEADER_SIZE_IN_BYTES
+			)
+		),
+	};
+}
+
+function parseObjectsFromLevelFile(
+	levelData: Uint8Array,
+	roomIndex: 0 | 1 | 2 | 3 = 0
+): LevelObject[] {
 	const view = new DataView(levelData.buffer);
 
-	let objectIndex = view.getUint16(ROOM0_OBJECT_POINTER_ADDRESS, true);
+	const pointer = ROOM_OBJECT_POINTERS[roomIndex];
+
+	let objectIndex =
+		view.getUint16(pointer, true) + ROOM_OBJECT_HEADER_SIZE_IN_BYTES;
+
+	// technically this is where the objects start, but there is always a null
+	// byte to kick things off that needs to be skipped
+	objectIndex += 1;
 
 	const objects = [];
 
-	while (levelData[objectIndex] !== 0xff) {
+	while (levelData[objectIndex] !== 0xff && objectIndex < levelData.length) {
 		const object = extractObject(levelData, objectIndex);
 		objects.push(object);
 		objectIndex += object.rawBytes.length;
@@ -73,5 +106,6 @@ function parseObjectsFromLevelFile(levelData: Uint8Array): LevelObject[] {
 
 	return objects;
 }
-export { parseObjectsFromLevelFile };
+
+export { parseObjectHeader, parseObjectsFromLevelFile };
 export type { LevelObject };

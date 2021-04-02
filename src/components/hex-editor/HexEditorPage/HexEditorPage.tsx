@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { GBAPlayer } from '../../LevelPlayer/GBAPlayer';
-import { HexEditor } from './HexEditor';
 import {
 	getBios,
 	getEmptySave,
@@ -10,6 +9,7 @@ import {
 } from '../../FileLoader/files';
 import { Button } from '../../Button';
 import { createLevelData } from '../../../levelData/createLevelData';
+import { HexTree } from './HexTree';
 
 type HexEditorPageProps = {
 	allFilesReady: boolean;
@@ -73,10 +73,8 @@ function HexEditorPage({ allFilesReady }: HexEditorPageProps) {
 					style={{ height: 'calc(100% - 200px)' }}
 				>
 					{levelData && (
-						<HexEditor
-							key={levelData.length}
+						<HexTree
 							data={levelData}
-							mode={editMode}
 							onDataChange={(newData) => setLevelData(newData)}
 						/>
 					)}

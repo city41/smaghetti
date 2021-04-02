@@ -228,6 +228,7 @@ function getRoom(entities: Entity[], tileLayer: TileLayer): Room {
 	};
 }
 
+// TODO: if this used a typed array, could just call setUint16
 function setPointer(
 	pointers: Tuple<number, 48>,
 	pointerIndex: number,
@@ -327,4 +328,4 @@ function createLevelData(entities: Entity[], tileLayer: TileLayer): Uint8Array {
 	return Uint8Array.from(fullData);
 }
 
-export { createLevelData };
+export { createLevelData, getLevelName, setPointer };
