@@ -63,6 +63,7 @@ type LevelTreeRoom = {
 	objects: {
 		header: LevelTreeObjectHeader;
 		objects: LevelTreeObject[];
+		pendingRawBytes: number[];
 	};
 	levelSettings: {
 		rawBytes: number[];
@@ -70,7 +71,10 @@ type LevelTreeRoom = {
 	transports: {
 		rawBytes: number[];
 	};
-	sprites: LevelTreeSprite[];
+	sprites: {
+		sprites: LevelTreeSprite[];
+		pendingRawBytes: number[];
+	};
 	blockPaths: {
 		rawBytes: number[];
 	};
@@ -124,6 +128,7 @@ function parseToTree(data: Uint8Array): LevelTree {
 			objects: {
 				header: parseObjectHeader(data, 0),
 				objects: parseObjectsFromLevelFile(data, 0),
+				pendingRawBytes: [],
 			},
 			levelSettings: {
 				rawBytes: Array.from(
@@ -141,7 +146,10 @@ function parseToTree(data: Uint8Array): LevelTree {
 					)
 				),
 			},
-			sprites: parseSpritesFromLevelFile(data, 0),
+			sprites: {
+				sprites: parseSpritesFromLevelFile(data, 0),
+				pendingRawBytes: [],
+			},
 			blockPaths: {
 				rawBytes: Array.from(
 					data.slice(
@@ -163,6 +171,7 @@ function parseToTree(data: Uint8Array): LevelTree {
 			objects: {
 				header: parseObjectHeader(data, 1),
 				objects: parseObjectsFromLevelFile(data, 1),
+				pendingRawBytes: [],
 			},
 			levelSettings: {
 				rawBytes: Array.from(
@@ -180,7 +189,10 @@ function parseToTree(data: Uint8Array): LevelTree {
 					)
 				),
 			},
-			sprites: parseSpritesFromLevelFile(data, 1),
+			sprites: {
+				sprites: parseSpritesFromLevelFile(data, 1),
+				pendingRawBytes: [],
+			},
 			blockPaths: {
 				rawBytes: Array.from(
 					data.slice(
@@ -202,6 +214,7 @@ function parseToTree(data: Uint8Array): LevelTree {
 			objects: {
 				header: parseObjectHeader(data, 2),
 				objects: parseObjectsFromLevelFile(data, 2),
+				pendingRawBytes: [],
 			},
 			levelSettings: {
 				rawBytes: Array.from(
@@ -219,7 +232,10 @@ function parseToTree(data: Uint8Array): LevelTree {
 					)
 				),
 			},
-			sprites: parseSpritesFromLevelFile(data, 2),
+			sprites: {
+				sprites: parseSpritesFromLevelFile(data, 2),
+				pendingRawBytes: [],
+			},
 			blockPaths: {
 				rawBytes: Array.from(
 					data.slice(
@@ -241,6 +257,7 @@ function parseToTree(data: Uint8Array): LevelTree {
 			objects: {
 				header: parseObjectHeader(data, 3),
 				objects: parseObjectsFromLevelFile(data, 3),
+				pendingRawBytes: [],
 			},
 			levelSettings: {
 				rawBytes: Array.from(
@@ -258,7 +275,10 @@ function parseToTree(data: Uint8Array): LevelTree {
 					)
 				),
 			},
-			sprites: parseSpritesFromLevelFile(data, 3),
+			sprites: {
+				sprites: parseSpritesFromLevelFile(data, 3),
+				pendingRawBytes: [],
+			},
 			blockPaths: {
 				rawBytes: Array.from(
 					data.slice(
@@ -371,6 +391,26 @@ const objectRawBytesDesc = {
 	4: 'h',
 };
 
+function InsertBytes({ onInsert }: { onInsert: (b: number[]) => void }) {
+	const [byteString, setByteString] = useState('');
+
+	function handleClick() {
+		const bytes = byteString.split(' ').map((bs) => parseInt(bs.trim(), 16));
+		onInsert(bytes);
+	}
+
+	return (
+		<div className="flex flex-col space-x-2 p-2">
+			<input
+				type="text"
+				value={byteString}
+				onChange={(e) => setByteString(e.target.value)}
+			/>
+			<button onClick={handleClick}>insert</button>
+		</div>
+	);
+}
+
 function Notes({
 	className,
 	bank,
@@ -451,16 +491,21 @@ function Room({
 	data,
 	onSpriteExcludeChange,
 	onObjectExcludeChange,
+	onInsertSpriteBytes,
+	onInsertObjectBytes,
 }: {
 	room: 0 | 1 | 2 | 3;
 	data: LevelTreeRoom;
 	onSpriteExcludeChange: (index: number) => void;
 	onObjectExcludeChange: (index: number) => void;
+	onInsertSpriteBytes: (b: number[]) => void;
+	onInsertObjectBytes: (b: number[]) => void;
 }) {
 	return (
 		<>
 			<TreeItem nodeId={`room${room}-objects`} label="Objects">
 				<div className="ml-16 flex flex-col w-96">
+					<InsertBytes onInsert={(b) => onInsertSpriteBytes(b)} />
 					{data.objects.objects.map((o, i) => (
 						<Object
 							key={i}
@@ -472,7 +517,8 @@ function Room({
 			</TreeItem>
 			<TreeItem nodeId={`room${room}-sprites`} label="Sprites">
 				<div className="ml-16 flex flex-col w-96">
-					{data.sprites.map((s, i) => (
+					<InsertBytes onInsert={(b) => onInsertObjectBytes(b)} />
+					{data.sprites.sprites.map((s, i) => (
 						<Sprite
 							key={i}
 							data={s}
@@ -503,7 +549,7 @@ function parsedRoomToBinary(room: LevelTreeRoom): BinaryRoom {
 		}
 	}, []);
 
-	const sprites = room.sprites.reduce<number[]>((building, obj) => {
+	const sprites = room.sprites.sprites.reduce<number[]>((building, obj) => {
 		if (obj.exclude) {
 			return building;
 		} else {
@@ -697,7 +743,7 @@ function HexTree({ data, onDataChange }: HexTreeProps) {
 
 		const data = parsed[`room${i}` as keyof LevelTree] as LevelTreeRoom;
 
-		if (data.objects.objects.length > 0 || data.sprites.length > 0) {
+		if (data.objects.objects.length > 0 || data.sprites.sprites.length > 0) {
 			rooms.push(
 				<TreeItem key={ii} nodeId={`room${ii}`} label={`Room ${ii}`}>
 					<Room
@@ -709,6 +755,36 @@ function HexTree({ data, onDataChange }: HexTreeProps) {
 						}
 						onObjectExcludeChange={(objectIndex) =>
 							handleExcludeChange(ii, 'objects', objectIndex)
+						}
+						onInsertSpriteBytes={(b) =>
+							setParsed((p) => {
+								return {
+									...p,
+									[`room${ii}`]: {
+										...p[`room${ii}` as keyof LevelTree],
+										sprites: {
+											// @ts-ignore sprites is not in header, only in rooms
+											...p[`room${ii}` as keyof LevelTree].sprites,
+											pendingRawBytes: b,
+										},
+									},
+								};
+							})
+						}
+						onInsertObjectBytes={(b) =>
+							setParsed((p) => {
+								return {
+									...p,
+									[`room${ii}`]: {
+										...p[`room${ii}` as keyof LevelTree],
+										objects: {
+											// @ts-ignore sprites is not in header, only in rooms
+											...p[`room${ii}` as keyof LevelTree].objects,
+											pendingRawBytes: b,
+										},
+									},
+								};
+							})
 						}
 					/>
 				</TreeItem>
