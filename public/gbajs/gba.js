@@ -207,9 +207,31 @@ GameBoyAdvance.prototype.reset = function () {
 	}
 };
 
+GameBoyAdvance.prototype.drawCrashedScreen = function () {
+	this.context.save();
+	this.context.fillStyle = 'rgba(255, 0, 0, 0.5)';
+	this.context.fillRect(
+		0,
+		0,
+		this.context.canvas.width,
+		this.context.canvas.height
+	);
+	this.context.fillStyle = 'white';
+	this.context.font = '24px sans-serif';
+	this.context.fillText('crashed :(', 10, 30);
+	this.context.restore();
+};
+
 GameBoyAdvance.prototype.step = function () {
 	while (this.doStep()) {
-		this.cpu.step();
+		try {
+			this.cpu.step();
+		} catch (e) {
+			console.error('GBA crashed', e.message);
+			this.paused = true;
+			this.drawCrashedScreen();
+			return;
+		}
 	}
 
 	if (this.script && this.scriptIndex < this.script.length) {
