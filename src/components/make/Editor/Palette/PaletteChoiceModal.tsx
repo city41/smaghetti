@@ -212,6 +212,16 @@ const terrain: PaletteChoiceModalEntry[] = [
 	{
 		entry: {
 			brushMode: 'tile',
+			type: 'WoodBlock',
+		},
+		info: {
+			title: 'Wood Brick',
+			description: '',
+		},
+	},
+	{
+		entry: {
+			brushMode: 'tile',
 			type: 'MusicBlock',
 		},
 		info: {

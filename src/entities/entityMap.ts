@@ -35,6 +35,7 @@ import { Stalactite } from './Stalactite';
 import { StarMan } from './StarMan';
 import { ThreeUpMoon } from './ThreeUpMoon';
 import { TriangularBlock } from './TriangularBlock';
+import { WoodBlock } from './WoodBlock';
 
 type SpriteType =
 	| 'AceCoin'
@@ -101,7 +102,8 @@ type ObjectType =
 	| 'PSwitch'
 	| 'QuestionBlock'
 	| 'Stalactite'
-	| 'TriangularBlock';
+	| 'TriangularBlock'
+	| 'WoodBlock';
 
 const objectMap: Record<ObjectType, ObjectEntity> = {
 	Brick,
@@ -114,6 +116,7 @@ const objectMap: Record<ObjectType, ObjectEntity> = {
 	QuestionBlock,
 	Stalactite,
 	TriangularBlock,
+	WoodBlock,
 };
 
 export { spriteMap, objectMap };

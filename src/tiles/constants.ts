@@ -31,20 +31,21 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Record<ObjectType, string> = {
 	Muncher: 'Mu',
 	Stalactite: 'St',
 	HiddenBlock: 'Hb',
+	WoodBlock: 'Wo',
 };
 
-const TILE_SERIALIZED_ID_TO_TYPE_MAP: Record<string, ObjectType> = {
-	Br: 'Brick',
-	In: 'IndestructibleBrick',
-	$: 'Coin',
-	'?': 'QuestionBlock',
-	Ps: 'PSwitch',
-	Tb: 'TriangularBlock',
-	Mb: 'MusicBlock',
-	Mu: 'Muncher',
-	St: 'Stalactite',
-	Hb: 'HiddenBlock',
-};
+const TILE_SERIALIZED_ID_TO_TYPE_MAP: Record<
+	string,
+	ObjectType
+> = (function () {
+	return Object.keys(TILE_TYPE_TO_SERIALIZE_ID_MAP).reduce<
+		Record<string, ObjectType>
+	>((building, key) => {
+		const val = TILE_TYPE_TO_SERIALIZE_ID_MAP[key as ObjectType];
+		building[val] = key as ObjectType;
+		return building;
+	}, {});
+})();
 
 const TILE_TYPE_TO_GROUP_TYPE_MAP: Record<ObjectType, TileGroupType> = {
 	Brick: 'none',
@@ -57,6 +58,7 @@ const TILE_TYPE_TO_GROUP_TYPE_MAP: Record<ObjectType, TileGroupType> = {
 	Muncher: 'none',
 	Stalactite: 'none',
 	HiddenBlock: 'none',
+	WoodBlock: 'none',
 };
 
 const TILE_TOPPER_TO_TOPPED_MAP: Record<TopperType, ObjectType> = {};

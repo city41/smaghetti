@@ -10,6 +10,7 @@ import { TriangularBlockViewDetails } from './TriangularBlockViewDetails';
 import { AngleEditDetails } from './AngleEditDetails';
 import { MusicBlockEditDetails } from './MusicBlockEditDetails';
 import { HiddenBlockEditDetails } from './HiddenBlockEditDetails';
+import { WoodBlockEditDetails } from './WoodBlockEditDetails';
 
 type DetailsViewProps = {
 	settings: EntitySettings;
@@ -51,6 +52,10 @@ const detailsMap: Partial<
 	HiddenBlock: {
 		view: PayloadViewDetails,
 		edit: HiddenBlockEditDetails,
+	},
+	WoodBlock: {
+		view: PayloadViewDetails,
+		edit: WoodBlockEditDetails,
 	},
 };
 

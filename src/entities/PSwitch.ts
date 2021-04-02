@@ -1,5 +1,4 @@
 import type { ObjectEntity } from './types';
-import { LevelObject } from '../levelData/parseObjectsFromLevelFile';
 
 const PSwitch: ObjectEntity = {
 	type: 'PSwitch',
