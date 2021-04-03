@@ -219,7 +219,7 @@ function getRoom(entities: Entity[], tileLayer: TileLayer): Room {
 	const sprites = getSprites(entities, tileLayer.height);
 
 	return {
-		objects: objectHeader.concat([0], objects, [0xff]),
+		objects: objectHeader.concat(objects, [0xff]),
 		levelSettings,
 		transportData: [0, 0],
 		sprites: spriteHeader.concat(sprites, [0xff]),
