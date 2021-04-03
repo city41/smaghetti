@@ -7,7 +7,7 @@ This is a web based level editor for the game Super Mario Advance 4: Super Mario
 
 ## Try it
 
-It is available here: https://smaghetti.com
+It's available here: https://smaghetti.com
 
 ## Status
 
