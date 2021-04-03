@@ -328,7 +328,7 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 		'--grid-width': `${TILE_SIZE * PLAY_WINDOW_TILE_WIDTH}px`,
 		'--grid-height': `${TILE_SIZE * PLAY_WINDOW_TILE_HEIGHT}px`,
 		'--grid-line-width': '0.8px',
-		'--grid-color': 'white',
+		'--grid-color': 'rgba(255, 255, 255, 0.6)',
 		backgroundPosition: 'left bottom',
 		display: gridDisplay,
 	} as CSSProperties;
