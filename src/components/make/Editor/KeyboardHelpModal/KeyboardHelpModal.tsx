@@ -94,6 +94,10 @@ const KeyboardHelpModal: FunctionComponent<KeyboardHelpModalProps> = ({
 				<dd>Toggle grid</dd>
 				<Spacer />
 				<dt>
+					<KeyboardKey>0</KeyboardKey>
+				</dt>
+				<dd>Open item chooser</dd>
+				<dt>
 					<KeyboardKey>1</KeyboardKey>
 					<span className="px-2">through</span>
 					<KeyboardKey>9</KeyboardKey>

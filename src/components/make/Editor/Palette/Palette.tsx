@@ -32,6 +32,8 @@ function Palette({
 		useHotkeys((i + 1).toString(), () => onPaletteEntryIndexChosen(i));
 	}
 
+	useHotkeys('0', () => setModalOpen((m) => !m));
+
 	const entries = paletteEntries.map((pe, i) => (
 		<PaletteEntryCmp
 			key={`${pe.brushMode}-${pe.type}`}
