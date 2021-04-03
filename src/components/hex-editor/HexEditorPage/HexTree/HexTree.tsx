@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import clsx from 'clsx';
 import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
 import { convertLevelNameToASCII } from '../../../../levelData/util';
@@ -28,8 +29,7 @@ import {
 	bank0SpriteIdToSpriteType,
 	bank1SpriteIdToSpriteType,
 } from '../../../../entities/spriteIdMap';
-import clsx from 'clsx';
-import { useLocalStorage } from './useLocalStorage';
+import { useLocalStorage } from '../../../../hooks/useLocalStorage';
 import useClipboard from 'react-use-clipboard';
 
 type HexTreeProps = {

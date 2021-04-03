@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { AppState } from '../../../../store';
@@ -9,6 +9,7 @@ import {
 	downloadLevelAsSaveFile,
 	LevelToSave,
 } from '../../../../levelData/downloadLevelAsSaveFile';
+import { HowToUseDownloadModal } from '../../../profile/ProfilePage/LevelEntry/HowToUseDownloadModal';
 
 function ConnectedDownloadButton(props: PublicDownloadButtonProps) {
 	const {
@@ -18,6 +19,8 @@ function ConnectedDownloadButton(props: PublicDownloadButtonProps) {
 		levelTileHeight,
 		metadata,
 	} = useSelector((state: AppState) => state.editor.present);
+
+	const [showDownloadHelp, setShowDownloadHelp] = useState(false);
 
 	function handleDownloadClick() {
 		const tileLayer: TileLayer = {
@@ -35,9 +38,23 @@ function ConnectedDownloadButton(props: PublicDownloadButtonProps) {
 		};
 
 		downloadLevelAsSaveFile(level);
+
+		setShowDownloadHelp(true);
 	}
 
-	return <DownloadButton {...props} onClick={handleDownloadClick} />;
+	function handleCloseHelpModal() {
+		setShowDownloadHelp(false);
+	}
+
+	return (
+		<>
+			<DownloadButton {...props} onClick={handleDownloadClick} />
+			<HowToUseDownloadModal
+				isOpen={showDownloadHelp}
+				onRequestClose={handleCloseHelpModal}
+			/>
+		</>
+	);
 }
 
 export { ConnectedDownloadButton };
