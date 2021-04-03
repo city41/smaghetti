@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { MdEdit } from 'react-icons/md';
+import { KeyboardKey } from '../../../KeyboardKey';
 
 type PublicMetadataMenuProps = {
 	className?: string;
@@ -75,6 +76,10 @@ function MetadataMenu({
 				</div>
 				<div>{body}</div>
 			</label>
+			<div className="pl-4 w-24 text-xs -mt-2">
+				press <span className="font-bold text-sm">?</span> for keyboard
+				shortcuts
+			</div>
 		</div>
 	);
 }

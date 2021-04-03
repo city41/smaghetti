@@ -63,7 +63,7 @@ const Toolbox = memo(function Toolbox({
 	onToggleGrid,
 	onEraseLevel,
 }: ToolboxProps) {
-	useHotkeys('r', () => onToggleGrid());
+	useHotkeys('g', () => onToggleGrid());
 	useHotkeys(isMac ? 'command+z' : 'ctrl+z', onUndo);
 	useHotkeys(isMac ? 'command+shift+z' : 'ctrl+shift+z', onRedo);
 

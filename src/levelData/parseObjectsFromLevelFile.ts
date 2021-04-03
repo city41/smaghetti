@@ -107,8 +107,8 @@ function parseObjectsFromLevelFile(
 	let objectIndex =
 		view.getUint16(pointer, true) + ROOM_OBJECT_HEADER_SIZE_IN_BYTES;
 
-	// technically this is where the objects start, but there is always a null
-	// byte to kick things off that needs to be skipped
+	// TODO: seems official e-reader levels sometimes have a leading zero, but
+	// if I add that leading zero to my levels, bad things happen
 	objectIndex += 1;
 
 	return parseObjects(levelData, objectIndex);

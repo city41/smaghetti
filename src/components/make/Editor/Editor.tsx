@@ -19,7 +19,7 @@ import { Toolbox } from './Toolbox';
 import { PlayButton } from './PlayButton';
 import { SaveButton } from './SaveButton';
 import { DownloadButton } from './DownloadButton';
-// import { KeyboardHelpModal } from './components/keyboardHelpModal';
+import { KeyboardHelpModal } from './KeyboardHelpModal';
 import { Warning } from '../../Warning';
 import { useFirstRender } from '../../../hooks/useFirstRender';
 import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
@@ -240,6 +240,8 @@ function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 		};
 	}, []);
 
+	useHotkeys('?', () => setShowKeyboardHelpModal(true), []);
+
 	useHotkeys(
 		'/,shift+/',
 		() => {
@@ -289,10 +291,10 @@ function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 
 	return (
 		<>
-			{/*<KeyboardHelpModal*/}
-			{/*	isOpen={showKeyboardHelpModal}*/}
-			{/*	onRequestClose={() => setShowKeyboardHelpModal(false)}*/}
-			{/*/>*/}
+			<KeyboardHelpModal
+				isOpen={showKeyboardHelpModal}
+				onRequestClose={() => setShowKeyboardHelpModal(false)}
+			/>
 			<div className="hidden sm:block select-none w-full h-full">
 				{noScript && (
 					<Warning>
