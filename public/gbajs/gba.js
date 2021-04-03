@@ -227,9 +227,12 @@ GameBoyAdvance.prototype.step = function () {
 		try {
 			this.cpu.step();
 		} catch (e) {
-			console.error('GBA crashed', e.message);
+			console.error('gba crashed:', e.message);
 			this.paused = true;
-			this.drawCrashedScreen();
+			if (this.statusCallback) {
+				this.statusCallback('crashed');
+			}
+
 			return;
 		}
 	}

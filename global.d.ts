@@ -1,4 +1,4 @@
-type GBAStatus = 'reset' | 'ready-to-inject' | 'level-ready';
+type GBAStatus = 'reset' | 'ready-to-inject' | 'level-ready' | 'crashed';
 
 interface _GameBoyAdvance {
 	new (): _GameBoyAdvance;

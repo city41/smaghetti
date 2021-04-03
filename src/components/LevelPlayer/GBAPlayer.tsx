@@ -29,6 +29,7 @@ function GBAPlayer({
 }: GBAPlayerProps) {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const [gbaStatus, setGbaStatus] = useState<GBAStatus>('reset');
+	const [hasCrashed, setHasCrashed] = useState(false);
 
 	useEffect(() => {
 		window._gba.setCanvas(canvasRef.current!);
@@ -44,6 +45,10 @@ function GBAPlayer({
 					levelData
 				);
 				window._gba.injectSaveFile(saveFileWithInjectedLevel.buffer);
+			}
+
+			if (status === 'crashed') {
+				setHasCrashed(true);
 			}
 		};
 
@@ -61,6 +66,7 @@ function GBAPlayer({
 			window._gba.setSavedata(emptySaveFile.buffer);
 			window._gba.runStable();
 		} else {
+			setHasCrashed(false);
 			window._gba.pause();
 		}
 	}, [isPlaying]);
@@ -75,11 +81,22 @@ function GBAPlayer({
 			style={{ '--scale': scale } as CSSProperties}
 		>
 			<canvas ref={canvasRef} width={240} height={160} />
-			{gbaStatus !== 'level-ready' && (
+			{gbaStatus !== 'level-ready' && !hasCrashed && (
 				<>
 					<div className="absolute top-0 left-0 w-full h-full opacity-75 bg-gray-700 z-10" />
 					<div className="absolute bottom-1 left-1 z-10 text-xs">
 						one moment...
+					</div>
+				</>
+			)}
+			{hasCrashed && (
+				<>
+					<div className="absolute top-0 left-0 w-full h-full opacity-75 bg-red-700 z-10" />
+					<div className="absolute top-0 left-0 w-full h-full text-white z-10 p-3 space-y-2">
+						<h3 className="font-bold text-base">Game crashed :(</h3>
+						<p className="text-xs">
+							Please undo your last change and try again
+						</p>
 					</div>
 				</>
 			)}
