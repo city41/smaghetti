@@ -5,7 +5,7 @@ import * as sha1 from 'js-sha1';
 import { AppState } from '../../store';
 import { setBios, setRom, setEmptySave, setSaveState } from './files';
 import { getRom } from './files';
-import { entityMap, ObjectType, SpriteType } from '../../entities/entityMap';
+import { entityMap, EntityType } from '../../entities/entityMap';
 import { extractResourcesToStylesheet } from '../../tiles/extractResourcesToStylesheet';
 import { deserialize } from '../../saveStates/serializer';
 import { resourceMap } from '../../resources/resourceMap';
@@ -29,9 +29,7 @@ type FileLoaderState = {
 	otherFilesState: OtherFilesState;
 	allFilesReady: boolean;
 	overallExtractionState: ExtractionState;
-	extractedGraphicsState: Partial<
-		Record<SpriteType | ObjectType, ExtractionState>
-	>;
+	extractedGraphicsState: Partial<Record<EntityType, ExtractionState>>;
 };
 
 const SMA4_SHA = '532f3307021637474b6dd37da059ca360f612337';
@@ -108,7 +106,7 @@ const fileLoaderSlice = createSlice({
 		resourceExtractionState(
 			state: FileLoaderState,
 			action: PayloadAction<{
-				type: SpriteType | ObjectType;
+				type: EntityType;
 				state: ExtractionState;
 			}>
 		) {

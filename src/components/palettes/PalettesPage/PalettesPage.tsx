@@ -3,13 +3,13 @@ import { ExtractedEntityTileData } from '../../../tiles/extractResourcesToStyles
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { PalettedEntity } from './PalettedEntity';
 import { Button } from '../../Button';
-import { ObjectType, SpriteType } from '../../../entities/entityMap';
+import { EntityType } from '../../../entities/entityMap';
 
 type PalettesPageProps = {
 	allFilesReady: boolean;
 	palettes: Array<Tuple<number, 16>>;
 	entities: Array<{
-		type: SpriteType | ObjectType;
+		type: EntityType;
 		data: ExtractedEntityTileData;
 	}>;
 };

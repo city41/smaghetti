@@ -6,7 +6,7 @@ import React, {
 	Ref,
 } from 'react';
 import clsx from 'clsx';
-import { entityMap, SpriteType } from '../../entities/entityMap';
+import { entityMap, EntityType } from '../../entities/entityMap';
 
 import focusedStyles from '../../styles/focused.module.css';
 
@@ -17,7 +17,7 @@ type EntityProps = {
 	ref?: RefObject<HTMLDivElement> | Ref<HTMLDivElement> | null;
 	id?: number;
 	style?: CSSProperties;
-	type: SpriteType;
+	type: EntityType;
 	width?: number;
 	height?: number;
 	maxWidth?: number;
@@ -39,7 +39,7 @@ type EntityProps = {
 };
 
 function getEntitySize(
-	entityType: SpriteType
+	entityType: EntityType
 ): { width: number; height: number } {
 	const spriteDef = entityMap[entityType];
 
@@ -49,11 +49,11 @@ function getEntitySize(
 	};
 }
 
-function getEntityWidth(entityType: SpriteType): number {
+function getEntityWidth(entityType: EntityType): number {
 	return getEntitySize(entityType).width;
 }
 
-function getEntityHeight(entityType: SpriteType): number {
+function getEntityHeight(entityType: EntityType): number {
 	return getEntitySize(entityType).height;
 }
 

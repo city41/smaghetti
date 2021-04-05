@@ -1,9 +1,9 @@
 import React from 'react';
-import { ObjectType, SpriteType } from '../../entities/entityMap';
 import { DetailsEditProps } from './index';
+import { EntityType } from '../../entities/entityMap';
 
 type PayloadButtonProps = {
-	payload: SpriteType | ObjectType;
+	payload: EntityType;
 	onEntitySettingsChange: DetailsEditProps['onEntitySettingsChange'];
 };
 

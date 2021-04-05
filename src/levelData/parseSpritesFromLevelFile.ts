@@ -1,8 +1,8 @@
 import { ROOM_SPRITE_POINTERS } from '../levelData/constants';
 import { entityMap } from '../entities/entityMap';
 import {
-	bank0SpriteIdToSpriteType,
-	bank1SpriteIdToSpriteType,
+	bank0SpriteIdToEntityType,
+	bank1SpriteIdToEntityType,
 } from '../entities/spriteIdMap';
 
 type LevelSprite = {
@@ -20,17 +20,17 @@ function extractSprite(
 	const bank = levelData[spriteIndex];
 	const id = levelData[spriteIndex + 1];
 
-	const spriteIdToSpriteType =
-		bank === 0 ? bank0SpriteIdToSpriteType : bank1SpriteIdToSpriteType;
-	const SpriteType = entityMap[spriteIdToSpriteType[id]];
+	const spriteIdToEntityType =
+		bank === 0 ? bank0SpriteIdToEntityType : bank1SpriteIdToEntityType;
+	const EntityType = entityMap[spriteIdToEntityType[id]];
 
 	const rawByteLength = bank === 0 ? 4 : 6;
 	const rawBytes = Array.from(
 		levelData.slice(spriteIndex, spriteIndex + rawByteLength)
 	);
 
-	if (SpriteType && SpriteType.parseBinary) {
-		return SpriteType.parseBinary(rawBytes);
+	if (EntityType && EntityType.parseBinary) {
+		return EntityType.parseBinary(rawBytes);
 	} else {
 		return {
 			bank,

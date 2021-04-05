@@ -1,7 +1,7 @@
 import { convertASCIIToLevelName } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import cloneDeep from 'lodash/cloneDeep';
-import { entityMap, SpriteType } from '../entities/entityMap';
+import { entityMap } from '../entities/entityMap';
 import isEqual from 'lodash/isEqual';
 
 type Room = {

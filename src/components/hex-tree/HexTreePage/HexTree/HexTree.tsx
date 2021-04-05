@@ -26,8 +26,8 @@ import {
 	setPointer,
 } from '../../../../levelData/createLevelData';
 import {
-	bank0SpriteIdToSpriteType,
-	bank1SpriteIdToSpriteType,
+	bank0SpriteIdToEntityType,
+	bank1SpriteIdToEntityType,
 } from '../../../../entities/spriteIdMap';
 import { useLocalStorage } from '../../../../hooks/useLocalStorage';
 import useClipboard from 'react-use-clipboard';
@@ -461,8 +461,8 @@ function Sprite({
 }) {
 	const spriteType =
 		data.bank === 0
-			? bank0SpriteIdToSpriteType[data.id]
-			: bank1SpriteIdToSpriteType[data.id];
+			? bank0SpriteIdToEntityType[data.id]
+			: bank1SpriteIdToEntityType[data.id];
 
 	return (
 		<div className="ml-8 bg-gray-600 p-2 m-2 flex flex-col">

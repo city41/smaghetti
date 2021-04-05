@@ -21,7 +21,15 @@ function serialize(levelData: LevelData): SerializedLevelData {
 				if (!tile) {
 					serializedRow.push('');
 				} else {
-					serializedRow.push(TILE_TYPE_TO_SERIALIZE_ID_MAP[tile.tileType]);
+					const serializedId = TILE_TYPE_TO_SERIALIZE_ID_MAP[tile.tileType];
+
+					if (!serializedId) {
+						throw new Error(
+							`${tile.tileType} not found in TILE_TYPE_TO_SERIALIZE_ID_MAP`
+						);
+					}
+
+					serializedRow.push(serializedId);
 
 					// TODO: don't serialize the settings if they are all defaults
 					if (

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { LevelSprite as LevelSpriteType } from '../../../levelData/parseSpritesFromLevelFile';
+import { LevelSprite as LevelEntityType } from '../../../levelData/parseSpritesFromLevelFile';
 import { TILE_SIZE as ACTUAL_TILE_SIZE } from '../../../tiles/constants';
 import {
-	bank0SpriteIdToSpriteType,
-	bank1SpriteIdToSpriteType,
+	bank0SpriteIdToEntityType,
+	bank1SpriteIdToEntityType,
 } from '../../../entities/spriteIdMap';
 
 type LevelSpriteProps = {
-	sprite: LevelSpriteType;
+	sprite: LevelEntityType;
 };
 
 const SCALE = 2;
@@ -50,8 +50,8 @@ function LevelSprite({ sprite }: LevelSpriteProps) {
 	const [showRaw, setShowRaw] = useState(false);
 	const spriteType =
 		sprite.bank === 0
-			? bank0SpriteIdToSpriteType[sprite.id]
-			: bank1SpriteIdToSpriteType[sprite.id];
+			? bank0SpriteIdToEntityType[sprite.id]
+			: bank1SpriteIdToEntityType[sprite.id];
 
 	const x = sprite.x * TILE_SIZE;
 	const y = sprite.y * TILE_SIZE;

@@ -4,8 +4,8 @@ import {
 } from '../levelData/constants';
 import { entityMap } from '../entities/entityMap';
 import {
-	bank0ObjectIdToObjectType,
-	bank1ObjectIdToObjectType,
+	bank0ObjectIdToEntityType,
+	bank1ObjectIdToEntityType,
 } from '../entities/objectIdMap';
 
 type LevelObject = {
@@ -27,17 +27,17 @@ function extractObject(
 	const width = bankAndWidth & 0x3f;
 	const id = levelData[objectIndex + 3];
 
-	const objectIdToObjectType =
-		bank === 0 ? bank0ObjectIdToObjectType : bank1ObjectIdToObjectType;
-	const ObjectType = entityMap[objectIdToObjectType[id]];
+	const objectIdToEntityType =
+		bank === 0 ? bank0ObjectIdToEntityType : bank1ObjectIdToEntityType;
+	const entityDef = entityMap[objectIdToEntityType[id]];
 
 	const rawByteLength = bank === 0 ? 4 : 5;
 	const rawBytes = Array.from(
 		levelData.slice(objectIndex, objectIndex + rawByteLength)
 	);
 
-	if (ObjectType && ObjectType.parseBinary) {
-		return ObjectType.parseBinary(rawBytes);
+	if (entityDef && entityDef.parseBinary) {
+		return entityDef.parseBinary(rawBytes);
 	} else if (bank === 0) {
 		return {
 			bank,

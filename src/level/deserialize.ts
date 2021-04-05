@@ -1,5 +1,4 @@
 import { TILE_SERIALIZED_ID_TO_TYPE_MAP } from '../tiles/constants';
-import { groupTiles } from './groupTiles';
 import { entityMap } from '../entities/entityMap';
 
 /**
@@ -79,22 +78,12 @@ function deserialize(
 		});
 	});
 
-	const groupedTiles = groupTiles(
-		tiles,
-		{ x: 0, y: 0 },
-		width,
-		height,
-		width,
-		height,
-		() => idCounter++
-	);
-
 	const deserializedLevelData = {
 		...levelData,
 		entities: normalizedEntities,
 		tileLayer: {
 			...levelData.tileLayer,
-			data: groupedTiles,
+			data: tiles,
 		},
 	};
 

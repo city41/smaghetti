@@ -1,5 +1,4 @@
 import { ComponentType } from 'react';
-import { ObjectType, SpriteType } from '../../entities/entityMap';
 
 import { AceCoinViewDetails } from './AceCoinViewDetails';
 import { QuestionBlockViewDetails } from './QuestionBlockViewDetails';
@@ -11,6 +10,7 @@ import { AngleEditDetails } from './AngleEditDetails';
 import { MusicBlockEditDetails } from './MusicBlockEditDetails';
 import { HiddenBlockEditDetails } from './HiddenBlockEditDetails';
 import { WoodBlockEditDetails } from './WoodBlockEditDetails';
+import { EntityType } from '../../entities/entityMap';
 
 type DetailsViewProps = {
 	settings: EntitySettings;
@@ -23,7 +23,7 @@ type DetailsEditProps = {
 
 const detailsMap: Partial<
 	Record<
-		SpriteType | ObjectType,
+		EntityType,
 		{
 			view?: ComponentType<DetailsViewProps>;
 			edit?: ComponentType<DetailsEditProps>;

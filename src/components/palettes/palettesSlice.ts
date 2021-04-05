@@ -6,12 +6,12 @@ import {
 import { getRom } from '../FileLoader/files';
 import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../../store';
-import { entityMap, ObjectType, SpriteType } from '../../entities/entityMap';
+import { entityMap, EntityType } from '../../entities/entityMap';
 import { resourceMap } from '../../resources/resourceMap';
-import { Resource, StaticResource } from '../../resources/types';
+import { StaticResource } from '../../resources/types';
 
 type ExtractedEntity = {
-	type: SpriteType | ObjectType;
+	type: EntityType;
 	data: ExtractedEntityTileData;
 };
 
@@ -55,7 +55,7 @@ const palettesSlice = createSlice({
 				const data = extractResourceTileData(rom, resource);
 
 				return {
-					type: resource.type as SpriteType | ObjectType,
+					type: resource.type as EntityType,
 					data,
 				};
 			});

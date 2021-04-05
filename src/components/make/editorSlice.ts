@@ -23,13 +23,12 @@ import {
 import { getPlayerScaleFromWindow } from '../../util/getPlayerScaleFromWindow';
 import { saveLevel as saveLevelMutation } from '../../remoteData/saveLevel';
 import { getLevel as getLevelQuery } from '../../remoteData/getLevel';
-import { groupTiles } from '../../level/groupTiles';
 import { serialize } from '../../level/serialize';
 import { deserialize } from '../../level/deserialize';
 import isEqual from 'lodash/isEqual';
 
 import { TILE_SIZE, TILE_TYPE_TO_GROUP_TYPE_MAP } from '../../tiles/constants';
-import { entityMap, ObjectType, SpriteType } from '../../entities/entityMap';
+import { entityMap, EntityType } from '../../entities/entityMap';
 
 type LocalStorageData = {
 	metadata: {
@@ -45,12 +44,12 @@ type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
 
 type ObjectPaletteEntry = {
 	brushMode: 'tile';
-	type: ObjectType;
+	type: EntityType;
 };
 
 type SpritePaletteEntry = {
 	brushMode: 'entity';
-	type: SpriteType;
+	type: EntityType;
 };
 
 export type PaletteEntry = ObjectPaletteEntry | SpritePaletteEntry;
@@ -61,7 +60,7 @@ type EditorFocusRect = {
 	height: number;
 };
 
-const nonDeletableSpriteTypes = ['Player'];
+const nonDeletableEntityTypes = ['Player'];
 
 const playerScale = getPlayerScaleFromWindow();
 const scales: number[] = [
@@ -195,7 +194,7 @@ type FloodBounds = {
 
 function floodFill(
 	tiles: TileMatrix,
-	floodTileType: ObjectType,
+	floodTileType: EntityType,
 	indexX: number,
 	indexY: number,
 	levelTileWidth: number,
@@ -401,18 +400,18 @@ function canDrop(entity: NewEntity | EditorEntity, entities: EditorEntity[]) {
 	});
 }
 
-function getEntityX(inputX: number, type: SpriteType): number {
+function getEntityX(inputX: number, type: EntityType): number {
 	return Math.floor(inputX / TILE_SIZE) * TILE_SIZE;
 }
 
-function getEntityY(inputY: number, type: SpriteType): number {
+function getEntityY(inputY: number, type: EntityType): number {
 	return Math.floor(inputY / TILE_SIZE) * TILE_SIZE;
 }
 
 function deleteEntitiesWithin(
 	entities: EditorEntity[],
 	bounds: Bounds,
-	ignore: SpriteType[] = []
+	ignore: EntityType[] = []
 ) {
 	const entitiestoClobber = entities.filter((e) => {
 		return overlap(getEntityTileBounds(e), bounds);
@@ -507,7 +506,7 @@ function removeOutOfBoundsEntities(state: InternalEditorState) {
 	};
 
 	state.entities = state.entities.filter((e) => {
-		if (nonDeletableSpriteTypes.includes(e.type)) {
+		if (nonDeletableEntityTypes.includes(e.type)) {
 			return true;
 		}
 
@@ -766,7 +765,7 @@ const editorSlice = createSlice({
 
 						if (
 							existingEntity &&
-							!nonDeletableSpriteTypes.includes(existingEntity.type)
+							!nonDeletableEntityTypes.includes(existingEntity.type)
 						) {
 							state.entities = state.entities.filter(
 								(e) => e !== existingEntity
@@ -867,20 +866,10 @@ const editorSlice = createSlice({
 			minY = Math.max(0, minY - 1);
 			maxX = Math.min(state.levelTileWidth, maxX + 1);
 			maxY = Math.min(state.levelTileHeight, maxY + 1);
-
-			groupTiles(
-				state.tiles,
-				{ x: minX, y: minY },
-				maxX - minX + 1,
-				maxY - minY + 1,
-				state.levelTileWidth,
-				state.levelTileHeight,
-				() => idCounter++
-			);
 		},
 		deleteFocused(state: InternalEditorState) {
 			state.entities = state.entities.filter((e) => {
-				return nonDeletableSpriteTypes.includes(e.type) || !state.focused[e.id];
+				return nonDeletableEntityTypes.includes(e.type) || !state.focused[e.id];
 			});
 
 			let minX = state.levelTileWidth;
@@ -912,16 +901,6 @@ const editorSlice = createSlice({
 			});
 
 			state.focused = {};
-
-			groupTiles(
-				state.tiles,
-				{ x: minX - 1, y: minY - 1 },
-				maxX - minX + 3,
-				maxY - minY + 3,
-				state.levelTileWidth,
-				state.levelTileHeight,
-				() => idCounter++
-			);
 
 			assignAceCoinIndices(state.entities);
 		},
@@ -988,7 +967,7 @@ const editorSlice = createSlice({
 		},
 		moveOffsetToEntity(
 			state: InternalEditorState,
-			action: PayloadAction<SpriteType>
+			action: PayloadAction<EntityType>
 		) {
 			// if (action.payload === 'Goal') {
 			// 	const goal = state.entities.find((e) => e.type === 'Goal')!;
@@ -1192,7 +1171,7 @@ const editorSlice = createSlice({
 				state.entities.forEach((e) => {
 					if (
 						overlap(getEntityPixelBounds(e), scaledBounds) &&
-						!nonDeletableSpriteTypes.includes(e.type)
+						!nonDeletableEntityTypes.includes(e.type)
 					) {
 						state.focused[e.id] = true;
 					}
@@ -1286,16 +1265,6 @@ const editorSlice = createSlice({
 
 					return !spotToClear;
 				});
-
-				groupTiles(
-					state.tiles,
-					{ x: minX - 1, y: minY - 1 },
-					maxX - minX + 3,
-					maxY - minY + 3,
-					state.levelTileWidth,
-					state.levelTileHeight,
-					() => idCounter++
-				);
 			}
 
 			state.dragOffset = null;

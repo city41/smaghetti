@@ -10,7 +10,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 
 import { Entity } from '../../../Entity';
 import { Tile } from '../../../Tile';
-import { ObjectType, TILE_SIZE } from '../../../../tiles/constants';
+import { TILE_SIZE } from '../../../../tiles/constants';
 import { MouseMode, PaletteEntry } from '../../editorSlice';
 import {
 	PLAY_WINDOW_TILE_WIDTH,
@@ -476,7 +476,7 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 							position: 'fixed',
 							zIndex: 200,
 						}}
-						tileType={currentPaletteEntry.type as ObjectType}
+						tileType={currentPaletteEntry.type}
 					/>
 				)}
 				{currentPaletteEntry?.brushMode === 'entity' && (

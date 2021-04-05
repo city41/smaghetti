@@ -6,13 +6,13 @@ import focusedStyles from '../../styles/focused.module.css';
 import { detailsMap } from '../details';
 
 import styles from './Tile.module.css';
-import { ObjectType } from '../../entities/entityMap';
+import { EntityType } from '../../entities/entityMap';
 
 type TileProps = {
 	className?: string;
 	ref?: RefObject<HTMLDivElement> | null;
 	id?: number;
-	tileType: ObjectType;
+	tileType: EntityType;
 	scale?: number;
 	style?: CSSProperties;
 	top?: number;

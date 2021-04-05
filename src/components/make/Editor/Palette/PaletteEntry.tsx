@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { PaletteEntry as PaletteEntryType } from '../../editorSlice';
 import { Tile } from '../../../Tile';
 import { Entity } from '../../../Entity';
-import { ObjectType, TILE_SIZE } from '../../../../tiles/constants';
+import { TILE_SIZE } from '../../../../tiles/constants';
 
 import styles from './PaletteEntry.module.css';
 
@@ -114,7 +114,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 }) => {
 	const item =
 		entry.brushMode === 'tile' ? (
-			<Tile tileType={entry.type as ObjectType} scale={SCALE} />
+			<Tile tileType={entry.type} scale={SCALE} />
 		) : (
 			<Entity
 				scale={6.25}

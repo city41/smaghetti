@@ -4,13 +4,13 @@ import { DetailsEditProps } from './index';
 import { VerticalEditDetails } from './VerticalEditDetails';
 import { PayloadButton } from './PayloadButton';
 import { ClearButton } from './ClearButton';
-import { ObjectType, SpriteType } from '../../entities/entityMap';
+import { EntityType } from '../../entities/entityMap';
 
 type PayloadEditDetailsProps = Pick<
 	DetailsEditProps,
 	'onEntitySettingsChange'
 > & {
-	payloads: Array<ObjectType | SpriteType>;
+	payloads: EntityType[];
 	canClear: boolean;
 };
 
@@ -25,7 +25,7 @@ function PayloadEditDetails({
 				return (
 					<PayloadButton
 						key={payload}
-						payload={payload as SpriteType | ObjectType}
+						payload={payload as EntityType}
 						onEntitySettingsChange={onEntitySettingsChange}
 					/>
 				);
