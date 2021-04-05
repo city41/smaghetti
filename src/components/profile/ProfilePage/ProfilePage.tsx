@@ -69,7 +69,12 @@ function ProfilePage({
 			break;
 
 		case 'Settings':
-			currentTabBody = <div>No settings yet. Stay tuned.</div>;
+			currentTabBody = (
+				<div>
+					No settings yet. This is where things like gamepad button config will
+					live. Stay tuned.
+				</div>
+			);
 			break;
 	}
 
