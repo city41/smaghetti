@@ -8,13 +8,14 @@ import { GiArrowCursor, GiResize } from 'react-icons/gi';
 import { RiPencilFill, RiPaintFill, RiEraserFill } from 'react-icons/ri';
 import { ImUndo2, ImRedo2 } from 'react-icons/im';
 
-import { PaletteEntry, MouseMode } from '../../editorSlice';
+import { MouseMode } from '../../editorSlice';
 import { IconButton } from '../../../IconButton';
 import { IconButtonGroup } from '../../../IconButton/IconButtonGroup';
 import { isMac } from '../../../../util/isMac';
 
 import { Zoom } from './Zoom';
 import { MuteButton } from './MuteButton';
+import { entityMap, EntityType } from '../../../../entities/entityMap';
 
 const icons: Record<MouseMode, ElementType> = {
 	select: GiArrowCursor,
@@ -26,7 +27,7 @@ const icons: Record<MouseMode, ElementType> = {
 
 type ToolboxProps = {
 	className?: string;
-	currentPaletteEntry?: PaletteEntry;
+	currentPaletteEntry?: EntityType;
 	mouseMode: MouseMode;
 	onMouseModeChanged: (mouseMode: MouseMode) => void;
 	onScaleDecreased: () => void;
@@ -85,7 +86,9 @@ const Toolbox = memo(function Toolbox({
 				toggled={mm.mode === mouseMode}
 				disabled={
 					resizeMode ||
-					(mm.mode === 'fill' && currentPaletteEntry?.brushMode === 'entity')
+					(mm.mode === 'fill' &&
+						currentPaletteEntry &&
+						entityMap[currentPaletteEntry].editorType === 'entity')
 				}
 				onClick={() => onMouseModeChanged(mm.mode)}
 				label={`${mm.mode} (${mm.hotkey})`}

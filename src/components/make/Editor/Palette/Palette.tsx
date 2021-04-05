@@ -3,19 +3,19 @@ import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 import isEqual from 'lodash/isEqual';
 
-import { PaletteEntry } from '../../editorSlice';
 import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
 import { PaletteChoiceModal } from './PaletteChoiceModal';
 
 import styles from './Palette.module.css';
+import { EntityType } from '../../../../entities/entityMap';
 
 type PaletteProps = {
 	className?: string;
-	currentPaletteEntry?: PaletteEntry;
-	paletteEntries: PaletteEntry[];
+	currentPaletteEntry?: EntityType;
+	paletteEntries: EntityType[];
 	onPaletteEntryIndexChosen: (index: number) => void;
-	onPaletteEntryRemove: (removedEntry: PaletteEntry) => void;
-	onPaletteEntryAdded: (addedEntry: PaletteEntry) => void;
+	onPaletteEntryRemove: (removedEntry: EntityType) => void;
+	onPaletteEntryAdded: (addedEntry: EntityType) => void;
 };
 
 function Palette({
@@ -36,7 +36,7 @@ function Palette({
 
 	const entries = paletteEntries.map((pe, i) => (
 		<PaletteEntryCmp
-			key={`${pe.brushMode}-${pe.type}`}
+			key={pe}
 			buttonsOnHover
 			entry={pe}
 			isCurrent={isEqual(pe, currentPaletteEntry)}

@@ -1,17 +1,17 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-import { PaletteEntry as PaletteEntryType } from '../../editorSlice';
 import { Tile } from '../../../Tile';
 import { Entity } from '../../../Entity';
 import { TILE_SIZE } from '../../../../tiles/constants';
 
 import styles from './PaletteEntry.module.css';
+import { entityMap, EntityType } from '../../../../entities/entityMap';
 
 const SCALE = 50 / TILE_SIZE;
 
 type PaletteEntryProps = {
 	className?: string;
-	entry: PaletteEntryType;
+	entry: EntityType;
 	isCurrent: boolean;
 	buttonsOnHover?: boolean;
 	showAdd: boolean;
@@ -113,14 +113,14 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 	onRemoveClick,
 }) => {
 	const item =
-		entry.brushMode === 'tile' ? (
-			<Tile tileType={entry.type} scale={SCALE} />
+		entityMap[entry].editorType === 'tile' ? (
+			<Tile tileType={entry} scale={SCALE} />
 		) : (
 			<Entity
 				scale={6.25}
 				maxWidth={50}
 				maxHeight={50}
-				type={entry.type}
+				type={entry}
 				disableDrag
 			/>
 		);

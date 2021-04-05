@@ -3,121 +3,91 @@ import clsx from 'clsx';
 import isEqual from 'lodash/isEqual';
 
 import { Modal } from '../../../Modal';
-import { PaletteEntry } from '../../editorSlice';
 import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
 
 import styles from './PaletteChoiceModal.module.css';
 import tabStyles from '../../../../styles/tabs.module.css';
+import { EntityType } from '../../../../entities/entityMap';
 
 type PaletteChoiceModalProps = {
 	open: boolean;
-	currentPaletteEntries: PaletteEntry[];
-	onEntryAdded: (addedEntry: PaletteEntry) => void;
-	onEntryRemoved: (removedEntry: PaletteEntry) => void;
+	currentPaletteEntries: EntityType[];
+	onEntryAdded: (addedEntry: EntityType) => void;
+	onEntryRemoved: (removedEntry: EntityType) => void;
 	onCancel: () => void;
 };
 
 type PaletteChoiceModalEntry = {
-	entry: PaletteEntry;
+	entry: EntityType;
 	info: { title: string; description: string; limitationsId?: string };
 };
 
 const enemies: PaletteChoiceModalEntry[] = [
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Goomba',
-		},
+		entry: 'Goomba',
 		info: {
 			title: 'Goomba',
 			description: '',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'ShoeGoomba',
-		},
+		entry: 'ShoeGoomba',
 		info: {
 			title: 'Shoe Goomba',
 			description: 'Kuribo is the Japanese name for Goombas',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'GreenKoopaTroopa',
-		},
+		entry: 'GreenKoopaTroopa',
 		info: {
 			title: 'Green Koopa Troopa',
 			description: 'Walks in a straight line, only turns if hits a wall',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'GreenParaTroopa',
-		},
+		entry: 'GreenParaTroopa',
 		info: {
 			title: 'Green Para Troopa',
 			description: 'Bounces along',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'RedKoopaTroopa',
-		},
+		entry: 'RedKoopaTroopa',
 		info: {
 			title: 'Red Koopa Troopa',
 			description: 'Turns around at cliffs',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'RedParaTroopa',
-		},
+		entry: 'RedParaTroopa',
 		info: {
 			title: 'Red Para Troopa',
 			description: 'Flies up and down',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Spiny',
-		},
+		entry: 'Spiny',
 		info: {
 			title: 'Spiny',
 			description: '',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'BuzzyBeetle',
-		},
+		entry: 'BuzzyBeetle',
 		info: {
 			title: 'Buzzy Beetle',
 			description: '',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Bobomb',
-		},
+		entry: 'Bobomb',
 		info: {
 			title: 'Bobomb',
 			description: '',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Lakitu',
-		},
+		entry: 'Lakitu',
 		info: {
 			title: 'Lakitu',
 			description: "Dammit it's Lakitu!",
@@ -127,70 +97,49 @@ const enemies: PaletteChoiceModalEntry[] = [
 
 const objects: PaletteChoiceModalEntry[] = [
 	{
-		entry: {
-			brushMode: 'tile',
-			type: 'QuestionBlock',
-		},
+		entry: 'QuestionBlock',
 		info: {
 			title: 'Question Block',
 			description: 'Can contain a coin, power up or other things',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'tile',
-			type: 'HiddenBlock',
-		},
+		entry: 'HiddenBlock',
 		info: {
 			title: 'Hidden Block',
 			description: 'Pretty much an invisible Question Block',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'tile',
-			type: 'PSwitch',
-		},
+		entry: 'PSwitch',
 		info: {
 			title: 'P-Switch',
 			description: '',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'CardSlotMachine',
-		},
+		entry: 'CardSlotMachine',
 		info: {
 			title: 'Card Slot Machine',
 			description: 'Touching this completes the level.',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'QuestionMark',
-		},
+		entry: 'QuestionMark',
 		info: {
 			title: 'Question Mark Ball',
 			description: 'Touching this completes the level.',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'tile',
-			type: 'TriangularBlock',
-		},
+		entry: 'TriangularBlock',
 		info: {
 			title: 'Triangular Block',
 			description: 'Lets Mario run up walls and ceilings',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'ArrowSign',
-		},
+		entry: 'ArrowSign',
 		info: {
 			title: 'Arrow Sign',
 			description: 'Shows the way to go ... or not go?',
@@ -200,60 +149,42 @@ const objects: PaletteChoiceModalEntry[] = [
 
 const terrain: PaletteChoiceModalEntry[] = [
 	{
-		entry: {
-			brushMode: 'tile',
-			type: 'Brick',
-		},
+		entry: 'Brick',
 		info: {
 			title: 'Brick',
 			description: 'Flexible, can be terrain, smashed, and contain items',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'tile',
-			type: 'IndestructibleBrick',
-		},
+		entry: 'IndestructibleBrick',
 		info: {
 			title: 'Indestructible Brick',
 			description: 'I always thought these looked like chocolate',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'tile',
-			type: 'WoodBlock',
-		},
+		entry: 'WoodBlock',
 		info: {
 			title: 'Wood Brick',
 			description: '',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'tile',
-			type: 'MusicBlock',
-		},
+		entry: 'MusicBlock',
 		info: {
 			title: 'Music Block',
 			description: 'Bouncy bounce, and can also contain items!',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'tile',
-			type: 'Muncher',
-		},
+		entry: 'Muncher',
 		info: {
 			title: 'Muncher',
 			description: 'Small, but mighty.',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'tile',
-			type: 'Stalactite',
-		},
+		entry: 'Stalactite',
 		info: {
 			title: 'Stalactite',
 			description: '',
@@ -263,20 +194,14 @@ const terrain: PaletteChoiceModalEntry[] = [
 
 const items: PaletteChoiceModalEntry[] = [
 	{
-		entry: {
-			brushMode: 'tile',
-			type: 'Coin',
-		},
+		entry: 'Coin',
 		info: {
 			title: 'Coin',
 			description: 'The ever present coin',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'AceCoin',
-		},
+		entry: 'AceCoin',
 		info: {
 			title: 'Ace Coin',
 			description:
@@ -284,20 +209,14 @@ const items: PaletteChoiceModalEntry[] = [
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Key',
-		},
+		entry: 'Key',
 		info: {
 			title: 'Key',
 			description: '',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Bubble',
-		},
+		entry: 'Bubble',
 		info: {
 			title: 'Bubble',
 			description:
@@ -308,10 +227,7 @@ const items: PaletteChoiceModalEntry[] = [
 
 const gizmos: PaletteChoiceModalEntry[] = [
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'SpringBoard',
-		},
+		entry: 'SpringBoard',
 		info: {
 			title: 'Spring Board',
 			description: 'Bounce high. Pick it up and move it if needed.',
@@ -321,30 +237,21 @@ const gizmos: PaletteChoiceModalEntry[] = [
 
 const powerUps: PaletteChoiceModalEntry[] = [
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Mushroom',
-		},
+		entry: 'Mushroom',
 		info: {
 			title: 'Mushroom',
 			description: '',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'FireFlower',
-		},
+		entry: 'FireFlower',
 		info: {
 			title: 'Fire Flower',
 			description: '',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'Leaf',
-		},
+		entry: 'Leaf',
 		info: {
 			title: 'Leaf',
 			description:
@@ -352,40 +259,28 @@ const powerUps: PaletteChoiceModalEntry[] = [
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'CapeFeather',
-		},
+		entry: 'CapeFeather',
 		info: {
 			title: 'Cape Feather',
 			description: 'The cape power-up from Super Mario World',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'StarMan',
-		},
+		entry: 'StarMan',
 		info: {
 			title: 'Star Man',
 			description: 'I can hear the song now...',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'OneUpMushroom',
-		},
+		entry: 'OneUpMushroom',
 		info: {
 			title: '1up Mushroom',
 			description: '',
 		},
 	},
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'ThreeUpMoon',
-		},
+		entry: 'ThreeUpMoon',
 		info: {
 			title: '3up Moon',
 			description: '',
@@ -395,10 +290,7 @@ const powerUps: PaletteChoiceModalEntry[] = [
 
 const bosses: PaletteChoiceModalEntry[] = [
 	{
-		entry: {
-			brushMode: 'entity',
-			type: 'BoomBoom',
-		},
+		entry: 'BoomBoom',
 		info: {
 			title: 'Boom Boom',
 			description: '',
@@ -459,7 +351,7 @@ const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 						{currentEntries.map((ce, i) => {
 							return (
 								<PaletteEntryCmp
-									key={`${ce.entry.brushMode}-${ce.entry.type}`}
+									key={ce.entry}
 									className={clsx({
 										faded: currentPaletteEntries.some((e) => isEqual(ce, e)),
 									})}

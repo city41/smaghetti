@@ -11,7 +11,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { Entity } from '../../../Entity';
 import { Tile } from '../../../Tile';
 import { TILE_SIZE } from '../../../../tiles/constants';
-import { MouseMode, PaletteEntry } from '../../editorSlice';
+import { MouseMode } from '../../editorSlice';
 import {
 	PLAY_WINDOW_TILE_WIDTH,
 	PLAY_WINDOW_TILE_HEIGHT,
@@ -23,6 +23,7 @@ import eraseCursorPng from './eraseCursor.png';
 import bg from '../../../images/levelBackground.png';
 
 import styles from './Canvas.module.css';
+import { entityMap, EntityType } from '../../../../entities/entityMap';
 
 type OnPaintedArg = {
 	points: Point[];
@@ -34,7 +35,7 @@ type CanvasProps = {
 	width: number;
 	height: number;
 	scale: number;
-	currentPaletteEntry?: PaletteEntry;
+	currentPaletteEntry?: EntityType;
 	entities: EditorEntity[];
 	focused: Record<number, boolean>;
 	isSelecting: boolean;
@@ -388,11 +389,15 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 	};
 
 	const tileGhostDisplay =
-		mouseMode === 'draw' && currentPaletteEntry?.brushMode === 'tile'
+		mouseMode === 'draw' &&
+		currentPaletteEntry &&
+		entityMap[currentPaletteEntry].editorType === 'tile'
 			? 'block'
 			: 'none';
 	const entityGhostDisplay =
-		mouseMode === 'draw' && currentPaletteEntry?.brushMode === 'entity'
+		mouseMode === 'draw' &&
+		currentPaletteEntry &&
+		entityMap[currentPaletteEntry].editorType === 'entity'
 			? 'block'
 			: 'none';
 
@@ -454,7 +459,8 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 						}
 						if (
 							entityGhostRef.current &&
-							currentPaletteEntry?.brushMode === 'entity'
+							currentPaletteEntry &&
+							entityMap[currentPaletteEntry].editorType === 'entity'
 						) {
 							entityGhostRef.current.style.left =
 								snap(ghostPoint.x, TILE_SIZE) + 'px';
@@ -467,30 +473,32 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 					setMouseDown(false);
 				}}
 			>
-				{currentPaletteEntry?.brushMode === 'tile' && (
-					<Tile
-						ref={tileGhostRef}
-						opacity={0.3}
-						style={{
-							display: tileGhostDisplay,
-							position: 'fixed',
-							zIndex: 200,
-						}}
-						tileType={currentPaletteEntry.type}
-					/>
-				)}
-				{currentPaletteEntry?.brushMode === 'entity' && (
-					<Entity
-						ref={entityGhostRef}
-						opacity={0.3}
-						style={{
-							display: entityGhostDisplay,
-							position: 'fixed',
-							zIndex: 200,
-						}}
-						type={currentPaletteEntry.type}
-					/>
-				)}
+				{currentPaletteEntry &&
+					entityMap[currentPaletteEntry].editorType === 'tile' && (
+						<Tile
+							ref={tileGhostRef}
+							opacity={0.3}
+							style={{
+								display: tileGhostDisplay,
+								position: 'fixed',
+								zIndex: 200,
+							}}
+							tileType={currentPaletteEntry}
+						/>
+					)}
+				{currentPaletteEntry &&
+					entityMap[currentPaletteEntry].editorType === 'entity' && (
+						<Entity
+							ref={entityGhostRef}
+							opacity={0.3}
+							style={{
+								display: entityGhostDisplay,
+								position: 'fixed',
+								zIndex: 200,
+							}}
+							type={currentPaletteEntry}
+						/>
+					)}
 				<div className={styles.grid} style={tileGridStyles} />
 				<div className={styles.grid} style={viewportGridStyles} />
 				{tileRows}

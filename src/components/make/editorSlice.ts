@@ -36,23 +36,11 @@ type LocalStorageData = {
 	};
 	levelData: SerializedLevelData;
 	editorData: {
-		paletteEntries: PaletteEntry[];
+		paletteEntries: EntityType[];
 	};
 };
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
-
-type ObjectPaletteEntry = {
-	brushMode: 'tile';
-	type: EntityType;
-};
-
-type SpritePaletteEntry = {
-	brushMode: 'entity';
-	type: EntityType;
-};
-
-export type PaletteEntry = ObjectPaletteEntry | SpritePaletteEntry;
 
 type EditorFocusRect = {
 	offset: Point;
@@ -92,8 +80,8 @@ type InternalEditorState = {
 	scrollOffset: Point;
 	showGrid: boolean;
 
-	paletteEntries: PaletteEntry[];
-	currentPaletteEntry?: PaletteEntry;
+	paletteEntries: EntityType[];
+	currentPaletteEntry?: EntityType;
 
 	focused: Record<number, boolean>;
 	dragOffset: Point | null;
@@ -156,12 +144,8 @@ const defaultInitialState: InternalEditorState = {
 	scrollOffset: { x: 0, y: calcYForScrollToBottom() },
 	showGrid: true,
 
-	paletteEntries: [
-		{ brushMode: 'tile', type: 'Brick' },
-		{ brushMode: 'tile', type: 'Coin' },
-		{ brushMode: 'entity', type: 'Goomba' },
-	],
-	currentPaletteEntry: { brushMode: 'entity', type: 'Goomba' },
+	paletteEntries: ['Brick', 'Coin', 'Goomba'],
+	currentPaletteEntry: 'Goomba',
 	focused: {},
 	dragOffset: null,
 	isSelecting: false,
@@ -649,7 +633,7 @@ const editorSlice = createSlice({
 		},
 		addPaletteEntry(
 			state: InternalEditorState,
-			action: PayloadAction<PaletteEntry>
+			action: PayloadAction<EntityType>
 		) {
 			const newEntry = action.payload;
 
@@ -670,10 +654,11 @@ const editorSlice = createSlice({
 		},
 		removePaletteEntry(
 			state: InternalEditorState,
-			action: PayloadAction<PaletteEntry>
+			action: PayloadAction<EntityType>
 		) {
 			const entryToRemove = action.payload;
 			const index = state.paletteEntries.findIndex((pe) =>
+				// TODO: isEqual no longer needed
 				isEqual(pe, entryToRemove)
 			);
 
@@ -782,10 +767,13 @@ const editorSlice = createSlice({
 						break;
 					}
 					case 'draw': {
-						if (state.currentPaletteEntry?.brushMode === 'tile') {
+						if (
+							state.currentPaletteEntry &&
+							entityMap[state.currentPaletteEntry].editorType === 'tile'
+						) {
 							// replace a tile
 							if (existingTile) {
-								existingTile.tileType = state.currentPaletteEntry.type;
+								existingTile.tileType = state.currentPaletteEntry;
 							} else {
 								// paint a new tile
 								state.tiles[indexY] = state.tiles[indexY] || [];
@@ -793,12 +781,12 @@ const editorSlice = createSlice({
 									id: idCounter++,
 									x: indexX,
 									y: indexY,
-									tileType: state.currentPaletteEntry.type,
+									tileType: state.currentPaletteEntry,
 									// TODO: tileIndex isn't really used anymore
 									tileIndex: 0,
 								};
 
-								const objectDef = entityMap[state.currentPaletteEntry.type];
+								const objectDef = entityMap[state.currentPaletteEntry];
 
 								if (objectDef.settingsType === 'single') {
 									state.tiles[indexY]![indexX]!.settings = {
@@ -806,13 +794,16 @@ const editorSlice = createSlice({
 									};
 								}
 							}
-						} else if (state.currentPaletteEntry?.brushMode === 'entity') {
+						} else if (
+							state.currentPaletteEntry &&
+							entityMap[state.currentPaletteEntry].editorType === 'entity'
+						) {
 							// place an entity
-							const type = state.currentPaletteEntry.type;
+							const type = state.currentPaletteEntry;
 
 							const newEntity: NewEntity = {
-								x: getEntityX(point.x, state.currentPaletteEntry.type),
-								y: getEntityY(point.y, state.currentPaletteEntry.type),
+								x: getEntityX(point.x, state.currentPaletteEntry),
+								y: getEntityY(point.y, state.currentPaletteEntry),
 								type,
 							};
 
@@ -841,10 +832,13 @@ const editorSlice = createSlice({
 					}
 					// TODO: fill entities
 					case 'fill': {
-						if (state.currentPaletteEntry?.brushMode === 'tile') {
+						if (
+							state.currentPaletteEntry &&
+							entityMap[state.currentPaletteEntry].editorType === 'tile'
+						) {
 							const floodResult = floodFill(
 								state.tiles,
-								state.currentPaletteEntry?.type,
+								state.currentPaletteEntry,
 								indexX,
 								indexY,
 								state.levelTileWidth,
@@ -909,7 +903,8 @@ const editorSlice = createSlice({
 			action: PayloadAction<MouseMode>
 		) {
 			if (
-				state.currentPaletteEntry?.brushMode !== 'entity' ||
+				(state.currentPaletteEntry &&
+					entityMap[state.currentPaletteEntry].editorType !== 'entity') ||
 				action.payload !== 'fill'
 			) {
 				state.mouseMode = action.payload;
@@ -1047,7 +1042,7 @@ const editorSlice = createSlice({
 		},
 		setPaletteEntries(
 			state: InternalEditorState,
-			action: PayloadAction<PaletteEntry[]>
+			action: PayloadAction<EntityType[]>
 		) {
 			state.paletteEntries = action.payload;
 		},
@@ -1391,7 +1386,8 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 // 1.0.0: first localstorage implementation
 // 1.0.1: changed some tile serialization ids
 // 1.1.0: added metadata.name
-const LOCALSTORAGE_KEY = 'smaghetti_1.1.0';
+// 2.0.0: paletteEntries switched to just be EntityType strings
+const LOCALSTORAGE_KEY = 'smaghetti_2.0.0';
 
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {
