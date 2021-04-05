@@ -29,12 +29,7 @@ import { deserialize } from '../../level/deserialize';
 import isEqual from 'lodash/isEqual';
 
 import { TILE_SIZE, TILE_TYPE_TO_GROUP_TYPE_MAP } from '../../tiles/constants';
-import {
-	objectMap,
-	ObjectType,
-	spriteMap,
-	SpriteType,
-} from '../../entities/entityMap';
+import { entityMap, ObjectType, SpriteType } from '../../entities/entityMap';
 
 type LocalStorageData = {
 	metadata: {
@@ -83,7 +78,7 @@ type InternalEditorState = {
 		name: string;
 	};
 	paintedGroup: string;
-	entities: Entity[];
+	entities: EditorEntity[];
 	tiles: TileMatrix;
 	storedMouseMode?: MouseMode | null;
 	mouseMode: MouseMode;
@@ -312,7 +307,7 @@ type MetadataEntity = {
 };
 
 function getEntityPixelBounds(entity: NewEntity): Bounds {
-	const spriteDef = spriteMap[entity.type];
+	const spriteDef = entityMap[entity.type];
 	const width = Math.max(spriteDef.tiles[0].length * 8, TILE_SIZE);
 	const height = Math.max(spriteDef.tiles.length * 8, TILE_SIZE);
 
@@ -323,7 +318,7 @@ function getEntityPixelBounds(entity: NewEntity): Bounds {
 }
 
 function getEntityTileBounds(entity: NewEntity): Bounds {
-	const spriteDef = spriteMap[entity.type];
+	const spriteDef = entityMap[entity.type];
 
 	const tileWidth = spriteDef.tiles[0].length / 2;
 	const tileHeight = spriteDef.tiles.length / 2;
@@ -387,11 +382,11 @@ function overlap(a: Bounds, b: Bounds): boolean {
 	return true;
 }
 
-function isNotANewEntity(e: NewEntity | Entity): e is Entity {
+function isNotANewEntity(e: NewEntity | EditorEntity): e is EditorEntity {
 	return 'id' in e && !!e.id;
 }
 
-function canDrop(entity: NewEntity | Entity, entities: Entity[]) {
+function canDrop(entity: NewEntity | EditorEntity, entities: EditorEntity[]) {
 	const entityBounds = getEntityTileBounds(entity);
 
 	return !entities.some((otherEntity) => {
@@ -415,7 +410,7 @@ function getEntityY(inputY: number, type: SpriteType): number {
 }
 
 function deleteEntitiesWithin(
-	entities: Entity[],
+	entities: EditorEntity[],
 	bounds: Bounds,
 	ignore: SpriteType[] = []
 ) {
@@ -629,7 +624,7 @@ function findTile(tiles: TileMatrix, id: number): Tile | null {
 // Each ace coin is given a specific index, so the game can keep track of
 // which coins have been collected. Whenever a new ace coin is added or deleted,
 // the indices need to be updated
-function assignAceCoinIndices(entities: Entity[]) {
+function assignAceCoinIndices(entities: EditorEntity[]) {
 	let aceCoinIndex = 0;
 
 	for (let i = 0; i < entities.length; ++i) {
@@ -707,7 +702,7 @@ const editorSlice = createSlice({
 		},
 		entityDropped(
 			state: InternalEditorState,
-			action: PayloadAction<Entity | NewEntity>
+			action: PayloadAction<EditorEntity | NewEntity>
 		) {
 			if (!canDrop(action.payload, state.entities)) {
 				return;
@@ -804,7 +799,7 @@ const editorSlice = createSlice({
 									tileIndex: 0,
 								};
 
-								const objectDef = objectMap[state.currentPaletteEntry.type];
+								const objectDef = entityMap[state.currentPaletteEntry.type];
 
 								if (objectDef.settingsType === 'single') {
 									state.tiles[indexY]![indexX]!.settings = {
@@ -827,7 +822,7 @@ const editorSlice = createSlice({
 								(type !== 'AceCoin' ||
 									state.entities.filter((e) => e.type === 'AceCoin').length < 5)
 							) {
-								const completeEntity: Entity = {
+								const completeEntity: EditorEntity = {
 									...newEntity,
 									id: idCounter++,
 								};
@@ -1085,7 +1080,7 @@ const editorSlice = createSlice({
 
 			// quick sanity check, if there is a type in local storage that we don't
 			// know about, just throw it away
-			state.entities = levelData.entities.filter((e) => !!spriteMap[e.type]);
+			state.entities = levelData.entities.filter((e) => !!entityMap[e.type]);
 			state.tiles = levelData.tileLayer.data;
 			state.levelTileWidth = levelData.tileLayer.width;
 			state.levelTileHeight = levelData.tileLayer.height;
@@ -1233,7 +1228,7 @@ const editorSlice = createSlice({
 				const tileYOffset = Math.round(state.dragOffset!.y / TILE_SIZE);
 
 				const spotsToClear: Point[] = [];
-				const movedEntities: Entity[] = [];
+				const movedEntities: EditorEntity[] = [];
 
 				let minX = state.levelTileWidth;
 				let minY = state.levelTileHeight;

@@ -5,16 +5,11 @@ import * as sha1 from 'js-sha1';
 import { AppState } from '../../store';
 import { setBios, setRom, setEmptySave, setSaveState } from './files';
 import { getRom } from './files';
-import {
-	spriteMap,
-	objectMap,
-	ObjectType,
-	SpriteType,
-} from '../../entities/entityMap';
+import { entityMap, ObjectType, SpriteType } from '../../entities/entityMap';
 import { extractResourcesToStylesheet } from '../../tiles/extractResourcesToStylesheet';
-import { ResourceEntity } from '../../entities/types';
 import { deserialize } from '../../saveStates/serializer';
-import { Resource, resourceMap } from '../../resources/resourceMap';
+import { resourceMap } from '../../resources/resourceMap';
+import { Resource } from '../../resources/types';
 
 type RomFileState =
 	| 'not-chosen'
@@ -244,12 +239,11 @@ const extract = (): FileLoaderThunk => async (dispatch) => {
 
 	dispatch(fileLoaderSlice.actions.overallExtractionState('extracting'));
 
-	const sprites = Object.values(spriteMap);
-	const objects = Object.values(objectMap);
+	const entities = Object.values(entityMap);
 	const resources = Object.values(resourceMap);
-	const toExtract: Array<Resource | ResourceEntity> = (sprites as Array<
-		Resource | ResourceEntity
-	>).concat(objects as ResourceEntity[], resources as Resource[]);
+	const toExtract: Array<Resource> = (entities as Resource[]).concat(
+		resources as Resource[]
+	);
 
 	await extractResourcesToStylesheet(rom, toExtract);
 

@@ -1,4 +1,4 @@
-import type { ObjectEntity } from './types';
+import type { Entity } from './types';
 
 const payloadToObjectId = {
 	FireFlower: 0x21,
@@ -6,9 +6,10 @@ const payloadToObjectId = {
 	StarMan: 0x23,
 };
 
-const MusicBlock: ObjectEntity = {
+const MusicBlock: Entity = {
 	type: 'MusicBlock',
-	mode: 'Object',
+	editorType: 'tile',
+	gameType: 'object',
 	settingsType: 'single',
 	defaultSettings: { payload: 'FireFlower' },
 	dimensions: 'none',

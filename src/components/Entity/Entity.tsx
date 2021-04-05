@@ -6,7 +6,7 @@ import React, {
 	Ref,
 } from 'react';
 import clsx from 'clsx';
-import { spriteMap, SpriteType } from '../../entities/entityMap';
+import { entityMap, SpriteType } from '../../entities/entityMap';
 
 import focusedStyles from '../../styles/focused.module.css';
 
@@ -41,7 +41,7 @@ type EntityProps = {
 function getEntitySize(
 	entityType: SpriteType
 ): { width: number; height: number } {
-	const spriteDef = spriteMap[entityType];
+	const spriteDef = entityMap[entityType];
 
 	return {
 		width: spriteDef.tiles[0].length * 8,

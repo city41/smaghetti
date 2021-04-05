@@ -6,14 +6,9 @@ import {
 import { getRom } from '../FileLoader/files';
 import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../../store';
-import {
-	objectMap,
-	ObjectType,
-	spriteMap,
-	SpriteType,
-} from '../../entities/entityMap';
-import { ResourceEntity } from '../../entities/types';
-import { Resource, resourceMap } from '../../resources/resourceMap';
+import { entityMap, ObjectType, SpriteType } from '../../entities/entityMap';
+import { resourceMap } from '../../resources/resourceMap';
+import { Resource, StaticResource } from '../../resources/types';
 
 type ExtractedEntity = {
 	type: SpriteType | ObjectType;
@@ -49,12 +44,11 @@ const palettesSlice = createSlice({
 				throw new Error('tileSlice#dumpUncompressed, called before rom is set');
 			}
 
-			const sprites = Object.values(spriteMap);
-			const objects = Object.values(objectMap);
+			const entities = Object.values(entityMap);
 			const resources = Object.values(resourceMap);
 
-			const toExtract = (sprites as Array<Resource | ResourceEntity>)
-				.concat(objects as ResourceEntity[], resources as Resource[])
+			const toExtract = (entities as StaticResource[])
+				.concat((resources as unknown) as StaticResource[])
 				.filter((r) => 'tiles' in r);
 
 			state.entities = toExtract.map((resource) => {

@@ -1,6 +1,6 @@
-import { Resource } from './resourceMap';
+import { StaticResource } from './types';
 
-const ClimbingVineHead: Resource = {
+const ClimbingVineHead: StaticResource = {
 	type: 'ClimbingVineHead',
 	palette: [
 		0x7f96,

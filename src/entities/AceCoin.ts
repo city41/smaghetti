@@ -1,11 +1,12 @@
-import type { SpriteEntity } from './types';
-import { simpleSpriteBinary } from './util';
+import type { Entity } from './types';
 
 const OBJECT_ID = 0xfa;
 
-const AceCoin: SpriteEntity = {
+const AceCoin: Entity = {
 	type: 'AceCoin',
-	mode: 'Sprite',
+	editorType: 'entity',
+	gameType: 'sprite',
+	dimensions: 'none',
 	romOffset: 0x18af80,
 	palette: [
 		0x7f96,
@@ -32,7 +33,7 @@ const AceCoin: SpriteEntity = {
 		[106, 107],
 	],
 
-	toBinary(x, y, settings) {
+	toBinary(x, y, w, h, settings) {
 		// if (typeof settings.aceCoinIndex !== 'number') {
 		// 	throw new Error('AceCoin#toBinary: no aceCoinIndex setting found');
 		// }

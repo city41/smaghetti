@@ -3,9 +3,9 @@ import {
 	extractResourceTileData,
 	tileToCanvas,
 } from '../tiles/extractResourcesToStylesheet';
-import { Resource } from './resourceMap';
+import { DerivedResource } from './types';
 
-const CoinCache: Resource = {
+const CoinCache: DerivedResource = {
 	type: 'CoinCache',
 
 	extract(rom: Uint8Array): string {

@@ -1,4 +1,4 @@
-import type { SpriteEntity } from './types';
+import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 
 /**
@@ -7,9 +7,11 @@ import { simpleSpriteBinary } from './util';
 
 const OBJECT_ID = 0x4a;
 
-const QuestionMark: SpriteEntity = {
+const QuestionMark: Entity = {
 	type: 'QuestionMark',
-	mode: 'Sprite',
+	editorType: 'entity',
+	gameType: 'sprite',
+	dimensions: 'none',
 	romOffset: 0x16ea40,
 	palette: [
 		0x7f96,

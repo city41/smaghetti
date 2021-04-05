@@ -2,7 +2,7 @@ import {
 	ROOM_OBJECT_HEADER_SIZE_IN_BYTES,
 	ROOM_OBJECT_POINTERS,
 } from '../levelData/constants';
-import { objectMap } from '../entities/entityMap';
+import { entityMap } from '../entities/entityMap';
 import {
 	bank0ObjectIdToObjectType,
 	bank1ObjectIdToObjectType,
@@ -29,7 +29,7 @@ function extractObject(
 
 	const objectIdToObjectType =
 		bank === 0 ? bank0ObjectIdToObjectType : bank1ObjectIdToObjectType;
-	const ObjectType = objectMap[objectIdToObjectType[id]];
+	const ObjectType = entityMap[objectIdToObjectType[id]];
 
 	const rawByteLength = bank === 0 ? 4 : 5;
 	const rawBytes = Array.from(

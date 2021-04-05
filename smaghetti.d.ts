@@ -16,7 +16,7 @@ type NewEntity = {
 	settings?: EntitySettings;
 };
 
-type Entity = NewEntity & IDable;
+type EditorEntity = NewEntity & IDable;
 
 type NewTile = {
 	x: number;
@@ -27,8 +27,6 @@ type NewTile = {
 };
 
 type Tile = NewTile & IDable;
-
-type TileEntity = Entity & { tileIndices: number[] };
 
 type Point = {
 	x: number;
@@ -54,7 +52,7 @@ type SerializedTileLayer = {
 };
 
 type LevelData = {
-	entities: Entity[];
+	entities: EditorEntity[];
 	tileLayer: TileLayer;
 };
 

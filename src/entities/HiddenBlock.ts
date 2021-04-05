@@ -1,4 +1,4 @@
-import type { ObjectEntity } from './types';
+import type { Entity } from './types';
 
 const payloadToObjectId = {
 	MusicBlock: 0x20,
@@ -6,9 +6,10 @@ const payloadToObjectId = {
 	Coin: 0x1e,
 };
 
-const HiddenBlock: ObjectEntity = {
+const HiddenBlock: Entity = {
 	type: 'HiddenBlock',
-	mode: 'Object',
+	editorType: 'tile',
+	gameType: 'object',
 	settingsType: 'single',
 	defaultSettings: { payload: 'MusicBlock' },
 	dimensions: 'none',

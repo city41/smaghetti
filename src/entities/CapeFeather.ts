@@ -1,11 +1,13 @@
-import type { SpriteEntity } from './types';
+import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 
 const OBJECT_ID = 0xda;
 
-const CapeFeather: SpriteEntity = {
+const CapeFeather: Entity = {
 	type: 'CapeFeather',
-	mode: 'Sprite',
+	editorType: 'entity',
+	gameType: 'sprite',
+	dimensions: 'none',
 	palette: [
 		0x7f96,
 		0x7fff,

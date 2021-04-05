@@ -1,25 +1,13 @@
 import { LevelObject } from '../levelData/parseObjectsFromLevelFile';
+import { StaticResource } from '../resources/types';
 
-type TileExtractionSpec = {
-	romOffset: number;
-	tileIndex: number;
-	flip?: 'h' | 'v' | 'hv';
-	uncompressed?: boolean;
-	shift?: number;
-};
-
-type BaseEntity = {
-	type: string;
-	romOffset?: number;
-	palette: number[];
-	tiles: Array<Array<number | TileExtractionSpec>>;
-};
-
-type ObjectEntity = BaseEntity & {
-	mode: 'Object';
+type Entity = StaticResource & {
+	editorType: 'entity' | 'tile';
+	gameType: 'sprite' | 'object';
 	dimensions: 'none' | 'x' | 'y' | 'xy';
-	settingsType: 'none' | 'single' | 'grouped';
-	defaultSettings: Record<string, any>;
+	// TODO: I think group settings is coming, but if not, switch to boolean
+	settingsType?: 'single';
+	defaultSettings?: Record<string, any>;
 	toBinary: (
 		x: number,
 		y: number,
@@ -33,27 +21,4 @@ type ObjectEntity = BaseEntity & {
 	parseBinary?: (bytes: number[]) => LevelObject;
 };
 
-type SpriteEntity = BaseEntity & {
-	mode: 'Sprite';
-	toBinary: (
-		x: number,
-		y: number,
-		settings: Record<string, any>
-	) =>
-		| [number, number, number, number]
-		| [number, number, number, number, number];
-
-	// only need to implement this if parsing is different from the basic
-	// parsing provided in parseSpritesFromLevelFile
-	parseBinary?: (bytes: number[]) => LevelObject;
-};
-
-type ResourceEntity = ObjectEntity | SpriteEntity;
-
-export type {
-	TileExtractionSpec,
-	ResourceEntity,
-	BaseEntity,
-	ObjectEntity,
-	SpriteEntity,
-};
+export type { Entity };

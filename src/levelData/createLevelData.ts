@@ -1,7 +1,7 @@
 import { convertASCIIToLevelName } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import cloneDeep from 'lodash/cloneDeep';
-import { objectMap, spriteMap, SpriteType } from '../entities/entityMap';
+import { entityMap, SpriteType } from '../entities/entityMap';
 import isEqual from 'lodash/isEqual';
 
 type Room = {
@@ -94,12 +94,12 @@ const Classic1_2LevelSettings = [
 	0,
 ];
 
-function getObjects(tileLayer: TileLayer): number[] {
+function getObjects(entities: EditorEntity[], tileLayer: TileLayer): number[] {
 	const clone = cloneDeep(tileLayer);
 	const objects: number[] = [];
 
 	function getEndX(row: TileRow, startTile: Tile): Tile {
-		if (!objectMap[startTile.tileType].dimensions.includes('x')) {
+		if (!entityMap[startTile.tileType].dimensions.includes('x')) {
 			return startTile;
 		}
 
@@ -117,7 +117,7 @@ function getObjects(tileLayer: TileLayer): number[] {
 	}
 
 	function getMaxY(tile: Tile): number {
-		if (!objectMap[tile.tileType].dimensions.includes('y')) {
+		if (!entityMap[tile.tileType].dimensions.includes('y')) {
 			return tile.y;
 		}
 
@@ -165,7 +165,7 @@ function getObjects(tileLayer: TileLayer): number[] {
 		for (let x = 0; x < row.length; ++x) {
 			const tile = row[x];
 
-			if (!tile) {
+			if (!tile || entityMap[tile.tileType].gameType !== 'object') {
 				continue;
 			}
 
@@ -179,7 +179,7 @@ function getObjects(tileLayer: TileLayer): number[] {
 			const yDiff = tileLayer.height - (y + 1);
 			const encodedY = MAX_Y - yDiff;
 
-			const objectDef = objectMap[tile.tileType];
+			const objectDef = entityMap[tile.tileType];
 
 			objects.push(
 				...objectDef.toBinary(x, encodedY, length, height, tile.settings ?? {})
@@ -189,12 +189,38 @@ function getObjects(tileLayer: TileLayer): number[] {
 		}
 	}
 
-	return objects;
+	const entityObjectData = entities.reduce<number[]>((building, e) => {
+		const entityDef = entityMap[e.type];
+
+		if (entityDef.gameType !== 'object') {
+			return building;
+		}
+
+		return building.concat(
+			entityDef.toBinary(
+				e.x / TILE_SIZE,
+				e.y / TILE_SIZE,
+				1,
+				1,
+				e.settings ?? {}
+			)
+		);
+	}, []);
+
+	return objects.concat(entityObjectData);
 }
 
-function getSprites(entities: Entity[], levelHeightInTiles: number): number[] {
-	return entities.reduce<number[]>((building, entity) => {
+function getSprites(entities: EditorEntity[], tileLayer: TileLayer): number[] {
+	const levelHeightInTiles = tileLayer.height;
+
+	const sprites = entities.reduce<number[]>((building, entity) => {
 		if (entity.type === 'Player') {
+			return building;
+		}
+
+		const entityDef = entityMap[entity.type as SpriteType];
+
+		if (entityDef.gameType !== 'sprite') {
 			return building;
 		}
 
@@ -203,20 +229,46 @@ function getSprites(entities: Entity[], levelHeightInTiles: number): number[] {
 		const yDiff = levelHeightInTiles - (entityTileY + 1);
 		const y = MAX_Y - yDiff;
 
-		const entityDef = spriteMap[entity.type as SpriteType];
-
-		return building.concat(entityDef.toBinary(x, y, entity.settings ?? {}));
+		return building.concat(
+			entityDef.toBinary(x, y, 1, 1, entity.settings ?? {})
+		);
 	}, []);
+
+	const tileSprites = tileLayer.data.reduce<number[]>((building, row) => {
+		if (!row) {
+			return building;
+		}
+
+		const rowSprites = row.reduce<number[]>((buildingRow, t) => {
+			if (!t) {
+				return buildingRow;
+			}
+
+			const entityDef = entityMap[t.tileType];
+
+			if (entityDef.gameType !== 'sprite') {
+				return building;
+			}
+
+			return buildingRow.concat(
+				entityDef.toBinary(t.x, t.y, 1, 1, t.settings ?? {})
+			);
+		}, []);
+
+		return building.concat(rowSprites);
+	}, []);
+
+	return sprites.concat(tileSprites);
 }
 
-function getRoom(entities: Entity[], tileLayer: TileLayer): Room {
+function getRoom(entities: EditorEntity[], tileLayer: TileLayer): Room {
 	const objectHeader = getObjectHeader();
-	const objects = getObjects(tileLayer);
+	const objects = getObjects(entities, tileLayer);
 
 	const levelSettings = Classic1_2LevelSettings;
 
 	const spriteHeader = [0x0];
-	const sprites = getSprites(entities, tileLayer.height);
+	const sprites = getSprites(entities, tileLayer);
 
 	return {
 		objects: objectHeader.concat(objects, [0xff]),
@@ -255,7 +307,10 @@ function getFullRoomData(room: Room): number[] {
 	);
 }
 
-function createLevelData(entities: Entity[], tileLayer: TileLayer): Uint8Array {
+function createLevelData(
+	entities: EditorEntity[],
+	tileLayer: TileLayer
+): Uint8Array {
 	const room0 = getRoom(entities, tileLayer);
 	// const room1 = null;
 	// const room2 = null;

@@ -13,7 +13,7 @@ type LevelThumbnailProps = {
 	tileHeight: number;
 	scale: number;
 	tileData: TileMatrix;
-	entities: Entity[];
+	entities: EditorEntity[];
 };
 
 type TileRowProps = {

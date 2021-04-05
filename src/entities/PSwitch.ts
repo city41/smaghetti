@@ -1,11 +1,11 @@
-import type { ObjectEntity } from './types';
+import type { Entity } from './types';
 
-const PSwitch: ObjectEntity = {
+const PSwitch: Entity = {
 	type: 'PSwitch',
-	mode: 'Object',
-	settingsType: 'none',
+	// TODO: this should probably be entity
+	editorType: 'tile',
+	gameType: 'object',
 	dimensions: 'none',
-	defaultSettings: {},
 	romOffset: 0x16ea40,
 	palette: [
 		0x7f96,

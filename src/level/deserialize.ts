@@ -1,13 +1,13 @@
 import { TILE_SERIALIZED_ID_TO_TYPE_MAP } from '../tiles/constants';
 import { groupTiles } from './groupTiles';
-import { objectMap } from '../entities/entityMap';
+import { entityMap } from '../entities/entityMap';
 
 /**
  * scrub through the entities and make sure they all
  * get assigned a unique id. This helps prevent issues
  * where bugs from previous builds cause duplicate ids
  */
-function normalizeIds(entities: Entity[]): Entity[] {
+function normalizeIds(entities: EditorEntity[]): EditorEntity[] {
 	return entities.map((e, index) => {
 		return {
 			...e,
@@ -16,7 +16,7 @@ function normalizeIds(entities: Entity[]): Entity[] {
 	});
 }
 
-function getMaxId(entities: Entity[]): number {
+function getMaxId(entities: EditorEntity[]): number {
 	const ids = entities.map((e) => e.id);
 
 	return Math.max(...ids);
@@ -60,7 +60,7 @@ function deserialize(
 				);
 			}
 
-			const objectDef = objectMap[tileType];
+			const objectDef = entityMap[tileType];
 			let settings = tileSettings?.s;
 
 			if (!settings && objectDef.settingsType === 'single') {

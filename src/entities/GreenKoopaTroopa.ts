@@ -1,11 +1,13 @@
-import type { SpriteEntity } from './types';
+import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 
 const OBJECT_ID = 0x6c;
 
-const GreenKoopaTroopa: SpriteEntity = {
+const GreenKoopaTroopa: Entity = {
 	type: 'GreenKoopaTroopa',
-	mode: 'Sprite',
+	editorType: 'entity',
+	gameType: 'sprite',
+	dimensions: 'none',
 	romOffset: 0x2282e4,
 	palette: [
 		0x7f96,

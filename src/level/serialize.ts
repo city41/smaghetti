@@ -1,6 +1,6 @@
 import { TILE_TYPE_TO_SERIALIZE_ID_MAP } from '../tiles/constants';
 import isEqual from 'lodash/isEqual';
-import { objectMap } from '../entities/entityMap';
+import { entityMap } from '../entities/entityMap';
 
 function serialize(levelData: LevelData): SerializedLevelData {
 	const tiles = levelData.tileLayer.data;
@@ -27,7 +27,7 @@ function serialize(levelData: LevelData): SerializedLevelData {
 					if (
 						tile.settings &&
 						Object.keys(tile.settings).length > 0 &&
-						!isEqual(objectMap[tile.tileType].defaultSettings, tile.settings)
+						!isEqual(entityMap[tile.tileType].defaultSettings, tile.settings)
 					) {
 						serializedTileSettings.push({ x, y, s: tile.settings });
 					}

@@ -1,11 +1,13 @@
-import type { SpriteEntity } from './types';
+import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 
 const OBJECT_ID = 0xbb;
 
-const SpringBoard: SpriteEntity = {
+const SpringBoard: Entity = {
 	type: 'SpringBoard',
-	mode: 'Sprite',
+	editorType: 'entity',
+	gameType: 'sprite',
+	dimensions: 'none',
 	romOffset: 0x18af80,
 	palette: [
 		0x7f96,

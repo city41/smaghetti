@@ -1,12 +1,13 @@
-import type { SpriteEntity } from './types';
+import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 
 const OBJECT_ID = 0x6f;
 
-const RedParaTroopa: SpriteEntity = {
+const RedParaTroopa: Entity = {
 	type: 'RedParaTroopa',
-	mode: 'Sprite',
-
+	editorType: 'entity',
+	gameType: 'sprite',
+	dimensions: 'none',
 	palette: [
 		0x7f96,
 		0x7fff,

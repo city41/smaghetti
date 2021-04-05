@@ -1,7 +1,7 @@
 import memoize from 'lodash/memoize';
 import { decompress } from './extractCompressedTilesFromRom';
-import { ResourceEntity, TileExtractionSpec } from '../entities/types';
-import { Resource } from '../resources/resourceMap';
+import { Resource } from '../resources/types';
+import { StaticResource, TileExtractionSpec } from '../resources/types';
 
 type TileExtractionSpecWithData = TileExtractionSpec & { data: number[] };
 type ExtractedEntityTileData = Array<Array<TileExtractionSpecWithData>>;
@@ -147,20 +147,20 @@ function tileToCanvas(
 
 function extractResourceTileData(
 	rom: Uint8Array,
-	entity: Resource | ResourceEntity
+	resource: StaticResource
 ): ExtractedEntityTileData {
-	if (!('tiles' in entity)) {
-		throw new Error(
-			'extractResourceTileData: called with a non static resource'
-		);
-	}
+	// if (!('tiles' in resource)) {
+	// 	throw new Error(
+	// 		'extractResourceTileData: called with a non static resource'
+	// 	);
+	// }
 
-	const tileData: Array<Array<TileExtractionSpecWithData>> = entity.tiles.map(
+	const tileData: Array<Array<TileExtractionSpecWithData>> = resource.tiles.map(
 		(tileIndexRow) => {
 			return tileIndexRow.map((t) => {
 				const tileIndex = typeof t === 'number' ? t : t.tileIndex;
 				const romOffset =
-					typeof t === 'number' ? entity.romOffset : t.romOffset;
+					typeof t === 'number' ? resource.romOffset : t.romOffset;
 
 				if (typeof romOffset !== 'number') {
 					throw new Error('extractResourceToDataUrl: romOffset not specified');
@@ -212,23 +212,21 @@ function extractResourceTileData(
 
 function extractResourceToDataUrl(
 	rom: Uint8Array,
-	entity: ResourceEntity
+	resource: StaticResource
 ): string {
-	const tileData = extractResourceTileData(rom, entity);
-	const canvas = tileToCanvas(tileData, entity.palette ?? DEFAULT_PALETTE);
+	const tileData = extractResourceTileData(rom, resource);
+	const canvas = tileToCanvas(tileData, resource.palette ?? DEFAULT_PALETTE);
 
 	return canvas.toDataURL();
 }
 
-function isResourceEntity(
-	obj: Resource | ResourceEntity
-): obj is ResourceEntity {
+function isStaticResource(obj: Resource): obj is StaticResource {
 	return !('extract' in obj);
 }
 
 async function extractResourcesToStylesheet(
 	rom: Uint8Array,
-	resources: Array<ResourceEntity | Resource>
+	resources: Resource[]
 ) {
 	let css = '';
 
@@ -236,7 +234,7 @@ async function extractResourcesToStylesheet(
 		const resource = resources[i];
 
 		let dataUrl;
-		if (isResourceEntity(resource)) {
+		if (isStaticResource(resource)) {
 			dataUrl = await extractResourceToDataUrl(rom, resource);
 		} else {
 			dataUrl = (resource as { extract: (rom: Uint8Array) => string }).extract(

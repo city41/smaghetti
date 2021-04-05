@@ -1,4 +1,4 @@
-import { ObjectEntity, SpriteEntity } from './types';
+import { Entity } from './types';
 
 import { AceCoin } from './AceCoin';
 import { Bobomb } from './Bobomb';
@@ -37,87 +37,56 @@ import { ThreeUpMoon } from './ThreeUpMoon';
 import { TriangularBlock } from './TriangularBlock';
 import { WoodBlock } from './WoodBlock';
 
-type SpriteType =
-	| 'AceCoin'
-	| 'Bobomb'
-	| 'BoomBoom'
-	| 'Bubble'
-	| 'BuzzyBeetle'
-	| 'CapeFeather'
-	| 'CardSlotMachine'
-	| 'FireFlower'
-	| 'Goomba'
-	| 'GreenKoopaTroopa'
-	| 'GreenParaTroopa'
-	| 'Key'
-	| 'Lakitu'
-	| 'Leaf'
-	| 'Mushroom'
-	| 'OneUpMushroom'
-	| 'Player'
-	| 'QuestionMark'
-	| 'RedKoopaTroopa'
-	| 'RedParaTroopa'
-	| 'ShoeGoomba'
-	| 'Spiny'
-	| 'SpringBoard'
-	| 'StarMan'
-	| 'ThreeUpMoon';
-
-const spriteMap: Record<SpriteType, SpriteEntity> = {
+const entityMap: Record<string, Entity> = {
 	AceCoin,
 	Bobomb,
 	BoomBoom,
+	Brick,
 	Bubble,
 	BuzzyBeetle,
 	CapeFeather,
 	CardSlotMachine,
+	Coin,
 	FireFlower,
 	Goomba,
 	GreenKoopaTroopa,
 	GreenParaTroopa,
+	HiddenBlock,
+	IndestructibleBrick,
 	Key,
 	Lakitu,
 	Leaf,
+	Muncher,
 	Mushroom,
+	MusicBlock,
 	OneUpMushroom,
+	PSwitch,
 	Player,
+	QuestionBlock,
 	QuestionMark,
 	RedKoopaTroopa,
 	RedParaTroopa,
 	ShoeGoomba,
 	Spiny,
 	SpringBoard,
+	Stalactite,
 	StarMan,
 	ThreeUpMoon,
-};
-
-type ObjectType =
-	| 'Brick'
-	| 'Coin'
-	| 'HiddenBlock'
-	| 'IndestructibleBrick'
-	| 'Muncher'
-	| 'MusicBlock'
-	| 'PSwitch'
-	| 'QuestionBlock'
-	| 'Stalactite'
-	| 'TriangularBlock'
-	| 'WoodBlock';
-
-const objectMap: Record<ObjectType, ObjectEntity> = {
-	Brick,
-	Coin,
-	HiddenBlock,
-	IndestructibleBrick,
-	Muncher,
-	MusicBlock,
-	PSwitch,
-	QuestionBlock,
-	Stalactite,
 	TriangularBlock,
 	WoodBlock,
 };
 
-export { spriteMap, objectMap };
+type SpriteType = keyof {
+	[k in keyof typeof entityMap]: typeof entityMap[k]['gameType'] extends 'sprite'
+		? k
+		: never;
+};
+
+type ObjectType = keyof {
+	[k in keyof typeof entityMap]: typeof entityMap[k]['gameType'] extends 'object'
+		? k
+		: never;
+};
+
+export { entityMap };
 export type { SpriteType, ObjectType };

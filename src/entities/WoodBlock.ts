@@ -1,4 +1,4 @@
-import type { ObjectEntity } from './types';
+import type { Entity } from './types';
 
 const payloadToObjectId = {
 	FireFlower: 0x24,
@@ -6,9 +6,10 @@ const payloadToObjectId = {
 	StarMan: 0x26,
 };
 
-const WoodBlock: ObjectEntity = {
+const WoodBlock: Entity = {
 	type: 'WoodBlock',
-	mode: 'Object',
+	editorType: 'tile',
+	gameType: 'object',
 	settingsType: 'single',
 	dimensions: 'none',
 	defaultSettings: { payload: 'StarMan' },

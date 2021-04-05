@@ -1,4 +1,4 @@
-import type { SpriteEntity } from './types';
+import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 
 /**
@@ -8,9 +8,11 @@ import { simpleSpriteBinary } from './util';
 
 const OBJECT_ID = 0xd8;
 
-const FlyingPiranhaPlant: SpriteEntity = {
+const FlyingPiranhaPlant: Entity = {
 	type: 'FlyingPiranhaPlant',
-	mode: 'Sprite',
+	editorType: 'entity',
+	gameType: 'sprite',
+	dimensions: 'none',
 	palette: [
 		0x7f96,
 		0x7fff,

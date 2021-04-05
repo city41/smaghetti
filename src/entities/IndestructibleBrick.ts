@@ -1,13 +1,12 @@
-import type { ObjectEntity } from './types';
+import type { Entity } from './types';
 import { getBankLength } from './util';
 
 const OBJECT_ID = 0x80;
 
-const IndestructibleBrick: ObjectEntity = {
+const IndestructibleBrick: Entity = {
 	type: 'IndestructibleBrick',
-	mode: 'Object',
-	settingsType: 'none',
-	defaultSettings: {},
+	editorType: 'tile',
+	gameType: 'object',
 	dimensions: 'y',
 	romOffset: 0x20e4f0,
 	palette: [

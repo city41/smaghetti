@@ -11,7 +11,7 @@ type LevelPlayerProps = {
 	className?: string;
 	style?: CSSProperties;
 	isPlaying: boolean;
-	entities: Entity[];
+	entities: EditorEntity[];
 	tileLayer: TileLayer;
 	biosFile: Uint8Array;
 	romFile: Uint8Array;

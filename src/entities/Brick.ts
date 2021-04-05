@@ -1,4 +1,4 @@
-import type { ObjectEntity } from './types';
+import type { Entity } from './types';
 import { getBankLength } from './util';
 
 const OBJECT_ID = 0xf;
@@ -14,11 +14,11 @@ const payloadToObjectId = {
 	ClimbingVineHead: 0x1c,
 };
 
-const Brick: ObjectEntity = {
+const Brick: Entity = {
 	type: 'Brick',
-	mode: 'Object',
+	editorType: 'tile',
+	gameType: 'object',
 	settingsType: 'single',
-	defaultSettings: {},
 	dimensions: 'xy',
 	romOffset: 0x131fe0,
 	palette: [

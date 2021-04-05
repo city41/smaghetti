@@ -1,6 +1,6 @@
-import { Resource } from './resourceMap';
+import { StaticResource } from './types';
 
-const UndergroundBackground: Resource = {
+const UndergroundBackground: StaticResource = {
 	type: 'UndergroundBackground',
 	palette: [
 		0x7f96,

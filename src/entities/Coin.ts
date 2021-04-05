@@ -1,13 +1,12 @@
-import type { ObjectEntity } from './types';
+import type { Entity } from './types';
 import { getBankLength } from './util';
 
 const OBJECT_ID = 0x16;
 
-const Coin: ObjectEntity = {
+const Coin: Entity = {
 	type: 'Coin',
-	mode: 'Object',
-	settingsType: 'none',
-	defaultSettings: {},
+	editorType: 'tile',
+	gameType: 'object',
 	dimensions: 'xy',
 	romOffset: 0x176be8,
 	palette: [

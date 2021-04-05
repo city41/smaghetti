@@ -1,9 +1,10 @@
-import type { ObjectEntity } from './types';
+import type { Entity } from './types';
 import { LevelObject } from '../levelData/parseObjectsFromLevelFile';
 
-const QuestionBlock: ObjectEntity = {
+const QuestionBlock: Entity = {
 	type: 'QuestionBlock',
-	mode: 'Object',
+	editorType: 'tile',
+	gameType: 'object',
 	settingsType: 'single',
 	defaultSettings: { payload: 'Coin' },
 	dimensions: 'none',

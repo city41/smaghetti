@@ -1,12 +1,14 @@
-import type { SpriteEntity } from './types';
+import type { Entity } from './types';
 
 /*
  * Player is special since it's not really a sprite or object on the SMA4
  * side, but on the editor side it acts like a sprite
  */
-const Player: SpriteEntity = {
+const Player: Entity = {
 	type: 'Player',
-	mode: 'Sprite',
+	editorType: 'entity',
+	gameType: 'sprite',
+	dimensions: 'none',
 	palette: [
 		0x7f96,
 		0x7fff,
@@ -61,7 +63,7 @@ const Player: SpriteEntity = {
 	],
 
 	toBinary(x, y) {
-		throw new Error('should not be calling toBinary on Player');
+		return [];
 	},
 };
 

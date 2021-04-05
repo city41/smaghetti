@@ -35,14 +35,14 @@ type CanvasProps = {
 	height: number;
 	scale: number;
 	currentPaletteEntry?: PaletteEntry;
-	entities: Entity[];
+	entities: EditorEntity[];
 	focused: Record<number, boolean>;
 	isSelecting: boolean;
 	dragOffset: Point | null;
 	tiles: TileMatrix;
 	showGrid: boolean;
 	mouseMode: MouseMode;
-	onEntityDropped: (entity: Entity | NewEntity) => void;
+	onEntityDropped: (entity: EditorEntity | NewEntity) => void;
 	onPainted: (arg: OnPaintedArg) => void;
 	onDeleteFocused: () => void;
 	onScaleDecreased: () => void;
@@ -167,7 +167,7 @@ const TileRow: FunctionComponent<TileRowProps> = memo(function TileRow({
 });
 
 type EntitiesProps = {
-	entities: Entity[];
+	entities: EditorEntity[];
 	mouseMode: MouseMode;
 	focused: Record<number, boolean>;
 	isSelecting: boolean;

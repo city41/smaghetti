@@ -1,4 +1,4 @@
-import type { ObjectEntity } from './types';
+import type { Entity } from './types';
 
 const angleToObjectId: Record<number, number> = {
 	0: 0x50,
@@ -7,9 +7,11 @@ const angleToObjectId: Record<number, number> = {
 	270: 0x52,
 };
 
-const TriangularBlock: ObjectEntity = {
+const TriangularBlock: Entity = {
 	type: 'TriangularBlock',
-	mode: 'Object',
+	// TODO: this should probably be entity
+	editorType: 'tile',
+	gameType: 'object',
 	settingsType: 'single',
 	dimensions: 'none',
 	defaultSettings: { angle: 0 },

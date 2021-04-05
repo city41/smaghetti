@@ -1,12 +1,11 @@
-import type { ObjectEntity } from './types';
+import type { Entity } from './types';
 
 const OBJECT_ID = 0x15;
 
-const Muncher: ObjectEntity = {
+const Muncher: Entity = {
 	type: 'Muncher',
-	mode: 'Object',
-	defaultSettings: {},
-	settingsType: 'none',
+	editorType: 'tile',
+	gameType: 'object',
 	dimensions: 'none',
 	palette: [
 		0x7f96,

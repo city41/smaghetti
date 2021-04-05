@@ -1,13 +1,12 @@
-import type { ObjectEntity } from './types';
-import { LevelObject } from '../levelData/parseObjectsFromLevelFile';
+import type { Entity } from './types';
 
 const OBJECT_ID = 0x49;
 
-const Stalactite: ObjectEntity = {
+// TODO: should this be called spike?
+const Stalactite: Entity = {
 	type: 'Stalactite',
-	mode: 'Object',
-	settingsType: 'none',
-	defaultSettings: {},
+	editorType: 'tile',
+	gameType: 'object',
 	dimensions: 'none',
 	romOffset: 0x16ea40,
 	palette: [
