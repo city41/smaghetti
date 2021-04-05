@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { HexEditorPage } from './HexEditorPage';
+import { HexTreePage } from './HexTreePage';
 import { AppState } from '../../../store';
 
-function ConnectedHexEditorPage() {
+function ConnectedHexTreePage() {
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
 
-	return <HexEditorPage allFilesReady={allFilesReady} />;
+	return <HexTreePage allFilesReady={allFilesReady} />;
 }
 
-export { ConnectedHexEditorPage };
+export { ConnectedHexTreePage };

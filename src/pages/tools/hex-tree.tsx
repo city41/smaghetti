@@ -1,13 +1,13 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import { HexEditorPage } from '../../components/hex-editor/HexEditorPage';
+import { HexTreePage } from '../../components/hex-tree/HexTreePage';
 import { store } from '../../store';
 
 function NextHexTreePage() {
 	return (
 		<Provider store={store}>
-			<HexEditorPage />
+			<HexTreePage />
 		</Provider>
 	);
 }

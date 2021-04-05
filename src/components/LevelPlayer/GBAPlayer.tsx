@@ -81,7 +81,7 @@ function GBAPlayer({
 			style={{ '--scale': scale } as CSSProperties}
 		>
 			<canvas ref={canvasRef} width={240} height={160} />
-			{gbaStatus !== 'level-ready' && !hasCrashed && (
+			{gbaStatus !== 'level-ready' && !hasCrashed && isPlaying && (
 				<>
 					<div className="absolute top-0 left-0 w-full h-full opacity-75 bg-gray-700 z-10" />
 					<div className="absolute bottom-1 left-1 z-10 text-xs">

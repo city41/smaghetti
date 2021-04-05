@@ -15,8 +15,7 @@ type HexEditorPageProps = {
 	allFilesReady: boolean;
 };
 
-function HexEditorPage({ allFilesReady }: HexEditorPageProps) {
-	const [editMode, setEditMode] = useState<'empty' | 'full'>('full');
+function HexTreePage({ allFilesReady }: HexEditorPageProps) {
 	const [levelData, setLevelData] = useState<Uint8Array | null>(null);
 	const [editState, setEditState] = useState<'editing' | 'running'>('editing');
 
@@ -36,7 +35,6 @@ function HexEditorPage({ allFilesReady }: HexEditorPageProps) {
 
 	function handleStartEmpty() {
 		setLevelData(createLevelData([], { width: 0, height: 0, data: [] }));
-		setEditMode('empty');
 	}
 
 	return (
@@ -84,4 +82,4 @@ function HexEditorPage({ allFilesReady }: HexEditorPageProps) {
 	);
 }
 
-export { HexEditorPage };
+export { HexTreePage };
