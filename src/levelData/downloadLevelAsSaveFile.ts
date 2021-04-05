@@ -41,5 +41,5 @@ function downloadLevelAsSaveFile(level: LevelToSave) {
 	sendFileToAnchorTag(fullSaveData, getSafeFileName(level.name));
 }
 
-export { downloadLevelAsSaveFile };
+export { downloadLevelAsSaveFile, sendFileToAnchorTag };
 export type { LevelToSave };

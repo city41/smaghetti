@@ -1,6 +1,5 @@
-import { Entity } from './types';
-
 import { AceCoin } from './AceCoin';
+import { ArrowSign } from './ArrowSign';
 import { Bobomb } from './Bobomb';
 import { BoomBoom } from './BoomBoom';
 import { Brick } from './Brick';
@@ -37,8 +36,9 @@ import { ThreeUpMoon } from './ThreeUpMoon';
 import { TriangularBlock } from './TriangularBlock';
 import { WoodBlock } from './WoodBlock';
 
-const entityMap: Record<string, Entity> = {
+const entityMap = {
 	AceCoin,
+	ArrowSign,
 	Bobomb,
 	BoomBoom,
 	Brick,
@@ -76,17 +76,7 @@ const entityMap: Record<string, Entity> = {
 	WoodBlock,
 };
 
-type SpriteType = keyof {
-	[k in keyof typeof entityMap]: typeof entityMap[k]['gameType'] extends 'sprite'
-		? k
-		: never;
-};
-
-type ObjectType = keyof {
-	[k in keyof typeof entityMap]: typeof entityMap[k]['gameType'] extends 'object'
-		? k
-		: never;
-};
+type EntityType = keyof typeof entityMap;
 
 export { entityMap };
-export type { SpriteType, ObjectType };
+export type { EntityType };

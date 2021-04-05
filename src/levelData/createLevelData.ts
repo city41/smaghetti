@@ -196,14 +196,12 @@ function getObjects(entities: EditorEntity[], tileLayer: TileLayer): number[] {
 			return building;
 		}
 
+		const y = e.y / TILE_SIZE;
+		const yDiff = tileLayer.height - (y + 1);
+		const encodedY = MAX_Y - yDiff;
+
 		return building.concat(
-			entityDef.toBinary(
-				e.x / TILE_SIZE,
-				e.y / TILE_SIZE,
-				1,
-				1,
-				e.settings ?? {}
-			)
+			entityDef.toBinary(e.x / TILE_SIZE, encodedY, 1, 1, e.settings ?? {})
 		);
 	}, []);
 
@@ -218,7 +216,7 @@ function getSprites(entities: EditorEntity[], tileLayer: TileLayer): number[] {
 			return building;
 		}
 
-		const entityDef = entityMap[entity.type as SpriteType];
+		const entityDef = entityMap[entity.type];
 
 		if (entityDef.gameType !== 'sprite') {
 			return building;

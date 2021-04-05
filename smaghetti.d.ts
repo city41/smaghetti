@@ -11,7 +11,7 @@ type EntitySettings = Record<string, any>;
 type NewEntity = {
 	x: number;
 	y: number;
-	type: import('./src/entities/entityMap').SpriteType;
+	type: import('./src/entities/entityMap').EntityType;
 	disableDrag?: boolean;
 	settings?: EntitySettings;
 };
@@ -21,7 +21,7 @@ type EditorEntity = NewEntity & IDable;
 type NewTile = {
 	x: number;
 	y: number;
-	tileType: import('./src/entities/entityMap').ObjectType;
+	tileType: import('./src/entities/entityMap').EntityType;
 	tileIndex: number;
 	settings?: EntitySettings;
 };

@@ -10,6 +10,8 @@ import {
 import { Button } from '../../Button';
 import { createLevelData } from '../../../levelData/createLevelData';
 import { HexTree } from './HexTree';
+import { injectLevelIntoSave } from '../../../levelData/injectLevelIntoSave';
+import { sendFileToAnchorTag } from '../../../levelData/downloadLevelAsSaveFile';
 
 type HexEditorPageProps = {
 	allFilesReady: boolean;
@@ -37,6 +39,13 @@ function HexTreePage({ allFilesReady }: HexEditorPageProps) {
 		setLevelData(createLevelData([], { width: 0, height: 0, data: [] }));
 	}
 
+	function handleDownloadSave() {
+		if (levelData) {
+			const saveFile = injectLevelIntoSave(getEmptySave()!, levelData);
+			sendFileToAnchorTag(saveFile, 'hex-tree.sav');
+		}
+	}
+
 	return (
 		<>
 			<FileLoaderModal isOpen={!allFilesReady} />
@@ -50,7 +59,7 @@ function HexTreePage({ allFilesReady }: HexEditorPageProps) {
 					<Button onClick={handleStartEmpty}>start empty</Button>
 				</div>
 				{allFilesReady && levelData && (
-					<div className="flex flex-row items-center">
+					<div className="flex flex-row items-center space-x-2">
 						<GBAPlayer
 							className="inline-block"
 							romFile={getRom()!}
@@ -64,6 +73,7 @@ function HexTreePage({ allFilesReady }: HexEditorPageProps) {
 						<Button onClick={handleRunningEditToggle}>
 							{editState === 'editing' ? 'paused' : 'running'}
 						</Button>
+						<Button onClick={handleDownloadSave}>download save</Button>
 					</div>
 				)}
 				<div

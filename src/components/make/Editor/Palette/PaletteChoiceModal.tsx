@@ -186,6 +186,16 @@ const objects: PaletteChoiceModalEntry[] = [
 			description: 'Lets Mario run up walls and ceilings',
 		},
 	},
+	{
+		entry: {
+			brushMode: 'entity',
+			type: 'ArrowSign',
+		},
+		info: {
+			title: 'Arrow Sign',
+			description: 'Shows the way to go ... or not go?',
+		},
+	},
 ];
 
 const terrain: PaletteChoiceModalEntry[] = [
