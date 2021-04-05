@@ -58,7 +58,7 @@ function ProfilePage({
 					})}
 					{levels.length === 0 && (
 						<div>
-							You have no levels, who not{' '}
+							You have no levels, why not{' '}
 							<Link href="/make" passHref>
 								<a className="text-blue-300 cursor-pointer">go make one?</a>
 							</Link>
