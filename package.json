@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "develop": "concurrently \"next dev\" \"yarn storybook\"",
+    "prebuild": "yarn lint",
     "build": "next build",
     "start": "next start",
     "storybook": "start-storybook -p 6006",

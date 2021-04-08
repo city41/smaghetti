@@ -340,10 +340,7 @@ function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 					>
 						<MetadataMenu />
 						<div className="flex flex-row">
-							<EarlyPreviewStarburst
-								className="fixed z-10 bottom-2 -left-4 pointer-events-auto"
-								mode="editor"
-							/>
+							<EarlyPreviewStarburst className="fixed z-10 bottom-2 -left-4 pointer-events-auto" />
 							<PageMenu anchor="bottom-right" className="pointer-events-auto" />
 						</div>
 					</div>
