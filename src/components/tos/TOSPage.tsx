@@ -14,7 +14,7 @@ function TOSPage() {
 				<h2>Introduction</h2>
 				<p>
 					Here are the rules you must follow, otherwise you may be banned. In
-					short, don't be a jerk
+					short, don&apos;t be a jerk
 				</p>
 				<ul>
 					<li>No hateful, derogatory or discriminatory speech of any kind</li>
@@ -24,8 +24,8 @@ function TOSPage() {
 						by the admin
 					</li>
 					<li>
-						Don't steal other people's levels and/or try to claim them as your
-						own, whether those levels came from Smaghetti or other games
+						Don&apos;t steal other people&apos;s levels and/or try to claim them
+						as your own, whether those levels came from Smaghetti or other games
 						entirely.
 					</li>
 					<li>

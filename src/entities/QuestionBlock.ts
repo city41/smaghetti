@@ -32,7 +32,7 @@ const QuestionBlock: Entity = {
 		[281, 283],
 	],
 
-	toBinary(x, y, w, h, settings) {
+	toBinary(x, y) {
 		// TODO: this should be a strip of coins, but it crashes the game
 		// return [0x43, 0x17, 0xb, 0x10, 0x0];
 

@@ -682,7 +682,7 @@ function parsedToBinary(parsed: LevelTree): Uint8Array {
 	// block path movement data
 	pointer = setPointer(pointers, 22, pointer + room3Data.spriteData.length);
 	// auto scroll movement data
-	pointer = setPointer(pointers, 23, pointer + room3Data.blockPathData.length);
+	setPointer(pointers, 23, pointer + room3Data.blockPathData.length);
 
 	const fullData = header.concat(
 		pointers,
@@ -765,22 +765,10 @@ function HexTree({ data, onDataChange }: HexTreeProps) {
 				}
 			});
 
-			const patchedRoom =
-				type === 'sprites'
-					? {
-							...room,
-							sprites: {
-								...room.sprites,
-								sprites: patchedElements,
-							},
-					  }
-					: {
-							...room,
-							objects: {
-								...room.objects,
-								objects: patchedElements,
-							},
-					  };
+			const patchedRoom = {
+				...room,
+				[type]: { ...room[type], [type]: patchedElements },
+			};
 
 			return {
 				...p,

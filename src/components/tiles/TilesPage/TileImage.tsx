@@ -13,7 +13,7 @@ type TileImageProps = {
 };
 
 const FOCUSED_PALETTE: number[] = (function () {
-	let p = [];
+	const p = [];
 	for (let i = 0; i < 16; ++i) {
 		const red = Math.floor((i / 15) * 255);
 		const green = Math.floor((i / 15) * 100);

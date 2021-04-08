@@ -62,7 +62,7 @@ const Player: Entity = {
 		],
 	],
 
-	toBinary(x, y) {
+	toBinary() {
 		return [];
 	},
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Meta } from '@storybook/react';
 
 import { ControlsBanner } from './ControlsBanner';
@@ -11,7 +11,7 @@ const meta: Meta = {
 
 export default meta;
 
-export const Basic = () => {
+export const Basic = (): ReactElement => {
 	return (
 		<div className="bg-blue-100 p-2">
 			<ControlsBanner />
@@ -19,6 +19,6 @@ export const Basic = () => {
 	);
 };
 
-export const HelpModal = () => {
+export const HelpModal = (): ReactElement => {
 	return <ControlsHelpModal isOpen onRequestClose={() => {}} />;
 };

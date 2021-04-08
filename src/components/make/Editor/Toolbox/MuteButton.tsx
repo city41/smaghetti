@@ -26,7 +26,9 @@ function MuteButton({ className }: MuteButtonProps) {
 	}, []);
 
 	useEffect(() => {
-		window._gba._shouldMute = isMuted;
+		if (window._gba) {
+			window._gba._shouldMute = isMuted;
+		}
 		localStorage.setItem(LOCALSTORAGE_KEY, isMuted.toString());
 	}, [isMuted]);
 

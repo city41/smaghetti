@@ -1,7 +1,7 @@
 let _bios: Uint8Array | null = null;
 let _rom: Uint8Array | null = null;
 let _emptySave: Uint8Array | null = null;
-let _saveState: object | null = null;
+let _saveState: Record<string, unknown> | null = null;
 
 function setBios(bios: Uint8Array) {
 	_bios = bios;
@@ -15,7 +15,7 @@ function setEmptySave(emptySave: Uint8Array) {
 	_emptySave = emptySave;
 }
 
-function setSaveState(saveState: object) {
+function setSaveState(saveState: Record<string, unknown>) {
 	_saveState = saveState;
 }
 
@@ -31,7 +31,7 @@ function getEmptySave(): Uint8Array | null {
 	return _emptySave;
 }
 
-function getSaveState(): object | null {
+function getSaveState(): Record<string, unknown> | null {
 	return _saveState;
 }
 

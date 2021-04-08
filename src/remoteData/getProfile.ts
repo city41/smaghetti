@@ -37,6 +37,7 @@ export async function getProfile(id: string): Promise<ProfileData> {
       )
     `
 		)
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore TODO, figure out the types between client and supabase
 		.eq('user_id', userData.id);
 

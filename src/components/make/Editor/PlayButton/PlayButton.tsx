@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 
 import { FaPlay, FaHammer } from 'react-icons/fa';
 import { IconButton } from '../../../IconButton';

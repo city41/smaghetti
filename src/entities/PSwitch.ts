@@ -30,7 +30,7 @@ const PSwitch: Entity = {
 		[993, 995],
 	],
 
-	toBinary(x, y, w, h, settings) {
+	toBinary(x, y) {
 		return [0, y, x, 0x28];
 	},
 };

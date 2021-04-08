@@ -1,4 +1,4 @@
-import React, { ElementType, FunctionComponent, memo } from 'react';
+import React, { ElementType, memo } from 'react';
 import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 

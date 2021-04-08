@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 import { ControlsHelpModal } from './ControlsHelpModal';
@@ -8,7 +8,7 @@ type ControlsBannerProps = {
 	className?: string;
 };
 
-function ControlsBanner({ className }: ControlsBannerProps) {
+function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 	const [showHelp, setShowHelp] = useState(false);
 	const [showFirefoxWarning, setShowFirefoxWarning] = useState(false);
 

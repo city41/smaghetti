@@ -19,18 +19,16 @@ const bank0ObjectIdToEntityType: Record<number, EntityType> = {
 
 const bank1EntityTypeToObjectId: Record<EntityType, number> = (function () {
 	return Object.entries(bank1ObjectIdToEntityType).reduce((building, entry) => {
-		// @ts-ignore
 		building[entry[1]] = parseInt(entry[0], 16);
 		return building;
-	}, {}) as Record<EntityType, number>;
+	}, {} as Record<EntityType, number>);
 })();
 
 const bank0EntityTypeToObjectId: Record<EntityType, number> = (function () {
 	return Object.entries(bank0ObjectIdToEntityType).reduce((building, entry) => {
-		// @ts-ignore
 		building[entry[1]] = parseInt(entry[0], 16);
 		return building;
-	}, {}) as Record<EntityType, number>;
+	}, {} as Record<EntityType, number>);
 })();
 
 export {

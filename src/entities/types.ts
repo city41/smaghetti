@@ -7,12 +7,14 @@ type Entity = StaticResource & {
 	dimensions: 'none' | 'x' | 'y' | 'xy';
 	// TODO: I think group settings is coming, but if not, switch to boolean
 	settingsType?: 'single';
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	defaultSettings?: Record<string, any>;
 	toBinary: (
 		x: number,
 		y: number,
 		w: number,
 		h: number,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		settings: Record<string, any>
 	) => number[];
 

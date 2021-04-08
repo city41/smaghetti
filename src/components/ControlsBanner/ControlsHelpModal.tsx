@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 
 import { Modal } from '../Modal';
@@ -24,7 +24,10 @@ function GamePadButton({ children }: { children: ReactNode }) {
 	);
 }
 
-function ControlsHelpModal({ isOpen, onRequestClose }: ControlsHelpModalProps) {
+function ControlsHelpModal({
+	isOpen,
+	onRequestClose,
+}: ControlsHelpModalProps): ReactElement {
 	useEffect(() => {
 		if (isOpen) {
 			window._gba?.pause();

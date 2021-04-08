@@ -28,8 +28,6 @@ function deserialize(
 
 	let idCounter = getMaxId(normalizedEntities) + 1;
 
-	const { width, height } = levelData.tileLayer;
-
 	const tiles = levelData.tileLayer.data.map((row, y) => {
 		if (row === null) {
 			return row;

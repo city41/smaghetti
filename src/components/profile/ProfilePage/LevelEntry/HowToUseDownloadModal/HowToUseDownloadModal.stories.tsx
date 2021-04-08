@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement } from 'react';
 import { Meta } from '@storybook/react';
 
 import { HowToUseDownloadModal } from './HowToUseDownloadModal';
@@ -10,6 +10,6 @@ const meta: Meta = {
 
 export default meta;
 
-export const Basic = () => {
+export const Basic = (): ReactElement => {
 	return <HowToUseDownloadModal isOpen onRequestClose={() => {}} />;
 };

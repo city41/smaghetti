@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef, memo } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { TILE_SIZE } from '../../tiles/constants';
 

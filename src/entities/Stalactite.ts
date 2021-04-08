@@ -32,7 +32,7 @@ const Stalactite: Entity = {
 		[123, 250],
 	],
 
-	toBinary(x, y, w, h, settings) {
+	toBinary(x, y) {
 		return [0, y, x, OBJECT_ID];
 	},
 };

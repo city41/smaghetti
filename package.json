@@ -10,6 +10,7 @@
     "build-storybook": "build-storybook",
     "type-check": "tsc --noemit",
     "test": "yarn jest",
+    "lint": "yarn eslint src",
     "migrations-up": "node-pg-migrate up -m database/migrations",
     "migrations-down": "node-pg-migrate down -m database/migrations"
   },
@@ -67,6 +68,10 @@
     "@storybook/addon-essentials": "^6.1.21",
     "@storybook/addon-links": "^6.1.21",
     "@storybook/react": "^6.1.21",
-    "babel-loader": "^8.2.2"
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.23.0",
+    "eslint-plugin-react": "^7.23.1"
   }
 }

@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Root } from '../layout/Root';
 
-import logoPng from '../../images/logo.png';
-
 function A(props: Omit<JSX.IntrinsicElements['a'], 'className'>) {
 	return <a {...props} className="underline text-blue-300" />;
 }
@@ -60,7 +58,7 @@ function IndexPage() {
 							Over the years tons of people have researched, reverse engineered
 							and built tools for SMA4. Also all the people out there who have
 							built GBA emulators were key in this working. They have all been
-							very helpful and I couldn't have built this without them.
+							very helpful and I couldn&apos;t have built this without them.
 						</p>
 						<p>
 							A proper credit page will be built before Smaghetti fully

@@ -4,11 +4,7 @@ import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
 
-import {
-	loadLevel,
-	loadFromLocalStorage,
-	saveToLocalStorage,
-} from '../editorSlice';
+import { loadFromLocalStorage, saveToLocalStorage } from '../editorSlice';
 
 import { Palette } from './Palette';
 import { Canvas } from './Canvas';
@@ -196,20 +192,6 @@ type EditorProps = {
 // `;
 //
 
-function getQueryVariable(variable: string): string | undefined {
-	const query = window.location.search.substring(1);
-	const vars = query.split('&');
-
-	for (let i = 0; i < vars.length; i++) {
-		const pair = vars[i].split('=');
-		if (decodeURIComponent(pair[0]).toLowerCase() === variable.toLowerCase()) {
-			return decodeURIComponent(pair[1]);
-		}
-	}
-
-	return undefined;
-}
-
 function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 	const router = useRouter();
 	const [isPlaying, setPlaying] = useState(false);
@@ -286,8 +268,6 @@ function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 			}
 		};
 	}, []);
-
-	const playingClassName = clsx({ isPlaying });
 
 	return (
 		<>
@@ -385,7 +365,7 @@ function Editor({ noScript, resizeMode, loadLevelState }: EditorProps) {
 						<h1 className="text-xl font-bold">Level not found</h1>
 						<p>
 							It may have been deleted or is owned by someone else. Copying
-							other people's levels is not supported yet.
+							other people&apos;s levels is not supported yet.
 						</p>
 						<a
 							className="block mt-4 text-blue-700 cursor-pointer"

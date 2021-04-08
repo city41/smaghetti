@@ -9,7 +9,7 @@ function TooSmall() {
 					The window is too small for the editor to fit. Please make it bigger
 					if you can.
 				</p>
-				<p>Sorry, the editor doesn't work on phones or small tablets.</p>
+				<p>Sorry, the editor doesn&apos;t work on phones or small tablets.</p>
 			</div>
 		</div>
 	);

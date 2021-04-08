@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import clsx from 'clsx';
 
 import { Starburst } from './Starburst';
@@ -6,13 +6,11 @@ import { EarlyPreviewModal } from './EarlyPreviewModal';
 
 type EarlyPreviewStarburstProps = {
 	className?: string;
-	mode: 'editor' | 'player';
 };
 
-const EarlyPreviewStarburst: FunctionComponent<EarlyPreviewStarburstProps> = ({
+function EarlyPreviewStarburst({
 	className,
-	mode,
-}) => {
+}: EarlyPreviewStarburstProps): ReactElement {
 	const [showModal, setShowModal] = useState(false);
 
 	return (
@@ -20,7 +18,6 @@ const EarlyPreviewStarburst: FunctionComponent<EarlyPreviewStarburstProps> = ({
 			<EarlyPreviewModal
 				isOpen={showModal}
 				onRequestClose={() => setShowModal(false)}
-				mode={mode}
 			/>
 			<Starburst
 				className={clsx(
@@ -39,6 +36,6 @@ const EarlyPreviewStarburst: FunctionComponent<EarlyPreviewStarburstProps> = ({
 			</Starburst>
 		</>
 	);
-};
+}
 
 export { EarlyPreviewStarburst };

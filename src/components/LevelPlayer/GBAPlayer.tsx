@@ -11,7 +11,7 @@ type GBAPlayerProps = {
 	biosFile: Uint8Array;
 	romFile: Uint8Array;
 	emptySaveFile: Uint8Array;
-	saveState: object;
+	saveState: Record<string, unknown>;
 	levelData: Uint8Array;
 	isPlaying: boolean;
 	scale?: number;

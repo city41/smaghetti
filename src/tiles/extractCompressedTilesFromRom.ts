@@ -6,8 +6,6 @@ type TilePage = {
 };
 
 const SCAN_DEPTH = 4;
-const SIZE_MULTIPLE = 32;
-const MAX_SIZE = 0x8000;
 const BLOCK_SIZE = 8;
 
 function canBeUncompressed(rom: Uint8Array, offset: number): boolean {
@@ -61,19 +59,10 @@ function canBeUncompressed(rom: Uint8Array, offset: number): boolean {
 
 function getCompressionOffsets(rom: Uint8Array): number[] {
 	const offsets = [];
-	const view = new DataView(rom.buffer);
 
 	for (let i = 0; i < rom.length; i += SCAN_DEPTH) {
 		if (rom[i] === 0x10) {
-			const header = view.getUint32(i + 1) >> 8;
-
-			if (
-				// header % SIZE_MULTIPLE === 0 &&
-				// header < MAX_SIZE &&
-				// header > 0 &&
-				canBeUncompressed(rom, i) &&
-				!IGNORED_OFFSETS.includes(i)
-			) {
+			if (canBeUncompressed(rom, i) && !IGNORED_OFFSETS.includes(i)) {
 				offsets.push(i);
 			}
 		}

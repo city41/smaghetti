@@ -36,6 +36,7 @@ function getFirstDiff(a: string, b: string): string {
 
 function SaveStatesPage({ allFilesReady }: SaveStatesPageProps) {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [saveState, setSaveState] = useState<any>();
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [serializedSaveState, setSerializedSaveState] = useState('');
@@ -70,10 +71,7 @@ function SaveStatesPage({ allFilesReady }: SaveStatesPageProps) {
 			window._gba.pause();
 			window._gba.setRom(getRom()!.buffer);
 			window._gba.defrost(saveState);
-			setRestoredSerialized(
-				// @ts-ignore
-				serialize(window._gba.video.freeze(), { space: 2 })
-			);
+			setRestoredSerialized(serialize(window._gba.video.freeze()));
 			window._gba.runStable();
 			setIsPlaying(true);
 		}

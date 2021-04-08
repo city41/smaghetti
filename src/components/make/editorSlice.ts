@@ -272,23 +272,6 @@ function clamp(value: number, min: number, max: number): number {
 	return Math.max(min, Math.min(value, max));
 }
 
-type MetadataEntity = {
-	editor: {
-		canvas: {
-			width: number;
-			height: number;
-			offsetX: number;
-			offsetY: number;
-		};
-		tiling: {
-			width: number;
-			height: number;
-			offsetX: number;
-			offsetY: number;
-		};
-	};
-};
-
 function getEntityPixelBounds(entity: NewEntity): Bounds {
 	const spriteDef = entityMap[entity.type];
 	const width = Math.max(spriteDef.tiles[0].length * 8, TILE_SIZE);
@@ -384,57 +367,12 @@ function canDrop(entity: NewEntity | EditorEntity, entities: EditorEntity[]) {
 	});
 }
 
-function getEntityX(inputX: number, type: EntityType): number {
+function getEntityX(inputX: number): number {
 	return Math.floor(inputX / TILE_SIZE) * TILE_SIZE;
 }
 
-function getEntityY(inputY: number, type: EntityType): number {
+function getEntityY(inputY: number): number {
 	return Math.floor(inputY / TILE_SIZE) * TILE_SIZE;
-}
-
-function deleteEntitiesWithin(
-	entities: EditorEntity[],
-	bounds: Bounds,
-	ignore: EntityType[] = []
-) {
-	const entitiestoClobber = entities.filter((e) => {
-		return overlap(getEntityTileBounds(e), bounds);
-	});
-
-	entitiestoClobber.forEach((e) => {
-		if (ignore.indexOf(e.type) > -1) {
-			return;
-		}
-
-		if (e.type === 'Player') {
-			// move player to the left of the goal
-			const playerBounds = getEntityTileBounds(e);
-			e.x =
-				bounds.upperLeft.x -
-				(playerBounds.lowerRight.x - playerBounds.upperLeft.x);
-		} else {
-			const index = entities.indexOf(e);
-			entities.splice(index, 1);
-		}
-	});
-}
-
-function deleteTilesWithin(tiles: TileMatrix, bounds: Bounds) {
-	const matchingRows = tiles.filter((_row, y) => {
-		return bounds.upperLeft.y <= y && bounds.lowerRight.y >= y;
-	});
-
-	matchingRows.forEach((row) => {
-		if (row) {
-			for (
-				let x = bounds.upperLeft.x;
-				x <= bounds.lowerRight.x && x < row.length;
-				++x
-			) {
-				row[x] = null;
-			}
-		}
-	});
 }
 
 function ensurePlayerIsInView(state: InternalEditorState, offsetDelta: Point) {
@@ -698,15 +636,15 @@ const editorSlice = createSlice({
 
 				if (entity) {
 					Object.assign(entity, action.payload, {
-						x: getEntityX(action.payload.x, action.payload.type),
-						y: getEntityY(action.payload.y, action.payload.type),
+						x: getEntityX(action.payload.x),
+						y: getEntityY(action.payload.y),
 					});
 				}
 			} else {
 				state.entities.push({
 					...action.payload,
-					x: getEntityX(action.payload.x, action.payload.type),
-					y: getEntityY(action.payload.y, action.payload.type),
+					x: getEntityX(action.payload.x),
+					y: getEntityY(action.payload.y),
 					id: idCounter++,
 				});
 			}
@@ -802,8 +740,8 @@ const editorSlice = createSlice({
 							const type = state.currentPaletteEntry;
 
 							const newEntity: NewEntity = {
-								x: getEntityX(point.x, state.currentPaletteEntry),
-								y: getEntityY(point.y, state.currentPaletteEntry),
+								x: getEntityX(point.x),
+								y: getEntityY(point.y),
 								type,
 							};
 
@@ -959,26 +897,6 @@ const editorSlice = createSlice({
 			}
 
 			state.metadata.name = defaultInitialState.metadata.name;
-		},
-		moveOffsetToEntity(
-			state: InternalEditorState,
-			action: PayloadAction<EntityType>
-		) {
-			// if (action.payload === 'Goal') {
-			// 	const goal = state.entities.find((e) => e.type === 'Goal')!;
-			//
-			// 	state.scrollOffset.x =
-			// 		goal.x - (PLAY_WINDOW_TILE_WIDTH / 2) * TILE_SIZE;
-			// 	state.scrollOffset.y =
-			// 		goal.y - (PLAY_WINDOW_TILE_HEIGHT / 2) * TILE_SIZE;
-			// } else if (action.payload === 'Player') {
-			// 	const player = state.entities.find((e) => e.type === 'Player')!;
-			//
-			// 	state.scrollOffset.x =
-			// 		player.x - (PLAY_WINDOW_TILE_WIDTH / 2) * TILE_SIZE;
-			// 	state.scrollOffset.y =
-			// 		player.y - (PLAY_WINDOW_TILE_HEIGHT / 2) * TILE_SIZE;
-			// }
 		},
 		resetOffset(state: InternalEditorState) {
 			state.scrollOffset.x = 0;
@@ -1494,7 +1412,6 @@ const {
 	toggleGrid,
 	pushPan,
 	popPan,
-	moveOffsetToEntity,
 	resetOffset,
 	addPaletteEntry,
 	removePaletteEntry,
@@ -1537,7 +1454,6 @@ const undoableReducer = undoable(cleanUpReducer, {
 		resizeLevelComplete.toString(),
 		pan.toString(),
 		toggleGrid.toString(),
-		moveOffsetToEntity.toString(),
 		resetOffset.toString(),
 		addPaletteEntry.toString(),
 		removePaletteEntry.toString(),
@@ -1667,7 +1583,6 @@ export {
 	toggleGrid,
 	pushPan,
 	popPan,
-	moveOffsetToEntity,
 	resetOffset,
 	addPaletteEntry,
 	removePaletteEntry,

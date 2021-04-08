@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import clsx from 'clsx';
 import { FaFirefox } from 'react-icons/fa';
 
@@ -8,7 +8,7 @@ type FirefoxWarningProps = {
 	className?: string;
 };
 
-function FirefoxWarning({ className }: FirefoxWarningProps) {
+function FirefoxWarning({ className }: FirefoxWarningProps): ReactElement {
 	return (
 		<div
 			className={clsx(

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { Modal } from '../../Modal';
 
@@ -125,8 +125,9 @@ function SignInJoinModal({
 	const upperArea =
 		mode === 'join-to-save' ? (
 			<div className="p-4 bg-gray-200 text-gray-900 text-sm space-y-2 mb-4">
-				You need an account to save your level. Accounts are free. If you don't
-				want an account, your level is still saved locally to your browser.
+				You need an account to save your level. Accounts are free. If you
+				don&apos;t want an account, your level is still saved locally to your
+				browser.
 			</div>
 		) : (
 			logoImg

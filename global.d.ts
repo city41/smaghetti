@@ -19,8 +19,15 @@ interface _GameBoyAdvance {
 	injectSaveFile: (buffer: ArrayBuffer) => void;
 	_shouldMute?: boolean;
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	freeze: () => any;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	defrost: (saveState: any) => void;
+
+	video: {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		freeze: () => any;
+	};
 }
 
 interface Window {

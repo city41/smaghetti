@@ -337,11 +337,7 @@ function createLevelData(
 	// block path movement data
 	pointer = setPointer(pointers, 4, pointer + room0.sprites.length);
 	// auto scroll movement data
-	pointer = setPointer(
-		pointers,
-		5,
-		pointer + room0.blockPathMovementData.length
-	);
+	setPointer(pointers, 5, pointer + room0.blockPathMovementData.length);
 
 	const room0Data = getFullRoomData(room0);
 

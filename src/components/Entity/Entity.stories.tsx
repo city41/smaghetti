@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { Entity } from './Entity';
 
 export default {
-  title: 'Entity',
-  component: Entity,
+	title: 'Entity',
+	component: Entity,
 };
 
-export const Basic = () => <Entity type="Player" />;
+export const Basic = (): ReactElement => <Entity type="Player" />;

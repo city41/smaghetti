@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { client } from '../../../../remoteData/client';
-import { bindActionCreators } from 'redux';
 
 import { saveLevel } from '../../editorSlice';
 import { AppState, dispatch } from '../../../../store';
@@ -9,13 +8,6 @@ import { SaveButton } from './SaveButton';
 import type { PublicSaveButtonProps } from './SaveButton';
 import { SignInJoinModal } from '../../../auth/SignInJoinModal';
 import { useSelector } from 'react-redux';
-
-const actions = bindActionCreators(
-	{
-		onSaveLevel: saveLevel,
-	},
-	dispatch
-);
 
 function ConnectedSaveButton(props: PublicSaveButtonProps) {
 	const [isLoggedIn, setIsLoggedIn] = useState(!!client.auth.user());

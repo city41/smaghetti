@@ -56,18 +56,16 @@ const bank0SpriteIdToEntityType: Record<number, EntityType> = (function () {
 
 const bank1EntityTypeToSpriteId: Record<EntityType, number> = (function () {
 	return Object.entries(bank1SpriteIdToEntityType).reduce((building, entry) => {
-		// @ts-ignore
 		building[entry[1]] = parseInt(entry[0], 16);
 		return building;
-	}, {}) as Record<EntityType, number>;
+	}, {} as Record<EntityType, number>);
 })();
 
 const bank0EntityTypeToSpriteId: Record<EntityType, number> = (function () {
 	return Object.entries(bank0SpriteIdToEntityType).reduce((building, entry) => {
-		// @ts-ignore
 		building[entry[1]] = parseInt(entry[0], 16);
 		return building;
-	}, {}) as Record<EntityType, number>;
+	}, {} as Record<EntityType, number>);
 })();
 
 export {

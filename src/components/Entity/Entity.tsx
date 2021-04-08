@@ -108,8 +108,6 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 		},
 		ref
 	) => {
-		const showingDetailsEditPane = soleFocused && !!detailsMap[type]?.edit;
-
 		const finalClassName = clsx(className, {
 			disableDrag,
 			// showingDetailsEditPane: showingDetailsEditPane,

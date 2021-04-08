@@ -58,17 +58,17 @@ function setObjXY(obj: Uint8Array, x: number, y: number): Uint8Array {
 	return obj;
 }
 
-function setAsCoinBank(obj: Uint8Array): Uint8Array {
-	if (obj.length !== 5) {
-		throw new Error('setAsCoinBank: can only turn 5 byte objs into coin banks');
-	}
-
-	obj[0] = 0x40; // bank 1, length 0
-	obj[3] = 0x10; // coin bank id
-	obj[4] = 0x40; // "second length", suspect it means something else for coin banks
-
-	return obj;
-}
+// function setAsCoinBank(obj: Uint8Array): Uint8Array {
+// 	if (obj.length !== 5) {
+// 		throw new Error('setAsCoinBank: can only turn 5 byte objs into coin banks');
+// 	}
+//
+// 	obj[0] = 0x40; // bank 1, length 0
+// 	obj[3] = 0x10; // coin bank id
+// 	obj[4] = 0x40; // "second length", suspect it means something else for coin banks
+//
+// 	return obj;
+// }
 
 function changeObject(
 	data: Uint8Array,
@@ -78,21 +78,20 @@ function changeObject(
 	const headerAddress = getPointerAddress(data, 5);
 	const endAddress = getPointerAddress(data, 7);
 
-	function implantQuestionMushroom(implantIndex: number) {
-		data[implantIndex] = 0;
-		// data[implantIndex + 1] is y, leave it alone
-		// data[implantIndex + 2] is x, leave it alone
-		data[implantIndex + 3] = 0x10;
-	}
-
-	function implantCoinBlockRun(implantIndex: number) {
-		data[implantIndex] = 0x43;
-		data[implantIndex + 3] = 0x10;
-		data[implantIndex + 4] = 0x40;
-	}
+	// function implantQuestionMushroom(implantIndex: number) {
+	// 	data[implantIndex] = 0;
+	// 	// data[implantIndex + 1] is y, leave it alone
+	// 	// data[implantIndex + 2] is x, leave it alone
+	// 	data[implantIndex + 3] = 0x10;
+	// }
+	//
+	// function implantCoinBlockRun(implantIndex: number) {
+	// 	data[implantIndex] = 0x43;
+	// 	data[implantIndex + 3] = 0x10;
+	// 	data[implantIndex + 4] = 0x40;
+	// }
 
 	const firstObjectAddress = headerAddress + headerLength;
-	let curObjIndex = 0;
 	for (let i = firstObjectAddress; i < endAddress; ) {
 		const objSize = getObjectSize(data, i);
 
@@ -103,7 +102,6 @@ function changeObject(
 		}
 
 		i += objSize;
-		curObjIndex += 1;
 	}
 }
 
@@ -371,7 +369,7 @@ function Cell({ className, data, index, pointer, label = '' }: CellProps) {
 
 function HexEditor({ className, data, onDataChange, mode }: HexEditorProps) {
 	const [addressToFocusText, setAddressToFocusText] = useState('');
-	const [_, forceRender] = useState(0);
+	const [, forceRender] = useState(0);
 	const [spriteInjectionText, setSpriteInjectionText] = useState('');
 	const [objectInjectionText, setObjectInjectionText] = useState('');
 
@@ -444,7 +442,6 @@ function HexEditor({ className, data, onDataChange, mode }: HexEditorProps) {
 		newData.set(afterObjects, beforeObjects.length + objectData.length);
 
 		// now need to update pointers
-		debugger;
 		const newView = new DataView(newData.buffer);
 		newView.setUint16(
 			0x7,

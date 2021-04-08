@@ -17,7 +17,7 @@ function ExternalLink({ className, href, title, children }: ExternalLinkProps) {
 			)}
 			href={href}
 			target="_blank"
-			rel="noopener"
+			rel="noopener noreferrer"
 			title={title}
 		>
 			{children}

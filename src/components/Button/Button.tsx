@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import clsx from 'clsx';
 
 type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'ref'> & {
@@ -39,7 +39,12 @@ type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'ref'> & {
 //   ${ButtonCss}
 // `;
 
-function Button({ className, onClick, children, ...rest }: ButtonProps) {
+function Button({
+	className,
+	onClick,
+	children,
+	...rest
+}: ButtonProps): ReactElement {
 	return (
 		<button
 			className={clsx(

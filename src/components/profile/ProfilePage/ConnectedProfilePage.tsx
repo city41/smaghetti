@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { ProfilePage } from './ProfilePage';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AppState, dispatch } from '../../../store';
 import { loadProfile, deleteLevel } from '../profileSlice';
 import { client } from '../../../remoteData/client';

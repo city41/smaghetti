@@ -1,8 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import styles from './Footer.module.css';
-
 type FooterProps = {
 	className?: string;
 };

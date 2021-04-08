@@ -19,9 +19,6 @@ import {
 import { snap } from '../../../../util/snap';
 import { useScrollWheel } from './useScrollWheel';
 
-import eraseCursorPng from './eraseCursor.png';
-import bg from '../../../images/levelBackground.png';
-
 import styles from './Canvas.module.css';
 import { entityMap, EntityType } from '../../../../entities/entityMap';
 
@@ -96,7 +93,6 @@ function getTranslation(scale: number): string {
 
 type TileRowProps = {
 	tiles: (Tile | null)[];
-	focusedTiles: Tile[];
 	y: number;
 	focused: Record<number, boolean>;
 	dragOffset: Point | null;
@@ -108,7 +104,6 @@ type TileRowProps = {
 
 const TileRow: FunctionComponent<TileRowProps> = memo(function TileRow({
 	tiles,
-	focusedTiles,
 	y,
 	focused,
 	dragOffset,
@@ -359,22 +354,12 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 		lastMousePoint.current = curMousePoint;
 	}
 
-	const focusedTiles = tiles.reduce<Tile[]>((building, row) => {
-		if (!row) {
-			return building;
-		}
-
-		const focusedInRow = row.filter((t) => t && focused[t.id]) as Tile[];
-		return building.concat(focusedInRow);
-	}, []);
-
 	const tileRows = tiles.map(
 		(row, y) =>
 			row && (
 				<TileRow
 					key={y}
 					tiles={row}
-					focusedTiles={focusedTiles}
 					y={y}
 					focused={focused}
 					dragOffset={dragOffset}

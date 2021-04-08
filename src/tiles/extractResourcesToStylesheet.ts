@@ -31,7 +31,7 @@ function gba16ToRgb(gba16: number): [number, number, number] {
 }
 
 const DEFAULT_PALETTE: number[] = (function () {
-	let p = [];
+	const p = [];
 	for (let i = 0; i < 16; ++i) {
 		const red = Math.floor((i / 15) * 255);
 		const green = Math.floor((i / 15) * 255);
@@ -118,7 +118,7 @@ function renderTiles(
 	tileData: ExtractedEntityTileData,
 	palette: number[],
 	options?: { firstColorOpaque: boolean }
-) {
+): void {
 	canvas.height = tileData.length * 8;
 	canvas.width = tileData[0].length * 8;
 	const context = canvas.getContext('2d')!;
@@ -227,7 +227,7 @@ function isStaticResource(obj: Resource): obj is StaticResource {
 async function extractResourcesToStylesheet(
 	rom: Uint8Array,
 	resources: Resource[]
-) {
+): Promise<void> {
 	let css = '';
 
 	for (let i = 0; i < resources.length; ++i) {

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { MdEdit } from 'react-icons/md';
-import { KeyboardKey } from '../../../KeyboardKey';
 
 type PublicMetadataMenuProps = {
 	className?: string;

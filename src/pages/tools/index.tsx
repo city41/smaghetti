@@ -17,8 +17,8 @@ function NextToolsIndexPage() {
 				<ul>
 					<li>
 						<a href="./hex-tree">Hex Tree</a>: A very raw tool that parses a
-						level's data into a tree structure, and from there lets you mess
-						with it and see how it changes in the running level (Work in
+						level&apos;s data into a tree structure, and from there lets you
+						mess with it and see how it changes in the running level (Work in
 						progress).
 					</li>
 					<li>

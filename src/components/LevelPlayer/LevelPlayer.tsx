@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 
 import styles from './LevelPlayer.module.css';
@@ -16,7 +16,7 @@ type LevelPlayerProps = {
 	biosFile: Uint8Array;
 	romFile: Uint8Array;
 	emptySaveFile: Uint8Array;
-	saveState: object;
+	saveState: Record<string, unknown>;
 	onPlayerDied?: () => boolean;
 	onLevelCompleted?: () => void;
 	checkeredBackground?: boolean;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement } from 'react';
 import { Meta } from '@storybook/react';
 
 import { EarlyPreviewStarburst } from './EarlyPreviewStarburst';
@@ -11,14 +11,10 @@ const meta: Meta = {
 
 export default meta;
 
-export const EditorMode = () => {
-	return <EarlyPreviewStarburst mode="editor" />;
+export const EditorMode = (): ReactElement => {
+	return <EarlyPreviewStarburst />;
 };
 
-export const EditorModeModal = () => {
-	return <EarlyPreviewModal isOpen={true} mode="editor" />;
-};
-
-export const PlayerModeModal = () => {
-	return <EarlyPreviewModal isOpen={true} mode="player" />;
+export const EditorModeModal = (): ReactElement => {
+	return <EarlyPreviewModal isOpen={true} />;
 };
