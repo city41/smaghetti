@@ -211,7 +211,12 @@ function getObjects(entities: EditorEntity[], tileLayer: TileLayer): number[] {
 function getSprites(entities: EditorEntity[], tileLayer: TileLayer): number[] {
 	const levelHeightInTiles = tileLayer.height;
 
-	const sprites = entities.reduce<number[]>((building, entity) => {
+	// TODO: also need to sort tile entities into this
+	const sortedEntities = [...entities].sort((a, b) => {
+		return a.x - b.x;
+	});
+
+	const sprites = sortedEntities.reduce<number[]>((building, entity) => {
 		if (entity.type === 'Player') {
 			return building;
 		}
