@@ -47,7 +47,7 @@ I have made some (very raw) tools to help with reverse engineering: https://smag
 
 ## Code contributions
 
-PRs are welcome, but please open an issue and discuss with me first before starting any work. That way no one does any wasted effort
+PRs are welcome, but please open an issue and discuss with me first before starting any work. That way no one does any wasted effort. The code is pretty messy and in many parts of the codebase I'm more focused on figuring stuff out than creating clean code. So I am refactoring pretty often. I'd hate to merge a refactor that really harms someone else's PR.
 
 ## Bug reports
 
