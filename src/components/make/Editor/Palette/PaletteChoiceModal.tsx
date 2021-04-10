@@ -215,14 +215,15 @@ const items: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
-	{
-		entry: 'Bubble',
-		info: {
-			title: 'Bubble',
-			description:
-				'Can put things inside of it, need to throw vegetables at it to get at the item.',
-		},
-	},
+	// pulling bubble out for now, it's pretty broken needs more research
+	// {
+	// 	entry: 'Bubble',
+	// 	info: {
+	// 		title: 'Bubble',
+	// 		description:
+	// 			'Can put things inside of it, need to throw vegetables at it to get at the item.',
+	// 	},
+	// },
 ];
 
 const gizmos: PaletteChoiceModalEntry[] = [

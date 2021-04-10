@@ -40,7 +40,8 @@ const Bubble: Entity = {
 	],
 
 	toBinary(x, y) {
-		return simpleSpriteBinary(x, y, OBJECT_ID);
+		// return simpleSpriteBinary(x, y, OBJECT_ID);
+		return [0, OBJECT_ID, x, y, 2];
 	},
 };
 
