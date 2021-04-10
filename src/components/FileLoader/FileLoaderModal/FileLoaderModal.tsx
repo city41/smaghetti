@@ -78,13 +78,13 @@ function BaseFiles({
 		case 'not-chosen':
 			romBody = (
 				<DropZone onFileChosen={cacheRomThenOnChosen}>
-					<p className="pointer-events-none">
+					<p className="pointer-events-none text-sm">
 						Please drag the US ROM of
 						<br />
-						<b>Super Mario Advance 4</b>
+						<b>Super Mario Advance 4 (v1.1)</b>
 						<br /> here
 					</p>
-					<label className="italic cursor-pointer hover:bg-gray-700">
+					<label className="italic cursor-pointer hover:bg-gray-700 mt-4">
 						or click here to open a file dialog
 						<input
 							style={{ width: 0.01, height: 0.01 }}
@@ -127,7 +127,7 @@ function BaseFiles({
 							<br /> wrong ROM?
 						</div>
 					</div>
-					<label className="italic cursor-pointer hover:bg-gray-700">
+					<label className="italic cursor-pointer hover:bg-gray-700 mt-4">
 						Please try again, drag a file here or click to choose
 						<input
 							style={{ width: 0.01, height: 0.01 }}
