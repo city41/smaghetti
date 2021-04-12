@@ -42,8 +42,7 @@ function TransportDestination({
 
 	const finalStyle = {
 		...style,
-		'--size': `${TILE_SIZE}px`,
-		padding: 3,
+		'--size': '8px',
 	} as CSSProperties;
 
 	return (
@@ -71,7 +70,7 @@ function TransportDestination({
 			>
 				<div
 					className={clsx(
-						'w-full h-full border rounded-full flex flex-col items-center justify-center overflow-hidden bg-blue-800 border-blue-200 text-blue-100',
+						'w-full h-full flex flex-col items-center justify-center overflow-hidden bg-blue-800 border-blue-200 text-blue-100',
 						{
 							'cursor-pointer transform hover:scale-110':
 								mouseMode === 'select',

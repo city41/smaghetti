@@ -7,7 +7,7 @@ import React, {
 	useState,
 } from 'react';
 import clsx from 'clsx';
-import { FaDoorOpen } from 'react-icons/fa';
+import { FaDoorClosed } from 'react-icons/fa';
 import { GiWarpPipe } from 'react-icons/gi';
 
 import styles from './transportStyles.module.css';
@@ -35,7 +35,7 @@ type TransportProps = {
 };
 
 const exitTypeIconMap: Record<number, ComponentType<{ className: string }>> = {
-	0: FaDoorOpen,
+	0: FaDoorClosed,
 	1: GiWarpPipe,
 };
 
