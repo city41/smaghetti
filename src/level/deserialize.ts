@@ -6,29 +6,37 @@ import { entityMap } from '../entities/entityMap';
  * get assigned a unique id. This helps prevent issues
  * where bugs from previous builds cause duplicate ids
  */
-function normalizeIds(entities: EditorEntity[]): EditorEntity[] {
-	return entities.map((e, index) => {
+function normalizeIds(
+	entities: EditorEntity[],
+	idCounter: number
+): { idCounter: number; normalizedEntities: EditorEntity[] } {
+	const normalizedEntities = entities.map((e) => {
 		return {
 			...e,
-			id: index + 1,
+			id: idCounter++,
 		};
 	});
+
+	return {
+		idCounter,
+		normalizedEntities,
+	};
 }
 
-function getMaxId(entities: EditorEntity[]): number {
-	const ids = entities.map((e) => e.id);
+function deserializeRoom(
+	room: SerializedRoomData,
+	idCounter: number
+): { idCounter: number; room: RoomData } {
+	const { width, height } = room.tileLayer;
 
-	return Math.max(...ids);
-}
+	const { idCounter: newIdCounter, normalizedEntities } = normalizeIds(
+		room.entities,
+		idCounter
+	);
 
-function deserialize(
-	levelData: SerializedLevelData
-): { levelData: LevelData; maxId: number } {
-	const normalizedEntities = normalizeIds(levelData.entities);
+	idCounter = newIdCounter;
 
-	let idCounter = getMaxId(normalizedEntities) + 1;
-
-	const tiles = levelData.tileLayer.data.map((row, y) => {
+	const tiles = room.tileLayer.data.map((row, y) => {
 		if (row === null) {
 			return row;
 		}
@@ -47,12 +55,12 @@ function deserialize(
 			}
 
 			const tileType = TILE_SERIALIZED_ID_TO_TYPE_MAP[cell];
-			const tileSettings = levelData.tileSettings.find(
+			const tileSettings = room.tileSettings.find(
 				(f) => f.x === x && f.y === y
 			);
 
 			if (tileSettings) {
-				levelData.tileSettings = levelData.tileSettings.filter(
+				room.tileSettings = room.tileSettings.filter(
 					(te) => te !== tileSettings
 				);
 			}
@@ -76,13 +84,36 @@ function deserialize(
 		});
 	});
 
-	const deserializedLevelData = {
-		...levelData,
-		entities: normalizedEntities,
-		tileLayer: {
-			...levelData.tileLayer,
-			data: tiles,
+	return {
+		idCounter,
+		room: {
+			entities: normalizedEntities,
+			transports: room.transports,
+			tileLayer: {
+				width,
+				height,
+				data: tiles,
+			},
 		},
+	};
+}
+
+function deserialize(
+	levelData: SerializedLevelData
+): { levelData: LevelData; maxId: number } {
+	let idCounter = 0;
+
+	const deserializedLevelData: LevelData = {
+		...levelData,
+		rooms: levelData.rooms.reduce<RoomData[]>((building, room) => {
+			const {
+				idCounter: newIdCounter,
+				room: deserializedRoom,
+			} = deserializeRoom(room, idCounter);
+
+			idCounter = newIdCounter;
+			return building.concat(deserializedRoom);
+		}, []),
 	};
 
 	return {

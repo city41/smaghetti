@@ -11,8 +11,7 @@ type LevelPlayerProps = {
 	className?: string;
 	style?: CSSProperties;
 	isPlaying: boolean;
-	entities: EditorEntity[];
-	tileLayer: TileLayer;
+	rooms: RoomData[];
 	biosFile: Uint8Array;
 	romFile: Uint8Array;
 	emptySaveFile: Uint8Array;
@@ -26,8 +25,7 @@ type LevelPlayerProps = {
 
 function LevelPlayer({
 	isPlaying,
-	entities,
-	tileLayer,
+	rooms,
 	biosFile,
 	romFile,
 	emptySaveFile,
@@ -51,7 +49,7 @@ function LevelPlayer({
 				romFile={romFile}
 				emptySaveFile={emptySaveFile}
 				saveState={saveState}
-				levelData={createLevelData(entities, tileLayer)}
+				levelData={createLevelData(rooms)}
 				isPlaying={isPlaying}
 			/>
 			<ControlsBanner className="rounded-tl-lg rounded-tr-lg" />

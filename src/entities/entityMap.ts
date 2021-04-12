@@ -33,8 +33,10 @@ import { SpringBoard } from './SpringBoard';
 import { Stalactite } from './Stalactite';
 import { StarMan } from './StarMan';
 import { ThreeUpMoon } from './ThreeUpMoon';
+import { Transport } from './Transport';
 import { TriangularBlock } from './TriangularBlock';
 import { WoodBlock } from './WoodBlock';
+import { WoodDoor } from './WoodDoor';
 
 const entityMap = {
 	AceCoin,
@@ -72,8 +74,10 @@ const entityMap = {
 	Stalactite,
 	StarMan,
 	ThreeUpMoon,
+	Transport,
 	TriangularBlock,
 	WoodBlock,
+	WoodDoor,
 };
 
 type EntityType = keyof typeof entityMap;

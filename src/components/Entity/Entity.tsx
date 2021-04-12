@@ -23,7 +23,6 @@ type EntityProps = {
 	maxWidth?: number;
 	maxHeight?: number;
 	scale?: number;
-	disableDrag?: boolean;
 	opacity?: number;
 	tile?: number;
 	angle?: number;
@@ -57,32 +56,6 @@ function getEntityHeight(entityType: EntityType): number {
 	return getEntitySize(entityType).height;
 }
 
-// const OuterContainer = styled.div`
-//   cursor: pointer;
-//
-//   &.disableDrag {
-//     cursor: initial;
-//     pointer-events: none;
-//   }
-//
-//   position: relative;
-//   z-index: 10;
-//
-//   &.showingDetailsEditPane {
-//     z-index: 100;
-//     transform: scale(1.25);
-//   }
-//
-//   ${focused}
-// `;
-//
-// const EntityContainer = styled.div`
-//   background-repeat: no-repeat;
-//   transition: transform 0.2s;
-//
-//   position: absolute;
-// `;
-
 const Entity = forwardRef<HTMLDivElement, EntityProps>(
 	(
 		{
@@ -91,7 +64,6 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 			type,
 			settings,
 			style,
-			disableDrag,
 			opacity,
 			onClick,
 			width = getEntityWidth(type),
@@ -109,7 +81,6 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 		ref
 	) => {
 		const finalClassName = clsx(className, {
-			disableDrag,
 			// showingDetailsEditPane: showingDetailsEditPane,
 			[focusedStyles.focused]: focused, // && !showingDetailsEditPane,
 		});

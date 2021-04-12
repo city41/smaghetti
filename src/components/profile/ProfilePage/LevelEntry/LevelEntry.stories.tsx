@@ -19,15 +19,19 @@ export default meta;
 const blankLevel: Level = {
 	id: '1',
 	created_at: '',
-	level_play_sessions: [],
 	name: 'Storybook Level',
 	data: {
-		entities: [],
-		tileLayer: {
-			width: PLAY_WINDOW_TILE_WIDTH * 3,
-			height: PLAY_WINDOW_TILE_HEIGHT * 1.5,
-			data: [[]],
-		},
+		rooms: [
+			{
+				entities: [],
+				transports: [],
+				tileLayer: {
+					width: PLAY_WINDOW_TILE_WIDTH * 3,
+					height: PLAY_WINDOW_TILE_HEIGHT * 1.5,
+					data: [[]],
+				},
+			},
+		],
 	},
 };
 

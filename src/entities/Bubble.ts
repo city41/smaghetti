@@ -1,5 +1,4 @@
 import type { Entity } from './types';
-import { simpleSpriteBinary } from './util';
 
 /**
  * this is an empty bubble, it can take payloads
@@ -40,7 +39,6 @@ const Bubble: Entity = {
 	],
 
 	toBinary(x, y) {
-		// return simpleSpriteBinary(x, y, OBJECT_ID);
 		return [0, OBJECT_ID, x, y, 2];
 	},
 };

@@ -24,11 +24,17 @@ describe('createLevelData', () => {
 				},
 			];
 
-			const levelData = createLevelData(entities, {
-				width: 0,
-				height: 0,
-				data: [],
-			});
+			const room: RoomData = {
+				entities,
+				transports: [],
+				tileLayer: {
+					width: 0,
+					height: 0,
+					data: [],
+				},
+			};
+
+			const levelData = createLevelData([room]);
 
 			// skip the opening 0 byte
 			const spriteAddr = levelData[ROOM_SPRITE_POINTERS[0]] + 1;
@@ -65,7 +71,9 @@ describe('createLevelData', () => {
 				],
 			};
 
-			const levelData = createLevelData([], tileLayer);
+			const levelData = createLevelData([
+				{ entities: [], transports: [], tileLayer },
+			]);
 
 			const objectAddr =
 				levelData[ROOM_OBJECT_POINTERS[0]] + ROOM_OBJECT_HEADER_SIZE_IN_BYTES;

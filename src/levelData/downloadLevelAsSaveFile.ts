@@ -32,10 +32,7 @@ function downloadLevelAsSaveFile(level: LevelToSave) {
 		throw new Error('downloadLevelAsSaveFile: called before empty save is set');
 	}
 
-	const levelSaveData = createLevelData(
-		level.data.entities,
-		level.data.tileLayer
-	);
+	const levelSaveData = createLevelData(level.data.rooms);
 	const fullSaveData = injectLevelIntoSave(emptySave, levelSaveData);
 
 	sendFileToAnchorTag(fullSaveData, getSafeFileName(level.name));

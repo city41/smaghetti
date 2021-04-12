@@ -30,14 +30,16 @@ const actions = bindActionCreators(
 );
 
 const ConnectedToolbox: FunctionComponent<Partial<ToolboxProps>> = (props) => {
+	const { mouseMode, showGrid, storedForResizeMode } = useSelector(
+		(state: AppState) => state.editor.present
+	);
+
 	const {
 		currentPaletteEntry,
-		mouseMode,
 		canIncreaseScale,
 		canDecreaseScale,
-		showGrid,
-		storedForResizeMode,
-	} = useSelector((state: AppState) => state.editor.present);
+	} = useSelector((state: AppState) => state.editor.currentRoom);
+
 	const { canUndo, canRedo } = useSelector((state: AppState) => ({
 		canUndo: state.editor.past.length > 0,
 		canRedo: state.editor.future.length > 0,

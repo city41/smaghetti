@@ -9,6 +9,7 @@ import {
 	scaleDecreased,
 	scaleIncreased,
 	setEntitySettings,
+	setTransportDestination,
 } from '../../editorSlice';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { AppState, dispatch } from '../../../../store';
@@ -25,6 +26,7 @@ const actions = bindActionCreators(
 		onScaleDecreased: scaleDecreased,
 		onScaleIncreased: scaleIncreased,
 		onEntitySettingsChange: setEntitySettings,
+		onTransportDestinationChange: setTransportDestination,
 	},
 	dispatch
 );
@@ -33,28 +35,48 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 	const {
 		currentPaletteEntry,
 		entities,
+		transports,
+		tiles,
+		roomTileWidth,
+		roomTileHeight,
+		scale,
+	} = useSelector((state: AppState) => state.editor.currentRoom);
+
+	const {
 		focused,
 		isSelecting,
 		dragOffset,
-		tiles,
 		mouseMode,
-		levelTileWidth,
-		levelTileHeight,
-		scale,
 		showGrid,
+		currentRoomIndex,
+		rooms,
 	} = useSelector((state: AppState) => state.editor.present);
+
+	const transportDestinations = rooms.reduce<EditorTransport[]>(
+		(building, room) => {
+			const transportsDestinedToThisRoom = room.transports.filter(
+				(t) => t.destRoom === currentRoomIndex
+			);
+
+			return building.concat(transportsDestinedToThisRoom);
+		},
+		[]
+	);
 
 	return (
 		<Canvas
 			currentPaletteEntry={currentPaletteEntry}
-			width={levelTileWidth * TILE_SIZE}
-			height={levelTileHeight * TILE_SIZE}
+			width={roomTileWidth * TILE_SIZE}
+			height={roomTileHeight * TILE_SIZE}
 			scale={scale}
+			rooms={rooms}
 			entities={entities}
+			transportSources={transports}
+			transportDestinations={transportDestinations}
+			tiles={tiles}
 			focused={focused}
 			isSelecting={isSelecting}
 			dragOffset={dragOffset}
-			tiles={tiles}
 			mouseMode={mouseMode}
 			showGrid={showGrid}
 			{...actions}

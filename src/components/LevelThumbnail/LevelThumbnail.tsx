@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { TILE_SIZE } from '../../tiles/constants';
 
@@ -14,6 +14,7 @@ type LevelThumbnailProps = {
 	scale: number;
 	tileData: TileMatrix;
 	entities: EditorEntity[];
+	children?: ReactNode;
 };
 
 type TileRowProps = {
@@ -56,6 +57,7 @@ function LevelThumbnail({
 	scale,
 	tileData,
 	entities,
+	children,
 }: LevelThumbnailProps) {
 	const width = tileWidth * TILE_SIZE * scale;
 	const height = tileHeight * TILE_SIZE * scale;
@@ -100,7 +102,6 @@ function LevelThumbnail({
 					left,
 				}}
 				type={e.type}
-				disableDrag
 				scale={scale}
 			/>
 		);
@@ -113,6 +114,7 @@ function LevelThumbnail({
 		>
 			{tileRows}
 			{entityCmps}
+			{children}
 		</div>
 	);
 }

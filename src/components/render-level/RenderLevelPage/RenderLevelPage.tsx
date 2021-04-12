@@ -2,13 +2,16 @@ import React from 'react';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { LevelObject } from '../../../levelData/parseObjectsFromLevelFile';
 import { LevelSprite } from '../../../levelData/parseSpritesFromLevelFile';
+import { LevelTransport } from '../../../levelData/parseTransportsFromLevelFile';
 import { LevelObject as LevelObjectCmp } from './LevelObject';
 import { LevelSprite as LevelSpriteCmp } from './LevelSprite';
+import { TILE_SIZE } from '../../../tiles/constants';
 
 type RenderLevelPageProps = {
 	allFilesReady: boolean;
 	objects: LevelObject[];
 	sprites: LevelSprite[];
+	transports: LevelTransport[];
 	onLoadFile: (levelFile: File) => void;
 };
 
@@ -16,6 +19,7 @@ function RenderLevelPage({
 	allFilesReady,
 	objects,
 	sprites,
+	transports,
 	onLoadFile,
 }: RenderLevelPageProps) {
 	return (
@@ -38,6 +42,19 @@ function RenderLevelPage({
 					))}
 					{sprites.map((s, i) => (
 						<LevelSpriteCmp key={`sprite-${i}`} sprite={s} />
+					))}
+					{transports.map((t, i) => (
+						<div
+							key={i}
+							className="absolute bg-red-600"
+							style={{
+								width: TILE_SIZE,
+								height: TILE_SIZE,
+								// * 2 since this is rendered at 2x, need to move all this into a transport cmp anyway
+								top: t.sy * TILE_SIZE * 2,
+								left: t.sx * TILE_SIZE * 2,
+							}}
+						/>
 					))}
 				</div>
 			</div>

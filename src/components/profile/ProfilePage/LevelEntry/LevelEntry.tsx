@@ -52,15 +52,15 @@ function LevelEntry({
 							'bg-red-100 group-hover:bg-red-100': showDeleteConfirmation,
 						})}
 						tileX={0}
-						tileY={level.data.tileLayer.height - THUMBNAIL_HEIGHT}
+						tileY={level.data.rooms[0].tileLayer.height - THUMBNAIL_HEIGHT}
 						tileWidth={Math.min(
-							level.data.tileLayer.width,
+							level.data.rooms[0].tileLayer.width,
 							PLAY_WINDOW_TILE_WIDTH * 2
 						)}
 						tileHeight={THUMBNAIL_HEIGHT}
 						scale={0.75}
-						tileData={level.data.tileLayer.data}
-						entities={level.data.entities}
+						tileData={level.data.rooms[0].tileLayer.data}
+						entities={level.data.rooms[0].entities}
 					/>
 				</div>
 				<IconButtonGroup className="self-end" anchor="left">

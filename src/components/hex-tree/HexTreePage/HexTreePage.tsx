@@ -36,7 +36,15 @@ function HexTreePage({ allFilesReady }: HexEditorPageProps) {
 	}
 
 	function handleStartEmpty() {
-		setLevelData(createLevelData([], { width: 0, height: 0, data: [] }));
+		setLevelData(
+			createLevelData([
+				{
+					entities: [],
+					transports: [],
+					tileLayer: { width: 0, height: 0, data: [] },
+				},
+			])
+		);
 	}
 
 	function handleDownloadSave() {

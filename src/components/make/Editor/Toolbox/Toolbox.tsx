@@ -105,8 +105,6 @@ const Toolbox = memo(function Toolbox({
 		>
 			<IconButtonGroup>{buttons}</IconButtonGroup>
 
-			{/*<div style={{ flex: 1 }} />*/}
-
 			<Zoom
 				onScaleDecreased={onScaleDecreased}
 				onScaleIncreased={onScaleIncreased}
@@ -135,10 +133,6 @@ const Toolbox = memo(function Toolbox({
 				/>
 				<MuteButton />
 			</IconButtonGroup>
-
-			{/*<div style={{ width: 'var(--item-spacing)' }} />*/}
-
-			{/*<div style={{ width: 'var(--item-spacing)' }} />*/}
 
 			<IconButtonGroup className="undoRedoButtons" anchor="top-right">
 				<IconButton

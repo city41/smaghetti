@@ -8,7 +8,7 @@ type IDable = { id: number };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type EntitySettings = Record<string, any>;
 
-type NewEntity = {
+type NewEditorEntity = {
 	x: number;
 	y: number;
 	type: import('./src/entities/entityMap').EntityType;
@@ -16,7 +16,19 @@ type NewEntity = {
 	settings?: EntitySettings;
 };
 
-type EditorEntity = NewEntity & IDable;
+type EditorEntity = NewEditorEntity & IDable;
+
+type NewEditorTransport = {
+	x: number;
+	y: number;
+	room: number;
+	destX: number;
+	destY: number;
+	destRoom: number;
+	exitType: number;
+};
+
+type EditorTransport = NewEditorTransport & IDable;
 
 type NewTile = {
 	x: number;
@@ -51,8 +63,9 @@ type SerializedTileLayer = {
 	data: SerializedTileMatrix;
 };
 
-type LevelData = {
+type RoomData = {
 	entities: EditorEntity[];
+	transports: EditorTransport[];
 	tileLayer: TileLayer;
 };
 
@@ -62,24 +75,23 @@ type SerializedTileSettings = {
 	s: EntitySettings;
 };
 
-type SerializedLevelData = Omit<LevelData, 'tileLayer'> & {
+type SerializedRoomData = Omit<RoomData, 'tileLayer'> & {
 	tileLayer: SerializedTileLayer;
 	tileSettings: SerializedTileSettings[];
 };
 
-type LevelPlaySession = {
-	user: User;
-	duration: number;
-	cleared: boolean;
-	deaths: number;
-	created_at: string;
+type LevelData = {
+	rooms: RoomData[];
 };
 
 type NewLevel = {
 	name: string;
 	data: LevelData;
 	created_at: string;
-	level_play_sessions: LevelPlaySession[];
+};
+
+type SerializedLevelData = {
+	rooms: SerializedRoomData[];
 };
 
 type Level = NewLevel & { id: string };

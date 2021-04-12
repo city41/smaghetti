@@ -18,9 +18,7 @@ type LevelPlayerProps = {
 };
 
 function ConnectedLevelPlayer(props: LevelPlayerProps) {
-	const { entities, tiles, levelTileWidth, levelTileHeight } = useSelector(
-		(state: AppState) => state.editor.present
-	);
+	const { rooms } = useSelector((state: AppState) => state.editor.present);
 
 	const romFile = getRom();
 	const biosFile = getBios();
@@ -37,21 +35,26 @@ function ConnectedLevelPlayer(props: LevelPlayerProps) {
 		}
 	}
 
-	const tileLayer = {
-		width: levelTileWidth,
-		height: levelTileHeight,
-		data: tiles,
-	};
+	const roomDatas: RoomData[] = rooms.map((r) => {
+		return {
+			entities: r.entities,
+			transports: r.transports,
+			tileLayer: {
+				width: r.roomTileWidth,
+				height: r.roomTileHeight,
+				data: r.tiles,
+			},
+		};
+	});
 
 	return (
 		<LevelPlayer
 			{...props}
-			tileLayer={tileLayer}
+			rooms={roomDatas}
 			romFile={romFile}
 			biosFile={biosFile}
 			emptySaveFile={emptySaveFile}
 			saveState={saveState}
-			entities={entities}
 		/>
 	);
 }

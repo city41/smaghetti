@@ -33,8 +33,11 @@ const actions = bindActionCreators(
 function ConnectedCanvasOffsetContainer(
 	props: Partial<CanvasOffsetContainerProps>
 ) {
-	const { scrollOffset, scale, mouseMode, dragOffset } = useSelector(
+	const { mouseMode, dragOffset } = useSelector(
 		(state: AppState) => state.editor.present
+	);
+	const { scrollOffset, scale } = useSelector(
+		(state: AppState) => state.editor.currentRoom
 	);
 
 	return (

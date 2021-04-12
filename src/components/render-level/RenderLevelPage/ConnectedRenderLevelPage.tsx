@@ -16,7 +16,7 @@ const actions = bindActionCreators(
 function ConnectedRenderLevelPage() {
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
 
-	const { objects, sprites } = useSelector(
+	const { objects, sprites, transports } = useSelector(
 		(state: AppState) => state['render-level']
 	);
 
@@ -25,6 +25,7 @@ function ConnectedRenderLevelPage() {
 			allFilesReady={allFilesReady}
 			objects={objects}
 			sprites={sprites}
+			transports={transports}
 			{...actions}
 		/>
 	);

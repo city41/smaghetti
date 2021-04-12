@@ -9,30 +9,6 @@ type KeyboardHelpModalProps = {
 	onRequestClose?: () => void;
 };
 
-// const List = styled.dl`
-// 	margin: 0;
-//
-// 	display: grid;
-// 	grid-template-columns: 1fr 1fr;
-// 	row-gap: 16px;
-//
-// 	& dt {
-// 		grid-column: 1;
-// 		justify-self: center;
-// 	}
-//
-// 	& dd {
-// 		grid-column: 2;
-// 	}
-// `;
-//
-// const Spacer = styled.div`
-// 	grid-column: 1 / -1;
-// 	height: 1px;
-// 	border-bottom: 1px solid white;
-// 	margin: 8px;
-// `;
-
 function Spacer() {
 	return <div className="col-span-2 border-b border-gray-500 m-2 w-full" />;
 }
@@ -92,6 +68,11 @@ const KeyboardHelpModal: FunctionComponent<KeyboardHelpModalProps> = ({
 					<KeyboardKey>g</KeyboardKey>
 				</dt>
 				<dd>Toggle grid</dd>
+				<Spacer />
+				<dt>
+					<KeyboardKey>r</KeyboardKey>
+				</dt>
+				<dd>Go to next room</dd>
 				<Spacer />
 				<dt>
 					<KeyboardKey>0</KeyboardKey>

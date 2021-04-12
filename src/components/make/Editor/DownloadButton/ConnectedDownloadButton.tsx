@@ -12,28 +12,26 @@ import {
 import { HowToUseDownloadModal } from '../../../profile/ProfilePage/LevelEntry/HowToUseDownloadModal';
 
 function ConnectedDownloadButton(props: PublicDownloadButtonProps) {
-	const {
-		entities,
-		tiles,
-		levelTileWidth,
-		levelTileHeight,
-		metadata,
-	} = useSelector((state: AppState) => state.editor.present);
+	const { rooms } = useSelector((state: AppState) => state.editor.present);
+
+	const { metadata } = useSelector((state: AppState) => state.editor.present);
 
 	const [showDownloadHelp, setShowDownloadHelp] = useState(false);
 
 	function handleDownloadClick() {
-		const tileLayer: TileLayer = {
-			width: levelTileWidth,
-			height: levelTileHeight,
-			data: tiles,
-		};
-
 		const level: LevelToSave = {
 			name: metadata.name,
 			data: {
-				entities,
-				tileLayer,
+				rooms: rooms.map((r) => {
+					return {
+						...r,
+						tileLayer: {
+							width: r.roomTileWidth,
+							height: r.roomTileHeight,
+							data: r.tiles,
+						},
+					};
+				}),
 			},
 		};
 

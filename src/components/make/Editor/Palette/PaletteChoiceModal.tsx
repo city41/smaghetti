@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import clsx from 'clsx';
 import isEqual from 'lodash/isEqual';
 
@@ -19,7 +19,7 @@ type PaletteChoiceModalProps = {
 
 type PaletteChoiceModalEntry = {
 	entry: EntityType;
-	info: { title: string; description: string; limitationsId?: string };
+	info: { title: string; description: ReactNode; limitationsId?: string };
 };
 
 const enemies: PaletteChoiceModalEntry[] = [
@@ -95,58 +95,6 @@ const enemies: PaletteChoiceModalEntry[] = [
 	},
 ];
 
-const objects: PaletteChoiceModalEntry[] = [
-	{
-		entry: 'QuestionBlock',
-		info: {
-			title: 'Question Block',
-			description: 'Can contain a coin, power up or other things',
-		},
-	},
-	{
-		entry: 'HiddenBlock',
-		info: {
-			title: 'Hidden Block',
-			description: 'Pretty much an invisible Question Block',
-		},
-	},
-	{
-		entry: 'PSwitch',
-		info: {
-			title: 'P-Switch',
-			description: '',
-		},
-	},
-	{
-		entry: 'CardSlotMachine',
-		info: {
-			title: 'Card Slot Machine',
-			description: 'Touching this completes the level.',
-		},
-	},
-	{
-		entry: 'QuestionMark',
-		info: {
-			title: 'Question Mark Ball',
-			description: 'Touching this completes the level.',
-		},
-	},
-	{
-		entry: 'TriangularBlock',
-		info: {
-			title: 'Triangular Block',
-			description: 'Lets Mario run up walls and ceilings',
-		},
-	},
-	{
-		entry: 'ArrowSign',
-		info: {
-			title: 'Arrow Sign',
-			description: 'Shows the way to go ... or not go?',
-		},
-	},
-];
-
 const terrain: PaletteChoiceModalEntry[] = [
 	{
 		entry: 'Brick',
@@ -192,7 +140,7 @@ const terrain: PaletteChoiceModalEntry[] = [
 	},
 ];
 
-const items: PaletteChoiceModalEntry[] = [
+const objects: PaletteChoiceModalEntry[] = [
 	{
 		entry: 'Coin',
 		info: {
@@ -224,6 +172,90 @@ const items: PaletteChoiceModalEntry[] = [
 	// 			'Can put things inside of it, need to throw vegetables at it to get at the item.',
 	// 	},
 	// },
+	{
+		entry: 'QuestionBlock',
+		info: {
+			title: 'Question Block',
+			description: 'Can contain a coin, power up or other things',
+		},
+	},
+	{
+		entry: 'HiddenBlock',
+		info: {
+			title: 'Hidden Block',
+			description: 'Pretty much an invisible Question Block',
+		},
+	},
+	{
+		entry: 'CardSlotMachine',
+		info: {
+			title: 'Card Slot Machine',
+			description: 'Touching this completes the level.',
+		},
+	},
+	{
+		entry: 'QuestionMark',
+		info: {
+			title: 'Question Mark Ball',
+			description: 'Touching this completes the level.',
+		},
+	},
+	{
+		entry: 'TriangularBlock',
+		info: {
+			title: 'Triangular Block',
+			description: 'Lets Mario run up walls and ceilings',
+		},
+	},
+	{
+		entry: 'ArrowSign',
+		info: {
+			title: 'Arrow Sign',
+			description: 'Shows the way to go ... or not go?',
+		},
+	},
+	{
+		entry: 'QuestionBlock',
+		info: {
+			title: 'Question Block',
+			description: 'Can contain a coin, power up or other things',
+		},
+	},
+	{
+		entry: 'HiddenBlock',
+		info: {
+			title: 'Hidden Block',
+			description: 'Pretty much an invisible Question Block',
+		},
+	},
+	{
+		entry: 'CardSlotMachine',
+		info: {
+			title: 'Card Slot Machine',
+			description: 'Touching this completes the level.',
+		},
+	},
+	{
+		entry: 'QuestionMark',
+		info: {
+			title: 'Question Mark Ball',
+			description: 'Touching this completes the level.',
+		},
+	},
+	{
+		entry: 'TriangularBlock',
+		info: {
+			title: 'Triangular Block',
+			description: 'Lets Mario run up walls and ceilings',
+		},
+	},
+	{
+		entry: 'ArrowSign',
+		info: {
+			title: 'Arrow Sign',
+			description: 'Shows the way to go ... or not go?',
+		},
+	},
 ];
 
 const gizmos: PaletteChoiceModalEntry[] = [
@@ -232,6 +264,13 @@ const gizmos: PaletteChoiceModalEntry[] = [
 		info: {
 			title: 'Spring Board',
 			description: 'Bounce high. Pick it up and move it if needed.',
+		},
+	},
+	{
+		entry: 'PSwitch',
+		info: {
+			title: 'P-Switch',
+			description: '',
 		},
 	},
 ];
@@ -299,23 +338,56 @@ const bosses: PaletteChoiceModalEntry[] = [
 	},
 ];
 
+const transports: PaletteChoiceModalEntry[] = [
+	{
+		entry: 'Transport',
+		info: {
+			title: 'Warp',
+			description: (
+				<div className="space-y-4">
+					<p>These enable Mario to warp someplace else</p>
+					<p>You can use them on their own for secret doors</p>
+					<p>
+						or place them on top of doors or pipes for a more conventional warp
+					</p>
+				</div>
+			),
+		},
+	},
+	{
+		entry: 'WoodDoor',
+		info: {
+			title: 'Wood Door',
+			description: '',
+		},
+	},
+];
+
 const tabs = [
 	'Enemies',
-	'Objects',
 	'Terrain',
-	'Items',
+	'Objects',
 	'Gizmos',
 	'Power Ups',
 	'Bosses',
+	'Transports',
 ];
-const entries = [enemies, objects, terrain, items, gizmos, powerUps, bosses];
+const entries = [
+	enemies,
+	terrain,
+	objects,
+	gizmos,
+	powerUps,
+	bosses,
+	transports,
+];
 
-const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
+function PaletteChoiceModal({
 	open,
 	currentPaletteEntries,
 	onEntryAdded,
 	onCancel,
-}) => {
+}: PaletteChoiceModalProps) {
 	const [currentTabIndex, setCurrentTabIndex] = useState(0);
 	const [currentEntryIndex, setCurrentEntryIndex] = useState(0);
 
@@ -385,7 +457,7 @@ const PaletteChoiceModal: FunctionComponent<PaletteChoiceModalProps> = ({
 			</div>
 		</Modal>
 	);
-};
+}
 
 export { PaletteChoiceModal };
 export type { PaletteChoiceModalProps };

@@ -21,7 +21,7 @@ const actions = bindActionCreators(
 
 const ConnectedPalette: FunctionComponent<Partial<PaletteProps>> = (props) => {
 	const { currentPaletteEntry, paletteEntries } = useSelector(
-		(state: AppState) => state.editor.present
+		(state: AppState) => state.editor.currentRoom
 	);
 
 	return (

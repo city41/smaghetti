@@ -208,9 +208,11 @@ function getObjects(entities: EditorEntity[], tileLayer: TileLayer): number[] {
 	return objects.concat(entityObjectData);
 }
 
-function getSprites(entities: EditorEntity[], tileLayer: TileLayer): number[] {
-	const levelHeightInTiles = tileLayer.height;
-
+function getSprites(
+	entities: EditorEntity[],
+	tiles: Tile[],
+	levelHeightInTiles: number
+): number[] {
 	// TODO: also need to sort tile entities into this
 	const sortedEntities = [...entities].sort((a, b) => {
 		return a.x - b.x;
@@ -237,46 +239,101 @@ function getSprites(entities: EditorEntity[], tileLayer: TileLayer): number[] {
 		);
 	}, []);
 
-	const tileSprites = tileLayer.data.reduce<number[]>((building, row) => {
-		if (!row) {
+	const tileSprites = tiles.reduce<number[]>((building, t) => {
+		const entityDef = entityMap[t.tileType];
+
+		if (entityDef.gameType !== 'sprite') {
 			return building;
 		}
 
-		const rowSprites = row.reduce<number[]>((buildingRow, t) => {
-			if (!t) {
-				return buildingRow;
-			}
-
-			const entityDef = entityMap[t.tileType];
-
-			if (entityDef.gameType !== 'sprite') {
-				return building;
-			}
-
-			return buildingRow.concat(
-				entityDef.toBinary(t.x, t.y, 1, 1, t.settings ?? {})
-			);
-		}, []);
-
-		return building.concat(rowSprites);
+		return building.concat(
+			entityDef.toBinary(t.x, t.y, 1, 1, t.settings ?? {})
+		);
 	}, []);
 
 	return sprites.concat(tileSprites);
 }
 
-function getRoom(entities: EditorEntity[], tileLayer: TileLayer): Room {
+function getTransports(
+	transports: EditorTransport[],
+	allRooms: RoomData[]
+): number[] {
+	if (transports.length > 255) {
+		throw new Error(
+			'createLevelData#getTransports: more than 255 transports in one room'
+		);
+	}
+
+	// transports are not 0xff terminated, rather a tiny header indicating
+	// how many transports follow. This is either a 16 bit value (why? more than 255 transports in one room???)
+	// or the second byte means something we don't yet understand
+	const transportsHeader = [transports.length, 0];
+
+	return transports.reduce<number[]>((building, t) => {
+		if (t.destRoom < 0 || t.destY < 0 || t.destX < 0) {
+			return building;
+		}
+
+		const sx = t.x;
+
+		const sy = t.y;
+		const syDiff = allRooms[t.room].tileLayer.height - (sy + 1);
+		const encodedSY = MAX_Y - syDiff;
+
+		const dx = t.destX;
+
+		const dy = t.destY;
+		const dyDiff = allRooms[t.destRoom].tileLayer.height - (dy + 1);
+		const encodedDY = MAX_Y - dyDiff;
+
+		// sx sy dr 0 dx dy cx cy 2 0 (exit type, two strange bytes)
+		return building.concat([
+			encodedSY, // sy
+			sx, // sx
+			t.destRoom,
+			0, // 0
+			encodedDY, // dy
+			dx,
+			16, // cy
+			7, // cx
+			0, // exit type byte one??
+			0, // exit type byte two??
+		]);
+	}, transportsHeader);
+}
+
+function flattenTiles(tileLayer: TileLayer): Tile[] {
+	return tileLayer.data.reduce<Tile[]>((building, row) => {
+		if (!row) {
+			return building;
+		}
+		const rowTiles = row.reduce<Tile[]>((buildingRow, tile) => {
+			if (!tile) {
+				return buildingRow;
+			}
+
+			return buildingRow.concat(tile);
+		}, []);
+
+		return building.concat(rowTiles);
+	}, []);
+}
+
+function getRoom(roomIndex: number, allRooms: RoomData[]): Room {
+	const { tileLayer, entities, transports } = allRooms[roomIndex];
+	const flatTiles = flattenTiles(tileLayer);
+
 	const objectHeader = getObjectHeader();
 	const objects = getObjects(entities, tileLayer);
-
 	const levelSettings = Classic1_2LevelSettings;
-
+	const transportData = getTransports(transports, allRooms);
 	const spriteHeader = [0x0];
-	const sprites = getSprites(entities, tileLayer);
+	const sprites = getSprites(entities, flatTiles, tileLayer.height);
 
 	return {
 		objects: objectHeader.concat(objects, [0xff]),
 		levelSettings,
-		transportData: [0, 0],
+		transportData,
 		sprites: spriteHeader.concat(sprites, [0xff]),
 		blockPathMovementData: [0xff],
 		autoScrollMovementData: [0xff],
@@ -300,26 +357,31 @@ function setPointer(
 	return value;
 }
 
-function getFullRoomData(room: Room): number[] {
-	return room.objects.concat(
-		room.levelSettings,
-		room.transportData,
-		room.sprites,
-		room.blockPathMovementData,
-		room.autoScrollMovementData
-	);
+function getFullRoomData(rooms: Room[]): number[] {
+	return rooms.reduce<number[]>((building, room) => {
+		return building.concat(
+			room.objects,
+			room.levelSettings,
+			room.transportData,
+			room.sprites,
+			room.blockPathMovementData,
+			room.autoScrollMovementData
+		);
+	}, []);
 }
 
-function createLevelData(
-	entities: EditorEntity[],
-	tileLayer: TileLayer
-): Uint8Array {
-	const room0 = getRoom(entities, tileLayer);
-	// const room1 = null;
-	// const room2 = null;
-	// const room3 = null;
+function getAllEntities(rooms: RoomData[]): EditorEntity[] {
+	return rooms.reduce<EditorEntity[]>((building, room) => {
+		return building.concat(room.entities);
+	}, []);
+}
 
-	const aceCoinCount = entities.filter((e) => e.type === 'AceCoin').length;
+function createLevelData(roomDatas: RoomData[]): Uint8Array {
+	const rooms = roomDatas.map((r, i, arr) => getRoom(i, arr));
+
+	const allEntities = getAllEntities(roomDatas);
+
+	const aceCoinCount = allEntities.filter((e) => e.type === 'AceCoin').length;
 
 	const header = getHeader(aceCoinCount);
 	// four rooms, each with six pointers, pointers are two bytes
@@ -331,53 +393,73 @@ function createLevelData(
 	const pointerOffset =
 		header.length + pointers.length + nullBytes.length + name.length;
 
-	// objects
+	// kick off pointers by setting room0's object pointer
 	let pointer = setPointer(pointers, 0, pointerOffset);
-	// level settings
-	pointer = setPointer(pointers, 1, pointer + room0.objects.length);
-	// transport data
-	pointer = setPointer(pointers, 2, pointer + room0.levelSettings.length);
-	// sprite data
-	pointer = setPointer(pointers, 3, pointer + room0.transportData.length);
-	// block path movement data
-	pointer = setPointer(pointers, 4, pointer + room0.sprites.length);
-	// auto scroll movement data
-	setPointer(pointers, 5, pointer + room0.blockPathMovementData.length);
 
-	const room0Data = getFullRoomData(room0);
+	// then do the rest in a loop
+	let roomIndex;
+	for (roomIndex = 0; roomIndex < rooms.length; ++roomIndex) {
+		const base = roomIndex * 6;
+		if (roomIndex > 0) {
+			pointer = setPointer(
+				pointers,
+				base + 0,
+				pointer + rooms[roomIndex - 1].autoScrollMovementData.length
+			);
+		}
+
+		// level settings
+		pointer = setPointer(
+			pointers,
+			base + 1,
+			pointer + rooms[roomIndex].objects.length
+		);
+		// transport data
+		pointer = setPointer(
+			pointers,
+			base + 2,
+			pointer + rooms[roomIndex].levelSettings.length
+		);
+		// sprite data
+		pointer = setPointer(
+			pointers,
+			base + 3,
+			pointer + rooms[roomIndex].transportData.length
+		);
+		// block path movement data
+		pointer = setPointer(
+			pointers,
+			base + 4,
+			pointer + rooms[roomIndex].sprites.length
+		);
+		// auto scroll movement data
+		pointer = setPointer(
+			pointers,
+			base + 5,
+			pointer + rooms[roomIndex].blockPathMovementData.length
+		);
+	}
+
+	const presentRoomsData = getFullRoomData(rooms);
 
 	const fullDataLength =
 		header.length +
 		pointers.length +
 		nullBytes.length +
 		name.length +
-		room0Data.length;
+		presentRoomsData.length;
 
-	// room 1 pointers
-	setPointer(pointers, 6, fullDataLength);
-	setPointer(pointers, 7, fullDataLength);
-	setPointer(pointers, 8, fullDataLength);
-	setPointer(pointers, 9, fullDataLength);
-	setPointer(pointers, 10, fullDataLength);
-	setPointer(pointers, 11, fullDataLength);
+	for (; roomIndex < 4; ++roomIndex) {
+		const base = roomIndex * 6;
+		setPointer(pointers, base + 0, fullDataLength);
+		setPointer(pointers, base + 1, fullDataLength);
+		setPointer(pointers, base + 2, fullDataLength);
+		setPointer(pointers, base + 3, fullDataLength);
+		setPointer(pointers, base + 4, fullDataLength);
+		setPointer(pointers, base + 5, fullDataLength);
+	}
 
-	// room 2 pointers
-	setPointer(pointers, 12, fullDataLength);
-	setPointer(pointers, 13, fullDataLength);
-	setPointer(pointers, 14, fullDataLength);
-	setPointer(pointers, 15, fullDataLength);
-	setPointer(pointers, 16, fullDataLength);
-	setPointer(pointers, 17, fullDataLength);
-
-	// room 3 pointers
-	setPointer(pointers, 18, fullDataLength);
-	setPointer(pointers, 19, fullDataLength);
-	setPointer(pointers, 20, fullDataLength);
-	setPointer(pointers, 21, fullDataLength);
-	setPointer(pointers, 22, fullDataLength);
-	setPointer(pointers, 23, fullDataLength);
-
-	const fullData = header.concat(pointers, nullBytes, name, room0Data);
+	const fullData = header.concat(pointers, nullBytes, name, presentRoomsData);
 
 	return Uint8Array.from(fullData);
 }

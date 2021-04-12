@@ -14,24 +14,7 @@ const HiddenBlock: Entity = {
 	defaultSettings: { payload: 'MusicBlock' },
 	dimensions: 'none',
 	romOffset: 0x16ea40,
-	palette: [
-		0x7f96,
-		0x7fff,
-		0x0,
-		0x39ce,
-		0x4a52,
-		0x6318,
-		0x77bd,
-		0x732c,
-		0x7fd2,
-		0x7ffb,
-		0x5810,
-		0x7597,
-		0x7e1d,
-		0x0,
-		0x0,
-		0x0,
-	],
+	palette: [],
 	tiles: [
 		// HACK: since this block is hidden, it doesn't actually
 		// have any graphics, so these are empty tiles, just to

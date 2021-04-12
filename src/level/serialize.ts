@@ -2,8 +2,8 @@ import { TILE_TYPE_TO_SERIALIZE_ID_MAP } from '../tiles/constants';
 import isEqual from 'lodash/isEqual';
 import { entityMap } from '../entities/entityMap';
 
-function serialize(levelData: LevelData): SerializedLevelData {
-	const tiles = levelData.tileLayer.data;
+function serializeRoom(room: RoomData): SerializedRoomData {
+	const tiles = room.tileLayer.data;
 
 	const serializedTiles = [];
 	const serializedTileSettings: SerializedTileSettings[] = [];
@@ -46,14 +46,20 @@ function serialize(levelData: LevelData): SerializedLevelData {
 	}
 
 	const tileLayer = {
-		...levelData.tileLayer,
+		...room.tileLayer,
 		data: serializedTiles,
 	};
 
 	return {
-		...levelData,
+		...room,
 		tileLayer,
 		tileSettings: serializedTileSettings,
+	};
+}
+
+function serialize(levelData: LevelData): SerializedLevelData {
+	return {
+		rooms: levelData.rooms.map(serializeRoom),
 	};
 }
 

@@ -6,6 +6,7 @@ import { TILE_SIZE } from '../../../../tiles/constants';
 
 import styles from './PaletteEntry.module.css';
 import { entityMap, EntityType } from '../../../../entities/entityMap';
+import { TransportSource } from '../../../Transport/TransportSource';
 
 const SCALE = 50 / TILE_SIZE;
 
@@ -112,18 +113,29 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 	onAddClick,
 	onRemoveClick,
 }) => {
-	const item =
-		entityMap[entry].editorType === 'tile' ? (
-			<Tile tileType={entry} scale={SCALE} />
-		) : (
-			<Entity
-				scale={6.25}
-				maxWidth={50}
-				maxHeight={50}
-				type={entry}
-				disableDrag
-			/>
-		);
+	let item;
+
+	switch (entityMap[entry].editorType) {
+		case 'tile':
+			item = <Tile tileType={entry} scale={SCALE} />;
+			break;
+		case 'entity':
+			item = <Entity scale={6.25} maxWidth={50} maxHeight={50} type={entry} />;
+			break;
+		case 'transport':
+			item = (
+				<div style={{ transform: `scale(${SCALE * 1.3})` }}>
+					<TransportSource
+						label="warp"
+						destRoom={-1}
+						destX={-1}
+						destY={-1}
+						exitType={1}
+					/>
+				</div>
+			);
+			break;
+	}
 
 	return (
 		<div

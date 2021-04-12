@@ -26,6 +26,7 @@ import { getLevel as getLevelQuery } from '../../remoteData/getLevel';
 import { serialize } from '../../level/serialize';
 import { deserialize } from '../../level/deserialize';
 import isEqual from 'lodash/isEqual';
+import cloneDeep from 'lodash/cloneDeep';
 
 import { TILE_SIZE, TILE_TYPE_TO_GROUP_TYPE_MAP } from '../../tiles/constants';
 import { entityMap, EntityType } from '../../entities/entityMap';
@@ -60,40 +61,62 @@ const scales: number[] = [
 	playerScale * 2,
 ];
 
-type InternalEditorState = {
-	metadata: {
-		name: string;
-	};
-	paintedGroup: string;
+type RoomState = {
 	entities: EditorEntity[];
+	transports: EditorTransport[];
 	tiles: TileMatrix;
-	storedMouseMode?: MouseMode | null;
-	mouseMode: MouseMode;
-	levelTileWidth: number;
-	levelTileHeight: number;
-	pendingLevelResizeIncrement: Point;
+	roomTileWidth: number;
+	roomTileHeight: number;
+
 	scale: number;
-	storedForResizeMode?: { scale: number; offset: Point } | null;
 	canIncreaseScale: boolean;
 	canDecreaseScale: boolean;
 	editorVisibleWindow: EditorFocusRect;
 	scrollOffset: Point;
-	showGrid: boolean;
-
 	paletteEntries: EntityType[];
 	currentPaletteEntry?: EntityType;
+};
 
+type InternalEditorState = {
+	metadata: {
+		name: string;
+	};
+	rooms: RoomState[];
+	currentRoomIndex: number;
+
+	paintedGroup: string;
+	/**
+	 * When the user presses spacebar to pan, this is where the current
+	 * mouse mode is stashed so it can be restored when they let go
+	 */
+	storedMouseMode?: MouseMode | null;
+
+	/**
+	 * These store state when going into an alternate mode such as resizing or managing
+	 * rooms. The presence of this state indicates the editor is in that mode.
+	 *
+	 * TODO: this is cumbersome and does not scale. There has to be a (much) better way,
+	 * and debatable if the slice should even know or care about these modes
+	 */
+	storedForResizeMode?: { scale: number; offset: Point } | null;
+	storedForManageRoomsMode?: { scale: number; offset: Point } | null;
+
+	mouseMode: MouseMode;
+	pendingLevelResizeIncrement: Point;
+	showGrid: boolean;
 	focused: Record<number, boolean>;
 	dragOffset: Point | null;
 	isSelecting: boolean;
-
 	savedLevelId?: string;
 	saveLevelState: 'dormant' | 'saving' | 'error' | 'success';
-
 	loadLevelState: 'dormant' | 'loading' | 'error' | 'missing' | 'success';
 };
 
 const initialScale = playerScale;
+
+function getCurrentRoom(state: InternalEditorState): RoomState {
+	return state.rooms[state.currentRoomIndex];
+}
 
 /**
  * Figure out what the y scroll should be such that the player and start
@@ -113,11 +136,7 @@ function calcYForScrollToBottom() {
 	return (levelHeight - windowHeight) / initialScale;
 }
 
-const defaultInitialState: InternalEditorState = {
-	metadata: {
-		name: 'new level',
-	},
-	paintedGroup: '',
+const initialRoomState: RoomState = {
 	entities: [
 		{
 			id: 1,
@@ -126,13 +145,10 @@ const defaultInitialState: InternalEditorState = {
 			type: 'Player',
 		},
 	],
+	transports: [],
 	tiles: [],
-	saveLevelState: 'dormant',
-	loadLevelState: 'dormant',
-	mouseMode: 'draw',
-	levelTileWidth: INITIAL_LEVEL_TILE_WIDTH,
-	levelTileHeight: INITIAL_LEVEL_TILE_HEIGHT,
-	pendingLevelResizeIncrement: { x: 0, y: 0 },
+	roomTileWidth: INITIAL_LEVEL_TILE_WIDTH,
+	roomTileHeight: INITIAL_LEVEL_TILE_HEIGHT,
 	scale: initialScale,
 	canIncreaseScale: scales.indexOf(initialScale) < scales.length - 1,
 	canDecreaseScale: scales.indexOf(initialScale) > 0,
@@ -142,25 +158,42 @@ const defaultInitialState: InternalEditorState = {
 		height: 0,
 	},
 	scrollOffset: { x: 0, y: calcYForScrollToBottom() },
-	showGrid: true,
-
 	paletteEntries: ['Brick', 'Coin', 'Goomba'],
 	currentPaletteEntry: 'Goomba',
+};
+
+const defaultInitialState: InternalEditorState = {
+	metadata: {
+		name: 'new level',
+	},
+	paintedGroup: '',
+	saveLevelState: 'dormant',
+	loadLevelState: 'dormant',
+	mouseMode: 'draw',
+	pendingLevelResizeIncrement: { x: 0, y: 0 },
+	showGrid: true,
 	focused: {},
 	dragOffset: null,
 	isSelecting: false,
+	rooms: [initialRoomState],
+	currentRoomIndex: 0,
 };
 
 const initialState = defaultInitialState;
 
 const EMPTY_LEVEL: SerializedLevelData = {
-	entities: [...initialState.entities],
-	tileSettings: [],
-	tileLayer: {
-		data: [],
-		width: PLAY_WINDOW_TILE_WIDTH,
-		height: PLAY_WINDOW_TILE_HEIGHT,
-	},
+	rooms: [
+		{
+			entities: [...initialState.rooms[0].entities],
+			transports: [],
+			tileLayer: {
+				data: [],
+				width: PLAY_WINDOW_TILE_WIDTH,
+				height: PLAY_WINDOW_TILE_HEIGHT,
+			},
+			tileSettings: [],
+		},
+	],
 };
 
 let idCounter = 10;
@@ -272,7 +305,7 @@ function clamp(value: number, min: number, max: number): number {
 	return Math.max(min, Math.min(value, max));
 }
 
-function getEntityPixelBounds(entity: NewEntity): Bounds {
+function getEntityPixelBounds(entity: NewEditorEntity): Bounds {
 	const spriteDef = entityMap[entity.type];
 	const width = Math.max(spriteDef.tiles[0].length * 8, TILE_SIZE);
 	const height = Math.max(spriteDef.tiles.length * 8, TILE_SIZE);
@@ -283,7 +316,7 @@ function getEntityPixelBounds(entity: NewEntity): Bounds {
 	};
 }
 
-function getEntityTileBounds(entity: NewEntity): Bounds {
+function getEntityTileBounds(entity: NewEditorEntity): Bounds {
 	const spriteDef = entityMap[entity.type];
 
 	const tileWidth = spriteDef.tiles[0].length / 2;
@@ -348,11 +381,14 @@ function overlap(a: Bounds, b: Bounds): boolean {
 	return true;
 }
 
-function isNotANewEntity(e: NewEntity | EditorEntity): e is EditorEntity {
+function isNotANewEntity(e: NewEditorEntity | EditorEntity): e is EditorEntity {
 	return 'id' in e && !!e.id;
 }
 
-function canDrop(entity: NewEntity | EditorEntity, entities: EditorEntity[]) {
+function canDrop(
+	entity: NewEditorEntity | EditorEntity,
+	entities: EditorEntity[]
+) {
 	const entityBounds = getEntityTileBounds(entity);
 
 	return !entities.some((otherEntity) => {
@@ -376,17 +412,19 @@ function getEntityY(inputY: number): number {
 }
 
 function ensurePlayerIsInView(state: InternalEditorState, offsetDelta: Point) {
-	const player = state.entities.find((e) => e.type === 'Player')!;
+	const player = getCurrentRoom(state).entities.find(
+		(e) => e.type === 'Player'
+	)!;
 
 	player.x = clamp(
 		player.x + offsetDelta.x,
 		0,
-		(state.levelTileWidth - 1) * TILE_SIZE
+		(getCurrentRoom(state).roomTileWidth - 1) * TILE_SIZE
 	);
 	player.y = clamp(
 		player.y + offsetDelta.y,
 		0,
-		(state.levelTileHeight - 1) * TILE_SIZE
+		(getCurrentRoom(state).roomTileHeight - 1) * TILE_SIZE
 	);
 }
 
@@ -399,20 +437,20 @@ function ensureLevelIsInView(state: InternalEditorState) {
 		return;
 	}
 
-	const windowWidth = window.innerWidth / state.scale;
-	const windowHeight = window.innerHeight / state.scale;
+	const windowWidth = window.innerWidth / getCurrentRoom(state).scale;
+	const windowHeight = window.innerHeight / getCurrentRoom(state).scale;
 
-	const levelWidthPx = state.levelTileWidth * TILE_SIZE;
-	const levelHeightPx = state.levelTileHeight * TILE_SIZE;
+	const levelWidthPx = getCurrentRoom(state).roomTileWidth * TILE_SIZE;
+	const levelHeightPx = getCurrentRoom(state).roomTileHeight * TILE_SIZE;
 
-	state.scrollOffset.x = clamp(
-		state.scrollOffset.x,
+	getCurrentRoom(state).scrollOffset.x = clamp(
+		getCurrentRoom(state).scrollOffset.x,
 		-windowWidth + TILE_SIZE,
 		levelWidthPx - TILE_SIZE
 	);
 
-	state.scrollOffset.y = clamp(
-		state.scrollOffset.y,
+	getCurrentRoom(state).scrollOffset.y = clamp(
+		getCurrentRoom(state).scrollOffset.y,
 		-windowHeight + TILE_SIZE,
 		levelHeightPx - TILE_SIZE
 	);
@@ -422,37 +460,43 @@ function removeOutOfBoundsEntities(state: InternalEditorState) {
 	const levelBounds = {
 		upperLeft: { x: 0, y: 0 },
 		lowerRight: {
-			x: state.levelTileWidth * TILE_SIZE,
-			y: state.levelTileHeight * TILE_SIZE,
+			x: getCurrentRoom(state).roomTileWidth * TILE_SIZE,
+			y: getCurrentRoom(state).roomTileHeight * TILE_SIZE,
 		},
 	};
 
-	state.entities = state.entities.filter((e) => {
-		if (nonDeletableEntityTypes.includes(e.type)) {
-			return true;
+	getCurrentRoom(state).entities = getCurrentRoom(state).entities.filter(
+		(e) => {
+			if (nonDeletableEntityTypes.includes(e.type)) {
+				return true;
+			}
+
+			const pixelBounds = getEntityPixelBounds(e);
+
+			return overlap(pixelBounds, levelBounds);
 		}
-
-		const pixelBounds = getEntityPixelBounds(e);
-
-		return overlap(pixelBounds, levelBounds);
-	});
+	);
 }
 
 function removeOutOfBoundsTiles(state: InternalEditorState) {
-	state.tiles = state.tiles.map((row) => {
-		return row?.slice(0, state.levelTileWidth) ?? null;
+	getCurrentRoom(state).tiles = getCurrentRoom(state).tiles.map((row) => {
+		return row?.slice(0, getCurrentRoom(state).roomTileWidth) ?? null;
 	});
 
-	state.tiles = state.tiles.slice(0, state.levelTileHeight);
+	getCurrentRoom(state).tiles = getCurrentRoom(state).tiles.slice(
+		0,
+		getCurrentRoom(state).roomTileHeight
+	);
 }
 
 function scaleTo(state: InternalEditorState, newScale: number) {
 	const newScaleIndex = scales.indexOf(newScale);
 
-	state.scale = newScale;
-	state.canIncreaseScale =
+	getCurrentRoom(state).scale = newScale;
+	getCurrentRoom(state).canIncreaseScale =
 		newScaleIndex !== -1 && newScaleIndex < scales.length - 1;
-	state.canDecreaseScale = newScaleIndex !== -1 && newScaleIndex > 0;
+	getCurrentRoom(state).canDecreaseScale =
+		newScaleIndex !== -1 && newScaleIndex > 0;
 }
 
 /**
@@ -463,8 +507,8 @@ const EDGE_BUFFER_SIZE = 200;
 
 function determineResizeScale(state: InternalEditorState): number {
 	// this is actual pixels, ie when the level is scaled to 1
-	const levelWidthInPixels = state.levelTileWidth * TILE_SIZE;
-	const levelHeightInPixels = state.levelTileHeight * TILE_SIZE;
+	const levelWidthInPixels = getCurrentRoom(state).roomTileWidth * TILE_SIZE;
+	const levelHeightInPixels = getCurrentRoom(state).roomTileHeight * TILE_SIZE;
 
 	const maxWidthInPixels = window.innerWidth - EDGE_BUFFER_SIZE * 2;
 	const maxHeightInPixels = window.innerHeight - EDGE_BUFFER_SIZE * 2;
@@ -475,16 +519,48 @@ function determineResizeScale(state: InternalEditorState): number {
 	return Math.min(horizontalScale, verticalScale);
 }
 
+function setScaleAndOffsetForManageRooms(state: InternalEditorState) {
+	const currentRoom = getCurrentRoom(state);
+
+	const widthInTiles = Math.max(...state.rooms.map((r) => r.roomTileWidth)) + 5;
+	let heightInTiles = state.rooms.reduce<number>((building, room) => {
+		return building + room.roomTileHeight;
+	}, 0);
+
+	// add 4 tiles between each room to account for the padding
+	heightInTiles += 4 * (state.rooms.length - 1);
+
+	const widthInPx = widthInTiles * TILE_SIZE;
+	const heightInPx = heightInTiles * TILE_SIZE;
+
+	const widthScale = (window.innerWidth * 0.75) / widthInPx;
+	const heightScale = (window.innerHeight * 0.75) / heightInPx;
+
+	const scale = Math.min(widthScale, heightScale);
+	currentRoom.scale = scale;
+
+	const scaledWidthPx = widthInPx * scale;
+	const scaledHeightPx = heightInPx * scale;
+
+	currentRoom.scrollOffset = {
+		x: -(window.innerWidth / 2 - scaledWidthPx / 2) / scale,
+		y: -(window.innerHeight / 2 - scaledHeightPx / 2) / scale,
+	};
+}
+
 function centerLevelInWindow(state: InternalEditorState) {
+	const currentRoom = getCurrentRoom(state);
 	// this is onscreen pixels, as in how many pixels the level is taking up at the current scale on the window
-	const levelWidthInPixels = state.levelTileWidth * TILE_SIZE * state.scale;
-	const levelHeightInPixels = state.levelTileHeight * TILE_SIZE * state.scale;
+	const levelWidthInPixels =
+		currentRoom.roomTileWidth * TILE_SIZE * currentRoom.scale;
+	const levelHeightInPixels =
+		currentRoom.roomTileHeight * TILE_SIZE * currentRoom.scale;
 
 	const upperPixels = (window.innerHeight - levelHeightInPixels) / 2;
 	const leftPixels = (window.innerWidth - levelWidthInPixels) / 2;
 
-	state.scrollOffset.x = -leftPixels / state.scale;
-	state.scrollOffset.y = -upperPixels / state.scale;
+	currentRoom.scrollOffset.x = -leftPixels / currentRoom.scale;
+	currentRoom.scrollOffset.y = -upperPixels / currentRoom.scale;
 }
 
 function selectEntireTileEntity(
@@ -545,11 +621,15 @@ function findTile(tiles: TileMatrix, id: number): Tile | null {
 // Each ace coin is given a specific index, so the game can keep track of
 // which coins have been collected. Whenever a new ace coin is added or deleted,
 // the indices need to be updated
-function assignAceCoinIndices(entities: EditorEntity[]) {
+function assignAceCoinIndices(rooms: RoomState[]) {
+	const allEntities = rooms.reduce<EditorEntity[]>((building, room) => {
+		return building.concat(room.entities);
+	}, []);
+
 	let aceCoinIndex = 0;
 
-	for (let i = 0; i < entities.length; ++i) {
-		const e = entities[i];
+	for (let i = 0; i < allEntities.length; ++i) {
+		const e = allEntities[i];
 
 		if (e.type === 'AceCoin') {
 			e.settings = { aceCoinIndex };
@@ -569,24 +649,38 @@ const editorSlice = createSlice({
 		setLevelName(state: InternalEditorState, action: PayloadAction<string>) {
 			state.metadata.name = action.payload.trim() || 'new level';
 		},
+		setCurrentRoomIndex(
+			state: InternalEditorState,
+			action: PayloadAction<number>
+		) {
+			const newRoomIndex = action.payload;
+			if (newRoomIndex >= 0 && newRoomIndex < state.rooms.length) {
+				state.currentRoomIndex = newRoomIndex;
+			}
+		},
 		addPaletteEntry(
 			state: InternalEditorState,
 			action: PayloadAction<EntityType>
 		) {
 			const newEntry = action.payload;
 
-			if (!state.paletteEntries.some((p) => isEqual(p, newEntry))) {
-				state.paletteEntries.push(newEntry);
-				state.currentPaletteEntry =
-					state.paletteEntries[state.paletteEntries.length - 1];
+			if (
+				!getCurrentRoom(state).paletteEntries.some((p) => isEqual(p, newEntry))
+			) {
+				getCurrentRoom(state).paletteEntries.push(newEntry);
+				getCurrentRoom(state).currentPaletteEntry = getCurrentRoom(
+					state
+				).paletteEntries[getCurrentRoom(state).paletteEntries.length - 1];
 			} else {
 				// already in the palette? just select it then
-				const index = state.paletteEntries.findIndex((p) =>
+				const index = getCurrentRoom(state).paletteEntries.findIndex((p) =>
 					isEqual(p, newEntry)
 				);
 
 				if (index > -1) {
-					state.currentPaletteEntry = state.paletteEntries[index];
+					getCurrentRoom(state).currentPaletteEntry = getCurrentRoom(
+						state
+					).paletteEntries[index];
 				}
 			}
 		},
@@ -595,22 +689,24 @@ const editorSlice = createSlice({
 			action: PayloadAction<EntityType>
 		) {
 			const entryToRemove = action.payload;
-			const index = state.paletteEntries.findIndex((pe) =>
+			const index = getCurrentRoom(state).paletteEntries.findIndex((pe) =>
 				// TODO: isEqual no longer needed
 				isEqual(pe, entryToRemove)
 			);
 
-			if (isEqual(entryToRemove, state.currentPaletteEntry)) {
+			if (isEqual(entryToRemove, getCurrentRoom(state).currentPaletteEntry)) {
 				let nextIndex = index - 1;
 
 				if (nextIndex < 0) {
 					nextIndex = index + 1;
 				}
 
-				state.currentPaletteEntry = state.paletteEntries[nextIndex];
+				getCurrentRoom(state).currentPaletteEntry = getCurrentRoom(
+					state
+				).paletteEntries[nextIndex];
 			}
 
-			state.paletteEntries.splice(index, 1);
+			getCurrentRoom(state).paletteEntries.splice(index, 1);
 		},
 		setCurrentPaletteEntryByIndex(
 			state: InternalEditorState,
@@ -618,21 +714,23 @@ const editorSlice = createSlice({
 		) {
 			const index = action.payload;
 
-			if (index >= 0 && index < state.paletteEntries.length) {
-				state.currentPaletteEntry = state.paletteEntries[index];
+			if (index >= 0 && index < getCurrentRoom(state).paletteEntries.length) {
+				getCurrentRoom(state).currentPaletteEntry = getCurrentRoom(
+					state
+				).paletteEntries[index];
 			}
 		},
 		entityDropped(
 			state: InternalEditorState,
-			action: PayloadAction<EditorEntity | NewEntity>
+			action: PayloadAction<EditorEntity | NewEditorEntity>
 		) {
-			if (!canDrop(action.payload, state.entities)) {
+			if (!canDrop(action.payload, getCurrentRoom(state).entities)) {
 				return;
 			}
 
 			if ('id' in action.payload) {
 				const { id } = action.payload;
-				const entity = state.entities.find((e) => e.id === id);
+				const entity = getCurrentRoom(state).entities.find((e) => e.id === id);
 
 				if (entity) {
 					Object.assign(entity, action.payload, {
@@ -641,7 +739,7 @@ const editorSlice = createSlice({
 					});
 				}
 			} else {
-				state.entities.push({
+				getCurrentRoom(state).entities.push({
 					...action.payload,
 					x: getEntityX(action.payload.x),
 					y: getEntityY(action.payload.y),
@@ -654,14 +752,15 @@ const editorSlice = createSlice({
 			state: InternalEditorState,
 			action: PayloadAction<{ points: Point[]; newGroup: boolean }>
 		) {
+			const currentRoom = getCurrentRoom(state);
 			const { points, newGroup } = action.payload;
 
 			if (newGroup) {
 				state.paintedGroup = getPaintedGroup(points[0], state.mouseMode);
 			}
 
-			let minX = state.levelTileWidth;
-			let minY = state.levelTileHeight;
+			let minX = currentRoom.roomTileWidth;
+			let minY = currentRoom.roomTileHeight;
 			let maxX = 0;
 			let maxY = 0;
 
@@ -674,15 +773,16 @@ const editorSlice = createSlice({
 				maxX = Math.max(maxX, indexX);
 				maxY = Math.max(maxY, indexY);
 
-				const existingTile = state.tiles[indexY]?.[indexX];
+				const existingTile = currentRoom.tiles[indexY]?.[indexX];
+
+				const tilePoint = {
+					x: indexX,
+					y: indexY,
+				};
 
 				switch (state.mouseMode) {
 					case 'erase': {
-						const existingEntity = state.entities.find((e) => {
-							const tilePoint = {
-								x: indexX,
-								y: indexY,
-							};
+						const existingEntity = currentRoom.entities.find((e) => {
 							return pointIsInside(tilePoint, getEntityTileBounds(e));
 						});
 
@@ -690,80 +790,120 @@ const editorSlice = createSlice({
 							existingEntity &&
 							!nonDeletableEntityTypes.includes(existingEntity.type)
 						) {
-							state.entities = state.entities.filter(
+							currentRoom.entities = currentRoom.entities.filter(
 								(e) => e !== existingEntity
 							);
 
 							if (existingEntity.type === 'AceCoin') {
-								assignAceCoinIndices(state.entities);
+								assignAceCoinIndices(state.rooms);
 							}
-						} else if (state.tiles[indexY]) {
-							// TODO: why is the assertion needed?
-							state.tiles[indexY]![indexX] = null;
+						}
+
+						if (currentRoom.tiles[indexY]) {
+							currentRoom.tiles[indexY]![indexX] = null;
+						}
+
+						const existingTransport = currentRoom.transports.find((t) => {
+							return pointIsInside(tilePoint, {
+								// TODO: are bounds inclusive?
+								upperLeft: { x: t.x, y: t.y },
+								lowerRight: { x: t.x + 1, y: t.y + 1 },
+							});
+						});
+
+						if (existingTransport) {
+							currentRoom.transports = currentRoom.transports.filter(
+								(t) => t !== existingTransport
+							);
 						}
 
 						break;
 					}
 					case 'draw': {
 						if (
-							state.currentPaletteEntry &&
-							entityMap[state.currentPaletteEntry].editorType === 'tile'
+							currentRoom.currentPaletteEntry &&
+							entityMap[currentRoom.currentPaletteEntry].editorType === 'tile'
 						) {
 							// replace a tile
 							if (existingTile) {
-								existingTile.tileType = state.currentPaletteEntry;
+								existingTile.tileType = currentRoom.currentPaletteEntry;
 							} else {
 								// paint a new tile
-								state.tiles[indexY] = state.tiles[indexY] || [];
-								state.tiles[indexY]![indexX] = {
+								currentRoom.tiles[indexY] = currentRoom.tiles[indexY] || [];
+								currentRoom.tiles[indexY]![indexX] = {
 									id: idCounter++,
 									x: indexX,
 									y: indexY,
-									tileType: state.currentPaletteEntry,
+									tileType: currentRoom.currentPaletteEntry,
 									// TODO: tileIndex isn't really used anymore
 									tileIndex: 0,
 								};
 
-								const objectDef = entityMap[state.currentPaletteEntry];
+								const objectDef = entityMap[currentRoom.currentPaletteEntry];
 
 								if (objectDef.settingsType === 'single') {
-									state.tiles[indexY]![indexX]!.settings = {
+									currentRoom.tiles[indexY]![indexX]!.settings = {
 										...objectDef.defaultSettings,
 									};
 								}
 							}
 						} else if (
-							state.currentPaletteEntry &&
-							entityMap[state.currentPaletteEntry].editorType === 'entity'
+							currentRoom.currentPaletteEntry &&
+							entityMap[currentRoom.currentPaletteEntry].editorType === 'entity'
 						) {
 							// place an entity
-							const type = state.currentPaletteEntry;
+							const type = currentRoom.currentPaletteEntry;
 
-							const newEntity: NewEntity = {
+							const newEntity: NewEditorEntity = {
 								x: getEntityX(point.x),
 								y: getEntityY(point.y),
 								type,
 							};
 
 							if (
-								canDrop(newEntity, state.entities) &&
+								canDrop(newEntity, currentRoom.entities) &&
 								(type !== 'AceCoin' ||
-									state.entities.filter((e) => e.type === 'AceCoin').length < 5)
+									currentRoom.entities.filter((e) => e.type === 'AceCoin')
+										.length < 5)
 							) {
 								const completeEntity: EditorEntity = {
 									...newEntity,
 									id: idCounter++,
 								};
 
-								state.entities.push(completeEntity);
+								currentRoom.entities.push(completeEntity);
 
 								// TODO: is this still necessary
 								// if (completeEntity.type in detailsPanes) {
 								// 	state.focused = { [completeEntity.id]: true };
 								// }
 								if (type === 'AceCoin') {
-									assignAceCoinIndices(state.entities);
+									assignAceCoinIndices(state.rooms);
 								}
+							}
+						} else if (
+							currentRoom.currentPaletteEntry &&
+							entityMap[currentRoom.currentPaletteEntry].editorType ===
+								'transport'
+						) {
+							const newTransport: EditorTransport = {
+								id: idCounter++,
+								x: getEntityX(point.x) / TILE_SIZE,
+								y: getEntityY(point.y) / TILE_SIZE,
+								room: state.currentRoomIndex,
+								destX: -1,
+								destY: -1,
+								destRoom: -1,
+								exitType: 0,
+							};
+
+							// only allow the new transport if one doesn't already exist at that location
+							if (
+								!currentRoom.transports.some(
+									(t) => t.x === newTransport.x && t.y === newTransport.y
+								)
+							) {
+								currentRoom.transports.push(newTransport);
 							}
 						}
 						break;
@@ -771,16 +911,16 @@ const editorSlice = createSlice({
 					// TODO: fill entities
 					case 'fill': {
 						if (
-							state.currentPaletteEntry &&
-							entityMap[state.currentPaletteEntry].editorType === 'tile'
+							currentRoom.currentPaletteEntry &&
+							entityMap[currentRoom.currentPaletteEntry].editorType === 'tile'
 						) {
 							const floodResult = floodFill(
-								state.tiles,
-								state.currentPaletteEntry,
+								currentRoom.tiles,
+								currentRoom.currentPaletteEntry,
 								indexX,
 								indexY,
-								state.levelTileWidth,
-								state.levelTileHeight
+								currentRoom.roomTileWidth,
+								currentRoom.roomTileHeight
 							);
 
 							minX = floodResult.minX;
@@ -796,20 +936,26 @@ const editorSlice = createSlice({
 
 			minX = Math.max(0, minX - 1);
 			minY = Math.max(0, minY - 1);
-			maxX = Math.min(state.levelTileWidth, maxX + 1);
-			maxY = Math.min(state.levelTileHeight, maxY + 1);
+			maxX = Math.min(currentRoom.roomTileWidth, maxX + 1);
+			maxY = Math.min(currentRoom.roomTileHeight, maxY + 1);
 		},
 		deleteFocused(state: InternalEditorState) {
-			state.entities = state.entities.filter((e) => {
+			const currentRoom = getCurrentRoom(state);
+
+			currentRoom.entities = currentRoom.entities.filter((e) => {
 				return nonDeletableEntityTypes.includes(e.type) || !state.focused[e.id];
 			});
 
-			let minX = state.levelTileWidth;
-			let minY = state.levelTileHeight;
+			currentRoom.transports = currentRoom.transports.filter((t) => {
+				return !state.focused[t.id];
+			});
+
+			let minX = currentRoom.roomTileWidth;
+			let minY = currentRoom.roomTileHeight;
 			let maxX = 0;
 			let maxY = 0;
 
-			state.tiles = state.tiles.map((row, y) => {
+			currentRoom.tiles = currentRoom.tiles.map((row, y) => {
 				if (!row) {
 					return null;
 				}
@@ -834,15 +980,17 @@ const editorSlice = createSlice({
 
 			state.focused = {};
 
-			assignAceCoinIndices(state.entities);
+			assignAceCoinIndices(state.rooms);
 		},
 		mouseModeChanged(
 			state: InternalEditorState,
 			action: PayloadAction<MouseMode>
 		) {
+			const currentRoom = getCurrentRoom(state);
+
 			if (
-				(state.currentPaletteEntry &&
-					entityMap[state.currentPaletteEntry].editorType !== 'entity') ||
+				(currentRoom.currentPaletteEntry &&
+					entityMap[currentRoom.currentPaletteEntry].editorType !== 'entity') ||
 				action.payload !== 'fill'
 			) {
 				state.mouseMode = action.payload;
@@ -850,16 +998,16 @@ const editorSlice = createSlice({
 			}
 		},
 		resizeLevel(state: InternalEditorState, action: PayloadAction<Point>) {
-			// WIDTH
+			const currentRoom = getCurrentRoom(state);
 
 			state.pendingLevelResizeIncrement.x +=
-				action.payload.x / (TILE_SIZE * state.scale);
+				action.payload.x / (TILE_SIZE * currentRoom.scale);
 
 			const tileDiffX = Math.floor(state.pendingLevelResizeIncrement.x);
 			state.pendingLevelResizeIncrement.x -= tileDiffX;
 
-			state.levelTileWidth = clamp(
-				state.levelTileWidth + tileDiffX,
+			currentRoom.roomTileWidth = clamp(
+				currentRoom.roomTileWidth + tileDiffX,
 				MIN_LEVEL_TILE_WIDTH,
 				MAX_LEVEL_TILE_WIDTH
 			);
@@ -867,13 +1015,13 @@ const editorSlice = createSlice({
 			// HEIGHT
 
 			state.pendingLevelResizeIncrement.y +=
-				action.payload.y / (TILE_SIZE * state.scale);
+				action.payload.y / (TILE_SIZE * currentRoom.scale);
 
 			const tileDiffY = Math.floor(state.pendingLevelResizeIncrement.y);
 			state.pendingLevelResizeIncrement.y -= tileDiffY;
 
-			state.levelTileHeight = clamp(
-				state.levelTileHeight + tileDiffY,
+			currentRoom.roomTileHeight = clamp(
+				currentRoom.roomTileHeight + tileDiffY,
 				MIN_LEVEL_TILE_HEIGHT,
 				MAX_LEVEL_TILE_HEIGHT
 			);
@@ -884,11 +1032,8 @@ const editorSlice = createSlice({
 			centerLevelInWindow(state);
 		},
 		eraseLevel(state: InternalEditorState) {
-			state.levelTileWidth = INITIAL_LEVEL_TILE_WIDTH;
-			state.levelTileHeight = INITIAL_LEVEL_TILE_HEIGHT;
-
-			state.tiles = [];
-			state.entities = defaultInitialState.entities.map((e) => ({ ...e }));
+			state.rooms = [cloneDeep(defaultInitialState.rooms[0])];
+			state.currentRoomIndex = 0;
 
 			if (state.storedForResizeMode) {
 				const newScale = determineResizeScale(state);
@@ -899,19 +1044,20 @@ const editorSlice = createSlice({
 			state.metadata.name = defaultInitialState.metadata.name;
 		},
 		resetOffset(state: InternalEditorState) {
-			state.scrollOffset.x = 0;
-			state.scrollOffset.y = calcYForScrollToBottom();
+			getCurrentRoom(state).scrollOffset.x = 0;
+			getCurrentRoom(state).scrollOffset.y = calcYForScrollToBottom();
 		},
 		editorVisibleWindowChanged(
 			state: InternalEditorState,
 			action: PayloadAction<EditorFocusRect>
 		) {
-			state.editorVisibleWindow = action.payload;
+			const currentRoom = getCurrentRoom(state);
 
-			state.scrollOffset = action.payload.offset;
+			currentRoom.editorVisibleWindow = action.payload;
+			currentRoom.scrollOffset = action.payload.offset;
 		},
 		scaleDecreased(state: InternalEditorState) {
-			const currentScaleIndex = scales.indexOf(state.scale);
+			const currentScaleIndex = scales.indexOf(getCurrentRoom(state).scale);
 			const newScaleIndex = Math.max(0, currentScaleIndex - 1);
 
 			if (newScaleIndex !== currentScaleIndex) {
@@ -919,7 +1065,7 @@ const editorSlice = createSlice({
 			}
 		},
 		scaleIncreased(state: InternalEditorState) {
-			const currentScaleIndex = scales.indexOf(state.scale);
+			const currentScaleIndex = scales.indexOf(getCurrentRoom(state).scale);
 			const newScaleIndex = Math.min(scales.length - 1, currentScaleIndex + 1);
 
 			if (newScaleIndex !== currentScaleIndex) {
@@ -927,20 +1073,56 @@ const editorSlice = createSlice({
 			}
 		},
 		toggleResizeMode(state: InternalEditorState) {
+			const currentRoom = getCurrentRoom(state);
+
 			if (state.storedForResizeMode) {
 				scaleTo(state, state.storedForResizeMode.scale);
-				state.scrollOffset = state.storedForResizeMode.offset;
+				currentRoom.scrollOffset = state.storedForResizeMode.offset;
 
 				state.storedForResizeMode = null;
 			} else {
 				state.storedForResizeMode = {
-					scale: state.scale,
-					offset: { ...state.scrollOffset },
+					scale: currentRoom.scale,
+					offset: { ...currentRoom.scrollOffset },
 				};
 
 				const newScale = determineResizeScale(state);
 				scaleTo(state, newScale);
 				centerLevelInWindow(state);
+			}
+		},
+		toggleManageRoomsMode(state: InternalEditorState) {
+			const currentRoom = getCurrentRoom(state);
+
+			if (state.storedForManageRoomsMode) {
+				scaleTo(state, state.storedForManageRoomsMode.scale);
+				currentRoom.scrollOffset = state.storedForManageRoomsMode.offset;
+
+				state.storedForManageRoomsMode = null;
+			} else {
+				state.storedForManageRoomsMode = {
+					scale: currentRoom.scale,
+					offset: { ...currentRoom.scrollOffset },
+				};
+
+				setScaleAndOffsetForManageRooms(state);
+			}
+		},
+		addRoom(state: InternalEditorState) {
+			if (state.rooms.length < 4) {
+				state.rooms.push(cloneDeep(initialRoomState));
+				setScaleAndOffsetForManageRooms(state);
+			}
+		},
+		deleteRoom(state: InternalEditorState, action: PayloadAction<number>) {
+			if (state.rooms.length > 1) {
+				const deletedIndex = action.payload;
+				state.rooms = state.rooms.filter((r, i) => i !== deletedIndex);
+				state.currentRoomIndex = Math.min(
+					state.currentRoomIndex,
+					state.rooms.length - 1
+				);
+				setScaleAndOffsetForManageRooms(state);
 			}
 		},
 		setSaveLevelState(
@@ -962,7 +1144,7 @@ const editorSlice = createSlice({
 			state: InternalEditorState,
 			action: PayloadAction<EntityType[]>
 		) {
-			state.paletteEntries = action.payload;
+			getCurrentRoom(state).paletteEntries = action.payload;
 		},
 		setLevelDataFromLoad(
 			state: InternalEditorState,
@@ -970,33 +1152,53 @@ const editorSlice = createSlice({
 		) {
 			const { levelData, maxId } = deserialize(action.payload);
 
-			// quick sanity check, if there is a type in local storage that we don't
-			// know about, just throw it away
-			state.entities = levelData.entities.filter((e) => !!entityMap[e.type]);
-			state.tiles = levelData.tileLayer.data;
-			state.levelTileWidth = levelData.tileLayer.width;
-			state.levelTileHeight = levelData.tileLayer.height;
+			state.rooms = levelData.rooms.map((r) => {
+				return {
+					entities: r.entities.filter((e) => !!entityMap[e.type]),
+					transports: r.transports,
+					tiles: r.tileLayer.data,
+					roomTileHeight: r.tileLayer.height,
+					roomTileWidth: r.tileLayer.width,
+					scale: initialScale,
+					canIncreaseScale: scales.indexOf(initialScale) < scales.length - 1,
+					canDecreaseScale: scales.indexOf(initialScale) > 0,
+					editorVisibleWindow: {
+						offset: { x: 0, y: 0 },
+						width: 0,
+						height: 0,
+					},
+					scrollOffset: { x: 0, y: calcYForScrollToBottom() },
+					paletteEntries: ['Brick', 'Coin', 'Goomba'],
+					currentPaletteEntry: 'Goomba',
+				};
+			});
 
-			const player = state.entities.find((e) => e.type === 'Player')!;
-			player.x = TILE_SIZE * INITIAL_PLAYER_X_TILE;
-			player.y = TILE_SIZE * INITIAL_PLAYER_Y_TILE;
+			state.rooms.forEach((r) => {
+				const player = r.entities.find((e) => e.type === 'Player')!;
+				player.x = TILE_SIZE * INITIAL_PLAYER_X_TILE;
+				player.y = TILE_SIZE * INITIAL_PLAYER_Y_TILE;
+			});
 
 			idCounter = maxId;
 		},
 		pan(state: InternalEditorState, action: PayloadAction<Point>) {
 			const { x, y } = action.payload;
 
-			const newX = state.scrollOffset.x - x / state.scale;
-			const newY = state.scrollOffset.y - y / state.scale;
+			const newX =
+				getCurrentRoom(state).scrollOffset.x - x / getCurrentRoom(state).scale;
+			const newY =
+				getCurrentRoom(state).scrollOffset.y - y / getCurrentRoom(state).scale;
 
-			const { x: lastOffsetX, y: lastOffsetY } = { ...state.scrollOffset };
+			const { x: lastOffsetX, y: lastOffsetY } = {
+				...getCurrentRoom(state).scrollOffset,
+			};
 
-			state.scrollOffset.x = newX;
-			state.scrollOffset.y = newY;
+			getCurrentRoom(state).scrollOffset.x = newX;
+			getCurrentRoom(state).scrollOffset.y = newY;
 
 			const delta = {
-				x: state.scrollOffset.x - lastOffsetX,
-				y: state.scrollOffset.y - lastOffsetY,
+				x: getCurrentRoom(state).scrollOffset.x - lastOffsetX,
+				y: getCurrentRoom(state).scrollOffset.y - lastOffsetY,
 			};
 
 			ensurePlayerIsInView(state, delta);
@@ -1008,13 +1210,14 @@ const editorSlice = createSlice({
 				startingPoint: Point;
 			}>
 		) {
+			const currentRoom = getCurrentRoom(state);
 			const { bounds, startingPoint } = action.payload;
 
 			state.isSelecting = true;
 
 			const scaledStartingPoint = {
-				x: startingPoint.x / state.scale + state.scrollOffset.x,
-				y: startingPoint.y / state.scale + state.scrollOffset.y,
+				x: startingPoint.x / currentRoom.scale + currentRoom.scrollOffset.x,
+				y: startingPoint.y / currentRoom.scale + currentRoom.scrollOffset.y,
 			};
 
 			const tileStartingPoint = {
@@ -1024,12 +1227,18 @@ const editorSlice = createSlice({
 
 			const scaledBounds = {
 				upperLeft: {
-					x: bounds.upperLeft.x / state.scale + state.scrollOffset.x,
-					y: bounds.upperLeft.y / state.scale + state.scrollOffset.y,
+					x:
+						bounds.upperLeft.x / currentRoom.scale + currentRoom.scrollOffset.x,
+					y:
+						bounds.upperLeft.y / currentRoom.scale + currentRoom.scrollOffset.y,
 				},
 				lowerRight: {
-					x: bounds.lowerRight.x / state.scale + state.scrollOffset.x,
-					y: bounds.lowerRight.y / state.scale + state.scrollOffset.y,
+					x:
+						bounds.lowerRight.x / currentRoom.scale +
+						currentRoom.scrollOffset.x,
+					y:
+						bounds.lowerRight.y / currentRoom.scale +
+						currentRoom.scrollOffset.y,
 				},
 			};
 
@@ -1044,17 +1253,29 @@ const editorSlice = createSlice({
 				},
 			};
 
-			const entityUnderStart = state.entities.find((e) => {
+			const entityUnderStart = currentRoom.entities.find((e) => {
 				const pixelBounds = getEntityPixelBounds(e);
 
 				return pointIsInside(scaledStartingPoint, pixelBounds);
 			});
 
-			const tileUnderStart =
-				state.tiles[tileStartingPoint.y]?.[tileStartingPoint.x];
+			const transportUnderStart = currentRoom.transports.find((t) => {
+				const pixelBounds = {
+					upperLeft: { x: t.x * TILE_SIZE, y: t.y * TILE_SIZE },
+					lowerRight: { x: (t.x + 1) * TILE_SIZE, y: (t.y + 1) * TILE_SIZE },
+				};
+				return pointIsInside(scaledStartingPoint, pixelBounds);
+			});
 
-			if (entityUnderStart || tileUnderStart) {
-				const idUnderStart = entityUnderStart?.id ?? tileUnderStart?.id ?? 0;
+			const tileUnderStart =
+				currentRoom.tiles[tileStartingPoint.y]?.[tileStartingPoint.x];
+
+			if (entityUnderStart || transportUnderStart || tileUnderStart) {
+				const idUnderStart =
+					entityUnderStart?.id ??
+					transportUnderStart?.id ??
+					tileUnderStart?.id ??
+					0;
 
 				const underStartAlreadyFocused = state.focused[idUnderStart];
 
@@ -1066,6 +1287,9 @@ const editorSlice = createSlice({
 				if (Object.keys(state.focused).length === 0) {
 					if (entityUnderStart) {
 						state.focused[entityUnderStart.id] = true;
+					}
+					if (transportUnderStart) {
+						state.focused[transportUnderStart.id] = true;
 					}
 					if (tileUnderStart) {
 						state.focused[tileUnderStart.id] = true;
@@ -1081,12 +1305,23 @@ const editorSlice = createSlice({
 				// select
 				state.focused = {};
 
-				state.entities.forEach((e) => {
+				currentRoom.entities.forEach((e) => {
 					if (
 						overlap(getEntityPixelBounds(e), scaledBounds) &&
 						!nonDeletableEntityTypes.includes(e.type)
 					) {
 						state.focused[e.id] = true;
+					}
+				});
+
+				currentRoom.transports.forEach((t) => {
+					const pixelBounds = {
+						upperLeft: { x: t.x * TILE_SIZE, y: t.y * TILE_SIZE },
+						lowerRight: { x: (t.x + 1) * TILE_SIZE, y: (t.y + 1) * TILE_SIZE },
+					};
+
+					if (overlap(pixelBounds, scaledBounds)) {
+						state.focused[t.id] = true;
 					}
 				});
 
@@ -1096,41 +1331,33 @@ const editorSlice = createSlice({
 						x < tileBounds.lowerRight.x;
 						++x
 					) {
-						if (state.tiles[y]?.[x]) {
-							state.focused[state.tiles[y]![x]!.id] = true;
+						if (currentRoom.tiles[y]?.[x]) {
+							state.focused[currentRoom.tiles[y]![x]!.id] = true;
 						}
 					}
 				}
 			}
-
-			if (Object.keys(state.focused).length === 1) {
-				const focusedId = Object.keys(state.focused).pop();
-				const tile = findTile(state.tiles, Number(focusedId));
-
-				if (tile && !!tile.settings) {
-					// there is only one focused tile, and it is the head of a tile entity
-					// so select the entire entity
-					selectEntireTileEntity(state.focused, state.tiles, tile);
-				}
-			}
 		},
 		dragComplete(state: InternalEditorState) {
+			const currentRoom = getCurrentRoom(state);
+
 			if (state.dragOffset) {
 				const tileXOffset = Math.round(state.dragOffset!.x / TILE_SIZE);
 				const tileYOffset = Math.round(state.dragOffset!.y / TILE_SIZE);
 
 				const spotsToClear: Point[] = [];
 				const movedEntities: EditorEntity[] = [];
+				const movedTransports: EditorTransport[] = [];
 
-				let minX = state.levelTileWidth;
-				let minY = state.levelTileHeight;
+				let minX = currentRoom.roomTileWidth;
+				let minY = currentRoom.roomTileHeight;
 				let maxX = 0;
 				let maxY = 0;
 
 				// TODO: due to immer weirdness with sets, need to search by id
 				// rather than entity reference (due to the refs being wrapped by proxies)
 				Object.keys(state.focused).forEach((fid) => {
-					const entity = state.entities.find((e) => e.id === Number(fid));
+					const entity = currentRoom.entities.find((e) => e.id === Number(fid));
 
 					if (entity) {
 						entity.x += tileXOffset * TILE_SIZE;
@@ -1142,13 +1369,24 @@ const editorSlice = createSlice({
 						movedEntities.push(entity);
 					}
 
-					const tile = findTile(state.tiles, Number(fid));
+					const transport = currentRoom.transports.find(
+						(t) => t.id === Number(fid)
+					);
+					if (transport) {
+						transport.x += tileXOffset;
+						transport.y += tileYOffset;
+						movedTransports.push(transport);
+					}
+
+					const tile = findTile(currentRoom.tiles, Number(fid));
 
 					if (tile) {
-						state.tiles[tile.y]![tile.x] = null;
-						state.tiles[tile.y + tileYOffset] =
-							state.tiles[tile.y + tileYOffset] || [];
-						state.tiles[tile.y + tileYOffset]![tile.x + tileXOffset] = tile;
+						currentRoom.tiles[tile.y]![tile.x] = null;
+						currentRoom.tiles[tile.y + tileYOffset] =
+							currentRoom.tiles[tile.y + tileYOffset] || [];
+						currentRoom.tiles[tile.y + tileYOffset]![
+							tile.x + tileXOffset
+						] = tile;
 
 						minX = Math.min(minX, tile.x);
 						minY = Math.min(minY, tile.y);
@@ -1165,7 +1403,7 @@ const editorSlice = createSlice({
 					}
 				});
 
-				state.entities = state.entities.filter((e) => {
+				currentRoom.entities = currentRoom.entities.filter((e) => {
 					if (movedEntities.includes(e)) {
 						return true;
 					}
@@ -1177,6 +1415,19 @@ const editorSlice = createSlice({
 					});
 
 					return !spotToClear;
+				});
+
+				currentRoom.transports = currentRoom.transports.filter((t) => {
+					if (movedTransports.includes(t)) {
+						return true;
+					}
+
+					// moved a transport on top of another one? delete the one that was already there
+					if (movedTransports.some((mt) => mt.x === t.x && mt.y === t.y)) {
+						return false;
+					}
+
+					return true;
 				});
 			}
 
@@ -1197,13 +1448,34 @@ const editorSlice = createSlice({
 		clearFocusedEntity(state: InternalEditorState) {
 			state.focused = {};
 		},
+		setTransportDestination(
+			state: InternalEditorState,
+			action: PayloadAction<{ id: number; room: number; x: number; y: number }>
+		) {
+			const { id, room, x, y } = action.payload;
+			const transport = getCurrentRoom(state).transports.find(
+				(t) => t.id === id
+			);
+
+			if (!transport) {
+				throw new Error(
+					`setTransportDestination: transport with id ${id} not found`
+				);
+			}
+
+			console.log({ room, x, y });
+
+			transport.destRoom = room;
+			transport.destX = x;
+			transport.destY = y;
+		},
 		setEntitySettings(
 			state: InternalEditorState,
 			action: PayloadAction<{ id: number; settings: EntitySettings }>
 		) {
 			const { id, settings } = action.payload;
 
-			const entity = state.entities.find((e) => e.id === id);
+			const entity = getCurrentRoom(state).entities.find((e) => e.id === id);
 
 			if (entity) {
 				entity.settings = {
@@ -1219,7 +1491,7 @@ const editorSlice = createSlice({
 				state.focused = {};
 				state.focused[entity.id] = true;
 			} else {
-				const tile = findTile(state.tiles, id);
+				const tile = findTile(getCurrentRoom(state).tiles, id);
 
 				if (tile) {
 					tile.settings = {
@@ -1229,7 +1501,11 @@ const editorSlice = createSlice({
 
 					// TODO: nasty hack! see above in entity section
 					state.focused = {};
-					selectEntireTileEntity(state.focused, state.tiles, tile);
+					selectEntireTileEntity(
+						state.focused,
+						getCurrentRoom(state).tiles,
+						tile
+					);
 				}
 			}
 		},
@@ -1244,15 +1520,18 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 
 		const editorState = getState().editor.present;
 
-		const tileLayer: TileLayer = {
-			width: editorState.levelTileWidth,
-			height: editorState.levelTileHeight,
-			data: editorState.tiles,
-		};
-
 		const levelData: LevelData = {
-			entities: editorState.entities,
-			tileLayer,
+			rooms: editorState.rooms.map((room) => {
+				return {
+					entities: room.entities,
+					transports: room.transports,
+					tileLayer: {
+						width: room.roomTileWidth,
+						height: room.roomTileHeight,
+						data: room.tiles,
+					},
+				};
+			}),
 		};
 
 		const serializedLevelData = serialize(levelData);
@@ -1267,11 +1546,9 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 			dispatch(editorSlice.actions.setSavedLevelId(createdLevelId));
 			dispatch(editorSlice.actions.setSaveLevelState('success'));
 		} catch (e) {
-			console.log('error', e);
 			dispatch(editorSlice.actions.setSaveLevelState('error'));
 		}
 	} catch (e) {
-		console.log('error2', e);
 		dispatch(editorSlice.actions.setSaveLevelState('error'));
 	} finally {
 		setTimeout(() => {
@@ -1305,7 +1582,8 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 // 1.0.1: changed some tile serialization ids
 // 1.1.0: added metadata.name
 // 2.0.0: paletteEntries switched to just be EntityType strings
-const LOCALSTORAGE_KEY = 'smaghetti_2.0.0';
+// 3.0.0: rooms
+const LOCALSTORAGE_KEY = 'smaghetti_3.0.0';
 
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {
@@ -1318,8 +1596,10 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 				if (
 					localStorageData &&
 					localStorageData.levelData &&
-					localStorageData.levelData.entities &&
-					localStorageData.levelData.tileLayer
+					localStorageData.levelData.rooms &&
+					localStorageData.levelData.rooms[0] &&
+					localStorageData.levelData.rooms[0].entities &&
+					localStorageData.levelData.rooms[0].tileLayer
 				) {
 					dispatch(
 						editorSlice.actions.setLevelDataFromLoad(localStorageData.levelData)
@@ -1354,15 +1634,18 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 
 		const editorState = getState().editor.present;
 
-		const tileLayer: TileLayer = {
-			width: editorState.levelTileWidth,
-			height: editorState.levelTileHeight,
-			data: editorState.tiles,
-		};
-
 		const localStorageData: LevelData = {
-			entities: editorState.entities,
-			tileLayer,
+			rooms: editorState.rooms.map((r) => {
+				return {
+					entities: r.entities,
+					transports: r.transports,
+					tileLayer: {
+						width: r.roomTileWidth,
+						height: r.roomTileHeight,
+						data: r.tiles,
+					},
+				};
+			}),
 		};
 
 		const serializedLevelData = serialize(localStorageData);
@@ -1373,7 +1656,8 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 			},
 			levelData: serializedLevelData,
 			editorData: {
-				paletteEntries: editorState.paletteEntries,
+				// TODO: save palette entries for all rooms
+				paletteEntries: getCurrentRoom(editorState).paletteEntries,
 			},
 		};
 
@@ -1396,6 +1680,7 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 
 const {
 	setLevelName,
+	setCurrentRoomIndex,
 	entityDropped,
 	mouseModeChanged,
 	painted,
@@ -1409,6 +1694,9 @@ const {
 	scaleIncreased,
 	scaleDecreased,
 	toggleResizeMode,
+	toggleManageRoomsMode,
+	addRoom,
+	deleteRoom,
 	toggleGrid,
 	pushPan,
 	popPan,
@@ -1418,6 +1706,7 @@ const {
 	setCurrentPaletteEntryByIndex,
 	clearFocusedEntity,
 	setEntitySettings,
+	setTransportDestination,
 	eraseLevel,
 } = editorSlice.actions;
 
@@ -1446,11 +1735,13 @@ function cleanUpReducer(state: InternalEditorState, action: Action) {
 const undoableReducer = undoable(cleanUpReducer, {
 	filter: excludeAction([
 		setLevelName.toString(),
+		setCurrentRoomIndex.toString(),
 		mouseModeChanged.toString(),
 		editorVisibleWindowChanged.toString(),
 		scaleIncreased.toString(),
 		scaleDecreased.toString(),
 		toggleResizeMode.toString(),
+		toggleManageRoomsMode().toString(),
 		resizeLevelComplete.toString(),
 		pan.toString(),
 		toggleGrid.toString(),
@@ -1493,7 +1784,9 @@ const undoableReducer = undoable(cleanUpReducer, {
 	},
 });
 
-type EditorState = StateWithHistory<InternalEditorState>;
+type EditorState = StateWithHistory<InternalEditorState> & {
+	currentRoom: RoomState;
+};
 
 const { undo, redo } = ActionCreators;
 
@@ -1505,35 +1798,36 @@ const { undo, redo } = ActionCreators;
  * be argued this state should just not be in the slice at all. It probably
  * makes sense to move this state into <Editor /> itself, so a TODO on exploring that
  */
-const NonUndoableState: Array<keyof InternalEditorState> = [
+const NonUndoableEditorState: Array<keyof InternalEditorState> = [
+	'showGrid',
+	'focused',
+	'mouseMode',
+];
+
+const NonUndoableRoomState: Array<keyof RoomState> = [
 	'scale',
 	'canIncreaseScale',
 	'canDecreaseScale',
 	'editorVisibleWindow',
 	'scrollOffset',
-	'showGrid',
 	'paletteEntries',
 	'currentPaletteEntry',
-	'focused',
-	'mouseMode',
 ];
 
-function pullForwardNonUndoableState(
-	editorState: InternalEditorState | undefined
-): Partial<InternalEditorState> | undefined {
-	if (!editorState) {
-		return editorState;
+function pullForwardNonUndoableState<T>(
+	state: T | undefined,
+	stateToPullForward: Array<keyof T>
+): Partial<T> | undefined {
+	if (!state) {
+		return state;
 	}
 
-	return NonUndoableState.reduce<Partial<InternalEditorState>>(
-		(building, key) => {
-			// @ts-ignore
-			building[key] = editorState[key];
+	return stateToPullForward.reduce<Partial<T>>((building, key) => {
+		// @ts-ignore
+		building[key] = state[key];
 
-			return building;
-		},
-		{}
-	);
+		return building;
+	}, {});
 }
 
 function neverUndoRedoCertainStateReducer(
@@ -1546,11 +1840,26 @@ function neverUndoRedoCertainStateReducer(
 		action.type === ReduxUndoActionTypes.UNDO ||
 		action.type === ReduxUndoActionTypes.REDO
 	) {
+		const pulledFowardRooms = newState.present.rooms.map((newRoom, i) => {
+			return {
+				...newRoom,
+				...pullForwardNonUndoableState(
+					state?.present.rooms[i],
+					NonUndoableRoomState
+				),
+			};
+		});
+
+		const pulledForwardCurrentRoom =
+			pulledFowardRooms[newState.present.currentRoomIndex];
+
 		const finalNewState = {
 			...newState,
 			present: {
 				...newState.present,
-				...pullForwardNonUndoableState(state?.present),
+				...pullForwardNonUndoableState(state?.present, NonUndoableEditorState),
+				rooms: pulledFowardRooms,
+				currentRoom: pulledForwardCurrentRoom,
 			},
 		};
 
@@ -1560,13 +1869,29 @@ function neverUndoRedoCertainStateReducer(
 	}
 }
 
-export type { EditorState, InternalEditorState, EditorFocusRect, MouseMode };
+function currentRoomReducer(state: EditorState | undefined, action: Action) {
+	const newState = neverUndoRedoCertainStateReducer(state, action);
+
+	return {
+		...newState,
+		currentRoom: newState.present.rooms[newState.present.currentRoomIndex],
+	};
+}
+
+export type {
+	EditorState,
+	InternalEditorState,
+	EditorFocusRect,
+	MouseMode,
+	RoomState,
+};
 
 export {
-	neverUndoRedoCertainStateReducer as reducer,
+	currentRoomReducer as reducer,
 	undo,
 	redo,
 	setLevelName,
+	setCurrentRoomIndex,
 	entityDropped,
 	mouseModeChanged,
 	painted,
@@ -1580,6 +1905,9 @@ export {
 	scaleIncreased,
 	scaleDecreased,
 	toggleResizeMode,
+	toggleManageRoomsMode,
+	addRoom,
+	deleteRoom,
 	toggleGrid,
 	pushPan,
 	popPan,
@@ -1589,6 +1917,7 @@ export {
 	setCurrentPaletteEntryByIndex,
 	clearFocusedEntity,
 	setEntitySettings,
+	setTransportDestination,
 	saveLevel,
 	loadLevel,
 	loadFromLocalStorage,

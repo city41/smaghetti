@@ -11,7 +11,7 @@
     "build-storybook": "build-storybook",
     "type-check": "tsc --noemit",
     "test": "yarn jest",
-    "lint": "yarn eslint src",
+    "lint": "yarn eslint --max-warnings 1 src",
     "migrations-up": "node-pg-migrate up -m database/migrations",
     "migrations-down": "node-pg-migrate down -m database/migrations"
   },

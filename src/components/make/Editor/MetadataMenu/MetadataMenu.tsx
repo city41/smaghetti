@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
+import { useHotkeys } from 'react-hotkeys-hook';
 import { MdEdit } from 'react-icons/md';
+import { PlainIconButton } from '../../../PlainIconButton';
 
 type PublicMetadataMenuProps = {
 	className?: string;
@@ -9,23 +11,40 @@ type PublicMetadataMenuProps = {
 type InternalMetadataMenuProps = {
 	levelName: string;
 	onSetLevelName: (newName: string) => void;
+	currentRoomIndex: number;
+	roomCount: number;
+	onRoomIndexChange: (newIndex: number) => void;
+	onManageRoomsClick: () => void;
 };
 
 function MetadataMenu({
 	className,
 	levelName,
 	onSetLevelName,
+	currentRoomIndex,
+	roomCount,
+	onRoomIndexChange,
+	onManageRoomsClick,
 }: PublicMetadataMenuProps & InternalMetadataMenuProps) {
 	const [editing, setEditing] = useState(false);
 	const [editedName, setEditedName] = useState(levelName);
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	useEffect(() => {
-		if (editing && inputRef.current) {
-			inputRef.current?.focus();
-			inputRef.current?.select();
+		const i = inputRef.current;
+		if (editing && i) {
+			i.focus();
+			i.select();
 		}
 	}, [editing]);
+
+	useHotkeys(
+		'r',
+		() => {
+			onRoomIndexChange((currentRoomIndex + 1) % roomCount);
+		},
+		[currentRoomIndex, roomCount]
+	);
 
 	let body;
 	if (editing) {
@@ -54,6 +73,15 @@ function MetadataMenu({
 		body = <>{levelName} </>;
 	}
 
+	const roomOptions = [];
+	for (let i = 0; i < roomCount; ++i) {
+		roomOptions.push(
+			<option key={i} value={i}>
+				room {i + 1}
+			</option>
+		);
+	}
+
 	return (
 		<div
 			className={clsx(
@@ -65,16 +93,34 @@ function MetadataMenu({
 				<div className="flex flex-row items-center">
 					<div className="text-xs text-gray-400">Level Name</div>
 					{!editing && (
-						<button
-							className="ml-2 hover:bg-gray-600"
+						<PlainIconButton
+							icon={MdEdit}
+							label="edit level name"
 							onClick={() => setEditing(true)}
-						>
-							<MdEdit className="text-xl" />
-						</button>
+						/>
 					)}
 				</div>
 				<div>{body}</div>
 			</label>
+			<div className="flex flex-row space-x-2 items-center px-4">
+				<select
+					className="text-black p-1"
+					value={currentRoomIndex}
+					onChange={(e) => {
+						onRoomIndexChange(Number(e.target.value));
+						// allow the user to jump right back into keyboard shortcuts,
+						// especially spacebar for panning. otherwise spacebar opens the select
+						e.target.blur();
+					}}
+				>
+					{roomOptions}
+				</select>
+				<PlainIconButton
+					icon={MdEdit}
+					label="manage rooms"
+					onClick={onManageRoomsClick}
+				/>
+			</div>
 			<div className="pl-4 w-24 text-xs -mt-2">
 				press <span className="font-bold text-sm">?</span> for keyboard
 				shortcuts

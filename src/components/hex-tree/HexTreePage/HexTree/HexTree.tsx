@@ -498,6 +498,36 @@ function Sprite({
 	);
 }
 
+function Transports({ data }: { data: number[] }) {
+	const numTransports = new DataView(new Uint8Array(data).buffer).getUint16(
+		0,
+		true
+	);
+
+	const transports: Array<Array<number>> = [];
+
+	for (let i = 0; i < numTransports; ++i) {
+		// each transport is ten bytes, skip the two byte header
+		transports.push(data.slice(i * 10 + 2, i * 10 + 12));
+	}
+
+	return (
+		<div>
+			<div>
+				count: {numTransports} (
+				{data
+					.slice(0, 2)
+					.map((b) => b.toString(16))
+					.join(' ')}
+				)
+			</div>
+			{transports.map((t, i) => {
+				return <div key={i}>{t.map((b) => b.toString(16)).join(' ')}</div>;
+			})}
+		</div>
+	);
+}
+
 function Room({
 	room,
 	data,
@@ -526,6 +556,9 @@ function Room({
 						/>
 					))}
 				</div>
+			</TreeItem>
+			<TreeItem nodeId={`room${room}-transports`} label="Transports">
+				<Transports data={data.transports.rawBytes} />
 			</TreeItem>
 			<TreeItem nodeId={`room${room}-sprites`} label="Sprites">
 				<div className="ml-16 flex flex-col w-96">

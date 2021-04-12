@@ -9,18 +9,20 @@ import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 import { Entity } from '../../../Entity';
+import { TransportSource } from '../../../Transport/TransportSource';
+import { TransportDestination } from '../../../Transport/TransportDestination';
 import { Tile } from '../../../Tile';
 import { TILE_SIZE } from '../../../../tiles/constants';
-import { MouseMode } from '../../editorSlice';
+import { MouseMode, RoomState } from '../../editorSlice';
 import {
 	PLAY_WINDOW_TILE_WIDTH,
 	PLAY_WINDOW_TILE_HEIGHT,
 } from '../../constants';
 import { snap } from '../../../../util/snap';
-import { useScrollWheel } from './useScrollWheel';
+
+import { entityMap, EntityType } from '../../../../entities/entityMap';
 
 import styles from './Canvas.module.css';
-import { entityMap, EntityType } from '../../../../entities/entityMap';
 
 type OnPaintedArg = {
 	points: Point[];
@@ -33,63 +35,34 @@ type CanvasProps = {
 	height: number;
 	scale: number;
 	currentPaletteEntry?: EntityType;
+	rooms: RoomState[];
 	entities: EditorEntity[];
+	transportSources: EditorTransport[];
+	transportDestinations: EditorTransport[];
+	tiles: TileMatrix;
 	focused: Record<number, boolean>;
 	isSelecting: boolean;
 	dragOffset: Point | null;
-	tiles: TileMatrix;
 	showGrid: boolean;
 	mouseMode: MouseMode;
-	onEntityDropped: (entity: EditorEntity | NewEntity) => void;
+	onEntityDropped: (entity: EditorEntity | NewEditorEntity) => void;
 	onPainted: (arg: OnPaintedArg) => void;
 	onDeleteFocused: () => void;
-	onScaleDecreased: () => void;
-	onScaleIncreased: () => void;
 	onEntitySettingsChange: (arg: {
 		id: number;
 		settings: EntitySettings;
+	}) => void;
+	onTransportDestinationChange: (arg: {
+		id: number;
+		room: number;
+		x: number;
+		y: number;
 	}) => void;
 };
 
 function getTranslation(scale: number): string {
 	return `${((scale - 1) / 2) * 100}%`;
 }
-
-// const Root = styled.div`
-// 	transform: translateX(var(--translation)) translateY(var(--translation))
-// 		scale(var(--scale));
-//
-// 	position: relative;
-//
-// 	box-shadow: 0px 3px 6px -2px rgba(0, 0, 0, 0.75);
-//
-// 	&.draw,
-// 	&.fill {
-// 		cursor: crosshair;
-// 	}
-//
-// 	&.erase {
-// 		cursor: url('${eraseCursorPng}') 7 16, auto;
-// 	}
-//
-// 	background-image: url(${bg});
-// 	background-size: 8px 8px;
-// 	// background-color: #001f64;
-// 	background-color: #bed0f7;
-//
-// 	// &::after {
-// 	//   content: '';
-//
-// 	//   position: absolute;
-// 	//   top: 0;
-// 	//   left: 0;
-// 	//   width: 100%;
-// 	//   height: 100%;
-//
-// 	//   background-color: rgba(255, 0, 0, 0.2);
-// 	//   z-index: -1;
-// 	// }
-// `;
 
 type TileRowProps = {
 	tiles: (Tile | null)[];
@@ -168,7 +141,6 @@ type EntitiesProps = {
 	focused: Record<number, boolean>;
 	isSelecting: boolean;
 	dragOffset: Point | null;
-	disableAllDrag: boolean;
 	onEntitySettingsChange: (arg: {
 		id: number;
 		settings: EntitySettings;
@@ -181,7 +153,6 @@ const Entities = memo(function Entities({
 	focused,
 	isSelecting,
 	dragOffset,
-	disableAllDrag,
 	onEntitySettingsChange,
 }: EntitiesProps) {
 	return (
@@ -203,7 +174,6 @@ const Entities = memo(function Entities({
 						id={e.id}
 						type={e.type}
 						settings={e.settings}
-						disableDrag={!!e.disableDrag || disableAllDrag}
 						focused={!dragOffset && isFocused}
 						soleFocused={!dragOffset && soleFocused}
 						opacity={!!dragOffset && isFocused ? 0.3 : 1}
@@ -228,7 +198,82 @@ const Entities = memo(function Entities({
 							id={e.id}
 							type={e.type}
 							settings={e.settings}
-							disableDrag={true}
+							focused
+						/>
+					);
+				})}
+		</>
+	);
+});
+
+type TransportsProps = {
+	transports: EditorTransport[];
+	rooms: RoomState[];
+	mouseMode: MouseMode;
+	focused: Record<number, boolean>;
+	dragOffset: Point | null;
+	onTransportDestinationChange: (arg: {
+		id: number;
+		room: number;
+		x: number;
+		y: number;
+	}) => void;
+};
+
+const Transports = memo(function Transports({
+	transports,
+	rooms,
+	mouseMode,
+	focused,
+	dragOffset,
+	onTransportDestinationChange,
+}: TransportsProps) {
+	return (
+		<>
+			{transports.map((t) => {
+				const isFocused =
+					focused[t.id] && (mouseMode === 'select' || mouseMode === 'pan');
+
+				return (
+					<TransportSource
+						key={`transport-${t.id}`}
+						style={{
+							position: 'absolute',
+							top: t.y * TILE_SIZE,
+							left: t.x * TILE_SIZE,
+							opacity: !!dragOffset && isFocused ? 0.3 : 1,
+						}}
+						rooms={rooms}
+						destRoom={t.destRoom}
+						destX={t.destX}
+						destY={t.destY}
+						exitType={t.exitType}
+						mouseMode={mouseMode}
+						focused={!dragOffset && isFocused}
+						onDestinationChange={({ room, x, y }) =>
+							onTransportDestinationChange({ id: t.id, room, x, y })
+						}
+					/>
+				);
+			})}
+			{!!dragOffset &&
+				transports.map((t) => {
+					if (!focused[t.id]) {
+						return null;
+					}
+
+					return (
+						<TransportSource
+							key={`dragging-transport-${t.id}`}
+							style={{
+								position: 'absolute',
+								top: t.y * TILE_SIZE + dragOffset.y,
+								left: t.x * TILE_SIZE + dragOffset.x,
+							}}
+							destRoom={t.destRoom}
+							destX={t.destX}
+							destY={t.destY}
+							exitType={t.exitType}
 							focused
 						/>
 					);
@@ -271,38 +316,35 @@ function getPointsBetween(oldP: Point, newP: Point, scale: number): Point[] {
 	return points;
 }
 
-const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
+const Canvas = memo(function Canvas({
 	className,
 	width,
 	height,
 	scale,
 	currentPaletteEntry,
+	rooms,
 	entities,
+	transportSources,
+	transportDestinations,
+	tiles,
 	focused,
 	isSelecting,
 	dragOffset,
-	tiles,
 	showGrid,
 	mouseMode,
 	onPainted,
 	onDeleteFocused,
-	onScaleDecreased,
-	onScaleIncreased,
 	onEntitySettingsChange,
-}) {
+	onTransportDestinationChange,
+}: CanvasProps) {
 	const [divRef, setDivRef] = useState<HTMLDivElement | null>(null);
 	const [mouseDown, setMouseDown] = useState(false);
 	const tileGhostRef = useRef<HTMLDivElement | null>(null);
 	const entityGhostRef = useRef<HTMLDivElement | null>(null);
+	const transportGhostRef = useRef<HTMLDivElement | null>(null);
 	const lastMousePoint = useRef<Point | null>(null);
 
 	useHotkeys('del', () => onDeleteFocused());
-
-	useScrollWheel({
-		down: onScaleDecreased,
-		up: onScaleIncreased,
-		ref: divRef,
-	});
 
 	const style = {
 		'--scale': scale,
@@ -385,6 +427,12 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 		entityMap[currentPaletteEntry].editorType === 'entity'
 			? 'block'
 			: 'none';
+	const entityTransportDisplay =
+		mouseMode === 'draw' &&
+		currentPaletteEntry &&
+		entityMap[currentPaletteEntry].editorType === 'transport'
+			? 'block'
+			: 'none';
 
 	return (
 		// TODO: why is border on its own div? probably due to scaling?
@@ -452,6 +500,16 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 							entityGhostRef.current.style.top =
 								snap(ghostPoint.y, TILE_SIZE) + 'px';
 						}
+						if (
+							transportGhostRef.current &&
+							currentPaletteEntry &&
+							entityMap[currentPaletteEntry].editorType === 'transport'
+						) {
+							transportGhostRef.current.style.left =
+								snap(ghostPoint.x, TILE_SIZE) + 'px';
+							transportGhostRef.current.style.top =
+								snap(ghostPoint.y, TILE_SIZE) + 'px';
+						}
 					}
 				}}
 				onMouseLeave={() => {
@@ -484,6 +542,23 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 							type={currentPaletteEntry}
 						/>
 					)}
+				{currentPaletteEntry &&
+					entityMap[currentPaletteEntry].editorType === 'transport' && (
+						<TransportSource
+							ref={transportGhostRef}
+							style={{
+								opacity: 0.3,
+								display: entityTransportDisplay,
+								position: 'fixed',
+								zIndex: 200,
+							}}
+							destRoom={-1}
+							destX={-1}
+							destY={-1}
+							exitType={1}
+							label="warp"
+						/>
+					)}
 				<div className={styles.grid} style={tileGridStyles} />
 				<div className={styles.grid} style={viewportGridStyles} />
 				{tileRows}
@@ -493,9 +568,32 @@ const Canvas: FunctionComponent<CanvasProps> = memo(function Canvas({
 					isSelecting={isSelecting}
 					mouseMode={mouseMode}
 					dragOffset={dragOffset}
-					disableAllDrag={mouseMode !== 'select'}
 					onEntitySettingsChange={onEntitySettingsChange}
 				/>
+				<Transports
+					rooms={rooms}
+					transports={transportSources}
+					focused={focused}
+					mouseMode={mouseMode}
+					dragOffset={dragOffset}
+					onTransportDestinationChange={onTransportDestinationChange}
+				/>
+				{transportDestinations.map((td) => (
+					<TransportDestination
+						key={td.id}
+						style={{
+							position: 'absolute',
+							top: td.destY * TILE_SIZE,
+							left: td.destX * TILE_SIZE,
+						}}
+						mouseMode={mouseMode}
+						rooms={rooms}
+						destX={td.destX}
+						destY={td.destY}
+						destRoom={td.destRoom}
+						exitType={td.exitType}
+					/>
+				))}
 			</div>
 		</div>
 	);

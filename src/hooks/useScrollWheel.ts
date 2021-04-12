@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 type UseScrollWheelProps = {
 	up: () => void;
 	down: () => void;
-	ref: HTMLDivElement | null;
+	element: HTMLDivElement | null;
 };
 
-const useScrollWheel = ({ up, down, ref }: UseScrollWheelProps) => {
+const useScrollWheel = ({ up, down, element }: UseScrollWheelProps) => {
 	useEffect(() => {
 		function handleWheel(e: WheelEvent) {
 			e.preventDefault();
@@ -17,10 +17,10 @@ const useScrollWheel = ({ up, down, ref }: UseScrollWheelProps) => {
 			}
 		}
 
-		ref?.addEventListener('wheel', handleWheel);
+		element?.addEventListener('wheel', handleWheel);
 
-		return () => ref?.removeEventListener('wheel', handleWheel);
-	}, [ref]);
+		return () => element?.removeEventListener('wheel', handleWheel);
+	}, [element]);
 };
 
 export { useScrollWheel };

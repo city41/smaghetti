@@ -43,14 +43,16 @@ function Button({
 	className,
 	onClick,
 	children,
+	disabled,
 	...rest
 }: ButtonProps): ReactElement {
 	return (
 		<button
-			className={clsx(
-				className,
-				'px-2 py-1 bg-green-400 hover:bg-green-300 hover:text-green-900'
-			)}
+			className={clsx(className, 'px-2 py-1', {
+				'bg-green-400 hover:bg-green-300 hover:text-green-900': !disabled,
+				'bg-gray-400 text-gray-600 cursor-default': disabled,
+			})}
+			disabled={disabled}
 			onClick={onClick}
 			{...rest}
 		>

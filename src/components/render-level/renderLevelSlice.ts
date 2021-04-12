@@ -7,15 +7,21 @@ import {
 	LevelSprite,
 	parseSpritesFromLevelFile,
 } from '../../levelData/parseSpritesFromLevelFile';
+import {
+	LevelTransport,
+	parseTransportsFromLevelFile,
+} from '../../levelData/parseTransportsFromLevelFile';
 
 type RenderLevelState = {
 	objects: LevelObject[];
 	sprites: LevelSprite[];
+	transports: LevelTransport[];
 };
 
 const defaultInitialState: RenderLevelState = {
 	objects: [],
 	sprites: [],
+	transports: [],
 };
 
 const initialState = defaultInitialState;
@@ -29,6 +35,12 @@ const renderLevelSlice = createSlice({
 		},
 		setSprites(state: RenderLevelState, action: PayloadAction<LevelSprite[]>) {
 			state.sprites = action.payload;
+		},
+		setTransports(
+			state: RenderLevelState,
+			action: PayloadAction<LevelTransport[]>
+		) {
+			state.transports = action.payload;
 		},
 	},
 });
@@ -47,8 +59,10 @@ const loadLevel = (levelFile: File): RenderLevelSliceThunk => async (
 		dispatch(renderLevelSlice.actions.setObjects(objects));
 
 		const sprites = parseSpritesFromLevelFile(data);
-		console.log('sprites', sprites);
 		dispatch(renderLevelSlice.actions.setSprites(sprites));
+
+		const transports = parseTransportsFromLevelFile(data);
+		dispatch(renderLevelSlice.actions.setTransports(transports));
 	};
 
 	reader.readAsArrayBuffer(levelFile);
