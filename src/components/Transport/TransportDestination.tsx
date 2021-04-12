@@ -4,7 +4,6 @@ import { FaDoorOpen } from 'react-icons/fa';
 import { GiWarpPipe } from 'react-icons/gi';
 
 import styles from './transportStyles.module.css';
-import { TILE_SIZE } from '../../tiles/constants';
 import {
 	DestinationSetProps,
 	TransportDestinationModal,

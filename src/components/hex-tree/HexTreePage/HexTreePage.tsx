@@ -39,6 +39,7 @@ function HexTreePage({ allFilesReady }: HexEditorPageProps) {
 		setLevelData(
 			createLevelData([
 				{
+					paletteEntries: [],
 					entities: [],
 					transports: [],
 					tileLayer: { width: 0, height: 0, data: [] },

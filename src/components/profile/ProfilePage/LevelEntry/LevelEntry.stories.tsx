@@ -23,6 +23,7 @@ const blankLevel: Level = {
 	data: {
 		rooms: [
 			{
+				paletteEntries: [],
 				entities: [],
 				transports: [],
 				tileLayer: {

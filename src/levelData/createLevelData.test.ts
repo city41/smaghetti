@@ -25,6 +25,7 @@ describe('createLevelData', () => {
 			];
 
 			const room: RoomData = {
+				paletteEntries: [],
 				entities,
 				transports: [],
 				tileLayer: {
@@ -72,7 +73,7 @@ describe('createLevelData', () => {
 			};
 
 			const levelData = createLevelData([
-				{ entities: [], transports: [], tileLayer },
+				{ paletteEntries: [], entities: [], transports: [], tileLayer },
 			]);
 
 			const objectAddr =

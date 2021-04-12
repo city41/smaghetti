@@ -62,7 +62,7 @@ const TransportSource = forwardRef<HTMLDivElement, TransportProps>(
 			'--size': `${TILE_SIZE}px`,
 		} as CSSProperties;
 
-		const Icon = exitTypeIconMap[exitType] ?? FaDoorOpen;
+		const Icon = exitTypeIconMap[exitType] ?? FaDoorClosed;
 
 		const hasDest = destRoom > -1 && destX > -1 && destY > -1;
 

@@ -181,6 +181,7 @@ const initialState = defaultInitialState;
 const EMPTY_LEVEL: SerializedLevelData = {
 	rooms: [
 		{
+			paletteEntries: [...initialState.rooms[0].paletteEntries],
 			entities: [...initialState.rooms[0].entities],
 			transports: [],
 			tileLayer: {
