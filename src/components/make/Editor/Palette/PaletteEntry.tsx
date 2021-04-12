@@ -130,7 +130,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 						destRoom={-1}
 						destX={-1}
 						destY={-1}
-						exitType={1}
+						exitType={0}
 					/>
 				</div>
 			);
