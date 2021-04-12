@@ -36,9 +36,6 @@ type LocalStorageData = {
 		name: string;
 	};
 	levelData: SerializedLevelData;
-	editorData: {
-		paletteEntries: EntityType[];
-	};
 };
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
@@ -662,25 +659,22 @@ const editorSlice = createSlice({
 			state: InternalEditorState,
 			action: PayloadAction<EntityType>
 		) {
+			const currentRoom = getCurrentRoom(state);
+
 			const newEntry = action.payload;
 
-			if (
-				!getCurrentRoom(state).paletteEntries.some((p) => isEqual(p, newEntry))
-			) {
-				getCurrentRoom(state).paletteEntries.push(newEntry);
-				getCurrentRoom(state).currentPaletteEntry = getCurrentRoom(
-					state
-				).paletteEntries[getCurrentRoom(state).paletteEntries.length - 1];
+			if (!currentRoom.paletteEntries.some((p) => p === newEntry)) {
+				currentRoom.paletteEntries.push(newEntry);
+				currentRoom.currentPaletteEntry =
+					currentRoom.paletteEntries[currentRoom.paletteEntries.length - 1];
 			} else {
 				// already in the palette? just select it then
-				const index = getCurrentRoom(state).paletteEntries.findIndex((p) =>
+				const index = currentRoom.paletteEntries.findIndex((p) =>
 					isEqual(p, newEntry)
 				);
 
 				if (index > -1) {
-					getCurrentRoom(state).currentPaletteEntry = getCurrentRoom(
-						state
-					).paletteEntries[index];
+					currentRoom.currentPaletteEntry = currentRoom.paletteEntries[index];
 				}
 			}
 		},
@@ -1168,8 +1162,8 @@ const editorSlice = createSlice({
 						height: 0,
 					},
 					scrollOffset: { x: 0, y: calcYForScrollToBottom() },
-					paletteEntries: ['Brick', 'Coin', 'Goomba'],
-					currentPaletteEntry: 'Goomba',
+					paletteEntries: r.paletteEntries ?? [],
+					currentPaletteEntry: r.paletteEntries?.[0],
 				};
 			});
 
@@ -1523,6 +1517,7 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 		const levelData: LevelData = {
 			rooms: editorState.rooms.map((room) => {
 				return {
+					paletteEntries: room.paletteEntries,
 					entities: room.entities,
 					transports: room.transports,
 					tileLayer: {
@@ -1583,7 +1578,8 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 // 1.1.0: added metadata.name
 // 2.0.0: paletteEntries switched to just be EntityType strings
 // 3.0.0: rooms
-const LOCALSTORAGE_KEY = 'smaghetti_3.0.0';
+// 3.0.1: fix issue where room paletteEntries were not being restored
+const LOCALSTORAGE_KEY = 'smaghetti_3.0.1';
 
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {
@@ -1606,24 +1602,18 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 					);
 				}
 
-				if (localStorageData?.editorData?.paletteEntries) {
-					dispatch(
-						editorSlice.actions.setPaletteEntries(
-							localStorageData.editorData.paletteEntries
-						)
-					);
-				}
-
 				if (localStorageData?.metadata?.name) {
 					dispatch(
 						editorSlice.actions.setLevelName(localStorageData.metadata.name)
 					);
 				}
 			} catch (e) {
+				console.error('loadFromLocalStorage error', e);
 				dispatch(editorSlice.actions.setLoadLevelState('error'));
 			}
 		}
 	} catch (e) {
+		console.error('loadFromLocalStorage error', e);
 		dispatch(editorSlice.actions.setLoadLevelState('error'));
 	}
 };
@@ -1637,6 +1627,7 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 		const localStorageData: LevelData = {
 			rooms: editorState.rooms.map((r) => {
 				return {
+					paletteEntries: r.paletteEntries,
 					entities: r.entities,
 					transports: r.transports,
 					tileLayer: {
@@ -1655,10 +1646,6 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 				...editorState.metadata,
 			},
 			levelData: serializedLevelData,
-			editorData: {
-				// TODO: save palette entries for all rooms
-				paletteEntries: getCurrentRoom(editorState).paletteEntries,
-			},
 		};
 
 		try {

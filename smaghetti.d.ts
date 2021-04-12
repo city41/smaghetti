@@ -64,6 +64,7 @@ type SerializedTileLayer = {
 };
 
 type RoomData = {
+	paletteEntries: EntityType[];
 	entities: EditorEntity[];
 	transports: EditorTransport[];
 	tileLayer: TileLayer;

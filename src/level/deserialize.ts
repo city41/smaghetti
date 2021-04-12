@@ -87,8 +87,8 @@ function deserializeRoom(
 	return {
 		idCounter,
 		room: {
+			...room,
 			entities: normalizedEntities,
-			transports: room.transports,
 			tileLayer: {
 				width,
 				height,
