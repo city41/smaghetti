@@ -376,7 +376,7 @@ const tabs = [
 	'Gizmos',
 	'Power Ups',
 	'Bosses',
-	'Transports',
+	'Warps',
 ];
 const entries = [
 	enemies,
