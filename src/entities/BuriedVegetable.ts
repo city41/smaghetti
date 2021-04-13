@@ -9,6 +9,7 @@ const payloadToObjectId = {
 	CoinCache: 0x64,
 	OneUpMushroom: 0x65,
 	PoisonMushroom: 0x67,
+	KoopaShell: 0x7e,
 };
 
 const BuriedVegetable: Entity = {
