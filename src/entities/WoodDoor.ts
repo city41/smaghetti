@@ -6,7 +6,6 @@ const WoodDoor: Entity = {
 	gameType: 'object',
 	dimensions: 'none',
 	romOffset: 0x16ad5c,
-	transportable: true,
 	palette: [
 		0x7f96,
 		0x7fff,

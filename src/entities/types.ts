@@ -9,7 +9,6 @@ type Entity = StaticResource & {
 	settingsType?: 'single';
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	defaultSettings?: Record<string, any>;
-	transportable?: boolean;
 	toBinary: (
 		x: number,
 		y: number,

@@ -32,6 +32,7 @@ import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
 import { Stalactite } from './Stalactite';
 import { StarMan } from './StarMan';
+import { TexturedDoor } from './TexturedDoor';
 import { ThreeUpMoon } from './ThreeUpMoon';
 import { Transport } from './Transport';
 import { TriangularBlock } from './TriangularBlock';
@@ -73,6 +74,7 @@ const entityMap = {
 	SpringBoard,
 	Stalactite,
 	StarMan,
+	TexturedDoor,
 	ThreeUpMoon,
 	Transport,
 	TriangularBlock,

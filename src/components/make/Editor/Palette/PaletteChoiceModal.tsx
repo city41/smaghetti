@@ -346,9 +346,8 @@ const transports: PaletteChoiceModalEntry[] = [
 			description: (
 				<div className="space-y-4">
 					<p>These enable Mario to warp someplace else</p>
-					<p>You can use them on their own for secret doors</p>
 					<p>
-						or place them on top of doors or pipes for a more conventional warp
+						Place them on top of doors then click to decide where the door goes
 					</p>
 				</div>
 			),
@@ -358,6 +357,13 @@ const transports: PaletteChoiceModalEntry[] = [
 		entry: 'WoodDoor',
 		info: {
 			title: 'Wood Door',
+			description: '',
+		},
+	},
+	{
+		entry: 'TexturedDoor',
+		info: {
+			title: 'Textured Door',
 			description: '',
 		},
 	},
