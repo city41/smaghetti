@@ -1,7 +1,6 @@
 import { ComponentType } from 'react';
 
 import { AceCoinViewDetails } from './AceCoinViewDetails';
-import { QuestionBlockViewDetails } from './QuestionBlockViewDetails';
 import { QuestionBlockEditDetails } from './QuestionBlockEditDetails';
 import { PayloadViewDetails } from './PayloadViewDetails';
 import { BrickEditDetails } from './BrickEditDetails';
