@@ -1,6 +1,13 @@
 import type { Entity } from './types';
 import { LevelObject } from '../levelData/parseObjectsFromLevelFile';
 
+const payloadToObjectId = {
+	CapeFeather: 0x44,
+	CoinSnake: 0x47,
+	PWing: 0x55,
+	Shoe: 0x43,
+};
+
 const QuestionBlock: Entity = {
 	type: 'QuestionBlock',
 	editorType: 'tile',
@@ -32,15 +39,11 @@ const QuestionBlock: Entity = {
 		[281, 283],
 	],
 
-	toBinary(x, y) {
-		// TODO: this should be a strip of coins, but it crashes the game
-		// return [0x43, 0x17, 0xb, 0x10, 0x0];
+	toBinary(x, y, w, h, settings) {
+		const objectId =
+			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId];
 
-		// if (settings.payload === 'Mushroom') {
-		return [0, y, x, 0x10];
-		// } else {
-		// 	throw new Error('QuestionBlock: only Mushroom payload is implemented');
-		// }
+		return [0, y, x, objectId];
 	},
 
 	parseBinary(rawBytes: number[]): LevelObject {
@@ -56,4 +59,4 @@ const QuestionBlock: Entity = {
 	},
 };
 
-export { QuestionBlock };
+export { QuestionBlock, payloadToObjectId };

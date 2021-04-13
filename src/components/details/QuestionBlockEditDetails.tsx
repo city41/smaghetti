@@ -1,23 +1,19 @@
 import React from 'react';
 
 import { DetailsEditProps } from './index';
-import { VerticalEditDetails } from './VerticalEditDetails';
-import { PayloadButton } from './PayloadButton';
+import { payloadToObjectId } from '../../entities/QuestionBlock';
+import { PayloadEditDetails } from './PayloadEditDetails';
+import { EntityType } from '../../entities/entityMap';
 
 function QuestionBlockEditDetails({
 	onEntitySettingsChange,
 }: DetailsEditProps) {
 	return (
-		<VerticalEditDetails>
-			<PayloadButton
-				payload="Mushroom"
-				onEntitySettingsChange={onEntitySettingsChange}
-			/>
-			<PayloadButton
-				payload="Coin"
-				onEntitySettingsChange={onEntitySettingsChange}
-			/>
-		</VerticalEditDetails>
+		<PayloadEditDetails
+			payloads={Object.keys(payloadToObjectId) as EntityType[]}
+			onEntitySettingsChange={onEntitySettingsChange}
+			canClear={false}
+		/>
 	);
 }
 

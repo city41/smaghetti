@@ -51,7 +51,7 @@ const detailsMap: Partial<
 		edit: MusicBlockEditDetails,
 	},
 	QuestionBlock: {
-		view: QuestionBlockViewDetails,
+		view: PayloadViewDetails,
 		edit: QuestionBlockEditDetails,
 	},
 	TriangularBlock: {

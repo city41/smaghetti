@@ -10,7 +10,7 @@ const payloadToObjectId = {
 	GiantVegetable: 0x5a,
 	KoopaShell: 0x7e,
 	// does not work with underground object set
-	// MontyMole: 0x69,
+	MontyMole: 0x69,
 	OneUpMushroom: 0x65,
 	PoisonMushroom: 0x67,
 	RegularVegetable: 0x5b,
