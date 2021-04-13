@@ -1,15 +1,20 @@
 import type { Entity } from './types';
 import { getBankLength } from './util';
 
+// empty veggie, nothing comes up
+const OBJECT_ID = 0x66;
+
 const payloadToObjectId = {
-	SmallVegetable: 0x5c,
-	RegularVegetable: 0x5b,
-	GiantVegetable: 0x5a,
 	Coin: 0x63,
 	CoinCache: 0x64,
+	GiantVegetable: 0x5a,
+	KoopaShell: 0x7e,
+	// does not work with underground object set
+	// MontyMole: 0x69,
 	OneUpMushroom: 0x65,
 	PoisonMushroom: 0x67,
-	KoopaShell: 0x7e,
+	RegularVegetable: 0x5b,
+	SmallVegetable: 0x5c,
 };
 
 const BuriedVegetable: Entity = {
@@ -45,7 +50,8 @@ const BuriedVegetable: Entity = {
 
 	toBinary(x, y, w, h, settings) {
 		const objectId =
-			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId];
+			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId] ??
+			OBJECT_ID;
 
 		return [getBankLength(1, 0), y, x, objectId];
 	},

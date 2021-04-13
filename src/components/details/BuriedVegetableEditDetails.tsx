@@ -12,7 +12,7 @@ function BuriedVegetableEditDetails({
 		<PayloadEditDetails
 			payloads={Object.keys(payloadToObjectId) as Array<EntityType>}
 			onEntitySettingsChange={onEntitySettingsChange}
-			canClear={false}
+			canClear={true}
 		/>
 	);
 }
