@@ -221,48 +221,6 @@ const objects: PaletteChoiceModalEntry[] = [
 			description: 'Shows the way to go ... or not go?',
 		},
 	},
-	{
-		entry: 'QuestionBlock',
-		info: {
-			title: 'Question Block',
-			description: 'Can contain a coin, power up or other things',
-		},
-	},
-	{
-		entry: 'HiddenBlock',
-		info: {
-			title: 'Hidden Block',
-			description: 'Pretty much an invisible Question Block',
-		},
-	},
-	{
-		entry: 'CardSlotMachine',
-		info: {
-			title: 'Card Slot Machine',
-			description: 'Touching this completes the level.',
-		},
-	},
-	{
-		entry: 'QuestionMark',
-		info: {
-			title: 'Question Mark Ball',
-			description: 'Touching this completes the level.',
-		},
-	},
-	{
-		entry: 'TriangularBlock',
-		info: {
-			title: 'Triangular Block',
-			description: 'Lets Mario run up walls and ceilings',
-		},
-	},
-	{
-		entry: 'ArrowSign',
-		info: {
-			title: 'Arrow Sign',
-			description: 'Shows the way to go ... or not go?',
-		},
-	},
 ];
 
 const gizmos: PaletteChoiceModalEntry[] = [
