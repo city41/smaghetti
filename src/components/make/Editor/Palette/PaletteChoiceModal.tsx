@@ -138,6 +138,13 @@ const terrain: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
+	{
+		entry: 'BuriedVegetable',
+		info: {
+			title: 'Buried Vegetable',
+			description: 'Can pull up all kinds of things! Nice throwback to SMB2.',
+		},
+	},
 ];
 
 const objects: PaletteChoiceModalEntry[] = [

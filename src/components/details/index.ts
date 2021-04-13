@@ -5,6 +5,7 @@ import { QuestionBlockViewDetails } from './QuestionBlockViewDetails';
 import { QuestionBlockEditDetails } from './QuestionBlockEditDetails';
 import { PayloadViewDetails } from './PayloadViewDetails';
 import { BrickEditDetails } from './BrickEditDetails';
+import { BuriedVegetableEditDetails } from './BuriedVegetableEditDetails';
 import { TriangularBlockViewDetails } from './TriangularBlockViewDetails';
 import { AngleEditDetails } from './AngleEditDetails';
 import { MusicBlockEditDetails } from './MusicBlockEditDetails';
@@ -30,28 +31,32 @@ const detailsMap: Partial<
 		}
 	>
 > = {
+	AceCoin: {
+		view: AceCoinViewDetails,
+	},
 	Brick: {
 		view: PayloadViewDetails,
 		edit: BrickEditDetails,
 	},
-	QuestionBlock: {
-		view: QuestionBlockViewDetails,
-		edit: QuestionBlockEditDetails,
+	BuriedVegetable: {
+		view: PayloadViewDetails,
+		edit: BuriedVegetableEditDetails,
 	},
-	AceCoin: {
-		view: AceCoinViewDetails,
-	},
-	TriangularBlock: {
-		view: TriangularBlockViewDetails,
-		edit: AngleEditDetails,
+	HiddenBlock: {
+		view: PayloadViewDetails,
+		edit: HiddenBlockEditDetails,
 	},
 	MusicBlock: {
 		view: PayloadViewDetails,
 		edit: MusicBlockEditDetails,
 	},
-	HiddenBlock: {
-		view: PayloadViewDetails,
-		edit: HiddenBlockEditDetails,
+	QuestionBlock: {
+		view: QuestionBlockViewDetails,
+		edit: QuestionBlockEditDetails,
+	},
+	TriangularBlock: {
+		view: TriangularBlockViewDetails,
+		edit: AngleEditDetails,
 	},
 	WoodBlock: {
 		view: PayloadViewDetails,
