@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { LevelObject } from './LevelObject';
 import { LevelSprite } from './LevelSprite';
-import { LevelTreeObject, LevelTreeRoom, LevelTreeSprite } from '../../types';
+import { LevelTreeRoom } from '../../types';
 import { Button } from '../../../Button';
 
 type RenderLevelProps = {

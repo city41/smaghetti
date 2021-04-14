@@ -16,10 +16,16 @@ function NextToolsIndexPage() {
 				</p>
 				<ul>
 					<li>
-						<a href="./hex-tree">Hex Tree</a>: A very raw tool that parses a
-						level&apos;s data into a tree structure, and from there lets you
-						mess with it and see how it changes in the running level (Work in
-						progress).
+						<p>
+							<a href="./hex-tree">Hex Tree</a>: A very raw tool that parses a
+							level&apos;s data into a tree structure, and from there lets you
+							mess with it and see how it changes in the running level.
+						</p>
+						<p>
+							Still a work in progress, but the goal is to be a powerful tool
+							that really allows reverse engineering to be effective, stay
+							tuned.
+						</p>
 					</li>
 					<li>
 						<a href="./palettes">Palettes</a>: renders the currently extracted
@@ -32,14 +38,6 @@ function NextToolsIndexPage() {
 						uncompressed tiles from the ROM and displays them on the screen. It
 						also includes a byte search to enable locating a tile using data
 						pulled from an emulator (I am using mGBA).
-					</li>
-					<li>
-						<a href="./render-level">Render Level</a>: This tool takes an
-						e-reader level file and renders it out. If it knows what a given
-						sprite or object is, it will show it, otherwise it will just show a
-						square. Clicking on a sprite or object shows the raw binary data for
-						that entity. This helps discover the different sprites and objects
-						in SMA4 levels.
 					</li>
 				</ul>
 			</div>

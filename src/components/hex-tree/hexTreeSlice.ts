@@ -8,7 +8,6 @@ import {
 import { parseSpritesFromLevelFile } from '../../levelData/parseSpritesFromLevelFile';
 // import { parseTransportsFromLevelFile } from '../../levelData/parseTransportsFromLevelFile';
 import {
-	BinaryRoom,
 	Exclusion,
 	LevelHeader,
 	LevelRooms,
@@ -17,7 +16,6 @@ import {
 	RoomIndex,
 } from './types';
 import {
-	POINTER_AREA_SIZE_IN_BYTES,
 	ROOM_AUTOSCROLL_POINTERS,
 	ROOM_BLOCKPATH_POINTERS,
 	ROOM_LEVELSETTING_POINTERS,
@@ -26,11 +24,7 @@ import {
 	ROOM_TRANSPORT_POINTERS,
 } from '../../levelData/constants';
 import { convertLevelNameToASCII } from '../../levelData/util';
-import {
-	createLevelData,
-	getLevelName,
-	setPointer,
-} from '../../levelData/createLevelData';
+import { createLevelData } from '../../levelData/createLevelData';
 
 type HexTreeState = {
 	tree: LevelTree | null;
