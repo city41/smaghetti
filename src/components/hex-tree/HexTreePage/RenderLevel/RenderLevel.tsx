@@ -93,67 +93,73 @@ function RenderLevel({
 		);
 	}
 
+	const body = currentRoom.exclude ? null : (
+		<>
+			{objects.map((o, i) => {
+				if (o.exclude) {
+					return null;
+				}
+
+				const left = o.x * TILE_SIZE * scale;
+				const top = o.y * TILE_SIZE * scale;
+
+				return (
+					<EntityContainer
+						key={`object-${i}`}
+						style={{ position: 'absolute', left, top }}
+						focused={focusedEntity === o}
+						onFocus={() => onEntityFocus(o)}
+					>
+						<LevelObject object={o} scale={scale} />
+					</EntityContainer>
+				);
+			})}
+			{sprites.map((s, i) => {
+				if (s.exclude) {
+					return null;
+				}
+
+				const left = s.x * TILE_SIZE * scale;
+				const top = s.y * TILE_SIZE * scale;
+
+				return (
+					<EntityContainer
+						key={`sprite-${i}`}
+						style={{ position: 'absolute', left, top }}
+						focused={focusedEntity === s}
+						onFocus={() => onEntityFocus(s)}
+					>
+						<LevelSprite sprite={s} scale={scale} />
+					</EntityContainer>
+				);
+			})}
+			{transports.map((t, i) => {
+				if (t.exclude) {
+					return null;
+				}
+
+				const left = t.sx * TILE_SIZE * scale;
+				const top = t.sy * TILE_SIZE * scale;
+
+				return (
+					<EntityContainer
+						key={`transport-${i}`}
+						style={{ position: 'absolute', left, top }}
+						focused={focusedEntity === t}
+						onFocus={() => onEntityFocus(t)}
+					>
+						<LevelTransport transport={t} scale={scale} />
+					</EntityContainer>
+				);
+			})}
+		</>
+	);
+
 	return (
 		<div className="flex flex-col space-y-2 mt-2">
 			<div className="flex flex-row space-x-2">{roomButtons}</div>
 			<div className="relative w-full h-64 overflow-auto bg-gray-500">
-				{objects.map((o, i) => {
-					if (o.exclude) {
-						return null;
-					}
-
-					const left = o.x * TILE_SIZE * scale;
-					const top = o.y * TILE_SIZE * scale;
-
-					return (
-						<EntityContainer
-							key={`object-${i}`}
-							style={{ position: 'absolute', left, top }}
-							focused={focusedEntity === o}
-							onFocus={() => onEntityFocus(o)}
-						>
-							<LevelObject object={o} scale={scale} />
-						</EntityContainer>
-					);
-				})}
-				{sprites.map((s, i) => {
-					if (s.exclude) {
-						return null;
-					}
-
-					const left = s.x * TILE_SIZE * scale;
-					const top = s.y * TILE_SIZE * scale;
-
-					return (
-						<EntityContainer
-							key={`sprite-${i}`}
-							style={{ position: 'absolute', left, top }}
-							focused={focusedEntity === s}
-							onFocus={() => onEntityFocus(s)}
-						>
-							<LevelSprite sprite={s} scale={scale} />
-						</EntityContainer>
-					);
-				})}
-				{transports.map((t, i) => {
-					if (t.exclude) {
-						return null;
-					}
-
-					const left = t.sx * TILE_SIZE * scale;
-					const top = t.sy * TILE_SIZE * scale;
-
-					return (
-						<EntityContainer
-							key={`transport-${i}`}
-							style={{ position: 'absolute', left, top }}
-							focused={focusedEntity === t}
-							onFocus={() => onEntityFocus(t)}
-						>
-							<LevelTransport transport={t} scale={scale} />
-						</EntityContainer>
-					);
-				})}
+				{body}
 			</div>
 		</div>
 	);

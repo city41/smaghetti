@@ -136,9 +136,12 @@ function Room({
 		<div className={clsx(className, 'relative')}>
 			<h2 className="bg-gray-300 text-gray-900 text-xl font-bold p-2 sticky top-0 flex flex-row items-center">
 				Room {roomIndex}
-				<div className="ml-2 space-x-2 text-sm font-normal text-gray-800">
+				<div className="mx-2 space-x-2 text-sm font-normal text-gray-800">
 					{jumpLinks}
 				</div>
+				<button onClick={() => onExcludeChange({ roomIndex, type: 'room' })}>
+					{room.exclude ? <BiHide /> : <BiShow />}
+				</button>
 			</h2>
 			<h3 className="sticky top-10 bg-gray-700">Objects</h3>
 			<div id={`objects-room-${roomIndex}`} />

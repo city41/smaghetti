@@ -46,6 +46,35 @@ function concatRoomData(room: BinaryRoom): number[] {
 	);
 }
 
+const EMPTY_ROOM: LevelTreeRoom = {
+	objects: {
+		header: {
+			roomLength: 0,
+			timeLimit: 0,
+			rawBytes: [],
+		},
+		objects: [],
+		pendingRawBytes: [],
+	},
+	sprites: {
+		sprites: [],
+		pendingRawBytes: [],
+	},
+	transports: {
+		transports: [],
+		rawBytes: [],
+	},
+	autoScroll: {
+		rawBytes: [],
+	},
+	blockPaths: {
+		rawBytes: [],
+	},
+	levelSettings: {
+		rawBytes: [],
+	},
+};
+
 function parseTreeToData(parsed: LevelTree): Uint8Array {
 	// header
 	const header = parsed.header.rawBytes;
@@ -59,10 +88,17 @@ function parseTreeToData(parsed: LevelTree): Uint8Array {
 	// todo, actually bring the real name back in
 	const name = getLevelName('SMAGHETTI');
 
-	const room0Data = parsedRoomToBinary(parsed.rooms[0]);
-	const room1Data = parsedRoomToBinary(parsed.rooms[1]);
-	const room2Data = parsedRoomToBinary(parsed.rooms[2]);
-	const room3Data = parsedRoomToBinary(parsed.rooms[3]);
+	const roomDatas: BinaryRoom[] = [];
+
+	for (let i = 0; i < 4; ++i) {
+		if (!parsed.rooms[i].exclude) {
+			roomDatas.push(parsedRoomToBinary(parsed.rooms[i]));
+		}
+	}
+
+	while (roomDatas.length < 4) {
+		roomDatas.push(parsedRoomToBinary(EMPTY_ROOM));
+	}
 
 	const pointerOffset =
 		header.length + pointers.length + nullBytes.length + name.length;
@@ -73,82 +109,122 @@ function parseTreeToData(parsed: LevelTree): Uint8Array {
 	// objects
 	let pointer = setPointer(pointers, 0, pointerOffset);
 	// level settings
-	pointer = setPointer(pointers, 1, pointer + room0Data.objectData.length);
+	pointer = setPointer(pointers, 1, pointer + roomDatas[0].objectData.length);
 	// transport data
 	pointer = setPointer(
 		pointers,
 		2,
-		pointer + room0Data.levelSettingsData.length
+		pointer + roomDatas[0].levelSettingsData.length
 	);
 	// sprite data
-	pointer = setPointer(pointers, 3, pointer + room0Data.transportData.length);
+	pointer = setPointer(
+		pointers,
+		3,
+		pointer + roomDatas[0].transportData.length
+	);
 	// block path movement data
-	pointer = setPointer(pointers, 4, pointer + room0Data.spriteData.length);
+	pointer = setPointer(pointers, 4, pointer + roomDatas[0].spriteData.length);
 	// auto scroll movement data
-	pointer = setPointer(pointers, 5, pointer + room0Data.blockPathData.length);
+	pointer = setPointer(
+		pointers,
+		5,
+		pointer + roomDatas[0].blockPathData.length
+	);
 
 	///// ROOM1 //////////
 	// objects
-	pointer = setPointer(pointers, 6, pointer + room0Data.autoScrollData.length);
+	pointer = setPointer(
+		pointers,
+		6,
+		pointer + roomDatas[0].autoScrollData.length
+	);
 	// level settings
-	pointer = setPointer(pointers, 7, pointer + room1Data.objectData.length);
+	pointer = setPointer(pointers, 7, pointer + roomDatas[1].objectData.length);
 	// transport data
 	pointer = setPointer(
 		pointers,
 		8,
-		pointer + room1Data.levelSettingsData.length
+		pointer + roomDatas[1].levelSettingsData.length
 	);
 	// sprite data
-	pointer = setPointer(pointers, 9, pointer + room1Data.transportData.length);
+	pointer = setPointer(
+		pointers,
+		9,
+		pointer + roomDatas[1].transportData.length
+	);
 	// block path movement data
-	pointer = setPointer(pointers, 10, pointer + room1Data.spriteData.length);
+	pointer = setPointer(pointers, 10, pointer + roomDatas[1].spriteData.length);
 	// auto scroll movement data
-	pointer = setPointer(pointers, 11, pointer + room1Data.blockPathData.length);
+	pointer = setPointer(
+		pointers,
+		11,
+		pointer + roomDatas[1].blockPathData.length
+	);
 
 	///// ROOM2 //////////
 	// objects
-	pointer = setPointer(pointers, 12, pointer + room1Data.autoScrollData.length);
+	pointer = setPointer(
+		pointers,
+		12,
+		pointer + roomDatas[1].autoScrollData.length
+	);
 	// level settings
-	pointer = setPointer(pointers, 13, pointer + room2Data.objectData.length);
+	pointer = setPointer(pointers, 13, pointer + roomDatas[2].objectData.length);
 	// transport data
 	pointer = setPointer(
 		pointers,
 		14,
-		pointer + room2Data.levelSettingsData.length
+		pointer + roomDatas[2].levelSettingsData.length
 	);
 	// sprite data
-	pointer = setPointer(pointers, 15, pointer + room2Data.transportData.length);
+	pointer = setPointer(
+		pointers,
+		15,
+		pointer + roomDatas[2].transportData.length
+	);
 	// block path movement data
-	pointer = setPointer(pointers, 16, pointer + room2Data.spriteData.length);
+	pointer = setPointer(pointers, 16, pointer + roomDatas[2].spriteData.length);
 	// auto scroll movement data
-	pointer = setPointer(pointers, 17, pointer + room2Data.blockPathData.length);
+	pointer = setPointer(
+		pointers,
+		17,
+		pointer + roomDatas[2].blockPathData.length
+	);
 
 	///// ROOM2 //////////
 	// objects
-	pointer = setPointer(pointers, 18, pointer + room2Data.autoScrollData.length);
+	pointer = setPointer(
+		pointers,
+		18,
+		pointer + roomDatas[2].autoScrollData.length
+	);
 	// level settings
-	pointer = setPointer(pointers, 19, pointer + room3Data.objectData.length);
+	pointer = setPointer(pointers, 19, pointer + roomDatas[3].objectData.length);
 	// transport data
 	pointer = setPointer(
 		pointers,
 		20,
-		pointer + room3Data.levelSettingsData.length
+		pointer + roomDatas[3].levelSettingsData.length
 	);
 	// sprite data
-	pointer = setPointer(pointers, 21, pointer + room3Data.transportData.length);
+	pointer = setPointer(
+		pointers,
+		21,
+		pointer + roomDatas[3].transportData.length
+	);
 	// block path movement data
-	pointer = setPointer(pointers, 22, pointer + room3Data.spriteData.length);
+	pointer = setPointer(pointers, 22, pointer + roomDatas[3].spriteData.length);
 	// auto scroll movement data
-	setPointer(pointers, 23, pointer + room3Data.blockPathData.length);
+	setPointer(pointers, 23, pointer + roomDatas[3].blockPathData.length);
 
 	const fullData = header.concat(
 		pointers,
 		nullBytes,
 		name,
-		concatRoomData(room0Data),
-		concatRoomData(room1Data),
-		concatRoomData(room2Data),
-		concatRoomData(room3Data)
+		concatRoomData(roomDatas[0]),
+		concatRoomData(roomDatas[1]),
+		concatRoomData(roomDatas[2]),
+		concatRoomData(roomDatas[3])
 	);
 
 	return new Uint8Array(fullData);

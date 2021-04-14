@@ -63,6 +63,7 @@ type LevelTreeRoom = {
 	autoScroll: {
 		rawBytes: number[];
 	};
+	exclude?: boolean;
 };
 
 type LevelHeader = {
@@ -92,9 +93,9 @@ type BinaryRoom = {
 };
 
 type Exclusion = {
-	type: 'object' | 'sprite' | 'transport';
+	type: 'object' | 'sprite' | 'transport' | 'room';
 	roomIndex: RoomIndex;
-	entity: LevelTreeObject | LevelTreeSprite | LevelTreeTransport;
+	entity?: LevelTreeObject | LevelTreeSprite | LevelTreeTransport;
 };
 
 export type {

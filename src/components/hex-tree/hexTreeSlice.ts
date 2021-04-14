@@ -54,6 +54,11 @@ const hexTreeSlice = createSlice({
 
 				let targetEntity;
 
+				if (type === 'room') {
+					room.exclude = !room.exclude;
+					return;
+				}
+
 				if (type === 'object') {
 					const eo = entity as LevelTreeObject;
 					targetEntity = room.objects.objects.find((o) => {
