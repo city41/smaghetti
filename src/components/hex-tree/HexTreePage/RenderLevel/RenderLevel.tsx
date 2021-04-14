@@ -12,6 +12,7 @@ import { LevelTreeRoom } from '../../types';
 import { Button } from '../../../Button';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { LevelTransport } from './LevelTransport';
+import { isRoomEmpty } from '../util';
 
 type RenderLevelProps = {
 	rooms: LevelTreeRoom[];
@@ -54,14 +55,6 @@ function EntityContainer({
 		>
 			{children}
 		</div>
-	);
-}
-
-function isRoomEmpty(room: LevelTreeRoom): boolean {
-	return (
-		room.objects.objects.length === 0 &&
-		room.sprites.sprites.length === 0 &&
-		room.transports.transports.length === 0
 	);
 }
 
