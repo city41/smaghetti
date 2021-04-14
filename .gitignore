@@ -34,3 +34,6 @@ yarn-error.log*
 
 # copyrighted files
 /public/sma4.gba
+/src/levelData/sma4savtool_classic1_2.sav
+/src/levelData/smaghetti_classic1_2.sav
+/src/levelData/star_02.level
