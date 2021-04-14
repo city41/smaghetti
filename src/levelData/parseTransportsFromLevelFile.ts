@@ -38,6 +38,10 @@ function parseTransportsFromLevelFile(
 	const pointer = ROOM_TRANSPORT_POINTERS[roomIndex];
 	const transportIndex = view.getUint16(pointer, true);
 
+	if (transportIndex >= levelData.length - 1) {
+		return [];
+	}
+
 	const numTransports = view.getUint16(transportIndex, true);
 
 	const transports: LevelTransport[] = [];

@@ -1,83 +1,36 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { LevelTreeSprite } from '../../types';
 import {
 	bank0SpriteIdToEntityType,
 	bank1SpriteIdToEntityType,
 } from '../../../../entities/spriteIdMap';
-import { RiFocus3Line } from 'react-icons/ri';
+import { SpriteIcon } from '../entityIcons';
 
 type LevelSpriteProps = {
 	className?: string;
 	levelSprite: LevelTreeSprite;
-	onExcludeChange: () => void;
-	onFocus: () => void;
-	focused?: boolean;
 };
 
-function LevelSprite({
-	className,
-	levelSprite,
-	onExcludeChange,
-	onFocus,
-	focused,
-}: LevelSpriteProps) {
-	const ref = useRef<HTMLDivElement | null>(null);
-
-	useEffect(() => {
-		if (focused && ref.current) {
-			ref.current?.scrollIntoView({ block: 'center' });
-		}
-	}, [focused]);
-
+function LevelSprite({ className, levelSprite }: LevelSpriteProps) {
 	const spriteType =
 		levelSprite.bank === 0
 			? bank0SpriteIdToEntityType[levelSprite.id]
 			: bank1SpriteIdToEntityType[levelSprite.id];
 
 	return (
-		<div
-			ref={ref}
-			className={clsx(className, 'ml-8 bg-gray-600 p-2 m-2 flex flex-col', {
-				'border-2 border-white': focused,
-			})}
-		>
+		<div className={clsx(className, 'ml-8 bg-gray-600 p-2 m-2 flex flex-col')}>
 			<div className="flex flex-row items-center space-x-2">
-				<div className={clsx(`${spriteType}-bg`, 'w-4 h-4')} />
-				<div
-					className={clsx('w-60 bg-gray-200 text-gray-900 grid', {
-						'grid-cols-4': levelSprite.bank === 0,
-						'grid-cols-6': levelSprite.bank > 0,
-					})}
-				>
-					{levelSprite.rawBytes.map((b, i) => (
-						<div key={i} className="border border-black">
-							<div>0x{b.toString(16)}</div>
-							<div>
-								{/*{spriteRawBytesDesc[i as keyof typeof spriteRawBytesDesc]}*/}
-							</div>
-						</div>
-					))}
+				<SpriteIcon entityType={spriteType} />
+				<div className="bg-gray-200 text-gray-900 grid grid-rows-2 grid-cols-3 gap-x-2 p-1">
+					<div className="text-xs text-gray-400">x</div>
+					<div className="text-xs text-gray-400">y</div>
+					<div className="text-xs text-gray-400">id</div>
+					<div className="text-sm">{levelSprite.x}</div>
+					<div className="text-sm">{levelSprite.y}</div>
+					<div className="text-sm">0x{levelSprite.id.toString(16)}</div>
 				</div>
-				<label>
-					exclude
-					<input
-						type="checkbox"
-						checked={levelSprite.exclude}
-						onChange={onExcludeChange}
-					/>
-					<button onClick={onFocus}>
-						<RiFocus3Line />
-					</button>
-				</label>
-				{/*<Copy rawBytes={levelSprite.rawBytes} />*/}
 			</div>
-			{/*<Notes*/}
-			{/*	className="m-2 w-80"*/}
-			{/*	bank={levelSprite.bank}*/}
-			{/*	id={levelSprite.id}*/}
-			{/*	type="sprite"*/}
-			{/*/>*/}
 		</div>
 	);
 }

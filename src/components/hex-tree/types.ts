@@ -21,6 +21,19 @@ type LevelTreeSprite = {
 	exclude?: boolean;
 };
 
+type LevelTreeTransport = {
+	sx: number;
+	sy: number;
+	destRoom: number;
+	dx: number;
+	dy: number;
+	cx: number;
+	cy: number;
+	exitType: number;
+	rawBytes: number[];
+	exclude?: boolean;
+};
+
 type LevelTreeObjectHeader = {
 	timeLimit: number;
 	roomLength: number;
@@ -37,6 +50,7 @@ type LevelTreeRoom = {
 		rawBytes: number[];
 	};
 	transports: {
+		transports: LevelTreeTransport[];
 		rawBytes: number[];
 	};
 	sprites: {
@@ -78,9 +92,9 @@ type BinaryRoom = {
 };
 
 type Exclusion = {
-	type: 'object' | 'sprite';
+	type: 'object' | 'sprite' | 'transport';
 	roomIndex: RoomIndex;
-	entity: LevelTreeObject | LevelTreeSprite;
+	entity: LevelTreeObject | LevelTreeSprite | LevelTreeTransport;
 };
 
 export type {
@@ -93,5 +107,6 @@ export type {
 	LevelTreeObject,
 	LevelTreeObjectHeader,
 	LevelTreeSprite,
+	LevelTreeTransport,
 	BinaryRoom,
 };

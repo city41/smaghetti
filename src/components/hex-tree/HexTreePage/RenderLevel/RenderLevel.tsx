@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
+import React, {
+	CSSProperties,
+	ReactNode,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
+import clsx from 'clsx';
 import { LevelObject } from './LevelObject';
 import { LevelSprite } from './LevelSprite';
 import { LevelTreeRoom } from '../../types';
 import { Button } from '../../../Button';
+import { TILE_SIZE } from '../../../../tiles/constants';
+import { LevelTransport } from './LevelTransport';
 
 type RenderLevelProps = {
 	rooms: LevelTreeRoom[];
@@ -12,6 +21,49 @@ type RenderLevelProps = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onEntityFocus: (entity: any) => void;
 };
+
+type EntityContainerProps = {
+	style: CSSProperties;
+	focused: boolean;
+	onFocus: () => void;
+	children: ReactNode;
+};
+
+function EntityContainer({
+	style,
+	focused,
+	onFocus,
+	children,
+}: EntityContainerProps) {
+	const ref = useRef<HTMLDivElement | null>(null);
+
+	useEffect(() => {
+		if (focused) {
+			ref.current?.scrollIntoView({ block: 'center', inline: 'center' });
+		}
+	}, [focused]);
+
+	return (
+		<div
+			ref={ref}
+			className={clsx('cursor-pointer', {
+				'border-2 border-white': focused,
+			})}
+			style={style}
+			onClick={onFocus}
+		>
+			{children}
+		</div>
+	);
+}
+
+function isRoomEmpty(room: LevelTreeRoom): boolean {
+	return (
+		room.objects.objects.length === 0 &&
+		room.sprites.sprites.length === 0 &&
+		room.transports.transports.length === 0
+	);
+}
 
 function RenderLevel({
 	rooms,
@@ -25,33 +77,43 @@ function RenderLevel({
 	const {
 		objects: { objects },
 		sprites: { sprites },
+		transports: { transports },
 	} = currentRoom;
 
 	const roomButtons = [];
 
 	for (let i = 0; i < rooms.length; ++i) {
 		roomButtons.push(
-			<Button onClick={() => setCurrentRoomIndex(i)}>{i}</Button>
+			<Button
+				onClick={() => setCurrentRoomIndex(i)}
+				disabled={isRoomEmpty(rooms[i])}
+			>
+				room{i}
+			</Button>
 		);
 	}
 
 	return (
-		<div>
+		<div className="flex flex-col space-y-2 mt-2">
 			<div className="flex flex-row space-x-2">{roomButtons}</div>
-			<div className="relative w-full h-64 overflow-auto">
+			<div className="relative w-full h-64 overflow-auto bg-gray-500">
 				{objects.map((o, i) => {
 					if (o.exclude) {
 						return null;
 					}
 
+					const left = o.x * TILE_SIZE * scale;
+					const top = o.y * TILE_SIZE * scale;
+
 					return (
-						<LevelObject
+						<EntityContainer
 							key={`object-${i}`}
-							object={o}
-							scale={scale}
+							style={{ position: 'absolute', left, top }}
 							focused={focusedEntity === o}
-							onClick={() => onEntityFocus(o)}
-						/>
+							onFocus={() => onEntityFocus(o)}
+						>
+							<LevelObject object={o} scale={scale} />
+						</EntityContainer>
 					);
 				})}
 				{sprites.map((s, i) => {
@@ -59,14 +121,37 @@ function RenderLevel({
 						return null;
 					}
 
+					const left = s.x * TILE_SIZE * scale;
+					const top = s.y * TILE_SIZE * scale;
+
 					return (
-						<LevelSprite
+						<EntityContainer
 							key={`sprite-${i}`}
-							sprite={s}
-							scale={scale}
+							style={{ position: 'absolute', left, top }}
 							focused={focusedEntity === s}
-							onClick={() => onEntityFocus(s)}
-						/>
+							onFocus={() => onEntityFocus(s)}
+						>
+							<LevelSprite sprite={s} scale={scale} />
+						</EntityContainer>
+					);
+				})}
+				{transports.map((t, i) => {
+					if (t.exclude) {
+						return null;
+					}
+
+					const left = t.sx * TILE_SIZE * scale;
+					const top = t.sy * TILE_SIZE * scale;
+
+					return (
+						<EntityContainer
+							key={`transport-${i}`}
+							style={{ position: 'absolute', left, top }}
+							focused={focusedEntity === t}
+							onFocus={() => onEntityFocus(t)}
+						>
+							<LevelTransport transport={t} scale={scale} />
+						</EntityContainer>
 					);
 				})}
 			</div>

@@ -6,13 +6,16 @@ import {
 	parseObjectsFromLevelFile,
 } from '../../levelData/parseObjectsFromLevelFile';
 import { parseSpritesFromLevelFile } from '../../levelData/parseSpritesFromLevelFile';
-// import { parseTransportsFromLevelFile } from '../../levelData/parseTransportsFromLevelFile';
+import { parseTransportsFromLevelFile } from '../../levelData/parseTransportsFromLevelFile';
 import {
 	Exclusion,
 	LevelHeader,
 	LevelRooms,
 	LevelTree,
+	LevelTreeObject,
 	LevelTreeRoom,
+	LevelTreeSprite,
+	LevelTreeTransport,
 	RoomIndex,
 } from './types';
 import {
@@ -49,15 +52,40 @@ const hexTreeSlice = createSlice({
 
 				const room = state.tree.rooms[roomIndex];
 
-				// @ts-ignore
-				const targetEntity = room[type + 's'][type + 's'].find((o) => {
-					return (
-						o.bank === entity.bank &&
-						o.id === entity.id &&
-						o.x === entity.x &&
-						o.y === entity.y
-					);
-				});
+				let targetEntity;
+
+				if (type === 'object') {
+					const eo = entity as LevelTreeObject;
+					targetEntity = room.objects.objects.find((o) => {
+						return (
+							o.bank === eo.bank &&
+							o.id === eo.id &&
+							o.x === eo.x &&
+							o.y === eo.y
+						);
+					});
+				} else if (type === 'sprite') {
+					const es = entity as LevelTreeSprite;
+					targetEntity = room.objects.objects.find((o) => {
+						return (
+							o.bank === es.bank &&
+							o.id === es.id &&
+							o.x === es.x &&
+							o.y === es.y
+						);
+					});
+				} else if (type === 'transport') {
+					const te = entity as LevelTreeTransport;
+					targetEntity = room.transports.transports.find((t) => {
+						return (
+							t.destRoom === te.destRoom &&
+							t.sx === te.sx &&
+							t.sy === t.sy &&
+							t.dx === te.dx &&
+							t.dy === te.dy
+						);
+					});
+				}
 
 				if (targetEntity) {
 					targetEntity.exclude = !targetEntity.exclude;
@@ -106,6 +134,7 @@ function parseRoom(data: Uint8Array, roomIndex: RoomIndex): LevelTreeRoom {
 			),
 		},
 		transports: {
+			transports: parseTransportsFromLevelFile(data, roomIndex),
 			rawBytes: Array.from(
 				data.slice(
 					getPointer(data, ROOM_TRANSPORT_POINTERS[roomIndex]),
