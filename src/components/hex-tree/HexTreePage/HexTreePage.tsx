@@ -122,7 +122,7 @@ function HexTreePage({
 						)}
 					</div>
 				)}
-				<ul className={clsx(tabStyles.tabs, 'mb-8')}>
+				<ul className={clsx(tabStyles.tabs)}>
 					{tabs.map((t, i) => {
 						return (
 							<li
