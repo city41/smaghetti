@@ -256,7 +256,7 @@ function HexEditor({ className, data }: HexEditorProps) {
 
 	return (
 		<div className={className}>
-			<div className="h-16 sticky top-0 bg-gray-700 grid place-items-center">
+			<div className="h-16 sticky top-0 bg-gray-900 grid place-items-center">
 				{hoveredIndex > -1 ? (
 					<>
 						{hoveredIndex.toString(16)}: {cellMetaData[hoveredIndex]?.label}

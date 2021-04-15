@@ -3,44 +3,12 @@ import clsx from 'clsx';
 
 type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'ref'> & {
 	className?: string;
+	toggled?: boolean;
 };
-
-// const ButtonCss = `
-//   display: inline-flex;
-//   flex-direction: row;
-//   align-items: center;
-//
-//   height: 48px;
-//
-//   border: none;
-//   padding: 8px 16px;
-//   background-color: var(--global-foreground-color);
-//   color: var(--global-background-color);
-//
-//   cursor: pointer;
-//
-//   font-size: 1.3rem;
-//   font-weight: bold;
-//
-//   border-radius: 8px;
-//   border-bottom: 4px solid rgba(0, 0, 0, 0.4);
-//
-//   &:active {
-//     transform: scale(1, 0.95) translateY(4px);
-//     border-bottom-color: white;
-//   }
-//
-//   &:hover {
-//     text-decoration: underline;
-//   }
-// `;
-//
-// const Root = styled.button`
-//   ${ButtonCss}
-// `;
 
 function Button({
 	className,
+	toggled,
 	onClick,
 	children,
 	disabled,
@@ -49,8 +17,11 @@ function Button({
 	return (
 		<button
 			className={clsx(className, 'px-2 py-1', {
-				'bg-green-400 hover:bg-green-300 hover:text-green-900': !disabled,
+				'hover:bg-green-300 hover:text-green-900': !disabled,
 				'bg-gray-400 text-gray-600 cursor-default': disabled,
+				'border-b-4 border-green-700 bg-green-400 text-white':
+					!toggled && !disabled,
+				'mt-1 bg-green-300 text-green-900': toggled && !disabled,
 			})}
 			disabled={disabled}
 			onClick={onClick}

@@ -81,6 +81,7 @@ function RenderLevel({
 				key={i}
 				onClick={() => setCurrentRoomIndex(i)}
 				disabled={isRoomEmpty(rooms[i])}
+				toggled={i === currentRoomIndex}
 			>
 				room{i}
 			</Button>

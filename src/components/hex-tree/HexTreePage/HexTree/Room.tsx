@@ -52,7 +52,7 @@ function EntityContainer({
 	return (
 		<div
 			ref={ref}
-			className={clsx('flex flex-row space-x-2 items-center', {
+			className={clsx('flex flex-row space-x-2 items-center bg-gray-500', {
 				'bg-yellow-100 text-gray-900': focused,
 			})}
 		>
@@ -153,17 +153,14 @@ function Room({
 				<div className="mx-2 space-x-2 text-sm font-normal text-gray-800">
 					{jumpLinks}
 				</div>
-				<button onClick={() => onExcludeChange({ roomIndex, type: 'room' })}>
-					{room.exclude ? <BiHide /> : <BiShow />}
-				</button>
 			</h2>
-			<h3 className="sticky top-10 bg-gray-700">Objects</h3>
+			<h3 className="sticky top-10 bg-gray-700 py-1 pl-2">Objects</h3>
 			<div id={`objects-room-${roomIndex}`} />
 			{objects}
-			<h3 className="sticky top-10 bg-gray-700">Transports</h3>
+			<h3 className="sticky top-10 bg-gray-700 py-1 pl-2">Transports</h3>
 			<div id={`transports-room-${roomIndex}`} />
 			{transports}
-			<h3 className="sticky top-10 bg-gray-700">Sprites</h3>
+			<h3 className="sticky top-10 bg-gray-700 py-1 pl-2">Sprites</h3>
 			<div id={`sprites-room-${roomIndex}`} />
 			{sprites}
 		</div>

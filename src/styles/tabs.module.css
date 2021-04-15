@@ -7,5 +7,5 @@
 }
 
 .tabs .currentTab {
-    background-color: rgba(0, 0, 0, 0.5);
+    @apply bg-gray-900;
 }

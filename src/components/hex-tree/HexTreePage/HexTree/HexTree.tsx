@@ -1,8 +1,12 @@
 import React, { Fragment } from 'react';
+import { RiFocus3Line } from 'react-icons/ri';
+import { BiHide, BiShow } from 'react-icons/bi';
+
 import { Exclusion, LevelTree, RoomIndex } from '../../types';
 import { Room } from './Room';
 import { Button } from '../../../Button';
 import { isRoomEmpty } from '../util';
+import { PlainIconButton } from '../../../PlainIconButton';
 
 type HexTreeProps = {
 	tree: LevelTree;
@@ -23,18 +27,26 @@ function HexTree({
 
 	for (let i = 0; i < tree.rooms.length; ++i) {
 		roomButtons.push(
-			<Button
-				key={i}
-				disabled={isRoomEmpty(tree.rooms[i])}
-				onClick={() => {
-					const target = document.getElementById(`room-${i}`);
-					if (target) {
-						target.scrollIntoView();
+			<div className="text-gray-900 flex flex-row">
+				<div className="font-bold mr-2">{i}</div>
+				<PlainIconButton
+					label="scroll to"
+					icon={RiFocus3Line}
+					onClick={() => {
+						const target = document.getElementById(`room-${i}`);
+						if (target) {
+							target.scrollIntoView();
+						}
+					}}
+				/>
+				<PlainIconButton
+					label="toggle exclude"
+					icon={tree.rooms[i].exclude ? BiHide : BiShow}
+					onClick={() =>
+						onExcludeChange({ roomIndex: i as RoomIndex, type: 'room' })
 					}
-				}}
-			>
-				room{i}
-			</Button>
+				/>
+			</div>
 		);
 	}
 
@@ -54,8 +66,10 @@ function HexTree({
 	});
 
 	return (
-		<div>
-			<div className="flex flex-row space-x-2 my-2">{roomButtons}</div>
+		<div className="relative mt-8">
+			<div className="flex flex-row space-x-6 my-2 pl-2 absolute right-8 top-0.5 z-10">
+				{roomButtons}
+			</div>
 			<div className="h-96 overflow-auto">{rooms}</div>
 		</div>
 	);
