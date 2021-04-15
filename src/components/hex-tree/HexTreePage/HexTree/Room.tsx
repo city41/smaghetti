@@ -1,12 +1,14 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import clsx from 'clsx';
+import { RiFocus3Line } from 'react-icons/ri';
+import { BiHide, BiShow } from 'react-icons/bi';
+import { HiClipboardCopy } from 'react-icons/hi';
 
 import { Exclusion, LevelTreeRoom, RoomIndex } from '../../types';
 import { LevelObject } from './LevelObject';
 import { LevelSprite } from './LevelSprite';
-import { RiFocus3Line } from 'react-icons/ri';
-import { BiHide, BiShow } from 'react-icons/bi';
 import { LevelTransport } from './LevelTransport';
+import useClipboard from 'react-use-clipboard';
 
 type RoomProps = {
 	className?: string;
@@ -22,6 +24,7 @@ type RoomProps = {
 type EntityContainerProps = {
 	focused: boolean;
 	excluded: boolean;
+	rawBytes: number[];
 	onFocus: () => void;
 	onExcludeChange: () => void;
 	children: ReactNode;
@@ -30,11 +33,15 @@ type EntityContainerProps = {
 function EntityContainer({
 	focused,
 	excluded,
+	rawBytes,
 	onFocus,
 	onExcludeChange,
 	children,
 }: EntityContainerProps) {
 	const ref = useRef<HTMLDivElement | null>(null);
+	const [, copyToClipboard] = useClipboard(
+		`${rawBytes.map((c) => `0x${c.toString(16)}`).join(', ')}`
+	);
 
 	useEffect(() => {
 		if (focused) {
@@ -56,6 +63,9 @@ function EntityContainer({
 			<button onClick={onFocus}>
 				<RiFocus3Line />
 			</button>
+			<button onClick={copyToClipboard}>
+				<HiClipboardCopy />
+			</button>
 		</div>
 	);
 }
@@ -74,6 +84,7 @@ function Room({
 				key={`${i}-${o.id}-${o.x}-${o.y}`}
 				focused={focusedEntity === o}
 				excluded={!!o.exclude}
+				rawBytes={o.rawBytes}
 				onFocus={() => onEntityFocus(o)}
 				onExcludeChange={() => {
 					onExcludeChange({ roomIndex, type: 'object', entity: o });
@@ -90,6 +101,7 @@ function Room({
 				key={`${i}-${s.id}-${s.x}-${s.y}`}
 				focused={focusedEntity === s}
 				excluded={!!s.exclude}
+				rawBytes={s.rawBytes}
 				onFocus={() => onEntityFocus(s)}
 				onExcludeChange={() => {
 					onExcludeChange({ roomIndex, type: 'sprite', entity: s });
@@ -106,6 +118,7 @@ function Room({
 				key={`${i}-${t.sx}-${t.sy}-${t.dx}-${t.dy}`}
 				focused={focusedEntity === t}
 				excluded={!!t.exclude}
+				rawBytes={t.rawBytes}
 				onFocus={() => onEntityFocus(t)}
 				onExcludeChange={() => {
 					onExcludeChange({ roomIndex, type: 'transport', entity: t });

@@ -7,21 +7,12 @@ import {
 	ROOM_OBJECT_POINTERS,
 	ROOM_SPRITE_POINTERS,
 } from '../../../levelData/constants';
+import { toHexString } from './util';
 
 type HexEditorProps = {
 	className?: string;
 	data: Uint8Array;
 };
-
-function toHexString(b: number): string {
-	const asHex = b.toString(16);
-
-	if (asHex.length === 1) {
-		return `0${asHex}`;
-	} else {
-		return asHex;
-	}
-}
 
 type CellMetaData = {
 	category: string;
