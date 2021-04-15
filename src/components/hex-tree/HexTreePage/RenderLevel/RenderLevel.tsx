@@ -78,6 +78,7 @@ function RenderLevel({
 	for (let i = 0; i < rooms.length; ++i) {
 		roomButtons.push(
 			<Button
+				key={i}
 				onClick={() => setCurrentRoomIndex(i)}
 				disabled={isRoomEmpty(rooms[i])}
 			>

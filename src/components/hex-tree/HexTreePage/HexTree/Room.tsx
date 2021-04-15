@@ -103,6 +103,7 @@ function Room({
 	const transports = room.transports.transports.map((t, i) => {
 		return (
 			<EntityContainer
+				key={`${i}-${t.sx}-${t.sy}-${t.dx}-${t.dy}`}
 				focused={focusedEntity === t}
 				excluded={!!t.exclude}
 				onFocus={() => onEntityFocus(t)}

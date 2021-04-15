@@ -5,7 +5,6 @@ import {
 	bank1ObjectIdToEntityType,
 } from '../../../../entities/objectIdMap';
 import { LevelTreeObject } from '../../types';
-import clsx from 'clsx';
 import { ObjectIcon } from '../entityIcons';
 
 type LevelObjectProps = {

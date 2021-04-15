@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Exclusion, LevelTree, RoomIndex } from '../../types';
 import { Room } from './Room';
 import { Button } from '../../../Button';
@@ -24,6 +24,7 @@ function HexTree({
 	for (let i = 0; i < tree.rooms.length; ++i) {
 		roomButtons.push(
 			<Button
+				key={i}
 				disabled={isRoomEmpty(tree.rooms[i])}
 				onClick={() => {
 					const target = document.getElementById(`room-${i}`);
@@ -39,17 +40,16 @@ function HexTree({
 
 	const rooms = tree.rooms.map((r, i) => {
 		return (
-			<>
+			<Fragment key={i}>
 				<div id={`room-${i}`} />
 				<Room
-					key={i}
 					roomIndex={i as RoomIndex}
 					room={r}
 					focusedEntity={focusedEntity}
 					onExcludeChange={onExcludeChange}
 					onEntityFocus={onEntityFocus}
 				/>
-			</>
+			</Fragment>
 		);
 	});
 

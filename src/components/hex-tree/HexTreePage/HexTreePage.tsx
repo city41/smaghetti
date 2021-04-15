@@ -15,6 +15,7 @@ import { Exclusion, LevelTree } from '../types';
 import clsx from 'clsx';
 import tabStyles from '../../../styles/tabs.module.css';
 import { RenderLevel } from './RenderLevel';
+import { HexEditor } from './HexEditor';
 
 type HexTreePageProps = {
 	allFilesReady: boolean;
@@ -25,7 +26,7 @@ type HexTreePageProps = {
 	data: Uint8Array;
 };
 
-const tabs = ['Outline', 'Hex', 'Snapshots'];
+const tabs = ['Outline', 'Hex (rebuilt)', 'Hex (original)', 'Snapshots'];
 
 function HexTreePage({
 	allFilesReady,
@@ -39,13 +40,26 @@ function HexTreePage({
 	const [focusedEntity, setFocusedEntity] = useState<any>(null);
 	const [editState, setEditState] = useState<'editing' | 'running'>('editing');
 	const [currentTabIndex, setCurrentTabIndex] = useState(0);
+	const [originalData, setOriginalData] = useState<Uint8Array>(
+		new Uint8Array()
+	);
 
 	function handleRunningEditToggle() {
 		setEditState((e) => (e === 'editing' ? 'running' : 'editing'));
 	}
 
 	function handleLevelFile(e: React.ChangeEvent<HTMLInputElement>) {
-		onLevelChosen(e.target.files![0]);
+		const file = e.target.files![0];
+		onLevelChosen(file);
+
+		const reader = new FileReader();
+
+		reader.onloadend = () => {
+			const originalData = new Uint8Array(reader.result as ArrayBuffer);
+			setOriginalData(originalData);
+		};
+
+		reader.readAsArrayBuffer(file);
 	}
 
 	function handleDownloadSave() {
@@ -72,8 +86,11 @@ function HexTreePage({
 				</>
 			);
 			break;
-		case 'Hex':
-			tabBody = <>hex editor goes here</>;
+		case 'Hex (rebuilt)':
+			tabBody = <HexEditor data={data} />;
+			break;
+		case 'Hex (original)':
+			tabBody = <HexEditor data={originalData} />;
 			break;
 		case 'Snapshots':
 			tabBody = <>snapshots go here</>;

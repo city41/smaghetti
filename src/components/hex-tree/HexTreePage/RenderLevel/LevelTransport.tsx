@@ -8,7 +8,7 @@ type LevelTransportProps = {
 	scale: number;
 };
 
-function LevelTransport({ transport, scale }: LevelTransportProps) {
+function LevelTransport({ scale }: LevelTransportProps) {
 	const width = TILE_SIZE * scale;
 	const height = TILE_SIZE * scale;
 
