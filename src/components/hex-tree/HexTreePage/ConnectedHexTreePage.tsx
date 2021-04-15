@@ -27,7 +27,7 @@ function parsedRoomToBinary(room: LevelTreeRoom): BinaryRoom {
 	}, []);
 
 	return {
-		objectData: room.objects.header.rawBytes.concat([0], objects, [0xff]),
+		objectData: room.objects.header.rawBytes.concat(objects, [0xff]),
 		levelSettingsData: room.levelSettings.rawBytes,
 		transportData: room.transports.rawBytes,
 		spriteData: [0].concat(sprites, [0xff]),

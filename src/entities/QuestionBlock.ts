@@ -4,6 +4,7 @@ import { LevelObject } from '../levelData/parseObjectsFromLevelFile';
 const payloadToObjectId = {
 	CapeFeather: 0x44,
 	CoinSnake: 0x47,
+	FireFlower: 0x10,
 	PWing: 0x55,
 	Shoe: 0x43,
 };
@@ -13,7 +14,7 @@ const QuestionBlock: Entity = {
 	editorType: 'tile',
 	gameType: 'object',
 	settingsType: 'single',
-	defaultSettings: { payload: 'Coin' },
+	defaultSettings: { payload: 'FireFlower' },
 	dimensions: 'none',
 	romOffset: 0x131fe0,
 	palette: [
