@@ -104,7 +104,7 @@ function parseObjectsFromLevelFile(
 
 	const pointer = ROOM_OBJECT_POINTERS[roomIndex];
 
-	let objectIndex =
+	const objectIndex =
 		view.getUint16(pointer, true) + ROOM_OBJECT_HEADER_SIZE_IN_BYTES;
 
 	return parseObjects(levelData, objectIndex);
