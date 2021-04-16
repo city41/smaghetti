@@ -1,17 +1,6 @@
 import type { Entity } from './types';
 import { getBankLength } from './util';
 
-const payloadToObjectId = {
-	Coin: 0x19,
-	CoinCache: 0x1a,
-	FireFlower: 0x16,
-	Leaf: 0x17,
-	OneUpMushroom: 0x1b,
-	StarMan: 0x18,
-	PSwitch: 0x1d,
-	ClimbingVineHead: 0x1c,
-};
-
 const Brick: Entity = {
 	type: 'Brick',
 	editorType: 'tile',
@@ -19,8 +8,20 @@ const Brick: Entity = {
 	settingsType: 'single',
 	dimensions: 'xy',
 	objectId: 0xf,
+	payloadToObjectId: {
+		Coin: 0x19,
+		CoinCache: 0x1a,
+		FireFlower: 0x16,
+		Leaf: 0x17,
+		OneUpMushroom: 0x1b,
+		StarMan: 0x18,
+		PSwitch: 0x1d,
+		ClimbingVineHead: 0x1c,
+	},
 	param1: 'width',
 	param2: 'height',
+	payloadBank: 0,
+	emptyBank: 1,
 	romOffset: 0x131fe0,
 	palette: [
 		0x7f96,
@@ -46,6 +47,8 @@ const Brick: Entity = {
 	],
 
 	toBinary(x, y, w, h, settings): number[] {
+		const payloadToObjectId = this.payloadToObjectId!;
+
 		if (settings.payload in payloadToObjectId) {
 			// if there is a payload then need to split this up into individual brick objects
 
@@ -66,4 +69,4 @@ const Brick: Entity = {
 	},
 };
 
-export { Brick, payloadToObjectId };
+export { Brick };

@@ -25,4 +25,7 @@ const resourceMap: Record<string, Resource> = {
 	UndergroundBackground,
 };
 
+type ResourceType = keyof typeof resourceMap;
+
 export { resourceMap };
+export type { ResourceType };

@@ -3,16 +3,19 @@ import clsx from 'clsx';
 import { TILE_SIZE } from '../../../tiles/constants';
 
 type EntityIconProps = {
+	className?: string;
 	entityType?: string;
 	style?: CSSProperties;
 };
 
 type BaseIconProps = EntityIconProps & {
+	className?: string;
 	missingTypeClassName: string;
 	children: ReactNode;
 };
 
 function BaseIcon({
+	className,
 	entityType,
 	style,
 	missingTypeClassName,
@@ -22,7 +25,7 @@ function BaseIcon({
 
 	return (
 		<div
-			className={clsx(bgClass, 'bg-repeat', {
+			className={clsx(className, bgClass, 'bg-repeat', {
 				'grid place-items-center text-xs': !entityType,
 				[missingTypeClassName]: !entityType,
 			})}
@@ -37,9 +40,10 @@ function BaseIcon({
 	);
 }
 
-function SpriteIcon({ entityType, style }: EntityIconProps) {
+function SpriteIcon({ className, entityType, style }: EntityIconProps) {
 	return (
 		<BaseIcon
+			className={className}
 			entityType={entityType}
 			style={style}
 			missingTypeClassName="bg-green-300 text-green-900"
@@ -49,9 +53,10 @@ function SpriteIcon({ entityType, style }: EntityIconProps) {
 	);
 }
 
-function ObjectIcon({ entityType, style }: EntityIconProps) {
+function ObjectIcon({ className, entityType, style }: EntityIconProps) {
 	return (
 		<BaseIcon
+			className={className}
 			entityType={entityType}
 			style={style}
 			missingTypeClassName="bg-red-300 text-red-900"
@@ -61,9 +66,10 @@ function ObjectIcon({ entityType, style }: EntityIconProps) {
 	);
 }
 
-function TransportIcon({ entityType, style }: EntityIconProps) {
+function TransportIcon({ className, entityType, style }: EntityIconProps) {
 	return (
 		<BaseIcon
+			className={className}
 			entityType={entityType}
 			style={style}
 			missingTypeClassName="bg-yellow-600 text-white"

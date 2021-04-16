@@ -9,6 +9,7 @@ const IndestructibleBrick: Entity = {
 	param1: 'height',
 	objectId: 0x80,
 	romOffset: 0x20e4f0,
+	emptyBank: 1,
 	palette: [
 		0x7ffb,
 		0x7fff,
