@@ -17,9 +17,10 @@ function NextToolsIndexPage() {
 				<ul>
 					<li>
 						<p>
-							<a href="./hex-tree">Hex Tree</a>: A very raw tool that parses a
-							level&apos;s data into a tree structure, and from there lets you
-							mess with it and see how it changes in the running level.
+							<a href="./hex-tree">Hex Tree</a>: A pretty powerful tool that
+							lets you explore a level, edit it, and see your changes right away
+							in an emulator. Becoming the best way to reverse engineer the
+							game.
 						</p>
 						<p>
 							Still a work in progress, but the goal is to be a powerful tool
