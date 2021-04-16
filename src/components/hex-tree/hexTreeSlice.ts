@@ -42,10 +42,12 @@ import {
 
 type HexTreeState = {
 	tree: LevelTree | null;
+	originalData: number[] | null;
 };
 
 const defaultInitialState: HexTreeState = {
 	tree: null,
+	originalData: null,
 };
 
 const initialState = defaultInitialState;
@@ -54,6 +56,9 @@ const hexTreeSlice = createSlice({
 	name: 'hexTree',
 	initialState,
 	reducers: {
+		setOriginalData(state: HexTreeState, action: PayloadAction<number[]>) {
+			state.originalData = action.payload;
+		},
 		setTree(state: HexTreeState, action: PayloadAction<LevelTree>) {
 			state.tree = action.payload;
 		},
@@ -234,6 +239,7 @@ const loadLevel = (levelFile: File): HexTreeThunkAction => async (dispatch) => {
 
 	reader.onloadend = () => {
 		const data = new Uint8Array(reader.result as ArrayBuffer);
+		dispatch(hexTreeSlice.actions.setOriginalData(Array.from(data)));
 		dispatch(hexTreeSlice.actions.setTree(parseDataToTree(data)));
 	};
 
@@ -250,6 +256,7 @@ const loadEmptyLevel = (): HexTreeThunkAction => async (dispatch) => {
 		},
 	]);
 
+	dispatch(hexTreeSlice.actions.setOriginalData(Array.from(emptyLevelData)));
 	dispatch(hexTreeSlice.actions.setTree(parseDataToTree(emptyLevelData)));
 };
 

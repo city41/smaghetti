@@ -28,6 +28,7 @@ type EntityContainerProps = {
 	style: CSSProperties;
 	focused: boolean;
 	onFocus: () => void;
+	excluded?: boolean;
 	children: ReactNode;
 };
 
@@ -35,6 +36,7 @@ function EntityContainer({
 	style,
 	focused,
 	onFocus,
+	excluded,
 	children,
 }: EntityContainerProps) {
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -50,6 +52,7 @@ function EntityContainer({
 			ref={ref}
 			className={clsx('cursor-pointer', {
 				'border-2 border-white': focused,
+				'opacity-25': excluded,
 			})}
 			style={style}
 			onClick={onFocus}
@@ -92,10 +95,6 @@ function RenderLevel({
 	const body = currentRoom.exclude ? null : (
 		<>
 			{objects.map((o, i) => {
-				if (o.exclude) {
-					return null;
-				}
-
 				const left = o.x * TILE_SIZE * scale;
 				const top = o.y * TILE_SIZE * scale;
 
@@ -105,16 +104,13 @@ function RenderLevel({
 						style={{ position: 'absolute', left, top }}
 						focused={focusedEntity === o}
 						onFocus={() => onEntityFocus(o)}
+						excluded={o.exclude}
 					>
 						<LevelObject object={o} scale={scale} />
 					</EntityContainer>
 				);
 			})}
 			{sprites.map((s, i) => {
-				if (s.exclude) {
-					return null;
-				}
-
 				const left = s.x * TILE_SIZE * scale;
 				const top = s.y * TILE_SIZE * scale;
 
@@ -124,16 +120,13 @@ function RenderLevel({
 						style={{ position: 'absolute', left, top }}
 						focused={focusedEntity === s}
 						onFocus={() => onEntityFocus(s)}
+						excluded={s.exclude}
 					>
 						<LevelSprite sprite={s} scale={scale} />
 					</EntityContainer>
 				);
 			})}
 			{transports.map((t, i) => {
-				if (t.exclude) {
-					return null;
-				}
-
 				const left = t.sx * TILE_SIZE * scale;
 				const top = t.sy * TILE_SIZE * scale;
 
@@ -143,6 +136,7 @@ function RenderLevel({
 						style={{ position: 'absolute', left, top }}
 						focused={focusedEntity === t}
 						onFocus={() => onEntityFocus(t)}
+						excluded={t.exclude}
 					>
 						<LevelTransport transport={t} scale={scale} />
 					</EntityContainer>

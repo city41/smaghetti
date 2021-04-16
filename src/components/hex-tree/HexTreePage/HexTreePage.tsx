@@ -29,9 +29,10 @@ type HexTreePageProps = {
 	onPatch: (patch: Patch) => void;
 	tree: LevelTree | null;
 	data: Uint8Array;
+	originalData: Uint8Array;
 };
 
-const tabs = ['Outline', 'Hex', 'Snapshots'];
+const tabs = ['Outline', 'Hex (current)', 'Hex (original)', 'Snapshots'];
 
 function HexTreePage({
 	allFilesReady,
@@ -41,6 +42,7 @@ function HexTreePage({
 	onPatch,
 	tree,
 	data,
+	originalData,
 }: HexTreePageProps) {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [focusedEntity, setFocusedEntity] = useState<any>(null);
@@ -81,8 +83,11 @@ function HexTreePage({
 				</>
 			);
 			break;
-		case 'Hex':
+		case 'Hex (current)':
 			tabBody = <HexEditor data={data} />;
+			break;
+		case 'Hex (original)':
+			tabBody = <HexEditor data={originalData} />;
 			break;
 		case 'Snapshots':
 			tabBody = <>snapshots go here</>;
