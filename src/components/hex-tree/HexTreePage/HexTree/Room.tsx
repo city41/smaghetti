@@ -10,7 +10,6 @@ import { LevelSprite } from './LevelSprite';
 import { LevelTransport } from './LevelTransport';
 import useClipboard from 'react-use-clipboard';
 import { LevelSettings } from './LevelSettings';
-import { add } from '../../hexTreeSlice';
 
 type RoomProps = {
 	className?: string;
@@ -215,16 +214,18 @@ function Room({
 
 	return (
 		<div className={clsx(className, 'relative')}>
-			<h2 className="bg-gray-300 text-gray-900 text-xl font-bold p-2 sticky top-0 flex flex-row items-center">
+			<h2 className="bg-gray-300 text-gray-900 text-xl font-bold p-2 sticky z-10 top-0 flex flex-row items-center">
 				Room {roomIndex}
 				<div className="mx-2 space-x-2 text-sm font-normal text-gray-800">
 					{jumpLinks}
 				</div>
 			</h2>
-			<h3 className="sticky top-10 bg-gray-700 py-1 pl-2">Objects</h3>
+			<h3 className="sticky z-10 top-10 bg-gray-700 py-1 pl-2">Objects</h3>
 			<div id={`objects-room-${roomIndex}`} />
 			{objects}
-			<h3 className="sticky top-10 bg-gray-700 py-1 pl-2">Level Settings</h3>
+			<h3 className="sticky z-10 top-10 bg-gray-700 py-1 pl-2">
+				Level Settings
+			</h3>
 			<div id={`level-settings-room-${roomIndex}`} />
 			<LevelSettings
 				levelSettings={room.levelSettings}
@@ -232,10 +233,10 @@ function Room({
 					onPatch({ type: 'level-settings', roomIndex, offset, bytes });
 				}}
 			/>
-			<h3 className="sticky top-10 bg-gray-700 py-1 pl-2">Transports</h3>
+			<h3 className="sticky z-10 top-10 bg-gray-700 py-1 pl-2">Transports</h3>
 			<div id={`transports-room-${roomIndex}`} />
 			{transports}
-			<h3 className="sticky top-10 bg-gray-700 py-1 pl-2">Sprites</h3>
+			<h3 className="sticky z-10 top-10 bg-gray-700 py-1 pl-2">Sprites</h3>
 			<div id={`sprites-room-${roomIndex}`} />
 			{sprites}
 		</div>

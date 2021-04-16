@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react';
 import clsx from 'clsx';
 
 import { LevelTreeObject } from '../../types';
-import { ObjectIcon } from '../entityIcons';
 import { ByteInputField } from './ByteInputField';
+import { LevelObject as RenderLevelObject } from '../RenderLevel/LevelObject';
 
 type ObjectProps = {
 	className?: string;
@@ -66,7 +66,7 @@ function LevelObject({ className, levelObject, onPatch }: ObjectProps) {
 				'ml-8 bg-gray-600 p-2 m-2 flex flex-row items-center space-x-2'
 			)}
 		>
-			<ObjectIcon />
+			<RenderLevelObject object={levelObject} scale={1} />
 			<div
 				className={clsx(
 					'bg-gray-200 text-gray-900 grid grid-rows-2 gap-x-2 p-1',
