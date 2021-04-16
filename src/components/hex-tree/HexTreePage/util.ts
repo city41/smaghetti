@@ -1,4 +1,6 @@
 import { LevelTreeRoom } from '../types';
+import { Entity } from '../../../entities/types';
+import { entityMap } from '../../../entities/entityMap';
 
 export function isRoomEmpty(room: LevelTreeRoom): boolean {
 	return (
@@ -16,4 +18,10 @@ export function toHexString(b: number): string {
 	} else {
 		return asHex;
 	}
+}
+
+export function getEntityDefFromId(id: number): Entity | null {
+	const entityDefs = Object.values(entityMap);
+
+	return entityDefs.find((ed) => ed.objectId === id) ?? null;
 }

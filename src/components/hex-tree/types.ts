@@ -7,9 +7,8 @@ type LevelTreeObject = {
 	id: number;
 	x: number;
 	y: number;
-	// TODO: these really should just be param0, param1
-	width: number;
-	height: number;
+	param1: number;
+	param2: number;
 	rawBytes: number[];
 	exclude?: boolean;
 };

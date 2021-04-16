@@ -12,8 +12,8 @@ type LevelObject = {
 	bank: number;
 	x: number;
 	y: number;
-	width: number;
-	height: number;
+	param1: number;
+	param2: number;
 	id: number;
 	rawBytes: number[];
 };
@@ -22,9 +22,9 @@ function extractObject(
 	levelData: Uint8Array | number[],
 	objectIndex: number
 ): LevelObject {
-	const bankAndWidth = levelData[objectIndex];
-	const bank = bankAndWidth >> 6;
-	const width = bankAndWidth & 0x3f;
+	const bankAndParam1 = levelData[objectIndex];
+	const bank = bankAndParam1 >> 6;
+	const param1 = bankAndParam1 & 0x3f;
 	const id = levelData[objectIndex + 3];
 
 	const objectIdToEntityType =
@@ -44,8 +44,8 @@ function extractObject(
 			id: levelData[objectIndex + 3],
 			x: levelData[objectIndex + 2],
 			y: levelData[objectIndex + 1],
-			width: width + 1,
-			height: 1,
+			param1: param1 + 1,
+			param2: 1,
 			rawBytes: Array.from(levelData.slice(objectIndex, objectIndex + 4)),
 		};
 	} else {
@@ -54,8 +54,8 @@ function extractObject(
 			id: levelData[objectIndex + 3],
 			x: levelData[objectIndex + 2],
 			y: levelData[objectIndex + 1],
-			width: width + 1,
-			height: levelData[objectIndex + 4] + 1,
+			param1: param1 + 1,
+			param2: levelData[objectIndex + 4] + 1,
 			rawBytes: Array.from(levelData.slice(objectIndex, objectIndex + 5)),
 		};
 	}

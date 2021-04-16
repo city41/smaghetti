@@ -4,8 +4,6 @@ import { BiHide, BiShow } from 'react-icons/bi';
 
 import { Exclusion, LevelTree, Patch, RoomIndex } from '../../types';
 import { Room } from './Room';
-import { Button } from '../../../Button';
-import { isRoomEmpty } from '../util';
 import { PlainIconButton } from '../../../PlainIconButton';
 
 type HexTreeProps = {

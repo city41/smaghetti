@@ -1,13 +1,13 @@
 import type { Entity } from './types';
 import { getBankLength } from './util';
 
-const OBJECT_ID = 0x80;
-
 const IndestructibleBrick: Entity = {
 	type: 'IndestructibleBrick',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'y',
+	param1: 'height',
+	objectId: 0x80,
 	romOffset: 0x20e4f0,
 	palette: [
 		0x7ffb,
@@ -33,7 +33,7 @@ const IndestructibleBrick: Entity = {
 	],
 
 	toBinary(x, y, w, h) {
-		return [getBankLength(1, h), y, x, OBJECT_ID, 0];
+		return [getBankLength(1, h), y, x, this.objectId!, 0];
 	},
 
 	parseBinary(rawBytes) {
@@ -42,8 +42,8 @@ const IndestructibleBrick: Entity = {
 			id: rawBytes[3],
 			x: rawBytes[2],
 			y: rawBytes[1],
-			height: (rawBytes[0] & 0x3f) + 1,
-			width: 1,
+			param1: (rawBytes[0] & 0x3f) + 1,
+			param2: 1,
 			rawBytes,
 		};
 	},

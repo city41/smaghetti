@@ -53,8 +53,8 @@ const QuestionBlock: Entity = {
 			id: rawBytes[3],
 			x: rawBytes[2],
 			y: rawBytes[1],
-			width: (rawBytes[0] & 0x3f) + 1,
-			height: 1,
+			param1: (rawBytes[0] & 0x3f) + 1,
+			param2: 1,
 			rawBytes,
 		};
 	},

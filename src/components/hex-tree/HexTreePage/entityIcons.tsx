@@ -22,7 +22,7 @@ function BaseIcon({
 
 	return (
 		<div
-			className={clsx(bgClass, 'bg-center bg-no-repeat', {
+			className={clsx(bgClass, 'bg-repeat', {
 				'grid place-items-center text-xs': !entityType,
 				[missingTypeClassName]: !entityType,
 			})}

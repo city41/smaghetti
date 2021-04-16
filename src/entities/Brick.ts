@@ -1,8 +1,6 @@
 import type { Entity } from './types';
 import { getBankLength } from './util';
 
-const OBJECT_ID = 0xf;
-
 const payloadToObjectId = {
 	Coin: 0x19,
 	CoinCache: 0x1a,
@@ -20,6 +18,9 @@ const Brick: Entity = {
 	gameType: 'object',
 	settingsType: 'single',
 	dimensions: 'xy',
+	objectId: 0xf,
+	param1: 'width',
+	param2: 'height',
 	romOffset: 0x131fe0,
 	palette: [
 		0x7f96,
@@ -60,7 +61,7 @@ const Brick: Entity = {
 
 			return binaries;
 		} else {
-			return [getBankLength(1, w), y, x, OBJECT_ID, h];
+			return [getBankLength(1, w), y, x, this.objectId!, h];
 		}
 	},
 };
