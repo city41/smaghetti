@@ -11,6 +11,8 @@ const BuriedVegetable: Entity = {
 	romOffset: 0x20e4f0,
 	// empty veggie, nothing comes up
 	objectId: 0x66,
+	payloadBank: 1,
+	emptyBank: 1,
 	payloadToObjectId: {
 		Coin: 0x63,
 		CoinCache: 0x64,
