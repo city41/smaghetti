@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { DetailsEditProps } from './index';
-import { payloadToObjectId } from '../../entities/QuestionBlock';
+import { QuestionBlock } from '../../entities/QuestionBlock';
 import { PayloadEditDetails } from './PayloadEditDetails';
 import { EntityType } from '../../entities/entityMap';
 
@@ -10,7 +10,7 @@ function QuestionBlockEditDetails({
 }: DetailsEditProps) {
 	return (
 		<PayloadEditDetails
-			payloads={Object.keys(payloadToObjectId) as EntityType[]}
+			payloads={Object.keys(QuestionBlock.payloadToObjectId!) as EntityType[]}
 			onEntitySettingsChange={onEntitySettingsChange}
 			canClear={false}
 		/>

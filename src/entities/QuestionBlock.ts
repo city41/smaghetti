@@ -1,14 +1,6 @@
 import type { Entity } from './types';
 import { LevelObject } from '../levelData/parseObjectsFromLevelFile';
 
-const payloadToObjectId = {
-	CapeFeather: 0x44,
-	CoinSnake: 0x47,
-	FireFlower: 0x10,
-	PWing: 0x55,
-	Shoe: 0x43,
-};
-
 const QuestionBlock: Entity = {
 	type: 'QuestionBlock',
 	editorType: 'tile',
@@ -17,6 +9,14 @@ const QuestionBlock: Entity = {
 	defaultSettings: { payload: 'FireFlower' },
 	dimensions: 'none',
 	romOffset: 0x131fe0,
+	payloadToObjectId: {
+		CapeFeather: 0x44,
+		CoinSnake: 0x47,
+		FireFlower: 0x10,
+		PWing: 0x55,
+		Shoe: 0x43,
+	},
+	payloadBank: 0,
 	palette: [
 		0x7f96,
 		0x7fff,
@@ -41,6 +41,8 @@ const QuestionBlock: Entity = {
 	],
 
 	toBinary(x, y, w, h, settings) {
+		const payloadToObjectId = this.payloadToObjectId!;
+
 		const objectId =
 			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId];
 
@@ -60,4 +62,4 @@ const QuestionBlock: Entity = {
 	},
 };
 
-export { QuestionBlock, payloadToObjectId };
+export { QuestionBlock };
