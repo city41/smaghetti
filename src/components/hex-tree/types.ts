@@ -48,7 +48,7 @@ type LevelTreeRoom = {
 		pendingRawBytes: number[];
 	};
 	levelSettings: {
-		settings: LevelSettings;
+		settings: LevelSettings | null;
 		rawBytes: number[];
 	};
 	transports: {

@@ -1,13 +1,12 @@
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 
-const OBJECT_ID = 0x19;
-
 const FireFlower: Entity = {
 	type: 'FireFlower',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',
+	objectId: 0x19,
 	palette: [
 		0x7f96,
 		0x7fff,
@@ -45,7 +44,7 @@ const FireFlower: Entity = {
 	],
 
 	toBinary(x, y) {
-		return simpleSpriteBinary(x, y, OBJECT_ID);
+		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 };
 

@@ -35,7 +35,10 @@ import {
 } from '../../levelData/constants';
 import { convertLevelNameToASCII } from '../../levelData/util';
 import { createLevelData } from '../../levelData/createLevelData';
-import { parseLevelSettingsFromLevelFile } from '../../levelData/parseLevelSettingsFromLevelFile';
+import {
+	parseLevelSettings,
+	parseLevelSettingsFromLevelFile,
+} from '../../levelData/parseLevelSettingsFromLevelFile';
 
 type HexTreeState = {
 	tree: LevelTree | null;
@@ -64,6 +67,10 @@ const hexTreeSlice = createSlice({
 
 			if (type === 'level-settings') {
 				room.levelSettings.rawBytes.splice(offset, bytes.length, ...bytes);
+				room.levelSettings.settings = parseLevelSettings(
+					room.levelSettings.rawBytes,
+					0
+				);
 			}
 
 			if (type === 'sprite') {

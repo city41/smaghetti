@@ -1,5 +1,22 @@
 import { ROOM_LEVELSETTING_POINTERS } from './constants';
 
+function parseLevelSettings(data: Uint8Array | number[], offset: number) {
+	const view = new DataView(new Uint8Array(data).buffer);
+
+	return {
+		screenYBoundary: view.getUint16(offset, true),
+		fixedScreenCenterY: view.getInt16(offset + 2, true),
+		playerScreenCenterY: view.getInt16(offset + 4, true),
+		cameraMin: data[offset + 6],
+		cameraMax: data[offset + 7],
+		playerYStart: data[offset + 8],
+		playerXStart: data[offset + 9],
+		screenYStart: data[offset + 10],
+		screenXStart: data[offset + 11],
+		objectSet: view.getUint16(offset + 12, true),
+		music: view.getUint16(offset + 14, true),
+	};
+}
 function parseLevelSettingsFromLevelFile(
 	data: Uint8Array,
 	roomIndex: 0 | 1 | 2 | 3 = 0
@@ -12,22 +29,10 @@ function parseLevelSettingsFromLevelFile(
 		return null;
 	}
 
-	return {
-		screenYBoundary: view.getUint16(address, true),
-		fixedScreenCenterY: view.getInt16(address + 2, true),
-		playerScreenCenterY: view.getInt16(address + 4, true),
-		cameraMin: data[address + 6],
-		cameraMax: data[address + 7],
-		playerYStart: data[address + 8],
-		playerXStart: data[address + 9],
-		screenYStart: data[address + 10],
-		screenXStart: data[address + 11],
-		objectSet: view.getUint16(address + 12, true),
-		music: view.getUint16(address + 14, true),
-	};
+	return parseLevelSettings(data, address);
 }
 
-type LevelSettings = ReturnType<typeof parseLevelSettingsFromLevelFile>;
+type LevelSettings = ReturnType<typeof parseLevelSettings>;
 
-export { parseLevelSettingsFromLevelFile };
+export { parseLevelSettingsFromLevelFile, parseLevelSettings };
 export type { LevelSettings };

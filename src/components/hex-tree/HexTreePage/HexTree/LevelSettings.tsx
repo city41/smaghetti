@@ -5,7 +5,7 @@ import { ByteInputField } from './ByteInputField';
 type LevelSettingsProps = {
 	levelSettings: {
 		rawBytes: number[];
-		settings: LevelSettingsType;
+		settings: LevelSettingsType | null;
 	};
 	onPatch: (args: { offset: number; bytes: number[] }) => void;
 };

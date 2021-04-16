@@ -8,6 +8,7 @@ import React, {
 import clsx from 'clsx';
 import { LevelObject } from './LevelObject';
 import { LevelSprite } from './LevelSprite';
+import { Player } from './Player';
 import { LevelTreeRoom } from '../../types';
 import { Button } from '../../../Button';
 import { TILE_SIZE } from '../../../../tiles/constants';
@@ -147,6 +148,13 @@ function RenderLevel({
 					</EntityContainer>
 				);
 			})}
+			{currentRoom.levelSettings.settings && (
+				<Player
+					x={currentRoom.levelSettings.settings.playerXStart}
+					y={currentRoom.levelSettings.settings.playerYStart}
+					scale={scale}
+				/>
+			)}
 		</>
 	);
 
