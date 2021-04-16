@@ -86,7 +86,7 @@ function LevelObject({ object, scale }: LevelObjectProps) {
 		} as const;
 
 		return (
-			<div className="relative" style={style}>
+			<div className="relative cursor-pointer" style={style}>
 				<ObjectIcon
 					className="absolute top-0 left-0"
 					entityType={entityDef?.type}
@@ -96,7 +96,13 @@ function LevelObject({ object, scale }: LevelObjectProps) {
 			</div>
 		);
 	} else {
-		return <ObjectIcon entityType={entityDef?.type} style={style} />;
+		return (
+			<ObjectIcon
+				className="cursor-pointer"
+				entityType={entityDef?.type}
+				style={style}
+			/>
+		);
 	}
 }
 

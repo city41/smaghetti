@@ -27,7 +27,13 @@ function LevelSprite({ sprite, scale }: LevelSpriteProps) {
 		height,
 		backgroundSize: TILE_SIZE,
 	};
-	return <SpriteIcon entityType={spriteType} style={style} />;
+	return (
+		<SpriteIcon
+			className="cursor-pointer"
+			entityType={spriteType}
+			style={style}
+		/>
+	);
 }
 
 export { LevelSprite };

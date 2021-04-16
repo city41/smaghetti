@@ -18,7 +18,7 @@ function LevelTransport({ scale }: LevelTransportProps) {
 		backgroundSize: TILE_SIZE,
 	};
 
-	return <TransportIcon style={style} />;
+	return <TransportIcon className="cursor-pointer" style={style} />;
 }
 
 export { LevelTransport };
