@@ -1,14 +1,15 @@
 import type { Entity } from './types';
 import { getBankLength } from './util';
 
-const OBJECT_ID = 0x16;
-
 const Coin: Entity = {
 	type: 'Coin',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'xy',
 	romOffset: 0x176be8,
+	objectId: 0x16,
+	emptyBank: 1,
+	param1: 'width',
 	palette: [
 		0x7f96,
 		0x7fff,
@@ -33,7 +34,7 @@ const Coin: Entity = {
 	],
 
 	toBinary(x, y, w, h) {
-		return [getBankLength(1, w), y, x, OBJECT_ID, h];
+		return [getBankLength(1, w), y, x, this.objectId!, h];
 	},
 };
 
