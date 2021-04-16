@@ -32,7 +32,7 @@ type HexTreePageProps = {
 	originalData: Uint8Array;
 };
 
-const tabs = ['Outline', 'Hex (current)', 'Hex (original)', 'Snapshots'];
+const tabs = ['Outline', 'Hex (current)', 'Hex (original)'];
 
 function HexTreePage({
 	allFilesReady,
@@ -88,9 +88,6 @@ function HexTreePage({
 			break;
 		case 'Hex (original)':
 			tabBody = <HexEditor data={originalData} />;
-			break;
-		case 'Snapshots':
-			tabBody = <>snapshots go here</>;
 			break;
 	}
 
