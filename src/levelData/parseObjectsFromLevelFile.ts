@@ -18,7 +18,7 @@ type LevelObject = {
 	rawBytes: number[];
 };
 
-function extractObject(
+function parseObject(
 	levelData: Uint8Array | number[],
 	objectIndex: number
 ): LevelObject {
@@ -88,7 +88,7 @@ function parseObjects(
 	const objects = [];
 
 	while (data[index] !== 0xff && index < data.length) {
-		const object = extractObject(data, index);
+		const object = parseObject(data, index);
 		objects.push(object);
 		index += object.rawBytes.length;
 	}
@@ -110,5 +110,10 @@ function parseObjectsFromLevelFile(
 	return parseObjects(levelData, objectIndex);
 }
 
-export { parseObjectHeader, parseObjectsFromLevelFile, parseObjects };
+export {
+	parseObjectHeader,
+	parseObjectsFromLevelFile,
+	parseObjects,
+	parseObject,
+};
 export type { LevelObject };

@@ -13,7 +13,7 @@ type LevelSprite = {
 	rawBytes: number[];
 };
 
-function extractSprite(
+function parseSprite(
 	levelData: Uint8Array | number[],
 	spriteIndex: number
 ): LevelSprite {
@@ -49,7 +49,7 @@ function parseSprites(
 	const sprites = [];
 
 	while (data[index] !== 0xff && index < data.length) {
-		const sprite = extractSprite(data, index);
+		const sprite = parseSprite(data, index);
 		sprites.push(sprite);
 		index += sprite.rawBytes.length;
 	}
@@ -72,5 +72,5 @@ function parseSpritesFromLevelFile(
 
 	return parseSprites(levelData, spriteIndex);
 }
-export { parseSpritesFromLevelFile, parseSprites };
+export { parseSpritesFromLevelFile, parseSprites, parseSprite };
 export type { LevelSprite };

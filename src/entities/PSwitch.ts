@@ -6,6 +6,7 @@ const PSwitch: Entity = {
 	gameType: 'object',
 	dimensions: 'none',
 	romOffset: 0x16ea40,
+	objectId: 0x28,
 	palette: [
 		0x7f96,
 		0x7fff,
@@ -30,7 +31,7 @@ const PSwitch: Entity = {
 	],
 
 	toBinary(x, y) {
-		return [0, y, x, 0x28];
+		return [0, y, x, this.objectId!];
 	},
 };
 

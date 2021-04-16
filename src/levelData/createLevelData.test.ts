@@ -4,7 +4,7 @@ import {
 	ROOM_OBJECT_POINTERS,
 	ROOM_SPRITE_POINTERS,
 } from './constants';
-import { getObjectCount, parseObject } from './objects';
+import { parseObject } from './parseObjectsFromLevelFile';
 
 describe('createLevelData', () => {
 	describe('sprites', () => {
@@ -79,14 +79,11 @@ describe('createLevelData', () => {
 			const objectAddr =
 				levelData[ROOM_OBJECT_POINTERS[0]] + ROOM_OBJECT_HEADER_SIZE_IN_BYTES;
 
-			const objectCount = getObjectCount(levelData, objectAddr);
-			expect(objectCount).toEqual(1);
-
 			const parsedObject = parseObject(levelData, objectAddr);
 
 			expect(parsedObject.bank).toEqual(1);
-			expect(parsedObject.width).toEqual(2);
-			expect(parsedObject.height).toEqual(2);
+			expect(parsedObject.param1).toEqual(2);
+			expect(parsedObject.param2).toEqual(2);
 			expect(parsedObject.id).toEqual(0xf);
 
 			// 26 because SMA4 stores Ys very strangely.

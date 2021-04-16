@@ -1,16 +1,64 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import clsx from 'clsx';
 
 import { LevelTreeObject } from '../../types';
 import { ObjectIcon } from '../entityIcons';
-import { toHexString } from '../util';
+import { ByteInputField } from './ByteInputField';
 
 type ObjectProps = {
 	className?: string;
 	levelObject: LevelTreeObject;
+	onPatch: (arg: { offset: number; bytes: number[] }) => void;
 };
 
-function LevelObject({ className, levelObject }: ObjectProps) {
+const levelObjectSlices = {
+	'bank/param1': [0, 1],
+	y: [1, 1],
+	x: [2, 1],
+	id: [3, 1],
+	param2: [4, 1],
+};
+
+function LevelObject({ className, levelObject, onPatch }: ObjectProps) {
+	const data = levelObject.rawBytes;
+
+	const keys = Object.keys(levelObjectSlices).reduce<ReactElement[]>(
+		(building, k, i) => {
+			if (i === 4 && data.length === 4) {
+				return building;
+			}
+
+			return building.concat(
+				<div key={k} className="text-xs text-gray-400">
+					{k}
+				</div>
+			);
+		},
+		[]
+	);
+
+	const values = Object.keys(levelObjectSlices).reduce<ReactElement[]>(
+		(building, k, i) => {
+			if (i === 4 && data.length === 4) {
+				return building;
+			}
+
+			const slice = levelObjectSlices[k as keyof typeof levelObjectSlices];
+			const fieldData = data.slice(slice[0], slice[0] + slice[1]);
+
+			return building.concat(
+				<ByteInputField
+					key={i}
+					value={fieldData}
+					onChange={(newBytes) => {
+						onPatch({ offset: slice[0], bytes: newBytes });
+					}}
+				/>
+			);
+		},
+		[]
+	);
+
 	return (
 		<div
 			className={clsx(
@@ -19,19 +67,17 @@ function LevelObject({ className, levelObject }: ObjectProps) {
 			)}
 		>
 			<ObjectIcon />
-			<div className="bg-gray-200 text-gray-900 grid grid-cols-5 grid-rows-2 gap-x-2 p-1">
-				<div className="text-xs text-gray-400">x</div>
-				<div className="text-xs text-gray-400">y</div>
-				<div className="text-xs text-gray-400">bank</div>
-				<div className="text-xs text-gray-400">id</div>
-				<div className="text-xs text-gray-400">raw</div>
-				<div className="text-sm">{levelObject.x}</div>
-				<div className="text-sm">{levelObject.y}</div>
-				<div className="text-sm">{levelObject.bank}</div>
-				<div className="text-sm">0x{levelObject.id.toString(16)}</div>
-				<div className="text-sm">
-					{levelObject.rawBytes.map(toHexString).join(' ')}
-				</div>
+			<div
+				className={clsx(
+					'bg-gray-200 text-gray-900 grid grid-rows-2 gap-x-2 p-1',
+					{
+						'grid-cols-4': data.length === 4,
+						'grid-cols-5': data.length === 5,
+					}
+				)}
+			>
+				{keys}
+				{values}
 			</div>
 		</div>
 	);

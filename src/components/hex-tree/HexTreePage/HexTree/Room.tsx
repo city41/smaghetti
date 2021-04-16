@@ -93,7 +93,18 @@ function Room({
 					onExcludeChange({ roomIndex, type: 'object', entity: o });
 				}}
 			>
-				<LevelObject levelObject={o} />
+				<LevelObject
+					levelObject={o}
+					onPatch={({ offset, bytes }) => {
+						onPatch({
+							type: 'object',
+							roomIndex,
+							objectIndex: i,
+							offset,
+							bytes,
+						});
+					}}
+				/>
 			</EntityContainer>
 		);
 	});
@@ -110,7 +121,18 @@ function Room({
 					onExcludeChange({ roomIndex, type: 'sprite', entity: s });
 				}}
 			>
-				<LevelSprite levelSprite={s} />
+				<LevelSprite
+					levelSprite={s}
+					onPatch={({ offset, bytes }) => {
+						onPatch({
+							type: 'sprite',
+							roomIndex,
+							spriteIndex: i,
+							offset,
+							bytes,
+						});
+					}}
+				/>
 			</EntityContainer>
 		);
 	});

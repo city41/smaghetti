@@ -2,10 +2,14 @@ import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../../store';
 import {
+	parseObject,
 	parseObjectHeader,
 	parseObjectsFromLevelFile,
 } from '../../levelData/parseObjectsFromLevelFile';
-import { parseSpritesFromLevelFile } from '../../levelData/parseSpritesFromLevelFile';
+import {
+	parseSprite,
+	parseSpritesFromLevelFile,
+} from '../../levelData/parseSpritesFromLevelFile';
 import { parseTransportsFromLevelFile } from '../../levelData/parseTransportsFromLevelFile';
 import {
 	Exclusion,
@@ -16,8 +20,10 @@ import {
 	LevelTreeRoom,
 	LevelTreeSprite,
 	LevelTreeTransport,
+	ObjectPatch,
 	Patch,
 	RoomIndex,
+	SpritePatch,
 } from './types';
 import {
 	ROOM_AUTOSCROLL_POINTERS,
@@ -58,6 +64,30 @@ const hexTreeSlice = createSlice({
 
 			if (type === 'level-settings') {
 				room.levelSettings.rawBytes.splice(offset, bytes.length, ...bytes);
+			}
+
+			if (type === 'sprite') {
+				const { spriteIndex } = action.payload as SpritePatch;
+				const rawBytes = room.sprites.sprites[spriteIndex].rawBytes;
+				rawBytes.splice(offset, bytes.length, ...bytes);
+				const newValues = parseSprite(rawBytes, 0);
+
+				room.sprites.sprites[spriteIndex] = {
+					...newValues,
+					rawBytes,
+				};
+			}
+
+			if (type === 'object') {
+				const { objectIndex } = action.payload as ObjectPatch;
+				const rawBytes = room.objects.objects[objectIndex].rawBytes;
+				rawBytes.splice(offset, bytes.length, ...bytes);
+				const newValues = parseObject(rawBytes, 0);
+
+				room.objects.objects[objectIndex] = {
+					...newValues,
+					rawBytes,
+				};
 			}
 		},
 		toggleExclude(state: HexTreeState, action: PayloadAction<Exclusion>) {

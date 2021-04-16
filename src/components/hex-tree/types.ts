@@ -100,14 +100,35 @@ type Exclusion = {
 	entity?: LevelTreeObject | LevelTreeSprite | LevelTreeTransport;
 };
 
-type Patch = {
-	type: 'object' | 'sprite' | 'transport' | 'level-settings';
+type LevelSettingsPatch = {
+	type: 'level-settings';
 	roomIndex: RoomIndex;
 	offset: number;
 	bytes: number[];
 };
 
+type SpritePatch = {
+	type: 'sprite';
+	roomIndex: RoomIndex;
+	spriteIndex: number;
+	offset: number;
+	bytes: number[];
+};
+
+type ObjectPatch = {
+	type: 'object';
+	roomIndex: RoomIndex;
+	objectIndex: number;
+	offset: number;
+	bytes: number[];
+};
+
+type Patch = LevelSettingsPatch | SpritePatch | ObjectPatch;
+
 export type {
+	ObjectPatch,
+	SpritePatch,
+	LevelSettingsPatch,
 	Patch,
 	Exclusion,
 	RoomIndex,

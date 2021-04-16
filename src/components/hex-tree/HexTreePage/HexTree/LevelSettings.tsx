@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { LevelSettings as LevelSettingsType } from '../../../../levelData/parseLevelSettingsFromLevelFile';
-import { toHexString } from '../util';
-import { PlainIconButton } from '../../../PlainIconButton';
-import { MdFileUpload } from 'react-icons/md';
+import { ByteInputField } from './ByteInputField';
 
 type LevelSettingsProps = {
 	levelSettings: {
@@ -11,13 +9,6 @@ type LevelSettingsProps = {
 	};
 	onPatch: (args: { offset: number; bytes: number[] }) => void;
 };
-
-function sliceToHex(data: number[], start: number, length: number) {
-	return data
-		.slice(start, start + length)
-		.map(toHexString)
-		.join(' ');
-}
 
 const levelSettingsSlices = {
 	'screen y boundary': [0, 2],
@@ -33,29 +24,8 @@ const levelSettingsSlices = {
 	music: [14, 2],
 };
 
-function byteStringToBytes(bs: string): number[] {
-	return bs.split(' ').map((bss) => parseInt(bss.trim(), 16));
-}
-
-function extractToByteStrings(
-	data: number[]
-): Record<keyof typeof levelSettingsSlices, string> {
-	return Object.keys(levelSettingsSlices).reduce<
-		Record<keyof typeof levelSettingsSlices, string>
-	>((building, key) => {
-		const k = key as keyof typeof levelSettingsSlices;
-		const spec = levelSettingsSlices[k];
-		building[k] = sliceToHex(data, spec[0], spec[1]);
-
-		return building;
-	}, {} as Record<keyof typeof levelSettingsSlices, string>);
-}
-
 function LevelSettings({ levelSettings, onPatch }: LevelSettingsProps) {
 	const data = levelSettings.rawBytes;
-	const [byteStringValues, setByteStringValues] = useState(
-		extractToByteStrings(data)
-	);
 
 	if (!levelSettings.settings) {
 		return null;
@@ -66,36 +36,20 @@ function LevelSettings({ levelSettings, onPatch }: LevelSettingsProps) {
 			{k}
 		</div>
 	));
-	const values = Object.keys(levelSettingsSlices).map((k, i) => (
-		<div key={i} className="text-sm flex flex-row items-center">
-			<input
-				className="w-16"
-				type="text"
-				value={byteStringValues[k as keyof typeof levelSettingsSlices]}
-				onChange={(e) => {
-					setByteStringValues((bsv) => {
-						return {
-							...bsv,
-							[k]: e.target.value,
-						};
-					});
-				}}
-			/>
-			<PlainIconButton
-				label="update"
-				icon={MdFileUpload}
-				onClick={() => {
-					const byteString =
-						byteStringValues[k as keyof typeof levelSettingsSlices];
-					const bytes = byteStringToBytes(byteString);
-					const offset =
-						levelSettingsSlices[k as keyof typeof levelSettingsSlices][0];
+	const values = Object.keys(levelSettingsSlices).map((k, i) => {
+		const slice = levelSettingsSlices[k as keyof typeof levelSettingsSlices];
+		const fieldData = data.slice(slice[0], slice[0] + slice[1]);
 
-					onPatch({ offset, bytes });
+		return (
+			<ByteInputField
+				key={i}
+				value={fieldData}
+				onChange={(newBytes) => {
+					onPatch({ offset: slice[0], bytes: newBytes });
 				}}
 			/>
-		</div>
-	));
+		);
+	});
 
 	return (
 		<div className="bg-gray-200 text-gray-900">
