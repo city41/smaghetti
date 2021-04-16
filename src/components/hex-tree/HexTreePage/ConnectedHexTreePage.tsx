@@ -4,7 +4,12 @@ import { useSelector } from 'react-redux';
 import { HexTreePage } from './HexTreePage';
 import { AppState, dispatch } from '../../../store';
 import { bindActionCreators } from 'redux';
-import { loadLevel, loadEmptyLevel, toggleExclude } from '../hexTreeSlice';
+import {
+	loadLevel,
+	loadEmptyLevel,
+	toggleExclude,
+	patch,
+} from '../hexTreeSlice';
 import { BinaryRoom, LevelTree, LevelTreeRoom } from '../types';
 import { POINTER_AREA_SIZE_IN_BYTES } from '../../../levelData/constants';
 import { getLevelName, setPointer } from '../../../levelData/createLevelData';
@@ -71,6 +76,7 @@ const EMPTY_ROOM: LevelTreeRoom = {
 		rawBytes: [],
 	},
 	levelSettings: {
+		settings: null,
 		rawBytes: [],
 	},
 };
@@ -235,6 +241,7 @@ const actions = bindActionCreators(
 		onLevelChosen: loadLevel,
 		onStartEmpty: loadEmptyLevel,
 		onExcludeChange: toggleExclude,
+		onPatch: patch,
 	},
 	dispatch
 );

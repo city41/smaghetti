@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { RiFocus3Line } from 'react-icons/ri';
 import { BiHide, BiShow } from 'react-icons/bi';
 
-import { Exclusion, LevelTree, RoomIndex } from '../../types';
+import { Exclusion, LevelTree, Patch, RoomIndex } from '../../types';
 import { Room } from './Room';
 import { Button } from '../../../Button';
 import { isRoomEmpty } from '../util';
@@ -11,6 +11,7 @@ import { PlainIconButton } from '../../../PlainIconButton';
 type HexTreeProps = {
 	tree: LevelTree;
 	onExcludeChange: (exclusion: Exclusion) => void;
+	onPatch: (patch: Patch) => void;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	focusedEntity: any;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,6 +21,7 @@ type HexTreeProps = {
 function HexTree({
 	tree,
 	onExcludeChange,
+	onPatch,
 	focusedEntity,
 	onEntityFocus,
 }: HexTreeProps) {
@@ -59,6 +61,7 @@ function HexTree({
 					room={r}
 					focusedEntity={focusedEntity}
 					onExcludeChange={onExcludeChange}
+					onPatch={onPatch}
 					onEntityFocus={onEntityFocus}
 				/>
 			</Fragment>

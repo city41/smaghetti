@@ -16,6 +16,7 @@ import {
 	LevelTreeRoom,
 	LevelTreeSprite,
 	LevelTreeTransport,
+	Patch,
 	RoomIndex,
 } from './types';
 import {
@@ -28,6 +29,7 @@ import {
 } from '../../levelData/constants';
 import { convertLevelNameToASCII } from '../../levelData/util';
 import { createLevelData } from '../../levelData/createLevelData';
+import { parseLevelSettingsFromLevelFile } from '../../levelData/parseLevelSettingsFromLevelFile';
 
 type HexTreeState = {
 	tree: LevelTree | null;
@@ -46,55 +48,63 @@ const hexTreeSlice = createSlice({
 		setTree(state: HexTreeState, action: PayloadAction<LevelTree>) {
 			state.tree = action.payload;
 		},
+		patch(state: HexTreeState, action: PayloadAction<Patch>) {
+			if (!state.tree) {
+				return;
+			}
+
+			const { type, roomIndex, offset, bytes } = action.payload;
+			const room = state.tree.rooms[roomIndex];
+
+			if (type === 'level-settings') {
+				room.levelSettings.rawBytes.splice(offset, bytes.length, ...bytes);
+			}
+		},
 		toggleExclude(state: HexTreeState, action: PayloadAction<Exclusion>) {
-			if (state.tree) {
-				const { type, roomIndex, entity } = action.payload;
+			if (!state.tree) {
+				return;
+			}
 
-				const room = state.tree.rooms[roomIndex];
+			const { type, roomIndex, entity } = action.payload;
 
-				let targetEntity;
+			const room = state.tree.rooms[roomIndex];
 
-				if (type === 'room') {
-					room.exclude = !room.exclude;
-					return;
-				}
+			let targetEntity;
 
-				if (type === 'object') {
-					const eo = entity as LevelTreeObject;
-					targetEntity = room.objects.objects.find((o) => {
-						return (
-							o.bank === eo.bank &&
-							o.id === eo.id &&
-							o.x === eo.x &&
-							o.y === eo.y
-						);
-					});
-				} else if (type === 'sprite') {
-					const es = entity as LevelTreeSprite;
-					targetEntity = room.objects.objects.find((o) => {
-						return (
-							o.bank === es.bank &&
-							o.id === es.id &&
-							o.x === es.x &&
-							o.y === es.y
-						);
-					});
-				} else if (type === 'transport') {
-					const te = entity as LevelTreeTransport;
-					targetEntity = room.transports.transports.find((t) => {
-						return (
-							t.destRoom === te.destRoom &&
-							t.sx === te.sx &&
-							t.sy === t.sy &&
-							t.dx === te.dx &&
-							t.dy === te.dy
-						);
-					});
-				}
+			if (type === 'room') {
+				room.exclude = !room.exclude;
+				return;
+			}
 
-				if (targetEntity) {
-					targetEntity.exclude = !targetEntity.exclude;
-				}
+			if (type === 'object') {
+				const eo = entity as LevelTreeObject;
+				targetEntity = room.objects.objects.find((o) => {
+					return (
+						o.bank === eo.bank && o.id === eo.id && o.x === eo.x && o.y === eo.y
+					);
+				});
+			} else if (type === 'sprite') {
+				const es = entity as LevelTreeSprite;
+				targetEntity = room.objects.objects.find((o) => {
+					return (
+						o.bank === es.bank && o.id === es.id && o.x === es.x && o.y === es.y
+					);
+				});
+			} else if (type === 'transport') {
+				const te = entity as LevelTreeTransport;
+				targetEntity = room.transports.transports.find((t) => {
+					return (
+						t.destRoom === te.destRoom &&
+						t.sx === te.sx &&
+						t.sy === t.sy &&
+						t.dx === te.dx &&
+						t.dy === te.dy
+					);
+				});
+			}
+
+			if (targetEntity) {
+				targetEntity.exclude = !targetEntity.exclude;
 			}
 		},
 	},
@@ -131,6 +141,7 @@ function parseRoom(data: Uint8Array, roomIndex: RoomIndex): LevelTreeRoom {
 			pendingRawBytes: [],
 		},
 		levelSettings: {
+			settings: parseLevelSettingsFromLevelFile(data, roomIndex),
 			rawBytes: Array.from(
 				data.slice(
 					getPointer(data, ROOM_LEVELSETTING_POINTERS[roomIndex]),
@@ -206,7 +217,7 @@ const loadEmptyLevel = (): HexTreeThunkAction => async (dispatch) => {
 };
 
 const reducer = hexTreeSlice.reducer;
-const { toggleExclude } = hexTreeSlice.actions;
+const { toggleExclude, patch } = hexTreeSlice.actions;
 
-export { reducer, loadLevel, loadEmptyLevel, toggleExclude };
+export { reducer, loadLevel, loadEmptyLevel, toggleExclude, patch };
 export type { HexTreeState };

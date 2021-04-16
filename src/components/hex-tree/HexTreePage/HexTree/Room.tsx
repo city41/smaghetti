@@ -4,17 +4,19 @@ import { RiFocus3Line } from 'react-icons/ri';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { HiClipboardCopy } from 'react-icons/hi';
 
-import { Exclusion, LevelTreeRoom, RoomIndex } from '../../types';
+import { Exclusion, LevelTreeRoom, Patch, RoomIndex } from '../../types';
 import { LevelObject } from './LevelObject';
 import { LevelSprite } from './LevelSprite';
 import { LevelTransport } from './LevelTransport';
 import useClipboard from 'react-use-clipboard';
+import { LevelSettings } from './LevelSettings';
 
 type RoomProps = {
 	className?: string;
 	roomIndex: RoomIndex;
 	room: LevelTreeRoom;
 	onExcludeChange: (exclusion: Exclusion) => void;
+	onPatch: (patch: Patch) => void;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	focusedEntity: any;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -76,6 +78,7 @@ function Room({
 	room,
 	focusedEntity,
 	onExcludeChange,
+	onPatch,
 	onEntityFocus,
 }: RoomProps) {
 	const objects = room.objects.objects.map((o, i) => {
@@ -129,22 +132,24 @@ function Room({
 		);
 	});
 
-	const jumpLinks = ['objects', 'transports', 'sprites'].map((type) => {
-		return (
-			<a
-				className="cursor-pointer hover:underline"
-				key={type}
-				onClick={() => {
-					const target = document.getElementById(`${type}-room-${roomIndex}`);
-					if (target) {
-						target.scrollIntoView({ block: 'center' });
-					}
-				}}
-			>
-				{type}
-			</a>
-		);
-	});
+	const jumpLinks = ['objects', 'level-settings', 'transports', 'sprites'].map(
+		(type) => {
+			return (
+				<a
+					className="cursor-pointer hover:underline"
+					key={type}
+					onClick={() => {
+						const target = document.getElementById(`${type}-room-${roomIndex}`);
+						if (target) {
+							target.scrollIntoView({ block: 'center' });
+						}
+					}}
+				>
+					{type}
+				</a>
+			);
+		}
+	);
 
 	return (
 		<div className={clsx(className, 'relative')}>
@@ -157,6 +162,14 @@ function Room({
 			<h3 className="sticky top-10 bg-gray-700 py-1 pl-2">Objects</h3>
 			<div id={`objects-room-${roomIndex}`} />
 			{objects}
+			<h3 className="sticky top-10 bg-gray-700 py-1 pl-2">Level Settings</h3>
+			<div id={`level-settings-room-${roomIndex}`} />
+			<LevelSettings
+				levelSettings={room.levelSettings}
+				onPatch={({ offset, bytes }) => {
+					onPatch({ type: 'level-settings', roomIndex, offset, bytes });
+				}}
+			/>
 			<h3 className="sticky top-10 bg-gray-700 py-1 pl-2">Transports</h3>
 			<div id={`transports-room-${roomIndex}`} />
 			{transports}

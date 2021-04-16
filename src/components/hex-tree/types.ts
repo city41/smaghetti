@@ -1,3 +1,5 @@
+import { LevelSettings } from '../../levelData/parseLevelSettingsFromLevelFile';
+
 type RoomIndex = 0 | 1 | 2 | 3;
 
 type LevelTreeObject = {
@@ -47,6 +49,7 @@ type LevelTreeRoom = {
 		pendingRawBytes: number[];
 	};
 	levelSettings: {
+		settings: LevelSettings;
 		rawBytes: number[];
 	};
 	transports: {
@@ -98,7 +101,15 @@ type Exclusion = {
 	entity?: LevelTreeObject | LevelTreeSprite | LevelTreeTransport;
 };
 
+type Patch = {
+	type: 'object' | 'sprite' | 'transport' | 'level-settings';
+	roomIndex: RoomIndex;
+	offset: number;
+	bytes: number[];
+};
+
 export type {
+	Patch,
 	Exclusion,
 	RoomIndex,
 	LevelTree,
