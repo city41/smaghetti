@@ -16,10 +16,7 @@ import {
 	LevelHeader,
 	LevelRooms,
 	LevelTree,
-	LevelTreeObject,
 	LevelTreeRoom,
-	LevelTreeSprite,
-	LevelTreeTransport,
 	ObjectPatch,
 	Patch,
 	RoomIndex,
@@ -107,42 +104,52 @@ const hexTreeSlice = createSlice({
 				return;
 			}
 
-			const { type, roomIndex, entity } = action.payload;
-
-			const room = state.tree.rooms[roomIndex];
+			const room = state.tree.rooms[action.payload.roomIndex];
 
 			let targetEntity;
 
-			if (type === 'room') {
-				room.exclude = !room.exclude;
-				return;
-			}
-
-			if (type === 'object') {
-				const eo = entity as LevelTreeObject;
-				targetEntity = room.objects.objects.find((o) => {
-					return (
-						o.bank === eo.bank && o.id === eo.id && o.x === eo.x && o.y === eo.y
-					);
-				});
-			} else if (type === 'sprite') {
-				const es = entity as LevelTreeSprite;
-				targetEntity = room.objects.objects.find((o) => {
-					return (
-						o.bank === es.bank && o.id === es.id && o.x === es.x && o.y === es.y
-					);
-				});
-			} else if (type === 'transport') {
-				const te = entity as LevelTreeTransport;
-				targetEntity = room.transports.transports.find((t) => {
-					return (
-						t.destRoom === te.destRoom &&
-						t.sx === te.sx &&
-						t.sy === t.sy &&
-						t.dx === te.dx &&
-						t.dy === te.dy
-					);
-				});
+			switch (action.payload.type) {
+				case 'room': {
+					room.exclude = !room.exclude;
+					break;
+				}
+				case 'object': {
+					const eo = action.payload.entity;
+					targetEntity = room.objects.objects.find((o) => {
+						return (
+							o.bank === eo.bank &&
+							o.id === eo.id &&
+							o.x === eo.x &&
+							o.y === eo.y
+						);
+					});
+					break;
+				}
+				case 'sprite': {
+					const es = action.payload.entity;
+					targetEntity = room.objects.objects.find((o) => {
+						return (
+							o.bank === es.bank &&
+							o.id === es.id &&
+							o.x === es.x &&
+							o.y === es.y
+						);
+					});
+					break;
+				}
+				case 'transport': {
+					const te = action.payload.entity;
+					targetEntity = room.transports.transports.find((t) => {
+						return (
+							t.destRoom === te.destRoom &&
+							t.sx === te.sx &&
+							t.sy === t.sy &&
+							t.dx === te.dx &&
+							t.dy === te.dy
+						);
+					});
+					break;
+				}
 			}
 
 			if (targetEntity) {

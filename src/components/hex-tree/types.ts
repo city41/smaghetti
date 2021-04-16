@@ -94,11 +94,34 @@ type BinaryRoom = {
 	autoScrollData: number[];
 };
 
-type Exclusion = {
-	type: 'object' | 'sprite' | 'transport' | 'room';
+type ObjectExclusion = {
+	type: 'object';
 	roomIndex: RoomIndex;
-	entity?: LevelTreeObject | LevelTreeSprite | LevelTreeTransport;
+	entity: LevelTreeObject;
 };
+
+type SpriteExclusion = {
+	type: 'sprite';
+	roomIndex: RoomIndex;
+	entity: LevelTreeSprite;
+};
+
+type TransportExclusion = {
+	type: 'transport';
+	roomIndex: RoomIndex;
+	entity: LevelTreeTransport;
+};
+
+type RoomExclusion = {
+	type: 'room';
+	roomIndex: RoomIndex;
+};
+
+type Exclusion =
+	| ObjectExclusion
+	| SpriteExclusion
+	| TransportExclusion
+	| RoomExclusion;
 
 type LevelSettingsPatch = {
 	type: 'level-settings';
@@ -130,6 +153,10 @@ export type {
 	SpritePatch,
 	LevelSettingsPatch,
 	Patch,
+	SpriteExclusion,
+	ObjectExclusion,
+	TransportExclusion,
+	RoomExclusion,
 	Exclusion,
 	RoomIndex,
 	LevelTree,
