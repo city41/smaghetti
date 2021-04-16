@@ -1,9 +1,6 @@
 import type { Entity } from './types';
 import { getBankLength } from './util';
 
-// empty veggie, nothing comes up
-const OBJECT_ID = 0x66;
-
 const payloadToObjectId = {
 	Coin: 0x63,
 	CoinCache: 0x64,
@@ -25,6 +22,8 @@ const BuriedVegetable: Entity = {
 	defaultSettings: { payload: 'SmallVegetable' },
 	dimensions: 'none',
 	romOffset: 0x20e4f0,
+	// empty veggie, nothing comes up
+	objectId: 0x66,
 	palette: [
 		0x7f40,
 		0x7fff,
@@ -51,7 +50,7 @@ const BuriedVegetable: Entity = {
 	toBinary(x, y, w, h, settings) {
 		const objectId =
 			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId] ??
-			OBJECT_ID;
+			this.objectId!;
 
 		return [getBankLength(1, 0), y, x, objectId];
 	},
