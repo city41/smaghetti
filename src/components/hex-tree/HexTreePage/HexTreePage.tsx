@@ -14,7 +14,7 @@ import { Button } from '../../Button';
 import { HexTree } from './HexTree';
 import { injectLevelIntoSave } from '../../../levelData/injectLevelIntoSave';
 import { sendFileToAnchorTag } from '../../../levelData/downloadLevelAsSaveFile';
-import { Exclusion, LevelTree, Patch } from '../types';
+import { Add, Exclusion, LevelTree, Patch } from '../types';
 import clsx from 'clsx';
 import tabStyles from '../../../styles/tabs.module.css';
 import { RenderLevel } from './RenderLevel';
@@ -27,6 +27,7 @@ type HexTreePageProps = {
 	onStartEmpty: () => void;
 	onExcludeChange: (exclusion: Exclusion) => void;
 	onPatch: (patch: Patch) => void;
+	onAdd: (add: Add) => void;
 	tree: LevelTree | null;
 	data: Uint8Array;
 	originalData: Uint8Array;
@@ -40,6 +41,7 @@ function HexTreePage({
 	onStartEmpty,
 	onExcludeChange,
 	onPatch,
+	onAdd,
 	tree,
 	data,
 	originalData,
@@ -78,6 +80,7 @@ function HexTreePage({
 							focusedEntity={focusedEntity}
 							onEntityFocus={(e) => setFocusedEntity(e)}
 							onPatch={onPatch}
+							onAdd={onAdd}
 						/>
 					)}
 				</>

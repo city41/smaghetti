@@ -9,6 +9,7 @@ import {
 	loadEmptyLevel,
 	toggleExclude,
 	patch,
+	add,
 } from '../hexTreeSlice';
 import { BinaryRoom, LevelTree, LevelTreeRoom } from '../types';
 import { POINTER_AREA_SIZE_IN_BYTES } from '../../../levelData/constants';
@@ -242,6 +243,7 @@ const actions = bindActionCreators(
 		onStartEmpty: loadEmptyLevel,
 		onExcludeChange: toggleExclude,
 		onPatch: patch,
+		onAdd: add,
 	},
 	dispatch
 );

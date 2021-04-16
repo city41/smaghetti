@@ -7,6 +7,7 @@ const PSwitch: Entity = {
 	dimensions: 'none',
 	romOffset: 0x16ea40,
 	objectId: 0x28,
+	emptyBank: 0,
 	palette: [
 		0x7f96,
 		0x7fff,

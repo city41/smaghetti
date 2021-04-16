@@ -148,11 +148,19 @@ type ObjectPatch = {
 
 type Patch = LevelSettingsPatch | SpritePatch | ObjectPatch;
 
+type Add = {
+	type: 'sprite' | 'object' | 'transport';
+	roomIndex: number;
+	afterIndex: number;
+	bytes: number[];
+};
+
 export type {
 	ObjectPatch,
 	SpritePatch,
 	LevelSettingsPatch,
 	Patch,
+	Add,
 	SpriteExclusion,
 	ObjectExclusion,
 	TransportExclusion,

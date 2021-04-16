@@ -1,15 +1,16 @@
-import React, { ReactNode, useEffect, useRef } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { RiFocus3Line } from 'react-icons/ri';
+import { RiFocus3Line, RiAddFill } from 'react-icons/ri';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { HiClipboardCopy } from 'react-icons/hi';
 
-import { Exclusion, LevelTreeRoom, Patch, RoomIndex } from '../../types';
+import { Add, Exclusion, LevelTreeRoom, Patch, RoomIndex } from '../../types';
 import { LevelObject } from './LevelObject';
 import { LevelSprite } from './LevelSprite';
 import { LevelTransport } from './LevelTransport';
 import useClipboard from 'react-use-clipboard';
 import { LevelSettings } from './LevelSettings';
+import { add } from '../../hexTreeSlice';
 
 type RoomProps = {
 	className?: string;
@@ -21,6 +22,7 @@ type RoomProps = {
 	focusedEntity: any;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onEntityFocus: (entity: any) => void;
+	onAdd: (add: Add) => void;
 };
 
 type EntityContainerProps = {
@@ -29,6 +31,7 @@ type EntityContainerProps = {
 	rawBytes: number[];
 	onFocus: () => void;
 	onExcludeChange: () => void;
+	onAdd: (bytes: number[]) => void;
 	children: ReactNode;
 };
 
@@ -37,9 +40,12 @@ function EntityContainer({
 	excluded,
 	rawBytes,
 	onFocus,
+	onAdd,
 	onExcludeChange,
 	children,
 }: EntityContainerProps) {
+	const [showAdd, setShowAdd] = useState(false);
+	const [addBytesString, setAddBytesString] = useState('');
 	const ref = useRef<HTMLDivElement | null>(null);
 	const [, copyToClipboard] = useClipboard(
 		`${rawBytes.map((c) => `0x${c.toString(16)}`).join(', ')}`
@@ -50,6 +56,16 @@ function EntityContainer({
 			ref.current?.scrollIntoView({ block: 'center' });
 		}
 	}, [focused]);
+
+	function handleAdd() {
+		const separator = addBytesString.includes(',') ? ',' : ' ';
+		const bytes = addBytesString
+			.split(separator)
+			.map((b) => parseInt(b.trim(), 16));
+		onAdd(bytes);
+		setAddBytesString('');
+		setShowAdd(false);
+	}
 
 	return (
 		<div
@@ -68,6 +84,20 @@ function EntityContainer({
 			<button onClick={copyToClipboard}>
 				<HiClipboardCopy />
 			</button>
+			<button onClick={() => setShowAdd((sa) => !sa)}>
+				<RiAddFill />
+			</button>
+			{showAdd && (
+				<div>
+					<input
+						className="text-black"
+						type="text"
+						value={addBytesString}
+						onChange={(e) => setAddBytesString(e.target.value)}
+					/>
+					<button onClick={handleAdd}>add</button>
+				</div>
+			)}
 		</div>
 	);
 }
@@ -79,6 +109,7 @@ function Room({
 	focusedEntity,
 	onExcludeChange,
 	onPatch,
+	onAdd,
 	onEntityFocus,
 }: RoomProps) {
 	const objects = room.objects.objects.map((o, i) => {
@@ -91,6 +122,9 @@ function Room({
 				onFocus={() => onEntityFocus(o)}
 				onExcludeChange={() => {
 					onExcludeChange({ roomIndex, type: 'object', entity: o });
+				}}
+				onAdd={(bytes) => {
+					onAdd({ roomIndex, type: 'object', afterIndex: i, bytes });
 				}}
 			>
 				<LevelObject
@@ -120,6 +154,9 @@ function Room({
 				onExcludeChange={() => {
 					onExcludeChange({ roomIndex, type: 'sprite', entity: s });
 				}}
+				onAdd={(bytes) => {
+					onAdd({ roomIndex, type: 'sprite', afterIndex: i, bytes });
+				}}
 			>
 				<LevelSprite
 					levelSprite={s}
@@ -147,6 +184,9 @@ function Room({
 				onFocus={() => onEntityFocus(t)}
 				onExcludeChange={() => {
 					onExcludeChange({ roomIndex, type: 'transport', entity: t });
+				}}
+				onAdd={(bytes) => {
+					onAdd({ roomIndex, type: 'transport', afterIndex: i, bytes });
 				}}
 			>
 				<LevelTransport levelTransport={t} />

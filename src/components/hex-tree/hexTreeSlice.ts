@@ -12,6 +12,7 @@ import {
 } from '../../levelData/parseSpritesFromLevelFile';
 import { parseTransportsFromLevelFile } from '../../levelData/parseTransportsFromLevelFile';
 import {
+	Add,
 	Exclusion,
 	LevelHeader,
 	LevelRooms,
@@ -58,6 +59,29 @@ const hexTreeSlice = createSlice({
 		},
 		setTree(state: HexTreeState, action: PayloadAction<LevelTree>) {
 			state.tree = action.payload;
+		},
+		add(state: HexTreeState, action: PayloadAction<Add>) {
+			if (!state.tree) {
+				return;
+			}
+
+			const { roomIndex, afterIndex, type, bytes } = action.payload;
+
+			const room = state.tree.rooms[roomIndex];
+
+			switch (type) {
+				case 'sprite': {
+					const newSprite = parseSprite(bytes, 0);
+					room.sprites.sprites.splice(afterIndex + 1, 0, newSprite);
+					break;
+				}
+				case 'object': {
+					const newObject = parseObject(bytes, 0);
+					room.objects.objects.splice(afterIndex + 1, 0, newObject);
+					break;
+				}
+				// TODO: transports
+			}
 		},
 		patch(state: HexTreeState, action: PayloadAction<Patch>) {
 			if (!state.tree) {
@@ -268,7 +292,7 @@ const loadEmptyLevel = (): HexTreeThunkAction => async (dispatch) => {
 };
 
 const reducer = hexTreeSlice.reducer;
-const { toggleExclude, patch } = hexTreeSlice.actions;
+const { toggleExclude, patch, add } = hexTreeSlice.actions;
 
-export { reducer, loadLevel, loadEmptyLevel, toggleExclude, patch };
+export { reducer, loadLevel, loadEmptyLevel, toggleExclude, patch, add };
 export type { HexTreeState };
