@@ -38,7 +38,7 @@ const UndergroundFlatTerrain_HorizontalTop: Entity = {
 		],
 	],
 
-	toBinary(x, y, w, h) {
+	toBinary(x, y, w) {
 		return [getBankLength(1, 0), y, x, this.objectId!, w];
 	},
 };

@@ -38,6 +38,7 @@ import { ThreeUpMoon } from './ThreeUpMoon';
 import { Transport } from './Transport';
 import { TriangularBlock } from './TriangularBlock';
 import { UndergroundFlatTerrain_HorizontalTop } from './UndergroundFlatTerrain_HorizontalTop';
+import { UndergroundFlatTerrain_UpperLeftCorner } from './UndergroundFlatTerrain_UpperLeftCorner';
 import { UndergroundFlatTerrain_UpperRightCorner } from './UndergroundFlatTerrain_UpperRightCorner';
 import { WoodBlock } from './WoodBlock';
 import { WoodDoor } from './WoodDoor';
@@ -83,6 +84,7 @@ const entityMap = {
 	Transport,
 	TriangularBlock,
 	UndergroundFlatTerrain_HorizontalTop,
+	UndergroundFlatTerrain_UpperLeftCorner,
 	UndergroundFlatTerrain_UpperRightCorner,
 	WoodBlock,
 	WoodDoor,

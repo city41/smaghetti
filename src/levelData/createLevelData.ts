@@ -331,7 +331,7 @@ function getRoom(roomIndex: number, allRooms: RoomData[]): Room {
 	const sprites = getSprites(entities, flatTiles, tileLayer.height);
 
 	return {
-		objects: objectHeader.concat(objects, [0xff]),
+		objects: objectHeader.concat([0x0, 0x1b, 0x2, 0x1], /*objects*/ [0xff]),
 		levelSettings,
 		transportData,
 		sprites: spriteHeader.concat(sprites, [0xff]),
