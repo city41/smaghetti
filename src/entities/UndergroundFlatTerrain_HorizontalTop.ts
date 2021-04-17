@@ -1,8 +1,8 @@
 import type { Entity } from './types';
 import { getBankLength } from './util';
 
-const UndergroundFlatTerrain: Entity = {
-	type: 'UndergroundFlatTerrain',
+const UndergroundFlatTerrain_HorizontalTop: Entity = {
+	type: 'UndergroundFlatTerrain_HorizontalTop',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'x',
@@ -43,4 +43,4 @@ const UndergroundFlatTerrain: Entity = {
 	},
 };
 
-export { UndergroundFlatTerrain };
+export { UndergroundFlatTerrain_HorizontalTop };
