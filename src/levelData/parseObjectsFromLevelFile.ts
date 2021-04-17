@@ -18,6 +18,23 @@ type LevelObject = {
 	rawBytes: number[];
 };
 
+/**
+ * object size is not determined by bank. Rather, objects have
+ * whatever size they need, and the game seems to know that inherently.
+ *
+ * This map records all "unexpected" sizes, generally if an object is bank zero,
+ * it has a higher chance of being 4 bytes. if it is bank >0, it has a higher chance
+ * of being five (or more) bytes, but that is not a definite.
+ *
+ * TODO: this might need a more central/better location
+ * TODO: not sure how object/graphic sets will impact this once they are figured out
+ */
+const bankIdToByteSize: Record<number, Record<number, number>> = {
+	1: {
+		0x10: 4, // QuestionBlock with coin payload
+	},
+};
+
 function parseObject(
 	levelData: Uint8Array | number[],
 	objectIndex: number
@@ -31,7 +48,10 @@ function parseObject(
 		bank === 0 ? bank0ObjectIdToEntityType : bank1ObjectIdToEntityType;
 	const entityDef = entityMap[objectIdToEntityType[id]];
 
-	const rawByteLength = bank === 0 ? 4 : 5;
+	// if the bank/id combo is in the map, we truly know its size, else
+	// we are just guessing based on bank. As reverse engineering progresses,
+	// the number of guesses should approach zero
+	const rawByteLength = bankIdToByteSize[bank]?.[id] ?? bank === 0 ? 4 : 5;
 	const rawBytes = Array.from(
 		levelData.slice(objectIndex, objectIndex + rawByteLength)
 	);

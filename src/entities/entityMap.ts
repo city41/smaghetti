@@ -37,6 +37,7 @@ import { TexturedDoor } from './TexturedDoor';
 import { ThreeUpMoon } from './ThreeUpMoon';
 import { Transport } from './Transport';
 import { TriangularBlock } from './TriangularBlock';
+import { UndergroundFlatTerrain } from './UndergroundFlatTerrain';
 import { WoodBlock } from './WoodBlock';
 import { WoodDoor } from './WoodDoor';
 
@@ -80,6 +81,7 @@ const entityMap = {
 	ThreeUpMoon,
 	Transport,
 	TriangularBlock,
+	UndergroundFlatTerrain,
 	WoodBlock,
 	WoodDoor,
 };
