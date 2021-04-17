@@ -19,7 +19,7 @@ function determineHeight(
 		return obj.param1;
 	}
 
-	if (entityDef?.param2 === 'height') {
+	if (entityDef?.param2 === 'height' && typeof obj.param2 === 'number') {
 		return obj.param2;
 	}
 
@@ -34,7 +34,7 @@ function determineWidth(
 		return obj.param1;
 	}
 
-	if (entityDef?.param2 === 'width') {
+	if (entityDef?.param2 === 'width' && typeof obj.param2 === 'number') {
 		return obj.param2;
 	}
 

@@ -13,7 +13,7 @@ type LevelObject = {
 	x: number;
 	y: number;
 	param1: number;
-	param2: number;
+	param2?: number;
 	id: number;
 	rawBytes: number[];
 };
@@ -32,6 +32,7 @@ type LevelObject = {
 const bankIdToByteSize: Record<number, Record<number, number>> = {
 	1: {
 		0x10: 4, // QuestionBlock with coin payload
+		0x18: 4, // something in Classic 1-2, possibly terrain?
 	},
 };
 
@@ -44,10 +45,6 @@ function parseObject(
 	const param1 = bankAndParam1 & 0x3f;
 	const id = levelData[objectIndex + 3];
 
-	const objectIdToEntityType =
-		bank === 0 ? bank0ObjectIdToEntityType : bank1ObjectIdToEntityType;
-	const entityDef = entityMap[objectIdToEntityType[id]];
-
 	// if the bank/id combo is in the map, we truly know its size, else
 	// we are just guessing based on bank. As reverse engineering progresses,
 	// the number of guesses should approach zero
@@ -56,29 +53,16 @@ function parseObject(
 		levelData.slice(objectIndex, objectIndex + rawByteLength)
 	);
 
-	if (entityDef && entityDef.parseBinary) {
-		return entityDef.parseBinary(rawBytes);
-	} else if (bank === 0) {
-		return {
-			bank,
-			id: levelData[objectIndex + 3],
-			x: levelData[objectIndex + 2],
-			y: levelData[objectIndex + 1],
-			param1: param1 + 1,
-			param2: 1,
-			rawBytes: Array.from(levelData.slice(objectIndex, objectIndex + 4)),
-		};
-	} else {
-		return {
-			bank,
-			id: levelData[objectIndex + 3],
-			x: levelData[objectIndex + 2],
-			y: levelData[objectIndex + 1],
-			param1: param1 + 1,
-			param2: levelData[objectIndex + 4] + 1,
-			rawBytes: Array.from(levelData.slice(objectIndex, objectIndex + 5)),
-		};
-	}
+	return {
+		bank,
+		id: levelData[objectIndex + 3],
+		x: levelData[objectIndex + 2],
+		y: levelData[objectIndex + 1],
+		// TODO: probably should not add the 1 here
+		param1: param1 + 1,
+		param2: rawBytes.length > 4 ? rawBytes[4] + 1 : undefined,
+		rawBytes,
+	};
 }
 
 function parseObjectHeader(

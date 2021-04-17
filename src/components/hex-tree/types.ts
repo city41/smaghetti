@@ -8,7 +8,7 @@ type LevelTreeObject = {
 	x: number;
 	y: number;
 	param1: number;
-	param2: number;
+	param2?: number;
 	rawBytes: number[];
 	exclude?: boolean;
 };
