@@ -151,7 +151,7 @@ const hexTreeSlice = createSlice({
 				}
 				case 'sprite': {
 					const es = action.payload.entity;
-					targetEntity = room.objects.objects.find((o) => {
+					targetEntity = room.sprites.sprites.find((o) => {
 						return (
 							o.bank === es.bank &&
 							o.id === es.id &&
