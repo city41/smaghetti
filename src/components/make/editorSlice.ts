@@ -1911,4 +1911,5 @@ export {
 	loadFromLocalStorage,
 	saveToLocalStorage,
 	eraseLevel,
+	LOCALSTORAGE_KEY,
 };

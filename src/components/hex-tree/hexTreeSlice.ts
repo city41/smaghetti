@@ -37,11 +37,23 @@ import {
 	parseLevelSettings,
 	parseLevelSettingsFromLevelFile,
 } from '../../levelData/parseLevelSettingsFromLevelFile';
+import { LOCALSTORAGE_KEY } from '../make/editorSlice';
+import { deserialize } from '../../level/deserialize';
+import { create } from 'domain';
 
 type HexTreeState = {
 	tree: LevelTree | null;
 	originalData: number[] | null;
 };
+
+const EMPTY_LEVEL = createLevelData([
+	{
+		paletteEntries: [],
+		entities: [],
+		transports: [],
+		tileLayer: { width: 0, height: 0, data: [] },
+	},
+]);
 
 const defaultInitialState: HexTreeState = {
 	tree: null,
@@ -277,22 +289,42 @@ const loadLevel = (levelFile: File): HexTreeThunkAction => async (dispatch) => {
 	reader.readAsArrayBuffer(levelFile);
 };
 
-const loadEmptyLevel = (): HexTreeThunkAction => async (dispatch) => {
-	const emptyLevelData = createLevelData([
-		{
-			paletteEntries: [],
-			entities: [],
-			transports: [],
-			tileLayer: { width: 0, height: 0, data: [] },
-		},
-	]);
+const loadEmptyLevel = (): HexTreeThunkAction => (dispatch) => {
+	dispatch(hexTreeSlice.actions.setOriginalData(Array.from(EMPTY_LEVEL)));
+	dispatch(hexTreeSlice.actions.setTree(parseDataToTree(EMPTY_LEVEL)));
+};
 
-	dispatch(hexTreeSlice.actions.setOriginalData(Array.from(emptyLevelData)));
-	dispatch(hexTreeSlice.actions.setTree(parseDataToTree(emptyLevelData)));
+const loadFromLocalStorage = (): HexTreeThunkAction => (dispatch) => {
+	const localStorageData = localStorage[LOCALSTORAGE_KEY];
+
+	let levelData;
+	if (localStorageData) {
+		try {
+			const parsed = JSON.parse(localStorageData);
+			const deserialized = deserialize(parsed.levelData);
+			levelData = createLevelData(deserialized.levelData.rooms);
+		} catch (e) {
+			console.error('loadFromLocalStorage error', e);
+			levelData = EMPTY_LEVEL;
+		}
+	} else {
+		levelData = EMPTY_LEVEL;
+	}
+
+	dispatch(hexTreeSlice.actions.setOriginalData(Array.from(levelData)));
+	dispatch(hexTreeSlice.actions.setTree(parseDataToTree(levelData)));
 };
 
 const reducer = hexTreeSlice.reducer;
 const { toggleExclude, patch, add } = hexTreeSlice.actions;
 
-export { reducer, loadLevel, loadEmptyLevel, toggleExclude, patch, add };
+export {
+	reducer,
+	loadLevel,
+	loadEmptyLevel,
+	loadFromLocalStorage,
+	toggleExclude,
+	patch,
+	add,
+};
 export type { HexTreeState };

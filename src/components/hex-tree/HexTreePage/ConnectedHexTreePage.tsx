@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import {
 	loadLevel,
 	loadEmptyLevel,
+	loadFromLocalStorage,
 	toggleExclude,
 	patch,
 	add,
@@ -241,6 +242,7 @@ const actions = bindActionCreators(
 	{
 		onLevelChosen: loadLevel,
 		onStartEmpty: loadEmptyLevel,
+		onStartFromLocalStorage: loadFromLocalStorage,
 		onExcludeChange: toggleExclude,
 		onPatch: patch,
 		onAdd: add,
