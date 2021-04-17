@@ -33,6 +33,7 @@ const bankIdToByteSize: Record<number, Record<number, number>> = {
 	1: {
 		0x10: 4, // QuestionBlock with coin payload
 		0x18: 4, // something in Classic 1-2, possibly terrain?
+		0x3a: 4, // initial wall at start of Classic 1-2
 	},
 };
 
