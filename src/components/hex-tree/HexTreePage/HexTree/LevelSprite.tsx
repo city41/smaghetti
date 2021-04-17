@@ -5,7 +5,7 @@ import {
 	bank0SpriteIdToEntityType,
 	bank1SpriteIdToEntityType,
 } from '../../../../entities/spriteIdMap';
-import { SpriteIcon } from '../entityIcons';
+import { LevelSprite as RenderLevelSprite } from '../RenderLevel/LevelSprite';
 import { ByteInputField } from './ByteInputField';
 
 type LevelSpriteProps = {
@@ -53,7 +53,7 @@ function LevelSprite({ className, levelSprite, onPatch }: LevelSpriteProps) {
 	return (
 		<div className={clsx(className, 'ml-8 bg-gray-600 p-2 m-2 flex flex-col')}>
 			<div className="flex flex-row items-center space-x-2">
-				<SpriteIcon entityType={spriteType} />
+				<RenderLevelSprite sprite={levelSprite} scale={1} />
 				<div className="bg-gray-200 text-gray-900 grid grid-rows-2 grid-cols-4 gap-x-2 p-1">
 					{keys}
 					{values}

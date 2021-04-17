@@ -6,6 +6,7 @@ import {
 } from '../../../../entities/spriteIdMap';
 import { LevelTreeSprite } from '../../types';
 import { SpriteIcon } from '../entityIcons';
+import { entityMap } from '../../../../entities/entityMap';
 
 type LevelSpriteProps = {
 	sprite: LevelTreeSprite;
@@ -13,19 +14,28 @@ type LevelSpriteProps = {
 };
 
 function LevelSprite({ sprite, scale }: LevelSpriteProps) {
+	// TODO: stop using these maps and go straight to the entity defs, just like objects
 	const spriteType =
 		sprite.bank === 0
 			? bank0SpriteIdToEntityType[sprite.id]
 			: bank1SpriteIdToEntityType[sprite.id];
 
+	const entityDef = entityMap[spriteType];
+	const widthInTiles = (entityDef?.tiles[0].length ?? 2) / 2;
+	const heightInTiles = (entityDef?.tiles.length ?? 2) / 2;
+
 	// hmmm....
-	const width = 1 * TILE_SIZE * scale;
-	const height = 1 * TILE_SIZE * scale;
+	const width = widthInTiles * TILE_SIZE * scale;
+	const height = heightInTiles * TILE_SIZE * scale;
 
 	const style = {
 		width,
 		height,
-		backgroundSize: TILE_SIZE,
+		backgroundSize: 'cover',
+		// TODO: sprites should be positioning themselves so they can account for
+		// the fact that y is based on their bottom, not top. For now, a lil
+		// hack with negative margin...
+		marginTop: -((heightInTiles - 1) * TILE_SIZE * scale),
 	};
 	return (
 		<SpriteIcon
