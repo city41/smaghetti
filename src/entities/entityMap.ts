@@ -40,6 +40,7 @@ import { TriangularBlock } from './TriangularBlock';
 import { UndergroundFlatTerrain_HorizontalTop } from './UndergroundFlatTerrain_HorizontalTop';
 import { UndergroundFlatTerrain_UpperLeftCorner } from './UndergroundFlatTerrain_UpperLeftCorner';
 import { UndergroundFlatTerrain_UpperRightCorner } from './UndergroundFlatTerrain_UpperRightCorner';
+import { UndergroundFlatTerrain_VerticalLeft } from './UndergroundFlatTerrain_VerticalLeft';
 import { WoodBlock } from './WoodBlock';
 import { WoodDoor } from './WoodDoor';
 
@@ -86,6 +87,7 @@ const entityMap = {
 	UndergroundFlatTerrain_HorizontalTop,
 	UndergroundFlatTerrain_UpperLeftCorner,
 	UndergroundFlatTerrain_UpperRightCorner,
+	UndergroundFlatTerrain_VerticalLeft,
 	WoodBlock,
 	WoodDoor,
 };

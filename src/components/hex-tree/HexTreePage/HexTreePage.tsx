@@ -123,7 +123,7 @@ function HexTreePage({
 								scale={1.5}
 							/>
 							<PlainIconButton
-								className="absolute -left-12 bottom-8 w-8 h-8 grid place-items-center"
+								className="absolute -left-12 -bottom-2 w-8 h-8 grid place-items-center"
 								label={editState === 'editing' ? 'paused' : 'running'}
 								icon={editState === 'editing' ? FaPlay : VscDebugRestart}
 								onClick={handleRunningEditToggle}
