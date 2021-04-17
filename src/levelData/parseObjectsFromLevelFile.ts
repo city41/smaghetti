@@ -31,12 +31,21 @@ type LevelObject = {
  */
 const bankIdToByteSize: Record<number, Record<number, number>> = {
 	1: {
-		0xd: 4, // final most wall in Classic 1-2 (right side of warp pipe "room")
 		0x10: 4, // QuestionBlock with coin payload
 		0x17: 4, // something in Classic 1-2, I think it's a pipe
 		0x18: 4, // something in Classic 1-2, also think it's a pipe
 		0x1c: 4, // something in Classic 1-2, also think it's a pipe
 		0x3a: 4, // initial wall at start of Classic 1-2
+		0x5a: 4, // buried veggie -- giant veggie
+		0x5b: 4, // buried veggie -- regular veggie
+		0x5c: 4, // buried veggie -- small veggie
+		0x63: 4, // buried veggie -- coin
+		0x64: 4, // buried veggie -- coin cache
+		0x65: 4, // buried veggie -- 1up
+		0x67: 4, // buried veggie -- poison mushroom
+		0x69: 4, // buried veggie -- monty mole
+		0x7e: 4, // buried veggie -- koopa shell
+		0xd: 4, // final most wall in Classic 1-2 (right side of warp pipe "room")
 	},
 };
 
