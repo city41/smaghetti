@@ -63,6 +63,6 @@ PRs are welcome, but please open an issue and discuss with me first before start
 
 ## Bug reports
 
-Since Smaghetti is so young, there is a ton of bugs. Feel free to file them here as an issue
+Since Smaghetti is so young, there are a ton of bugs. Feel free to file them here as an issue
 
 
