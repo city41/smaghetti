@@ -29,7 +29,7 @@ function HexTree({
 
 	for (let i = 0; i < tree.rooms.length; ++i) {
 		roomButtons.push(
-			<div className="text-gray-900 flex flex-row">
+			<div key={i} className="text-gray-900 flex flex-row">
 				<div className="font-bold mr-2">{i}</div>
 				<PlainIconButton
 					label="scroll to"
