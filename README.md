@@ -43,7 +43,19 @@ Please see the [wiki](https://github.com/city41/smaghetti/wiki) to see what has 
 
 TODO: write up a doc showing good ways to reverse engineer
 
-I have made some (very raw) tools to help with reverse engineering: https://smaghetti.com/tools, as well as the many tools made by the community such as Solar Magic Advance and NLZ-GBA.
+### HexTree tool
+
+This tool is growing to be pretty powerful. It really lets you explore and manipulate a level. I need to document a bit how it works, but just playing with it should enable one to figure out most of its features.
+
+![screenshot](https://github.com/city41/smaghetti/blob/main/hexTreeScreenshot.png?raw=true)
+
+NOTE: as of the time of this writing, this tool is only effective on underground levels (Classic 1-2 is a good one). You can also build a level in Smaghetti's editor, then in this tool choose "start from localstorage" to load your level into the tool.
+
+Getting this tool more effective on other level types (ie plains, castle, etc) is a work in progress.
+
+It is here: https://smaghetti.com/tools/hex-tree
+
+There are some other minor tools listed here too: https://smaghetti.com/tools
 
 ## Code contributions
 
