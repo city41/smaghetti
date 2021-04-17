@@ -22,46 +22,48 @@ type LevelObject = {
  * object size is not determined by bank. Rather, objects have
  * whatever size they need, and the game seems to know that inherently.
  *
- * This map records all "unexpected" sizes, generally if an object is bank zero,
- * it has a higher chance of being 4 bytes. if it is bank >0, it has a higher chance
- * of being five (or more) bytes, but that is not a definite.
+ * This array records all objects that are not in bank zero but are 4 bytes rather than 5.
+ *
+ * So far it seems un-assuming >0 objects are 5 bytes is working well. If we need to make
+ * bank 0 objects 5 bytes or something else proves to be true, need to revisit this
  *
  * TODO: this might need a more central/better location
  * TODO: not sure how object/graphic sets will impact this once they are figured out
  */
-const bankIdToByteSize: Record<number, Record<number, number>> = {
-	1: {
-		0x10: 4, // QuestionBlock with coin payload
-		0x17: 4, // something in Classic 1-2, I think it's a pipe
-		0x18: 4, // something in Classic 1-2, also think it's a pipe
-		0x1c: 4, // something in Classic 1-2, also think it's a pipe
-		0x3a: 4, // initial wall at start of Classic 1-2
-		0x5a: 4, // buried veggie -- giant veggie
-		0x5b: 4, // buried veggie -- regular veggie
-		0x5c: 4, // buried veggie -- small veggie
-		0x63: 4, // buried veggie -- coin
-		0x64: 4, // buried veggie -- coin cache
-		0x65: 4, // buried veggie -- 1up
-		0x67: 4, // buried veggie -- poison mushroom
-		0x69: 4, // buried veggie -- monty mole
-		0x7e: 4, // buried veggie -- koopa shell
-		0xd: 4, // final most wall in Classic 1-2 (right side of warp pipe "room")
-	},
-};
+const knownFourByteIds = [
+	0x10, // QuestionBlock with coin payload
+	0x17, // something in Classic 1-2, I think it's a pipe
+	0x18, // something in Classic 1-2, also think it's a pipe
+	0x1c, // something in Classic 1-2, also think it's a pipe
+	0x3a, // initial wall at start of Classic 1-2
+	0x5a, // buried veggie -- giant veggie
+	0x5b, // buried veggie -- regular veggie
+	0x5c, // buried veggie -- small veggie
+	0x63, // buried veggie -- coin
+	0x64, // buried veggie -- coin cache
+	0x65, // buried veggie -- 1up
+	0x67, // buried veggie -- poison mushroom
+	0x69, // buried veggie -- monty mole
+	0x7e, // buried veggie -- koopa shell
+	0xd, // final most wall in Classic 1-2 (right side of warp pipe "room")
+];
 
 function parseObject(
 	levelData: Uint8Array | number[],
-	objectIndex: number
+	objectIndex: number,
+	fourByteIds: number[]
 ): LevelObject {
 	const bankAndParam1 = levelData[objectIndex];
 	const bank = bankAndParam1 >> 6;
 	const param1 = bankAndParam1 & 0x3f;
 	const id = levelData[objectIndex + 3];
 
+	const allKnownFourByteIds = [...knownFourByteIds, ...fourByteIds];
+
 	// if the bank/id combo is in the map, we truly know its size, else
 	// we are just guessing based on bank. As reverse engineering progresses,
 	// the number of guesses should approach zero
-	const rawByteLength = bankIdToByteSize[bank]?.[id] ?? bank === 0 ? 4 : 5;
+	const rawByteLength = bank === 0 || allKnownFourByteIds.includes(id) ? 4 : 5;
 	const rawBytes = Array.from(
 		levelData.slice(objectIndex, objectIndex + rawByteLength)
 	);
@@ -100,12 +102,13 @@ function parseObjectHeader(
 
 function parseObjects(
 	data: Uint8Array | number[],
-	index: number
+	index: number,
+	fourByteIds: number[]
 ): LevelObject[] {
 	const objects = [];
 
 	while (data[index] !== 0xff && index < data.length) {
-		const object = parseObject(data, index);
+		const object = parseObject(data, index, fourByteIds);
 		objects.push(object);
 		index += object.rawBytes.length;
 	}
@@ -115,7 +118,8 @@ function parseObjects(
 
 function parseObjectsFromLevelFile(
 	levelData: Uint8Array,
-	roomIndex: 0 | 1 | 2 | 3 = 0
+	roomIndex: 0 | 1 | 2 | 3 = 0,
+	fourByteIds: number[]
 ): LevelObject[] {
 	const view = new DataView(levelData.buffer);
 
@@ -124,7 +128,7 @@ function parseObjectsFromLevelFile(
 	const objectIndex =
 		view.getUint16(pointer, true) + ROOM_OBJECT_HEADER_SIZE_IN_BYTES;
 
-	return parseObjects(levelData, objectIndex);
+	return parseObjects(levelData, objectIndex, fourByteIds);
 }
 
 export {

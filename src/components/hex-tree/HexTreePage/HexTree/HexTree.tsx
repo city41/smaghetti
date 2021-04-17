@@ -15,6 +15,8 @@ type HexTreeProps = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onEntityFocus: (entity: any) => void;
 	onAdd: (add: Add) => void;
+	onFourBytes: (id: number) => void;
+	fourByteIds: number[];
 };
 
 function HexTree({
@@ -24,6 +26,8 @@ function HexTree({
 	onAdd,
 	focusedEntity,
 	onEntityFocus,
+	onFourBytes,
+	fourByteIds,
 }: HexTreeProps) {
 	const roomButtons = [];
 
@@ -64,6 +68,8 @@ function HexTree({
 					onPatch={onPatch}
 					onAdd={onAdd}
 					onEntityFocus={onEntityFocus}
+					onFourBytes={onFourBytes}
+					fourByteIds={fourByteIds}
 				/>
 			</Fragment>
 		);

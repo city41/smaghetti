@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { RiFocus3Line, RiAddFill } from 'react-icons/ri';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { HiClipboardCopy } from 'react-icons/hi';
+import { FaDiceFour } from 'react-icons/fa';
 
 import { Add, Exclusion, LevelTreeRoom, Patch, RoomIndex } from '../../types';
 import { LevelObject } from './LevelObject';
@@ -15,6 +16,7 @@ type RoomProps = {
 	className?: string;
 	roomIndex: RoomIndex;
 	room: LevelTreeRoom;
+	fourByteIds: number[];
 	onExcludeChange: (exclusion: Exclusion) => void;
 	onPatch: (patch: Patch) => void;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,6 +24,7 @@ type RoomProps = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onEntityFocus: (entity: any) => void;
 	onAdd: (add: Add) => void;
+	onFourBytes: (id: number) => void;
 };
 
 type EntityContainerProps = {
@@ -31,6 +34,7 @@ type EntityContainerProps = {
 	onFocus: () => void;
 	onExcludeChange: () => void;
 	onAdd: (bytes: number[]) => void;
+	onFourBytes?: () => void;
 	children: ReactNode;
 };
 
@@ -41,6 +45,7 @@ function EntityContainer({
 	onFocus,
 	onAdd,
 	onExcludeChange,
+	onFourBytes,
 	children,
 }: EntityContainerProps) {
 	const [showAdd, setShowAdd] = useState(false);
@@ -86,6 +91,11 @@ function EntityContainer({
 			<button onClick={() => setShowAdd((sa) => !sa)}>
 				<RiAddFill />
 			</button>
+			{onFourBytes && (
+				<button onClick={onFourBytes}>
+					<FaDiceFour />
+				</button>
+			)}
 			{showAdd && (
 				<div>
 					<input
@@ -106,10 +116,12 @@ function Room({
 	roomIndex,
 	room,
 	focusedEntity,
+	fourByteIds,
 	onExcludeChange,
 	onPatch,
 	onAdd,
 	onEntityFocus,
+	onFourBytes,
 }: RoomProps) {
 	const objects = room.objects.objects.map((o, i) => {
 		return (
@@ -125,9 +137,15 @@ function Room({
 				onAdd={(bytes) => {
 					onAdd({ roomIndex, type: 'object', afterIndex: i, bytes });
 				}}
+				onFourBytes={
+					o.rawBytes.length === 5 || fourByteIds.includes(o.id)
+						? () => onFourBytes(o.id)
+						: undefined
+				}
 			>
 				<LevelObject
 					levelObject={o}
+					madeFourBytes={fourByteIds.includes(o.id)}
 					onPatch={({ offset, bytes }) => {
 						onPatch({
 							type: 'object',

@@ -79,7 +79,7 @@ describe('createLevelData', () => {
 			const objectAddr =
 				levelData[ROOM_OBJECT_POINTERS[0]] + ROOM_OBJECT_HEADER_SIZE_IN_BYTES;
 
-			const parsedObject = parseObject(levelData, objectAddr);
+			const parsedObject = parseObject(levelData, objectAddr, []);
 
 			expect(parsedObject.bank).toEqual(1);
 			expect(parsedObject.param1).toEqual(2);

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import clsx from 'clsx';
+import { FaDiceFour } from 'react-icons/fa';
 
 import { LevelTreeObject } from '../../types';
 import { ByteInputField } from './ByteInputField';
@@ -8,6 +9,7 @@ import { LevelObject as RenderLevelObject } from '../RenderLevel/LevelObject';
 type ObjectProps = {
 	className?: string;
 	levelObject: LevelTreeObject;
+	madeFourBytes?: boolean;
 	onPatch: (arg: { offset: number; bytes: number[] }) => void;
 };
 
@@ -19,7 +21,12 @@ const levelObjectSlices = {
 	param2: [4, 1],
 };
 
-function LevelObject({ className, levelObject, onPatch }: ObjectProps) {
+function LevelObject({
+	className,
+	levelObject,
+	madeFourBytes,
+	onPatch,
+}: ObjectProps) {
 	const data = levelObject.rawBytes;
 
 	const keys = Object.keys(levelObjectSlices).reduce<ReactElement[]>(
@@ -73,11 +80,15 @@ function LevelObject({ className, levelObject, onPatch }: ObjectProps) {
 					{
 						'grid-cols-4': data.length === 4,
 						'grid-cols-5': data.length === 5,
+						relative: madeFourBytes,
 					}
 				)}
 			>
 				{keys}
 				{values}
+				{madeFourBytes && (
+					<FaDiceFour className="absolute top-0 right-0 text-blue-500" />
+				)}
 			</div>
 		</div>
 	);

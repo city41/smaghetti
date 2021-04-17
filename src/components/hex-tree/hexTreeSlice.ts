@@ -39,11 +39,11 @@ import {
 } from '../../levelData/parseLevelSettingsFromLevelFile';
 import { LOCALSTORAGE_KEY } from '../make/editorSlice';
 import { deserialize } from '../../level/deserialize';
-import { create } from 'domain';
 
 type HexTreeState = {
 	tree: LevelTree | null;
 	originalData: number[] | null;
+	fourByteIds: number[];
 };
 
 const EMPTY_LEVEL = createLevelData([
@@ -58,6 +58,7 @@ const EMPTY_LEVEL = createLevelData([
 const defaultInitialState: HexTreeState = {
 	tree: null,
 	originalData: null,
+	fourByteIds: [],
 };
 
 const initialState = defaultInitialState;
@@ -71,6 +72,22 @@ const hexTreeSlice = createSlice({
 		},
 		setTree(state: HexTreeState, action: PayloadAction<LevelTree>) {
 			state.tree = action.payload;
+		},
+		toFourBytes(state: HexTreeState, action: PayloadAction<number>) {
+			if (state.originalData) {
+				const id = action.payload;
+
+				if (!state.fourByteIds.includes(id)) {
+					state.fourByteIds.push(id);
+				} else {
+					state.fourByteIds = state.fourByteIds.filter((i) => i !== id);
+				}
+
+				state.tree = parseDataToTree(
+					new Uint8Array(state.originalData),
+					state.fourByteIds
+				);
+			}
 		},
 		add(state: HexTreeState, action: PayloadAction<Add>) {
 			if (!state.tree) {
@@ -88,7 +105,7 @@ const hexTreeSlice = createSlice({
 					break;
 				}
 				case 'object': {
-					const newObject = parseObject(bytes, 0);
+					const newObject = parseObject(bytes, 0, state.fourByteIds);
 					room.objects.objects.splice(afterIndex + 1, 0, newObject);
 					break;
 				}
@@ -127,7 +144,7 @@ const hexTreeSlice = createSlice({
 				const { objectIndex } = action.payload as ObjectPatch;
 				const rawBytes = room.objects.objects[objectIndex].rawBytes;
 				rawBytes.splice(offset, bytes.length, ...bytes);
-				const newValues = parseObject(rawBytes, 0);
+				const newValues = parseObject(rawBytes, 0, state.fourByteIds);
 
 				room.objects.objects[objectIndex] = {
 					...newValues,
@@ -213,7 +230,11 @@ function parseHeader(data: Uint8Array): LevelHeader {
 	};
 }
 
-function parseRoom(data: Uint8Array, roomIndex: RoomIndex): LevelTreeRoom {
+function parseRoom(
+	data: Uint8Array,
+	roomIndex: RoomIndex,
+	fourByteIds: number[]
+): LevelTreeRoom {
 	const autoScrollEndAddress =
 		roomIndex === 3
 			? data.length
@@ -222,7 +243,7 @@ function parseRoom(data: Uint8Array, roomIndex: RoomIndex): LevelTreeRoom {
 	return {
 		objects: {
 			header: parseObjectHeader(data, roomIndex),
-			objects: parseObjectsFromLevelFile(data, roomIndex),
+			objects: parseObjectsFromLevelFile(data, roomIndex, fourByteIds),
 			pendingRawBytes: [],
 		},
 		levelSettings: {
@@ -266,10 +287,10 @@ function parseRoom(data: Uint8Array, roomIndex: RoomIndex): LevelTreeRoom {
 	};
 }
 
-function parseDataToTree(data: Uint8Array): LevelTree {
+function parseDataToTree(data: Uint8Array, fourByteIds: number[]): LevelTree {
 	const header = parseHeader(data);
 	const rooms = ([0, 1, 2, 3] as RoomIndex[]).map((roomIndex) =>
-		parseRoom(data, roomIndex)
+		parseRoom(data, roomIndex, fourByteIds)
 	) as LevelRooms;
 
 	return { header, rooms };
@@ -277,13 +298,20 @@ function parseDataToTree(data: Uint8Array): LevelTree {
 
 type HexTreeThunkAction = ThunkAction<void, AppState, null, Action>;
 
-const loadLevel = (levelFile: File): HexTreeThunkAction => async (dispatch) => {
+const loadLevel = (levelFile: File): HexTreeThunkAction => async (
+	dispatch,
+	getState
+) => {
 	const reader = new FileReader();
 
 	reader.onloadend = () => {
 		const data = new Uint8Array(reader.result as ArrayBuffer);
 		dispatch(hexTreeSlice.actions.setOriginalData(Array.from(data)));
-		dispatch(hexTreeSlice.actions.setTree(parseDataToTree(data)));
+		dispatch(
+			hexTreeSlice.actions.setTree(
+				parseDataToTree(data, getState().hexTree.fourByteIds)
+			)
+		);
 	};
 
 	reader.readAsArrayBuffer(levelFile);
@@ -291,7 +319,7 @@ const loadLevel = (levelFile: File): HexTreeThunkAction => async (dispatch) => {
 
 const loadEmptyLevel = (): HexTreeThunkAction => (dispatch) => {
 	dispatch(hexTreeSlice.actions.setOriginalData(Array.from(EMPTY_LEVEL)));
-	dispatch(hexTreeSlice.actions.setTree(parseDataToTree(EMPTY_LEVEL)));
+	dispatch(hexTreeSlice.actions.setTree(parseDataToTree(EMPTY_LEVEL, [])));
 };
 
 const loadFromLocalStorage = (): HexTreeThunkAction => (dispatch) => {
@@ -312,11 +340,11 @@ const loadFromLocalStorage = (): HexTreeThunkAction => (dispatch) => {
 	}
 
 	dispatch(hexTreeSlice.actions.setOriginalData(Array.from(levelData)));
-	dispatch(hexTreeSlice.actions.setTree(parseDataToTree(levelData)));
+	dispatch(hexTreeSlice.actions.setTree(parseDataToTree(levelData, [])));
 };
 
 const reducer = hexTreeSlice.reducer;
-const { toggleExclude, patch, add } = hexTreeSlice.actions;
+const { toggleExclude, patch, add, toFourBytes } = hexTreeSlice.actions;
 
 export {
 	reducer,
@@ -326,5 +354,6 @@ export {
 	toggleExclude,
 	patch,
 	add,
+	toFourBytes,
 };
 export type { HexTreeState };
