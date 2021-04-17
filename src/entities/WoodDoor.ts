@@ -5,6 +5,8 @@ const WoodDoor: Entity = {
 	editorType: 'entity',
 	gameType: 'object',
 	dimensions: 'none',
+	objectId: 0xf,
+	emptyBank: 0,
 	romOffset: 0x16ad5c,
 	palette: [
 		0x7f96,
@@ -32,7 +34,7 @@ const WoodDoor: Entity = {
 	],
 
 	toBinary(x, y) {
-		return [0, y, x, 0xf];
+		return [0, y, x, this.objectId!];
 	},
 };
 
