@@ -12,7 +12,7 @@ function QuestionBlockEditDetails({
 		<PayloadEditDetails
 			payloads={Object.keys(QuestionBlock.payloadToObjectId!) as EntityType[]}
 			onEntitySettingsChange={onEntitySettingsChange}
-			canClear={false}
+			canClear={true}
 		/>
 	);
 }

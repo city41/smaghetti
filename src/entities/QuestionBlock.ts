@@ -1,14 +1,17 @@
 import type { Entity } from './types';
 import { LevelObject } from '../levelData/parseObjectsFromLevelFile';
+import { getBankLength } from './util';
 
 const QuestionBlock: Entity = {
 	type: 'QuestionBlock',
 	editorType: 'tile',
 	gameType: 'object',
 	settingsType: 'single',
-	defaultSettings: { payload: 'FireFlower' },
-	dimensions: 'none',
+	defaultSettings: {},
+	dimensions: 'x',
 	romOffset: 0x131fe0,
+	objectId: 0x10,
+	param1: 'width',
 	payloadToObjectId: {
 		CapeFeather: 0x44,
 		CoinSnake: 0x47,
@@ -16,6 +19,7 @@ const QuestionBlock: Entity = {
 		PWing: 0x55,
 		Shoe: 0x43,
 	},
+	emptyBank: 1,
 	payloadBank: 0,
 	palette: [
 		0x7f96,
@@ -43,10 +47,23 @@ const QuestionBlock: Entity = {
 	toBinary(x, y, w, h, settings) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
-		const objectId =
-			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId];
+		if (settings.payload in payloadToObjectId) {
+			// if there is a payload then need to split this up into individual QuestionBlock objects
 
-		return [0, y, x, objectId];
+			let binaries: number[] = [];
+			const objectId =
+				payloadToObjectId[settings.payload as keyof typeof payloadToObjectId];
+
+			for (let by = 0; by < h + 1; ++by) {
+				for (let bx = 0; bx < w + 1; ++bx) {
+					binaries = binaries.concat([0, y + by, x + bx, objectId]);
+				}
+			}
+
+			return binaries;
+		} else {
+			return [getBankLength(1, w), y, x, this.objectId!];
+		}
 	},
 
 	parseBinary(rawBytes: number[]): LevelObject {
