@@ -94,22 +94,6 @@ function RenderLevel({
 
 	const body = currentRoom.exclude ? null : (
 		<>
-			{objects.map((o, i) => {
-				const left = o.x * TILE_SIZE * scale;
-				const top = o.y * TILE_SIZE * scale;
-
-				return (
-					<EntityContainer
-						key={`object-${i}`}
-						style={{ position: 'absolute', left, top }}
-						focused={focusedEntity === o}
-						onFocus={() => onEntityFocus(o)}
-						excluded={o.exclude}
-					>
-						<LevelObject object={o} scale={scale} />
-					</EntityContainer>
-				);
-			})}
 			{sprites.map((s, i) => {
 				const left = s.x * TILE_SIZE * scale;
 				const top = s.y * TILE_SIZE * scale;
@@ -123,6 +107,22 @@ function RenderLevel({
 						excluded={s.exclude}
 					>
 						<LevelSprite sprite={s} scale={scale} />
+					</EntityContainer>
+				);
+			})}
+			{objects.map((o, i) => {
+				const left = o.x * TILE_SIZE * scale;
+				const top = o.y * TILE_SIZE * scale;
+
+				return (
+					<EntityContainer
+						key={`object-${i}`}
+						style={{ position: 'absolute', left, top }}
+						focused={focusedEntity === o}
+						onFocus={() => onEntityFocus(o)}
+						excluded={o.exclude}
+					>
+						<LevelObject object={o} scale={scale} />
 					</EntityContainer>
 				);
 			})}

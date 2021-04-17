@@ -41,6 +41,7 @@ import { UndergroundFlatTerrain_HorizontalTop } from './UndergroundFlatTerrain_H
 import { UndergroundFlatTerrain_UpperLeftCorner } from './UndergroundFlatTerrain_UpperLeftCorner';
 import { UndergroundFlatTerrain_UpperRightCorner } from './UndergroundFlatTerrain_UpperRightCorner';
 import { UndergroundFlatTerrain_VerticalLeft } from './UndergroundFlatTerrain_VerticalLeft';
+import { UndergroundFlatTerrain_VerticalRight } from './UndergroundFlatTerrain_VerticalRight';
 import { WoodBlock } from './WoodBlock';
 import { WoodDoor } from './WoodDoor';
 
@@ -88,6 +89,7 @@ const entityMap = {
 	UndergroundFlatTerrain_UpperLeftCorner,
 	UndergroundFlatTerrain_UpperRightCorner,
 	UndergroundFlatTerrain_VerticalLeft,
+	UndergroundFlatTerrain_VerticalRight,
 	WoodBlock,
 	WoodDoor,
 };
