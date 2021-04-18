@@ -1,7 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { FaTrash } from 'react-icons/fa';
-import { MdEdit } from 'react-icons/md';
+import { FaTrash, FaHammer } from 'react-icons/fa';
 import { RoomState } from '../../editorSlice';
 import { LevelThumbnail } from '../../../LevelThumbnail';
 
@@ -47,7 +46,7 @@ function ManageRooms({
 						<h2 className="bg-gray-700 text-white px-2 inline-flex flex-row items-center space-x-2">
 							<div>room{i + 1}</div>
 							<PlainIconButton
-								icon={MdEdit}
+								icon={FaHammer}
 								size="small"
 								label="edit room"
 								onClick={() => {
