@@ -11,6 +11,7 @@ import { LevelSprite } from './LevelSprite';
 import { LevelTransport } from './LevelTransport';
 import useClipboard from 'react-use-clipboard';
 import { LevelSettings } from './LevelSettings';
+import { ObjectHeader } from './ObjectHeader';
 
 type RoomProps = {
 	className?: string;
@@ -257,6 +258,12 @@ function Room({
 			</h2>
 			<h3 className="sticky z-10 top-10 bg-gray-700 py-1 pl-2">Objects</h3>
 			<div id={`objects-room-${roomIndex}`} />
+			<ObjectHeader
+				header={room.objects.header}
+				onPatch={({ offset, bytes }) => {
+					onPatch({ type: 'object-header', roomIndex, offset, bytes });
+				}}
+			/>
 			{objects}
 			<h3 className="sticky z-10 top-10 bg-gray-700 py-1 pl-2">
 				Level Settings

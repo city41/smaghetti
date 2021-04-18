@@ -156,6 +156,11 @@ const hexTreeSlice = createSlice({
 				);
 			}
 
+			if (type === 'object-header') {
+				room.objects.header.rawBytes.splice(offset, bytes.length, ...bytes);
+				// TODO: parse the header again. But so far, don't care about the parsed output...
+			}
+
 			if (type === 'sprite') {
 				const { spriteIndex } = action.payload as SpritePatch;
 				const rawBytes = room.sprites.sprites[spriteIndex].rawBytes;

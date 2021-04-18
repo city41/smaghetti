@@ -146,7 +146,14 @@ type ObjectPatch = {
 	bytes: number[];
 };
 
-type Patch = LevelSettingsPatch | SpritePatch | ObjectPatch;
+type ObjectHeaderPatch = {
+	type: 'object-header';
+	roomIndex: RoomIndex;
+	offset: number;
+	bytes: number[];
+};
+
+type Patch = LevelSettingsPatch | SpritePatch | ObjectPatch | ObjectHeaderPatch;
 
 type Add = {
 	type: 'sprite' | 'object' | 'transport';
