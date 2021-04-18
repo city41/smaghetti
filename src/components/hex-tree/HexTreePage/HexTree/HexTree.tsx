@@ -16,7 +16,9 @@ type HexTreeProps = {
 	onEntityFocus: (entity: any) => void;
 	onAdd: (add: Add) => void;
 	onFourBytes: (id: number) => void;
+	onFiveBytes: (id: number) => void;
 	fourByteIds: number[];
+	fiveByteIds: number[];
 };
 
 function HexTree({
@@ -27,7 +29,9 @@ function HexTree({
 	focusedEntity,
 	onEntityFocus,
 	onFourBytes,
+	onFiveBytes,
 	fourByteIds,
+	fiveByteIds,
 }: HexTreeProps) {
 	const roomButtons = [];
 
@@ -70,6 +74,8 @@ function HexTree({
 					onEntityFocus={onEntityFocus}
 					onFourBytes={onFourBytes}
 					fourByteIds={fourByteIds}
+					onFiveBytes={onFiveBytes}
+					fiveByteIds={fiveByteIds}
 				/>
 			</Fragment>
 		);

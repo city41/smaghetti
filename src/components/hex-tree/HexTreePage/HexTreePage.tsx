@@ -29,11 +29,13 @@ type HexTreePageProps = {
 	onExcludeChange: (exclusion: Exclusion) => void;
 	onPatch: (patch: Patch) => void;
 	onAdd: (add: Add) => void;
-	onFourBytes: (id: number) => void;
 	tree: LevelTree | null;
 	data: Uint8Array;
 	originalData: Uint8Array;
+	onFourBytes: (id: number) => void;
+	onFiveBytes: (id: number) => void;
 	fourByteIds: number[];
+	fiveByteIds: number[];
 };
 
 const tabs = ['Outline', 'Hex (current)', 'Hex (original)'];
@@ -46,11 +48,13 @@ function HexTreePage({
 	onExcludeChange,
 	onPatch,
 	onAdd,
-	onFourBytes,
 	tree,
 	data,
 	originalData,
+	onFourBytes,
+	onFiveBytes,
 	fourByteIds,
+	fiveByteIds,
 }: HexTreePageProps) {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [focusedEntity, setFocusedEntity] = useState<any>(null);
@@ -88,7 +92,9 @@ function HexTreePage({
 							onPatch={onPatch}
 							onAdd={onAdd}
 							onFourBytes={onFourBytes}
+							onFiveBytes={onFiveBytes}
 							fourByteIds={fourByteIds}
+							fiveByteIds={fiveByteIds}
 						/>
 					)}
 				</>

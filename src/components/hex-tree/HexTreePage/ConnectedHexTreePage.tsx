@@ -12,6 +12,7 @@ import {
 	patch,
 	add,
 	toFourBytes,
+	toFiveBytes,
 } from '../hexTreeSlice';
 import { BinaryRoom, LevelTree, LevelTreeRoom } from '../types';
 import { POINTER_AREA_SIZE_IN_BYTES } from '../../../levelData/constants';
@@ -248,13 +249,14 @@ const actions = bindActionCreators(
 		onPatch: patch,
 		onAdd: add,
 		onFourBytes: toFourBytes,
+		onFiveBytes: toFiveBytes,
 	},
 	dispatch
 );
 
 function ConnectedHexTreePage() {
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
-	const { tree, originalData, fourByteIds } = useSelector(
+	const { tree, originalData, fourByteIds, fiveByteIds } = useSelector(
 		(state: AppState) => state.hexTree
 	);
 
@@ -267,6 +269,7 @@ function ConnectedHexTreePage() {
 			data={data}
 			originalData={new Uint8Array(originalData ?? [])}
 			fourByteIds={fourByteIds}
+			fiveByteIds={fiveByteIds}
 			{...actions}
 		/>
 	);
