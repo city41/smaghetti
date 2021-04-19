@@ -180,6 +180,13 @@ const terrain: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
+	{
+		entry: 'LogBridge',
+		info: {
+			title: 'Log Bridge',
+			description: '',
+		},
+	},
 ];
 
 const objects: PaletteChoiceModalEntry[] = [

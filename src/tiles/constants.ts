@@ -34,9 +34,10 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	Stalactite: 'St',
 	HiddenBlock: 'Hb',
 	WoodBlock: 'Wo',
-	FortressBrick: 'Fb',
 	Lava: 'Lv',
+	FortressBrick: 'Fb',
 	FireBarBase: 'Fbb',
+	LogBridge: 'Lbg',
 };
 
 const TILE_SERIALIZED_ID_TO_TYPE_MAP: Record<

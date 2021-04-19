@@ -65,6 +65,9 @@ const knownFourByteIds: Record<number, number[]> = {
 		0x7e, // buried veggie -- koopa shell
 		0xd, // final most wall in Classic 1-2 (right side of warp pipe "room")
 	],
+	[ROOM_TYPE_SETTINGS.fortress.objectSet]: [
+		0x21, // the bridge in classic fortresses
+	],
 };
 
 const knownFiveByteIds: Record<number, number[]> = {
