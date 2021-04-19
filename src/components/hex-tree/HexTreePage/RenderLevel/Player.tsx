@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Ref, RefObject } from 'react';
 import clsx from 'clsx';
 import { TILE_SIZE } from '../../../../tiles/constants';
 
@@ -7,9 +7,13 @@ type PlayerProps = {
 	x: number;
 	y: number;
 	scale: number;
+	ref?: RefObject<HTMLDivElement> | Ref<HTMLDivElement> | null;
 };
 
-function Player({ className, x, y, scale }: PlayerProps) {
+const Player = React.forwardRef<HTMLDivElement, PlayerProps>(function Player(
+	{ className, x, y, scale },
+	ref
+) {
 	const width = 1 * TILE_SIZE * scale;
 	const height = 1 * TILE_SIZE * scale;
 
@@ -22,10 +26,11 @@ function Player({ className, x, y, scale }: PlayerProps) {
 	};
 	return (
 		<div
+			ref={ref}
 			className={clsx(className, 'Player-bg', 'bg-center absolute')}
 			style={style}
 		/>
 	);
-}
+});
 
 export { Player };

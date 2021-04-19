@@ -71,6 +71,18 @@ function RenderLevel({
 	const [currentRoomIndex, setCurrentRoomIndex] = useState(0);
 
 	const currentRoom = rooms[currentRoomIndex];
+
+	const playerRef = useRef<HTMLDivElement | null>(null);
+
+	useEffect(() => {
+		if (playerRef.current) {
+			setTimeout(() => {
+				console.log('scrolling player dammit');
+				playerRef.current?.scrollIntoView({ block: 'center' });
+			}, 10);
+		}
+	}, [currentRoom?.levelSettings?.settings]);
+
 	const {
 		objects: { objects },
 		sprites: { sprites },
@@ -144,6 +156,7 @@ function RenderLevel({
 			})}
 			{currentRoom.levelSettings.settings && (
 				<Player
+					ref={playerRef}
 					x={currentRoom.levelSettings.settings.playerXStart}
 					y={currentRoom.levelSettings.settings.playerYStart}
 					scale={scale}
