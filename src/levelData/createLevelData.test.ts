@@ -3,6 +3,7 @@ import {
 	ROOM_OBJECT_HEADER_SIZE_IN_BYTES,
 	ROOM_OBJECT_POINTERS,
 	ROOM_SPRITE_POINTERS,
+	ROOM_TYPE_SETTINGS,
 } from './constants';
 import { parseObject } from './parseObjectsFromLevelFile';
 
@@ -98,7 +99,13 @@ describe('createLevelData', () => {
 			const objectAddr =
 				levelData[ROOM_OBJECT_POINTERS[0]] + ROOM_OBJECT_HEADER_SIZE_IN_BYTES;
 
-			const parsedObject = parseObject(levelData, objectAddr, [], []);
+			const parsedObject = parseObject(
+				levelData,
+				objectAddr,
+				ROOM_TYPE_SETTINGS.underground.objectSet,
+				[],
+				[]
+			);
 
 			expect(parsedObject.bank).toEqual(1);
 			expect(parsedObject.param1).toEqual(2);

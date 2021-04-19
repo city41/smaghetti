@@ -126,6 +126,7 @@ const hexTreeSlice = createSlice({
 			const { roomIndex, afterIndex, type, bytes } = action.payload;
 
 			const room = state.tree.rooms[roomIndex];
+			const objectSet = room.levelSettings.settings?.objectSet;
 
 			switch (type) {
 				case 'sprite': {
@@ -137,6 +138,7 @@ const hexTreeSlice = createSlice({
 					const newObject = parseObject(
 						bytes,
 						0,
+						objectSet!,
 						state.fourByteIds,
 						state.fiveByteIds
 					);
@@ -154,6 +156,7 @@ const hexTreeSlice = createSlice({
 
 			const { type, roomIndex, offset, bytes } = action.payload;
 			const room = state.tree.rooms[roomIndex];
+			const objectSet = room.levelSettings.settings?.objectSet;
 
 			if (type === 'level-settings') {
 				room.levelSettings.rawBytes.splice(offset, bytes.length, ...bytes);
@@ -187,6 +190,7 @@ const hexTreeSlice = createSlice({
 				const newValues = parseObject(
 					rawBytes,
 					0,
+					objectSet!,
 					state.fourByteIds,
 					state.fiveByteIds
 				);

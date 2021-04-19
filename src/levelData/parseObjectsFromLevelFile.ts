@@ -1,13 +1,9 @@
 import {
+	ROOM_LEVELSETTING_POINTERS,
 	ROOM_OBJECT_HEADER_SIZE_IN_BYTES,
 	ROOM_OBJECT_POINTERS,
+	ROOM_TYPE_SETTINGS,
 } from '../levelData/constants';
-import { entityMap } from '../entities/entityMap';
-import {
-	bank0ObjectIdToEntityType,
-	bank1ObjectIdToEntityType,
-} from '../entities/objectIdMap';
-import { raw } from '@storybook/react';
 
 type LevelObject = {
 	bank: number;
@@ -18,6 +14,26 @@ type LevelObject = {
 	id: number;
 	rawBytes: number[];
 };
+
+function getObjectSet(data: Uint8Array, roomIndex: number): number {
+	const view = new DataView(data.buffer);
+
+	const levelSettingsPointer = ROOM_LEVELSETTING_POINTERS[roomIndex];
+
+	if (levelSettingsPointer >= data.length - 2) {
+		return -1;
+	}
+
+	const levelSettingsAddress = view.getUint16(levelSettingsPointer, true);
+
+	if (levelSettingsAddress >= data.length - 2) {
+		return -1;
+	}
+
+	const objectSet = view.getUint16(levelSettingsAddress + 12, true);
+
+	return objectSet;
+}
 
 /**
  * object size is not determined by bank. Rather, objects have
@@ -31,29 +47,36 @@ type LevelObject = {
  * TODO: this might need a more central/better location
  * TODO: not sure how object/graphic sets will impact this once they are figured out
  */
-const knownFourByteIds = [
-	0x10, // QuestionBlock with coin payload
-	0x17, // something in Classic 1-2, I think it's a pipe
-	0x18, // something in Classic 1-2, also think it's a pipe
-	0x1c, // something in Classic 1-2, also think it's a pipe
-	0x3a, // initial wall at start of Classic 1-2
-	0x5a, // buried veggie -- giant veggie
-	0x5b, // buried veggie -- regular veggie
-	0x5c, // buried veggie -- small veggie
-	0x63, // buried veggie -- coin
-	0x64, // buried veggie -- coin cache
-	0x65, // buried veggie -- 1up
-	0x67, // buried veggie -- poison mushroom
-	0x69, // buried veggie -- monty mole
-	0x7e, // buried veggie -- koopa shell
-	0xd, // final most wall in Classic 1-2 (right side of warp pipe "room")
-];
+const knownFourByteIds: Record<number, number[]> = {
+	[ROOM_TYPE_SETTINGS.underground.objectSet]: [
+		0x10, // QuestionBlock with coin payload
+		0x17, // something in Classic 1-2, I think it's a pipe
+		0x18, // something in Classic 1-2, also think it's a pipe
+		0x1c, // something in Classic 1-2, also think it's a pipe
+		0x3a, // initial wall at start of Classic 1-2
+		0x5a, // buried veggie -- giant veggie
+		0x5b, // buried veggie -- regular veggie
+		0x5c, // buried veggie -- small veggie
+		0x63, // buried veggie -- coin
+		0x64, // buried veggie -- coin cache
+		0x65, // buried veggie -- 1up
+		0x67, // buried veggie -- poison mushroom
+		0x69, // buried veggie -- monty mole
+		0x7e, // buried veggie -- koopa shell
+		0xd, // final most wall in Classic 1-2 (right side of warp pipe "room")
+	],
+};
 
-const knownFiveByteIds: number[] = [];
+const knownFiveByteIds: Record<number, number[]> = {
+	[ROOM_TYPE_SETTINGS.fortress.objectSet]: [
+		0xd, // the main fortress "metal" brick
+	],
+};
 
 function parseObject(
 	levelData: Uint8Array | number[],
 	objectIndex: number,
+	objectSet: number,
 	fourByteIds: number[],
 	fiveByteIds: number[]
 ): LevelObject {
@@ -62,8 +85,14 @@ function parseObject(
 	const param1 = bankAndParam1 & 0x3f;
 	const id = levelData[objectIndex + 3];
 
-	const allKnownFourByteIds = [...knownFourByteIds, ...fourByteIds];
-	const allKnownFiveByteIds = [...knownFiveByteIds, ...fiveByteIds];
+	const allKnownFourByteIds = [
+		...(knownFourByteIds[objectSet] ?? []),
+		...fourByteIds,
+	];
+	const allKnownFiveByteIds = [
+		...(knownFiveByteIds[objectSet] ?? []),
+		...fiveByteIds,
+	];
 
 	// if the bank/id combo is in the map, we truly know its size, else
 	// we are just guessing based on bank. As reverse engineering progresses,
@@ -117,13 +146,20 @@ function parseObjectHeader(
 function parseObjects(
 	data: Uint8Array | number[],
 	index: number,
+	objectSet: number,
 	fourByteIds: number[],
 	fiveByteIds: number[]
 ): LevelObject[] {
 	const objects = [];
 
 	while (data[index] !== 0xff && index < data.length) {
-		const object = parseObject(data, index, fourByteIds, fiveByteIds);
+		const object = parseObject(
+			data,
+			index,
+			objectSet,
+			fourByteIds,
+			fiveByteIds
+		);
 		objects.push(object);
 		index += object.rawBytes.length;
 	}
@@ -141,10 +177,22 @@ function parseObjectsFromLevelFile(
 
 	const pointer = ROOM_OBJECT_POINTERS[roomIndex];
 
+	if (pointer >= levelData.length - 2) {
+		return [];
+	}
+
 	const objectIndex =
 		view.getUint16(pointer, true) + ROOM_OBJECT_HEADER_SIZE_IN_BYTES;
 
-	return parseObjects(levelData, objectIndex, fourByteIds, fiveByteIds);
+	const objectSet = getObjectSet(levelData, roomIndex);
+
+	return parseObjects(
+		levelData,
+		objectIndex,
+		objectSet,
+		fourByteIds,
+		fiveByteIds
+	);
 }
 
 export {
