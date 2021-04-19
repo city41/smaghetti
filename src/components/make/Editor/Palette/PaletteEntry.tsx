@@ -72,7 +72,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 
 			{incompatible && (
 				<div className="absolute w-full h-full top-0 left-0 grid place-items-center">
-					<ImCross className="text-red-600 w-8 h-8 opacity-75" />
+					<ImCross className="text-white w-8 h-8 opacity-80" />
 				</div>
 			)}
 			{showAdd && !incompatible && (

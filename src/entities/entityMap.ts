@@ -18,6 +18,7 @@ import { HiddenBlock } from './HiddenBlock';
 import { IndestructibleBrick } from './IndestructibleBrick';
 import { Key } from './Key';
 import { Lakitu } from './Lakitu';
+import { Lava } from './Lava';
 import { Leaf } from './Leaf';
 import { Muncher } from './Muncher';
 import { Mushroom } from './Mushroom';
@@ -67,6 +68,7 @@ const entityMap = {
 	IndestructibleBrick,
 	Key,
 	Lakitu,
+	Lava,
 	Leaf,
 	Muncher,
 	Mushroom,

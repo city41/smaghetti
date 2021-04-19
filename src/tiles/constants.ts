@@ -20,6 +20,7 @@ const TILE_TYPE_TO_TILE_ENTITY_TYPE: Record<
 	TileEntityType
 > = {};
 
+// TODO: really need this to go away
 const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	Brick: 'Br',
 	BuriedVegetable: 'Bu',
@@ -34,6 +35,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	HiddenBlock: 'Hb',
 	WoodBlock: 'Wo',
 	FortressBrick: 'Fb',
+	Lava: 'Lv',
 };
 
 const TILE_SERIALIZED_ID_TO_TYPE_MAP: Record<
