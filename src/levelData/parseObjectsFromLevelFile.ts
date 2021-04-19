@@ -67,6 +67,7 @@ const knownFourByteIds: Record<number, number[]> = {
 	],
 	[ROOM_TYPE_SETTINGS.fortress.objectSet]: [
 		0x21, // the bridge in classic fortresses
+		0x79, // not sure yet, but it is in mushroom04
 	],
 };
 

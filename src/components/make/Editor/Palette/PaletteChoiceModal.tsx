@@ -113,6 +113,13 @@ const terrain: PaletteChoiceModalEntry[] = [
 		},
 	},
 	{
+		entry: 'TerracottaBrick',
+		info: {
+			title: 'Terracotta Brick',
+			description: '',
+		},
+	},
+	{
 		entry: 'WoodBlock',
 		info: {
 			title: 'Wood Brick',
