@@ -1156,6 +1156,13 @@ const editorSlice = createSlice({
 			room.paletteEntries = room.paletteEntries.filter((pe) =>
 				isCompatibleEntity(pe, settings)
 			);
+
+			if (
+				room.currentPaletteEntry &&
+				!isCompatibleEntity(room.currentPaletteEntry, settings)
+			) {
+				room.currentPaletteEntry = room.paletteEntries[0];
+			}
 		},
 		setSaveLevelState(
 			state: InternalEditorState,
