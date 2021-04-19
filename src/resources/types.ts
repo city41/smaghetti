@@ -10,6 +10,7 @@ type StaticResource = {
 	type: string;
 	romOffset?: number;
 	palette: number[];
+	firstColorOpaque?: boolean;
 	tiles: Array<Array<number | TileExtractionSpec>>;
 };
 

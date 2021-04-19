@@ -18,6 +18,8 @@ export const Basic = () => {
 				onPaletteEntryIndexChosen={() => {}}
 				onPaletteEntryRemove={() => {}}
 				onPaletteEntryAdded={() => {}}
+				currentObjectSet={0}
+				currentGraphicSet={0}
 			/>
 		</div>
 	);

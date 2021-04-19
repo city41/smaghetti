@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
+import { ImCross } from 'react-icons/im';
 import { Tile } from '../../../Tile';
 import { Entity } from '../../../Entity';
 import { TILE_SIZE } from '../../../../tiles/constants';
@@ -20,87 +21,8 @@ type PaletteEntryProps = {
 	onClick: () => void;
 	onAddClick?: () => void;
 	onRemoveClick?: () => void;
+	incompatible?: boolean;
 };
-
-// const Root = styled.div`
-// 	position: relative;
-// 	padding: 8px;
-// 	margin: 8px;
-//
-// 	min-width: 66px;
-// 	max-width: 66px;
-//
-// 	min-height: 66px;
-// 	max-height: 66px;
-//
-// 	cursor: pointer;
-//
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-//
-// 	&.isCurrent,
-// 	:hover {
-// 		cursor: initial;
-// 		border-radius: 8px;
-// 	}
-//
-// 	&:hover {
-// 		background-color: rgb(255, 255, 255, 0.05);
-// 	}
-//
-// 	&.isCurrent {
-// 		background-color: rgb(255, 255, 255, 0.25);
-// 	}
-//
-// 	&.buttonsOnHover {
-// 		& .button {
-// 			visibility: hidden;
-// 		}
-//
-// 		&:hover {
-// 			.button {
-// 				visibility: visible;
-// 			}
-// 		}
-// 	}
-// `;
-//
-// const Button = styled.button`
-// 	--height: 16px;
-//
-// 	position: absolute;
-// 	z-index: 100;
-// 	bottom: calc(var(--height) / -2);
-//
-// 	border: none;
-// 	outline: none;
-//
-// 	color: white;
-// 	border-radius: 4px;
-//
-// 	height: var(--height);
-// 	padding: 0 4px;
-// 	margin: 0;
-//
-// 	display: grid;
-// 	place-items: center;
-//
-// 	cursor: pointer;
-//
-// 	& svg {
-// 		width: 16px;
-// 		height: 16px;
-// 	}
-// `;
-//
-// const AddButton = styled(Button)`
-// 	background-color: green;
-// `;
-//
-// const RemoveButton = styled(Button)`
-// 	background-color: #a51f1f;
-// `;
 
 const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 	className,
@@ -112,6 +34,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 	buttonsOnHover,
 	onAddClick,
 	onRemoveClick,
+	incompatible,
 }) => {
 	let item;
 
@@ -146,7 +69,13 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 			onClick={onClick}
 		>
 			{item}
-			{showAdd && (
+
+			{incompatible && (
+				<div className="absolute w-full h-full top-0 left-0 grid place-items-center">
+					<ImCross className="text-red-600 w-8 h-8 opacity-75" />
+				</div>
+			)}
+			{showAdd && !incompatible && (
 				<button
 					className={clsx(styles.button, 'bg-green-600 text-white')}
 					onClick={onAddClick}
@@ -154,13 +83,20 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 					add
 				</button>
 			)}
-			{showRemove && (
+			{showRemove && !incompatible && (
 				<button
 					className={clsx(styles.button, 'bg-red-600 text-white')}
 					onClick={onRemoveClick}
 				>
 					remove
 				</button>
+			)}
+			{incompatible && (
+				<div
+					className={clsx(styles.button, 'bg-red-600 text-white text-center')}
+				>
+					<div>can&apos;t add</div>
+				</div>
 			)}
 		</div>
 	);

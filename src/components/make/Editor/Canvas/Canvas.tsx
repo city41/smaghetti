@@ -23,6 +23,7 @@ import { snap } from '../../../../util/snap';
 import { entityMap, EntityType } from '../../../../entities/entityMap';
 
 import styles from './Canvas.module.css';
+import { bgGraphicToResourceMap } from '../../../../resources/bgGraphicToResourceMap';
 
 type OnPaintedArg = {
 	points: Point[];
@@ -36,6 +37,7 @@ type CanvasProps = {
 	scale: number;
 	currentPaletteEntry?: EntityType;
 	rooms: RoomState[];
+	currentRoomIndex: number;
 	entities: EditorEntity[];
 	transportSources: EditorTransport[];
 	transportDestinations: EditorTransport[];
@@ -323,6 +325,7 @@ const Canvas = memo(function Canvas({
 	scale,
 	currentPaletteEntry,
 	rooms,
+	currentRoomIndex,
 	entities,
 	transportSources,
 	transportDestinations,
@@ -441,7 +444,7 @@ const Canvas = memo(function Canvas({
 				className={clsx(
 					className,
 					styles.root,
-					'UndergroundBackground-bg',
+					bgGraphicToResourceMap[rooms[currentRoomIndex].settings.bgGraphic],
 					'relative shadow-lg bg-blue-200',
 					{
 						'cursor-crosshair': mouseMode === 'draw' || mouseMode === 'fill',

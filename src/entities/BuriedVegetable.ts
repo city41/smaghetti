@@ -1,5 +1,5 @@
 import type { Entity } from './types';
-import { getBankLength } from './util';
+import { getBankParam1 } from './util';
 
 const BuriedVegetable: Entity = {
 	type: 'BuriedVegetable',
@@ -18,8 +18,8 @@ const BuriedVegetable: Entity = {
 		CoinCache: 0x64,
 		GiantVegetable: 0x5a,
 		KoopaShell: 0x7e,
-		// does not work with underground object set
-		MontyMole: 0x69,
+		// does not work with underground graphic set
+		// MontyMole: 0x69,
 		OneUpMushroom: 0x65,
 		PoisonMushroom: 0x67,
 		RegularVegetable: 0x5b,
@@ -52,10 +52,10 @@ const BuriedVegetable: Entity = {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		const objectId =
-			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId] ??
+			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId]! ??
 			this.objectId!;
 
-		return [getBankLength(1, 0), y, x, objectId];
+		return [getBankParam1(1, 0), y, x, objectId];
 	},
 };
 

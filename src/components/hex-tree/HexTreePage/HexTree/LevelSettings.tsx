@@ -18,8 +18,8 @@ const levelSettingsSlices = {
 	'camera max': [7, 1],
 	'player y': [8, 1],
 	'player x': [9, 1],
-	'screen x': [10, 1],
-	'screen y': [11, 1],
+	'screen y': [10, 1],
+	'screen x': [11, 1],
 	'object set': [12, 2],
 	music: [14, 2],
 };

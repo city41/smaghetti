@@ -1,6 +1,6 @@
 import type { Entity } from './types';
 import { LevelObject } from '../levelData/parseObjectsFromLevelFile';
-import { getBankLength } from './util';
+import { getBankParam1 } from './util';
 
 const QuestionBlock: Entity = {
 	type: 'QuestionBlock',
@@ -51,8 +51,9 @@ const QuestionBlock: Entity = {
 			// if there is a payload then need to split this up into individual QuestionBlock objects
 
 			let binaries: number[] = [];
-			const objectId =
-				payloadToObjectId[settings.payload as keyof typeof payloadToObjectId];
+			const objectId = payloadToObjectId[
+				settings.payload as keyof typeof payloadToObjectId
+			]!;
 
 			for (let by = 0; by < h + 1; ++by) {
 				for (let bx = 0; bx < w + 1; ++bx) {
@@ -62,7 +63,7 @@ const QuestionBlock: Entity = {
 
 			return binaries;
 		} else {
-			return [getBankLength(1, w), y, x, this.objectId!];
+			return [getBankParam1(1, w), y, x, this.objectId!];
 		}
 	},
 

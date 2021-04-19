@@ -70,6 +70,7 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 			height={roomTileHeight * TILE_SIZE}
 			scale={scale}
 			rooms={rooms}
+			currentRoomIndex={currentRoomIndex}
 			entities={entities}
 			transportSources={transports}
 			transportDestinations={transportDestinations}

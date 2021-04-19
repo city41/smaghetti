@@ -49,6 +49,13 @@ type HexTreeState = {
 
 const EMPTY_LEVEL = createLevelData([
 	{
+		settings: {
+			objectSet: 0,
+			graphicSet: 0,
+			music: 0,
+			bgColor: 0,
+			bgGraphic: 0,
+		},
 		paletteEntries: [],
 		entities: [],
 		transports: [],

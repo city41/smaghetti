@@ -6,19 +6,22 @@ import { LevelThumbnail } from '../../../LevelThumbnail';
 
 import { PlainIconButton } from '../../../PlainIconButton';
 import { Button } from '../../../Button';
+import { bgGraphicToResourceMap } from '../../../../resources/bgGraphicToResourceMap';
 
 type PublicManageRoomsProps = {
 	className?: string;
 };
 
 type InternalManageRoomsProps = {
-	rooms: RoomState[];
+	rooms: Array<RoomState & { type: string }>;
 	currentRoomIndex: number;
 	onAddRoom: () => void;
 	onDeleteRoom: (roomIndex: number) => void;
 	onRoomIndexChange: (newIndex: number) => void;
 	onClose: () => void;
 	scale: number;
+	roomTypes: string[];
+	onRoomTypeChange: (index: number, type: string) => void;
 };
 
 function ManageRooms({
@@ -29,6 +32,8 @@ function ManageRooms({
 	onRoomIndexChange,
 	onClose,
 	scale,
+	roomTypes,
+	onRoomTypeChange,
 }: PublicManageRoomsProps & InternalManageRoomsProps) {
 	return (
 		<div
@@ -43,8 +48,20 @@ function ManageRooms({
 			{rooms.map((r, i) => {
 				return (
 					<div key={i}>
-						<h2 className="bg-gray-700 text-white px-2 inline-flex flex-row items-center space-x-2">
+						<h2 className="bg-gray-700 text-white px-2 py-1 flex flex-row items-center space-x-2">
 							<div>room{i + 1}</div>
+							<select
+								className="text-black"
+								value={r.type}
+								onChange={(e) => onRoomTypeChange(i, e.target.value)}
+							>
+								{roomTypes.map((rt) => (
+									<option key={rt} value={rt}>
+										{rt}
+									</option>
+								))}
+							</select>
+							<div className="flex-1" />
 							<PlainIconButton
 								icon={FaHammer}
 								size="small"
@@ -64,7 +81,10 @@ function ManageRooms({
 						</h2>
 						<div className="relative">
 							<LevelThumbnail
-								className="absolute top-0 left-0 border border-black bg-blue-200 UndergroundBackground-bg"
+								className={clsx(
+									'absolute top-0 left-0 border border-black bg-blue-200'
+								)}
+								bgGraphic={r.settings.bgGraphic}
 								entities={r.entities}
 								tileData={r.tiles}
 								scale={scale}

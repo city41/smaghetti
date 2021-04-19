@@ -30,6 +30,8 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import { TILE_SIZE, TILE_TYPE_TO_GROUP_TYPE_MAP } from '../../tiles/constants';
 import { entityMap, EntityType } from '../../entities/entityMap';
+import { ROOM_TYPE_SETTINGS } from '../../levelData/constants';
+import { isCompatibleEntity } from './util';
 
 type LocalStorageData = {
 	metadata: {
@@ -59,6 +61,7 @@ const scales: number[] = [
 ];
 
 type RoomState = {
+	settings: RoomSettings;
 	entities: EditorEntity[];
 	transports: EditorTransport[];
 	tiles: TileMatrix;
@@ -134,6 +137,9 @@ function calcYForScrollToBottom() {
 }
 
 const initialRoomState: RoomState = {
+	settings: {
+		...ROOM_TYPE_SETTINGS.underground,
+	},
 	entities: [
 		{
 			id: 1,
@@ -178,9 +184,10 @@ const defaultInitialState: InternalEditorState = {
 
 const initialState = defaultInitialState;
 
-const EMPTY_LEVEL: SerializedLevelData = {
+const EMPTY_SERIALIZED_LEVEL: SerializedLevelData = {
 	rooms: [
 		{
+			settings: { ...initialState.rooms[0].settings },
 			paletteEntries: [...initialState.rooms[0].paletteEntries],
 			entities: [...initialState.rooms[0].entities],
 			transports: [],
@@ -1120,6 +1127,36 @@ const editorSlice = createSlice({
 				setScaleAndOffsetForManageRooms(state);
 			}
 		},
+		roomSettingsChange(
+			state: InternalEditorState,
+			action: PayloadAction<{ index: number; settings: RoomSettings }>
+		) {
+			const { index, settings } = action.payload;
+			const room = state.rooms[index];
+			room.settings = settings;
+
+			room.entities = room.entities.filter((e) =>
+				isCompatibleEntity(e.type, settings)
+			);
+
+			room.tiles = room.tiles.map((row) => {
+				if (!row) {
+					return row;
+				}
+
+				return row.map((tile) => {
+					if (!tile) {
+						return tile;
+					}
+
+					return isCompatibleEntity(tile.tileType, settings) ? tile : null;
+				});
+			});
+
+			room.paletteEntries = room.paletteEntries.filter((pe) =>
+				isCompatibleEntity(pe, settings)
+			);
+		},
 		setSaveLevelState(
 			state: InternalEditorState,
 			action: PayloadAction<InternalEditorState['saveLevelState']>
@@ -1149,6 +1186,7 @@ const editorSlice = createSlice({
 
 			state.rooms = levelData.rooms.map((r) => {
 				return {
+					settings: r.settings,
 					entities: r.entities.filter((e) => !!entityMap[e.type]),
 					transports: r.transports,
 					tiles: r.tileLayer.data,
@@ -1518,6 +1556,7 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 		const levelData: LevelData = {
 			rooms: editorState.rooms.map((room) => {
 				return {
+					settings: room.settings,
 					paletteEntries: room.paletteEntries,
 					entities: room.entities,
 					transports: room.transports,
@@ -1555,7 +1594,7 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 
 const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 	try {
-		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
+		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_SERIALIZED_LEVEL));
 		dispatch(editorSlice.actions.setLevelName(''));
 		dispatch(editorSlice.actions.setLoadLevelState('loading'));
 
@@ -1628,6 +1667,7 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 		const localStorageData: LevelData = {
 			rooms: editorState.rooms.map((r) => {
 				return {
+					settings: r.settings,
 					paletteEntries: r.paletteEntries,
 					entities: r.entities,
 					transports: r.transports,
@@ -1685,6 +1725,7 @@ const {
 	toggleManageRoomsMode,
 	addRoom,
 	deleteRoom,
+	roomSettingsChange,
 	toggleGrid,
 	pushPan,
 	popPan,
@@ -1896,6 +1937,7 @@ export {
 	toggleManageRoomsMode,
 	addRoom,
 	deleteRoom,
+	roomSettingsChange,
 	toggleGrid,
 	pushPan,
 	popPan,

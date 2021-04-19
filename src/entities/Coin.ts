@@ -1,5 +1,5 @@
 import type { Entity } from './types';
-import { getBankLength } from './util';
+import { getBankParam1 } from './util';
 
 const Coin: Entity = {
 	type: 'Coin',
@@ -34,7 +34,7 @@ const Coin: Entity = {
 	],
 
 	toBinary(x, y, w, h) {
-		return [getBankLength(1, w), y, x, this.objectId!, h];
+		return [getBankParam1(1, w), y, x, this.objectId!, h];
 	},
 };
 

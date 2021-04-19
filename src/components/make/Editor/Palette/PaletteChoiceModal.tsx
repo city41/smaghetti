@@ -7,7 +7,7 @@ import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
 
 import styles from './PaletteChoiceModal.module.css';
 import tabStyles from '../../../../styles/tabs.module.css';
-import { EntityType } from '../../../../entities/entityMap';
+import { entityMap, EntityType } from '../../../../entities/entityMap';
 
 type PaletteChoiceModalProps = {
 	open: boolean;
@@ -15,6 +15,8 @@ type PaletteChoiceModalProps = {
 	onEntryAdded: (addedEntry: EntityType) => void;
 	onEntryRemoved: (removedEntry: EntityType) => void;
 	onCancel: () => void;
+	currentGraphicSet: number;
+	currentObjectSet: number;
 };
 
 type PaletteChoiceModalEntry = {
@@ -143,6 +145,13 @@ const terrain: PaletteChoiceModalEntry[] = [
 		info: {
 			title: 'Buried Vegetable',
 			description: 'Can pull up all kinds of things! Nice throwback to SMB2.',
+		},
+	},
+	{
+		entry: 'FortressBrick',
+		info: {
+			title: 'Fortress Brick',
+			description: '',
 		},
 	},
 ];
@@ -353,11 +362,28 @@ const entries = [
 	transports,
 ];
 
+function isCompatible(
+	type: EntityType,
+	objectSet: number,
+	graphicSet: number
+): boolean {
+	const entityDef = entityMap[type];
+
+	const objectSetCompatible =
+		!entityDef.objectSets || entityDef.objectSets.includes(objectSet);
+	const graphicSetCompatible =
+		!entityDef.graphicSets || entityDef.graphicSets.includes(graphicSet);
+
+	return objectSetCompatible && graphicSetCompatible;
+}
+
 function PaletteChoiceModal({
 	open,
 	currentPaletteEntries,
 	onEntryAdded,
 	onCancel,
+	currentObjectSet,
+	currentGraphicSet,
 }: PaletteChoiceModalProps) {
 	const [currentTabIndex, setCurrentTabIndex] = useState(0);
 	const [currentEntryIndex, setCurrentEntryIndex] = useState(0);
@@ -405,6 +431,9 @@ function PaletteChoiceModal({
 									buttonsOnHover
 									showAdd
 									showRemove={false}
+									incompatible={
+										!isCompatible(ce.entry, currentObjectSet, currentGraphicSet)
+									}
 									onAddClick={() => {
 										onEntryAdded(ce.entry);
 									}}

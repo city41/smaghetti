@@ -4,6 +4,16 @@ import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
 
 type Entity = StaticResource & {
+	/**
+	 * which object sets are this entity compatible with?
+	 * not specified means all object sets (ie question block)
+	 */
+	objectSets?: number[];
+	/**
+	 * which graphic sets are this entity compatible with?
+	 * not specified means all graphic sets (ie goomba)
+	 */
+	graphicSets?: number[];
 	editorType: 'entity' | 'tile' | 'transport';
 	gameType: 'sprite' | 'object' | 'transport';
 	dimensions: 'none' | 'x' | 'y' | 'xy';
@@ -25,7 +35,7 @@ type Entity = StaticResource & {
 	 * If an entity has payloads, the payloads should be described here.
 	 * Mostly used by HexTree
 	 */
-	payloadToObjectId?: Record<EntityType | ResourceType, number>;
+	payloadToObjectId?: Partial<Record<EntityType | ResourceType, number>>;
 	// TODO: I think group settings is coming, but if not, switch to boolean
 	settingsType?: 'single';
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -63,7 +63,16 @@ type SerializedTileLayer = {
 	data: SerializedTileMatrix;
 };
 
+type RoomSettings = {
+	objectSet: number;
+	graphicSet: number;
+	music: number;
+	bgGraphic: number;
+	bgColor: number;
+};
+
 type RoomData = {
+	settings: RoomSettings;
 	paletteEntries: EntityType[];
 	entities: EditorEntity[];
 	transports: EditorTransport[];

@@ -20,7 +20,7 @@ const actions = bindActionCreators(
 );
 
 const ConnectedPalette: FunctionComponent<Partial<PaletteProps>> = (props) => {
-	const { currentPaletteEntry, paletteEntries } = useSelector(
+	const { currentPaletteEntry, paletteEntries, settings } = useSelector(
 		(state: AppState) => state.editor.currentRoom
 	);
 
@@ -28,6 +28,8 @@ const ConnectedPalette: FunctionComponent<Partial<PaletteProps>> = (props) => {
 		<Palette
 			currentPaletteEntry={currentPaletteEntry}
 			paletteEntries={paletteEntries}
+			currentObjectSet={settings.objectSet}
+			currentGraphicSet={settings.graphicSet}
 			{...props}
 			{...actions}
 		/>

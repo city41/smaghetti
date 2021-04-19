@@ -137,10 +137,13 @@ function renderTiles(
 
 function tileToCanvas(
 	tileData: Array<Array<TileExtractionSpecWithData>>,
-	palette: number[]
+	palette: number[],
+	firstColorOpaque?: boolean
 ): HTMLCanvasElement {
 	const canvas = document.createElement('canvas');
-	renderTiles(canvas, tileData, palette);
+	renderTiles(canvas, tileData, palette, {
+		firstColorOpaque: !!firstColorOpaque,
+	});
 
 	return canvas;
 }
@@ -149,12 +152,6 @@ function extractResourceTileData(
 	rom: Uint8Array,
 	resource: StaticResource
 ): ExtractedEntityTileData {
-	// if (!('tiles' in resource)) {
-	// 	throw new Error(
-	// 		'extractResourceTileData: called with a non static resource'
-	// 	);
-	// }
-
 	const tileData: Array<Array<TileExtractionSpecWithData>> = resource.tiles.map(
 		(tileIndexRow) => {
 			return tileIndexRow.map((t) => {
@@ -215,7 +212,11 @@ function extractResourceToDataUrl(
 	resource: StaticResource
 ): string {
 	const tileData = extractResourceTileData(rom, resource);
-	const canvas = tileToCanvas(tileData, resource.palette ?? DEFAULT_PALETTE);
+	const canvas = tileToCanvas(
+		tileData,
+		resource.palette ?? DEFAULT_PALETTE,
+		resource.firstColorOpaque
+	);
 
 	return canvas.toDataURL();
 }

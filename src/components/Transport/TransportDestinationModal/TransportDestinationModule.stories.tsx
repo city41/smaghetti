@@ -12,6 +12,13 @@ const meta: Meta = {
 export default meta;
 
 const EMPTY_ROOM: RoomState = {
+	settings: {
+		objectSet: 0,
+		graphicSet: 0,
+		music: 0,
+		bgColor: 0,
+		bgGraphic: 0,
+	},
 	entities: [],
 	tiles: [],
 	transports: [],

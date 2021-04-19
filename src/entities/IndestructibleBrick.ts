@@ -1,5 +1,5 @@
 import type { Entity } from './types';
-import { getBankLength } from './util';
+import { getBankParam1 } from './util';
 
 const IndestructibleBrick: Entity = {
 	type: 'IndestructibleBrick',
@@ -34,7 +34,7 @@ const IndestructibleBrick: Entity = {
 	],
 
 	toBinary(x, y, w, h) {
-		return [getBankLength(1, h), y, x, this.objectId!, 0];
+		return [getBankParam1(1, h), y, x, this.objectId!, 0];
 	},
 
 	parseBinary(rawBytes) {

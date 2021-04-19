@@ -4,6 +4,7 @@ import { TILE_SIZE } from '../../tiles/constants';
 
 import { Entity as EntityCmp } from '../Entity';
 import { Tile } from '../Tile';
+import { bgGraphicToResourceMap } from '../../resources/bgGraphicToResourceMap';
 
 type LevelThumbnailProps = {
 	className?: string;
@@ -11,6 +12,7 @@ type LevelThumbnailProps = {
 	tileY: number;
 	tileWidth: number;
 	tileHeight: number;
+	bgGraphic?: number;
 	scale: number;
 	tileData: TileMatrix;
 	entities: EditorEntity[];
@@ -54,6 +56,7 @@ function LevelThumbnail({
 	tileY,
 	tileWidth,
 	tileHeight,
+	bgGraphic,
 	scale,
 	tileData,
 	entities,
@@ -112,6 +115,14 @@ function LevelThumbnail({
 			className={clsx(className, 'relative overflow-hidden')}
 			style={{ width, height }}
 		>
+			{typeof bgGraphic === 'number' && (
+				<div
+					className={clsx(
+						'absolute top-0 left-0 w-full h-full opacity-50',
+						bgGraphicToResourceMap[bgGraphic]
+					)}
+				/>
+			)}
 			{tileRows}
 			{entityCmps}
 			{children}

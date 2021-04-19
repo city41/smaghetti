@@ -1,5 +1,5 @@
 import type { Entity } from './types';
-import { getBankLength } from './util';
+import { getBankParam1 } from './util';
 
 const UndergroundFlatTerrain_VerticalLeft: Entity = {
 	type: 'UndergroundFlatTerrain_VerticalLeft',
@@ -39,7 +39,7 @@ const UndergroundFlatTerrain_VerticalLeft: Entity = {
 	],
 
 	toBinary(x, y, w) {
-		return [getBankLength(1, 0), y, x, this.objectId!, w];
+		return [getBankParam1(1, 0), y, x, this.objectId!, w];
 	},
 };
 

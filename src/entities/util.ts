@@ -1,4 +1,4 @@
-export function getBankLength(bank: 0 | 1, length: number): number {
+export function getBankParam1(bank: 0 | 1, length: number): number {
 	return (bank << 6) | length;
 }
 

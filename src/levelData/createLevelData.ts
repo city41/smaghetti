@@ -3,6 +3,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import cloneDeep from 'lodash/cloneDeep';
 import { entityMap } from '../entities/entityMap';
 import isEqual from 'lodash/isEqual';
+import { ROOM_TYPE_SETTINGS } from './constants';
 
 type Room = {
 	objects: number[];
@@ -42,57 +43,61 @@ function getLevelName(name: string): number[] {
 	return asEreader;
 }
 
-function getObjectHeader(): Tuple<number, 11> {
+function getObjectHeader(settings: RoomSettings): Tuple<number, 11> {
 	return [
 		0x09, // time, hundreds digit
 		0x00, // time, tens and ones
 		0x00, // 16 bit value that is unknown, copied from classic 1-2
 		0x02, // ----
 		0x0c, // bottom nibble is length of level, copied from classic 1-2
-		0x01, // background color, copied from classic 1-2
+		settings.bgColor, // background color
 		0xa1, // top nibble is scroll settings, bottom unknown, copied from 1-2
-		0x03, // top 3 bits: level entry action, bottom 5: graphics set
+		settings.graphicSet, // top 3 bits: level entry action, bottom 5: graphics set
 		0x08, // top nibble: graphics set, bottom: unknown
 		0x00, // top nibble: extra color, bottom: extre effect
-		0x37, // background graphics, copied from 1-2
+		// background graphics, copied from 1-2
+		settings.bgGraphic,
 	];
 }
 
-// level settings for room 0
-const Classic1_2LevelSettings = [
-	0xbf,
-	0x01,
-	0,
-	0,
-	0x18,
-	0,
-	0x38,
-	0,
-	0x19,
-	0x02,
-	0x12,
-	0,
-	0x0e,
-	0,
-	0x0d,
-	0,
-	0,
-	0,
-	0,
-	0x02,
-	0,
-	0,
-	0x18,
-	0,
-	0x38,
-	0,
-	0x01,
-	0,
-	0,
-	0,
-	0xf4,
-	0,
-];
+function getLevelSettings(settings: RoomSettings): Tuple<number, 32> {
+	// based on classic 1-2 settings
+	return [
+		0xbf, // screen y boundary, least sig byte
+		0x01, // screen y boundary, most sig byte
+		0, // fixed screen center y, least sig byte
+		0, // fixed screen center y, most sig byte
+		0x18, // player y screen center
+		0, // player y screen center
+		0x38, // camera min
+		0, // camera max
+		0x19, // player y
+		0x02, // player x
+		0x12, // screen y
+		0, // screen x
+		settings.objectSet, // object set, least sig byte
+		0, // object set, most sig byte
+		settings.music, // music, least sig byte
+		0, // music, most sig byte
+		// the rest of the bytes are largely unknown and copied from classic 1-2
+		0,
+		0,
+		0,
+		0x02,
+		0,
+		0,
+		0x18,
+		0,
+		0x38,
+		0,
+		0x01,
+		0,
+		0,
+		0,
+		0xf4,
+		0,
+	];
+}
 
 function getObjects(entities: EditorEntity[], tileLayer: TileLayer): number[] {
 	const clone = cloneDeep(tileLayer);
@@ -320,12 +325,12 @@ function flattenTiles(tileLayer: TileLayer): Tile[] {
 }
 
 function getRoom(roomIndex: number, allRooms: RoomData[]): Room {
-	const { tileLayer, entities, transports } = allRooms[roomIndex];
+	const { settings, tileLayer, entities, transports } = allRooms[roomIndex];
 	const flatTiles = flattenTiles(tileLayer);
 
-	const objectHeader = getObjectHeader();
+	const objectHeader = getObjectHeader(settings);
 	const objects = getObjects(entities, tileLayer);
-	const levelSettings = Classic1_2LevelSettings;
+	const levelSettings = getLevelSettings(settings);
 	const transportData = getTransports(transports, allRooms);
 	const spriteHeader = [0x0];
 	const sprites = getSprites(entities, flatTiles, tileLayer.height);

@@ -42,7 +42,7 @@ function determineWidth(
 }
 
 function getPayloadType(
-	payloads: Record<EntityType, number>,
+	payloads: Partial<Record<EntityType, number>>,
 	id: number
 ): EntityType | null {
 	const foundEntry = Object.entries(payloads).find((p) => p[1] === id);

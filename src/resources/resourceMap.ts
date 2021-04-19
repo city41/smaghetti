@@ -2,6 +2,7 @@ import { Resource } from './types';
 import { ClimbingVineHead } from './ClimbingVineHead';
 import { CoinCache } from './CoinCache';
 import { CoinSnake } from './CoinSnake';
+import { FortressBackground } from './FortressBackground';
 import { GiantVegetable } from './GiantVegetable';
 import { KoopaShell } from './KoopaShell';
 import { PoisonMushroom } from './PoisonMushroom';
@@ -11,10 +12,11 @@ import { Shoe } from './Shoe';
 import { SmallVegetable } from './SmallVegetable';
 import { UndergroundBackground } from './UndergroundBackground';
 
-const resourceMap: Record<string, Resource> = {
+const resourceMap = {
 	ClimbingVineHead,
 	CoinCache,
 	CoinSnake,
+	FortressBackground,
 	GiantVegetable,
 	KoopaShell,
 	PoisonMushroom,
