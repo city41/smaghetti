@@ -14,6 +14,7 @@ import { Button } from '../../../Button';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { LevelTransport } from './LevelTransport';
 import { isRoomEmpty } from '../util';
+import { ObjectIcon, SpriteIcon, TransportIcon } from '../entityIcons';
 
 type RenderLevelProps = {
 	rooms: LevelTreeRoom[];
@@ -69,6 +70,9 @@ function RenderLevel({
 	onEntityFocus,
 }: RenderLevelProps) {
 	const [currentRoomIndex, setCurrentRoomIndex] = useState(0);
+	const [showSprites, setShowSprites] = useState(true);
+	const [showObjects, setShowObjects] = useState(true);
+	const [showTransports, setShowTransports] = useState(true);
 
 	const currentRoom = rooms[currentRoomIndex];
 
@@ -106,54 +110,60 @@ function RenderLevel({
 
 	const body = currentRoom.exclude ? null : (
 		<>
-			{sprites.map((s, i) => {
-				const left = s.x * TILE_SIZE * scale;
-				const top = s.y * TILE_SIZE * scale;
+			{showSprites
+				? sprites.map((s, i) => {
+						const left = s.x * TILE_SIZE * scale;
+						const top = s.y * TILE_SIZE * scale;
 
-				return (
-					<EntityContainer
-						key={`sprite-${i}`}
-						style={{ position: 'absolute', left, top }}
-						focused={focusedEntity === s}
-						onFocus={() => onEntityFocus(s)}
-						excluded={s.exclude}
-					>
-						<LevelSprite sprite={s} scale={scale} />
-					</EntityContainer>
-				);
-			})}
-			{objects.map((o, i) => {
-				const left = o.x * TILE_SIZE * scale;
-				const top = o.y * TILE_SIZE * scale;
+						return (
+							<EntityContainer
+								key={`sprite-${i}`}
+								style={{ position: 'absolute', left, top }}
+								focused={focusedEntity === s}
+								onFocus={() => onEntityFocus(s)}
+								excluded={s.exclude}
+							>
+								<LevelSprite sprite={s} scale={scale} />
+							</EntityContainer>
+						);
+				  })
+				: null}
+			{showObjects
+				? objects.map((o, i) => {
+						const left = o.x * TILE_SIZE * scale;
+						const top = o.y * TILE_SIZE * scale;
 
-				return (
-					<EntityContainer
-						key={`object-${i}`}
-						style={{ position: 'absolute', left, top }}
-						focused={focusedEntity === o}
-						onFocus={() => onEntityFocus(o)}
-						excluded={o.exclude}
-					>
-						<LevelObject object={o} scale={scale} />
-					</EntityContainer>
-				);
-			})}
-			{transports.map((t, i) => {
-				const left = t.sx * TILE_SIZE * scale;
-				const top = t.sy * TILE_SIZE * scale;
+						return (
+							<EntityContainer
+								key={`object-${i}`}
+								style={{ position: 'absolute', left, top }}
+								focused={focusedEntity === o}
+								onFocus={() => onEntityFocus(o)}
+								excluded={o.exclude}
+							>
+								<LevelObject object={o} scale={scale} />
+							</EntityContainer>
+						);
+				  })
+				: null}
+			{showTransports
+				? transports.map((t, i) => {
+						const left = t.sx * TILE_SIZE * scale;
+						const top = t.sy * TILE_SIZE * scale;
 
-				return (
-					<EntityContainer
-						key={`transport-${i}`}
-						style={{ position: 'absolute', left, top }}
-						focused={focusedEntity === t}
-						onFocus={() => onEntityFocus(t)}
-						excluded={t.exclude}
-					>
-						<LevelTransport transport={t} scale={scale} />
-					</EntityContainer>
-				);
-			})}
+						return (
+							<EntityContainer
+								key={`transport-${i}`}
+								style={{ position: 'absolute', left, top }}
+								focused={focusedEntity === t}
+								onFocus={() => onEntityFocus(t)}
+								excluded={t.exclude}
+							>
+								<LevelTransport transport={t} scale={scale} />
+							</EntityContainer>
+						);
+				  })
+				: null}
 			{currentRoom.levelSettings.settings && (
 				<Player
 					ref={playerRef}
@@ -167,7 +177,21 @@ function RenderLevel({
 
 	return (
 		<div className="flex flex-col space-y-2 mt-2">
-			<div className="flex flex-row space-x-2">{roomButtons}</div>
+			<div className="flex flex-row space-x-2 items-center">
+				{roomButtons}
+				<SpriteIcon
+					className={clsx({ 'opacity-25': !showSprites })}
+					onClick={() => setShowSprites((s) => !s)}
+				/>
+				<ObjectIcon
+					className={clsx({ 'opacity-25': !showObjects })}
+					onClick={() => setShowObjects((s) => !s)}
+				/>
+				<TransportIcon
+					className={clsx({ 'opacity-25': !showTransports })}
+					onClick={() => setShowTransports((s) => !s)}
+				/>
+			</div>
 			<div className="relative w-full h-64 overflow-auto bg-gray-500">
 				{body}
 			</div>
