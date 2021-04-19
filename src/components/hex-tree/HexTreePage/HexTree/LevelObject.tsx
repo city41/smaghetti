@@ -75,7 +75,9 @@ function LevelObject({
 				'ml-8 bg-gray-600 p-2 m-2 flex flex-row items-center space-x-2'
 			)}
 		>
-			<RenderLevelObject object={levelObject} scale={1} />
+			<div className="max-w-xs overflow-auto">
+				<RenderLevelObject object={levelObject} scale={1} />
+			</div>
 			<div
 				className={clsx(
 					'bg-gray-200 text-gray-900 grid grid-rows-2 gap-x-2 p-1',
