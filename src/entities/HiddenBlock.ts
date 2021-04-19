@@ -15,6 +15,12 @@ const HiddenBlock: Entity = {
 	dimensions: 'none',
 	romOffset: 0x16ea40,
 	palette: [],
+	payloadBank: 0,
+	payloadToObjectId: {
+		MusicBlock: 0x20,
+		OneUpMushroom: 0x1f,
+		Coin: 0x1e,
+	},
 	tiles: [
 		// HACK: since this block is hidden, it doesn't actually
 		// have any graphics, so these are empty tiles, just to
@@ -24,10 +30,12 @@ const HiddenBlock: Entity = {
 	],
 
 	toBinary(x, y, w, h, settings): number[] {
+		const payloadToObjectId = this.payloadToObjectId!;
+
 		const objectId =
 			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId];
 
-		return [0, y, x, objectId];
+		return [0, y, x, objectId!];
 	},
 };
 

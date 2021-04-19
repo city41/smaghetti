@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { LevelTreeObject } from '../../types';
 import { ObjectIcon } from '../entityIcons';
@@ -86,7 +87,13 @@ function LevelObject({ object, scale }: LevelObjectProps) {
 		} as const;
 
 		return (
-			<div className="relative cursor-pointer" style={style}>
+			<div
+				className={clsx('relative cursor-pointer', {
+					'border-2 border-dashed border-green-300':
+						entityDef?.type === 'HiddenBlock',
+				})}
+				style={style}
+			>
 				<ObjectIcon
 					className="absolute top-0 left-0"
 					entityType={entityDef?.type}
