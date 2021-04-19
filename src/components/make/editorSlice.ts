@@ -1619,7 +1619,8 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 // 2.0.0: paletteEntries switched to just be EntityType strings
 // 3.0.0: rooms
 // 3.0.1: fix issue where room paletteEntries were not being restored
-const LOCALSTORAGE_KEY = 'smaghetti_3.0.1';
+// 3.1.0: added room settings
+const LOCALSTORAGE_KEY = 'smaghetti_3.1.0';
 
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {
