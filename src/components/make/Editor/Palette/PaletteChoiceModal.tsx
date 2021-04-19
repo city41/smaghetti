@@ -194,6 +194,13 @@ const terrain: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
+	{
+		entry: 'YellowSwitchBrick',
+		info: {
+			title: 'Yellow Switch Brick',
+			description: 'Only solid while a yellow switch is active',
+		},
+	},
 ];
 
 const objects: PaletteChoiceModalEntry[] = [
