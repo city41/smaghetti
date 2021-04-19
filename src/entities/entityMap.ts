@@ -9,6 +9,7 @@ import { BuzzyBeetle } from './BuzzyBeetle';
 import { CapeFeather } from './CapeFeather';
 import { CardSlotMachine } from './CardSlotMachine';
 import { Coin } from './Coin';
+import { FireBar } from './FireBar';
 import { FireBarBase } from './FireBarBase';
 import { FireFlower } from './FireFlower';
 import { FortressBrick } from './FortressBrick';
@@ -60,6 +61,7 @@ const entityMap = {
 	CapeFeather,
 	CardSlotMachine,
 	Coin,
+	FireBar,
 	FireBarBase,
 	FireFlower,
 	FortressBrick,

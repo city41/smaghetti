@@ -173,6 +173,13 @@ const terrain: PaletteChoiceModalEntry[] = [
 			),
 		},
 	},
+	{
+		entry: 'FireBar',
+		info: {
+			title: 'Fire Bare',
+			description: '',
+		},
+	},
 ];
 
 const objects: PaletteChoiceModalEntry[] = [
