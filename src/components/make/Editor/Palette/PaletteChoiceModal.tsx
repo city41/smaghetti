@@ -161,6 +161,18 @@ const terrain: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
+	{
+		entry: 'FireBarBase',
+		info: {
+			title: 'Fire Bar Base',
+			description: (
+				<>
+					<p>Normally these are coupled with fire bars</p>
+					<p>But it is not required, and Mario can stand on them</p>
+				</>
+			),
+		},
+	},
 ];
 
 const objects: PaletteChoiceModalEntry[] = [
@@ -325,12 +337,12 @@ const transports: PaletteChoiceModalEntry[] = [
 		info: {
 			title: 'Warp',
 			description: (
-				<div className="space-y-4">
+				<>
 					<p>These enable Mario to warp someplace else</p>
 					<p>
 						Place them on top of doors then click to decide where the door goes
 					</p>
-				</div>
+				</>
 			),
 		},
 	},
@@ -459,7 +471,9 @@ function PaletteChoiceModal({
 					{currentEntry && (
 						<h2 className="font-bold mb-4">{currentEntry.info.title}</h2>
 					)}
-					{currentEntry && <p>{currentEntry.info.description}</p>}
+					{currentEntry && (
+						<div className="space-y-4">{currentEntry.info.description}</div>
+					)}
 				</div>
 			</div>
 		</Modal>

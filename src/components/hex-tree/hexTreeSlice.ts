@@ -13,6 +13,7 @@ import {
 import { parseTransportsFromLevelFile } from '../../levelData/parseTransportsFromLevelFile';
 import {
 	Add,
+	ByteSizes,
 	Exclusion,
 	LevelHeader,
 	LevelRooms,
@@ -43,8 +44,7 @@ import { deserialize } from '../../level/deserialize';
 type HexTreeState = {
 	tree: LevelTree | null;
 	originalData: number[] | null;
-	fourByteIds: number[];
-	fiveByteIds: number[];
+	byteSizes: ByteSizes;
 };
 
 const EMPTY_LEVEL = createLevelData([
@@ -66,8 +66,17 @@ const EMPTY_LEVEL = createLevelData([
 const defaultInitialState: HexTreeState = {
 	tree: null,
 	originalData: null,
-	fourByteIds: [],
-	fiveByteIds: [],
+	byteSizes: {
+		object: {
+			four: [],
+			five: [],
+		},
+		sprite: {
+			four: [],
+			five: [],
+			six: [],
+		},
+	},
 };
 
 const initialState = defaultInitialState;
@@ -82,39 +91,77 @@ const hexTreeSlice = createSlice({
 		setTree(state: HexTreeState, action: PayloadAction<LevelTree>) {
 			state.tree = action.payload;
 		},
-		toFourBytes(state: HexTreeState, action: PayloadAction<number>) {
+		toFourBytes(
+			state: HexTreeState,
+			action: PayloadAction<{ type: 'sprite' | 'object'; id: number }>
+		) {
 			if (state.originalData) {
-				const id = action.payload;
+				const { type, id } = action.payload;
 
-				if (!state.fourByteIds.includes(id)) {
-					state.fourByteIds.push(id);
-					state.fiveByteIds = state.fiveByteIds.filter((i) => i !== id);
+				if (type === 'object') {
+					if (!state.byteSizes.object.four.includes(id)) {
+						state.byteSizes.object.four.push(id);
+						state.byteSizes.object.five = state.byteSizes.object.five.filter(
+							(i) => i !== id
+						);
+					} else {
+						state.byteSizes.object.four = state.byteSizes.object.four.filter(
+							(i) => i !== id
+						);
+					}
 				} else {
-					state.fourByteIds = state.fourByteIds.filter((i) => i !== id);
+					if (!state.byteSizes.sprite.four.includes(id)) {
+						state.byteSizes.sprite.four.push(id);
+						state.byteSizes.sprite.five = state.byteSizes.sprite.five.filter(
+							(i) => i !== id
+						);
+					} else {
+						state.byteSizes.sprite.four = state.byteSizes.sprite.four.filter(
+							(i) => i !== id
+						);
+					}
 				}
 
 				state.tree = parseDataToTree(
 					new Uint8Array(state.originalData),
-					state.fourByteIds,
-					state.fiveByteIds
+					state.byteSizes
 				);
 			}
 		},
-		toFiveBytes(state: HexTreeState, action: PayloadAction<number>) {
+		toFiveBytes(
+			state: HexTreeState,
+			action: PayloadAction<{ type: 'sprite' | 'object'; id: number }>
+		) {
 			if (state.originalData) {
-				const id = action.payload;
+				const { type, id } = action.payload;
 
-				if (!state.fiveByteIds.includes(id)) {
-					state.fiveByteIds.push(id);
-					state.fourByteIds = state.fourByteIds.filter((i) => i !== id);
+				if (type === 'object') {
+					if (!state.byteSizes.object.five.includes(id)) {
+						state.byteSizes.object.five.push(id);
+						state.byteSizes.object.four = state.byteSizes.object.four.filter(
+							(i) => i !== id
+						);
+					} else {
+						state.byteSizes.object.five = state.byteSizes.object.five.filter(
+							(i) => i !== id
+						);
+					}
 				} else {
-					state.fiveByteIds = state.fiveByteIds.filter((i) => i !== id);
+					if (!state.byteSizes.sprite.five.includes(id)) {
+						state.byteSizes.sprite.five.push(id);
+						state.byteSizes.sprite.four = state.byteSizes.sprite.four.filter(
+							(i) => i !== id
+						);
+					} else {
+						state.byteSizes.sprite.five = state.byteSizes.sprite.five.filter(
+							(i) => i !== id
+						);
+					}
 				}
 
 				state.tree = parseDataToTree(
 					new Uint8Array(state.originalData),
-					state.fourByteIds,
-					state.fiveByteIds
+					state.byteSizes
 				);
 			}
 		},
@@ -130,7 +177,8 @@ const hexTreeSlice = createSlice({
 
 			switch (type) {
 				case 'sprite': {
-					const newSprite = parseSprite(bytes, 0);
+					const { four, five, six } = state.byteSizes.sprite;
+					const newSprite = parseSprite(bytes, 0, four, five, six);
 					room.sprites.sprites.splice(afterIndex + 1, 0, newSprite);
 					break;
 				}
@@ -139,8 +187,8 @@ const hexTreeSlice = createSlice({
 						bytes,
 						0,
 						objectSet!,
-						state.fourByteIds,
-						state.fiveByteIds
+						state.byteSizes.object.four,
+						state.byteSizes.object.five
 					);
 					newObject.rawBytes = bytes;
 					room.objects.objects.splice(afterIndex + 1, 0, newObject);
@@ -175,7 +223,8 @@ const hexTreeSlice = createSlice({
 				const { spriteIndex } = action.payload as SpritePatch;
 				const rawBytes = room.sprites.sprites[spriteIndex].rawBytes;
 				rawBytes.splice(offset, bytes.length, ...bytes);
-				const newValues = parseSprite(rawBytes, 0);
+				const { four, five, six } = state.byteSizes.sprite;
+				const newValues = parseSprite(rawBytes, 0, four, five, six);
 
 				room.sprites.sprites[spriteIndex] = {
 					...newValues,
@@ -191,8 +240,8 @@ const hexTreeSlice = createSlice({
 					rawBytes,
 					0,
 					objectSet!,
-					state.fourByteIds,
-					state.fiveByteIds
+					state.byteSizes.object.four,
+					state.byteSizes.object.five
 				);
 
 				room.objects.objects[objectIndex] = {
@@ -282,8 +331,7 @@ function parseHeader(data: Uint8Array): LevelHeader {
 function parseRoom(
 	data: Uint8Array,
 	roomIndex: RoomIndex,
-	fourByteIds: number[],
-	fiveByteIds: number[]
+	byteSizes: ByteSizes
 ): LevelTreeRoom {
 	const autoScrollEndAddress =
 		roomIndex === 3
@@ -296,8 +344,8 @@ function parseRoom(
 			objects: parseObjectsFromLevelFile(
 				data,
 				roomIndex,
-				fourByteIds,
-				fiveByteIds
+				byteSizes.object.four,
+				byteSizes.object.five
 			),
 			pendingRawBytes: [],
 		},
@@ -320,7 +368,13 @@ function parseRoom(
 			),
 		},
 		sprites: {
-			sprites: parseSpritesFromLevelFile(data, roomIndex),
+			sprites: parseSpritesFromLevelFile(
+				data,
+				roomIndex,
+				byteSizes.sprite.four,
+				byteSizes.sprite.five,
+				byteSizes.sprite.six
+			),
 			pendingRawBytes: [],
 		},
 		blockPaths: {
@@ -342,14 +396,10 @@ function parseRoom(
 	};
 }
 
-function parseDataToTree(
-	data: Uint8Array,
-	fourByteIds: number[],
-	fiveByteIds: number[]
-): LevelTree {
+function parseDataToTree(data: Uint8Array, byteSizes: ByteSizes): LevelTree {
 	const header = parseHeader(data);
 	const rooms = ([0, 1, 2, 3] as RoomIndex[]).map((roomIndex) =>
-		parseRoom(data, roomIndex, fourByteIds, fiveByteIds)
+		parseRoom(data, roomIndex, byteSizes)
 	) as LevelRooms;
 
 	return { header, rooms };
@@ -368,11 +418,7 @@ const loadLevel = (levelFile: File): HexTreeThunkAction => async (
 		dispatch(hexTreeSlice.actions.setOriginalData(Array.from(data)));
 		dispatch(
 			hexTreeSlice.actions.setTree(
-				parseDataToTree(
-					data,
-					getState().hexTree.fourByteIds,
-					getState().hexTree.fiveByteIds
-				)
+				parseDataToTree(data, getState().hexTree.byteSizes)
 			)
 		);
 	};
@@ -380,12 +426,16 @@ const loadLevel = (levelFile: File): HexTreeThunkAction => async (
 	reader.readAsArrayBuffer(levelFile);
 };
 
-const loadEmptyLevel = (): HexTreeThunkAction => (dispatch) => {
+const loadEmptyLevel = (): HexTreeThunkAction => (dispatch, getState) => {
 	dispatch(hexTreeSlice.actions.setOriginalData(Array.from(EMPTY_LEVEL)));
-	dispatch(hexTreeSlice.actions.setTree(parseDataToTree(EMPTY_LEVEL, [], [])));
+	dispatch(
+		hexTreeSlice.actions.setTree(
+			parseDataToTree(EMPTY_LEVEL, getState().hexTree.byteSizes)
+		)
+	);
 };
 
-const loadFromLocalStorage = (): HexTreeThunkAction => (dispatch) => {
+const loadFromLocalStorage = (): HexTreeThunkAction => (dispatch, getState) => {
 	const localStorageData = localStorage[LOCALSTORAGE_KEY];
 
 	let levelData;
@@ -403,7 +453,11 @@ const loadFromLocalStorage = (): HexTreeThunkAction => (dispatch) => {
 	}
 
 	dispatch(hexTreeSlice.actions.setOriginalData(Array.from(levelData)));
-	dispatch(hexTreeSlice.actions.setTree(parseDataToTree(levelData, [], [])));
+	dispatch(
+		hexTreeSlice.actions.setTree(
+			parseDataToTree(levelData, getState().hexTree.byteSizes)
+		)
+	);
 };
 
 const reducer = hexTreeSlice.reducer;

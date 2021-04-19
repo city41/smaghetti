@@ -33,7 +33,7 @@ function LevelObject({
 
 	const keys = Object.keys(levelObjectSlices).reduce<ReactElement[]>(
 		(building, k, i) => {
-			if (i === 4 && data.length === 4) {
+			if (i >= data.length) {
 				return building;
 			}
 
@@ -48,7 +48,7 @@ function LevelObject({
 
 	const values = Object.keys(levelObjectSlices).reduce<ReactElement[]>(
 		(building, k, i) => {
-			if (i === 4 && data.length === 4) {
+			if (i >= data.length) {
 				return building;
 			}
 

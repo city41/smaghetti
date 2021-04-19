@@ -81,7 +81,6 @@ function RenderLevel({
 	useEffect(() => {
 		if (playerRef.current) {
 			setTimeout(() => {
-				console.log('scrolling player dammit');
 				playerRef.current?.scrollIntoView({ block: 'center' });
 			}, 10);
 		}

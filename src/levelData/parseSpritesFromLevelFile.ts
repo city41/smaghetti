@@ -1,9 +1,4 @@
 import { ROOM_SPRITE_POINTERS } from '../levelData/constants';
-import { entityMap } from '../entities/entityMap';
-import {
-	bank0SpriteIdToEntityType,
-	bank1SpriteIdToEntityType,
-} from '../entities/spriteIdMap';
 
 type LevelSprite = {
 	bank: number;
@@ -11,45 +6,76 @@ type LevelSprite = {
 	y: number;
 	id: number;
 	rawBytes: number[];
+	param1?: number;
+	param2?: number;
 };
+
+const knownFourByteIds: number[] = [];
+const knownFiveByteIds: number[] = [
+	0xb9, // fortress fire bars
+];
+const knownSixByteIds: number[] = [];
 
 function parseSprite(
 	levelData: Uint8Array | number[],
-	spriteIndex: number
+	spriteIndex: number,
+	fourByteIds: number[],
+	fiveByteIds: number[],
+	sixByteIds: number[]
 ): LevelSprite {
 	const bank = levelData[spriteIndex];
 	const id = levelData[spriteIndex + 1];
 
-	const spriteIdToEntityType =
-		bank === 0 ? bank0SpriteIdToEntityType : bank1SpriteIdToEntityType;
-	const EntityType = entityMap[spriteIdToEntityType[id]];
+	const allKnownFourByteIds = [...knownFourByteIds, ...fourByteIds];
 
-	const rawByteLength = bank === 0 ? 4 : 6;
+	const allKnownFiveByteIds = [...knownFiveByteIds, ...fiveByteIds];
+
+	const allKnownSixByteIds = [...knownSixByteIds, ...sixByteIds];
+
+	let rawByteLength = 4;
+
+	if (allKnownFourByteIds.includes(id)) {
+		rawByteLength = 4;
+	}
+	if (allKnownFiveByteIds.includes(id)) {
+		rawByteLength = 5;
+	}
+	if (allKnownSixByteIds.includes(id)) {
+		rawByteLength = 6;
+	}
+
 	const rawBytes = Array.from(
 		levelData.slice(spriteIndex, spriteIndex + rawByteLength)
 	);
 
-	if (EntityType && EntityType.parseBinary) {
-		return EntityType.parseBinary(rawBytes);
-	} else {
-		return {
-			bank,
-			id,
-			x: levelData[spriteIndex + 2],
-			y: levelData[spriteIndex + 3],
-			rawBytes,
-		};
-	}
+	return {
+		bank,
+		id,
+		x: levelData[spriteIndex + 2],
+		y: levelData[spriteIndex + 3],
+		param1: rawBytes[4],
+		param2: rawBytes[5],
+		rawBytes,
+	};
 }
 
 function parseSprites(
 	data: Uint8Array | number[],
-	index: number
+	index: number,
+	fourByteIds: number[],
+	fiveByteIds: number[],
+	sixByteIds: number[]
 ): LevelSprite[] {
 	const sprites = [];
 
 	while (data[index] !== 0xff && index < data.length) {
-		const sprite = parseSprite(data, index);
+		const sprite = parseSprite(
+			data,
+			index,
+			fourByteIds,
+			fiveByteIds,
+			sixByteIds
+		);
 		sprites.push(sprite);
 		index += sprite.rawBytes.length;
 	}
@@ -59,7 +85,10 @@ function parseSprites(
 
 function parseSpritesFromLevelFile(
 	levelData: Uint8Array,
-	roomIndex: 0 | 1 | 2 | 3 = 0
+	roomIndex: 0 | 1 | 2 | 3 = 0,
+	fourByteIds: number[],
+	fiveByteIds: number[],
+	sixByteIds: number[]
 ): LevelSprite[] {
 	const view = new DataView(levelData.buffer);
 
@@ -70,7 +99,13 @@ function parseSpritesFromLevelFile(
 	// byte to kick things off that needs to be skipped
 	spriteIndex += 1;
 
-	return parseSprites(levelData, spriteIndex);
+	return parseSprites(
+		levelData,
+		spriteIndex,
+		fourByteIds,
+		fiveByteIds,
+		sixByteIds
+	);
 }
 export { parseSpritesFromLevelFile, parseSprites, parseSprite };
 export type { LevelSprite };

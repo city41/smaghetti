@@ -162,6 +162,18 @@ type Add = {
 	bytes: number[];
 };
 
+type ByteSizes = {
+	object: {
+		four: number[];
+		five: number[];
+	};
+	sprite: {
+		four: number[];
+		five: number[];
+		six: number[];
+	};
+};
+
 export type {
 	ObjectPatch,
 	SpritePatch,
@@ -183,4 +195,5 @@ export type {
 	LevelTreeSprite,
 	LevelTreeTransport,
 	BinaryRoom,
+	ByteSizes,
 };

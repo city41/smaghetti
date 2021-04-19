@@ -2,7 +2,14 @@ import React, { Fragment } from 'react';
 import { RiFocus3Line } from 'react-icons/ri';
 import { BiHide, BiShow } from 'react-icons/bi';
 
-import { Add, Exclusion, LevelTree, Patch, RoomIndex } from '../../types';
+import {
+	Add,
+	ByteSizes,
+	Exclusion,
+	LevelTree,
+	Patch,
+	RoomIndex,
+} from '../../types';
 import { Room } from './Room';
 import { PlainIconButton } from '../../../PlainIconButton';
 
@@ -15,10 +22,9 @@ type HexTreeProps = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onEntityFocus: (entity: any) => void;
 	onAdd: (add: Add) => void;
-	onFourBytes: (id: number) => void;
-	onFiveBytes: (id: number) => void;
-	fourByteIds: number[];
-	fiveByteIds: number[];
+	onFourBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
+	onFiveBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
+	byteSizes: ByteSizes;
 };
 
 function HexTree({
@@ -30,8 +36,7 @@ function HexTree({
 	onEntityFocus,
 	onFourBytes,
 	onFiveBytes,
-	fourByteIds,
-	fiveByteIds,
+	byteSizes,
 }: HexTreeProps) {
 	const roomButtons = [];
 
@@ -73,9 +78,8 @@ function HexTree({
 					onAdd={onAdd}
 					onEntityFocus={onEntityFocus}
 					onFourBytes={onFourBytes}
-					fourByteIds={fourByteIds}
 					onFiveBytes={onFiveBytes}
-					fiveByteIds={fiveByteIds}
+					byteSizes={byteSizes}
 				/>
 			</Fragment>
 		);

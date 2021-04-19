@@ -14,7 +14,7 @@ import { Button } from '../../Button';
 import { HexTree } from './HexTree';
 import { injectLevelIntoSave } from '../../../levelData/injectLevelIntoSave';
 import { sendFileToAnchorTag } from '../../../levelData/downloadLevelAsSaveFile';
-import { Add, Exclusion, LevelTree, Patch } from '../types';
+import { Add, ByteSizes, Exclusion, LevelTree, Patch } from '../types';
 import clsx from 'clsx';
 import tabStyles from '../../../styles/tabs.module.css';
 import { RenderLevel } from './RenderLevel';
@@ -32,10 +32,9 @@ type HexTreePageProps = {
 	tree: LevelTree | null;
 	data: Uint8Array;
 	originalData: Uint8Array;
-	onFourBytes: (id: number) => void;
-	onFiveBytes: (id: number) => void;
-	fourByteIds: number[];
-	fiveByteIds: number[];
+	onFourBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
+	onFiveBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
+	byteSizes: ByteSizes;
 };
 
 const tabs = ['Outline', 'Hex (current)', 'Hex (original)'];
@@ -53,8 +52,7 @@ function HexTreePage({
 	originalData,
 	onFourBytes,
 	onFiveBytes,
-	fourByteIds,
-	fiveByteIds,
+	byteSizes,
 }: HexTreePageProps) {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [focusedEntity, setFocusedEntity] = useState<any>(null);
@@ -93,8 +91,7 @@ function HexTreePage({
 							onAdd={onAdd}
 							onFourBytes={onFourBytes}
 							onFiveBytes={onFiveBytes}
-							fourByteIds={fourByteIds}
-							fiveByteIds={fiveByteIds}
+							byteSizes={byteSizes}
 						/>
 					)}
 				</>

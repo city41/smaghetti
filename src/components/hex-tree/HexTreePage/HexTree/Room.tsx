@@ -5,7 +5,14 @@ import { BiHide, BiShow } from 'react-icons/bi';
 import { HiClipboardCopy } from 'react-icons/hi';
 import { FaDiceFive, FaDiceFour } from 'react-icons/fa';
 
-import { Add, Exclusion, LevelTreeRoom, Patch, RoomIndex } from '../../types';
+import {
+	Add,
+	ByteSizes,
+	Exclusion,
+	LevelTreeRoom,
+	Patch,
+	RoomIndex,
+} from '../../types';
 import { LevelObject } from './LevelObject';
 import { LevelSprite } from './LevelSprite';
 import { LevelTransport } from './LevelTransport';
@@ -17,8 +24,6 @@ type RoomProps = {
 	className?: string;
 	roomIndex: RoomIndex;
 	room: LevelTreeRoom;
-	fourByteIds: number[];
-	fiveByteIds: number[];
 	onExcludeChange: (exclusion: Exclusion) => void;
 	onPatch: (patch: Patch) => void;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,8 +31,9 @@ type RoomProps = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onEntityFocus: (entity: any) => void;
 	onAdd: (add: Add) => void;
-	onFourBytes: (id: number) => void;
-	onFiveBytes: (id: number) => void;
+	onFourBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
+	onFiveBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
+	byteSizes: ByteSizes;
 };
 
 type EntityContainerProps = {
@@ -126,8 +132,7 @@ function Room({
 	roomIndex,
 	room,
 	focusedEntity,
-	fourByteIds,
-	fiveByteIds,
+	byteSizes,
 	onExcludeChange,
 	onPatch,
 	onAdd,
@@ -150,20 +155,22 @@ function Room({
 					onAdd({ roomIndex, type: 'object', afterIndex: i, bytes });
 				}}
 				onFourBytes={
-					o.rawBytes.length === 5 || fourByteIds.includes(o.id)
-						? () => onFourBytes(o.id)
+					o.bank > 0 &&
+					(o.rawBytes.length === 5 || byteSizes.object.four.includes(o.id))
+						? () => onFourBytes({ type: 'object', id: o.id })
 						: undefined
 				}
 				onFiveBytes={
-					o.rawBytes.length === 4 || fiveByteIds.includes(o.id)
-						? () => onFiveBytes(o.id)
+					o.bank > 0 &&
+					(o.rawBytes.length === 4 || byteSizes.object.five.includes(o.id))
+						? () => onFiveBytes({ type: 'object', id: o.id })
 						: undefined
 				}
 			>
 				<LevelObject
 					levelObject={o}
-					madeFourBytes={fourByteIds.includes(o.id)}
-					madeFiveBytes={fiveByteIds.includes(o.id)}
+					madeFourBytes={byteSizes.object.four.includes(o.id)}
+					madeFiveBytes={byteSizes.object.five.includes(o.id)}
 					onPatch={({ offset, bytes }) => {
 						onPatch({
 							type: 'object',
@@ -192,6 +199,16 @@ function Room({
 				onAdd={(bytes) => {
 					onAdd({ roomIndex, type: 'sprite', afterIndex: i, bytes });
 				}}
+				onFourBytes={
+					s.rawBytes.length === 5 || byteSizes.sprite.four.includes(s.id)
+						? () => onFourBytes({ type: 'sprite', id: s.id })
+						: undefined
+				}
+				onFiveBytes={
+					s.rawBytes.length === 4 || byteSizes.sprite.five.includes(s.id)
+						? () => onFiveBytes({ type: 'sprite', id: s.id })
+						: undefined
+				}
 			>
 				<LevelSprite
 					levelSprite={s}
