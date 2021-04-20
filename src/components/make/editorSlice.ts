@@ -855,11 +855,15 @@ const editorSlice = createSlice({
 						) {
 							// place an entity
 							const type = currentRoom.currentPaletteEntry;
+							const entityDef = entityMap[type];
 
 							const newEntity: NewEditorEntity = {
 								x: getEntityX(point.x),
 								y: getEntityY(point.y),
 								type,
+								settings: entityDef.defaultSettings
+									? { ...entityDef.defaultSettings }
+									: undefined,
 							};
 
 							if (
