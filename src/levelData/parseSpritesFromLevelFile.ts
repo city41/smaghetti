@@ -22,7 +22,9 @@ const knownFiveByteIds: number[] = [
 	0xab, // second sprite in mushroom05, not sure what it is, but confident it is 5 bytes
 	0xff, // horizontal, facing right, red piranna plants that spit fire
 ];
-const knownSixByteIds: number[] = [];
+const knownSixByteIds: number[] = [
+	0xe0, // first sprite in mushroom09,room1
+];
 
 function parseSprite(
 	levelData: Uint8Array | number[],
