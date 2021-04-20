@@ -12,8 +12,10 @@ type LevelSprite = {
 
 const knownFourByteIds: number[] = [];
 const knownFiveByteIds: number[] = [
+	0x2a, // boos that help big boo in mushroom04, room 2
 	0xb9, // fortress fire bars
 	0xfa, // Ace Coin
+	0xea, // not sure, but it seems to be the first sprite in mushroom04, room 2
 	0xe5, // vertical one way door
 	0xe6, // horizontal one way door
 ];
