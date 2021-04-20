@@ -28,6 +28,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	ConveyorBelt: 'Cb',
 	FireBarBase: 'Fbb',
 	FortressBrick: 'Fb',
+	FortressSpike: 'Fs',
 	HiddenBlock: 'Hb',
 	IndestructibleBrick: 'In',
 	Lava: 'Lv',

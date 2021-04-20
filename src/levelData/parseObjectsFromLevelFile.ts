@@ -48,6 +48,9 @@ function getObjectSet(data: Uint8Array, roomIndex: number): number {
  * TODO: not sure how object/graphic sets will impact this once they are figured out
  */
 const knownFourByteIds: Record<number, number[]> = {
+	0: [
+		0x10, // question block
+	],
 	[ROOM_TYPE_SETTINGS.underground.objectSet]: [
 		0x10, // QuestionBlock with coin payload
 		0x17, // something in Classic 1-2, I think it's a pipe
@@ -70,6 +73,7 @@ const knownFourByteIds: Record<number, number[]> = {
 		0x79, // not sure yet, but it is in mushroom04
 		0x56, // yellow switch brick
 		0x61, // ghost house wooden walkway
+		0xb, // pointing up spike strip
 	],
 	// TODO: not sure what this object set is yet, but it is mushroom11, room 0, the one with music blocks galore
 	0x4: [
@@ -102,10 +106,12 @@ function parseObject(
 
 	const allKnownFourByteIds = [
 		...(knownFourByteIds[objectSet] ?? []),
+		...(knownFourByteIds[0] ?? []),
 		...fourByteIds,
 	];
 	const allKnownFiveByteIds = [
 		...(knownFiveByteIds[objectSet] ?? []),
+		...(knownFiveByteIds[0] ?? []),
 		...fiveByteIds,
 	];
 

@@ -19,6 +19,8 @@ import { FireBar } from './FireBar';
 import { FireBarBase } from './FireBarBase';
 import { FireFlower } from './FireFlower';
 import { FortressBrick } from './FortressBrick';
+import { FortressSpike } from './FortressSpike';
+import { GiantGoomba } from './GiantGoomba';
 import { Goomba } from './Goomba';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
@@ -86,6 +88,8 @@ const entityMap = {
 	FireBarBase,
 	FireFlower,
 	FortressBrick,
+	FortressSpike,
+	GiantGoomba,
 	Goomba,
 	GreenKoopaTroopa,
 	GreenParaTroopa,

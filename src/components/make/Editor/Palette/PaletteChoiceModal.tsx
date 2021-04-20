@@ -211,6 +211,13 @@ const terrain: PaletteChoiceModalEntry[] = [
 		},
 	},
 	{
+		entry: 'FortressSpike',
+		info: {
+			title: 'Fortress Spike',
+			description: '',
+		},
+	},
+	{
 		entry: 'FireBarBase',
 		info: {
 			title: 'Fire Bar Base',
