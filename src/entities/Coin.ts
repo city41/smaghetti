@@ -10,6 +10,7 @@ const Coin: Entity = {
 	objectId: 0x16,
 	emptyBank: 1,
 	param1: 'width',
+	param2: 'height',
 	palette: [
 		0x7f96,
 		0x7fff,
