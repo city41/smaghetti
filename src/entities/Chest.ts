@@ -6,12 +6,26 @@ const Chest: Entity = {
 	gameType: 'sprite',
 	dimensions: 'none',
 	settingsType: 'single',
-	defaultSettings: { payload: 'TanookiSuitInChest' },
+	defaultSettings: { payload: 'Mushroom' },
 	romOffset: 0x163768,
 	objectId: 0x8,
 	payloadToObjectId: {
-		FrogSuitInChest: 4,
-		TanookiSuitInChest: 5,
+		Mushroom: 1,
+		FireFlower: 2,
+		FrogSuit: 4,
+		TanookiSuit: 5,
+		//HammerBrosSuit: 6
+		//LakituCloud: 7
+		PWing: 8,
+		StarMan: 9,
+		// Anchor: 0xa,
+		// Hammer: 0xb,
+		// Flute: 0xc,
+		// MusicBox: 0xd,
+		CapeFeather: 0xe,
+		// Boomerang: 0xf,
+		// OneUp: 0x10 // note this is not a 1up mushroom, just an immediate 1up
+		// ThreeUp: 0x11 // note this is not a 3up moon, just an immediate 3up
 	},
 	palette: [
 		0x7f96,
@@ -41,8 +55,7 @@ const Chest: Entity = {
 
 		if (settings.payload in payloadToObjectId) {
 			const payloadId =
-				payloadToObjectId[settings.payload as keyof typeof payloadToObjectId] ??
-				payloadToObjectId.TanookiSuitInChest;
+				payloadToObjectId[settings.payload as keyof typeof payloadToObjectId];
 
 			return [1, this.objectId!, x, y, payloadId!];
 		} else {

@@ -1,7 +1,7 @@
 import { StaticResource } from './types';
 
-const FrogSuitInChest: StaticResource = {
-	type: 'FrogSuitInChest',
+const TanookiSuit: StaticResource = {
+	type: 'TanookiSuit',
 	palette: [
 		0x7f96,
 		0x7fff,
@@ -22,9 +22,9 @@ const FrogSuitInChest: StaticResource = {
 	],
 	romOffset: 0x163768,
 	tiles: [
-		[320, { romOffset: 0x163768, tileIndex: 320, flip: 'h' }],
-		[336, { romOffset: 0x163768, tileIndex: 336, flip: 'h' }],
+		[321, { romOffset: 0x163768, tileIndex: 321, flip: 'h' }],
+		[337, { romOffset: 0x163768, tileIndex: 337, flip: 'h' }],
 	],
 };
 
-export { FrogSuitInChest };
+export { TanookiSuit };
