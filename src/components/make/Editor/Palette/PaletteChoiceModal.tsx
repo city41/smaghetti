@@ -241,6 +241,14 @@ const objects: PaletteChoiceModalEntry[] = [
 		},
 	},
 	{
+		entry: 'CoinChallenge',
+		info: {
+			title: 'Coin Challenge',
+			description:
+				'Once Mario hits this, he is tasked with collecting a certain amount of coins. If he succeeds, he gets 3up.',
+		},
+	},
+	{
 		entry: 'Key',
 		info: {
 			title: 'Key',

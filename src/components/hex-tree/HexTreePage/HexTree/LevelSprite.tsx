@@ -3,13 +3,14 @@ import clsx from 'clsx';
 import { LevelTreeSprite } from '../../types';
 import { LevelSprite as RenderLevelSprite } from '../RenderLevel/LevelSprite';
 import { ByteInputField } from './ByteInputField';
-import { FaDiceFive, FaDiceFour } from 'react-icons/fa';
+import { FaDiceFive, FaDiceFour, FaDiceSix } from 'react-icons/fa';
 
 type LevelSpriteProps = {
 	className?: string;
 	levelSprite: LevelTreeSprite;
 	madeFourBytes?: boolean;
 	madeFiveBytes?: boolean;
+	madeSixBytes?: boolean;
 	onPatch: (arg: { offset: number; bytes: number[] }) => void;
 };
 
@@ -27,6 +28,7 @@ function LevelSprite({
 	levelSprite,
 	madeFourBytes,
 	madeFiveBytes,
+	madeSixBytes,
 	onPatch,
 }: LevelSpriteProps) {
 	const data = levelSprite.rawBytes;
@@ -90,6 +92,9 @@ function LevelSprite({
 					)}
 					{madeFiveBytes && (
 						<FaDiceFive className="absolute top-0 right-0 text-blue-500" />
+					)}
+					{madeSixBytes && (
+						<FaDiceSix className="absolute top-0 right-0 text-blue-500" />
 					)}
 				</div>
 			</div>

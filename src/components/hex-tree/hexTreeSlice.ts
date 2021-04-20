@@ -115,6 +115,9 @@ const hexTreeSlice = createSlice({
 						state.byteSizes.sprite.five = state.byteSizes.sprite.five.filter(
 							(i) => i !== id
 						);
+						state.byteSizes.sprite.six = state.byteSizes.sprite.six.filter(
+							(i) => i !== id
+						);
 					} else {
 						state.byteSizes.sprite.four = state.byteSizes.sprite.four.filter(
 							(i) => i !== id
@@ -152,8 +155,42 @@ const hexTreeSlice = createSlice({
 						state.byteSizes.sprite.four = state.byteSizes.sprite.four.filter(
 							(i) => i !== id
 						);
+						state.byteSizes.sprite.six = state.byteSizes.sprite.six.filter(
+							(i) => i !== id
+						);
 					} else {
 						state.byteSizes.sprite.five = state.byteSizes.sprite.five.filter(
+							(i) => i !== id
+						);
+					}
+				}
+
+				state.tree = parseDataToTree(
+					new Uint8Array(state.originalData),
+					state.byteSizes
+				);
+			}
+		},
+		toSixBytes(
+			state: HexTreeState,
+			action: PayloadAction<{ type: 'sprite' | 'object'; id: number }>
+		) {
+			if (state.originalData) {
+				const { type, id } = action.payload;
+
+				if (type === 'object') {
+					throw new Error('toSixBytes: dont support objects yet');
+				} else {
+					if (!state.byteSizes.sprite.six.includes(id)) {
+						state.byteSizes.sprite.six.push(id);
+						state.byteSizes.sprite.four = state.byteSizes.sprite.four.filter(
+							(i) => i !== id
+						);
+						state.byteSizes.sprite.five = state.byteSizes.sprite.six.filter(
+							(i) => i !== id
+						);
+					} else {
+						state.byteSizes.sprite.six = state.byteSizes.sprite.six.filter(
 							(i) => i !== id
 						);
 					}
@@ -467,6 +504,7 @@ const {
 	add,
 	toFourBytes,
 	toFiveBytes,
+	toSixBytes,
 } = hexTreeSlice.actions;
 
 export {
@@ -479,5 +517,6 @@ export {
 	add,
 	toFourBytes,
 	toFiveBytes,
+	toSixBytes,
 };
 export type { HexTreeState };

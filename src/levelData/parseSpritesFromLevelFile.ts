@@ -18,6 +18,7 @@ const knownFiveByteIds: number[] = [
 	0xea, // not sure, but it seems to be the first sprite in mushroom04, room 2
 	0xe5, // vertical one way door
 	0xe6, // horizontal one way door
+	0xfd, // "coin challenge" once you collect it you then have to collect param1 coins
 ];
 const knownSixByteIds: number[] = [];
 

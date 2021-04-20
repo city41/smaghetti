@@ -34,6 +34,7 @@ type HexTreePageProps = {
 	originalData: Uint8Array;
 	onFourBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
 	onFiveBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
+	onSixBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
 	byteSizes: ByteSizes;
 };
 
@@ -52,6 +53,7 @@ function HexTreePage({
 	originalData,
 	onFourBytes,
 	onFiveBytes,
+	onSixBytes,
 	byteSizes,
 }: HexTreePageProps) {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -91,6 +93,7 @@ function HexTreePage({
 							onAdd={onAdd}
 							onFourBytes={onFourBytes}
 							onFiveBytes={onFiveBytes}
+							onSixBytes={onSixBytes}
 							byteSizes={byteSizes}
 						/>
 					)}

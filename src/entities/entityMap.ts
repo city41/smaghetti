@@ -10,6 +10,7 @@ import { BuzzyBeetle } from './BuzzyBeetle';
 import { CapeFeather } from './CapeFeather';
 import { CardSlotMachine } from './CardSlotMachine';
 import { Coin } from './Coin';
+import { CoinChallenge } from './CoinChallenge';
 import { ConveyorBelt } from './ConveyorBelt';
 import { DoorLock } from './DoorLock';
 import { FireBar } from './FireBar';
@@ -71,6 +72,7 @@ const entityMap = {
 	CapeFeather,
 	CardSlotMachine,
 	Coin,
+	CoinChallenge,
 	ConveyorBelt,
 	DoorLock,
 	FireBar,

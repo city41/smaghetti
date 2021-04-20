@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { RiFocus3Line, RiAddFill } from 'react-icons/ri';
 import { BiHide, BiShow } from 'react-icons/bi';
 import { HiClipboardCopy } from 'react-icons/hi';
-import { FaDiceFive, FaDiceFour } from 'react-icons/fa';
+import { FaDiceFive, FaDiceFour, FaDiceSix } from 'react-icons/fa';
 
 import {
 	Add,
@@ -33,6 +33,7 @@ type RoomProps = {
 	onAdd: (add: Add) => void;
 	onFourBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
 	onFiveBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
+	onSixBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
 	byteSizes: ByteSizes;
 };
 
@@ -45,6 +46,7 @@ type EntityContainerProps = {
 	onAdd: (bytes: number[]) => void;
 	onFourBytes?: () => void;
 	onFiveBytes?: () => void;
+	onSixBytes?: () => void;
 	children: ReactNode;
 };
 
@@ -57,6 +59,7 @@ function EntityContainer({
 	onExcludeChange,
 	onFourBytes,
 	onFiveBytes,
+	onSixBytes,
 	children,
 }: EntityContainerProps) {
 	const [showAdd, setShowAdd] = useState(false);
@@ -112,6 +115,11 @@ function EntityContainer({
 					<FaDiceFive />
 				</button>
 			)}
+			{onSixBytes && (
+				<button onClick={onSixBytes}>
+					<FaDiceSix />
+				</button>
+			)}
 			{showAdd && (
 				<div>
 					<input
@@ -139,6 +147,7 @@ function Room({
 	onEntityFocus,
 	onFourBytes,
 	onFiveBytes,
+	onSixBytes,
 }: RoomProps) {
 	const objects = room.objects.objects.map((o, i) => {
 		return (
@@ -200,13 +209,18 @@ function Room({
 					onAdd({ roomIndex, type: 'sprite', afterIndex: i, bytes });
 				}}
 				onFourBytes={
-					s.rawBytes.length === 5 || byteSizes.sprite.four.includes(s.id)
+					s.rawBytes.length !== 4 || byteSizes.sprite.four.includes(s.id)
 						? () => onFourBytes({ type: 'sprite', id: s.id })
 						: undefined
 				}
 				onFiveBytes={
-					s.rawBytes.length === 4 || byteSizes.sprite.five.includes(s.id)
+					s.rawBytes.length !== 5 || byteSizes.sprite.five.includes(s.id)
 						? () => onFiveBytes({ type: 'sprite', id: s.id })
+						: undefined
+				}
+				onSixBytes={
+					s.rawBytes.length !== 6 || byteSizes.sprite.six.includes(s.id)
+						? () => onSixBytes({ type: 'sprite', id: s.id })
 						: undefined
 				}
 			>
@@ -214,6 +228,7 @@ function Room({
 					levelSprite={s}
 					madeFourBytes={byteSizes.sprite.four.includes(s.id)}
 					madeFiveBytes={byteSizes.sprite.five.includes(s.id)}
+					madeSixBytes={byteSizes.sprite.six.includes(s.id)}
 					onPatch={({ offset, bytes }) => {
 						onPatch({
 							type: 'sprite',

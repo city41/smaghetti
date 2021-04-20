@@ -77,6 +77,9 @@ const knownFourByteIds: Record<number, number[]> = {
 		0x5, // not sure yet, but it is in mushroom11,room0
 		0x17, // seems to be a upward pipe, mushroom11,room2
 	],
+	0xa: [
+		0x2f, // first object in mushroom05,room0. no idea what it is, but it is clearly 4 bytes
+	],
 };
 
 const knownFiveByteIds: Record<number, number[]> = {
