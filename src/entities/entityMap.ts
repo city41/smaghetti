@@ -21,6 +21,7 @@ import { Goomba } from './Goomba';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
 import { HiddenBlock } from './HiddenBlock';
+import { HorizontalRedPirannaPlant } from './HorizontalRedPirannaPlant';
 import { IndestructibleBrick } from './IndestructibleBrick';
 import { Key } from './Key';
 import { Lakitu } from './Lakitu';
@@ -83,6 +84,7 @@ const entityMap = {
 	GreenKoopaTroopa,
 	GreenParaTroopa,
 	HiddenBlock,
+	HorizontalRedPirannaPlant,
 	IndestructibleBrick,
 	Key,
 	Lakitu,
