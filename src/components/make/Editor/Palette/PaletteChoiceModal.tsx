@@ -294,6 +294,13 @@ const gizmos: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
+	{
+		entry: 'YellowSwitch',
+		info: {
+			title: 'Yellow Switch',
+			description: '',
+		},
+	},
 ];
 
 const powerUps: PaletteChoiceModalEntry[] = [

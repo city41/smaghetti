@@ -51,6 +51,7 @@ import { UndergroundFlatTerrain_VerticalLeft } from './UndergroundFlatTerrain_Ve
 import { UndergroundFlatTerrain_VerticalRight } from './UndergroundFlatTerrain_VerticalRight';
 import { WoodBlock } from './WoodBlock';
 import { WoodDoor } from './WoodDoor';
+import { YellowSwitch } from './YellowSwitch';
 import { YellowSwitchBrick } from './YellowSwitchBrick';
 
 const entityMap = {
@@ -107,6 +108,7 @@ const entityMap = {
 	UndergroundFlatTerrain_VerticalRight,
 	WoodBlock,
 	WoodDoor,
+	YellowSwitch,
 	YellowSwitchBrick,
 };
 

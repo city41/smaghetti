@@ -13,6 +13,7 @@ type LevelSprite = {
 const knownFourByteIds: number[] = [];
 const knownFiveByteIds: number[] = [
 	0xb9, // fortress fire bars
+	0xfa, // Ace Coin
 ];
 const knownSixByteIds: number[] = [];
 
