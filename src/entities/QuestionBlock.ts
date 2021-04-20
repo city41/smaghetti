@@ -15,6 +15,7 @@ const QuestionBlock: Entity = {
 	payloadToObjectId: {
 		CapeFeather: 0x44,
 		CoinSnake: 0x47,
+		Leaf: 0x11,
 		FireFlower: 0x10,
 		PWing: 0x55,
 		Shoe: 0x43,

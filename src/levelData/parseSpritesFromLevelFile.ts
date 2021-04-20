@@ -19,6 +19,7 @@ const knownFiveByteIds: number[] = [
 	0xe5, // vertical one way door
 	0xe6, // horizontal one way door
 	0xfd, // "coin challenge" once you collect it you then have to collect param1 coins
+	0xab, // second sprite in mushroom05, not sure what it is, but confident it is 5 bytes
 ];
 const knownSixByteIds: number[] = [];
 
