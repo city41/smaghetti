@@ -81,7 +81,7 @@ function LevelSprite({
 							'grid-cols-4': data.length === 4,
 							'grid-cols-5': data.length === 5,
 							'grid-cols-6': data.length === 6,
-							relative: madeFourBytes || madeFiveBytes,
+							relative: madeFourBytes || madeFiveBytes || madeSixBytes,
 						}
 					)}
 				>

@@ -187,7 +187,7 @@ const hexTreeSlice = createSlice({
 						state.byteSizes.sprite.four = state.byteSizes.sprite.four.filter(
 							(i) => i !== id
 						);
-						state.byteSizes.sprite.five = state.byteSizes.sprite.six.filter(
+						state.byteSizes.sprite.five = state.byteSizes.sprite.five.filter(
 							(i) => i !== id
 						);
 					} else {
