@@ -106,6 +106,13 @@ const terrain: PaletteChoiceModalEntry[] = [
 		},
 	},
 	{
+		entry: 'MagicBrick',
+		info: {
+			title: 'Magic Brick',
+			description: 'Pick it up and throw it!',
+		},
+	},
+	{
 		entry: 'IndestructibleBrick',
 		info: {
 			title: 'Indestructible Brick',

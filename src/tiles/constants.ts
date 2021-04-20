@@ -31,6 +31,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	IndestructibleBrick: 'In',
 	Lava: 'Lv',
 	LogBridge: 'Lbg',
+	MagicBrick: 'Mgb',
 	Muncher: 'Mu',
 	MusicBlock: 'Mb',
 	PSwitch: 'Ps',

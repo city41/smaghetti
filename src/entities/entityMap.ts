@@ -25,6 +25,7 @@ import { Lakitu } from './Lakitu';
 import { Lava } from './Lava';
 import { Leaf } from './Leaf';
 import { LogBridge } from './LogBridge';
+import { MagicBrick } from './MagicBrick';
 import { Muncher } from './Muncher';
 import { Mushroom } from './Mushroom';
 import { MusicBlock } from './MusicBlock';
@@ -84,6 +85,7 @@ const entityMap = {
 	Lava,
 	Leaf,
 	LogBridge,
+	MagicBrick,
 	Muncher,
 	Mushroom,
 	MusicBlock,
