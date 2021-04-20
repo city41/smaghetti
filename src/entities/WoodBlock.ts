@@ -1,19 +1,24 @@
 import type { Entity } from './types';
-
-const payloadToObjectId = {
-	FireFlower: 0x24,
-	Leaf: 0x25,
-	StarMan: 0x26,
-};
+import { getBankParam1 } from './util';
 
 const WoodBlock: Entity = {
 	type: 'WoodBlock',
 	editorType: 'tile',
 	gameType: 'object',
 	settingsType: 'single',
-	dimensions: 'none',
-	defaultSettings: { payload: 'StarMan' },
+	dimensions: 'xy',
+	defaultSettings: {},
 	romOffset: 0x163768,
+	objectId: 0x12,
+	emptyBank: 1,
+	payloadBank: 0,
+	param1: 'width',
+	param2: 'height',
+	payloadToObjectId: {
+		FireFlower: 0x24,
+		Leaf: 0x25,
+		StarMan: 0x26,
+	},
 	palette: [
 		0x7f96,
 		0x7fff,
@@ -38,11 +43,27 @@ const WoodBlock: Entity = {
 	],
 
 	toBinary(x, y, w, h, settings) {
-		const objectId =
-			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId];
+		const payloadToObjectId = this.payloadToObjectId!;
 
-		return [0, y, x, objectId];
+		if (settings.payload in payloadToObjectId) {
+			// if there is a payload then need to split this up into individual brick objects
+
+			let binaries: number[] = [];
+			const objectId = payloadToObjectId[
+				settings.payload as keyof typeof payloadToObjectId
+			]!;
+
+			for (let by = 0; by < h + 1; ++by) {
+				for (let bx = 0; bx < w + 1; ++bx) {
+					binaries = binaries.concat([0, y + by, x + bx, objectId]);
+				}
+			}
+
+			return binaries;
+		} else {
+			return [getBankParam1(1, w), y, x, this.objectId!, h];
+		}
 	},
 };
 
-export { WoodBlock, payloadToObjectId };
+export { WoodBlock };
