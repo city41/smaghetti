@@ -80,10 +80,8 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 		},
 		ref
 	) => {
-		const finalClassName = clsx(className, {
-			// showingDetailsEditPane: showingDetailsEditPane,
-			[focusedStyles.focused]: focused, // && !showingDetailsEditPane,
-		});
+		const showingDetailsEditPane =
+			focused && !!detailsMap[type]?.edit && !!settings;
 
 		const handleClick = useCallback(() => {
 			onClick?.(id ?? -1);
@@ -162,6 +160,11 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 			backgroundWidth = '100%';
 			backgroundHeight = '100%';
 		}
+
+		const finalClassName = clsx(className, {
+			'z-10': showingDetailsEditPane,
+			[focusedStyles.focused]: focused && !detailsEdit,
+		});
 
 		return (
 			<div

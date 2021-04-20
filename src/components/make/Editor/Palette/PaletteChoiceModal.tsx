@@ -334,6 +334,14 @@ const objects: PaletteChoiceModalEntry[] = [
 			description: 'Shows the way to go ... or not go?',
 		},
 	},
+	{
+		entry: 'Chest',
+		info: {
+			title: 'Chest',
+			description:
+				'Contain a power up. Mario finishes the level upon opening it.',
+		},
+	},
 ];
 
 const gizmos: PaletteChoiceModalEntry[] = [

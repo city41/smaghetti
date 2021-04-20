@@ -11,6 +11,7 @@ import { MusicBlockEditDetails } from './MusicBlockEditDetails';
 import { HiddenBlockEditDetails } from './HiddenBlockEditDetails';
 import { WoodBlockEditDetails } from './WoodBlockEditDetails';
 import { EntityType } from '../../entities/entityMap';
+import { ChestEditDetails } from './ChestEditDetails';
 
 type DetailsViewProps = {
 	settings: EntitySettings;
@@ -40,6 +41,10 @@ const detailsMap: Partial<
 	BuriedVegetable: {
 		view: PayloadViewDetails,
 		edit: BuriedVegetableEditDetails,
+	},
+	Chest: {
+		view: PayloadViewDetails,
+		edit: ChestEditDetails,
 	},
 	HiddenBlock: {
 		view: PayloadViewDetails,

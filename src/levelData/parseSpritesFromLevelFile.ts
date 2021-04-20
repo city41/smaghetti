@@ -21,6 +21,7 @@ const knownFiveByteIds: number[] = [
 	0xfd, // "coin challenge" once you collect it you then have to collect param1 coins
 	0xab, // second sprite in mushroom05, not sure what it is, but confident it is 5 bytes
 	0xff, // horizontal, facing right, red piranna plants that spit fire
+	0x8, // chest
 ];
 const knownSixByteIds: number[] = [
 	0xe0, // first sprite in mushroom09,room1
