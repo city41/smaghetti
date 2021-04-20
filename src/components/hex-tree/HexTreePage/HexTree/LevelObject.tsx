@@ -84,7 +84,7 @@ function LevelObject({
 					{
 						'grid-cols-4': data.length === 4,
 						'grid-cols-5': data.length === 5,
-						relative: madeFourBytes,
+						relative: madeFourBytes || madeFiveBytes,
 					}
 				)}
 			>

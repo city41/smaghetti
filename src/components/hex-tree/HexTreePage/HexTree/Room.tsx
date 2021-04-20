@@ -212,6 +212,8 @@ function Room({
 			>
 				<LevelSprite
 					levelSprite={s}
+					madeFourBytes={byteSizes.sprite.four.includes(s.id)}
+					madeFiveBytes={byteSizes.sprite.five.includes(s.id)}
 					onPatch={({ offset, bytes }) => {
 						onPatch({
 							type: 'sprite',

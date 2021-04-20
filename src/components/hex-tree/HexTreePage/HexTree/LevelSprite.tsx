@@ -1,16 +1,15 @@
 import React, { ReactElement } from 'react';
 import clsx from 'clsx';
 import { LevelTreeSprite } from '../../types';
-import {
-	bank0SpriteIdToEntityType,
-	bank1SpriteIdToEntityType,
-} from '../../../../entities/spriteIdMap';
 import { LevelSprite as RenderLevelSprite } from '../RenderLevel/LevelSprite';
 import { ByteInputField } from './ByteInputField';
+import { FaDiceFive, FaDiceFour } from 'react-icons/fa';
 
 type LevelSpriteProps = {
 	className?: string;
 	levelSprite: LevelTreeSprite;
+	madeFourBytes?: boolean;
+	madeFiveBytes?: boolean;
 	onPatch: (arg: { offset: number; bytes: number[] }) => void;
 };
 
@@ -23,7 +22,13 @@ const levelSpriteSlices = {
 	param2: [5, 1],
 };
 
-function LevelSprite({ className, levelSprite, onPatch }: LevelSpriteProps) {
+function LevelSprite({
+	className,
+	levelSprite,
+	madeFourBytes,
+	madeFiveBytes,
+	onPatch,
+}: LevelSpriteProps) {
 	const data = levelSprite.rawBytes;
 
 	const keys = Object.keys(levelSpriteSlices).reduce<ReactElement[]>(
@@ -74,11 +79,18 @@ function LevelSprite({ className, levelSprite, onPatch }: LevelSpriteProps) {
 							'grid-cols-4': data.length === 4,
 							'grid-cols-5': data.length === 5,
 							'grid-cols-6': data.length === 6,
+							relative: madeFourBytes || madeFiveBytes,
 						}
 					)}
 				>
 					{keys}
 					{values}
+					{madeFourBytes && (
+						<FaDiceFour className="absolute top-0 right-0 text-blue-500" />
+					)}
+					{madeFiveBytes && (
+						<FaDiceFive className="absolute top-0 right-0 text-blue-500" />
+					)}
 				</div>
 			</div>
 		</div>
