@@ -66,6 +66,10 @@ function HexTree({
 	}
 
 	const rooms = tree.rooms.map((r, i) => {
+		if (r.exclude) {
+			return null;
+		}
+
 		return (
 			<Fragment key={i}>
 				<div id={`room-${i}`} />
