@@ -51,10 +51,11 @@ const EMPTY_LEVEL = createLevelData([
 	{
 		settings: {
 			objectSet: 0,
-			graphicSet: 0,
+			objectGraphicSet: 0,
 			music: 0,
 			bgColor: 0,
 			bgGraphic: 0,
+			spriteGraphicSet: [0, 0, 0, 0, 0, 0],
 		},
 		paletteEntries: [],
 		entities: [],

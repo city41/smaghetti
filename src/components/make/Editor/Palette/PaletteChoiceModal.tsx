@@ -95,6 +95,34 @@ const enemies: PaletteChoiceModalEntry[] = [
 			description: "Dammit it's Lakitu!",
 		},
 	},
+	{
+		entry: 'Boo',
+		info: {
+			title: 'Boo',
+			description: '',
+		},
+	},
+	{
+		entry: 'BonyBeetle',
+		info: {
+			title: 'Bony Beetle',
+			description: '',
+		},
+	},
+	{
+		entry: 'Thwomp',
+		info: {
+			title: 'Thwomp',
+			description: '',
+		},
+	},
+	{
+		entry: 'Thwimp',
+		info: {
+			title: 'Thwimp',
+			description: '',
+		},
+	},
 ];
 
 const terrain: PaletteChoiceModalEntry[] = [

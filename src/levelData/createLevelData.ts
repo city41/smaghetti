@@ -52,7 +52,7 @@ function getObjectHeader(settings: RoomSettings): Tuple<number, 11> {
 		0x0c, // bottom nibble is length of level, copied from classic 1-2
 		settings.bgColor, // background color
 		0xa1, // top nibble is scroll settings, bottom unknown, copied from 1-2
-		settings.graphicSet, // top 3 bits: level entry action, bottom 5: graphics set
+		settings.objectGraphicSet, // top 3 bits: level entry action, bottom 5: graphics set
 		0x08, // top nibble: graphics set, bottom: unknown
 		0x00, // top nibble: extra color, bottom: extre effect
 		// background graphics, copied from 1-2
@@ -61,7 +61,6 @@ function getObjectHeader(settings: RoomSettings): Tuple<number, 11> {
 }
 
 function getLevelSettings(settings: RoomSettings): Tuple<number, 32> {
-	// based on classic 1-2 settings
 	return [
 		0xbf, // screen y boundary, least sig byte
 		0x01, // screen y boundary, most sig byte
@@ -79,13 +78,8 @@ function getLevelSettings(settings: RoomSettings): Tuple<number, 32> {
 		0, // object set, most sig byte
 		settings.music, // music, least sig byte
 		0, // music, most sig byte
+		...settings.spriteGraphicSet,
 		// the rest of the bytes are largely unknown and copied from classic 1-2
-		0,
-		0,
-		0,
-		0x02,
-		0,
-		0,
 		0x18,
 		0,
 		0x38,

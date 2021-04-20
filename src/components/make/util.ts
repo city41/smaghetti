@@ -4,13 +4,13 @@ function isCompatibleEntity(
 	entityType: EntityType,
 	settings: RoomSettings
 ): boolean {
-	const { objectSet, graphicSet } = settings;
+	const { objectSet, objectGraphicSet } = settings;
 
 	const entityDef = entityMap[entityType];
 	const isCompatibleObjectSetWise =
 		!entityDef.objectSets || entityDef.objectSets.includes(objectSet);
 	const isCompatibleGraphicSetWise =
-		!entityDef.graphicSets || !entityDef.graphicSets.includes(graphicSet);
+		!entityDef.graphicSets || !entityDef.graphicSets.includes(objectGraphicSet);
 
 	return isCompatibleObjectSetWise && isCompatibleGraphicSetWise;
 }

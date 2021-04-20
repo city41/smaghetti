@@ -1,5 +1,6 @@
 export const ROOM_OBJECT_HEADER_SIZE_IN_BYTES = 11;
 export const POINTER_AREA_SIZE_IN_BYTES = 48;
+export const ROOM_LEVELSETTINGS_SIZE_IN_BYTES = 32;
 
 // these are simple arrays because there are four rooms,
 // so index 0 is room zero's pointer address
@@ -16,19 +17,23 @@ export const ROOM_BLOCKPATH_POINTERS = [0xd, 0x19, 0x25, 0x31];
 
 export const ROOM_AUTOSCROLL_POINTERS = [0xf, 0x1b, 0x27, 0x33];
 
-export const ROOM_TYPE_SETTINGS = {
+export const ROOM_TYPE_SETTINGS: Record<string, RoomSettings> = {
 	underground: {
 		objectSet: 0xe,
-		graphicSet: 0x3,
+		objectGraphicSet: 0x3,
 		music: 0xd,
 		bgGraphic: 0x37,
 		bgColor: 0x1,
+		// taken from star02,room0
+		spriteGraphicSet: [0, 0, 0, 2, 0, 0],
 	},
 	fortress: {
 		objectSet: 0x2,
-		graphicSet: 0x2,
+		objectGraphicSet: 0x2,
 		music: 0xf,
 		bgGraphic: 0x6,
 		bgColor: 0x98,
+		// taken from mushroom09,room0
+		spriteGraphicSet: [6, 0, 0, 3, 0, 0xd],
 	},
 };

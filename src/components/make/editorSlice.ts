@@ -1625,7 +1625,8 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 // 3.0.0: rooms
 // 3.0.1: fix issue where room paletteEntries were not being restored
 // 3.1.0: added room settings
-const LOCALSTORAGE_KEY = 'smaghetti_3.1.0';
+// 3.1.1: room settings: spriteGraphicSet
+const LOCALSTORAGE_KEY = 'smaghetti_3.1.1';
 
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {

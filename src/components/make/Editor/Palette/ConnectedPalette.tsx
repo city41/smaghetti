@@ -29,7 +29,7 @@ const ConnectedPalette: FunctionComponent<Partial<PaletteProps>> = (props) => {
 			currentPaletteEntry={currentPaletteEntry}
 			paletteEntries={paletteEntries}
 			currentObjectSet={settings.objectSet}
-			currentGraphicSet={settings.graphicSet}
+			currentGraphicSet={settings.objectGraphicSet}
 			{...props}
 			{...actions}
 		/>

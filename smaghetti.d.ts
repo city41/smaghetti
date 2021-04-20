@@ -65,10 +65,11 @@ type SerializedTileLayer = {
 
 type RoomSettings = {
 	objectSet: number;
-	graphicSet: number;
+	objectGraphicSet: number;
 	music: number;
 	bgGraphic: number;
 	bgColor: number;
+	spriteGraphicSet: [number, number, number, number, number, number];
 };
 
 type RoomData = {

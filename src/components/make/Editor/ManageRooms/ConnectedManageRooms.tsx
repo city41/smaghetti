@@ -34,7 +34,7 @@ const roomTypes = Object.keys(ROOM_TYPE_SETTINGS);
 function getRoomType(settings: RoomSettings): string {
 	const entry = Object.entries(ROOM_TYPE_SETTINGS).find((rts) => {
 		return (
-			settings.graphicSet === rts[1].graphicSet &&
+			settings.objectGraphicSet === rts[1].objectGraphicSet &&
 			settings.objectSet === rts[1].objectSet
 		);
 	});

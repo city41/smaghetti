@@ -1,11 +1,10 @@
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
+import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 
-/**
- * this is Boo, but it doesn't show up correctly yet.
- * There is a graphic flag for sprites I haven't found yet.
- */
 const Boo: Entity = {
+	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
+	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	type: 'Boo',
 	editorType: 'entity',
 	gameType: 'sprite',

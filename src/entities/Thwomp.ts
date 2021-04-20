@@ -1,7 +1,10 @@
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
+import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 
 const Thwomp: Entity = {
+	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
+	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	type: 'Thwomp',
 	editorType: 'entity',
 	gameType: 'sprite',

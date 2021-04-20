@@ -14,10 +14,11 @@ export default meta;
 const EMPTY_ROOM: RoomState = {
 	settings: {
 		objectSet: 0,
-		graphicSet: 0,
+		objectGraphicSet: 0,
 		music: 0,
 		bgColor: 0,
 		bgGraphic: 0,
+		spriteGraphicSet: [0, 0, 0, 0, 0, 0],
 	},
 	entities: [],
 	tiles: [],

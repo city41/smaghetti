@@ -27,11 +27,12 @@ describe('createLevelData', () => {
 
 			const room: RoomData = {
 				settings: {
-					graphicSet: 0,
+					objectGraphicSet: 0,
 					objectSet: 0,
 					music: 0,
 					bgColor: 0,
 					bgGraphic: 0,
+					spriteGraphicSet: [0, 0, 0, 0, 0, 0],
 				},
 				paletteEntries: [],
 				entities,
@@ -83,11 +84,12 @@ describe('createLevelData', () => {
 			const levelData = createLevelData([
 				{
 					settings: {
-						graphicSet: 0,
+						objectGraphicSet: 0,
 						objectSet: 0,
 						bgGraphic: 0,
 						music: 0,
 						bgColor: 0,
+						spriteGraphicSet: [0, 0, 0, 0, 0, 0],
 					},
 					paletteEntries: [],
 					entities: [],
