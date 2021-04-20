@@ -14,6 +14,8 @@ const knownFourByteIds: number[] = [];
 const knownFiveByteIds: number[] = [
 	0xb9, // fortress fire bars
 	0xfa, // Ace Coin
+	0xe5, // vertical one way door
+	0xe6, // horizontal one way door
 ];
 const knownSixByteIds: number[] = [];
 

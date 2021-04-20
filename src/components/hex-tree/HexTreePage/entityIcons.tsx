@@ -61,7 +61,10 @@ function ObjectIcon(props: EntityIconProps) {
 
 function TransportIcon(props: EntityIconProps) {
 	return (
-		<BaseIcon {...props} missingTypeClassName="bg-yellow-600 text-white">
+		<BaseIcon
+			{...props}
+			missingTypeClassName="border border-yellow-600 text-white"
+		>
 			t
 		</BaseIcon>
 	);
