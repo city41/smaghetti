@@ -48,6 +48,7 @@ import { StarMan } from './StarMan';
 import { TerracottaBrick } from './TerracottaBrick';
 import { TexturedDoor } from './TexturedDoor';
 import { ThreeUpMoon } from './ThreeUpMoon';
+import { Thwomp } from './Thwomp';
 import { Transport } from './Transport';
 import { TriangularBlock } from './TriangularBlock';
 import { UndergroundFlatTerrain_HorizontalTop } from './UndergroundFlatTerrain_HorizontalTop';
@@ -112,6 +113,7 @@ const entityMap = {
 	TerracottaBrick,
 	TexturedDoor,
 	ThreeUpMoon,
+	Thwomp,
 	Transport,
 	TriangularBlock,
 	UndergroundFlatTerrain_HorizontalTop,
