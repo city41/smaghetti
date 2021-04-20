@@ -1,0 +1,38 @@
+mushroom01: Wild Ride in the Sky
+mushroom02: Slidin' the Slopes
+mushroom03: Vegetable Volley
+mushroom04: Doors o' Plenty
+mushroom05: Bombarded by Bob-ombs
+mushroom06: Magical Note Blocks
+mushroom07: The ol' Switcheroo
+mushroom08: Piped Full of Plants
+mushroom09: Swinging Bars of Doom
+mushroom10: Para Beetle Challenge
+mushroom11: A Musical Trek
+mushroom12: Armored Airship
+mushroom13: Ice Dungeon
+mushroom14: A Sky-High Adventure
+mushroom15: Sea to Sky
+mushroom16: It's a Shoe-In
+mushroom17: Slip Slidin' Away
+mushroom18: Ice Cubed
+mushroom19: Puzzling Pipe Maze
+mushroom20: A Towering Tour
+mushroom21: Castle Dash
+mushroom22: Rich with Ropes
+mushroom23: Vexing Doors
+mushroom24: Caped Escape
+mushroom25: Ground Work
+mushroom26: An Aqueous Adventure
+mushroom27: Bowser's Last Stand
+mushroom28: Koopaling Confusion
+mushroom29: Bowser's Airship 1
+mushroom30: Bowser's Airship 2
+promo01: Airship's Revenge
+promo02: No Time to Dawdle 
+promo03: Treacherous Halls
+star01: Classic World 1-1
+star02: Classic World 1-2
+star03: Classic World 1-3
+star04: Classic World 1-4
+star05: Classic World 2-2

@@ -26,28 +26,12 @@ import {
 	MAX_LEVEL_DATA,
 	MAX_ECOIN_TABLE,
 } from './typesAndConstants';
-import { convertLevelNameToASCII, getLevelDataAddress } from './util';
+import {
+	convertLevelNameToASCII,
+	extractName,
+	getLevelDataAddress,
+} from './util';
 import { parseSaveFile } from './parseSaveFile';
-
-function extractName(inputData: Uint8Array, eCoinID: number): Uint8Array {
-	const nameStart = eCoinID === 0 ? 0x40 : 0x180;
-	let name: number[] = [];
-
-	for (let i = 0; i < MAX_NAME_SIZE; ++i) {
-		name.push(inputData[nameStart + i]);
-
-		if (name[name.length - 1] === 0xff) {
-			break;
-		}
-	}
-
-	// ended up with no name, inject a generic one
-	if (name.length === 0 || (name.length === 1 && name[0] === 0xff)) {
-		name = asciiToEReader('generic level');
-	}
-
-	return Uint8Array.from(name);
-}
 
 function loadECoinData(level: ELevelData, inputData: Uint8Array) {
 	if (level.info.eCoinID !== 0) {

@@ -1,3 +1,6 @@
+import { MAX_NAME_SIZE } from './typesAndConstants';
+import { asciiToEReader } from './asciiToEReader';
+
 export function getLevelDataAddress(dataID: number): number {
 	const isEven = dataID % 2 === 0;
 	const offset = isEven ? 1 : 0;
@@ -78,4 +81,27 @@ export function convertASCIIToLevelName(ascii: string): number[] {
 	return ascii.split('').map((c) => {
 		return convertASCIIToNumber(c);
 	});
+}
+
+export function extractName(
+	inputData: Uint8Array,
+	eCoinID: number
+): Uint8Array {
+	const nameStart = eCoinID === 0 ? 0x40 : 0x180;
+	let name: number[] = [];
+
+	for (let i = 0; i < MAX_NAME_SIZE; ++i) {
+		name.push(inputData[nameStart + i]);
+
+		if (name[name.length - 1] === 0xff) {
+			break;
+		}
+	}
+
+	// ended up with no name, inject a generic one
+	if (name.length === 0 || (name.length === 1 && name[0] === 0xff)) {
+		name = asciiToEReader('generic level');
+	}
+
+	return Uint8Array.from(name);
 }
