@@ -127,6 +127,13 @@ const terrain: PaletteChoiceModalEntry[] = [
 		},
 	},
 	{
+		entry: 'WoodWalkway',
+		info: {
+			title: 'Wood Walkway',
+			description: '',
+		},
+	},
+	{
 		entry: 'MusicBlock',
 		info: {
 			title: 'Music Block',
