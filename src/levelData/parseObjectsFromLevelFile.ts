@@ -71,6 +71,12 @@ const knownFourByteIds: Record<number, number[]> = {
 		0x56, // yellow switch brick
 		0x61, // ghost house wooden walkway
 	],
+	// TODO: not sure what this object set is yet, but it is mushroom11, room 0, the one with music blocks galore
+	0x4: [
+		0x14, // empty music block
+		0x5, // not sure yet, but it is in mushroom11,room0
+		0x17, // seems to be a upward pipe, mushroom11,room2
+	],
 };
 
 const knownFiveByteIds: Record<number, number[]> = {

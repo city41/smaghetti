@@ -215,6 +215,13 @@ const terrain: PaletteChoiceModalEntry[] = [
 			description: 'Only solid while a yellow switch is active',
 		},
 	},
+	{
+		entry: 'ConveyorBelt',
+		info: {
+			title: 'Conveyor Belt',
+			description: '',
+		},
+	},
 ];
 
 const objects: PaletteChoiceModalEntry[] = [
