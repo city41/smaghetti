@@ -330,7 +330,6 @@ function getRoom(roomIndex: number, allRooms: RoomData[]): Room {
 
 	const objectHeader = getObjectHeader(settings);
 	const objects = getObjects(entities, tileLayer);
-	console.log('objects', objects);
 	const levelSettings = getLevelSettings(settings);
 	const transportData = getTransports(transports, allRooms);
 	const spriteHeader = [0x0];

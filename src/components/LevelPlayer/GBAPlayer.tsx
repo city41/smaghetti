@@ -36,7 +36,6 @@ function GBAPlayer({
 		window._gba.setBios(biosFile.buffer);
 
 		window._gba.statusCallback = (status) => {
-			console.log('gba status', status);
 			setGbaStatus(status);
 
 			if (status === 'ready-to-inject') {

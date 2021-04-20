@@ -28,5 +28,6 @@ module.exports = {
 		'@typescript-eslint/no-unused-vars': 'off',
 		'react/prop-types': 'off',
 		'no-mixed-spaces-and-tabs': 'off',
+		'no-console': ['error', { allow: ['warn', 'error'] }],
 	},
 };

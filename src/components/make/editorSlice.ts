@@ -1503,8 +1503,6 @@ const editorSlice = createSlice({
 				);
 			}
 
-			console.log({ room, x, y });
-
 			transport.destRoom = room;
 			transport.destX = x;
 			transport.destY = y;

@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import { DetailsViewProps } from './index';
 
 function TriangularBlockViewDetails({ settings }: DetailsViewProps) {
-	console.log('settings.angle', settings.angle);
 	return (
 		<div
 			className={clsx(
