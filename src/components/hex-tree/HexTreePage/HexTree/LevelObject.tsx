@@ -9,6 +9,7 @@ import { LevelObject as RenderLevelObject } from '../RenderLevel/LevelObject';
 type ObjectProps = {
 	className?: string;
 	levelObject: LevelTreeObject;
+	objectSet: number;
 	madeFourBytes?: boolean;
 	madeFiveBytes?: boolean;
 	onPatch: (arg: { offset: number; bytes: number[] }) => void;
@@ -25,6 +26,7 @@ const levelObjectSlices = {
 function LevelObject({
 	className,
 	levelObject,
+	objectSet,
 	madeFourBytes,
 	madeFiveBytes,
 	onPatch,
@@ -76,7 +78,11 @@ function LevelObject({
 			)}
 		>
 			<div className="max-w-xs overflow-auto">
-				<RenderLevelObject object={levelObject} scale={1} />
+				<RenderLevelObject
+					object={levelObject}
+					scale={1}
+					objectSet={objectSet}
+				/>
 			</div>
 			<div
 				className={clsx(

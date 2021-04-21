@@ -178,6 +178,7 @@ function Room({
 			>
 				<LevelObject
 					levelObject={o}
+					objectSet={room.levelSettings.settings?.objectSet!}
 					madeFourBytes={byteSizes.object.four.includes(o.id)}
 					madeFiveBytes={byteSizes.object.five.includes(o.id)}
 					onPatch={({ offset, bytes }) => {

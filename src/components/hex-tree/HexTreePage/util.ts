@@ -22,17 +22,31 @@ export function toHexString(b: number): string {
 	}
 }
 
-export function getEntityDefFromId(obj: LevelTreeObject): Entity | null {
+export function getEntityDefFromId(
+	obj: LevelTreeObject,
+	objectSet: number
+): Entity | null {
 	return (
-		entityDefs.find(
-			(ed) => ed.objectId === obj.id && obj.bank === ed.emptyBank
-		) ?? null
+		entityDefs.find((ed) => {
+			if (ed.objectSets && !ed.objectSets.includes(objectSet)) {
+				return false;
+			}
+
+			return ed.objectId === obj.id && obj.bank === ed.emptyBank;
+		}) ?? null
 	);
 }
 
-export function getEntityDefFromPayloadId(obj: LevelTreeObject): Entity | null {
+export function getEntityDefFromPayloadId(
+	obj: LevelTreeObject,
+	objectSet: number
+): Entity | null {
 	return (
 		entityDefs.find((ed) => {
+			if (ed.objectSets && !ed.objectSets.includes(objectSet)) {
+				return false;
+			}
+
 			if (!ed.payloadToObjectId || ed.payloadBank !== obj.bank) {
 				return false;
 			}

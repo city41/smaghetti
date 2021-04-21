@@ -10,6 +10,7 @@ import { EntityType } from '../../../../entities/entityMap';
 type LevelObjectProps = {
 	object: LevelTreeObject;
 	scale: number;
+	objectSet: number;
 };
 
 function determineHeight(
@@ -51,11 +52,11 @@ function getPayloadType(
 	return (foundEntry?.[0] as EntityType) ?? null;
 }
 
-function LevelObject({ object, scale }: LevelObjectProps) {
-	const entityDefViaId = getEntityDefFromId(object);
+function LevelObject({ object, scale, objectSet }: LevelObjectProps) {
+	const entityDefViaId = getEntityDefFromId(object, objectSet);
 	const entityDefViaPayload = entityDefViaId
 		? null
-		: getEntityDefFromPayloadId(object);
+		: getEntityDefFromPayloadId(object, objectSet);
 
 	const entityDef = entityDefViaId ?? entityDefViaPayload;
 

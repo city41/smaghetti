@@ -122,7 +122,11 @@ function RenderLevel({
 								onFocus={() => onEntityFocus(o)}
 								excluded={o.exclude}
 							>
-								<LevelObject object={o} scale={scale} />
+								<LevelObject
+									object={o}
+									scale={scale}
+									objectSet={currentRoom.levelSettings.settings?.objectSet!}
+								/>
 							</EntityContainer>
 						);
 				  })
