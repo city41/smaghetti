@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 
-const FortressSpike: Entity = {
+const UpFortressSpike: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	type: 'FortressSpike',
@@ -41,4 +41,4 @@ const FortressSpike: Entity = {
 	},
 };
 
-export { FortressSpike };
+export { UpFortressSpike };
