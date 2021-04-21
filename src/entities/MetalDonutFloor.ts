@@ -8,7 +8,8 @@ const MetalDonutFloor: Entity = {
 	type: 'MetalDonutFloor',
 	editorType: 'tile',
 	gameType: 'object',
-	dimensions: 'x',
+	dimensions: 'xy',
+	param1: 'height',
 	param2: 'width',
 	objectId: 0x28,
 	emptyBank: 1,
@@ -36,8 +37,8 @@ const MetalDonutFloor: Entity = {
 		[81, 83],
 	],
 
-	toBinary(x, y, w) {
-		return [getBankParam1(1, 0), y, x, this.objectId!, w];
+	toBinary(x, y, w, h) {
+		return [getBankParam1(1, h), y, x, this.objectId!, w];
 	},
 };
 
