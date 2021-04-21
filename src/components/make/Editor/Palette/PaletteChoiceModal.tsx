@@ -278,6 +278,13 @@ const terrain: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
+	{
+		entry: 'BowserLaserStatue',
+		info: {
+			title: 'Bowser Laser Statue',
+			description: '',
+		},
+	},
 ];
 
 const objects: PaletteChoiceModalEntry[] = [

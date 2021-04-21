@@ -125,7 +125,7 @@ function RenderLevel({
 								<LevelObject
 									object={o}
 									scale={scale}
-									objectSet={currentRoom.levelSettings.settings?.objectSet!}
+									objectSet={currentRoom.levelSettings.settings?.objectSet ?? 0}
 								/>
 							</EntityContainer>
 						);
