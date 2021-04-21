@@ -60,12 +60,13 @@ const knownFourByteIds: Record<number, number[]> = {
 		0x67, // buried veggie -- poison mushroom
 		0x69, // buried veggie -- monty mole
 		0x7e, // buried veggie -- koopa shell
-	],
-	[ROOM_TYPE_SETTINGS.underground.objectSet]: [
 		0x10, // QuestionBlock with coin payload
 		0x17, // something in Classic 1-2, I think it's a pipe
 		0x18, // something in Classic 1-2, also think it's a pipe
+		0x1b, // something in Classic 1-2, also think it's a pipe
 		0x1c, // something in Classic 1-2, also think it's a pipe
+	],
+	[ROOM_TYPE_SETTINGS.underground.objectSet]: [
 		0x3a, // initial wall at start of Classic 1-2
 		0xd, // final most wall in Classic 1-2 (right side of warp pipe "room")
 	],

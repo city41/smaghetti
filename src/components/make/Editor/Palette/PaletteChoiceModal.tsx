@@ -155,10 +155,24 @@ const terrain: PaletteChoiceModalEntry[] = [
 		},
 	},
 	{
+		entry: 'GlassBlock',
+		info: {
+			title: 'Glass Block',
+			description: 'Not slippery',
+		},
+	},
+	{
 		entry: 'WoodBlock',
 		info: {
 			title: 'Wood Brick',
 			description: '',
+		},
+	},
+	{
+		entry: 'MetalDonutFloor',
+		info: {
+			title: 'Metal Donut Floor ',
+			description: 'Unlike regular donuts, these stay in place',
 		},
 	},
 	{

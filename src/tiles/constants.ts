@@ -21,6 +21,8 @@ const TILE_TYPE_TO_TILE_ENTITY_TYPE: Record<
 > = {};
 
 // TODO: really need this to go away
+// or at the least, flip these so we know the ids are unique
+// ie Mu: "Muncher" instead of Muncher: "Mu"
 const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	Brick: 'Br',
 	BuriedVegetable: 'Bu',
@@ -28,6 +30,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	ConveyorBelt: 'Cb',
 	FireBarBase: 'Fbb',
 	FortressBrick: 'Fb',
+	GlassBlock: 'Gb',
 	UpFortressSpike: 'UFs',
 	DownFortressSpike: 'DFs',
 	HiddenBlock: 'Hb',
@@ -35,6 +38,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	Lava: 'Lv',
 	LogBridge: 'Lbg',
 	MagicBrick: 'Mgb',
+	MetalDonutFloor: 'Mdf',
 	Muncher: 'Mu',
 	MusicBlock: 'Mb',
 	PSwitch: 'Ps',

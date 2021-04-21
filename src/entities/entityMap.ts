@@ -16,6 +16,7 @@ import { CoinChallenge } from './CoinChallenge';
 import { ConveyorBelt } from './ConveyorBelt';
 import { DoorLock } from './DoorLock';
 import { DownFortressSpike } from './DownFortressSpike';
+import { DryBones } from './DryBones';
 import { FireBar } from './FireBar';
 import { FireBarBase } from './FireBarBase';
 import { FireFlower } from './FireFlower';
@@ -23,6 +24,7 @@ import { FortressBrick } from './FortressBrick';
 import { UpFortressSpike } from './UpFortressSpike';
 import { GiantGoomba } from './GiantGoomba';
 import { GiantGreenKoopa } from './GiantGreenKoopa';
+import { GlassBlock } from './GlassBlock';
 import { Goomba } from './Goomba';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
@@ -35,6 +37,7 @@ import { Lava } from './Lava';
 import { Leaf } from './Leaf';
 import { LogBridge } from './LogBridge';
 import { MagicBrick } from './MagicBrick';
+import { MetalDonutFloor } from './MetalDonutFloor';
 import { Muncher } from './Muncher';
 import { Mushroom } from './Mushroom';
 import { MusicBlock } from './MusicBlock';
@@ -87,6 +90,7 @@ const entityMap = {
 	ConveyorBelt,
 	DoorLock,
 	DownFortressSpike,
+	DryBones,
 	FireBar,
 	FireBarBase,
 	FireFlower,
@@ -94,6 +98,7 @@ const entityMap = {
 	UpFortressSpike,
 	GiantGoomba,
 	GiantGreenKoopa,
+	GlassBlock,
 	Goomba,
 	GreenKoopaTroopa,
 	GreenParaTroopa,
@@ -106,6 +111,7 @@ const entityMap = {
 	Leaf,
 	LogBridge,
 	MagicBrick,
+	MetalDonutFloor,
 	Muncher,
 	Mushroom,
 	MusicBlock,
