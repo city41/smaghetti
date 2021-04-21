@@ -8,7 +8,7 @@ import { ResourceType } from '../resources/resourceMap';
 type TileExtractionSpecWithData = TileExtractionSpec & { data: number[] };
 type ExtractedEntityTileData = Array<Array<TileExtractionSpecWithData>>;
 
-const memoDecompress = memoize(decompress, (rom, offset) => offset);
+const memoDecompress = memoize(decompress, (_rom, offset) => offset);
 
 const BYTES_PER_TILE = 32;
 

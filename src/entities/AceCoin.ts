@@ -32,7 +32,7 @@ const AceCoin: Entity = {
 		[106, 107],
 	],
 
-	toBinary(x, y, w, h, settings) {
+	toBinary(x, y, _w, _h, settings) {
 		// if (typeof settings.aceCoinIndex !== 'number') {
 		// 	throw new Error('AceCoin#toBinary: no aceCoinIndex setting found');
 		// }

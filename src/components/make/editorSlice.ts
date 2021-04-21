@@ -1123,7 +1123,7 @@ const editorSlice = createSlice({
 		deleteRoom(state: InternalEditorState, action: PayloadAction<number>) {
 			if (state.rooms.length > 1) {
 				const deletedIndex = action.payload;
-				state.rooms = state.rooms.filter((r, i) => i !== deletedIndex);
+				state.rooms = state.rooms.filter((_r, i) => i !== deletedIndex);
 				state.currentRoomIndex = Math.min(
 					state.currentRoomIndex,
 					state.rooms.length - 1

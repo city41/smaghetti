@@ -4,7 +4,7 @@ const FLAG_TYPED_ARRAY = 'FLAG_TYPED_ARRAY';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function serialize(data: any): string {
-	return JSON.stringify(data, function (key, value) {
+	return JSON.stringify(data, function (_key, value) {
 		if (
 			value instanceof ArrayBuffer ||
 			value instanceof Int8Array ||
@@ -32,7 +32,7 @@ function serialize(data: any): string {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function deserialize(str: string): any {
-	return JSON.parse(str, function (key, value) {
+	return JSON.parse(str, function (_key, value) {
 		if (
 			value &&
 			typeof value === 'object' &&

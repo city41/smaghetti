@@ -49,7 +49,7 @@ const Chest: Entity = {
 		[373, 374],
 	],
 
-	toBinary(x, y, w, h, settings) {
+	toBinary(x, y, _w, _h, settings) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		if (settings.payload in payloadToObjectId) {

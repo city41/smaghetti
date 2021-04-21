@@ -35,7 +35,7 @@ const UndergroundFlatTerrain_UpperLeftCorner: Entity = {
 		],
 	],
 
-	toBinary(x, y, w, h) {
+	toBinary(x, y) {
 		return [0, y, x, this.objectId!];
 	},
 };

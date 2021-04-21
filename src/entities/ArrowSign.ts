@@ -38,7 +38,7 @@ const ArrowSign: Entity = {
 		[74, 31, 74],
 	],
 
-	toBinary(x, y, w, h, settings): number[] {
+	toBinary(x, y, _w, _h, settings): number[] {
 		const direction = settings?.direction ?? this.defaultSettings!.direction;
 
 		return [

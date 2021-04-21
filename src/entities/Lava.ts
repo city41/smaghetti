@@ -37,7 +37,7 @@ const Lava: Entity = {
 		[265, 267],
 	],
 
-	toBinary(x, y, w, h, settings): number[] {
+	toBinary(x, y, w, h): number[] {
 		return [getBankParam1(1, h), y, x, this.objectId!, w];
 	},
 };

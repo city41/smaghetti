@@ -51,7 +51,7 @@ const FortressBrick: Entity = {
 		],
 	],
 
-	toBinary(x, y, w, h, settings): number[] {
+	toBinary(x, y, w, h): number[] {
 		return [getBankParam1(1, h), y, x, this.objectId!, w];
 	},
 };

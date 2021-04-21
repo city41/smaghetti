@@ -38,7 +38,7 @@ const TriangularBlock: Entity = {
 		[112, 113],
 	],
 
-	toBinary(x, y, w, h, settings) {
+	toBinary(x, y, _w, _h, settings) {
 		return [0, y, x, angleToObjectId[settings.angle as number]];
 	},
 };

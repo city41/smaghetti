@@ -32,7 +32,7 @@ const IndestructibleBrick: Entity = {
 		[94, 95],
 	],
 
-	toBinary(x, y, w, h) {
+	toBinary(x, y, _w, h) {
 		return [getBankParam1(1, h), y, x, this.objectId!, 0];
 	},
 };

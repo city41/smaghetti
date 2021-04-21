@@ -375,7 +375,7 @@ function getAllEntities(rooms: RoomData[]): EditorEntity[] {
 }
 
 function createLevelData(roomDatas: RoomData[]): Uint8Array {
-	const rooms = roomDatas.map((r, i, arr) => getRoom(i, arr));
+	const rooms = roomDatas.map((_r, i, arr) => getRoom(i, arr));
 
 	const allEntities = getAllEntities(roomDatas);
 

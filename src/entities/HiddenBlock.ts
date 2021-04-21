@@ -28,7 +28,7 @@ const HiddenBlock: Entity = {
 		[250, 250],
 	],
 
-	toBinary(x, y, w, h, settings): number[] {
+	toBinary(x, y, _w, _h, settings): number[] {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		const objectId =

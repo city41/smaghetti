@@ -47,7 +47,7 @@ const BuriedVegetable: Entity = {
 		[46, 47],
 	],
 
-	toBinary(x, y, w, h, settings) {
+	toBinary(x, y, _w, _h, settings) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		const objectId =
