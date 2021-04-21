@@ -11,6 +11,7 @@ import { entityMap, EntityType } from '../../entities/entityMap';
 import focusedStyles from '../../styles/focused.module.css';
 
 import { detailsMap } from '../details';
+import { isStaticResource } from '../../resources/util';
 
 type EntityProps = {
 	className?: string;
@@ -40,12 +41,16 @@ type EntityProps = {
 function getEntitySize(
 	entityType: EntityType
 ): { width: number; height: number } {
-	const spriteDef = entityMap[entityType];
+	const entityDef = entityMap[entityType];
 
-	return {
-		width: spriteDef.tiles[0].length * 8,
-		height: spriteDef.tiles.length * 8,
-	};
+	if (entityDef.resource && isStaticResource(entityDef.resource)) {
+		return {
+			width: entityDef.resource.tiles[0].length * 8,
+			height: entityDef.resource.tiles.length * 8,
+		};
+	} else {
+		return { width: 0, height: 0 };
+	}
 }
 
 function getEntityWidth(entityType: EntityType): number {
@@ -198,5 +203,5 @@ const Entity = forwardRef<HTMLDivElement, EntityProps>(
 	}
 );
 
-export { Entity };
+export { Entity, getEntitySize };
 export type { EntityProps };

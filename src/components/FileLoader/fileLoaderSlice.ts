@@ -9,6 +9,7 @@ import { entityMap, EntityType } from '../../entities/entityMap';
 import { extractResourcesToStylesheet } from '../../tiles/extractResourcesToStylesheet';
 import { deserialize } from '../../saveStates/serializer';
 import { resourceMap } from '../../resources/resourceMap';
+import { Resource } from '../../resources/types';
 
 type RomFileState =
 	| 'not-chosen'
@@ -236,7 +237,21 @@ const extract = (): FileLoaderThunk => async (dispatch) => {
 
 	dispatch(fileLoaderSlice.actions.overallExtractionState('extracting'));
 
-	await extractResourcesToStylesheet(rom, { ...entityMap, ...resourceMap });
+	const entityResourceMap = Object.keys(entityMap).reduce<
+		Partial<Record<EntityType, Resource>>
+	>((building, key) => {
+		const entityDef = entityMap[key as EntityType];
+		if (entityDef.resource) {
+			building[key as EntityType] = entityDef.resource;
+		}
+
+		return building;
+	}, {});
+
+	await extractResourcesToStylesheet(rom, {
+		...entityResourceMap,
+		...resourceMap,
+	});
 
 	dispatch(fileLoaderSlice.actions.overallExtractionState('complete'));
 };

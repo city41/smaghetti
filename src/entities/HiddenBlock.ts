@@ -12,21 +12,24 @@ const HiddenBlock: Entity = {
 	settingsType: 'single',
 	defaultSettings: { payload: 'MusicBlock' },
 	dimensions: 'none',
-	romOffset: 0x16ea40,
-	palette: [],
 	payloadBank: 0,
 	payloadToObjectId: {
 		MusicBlock: 0x20,
 		OneUpMushroom: 0x1f,
 		Coin: 0x1e,
 	},
-	tiles: [
-		// HACK: since this block is hidden, it doesn't actually
-		// have any graphics, so these are empty tiles, just to
-		// satisfy the current constraints
-		[250, 250],
-		[250, 250],
-	],
+
+	resource: {
+		palette: [],
+		romOffset: 0x16ea40,
+		tiles: [
+			// HACK: since this block is hidden, it doesn't actually
+			// have any graphics, so these are empty tiles, just to
+			// satisfy the current constraints
+			[250, 250],
+			[250, 250],
+		],
+	},
 
 	toBinary(x, y, _w, _h, settings): number[] {
 		const payloadToObjectId = this.payloadToObjectId!;

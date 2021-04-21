@@ -4,6 +4,7 @@ import { Resource } from '../resources/types';
 import { StaticResource, TileExtractionSpec } from '../resources/types';
 import { EntityType } from '../entities/entityMap';
 import { ResourceType } from '../resources/resourceMap';
+import { isStaticResource } from '../resources/util';
 
 type TileExtractionSpecWithData = TileExtractionSpec & { data: number[] };
 type ExtractedEntityTileData = Array<Array<TileExtractionSpecWithData>>;
@@ -221,10 +222,6 @@ function extractResourceToDataUrl(
 	);
 
 	return canvas.toDataURL();
-}
-
-function isStaticResource(obj: Resource): obj is StaticResource {
-	return !('extract' in obj);
 }
 
 async function extractResourcesToStylesheet(

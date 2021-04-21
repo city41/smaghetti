@@ -3,12 +3,14 @@ import {
 	extractResourceTileData,
 	tileToCanvas,
 } from '../tiles/extractResourcesToStylesheet';
-import { DerivedResource } from './types';
+import { DerivedResource, StaticResource } from './types';
 
 const CoinCache: DerivedResource = {
 	extract(rom: Uint8Array): string {
-		const extractedTileData = extractResourceTileData(rom, Coin);
-		const coinCanvas = tileToCanvas(extractedTileData, Coin.palette);
+		const coinResource = Coin.resource as StaticResource;
+
+		const extractedTileData = extractResourceTileData(rom, coinResource);
+		const coinCanvas = tileToCanvas(extractedTileData, coinResource.palette);
 
 		const coinCacheCanvas = document.createElement(
 			'canvas'

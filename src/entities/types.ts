@@ -1,8 +1,8 @@
-import { StaticResource } from '../resources/types';
+import { Resource } from '../resources/types';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
 
-type Entity = StaticResource & {
+type Entity = {
 	/**
 	 * which object sets are this entity compatible with?
 	 * not specified means all object sets (ie question block)
@@ -47,6 +47,8 @@ type Entity = StaticResource & {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		settings: Record<string, any>
 	) => number[];
+
+	resource?: Resource;
 };
 
 export type { Entity };

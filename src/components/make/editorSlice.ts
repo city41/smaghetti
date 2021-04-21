@@ -32,6 +32,7 @@ import { TILE_SIZE, TILE_TYPE_TO_GROUP_TYPE_MAP } from '../../tiles/constants';
 import { entityMap, EntityType } from '../../entities/entityMap';
 import { ROOM_TYPE_SETTINGS } from '../../levelData/constants';
 import { isCompatibleEntity } from './util';
+import { getEntitySize } from '../Entity';
 
 type LocalStorageData = {
 	metadata: {
@@ -311,9 +312,9 @@ function clamp(value: number, min: number, max: number): number {
 }
 
 function getEntityPixelBounds(entity: NewEditorEntity): Bounds {
-	const spriteDef = entityMap[entity.type];
-	const width = Math.max(spriteDef.tiles[0].length * 8, TILE_SIZE);
-	const height = Math.max(spriteDef.tiles.length * 8, TILE_SIZE);
+	const entitySize = getEntitySize(entity.type);
+	const width = Math.max(entitySize.width, TILE_SIZE);
+	const height = Math.max(entitySize.height, TILE_SIZE);
 
 	return {
 		upperLeft: { x: entity.x, y: entity.y },
@@ -322,10 +323,9 @@ function getEntityPixelBounds(entity: NewEditorEntity): Bounds {
 }
 
 function getEntityTileBounds(entity: NewEditorEntity): Bounds {
-	const spriteDef = entityMap[entity.type];
-
-	const tileWidth = spriteDef.tiles[0].length / 2;
-	const tileHeight = spriteDef.tiles.length / 2;
+	const entitySize = getEntitySize(entity.type);
+	const tileWidth = entitySize.width / TILE_SIZE;
+	const tileHeight = entitySize.height / TILE_SIZE;
 
 	const minX = Math.floor(entity.x / TILE_SIZE);
 	const minY = Math.floor(entity.y / TILE_SIZE);

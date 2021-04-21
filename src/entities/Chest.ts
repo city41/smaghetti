@@ -6,7 +6,6 @@ const Chest: Entity = {
 	dimensions: 'none',
 	settingsType: 'single',
 	defaultSettings: { payload: 'Mushroom' },
-	romOffset: 0x163768,
 	objectId: 0x8,
 	payloadToObjectId: {
 		Mushroom: 1,
@@ -26,28 +25,32 @@ const Chest: Entity = {
 		// OneUp: 0x10 // note this is not a 1up mushroom, just an immediate 1up
 		// ThreeUp: 0x11 // note this is not a 3up moon, just an immediate 3up
 	},
-	palette: [
-		0x7f96,
-		0x7fff,
-		0x18c6,
-		0x101a,
-		0x10bf,
-		0x125f,
-		0x25fd,
-		0x369e,
-		0x475f,
-		0x139f,
-		0x177,
-		0x21c,
-		0x29f,
-		0x47bf,
-		0x137f,
-		0x25f,
-	],
-	tiles: [
-		[357, 358],
-		[373, 374],
-	],
+
+	resource: {
+		palette: [
+			0x7f96,
+			0x7fff,
+			0x18c6,
+			0x101a,
+			0x10bf,
+			0x125f,
+			0x25fd,
+			0x369e,
+			0x475f,
+			0x139f,
+			0x177,
+			0x21c,
+			0x29f,
+			0x47bf,
+			0x137f,
+			0x25f,
+		],
+		romOffset: 0x163768,
+		tiles: [
+			[357, 358],
+			[373, 374],
+		],
+	},
 
 	toBinary(x, y, _w, _h, settings) {
 		const payloadToObjectId = this.payloadToObjectId!;

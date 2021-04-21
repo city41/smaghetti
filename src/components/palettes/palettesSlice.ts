@@ -8,6 +8,7 @@ import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../../store';
 import { entityMap, EntityType } from '../../entities/entityMap';
 import { resourceMap, ResourceType } from '../../resources/resourceMap';
+import { Resource } from '../../resources/types';
 
 type ExtractedEntity = {
 	type: EntityType | ResourceType;
@@ -43,13 +44,24 @@ const palettesSlice = createSlice({
 				throw new Error('tileSlice#dumpUncompressed, called before rom is set');
 			}
 
-			const toExtract = { ...entityMap, ...resourceMap };
+			const entityResourceMap = Object.keys(entityMap).reduce<
+				Partial<Record<EntityType, Resource>>
+			>((building, key) => {
+				const entityDef = entityMap[key as EntityType];
+				if (entityDef.resource) {
+					building[key as EntityType] = entityDef.resource;
+				}
+
+				return building;
+			}, {});
+
+			const toExtract = { ...entityResourceMap, ...resourceMap };
 
 			state.entities = Object.keys(toExtract).reduce<ExtractedEntity[]>(
 				(building, key) => {
 					const resource = toExtract[key as keyof typeof toExtract];
 
-					if (!('tiles' in resource)) {
+					if (!resource || !('tiles' in resource)) {
 						return building;
 					}
 

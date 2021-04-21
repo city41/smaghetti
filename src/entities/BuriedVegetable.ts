@@ -7,7 +7,6 @@ const BuriedVegetable: Entity = {
 	settingsType: 'single',
 	defaultSettings: { payload: 'SmallVegetable' },
 	dimensions: 'none',
-	romOffset: 0x20e4f0,
 	// empty veggie, nothing comes up
 	objectId: 0x66,
 	payloadBank: 1,
@@ -24,28 +23,32 @@ const BuriedVegetable: Entity = {
 		RegularVegetable: 0x5b,
 		SmallVegetable: 0x5c,
 	},
-	palette: [
-		0x7f40,
-		0x7fff,
-		0x0,
-		0x7629,
-		0x7f30,
-		0x7fd2,
-		0x7ffb,
-		0x2e39,
-		0x42bd,
-		0x535f,
-		0x3708,
-		0x3f6d,
-		0x4bd1,
-		0x5bf4,
-		0x36df,
-		0x6bf8,
-	],
-	tiles: [
-		[74, 75],
-		[46, 47],
-	],
+
+	resource: {
+		palette: [
+			0x7f40,
+			0x7fff,
+			0x0,
+			0x7629,
+			0x7f30,
+			0x7fd2,
+			0x7ffb,
+			0x2e39,
+			0x42bd,
+			0x535f,
+			0x3708,
+			0x3f6d,
+			0x4bd1,
+			0x5bf4,
+			0x36df,
+			0x6bf8,
+		],
+		romOffset: 0x20e4f0,
+		tiles: [
+			[74, 75],
+			[46, 47],
+		],
+	},
 
 	toBinary(x, y, _w, _h, settings) {
 		const payloadToObjectId = this.payloadToObjectId!;
