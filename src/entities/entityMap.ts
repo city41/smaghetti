@@ -15,12 +15,14 @@ import { Coin } from './Coin';
 import { CoinChallenge } from './CoinChallenge';
 import { ConveyorBelt } from './ConveyorBelt';
 import { DoorLock } from './DoorLock';
+import { DownFortressSpike } from './DownFortressSpike';
 import { FireBar } from './FireBar';
 import { FireBarBase } from './FireBarBase';
 import { FireFlower } from './FireFlower';
 import { FortressBrick } from './FortressBrick';
-import { FortressSpike } from './FortressSpike';
+import { UpFortressSpike } from './UpFortressSpike';
 import { GiantGoomba } from './GiantGoomba';
+import { GiantGreenKoopa } from './GiantGreenKoopa';
 import { Goomba } from './Goomba';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
@@ -84,12 +86,14 @@ const entityMap = {
 	CoinChallenge,
 	ConveyorBelt,
 	DoorLock,
+	DownFortressSpike,
 	FireBar,
 	FireBarBase,
 	FireFlower,
 	FortressBrick,
-	FortressSpike,
+	UpFortressSpike,
 	GiantGoomba,
+	GiantGreenKoopa,
 	Goomba,
 	GreenKoopaTroopa,
 	GreenParaTroopa,

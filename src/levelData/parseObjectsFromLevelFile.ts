@@ -50,13 +50,7 @@ function getObjectSet(data: Uint8Array, roomIndex: number): number {
 const knownFourByteIds: Record<number, number[]> = {
 	0: [
 		0x10, // question block
-	],
-	[ROOM_TYPE_SETTINGS.underground.objectSet]: [
-		0x10, // QuestionBlock with coin payload
-		0x17, // something in Classic 1-2, I think it's a pipe
-		0x18, // something in Classic 1-2, also think it's a pipe
-		0x1c, // something in Classic 1-2, also think it's a pipe
-		0x3a, // initial wall at start of Classic 1-2
+		0x63, // buried veggie - coin
 		0x5a, // buried veggie -- giant veggie
 		0x5b, // buried veggie -- regular veggie
 		0x5c, // buried veggie -- small veggie
@@ -66,13 +60,23 @@ const knownFourByteIds: Record<number, number[]> = {
 		0x67, // buried veggie -- poison mushroom
 		0x69, // buried veggie -- monty mole
 		0x7e, // buried veggie -- koopa shell
+	],
+	[ROOM_TYPE_SETTINGS.underground.objectSet]: [
+		0x10, // QuestionBlock with coin payload
+		0x17, // something in Classic 1-2, I think it's a pipe
+		0x18, // something in Classic 1-2, also think it's a pipe
+		0x1c, // something in Classic 1-2, also think it's a pipe
+		0x3a, // initial wall at start of Classic 1-2
 		0xd, // final most wall in Classic 1-2 (right side of warp pipe "room")
 	],
 	[ROOM_TYPE_SETTINGS.fortress.objectSet]: [
+		0x17, // something in promo03,room0, I think it's a pipe
+		0x18, // vertical grey pipe, coming up from bottom
 		0x21, // the bridge in classic fortresses
 		0x79, // not sure yet, but it is in mushroom04
 		0x56, // yellow switch brick
 		0x61, // ghost house wooden walkway
+		0x81, // something in promo03,room0
 		0xb, // pointing up spike strip
 	],
 	// TODO: not sure what this object set is yet, but it is mushroom11, room 0, the one with music blocks galore

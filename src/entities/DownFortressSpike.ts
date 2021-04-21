@@ -2,15 +2,15 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 
-const UpFortressSpike: Entity = {
+const DownFortressSpike: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
-	type: 'UpFortressSpike',
+	type: 'DownFortressSpike',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'x',
 	param1: 'width',
-	objectId: 0xb,
+	objectId: 0xc,
 	emptyBank: 1,
 	romOffset: 0x167674,
 	palette: [
@@ -32,8 +32,11 @@ const UpFortressSpike: Entity = {
 		0x2bf,
 	],
 	tiles: [
-		[76, 76],
 		[74, 74],
+		[
+			{ romOffset: 0x167674, tileIndex: 76, flip: 'v' },
+			{ romOffset: 0x167674, tileIndex: 76, flip: 'v' },
+		],
 	],
 
 	toBinary(x, y, w) {
@@ -41,4 +44,4 @@ const UpFortressSpike: Entity = {
 	},
 };
 
-export { UpFortressSpike };
+export { DownFortressSpike };
