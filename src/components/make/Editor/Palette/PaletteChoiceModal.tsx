@@ -524,6 +524,23 @@ function isCompatible(
 	return objectSetCompatible && graphicSetCompatible;
 }
 
+function getSortComparator(objectSet: number, graphicSet: number) {
+	return (a: PaletteChoiceModalEntry, b: PaletteChoiceModalEntry) => {
+		const aCompat = isCompatible(a.entry, objectSet, graphicSet);
+		const bCompat = isCompatible(b.entry, objectSet, graphicSet);
+
+		if (aCompat && !bCompat) {
+			return -1;
+		}
+
+		if (bCompat && !aCompat) {
+			return 1;
+		}
+
+		return a.entry.localeCompare(b.entry);
+	};
+}
+
 function PaletteChoiceModal({
 	open,
 	currentPaletteEntries,
@@ -565,28 +582,34 @@ function PaletteChoiceModal({
 						))}
 					</div>
 					<div className={styles.currentEntries}>
-						{currentEntries.map((ce, i) => {
-							return (
-								<PaletteEntryCmp
-									key={ce.entry}
-									className={clsx({
-										faded: currentPaletteEntries.some((e) => isEqual(ce, e)),
-									})}
-									isCurrent={currentEntryIndex === i}
-									entry={ce.entry}
-									onClick={() => setCurrentEntryIndex(i)}
-									buttonsOnHover
-									showAdd
-									showRemove={false}
-									incompatible={
-										!isCompatible(ce.entry, currentObjectSet, currentGraphicSet)
-									}
-									onAddClick={() => {
-										onEntryAdded(ce.entry);
-									}}
-								/>
-							);
-						})}
+						{currentEntries
+							.sort(getSortComparator(currentObjectSet, currentGraphicSet))
+							.map((ce, i) => {
+								return (
+									<PaletteEntryCmp
+										key={ce.entry}
+										className={clsx({
+											faded: currentPaletteEntries.some((e) => isEqual(ce, e)),
+										})}
+										isCurrent={currentEntryIndex === i}
+										entry={ce.entry}
+										onClick={() => setCurrentEntryIndex(i)}
+										buttonsOnHover
+										showAdd
+										showRemove={false}
+										incompatible={
+											!isCompatible(
+												ce.entry,
+												currentObjectSet,
+												currentGraphicSet
+											)
+										}
+										onAddClick={() => {
+											onEntryAdded(ce.entry);
+										}}
+									/>
+								);
+							})}
 						{currentEntries.length === 0 && (
 							<div className={styles.noEntries}>
 								No {tabs[currentTabIndex].toLowerCase()} yet!
@@ -602,6 +625,16 @@ function PaletteChoiceModal({
 					{currentEntry && (
 						<div className="space-y-4">{currentEntry.info.description}</div>
 					)}
+					{currentEntry &&
+						!isCompatible(
+							currentEntry.entry,
+							currentObjectSet,
+							currentGraphicSet
+						) && (
+							<div className="mt-4 text-red-500">
+								Incompatible with the current room type
+							</div>
+						)}
 				</div>
 			</div>
 		</Modal>

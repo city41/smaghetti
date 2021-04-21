@@ -68,13 +68,14 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 			})}
 			onClick={onClick}
 		>
-			{item}
+			<div
+				className={clsx('w-full h-full grid place-items-center', {
+					'opacity-20 hover:opacity-100': incompatible,
+				})}
+			>
+				{item}
+			</div>
 
-			{incompatible && (
-				<div className="absolute w-full h-full top-0 left-0 grid place-items-center">
-					<ImCross className="text-white w-8 h-8 opacity-80" />
-				</div>
-			)}
 			{showAdd && !incompatible && (
 				<button
 					className={clsx(styles.button, 'bg-green-600 text-white')}
