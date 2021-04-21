@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-import { ImCross } from 'react-icons/im';
 import { Tile } from '../../../Tile';
 import { Entity } from '../../../Entity';
 import { TILE_SIZE } from '../../../../tiles/constants';

@@ -1,4 +1,3 @@
-import { LevelObject } from '../levelData/parseObjectsFromLevelFile';
 import { StaticResource } from '../resources/types';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';

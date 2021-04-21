@@ -1,5 +1,4 @@
 import type { Entity } from './types';
-import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 
 const FireBar: Entity = {
 	editorType: 'entity',

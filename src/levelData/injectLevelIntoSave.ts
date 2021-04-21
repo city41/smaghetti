@@ -1,4 +1,3 @@
-import { asciiToEReader } from './asciiToEReader';
 import { compress } from './compress';
 import type {
 	ELevelInfo,

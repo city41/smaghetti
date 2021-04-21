@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 
 import { Modal } from '../../../../Modal';
 import { Button } from '../../../../Button';

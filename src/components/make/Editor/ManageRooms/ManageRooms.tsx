@@ -6,7 +6,6 @@ import { LevelThumbnail } from '../../../LevelThumbnail';
 
 import { PlainIconButton } from '../../../PlainIconButton';
 import { Button } from '../../../Button';
-import { bgGraphicToResourceMap } from '../../../../resources/bgGraphicToResourceMap';
 
 type PublicManageRoomsProps = {
 	className?: string;

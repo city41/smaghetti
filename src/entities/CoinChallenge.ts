@@ -1,5 +1,4 @@
 import type { Entity } from './types';
-import { simpleSpriteBinary } from './util';
 
 /**
  * This is the weird thing at the beginning of mushroom05, Bombarded by Bob-ombs.

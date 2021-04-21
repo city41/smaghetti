@@ -1,5 +1,4 @@
 import type { Entity } from './types';
-import { simpleSpriteBinary } from './util';
 
 /**
  * TODO: needs a detail pane to pick direction.

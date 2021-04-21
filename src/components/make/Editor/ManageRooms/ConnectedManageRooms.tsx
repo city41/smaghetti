@@ -16,7 +16,6 @@ import type { PublicManageRoomsProps } from './ManageRooms';
 import { useSelector } from 'react-redux';
 import { ROOM_TYPE_SETTINGS } from '../../../../levelData/constants';
 import { IncompatibleEntitiesWarningModal } from './IncompatibleEntitiesWarningModal';
-import { entityMap, EntityType } from '../../../../entities/entityMap';
 import { isCompatibleEntity } from '../../util';
 
 const actions = bindActionCreators(

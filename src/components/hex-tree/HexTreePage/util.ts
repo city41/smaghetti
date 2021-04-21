@@ -1,8 +1,6 @@
 import { LevelTreeObject, LevelTreeRoom } from '../types';
 import { Entity } from '../../../entities/types';
 import { entityMap, EntityType } from '../../../entities/entityMap';
-import { resourceMap } from '../../../resources/resourceMap';
-import { Resource } from '../../../resources/types';
 
 const entityDefs = Object.values(entityMap);
 

@@ -9,7 +9,6 @@ import { entityMap, EntityType } from '../../entities/entityMap';
 import { extractResourcesToStylesheet } from '../../tiles/extractResourcesToStylesheet';
 import { deserialize } from '../../saveStates/serializer';
 import { resourceMap } from '../../resources/resourceMap';
-import { Resource } from '../../resources/types';
 
 type RomFileState =
 	| 'not-chosen'

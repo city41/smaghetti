@@ -3,7 +3,6 @@ import { TILE_SIZE } from '../tiles/constants';
 import cloneDeep from 'lodash/cloneDeep';
 import { entityMap } from '../entities/entityMap';
 import isEqual from 'lodash/isEqual';
-import { ROOM_TYPE_SETTINGS } from './constants';
 
 type Room = {
 	objects: number[];
