@@ -5,7 +5,6 @@ import { simpleSpriteBinary } from './util';
  * not compatible with any existing room types :(
  */
 const DryBones: Entity = {
-	type: 'DryBones',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

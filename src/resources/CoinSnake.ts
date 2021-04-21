@@ -6,8 +6,6 @@ import {
 import { DerivedResource } from './types';
 
 const CoinSnake: DerivedResource = {
-	type: 'CoinSnake',
-
 	extract(rom: Uint8Array): string {
 		const extractedTileData = extractResourceTileData(rom, Coin);
 		const coinCanvas = tileToCanvas(extractedTileData, Coin.palette);

@@ -7,11 +7,10 @@ import { getRom } from '../FileLoader/files';
 import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../../store';
 import { entityMap, EntityType } from '../../entities/entityMap';
-import { resourceMap } from '../../resources/resourceMap';
-import { StaticResource } from '../../resources/types';
+import { resourceMap, ResourceType } from '../../resources/resourceMap';
 
 type ExtractedEntity = {
-	type: EntityType;
+	type: EntityType | ResourceType;
 	data: ExtractedEntityTileData;
 };
 
@@ -44,21 +43,25 @@ const palettesSlice = createSlice({
 				throw new Error('tileSlice#dumpUncompressed, called before rom is set');
 			}
 
-			const entities = Object.values(entityMap);
-			const resources = Object.values(resourceMap);
+			const toExtract = { ...entityMap, ...resourceMap };
 
-			const toExtract = (entities as StaticResource[])
-				.concat((resources as unknown) as StaticResource[])
-				.filter((r) => 'tiles' in r);
+			state.entities = Object.keys(toExtract).reduce<ExtractedEntity[]>(
+				(building, key) => {
+					const resource = toExtract[key as keyof typeof toExtract];
 
-			state.entities = toExtract.map((resource) => {
-				const data = extractResourceTileData(rom, resource);
+					if (!('tiles' in resource)) {
+						return building;
+					}
 
-				return {
-					type: resource.type as EntityType,
-					data,
-				};
-			});
+					const data = extractResourceTileData(rom, resource);
+
+					return building.concat({
+						type: key as EntityType | ResourceType,
+						data,
+					});
+				},
+				[]
+			);
 		},
 	},
 });

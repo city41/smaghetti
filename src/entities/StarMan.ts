@@ -4,7 +4,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0xc;
 
 const StarMan: Entity = {
-	type: 'StarMan',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

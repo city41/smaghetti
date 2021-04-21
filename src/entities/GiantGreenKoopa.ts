@@ -5,7 +5,6 @@ import { simpleSpriteBinary } from './util';
  * not compatible with any existing room types :(
  */
 const GiantGreenKoopa: Entity = {
-	type: 'GiantGreenKoopa',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

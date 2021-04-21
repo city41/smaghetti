@@ -7,7 +7,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0x4b;
 
 const BoomBoom: Entity = {
-	type: 'BoomBoom',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

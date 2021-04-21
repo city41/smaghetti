@@ -9,7 +9,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0xdc;
 
 const CoinSnake: Entity = {
-	type: 'CoinSnake',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

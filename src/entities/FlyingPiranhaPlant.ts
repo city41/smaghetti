@@ -9,7 +9,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0xd8;
 
 const FlyingPiranhaPlant: Entity = {
-	type: 'FlyingPiranhaPlant',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

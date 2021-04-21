@@ -4,7 +4,6 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 const BowserLaserStatue: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
-	type: 'BowserLaserStatue',
 	editorType: 'entity',
 	gameType: 'object',
 	dimensions: 'none',

@@ -8,7 +8,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0x4a;
 
 const QuestionMark: Entity = {
-	type: 'QuestionMark',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

@@ -1,7 +1,6 @@
 import { StaticResource } from './types';
 
 const FortressBackground: StaticResource = {
-	type: 'FortressBackground',
 	firstColorOpaque: true,
 	// this palette was manually altered so that index zero is black
 	palette: [

@@ -4,12 +4,13 @@ import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { PalettedEntity } from './PalettedEntity';
 import { Button } from '../../Button';
 import { EntityType } from '../../../entities/entityMap';
+import { ResourceType } from '../../../resources/resourceMap';
 
 type PalettesPageProps = {
 	allFilesReady: boolean;
 	palettes: Array<Tuple<number, 16>>;
 	entities: Array<{
-		type: EntityType;
+		type: EntityType | ResourceType;
 		data: ExtractedEntityTileData;
 	}>;
 };

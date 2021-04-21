@@ -1,6 +1,8 @@
 import { LevelTreeObject, LevelTreeRoom } from '../types';
 import { Entity } from '../../../entities/types';
-import { entityMap } from '../../../entities/entityMap';
+import { entityMap, EntityType } from '../../../entities/entityMap';
+import { resourceMap } from '../../../resources/resourceMap';
+import { Resource } from '../../../resources/types';
 
 const entityDefs = Object.values(entityMap);
 
@@ -20,6 +22,13 @@ export function toHexString(b: number): string {
 	} else {
 		return asHex;
 	}
+}
+
+export function getEntityType(entityDef: Entity): EntityType {
+	const entities = Object.entries(entityMap);
+
+	const matchedEntity = entities.find((e) => e[1] === entityDef);
+	return matchedEntity?.[0] as EntityType;
 }
 
 export function getEntityDefFromId(

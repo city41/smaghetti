@@ -5,7 +5,6 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 const FortressBrick: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
-	type: 'FortressBrick',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'xy',

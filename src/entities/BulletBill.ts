@@ -11,7 +11,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0x7d;
 
 const BulletBill: Entity = {
-	type: 'BulletBill',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

@@ -1,7 +1,6 @@
 import type { Entity } from './types';
 
 const Chest: Entity = {
-	type: 'Chest',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

@@ -2,7 +2,6 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 
 const FireFlower: Entity = {
-	type: 'FireFlower',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

@@ -6,7 +6,6 @@ const directionToObjectId = {
 };
 
 const ArrowSign: Entity = {
-	type: 'ArrowSign',
 	editorType: 'entity',
 	gameType: 'object',
 	settingsType: 'single',

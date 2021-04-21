@@ -4,7 +4,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0xbb;
 
 const SpringBoard: Entity = {
-	type: 'SpringBoard',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

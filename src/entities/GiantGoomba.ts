@@ -5,7 +5,6 @@ import { simpleSpriteBinary } from './util';
  * not compatible with any existing room types :(
  */
 const GiantGoomba: Entity = {
-	type: 'GiantGoomba',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

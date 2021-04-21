@@ -4,7 +4,6 @@ const OBJECT_ID = 0x49;
 
 // TODO: should this be called spike?
 const Stalactite: Entity = {
-	type: 'Stalactite',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'none',

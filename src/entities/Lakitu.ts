@@ -4,7 +4,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0x83;
 
 const Lakitu: Entity = {
-	type: 'Lakitu',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

@@ -2,7 +2,6 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 
 const IndestructibleBrick: Entity = {
-	type: 'IndestructibleBrick',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'y',
@@ -35,18 +34,6 @@ const IndestructibleBrick: Entity = {
 
 	toBinary(x, y, w, h) {
 		return [getBankParam1(1, h), y, x, this.objectId!, 0];
-	},
-
-	parseBinary(rawBytes) {
-		return {
-			bank: (rawBytes[0] >> 6) as 0 | 1,
-			id: rawBytes[3],
-			x: rawBytes[2],
-			y: rawBytes[1],
-			param1: (rawBytes[0] & 0x3f) + 1,
-			param2: 1,
-			rawBytes,
-		};
 	},
 };
 

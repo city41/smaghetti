@@ -4,7 +4,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0x6c;
 
 const GreenKoopaTroopa: Entity = {
-	type: 'GreenKoopaTroopa',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

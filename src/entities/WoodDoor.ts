@@ -1,7 +1,6 @@
 import type { Entity } from './types';
 
 const WoodDoor: Entity = {
-	type: 'WoodDoor',
 	editorType: 'entity',
 	gameType: 'object',
 	dimensions: 'none',

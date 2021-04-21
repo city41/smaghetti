@@ -5,7 +5,6 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 const DownFortressSpike: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
-	type: 'DownFortressSpike',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'x',

@@ -5,7 +5,6 @@ import type { Entity } from './types';
  * side, but on the editor side it acts like a sprite
  */
 const Player: Entity = {
-	type: 'Player',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

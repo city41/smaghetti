@@ -7,7 +7,6 @@ const payloadToObjectId = {
 };
 
 const HiddenBlock: Entity = {
-	type: 'HiddenBlock',
 	editorType: 'tile',
 	gameType: 'object',
 	settingsType: 'single',

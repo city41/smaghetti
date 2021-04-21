@@ -1,7 +1,6 @@
 import type { Entity } from './types';
 
 const TexturedDoor: Entity = {
-	type: 'TexturedDoor',
 	editorType: 'entity',
 	gameType: 'object',
 	dimensions: 'none',

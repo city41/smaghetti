@@ -1,7 +1,6 @@
 import { StaticResource } from './types';
 
 const ClimbingVineHead: StaticResource = {
-	type: 'ClimbingVineHead',
 	palette: [
 		0x7f96,
 		0x7fff,

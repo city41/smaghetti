@@ -5,7 +5,6 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 const BonyBeetle: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
-	type: 'BonyBeetle',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

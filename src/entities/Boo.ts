@@ -5,7 +5,6 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 const Boo: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
-	type: 'Boo',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

@@ -2,7 +2,6 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 
 const WoodBlock: Entity = {
-	type: 'WoodBlock',
 	editorType: 'tile',
 	gameType: 'object',
 	settingsType: 'single',

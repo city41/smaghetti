@@ -1,7 +1,6 @@
 import type { Entity } from './types';
 
 const UndergroundFlatTerrain_UpperLeftCorner: Entity = {
-	type: 'UndergroundFlatTerrain_UpperLeftCorner',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'none',

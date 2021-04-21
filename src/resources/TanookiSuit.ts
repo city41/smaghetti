@@ -1,7 +1,6 @@
 import { StaticResource } from './types';
 
 const TanookiSuit: StaticResource = {
-	type: 'TanookiSuit',
 	palette: [
 		0x7f96,
 		0x7fff,

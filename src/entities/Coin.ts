@@ -2,7 +2,6 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 
 const Coin: Entity = {
-	type: 'Coin',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'xy',

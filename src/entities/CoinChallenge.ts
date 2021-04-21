@@ -10,7 +10,6 @@ import { simpleSpriteBinary } from './util';
  * TODO: details panel allowing user to specify the coin number. so far hardcoded to 100
  */
 const CoinChallenge: Entity = {
-	type: 'CoinChallenge',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

@@ -2,7 +2,6 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 
 const DoorLock: Entity = {
-	type: 'DoorLock',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

@@ -3,7 +3,6 @@ import type { Entity } from './types';
 const OBJECT_ID = 0x15;
 
 const Muncher: Entity = {
-	type: 'Muncher',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'none',

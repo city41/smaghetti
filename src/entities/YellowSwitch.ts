@@ -2,7 +2,6 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 
 const YellowSwitch: Entity = {
-	type: 'YellowSwitch',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

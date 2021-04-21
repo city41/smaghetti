@@ -2,6 +2,8 @@ import memoize from 'lodash/memoize';
 import { decompress } from './extractCompressedTilesFromRom';
 import { Resource } from '../resources/types';
 import { StaticResource, TileExtractionSpec } from '../resources/types';
+import { EntityType } from '../entities/entityMap';
+import { ResourceType } from '../resources/resourceMap';
 
 type TileExtractionSpecWithData = TileExtractionSpec & { data: number[] };
 type ExtractedEntityTileData = Array<Array<TileExtractionSpecWithData>>;
@@ -227,23 +229,30 @@ function isStaticResource(obj: Resource): obj is StaticResource {
 
 async function extractResourcesToStylesheet(
 	rom: Uint8Array,
-	resources: Resource[]
+	resources: Partial<Record<EntityType | ResourceType, Resource>>
 ): Promise<void> {
 	let css = '';
 
-	for (let i = 0; i < resources.length; ++i) {
-		const resource = resources[i];
+	const keys = Object.keys(resources) as Array<EntityType | ResourceType>;
+
+	for (let i = 0; i < keys.length; ++i) {
+		const resourceName = keys[i];
+		const resource = resources[resourceName];
+
+		if (!resource) {
+			throw new Error(
+				`extractResourcesToStylesheet: failed to get a resource from the passed in record: ${resourceName}`
+			);
+		}
 
 		let dataUrl;
 		if (isStaticResource(resource)) {
 			dataUrl = await extractResourceToDataUrl(rom, resource);
 		} else {
-			dataUrl = (resource as { extract: (rom: Uint8Array) => string }).extract(
-				rom
-			);
+			dataUrl = resource.extract(rom);
 		}
 
-		css = `${css}\n.${resource.type}-bg { background-image: url(${dataUrl}); }`;
+		css = `${css}\n.${resourceName}-bg { background-image: url(${dataUrl}); }`;
 	}
 
 	const textNode = document.createTextNode(css);

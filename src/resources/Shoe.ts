@@ -1,7 +1,6 @@
 import { StaticResource } from './types';
 
 const Shoe: StaticResource = {
-	type: 'Shoe',
 	palette: [
 		0x7f96,
 		0x7fff,

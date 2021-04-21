@@ -237,13 +237,7 @@ const extract = (): FileLoaderThunk => async (dispatch) => {
 
 	dispatch(fileLoaderSlice.actions.overallExtractionState('extracting'));
 
-	const entities = Object.values(entityMap);
-	const resources = Object.values(resourceMap);
-	const toExtract: Array<Resource> = (entities as Resource[]).concat(
-		resources as Resource[]
-	);
-
-	await extractResourcesToStylesheet(rom, toExtract);
+	await extractResourcesToStylesheet(rom, { ...entityMap, ...resourceMap });
 
 	dispatch(fileLoaderSlice.actions.overallExtractionState('complete'));
 };

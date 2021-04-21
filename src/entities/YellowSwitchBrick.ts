@@ -2,7 +2,6 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 
 const YellowSwitchBrick: Entity = {
-	type: 'YellowSwitchBrick',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'x',

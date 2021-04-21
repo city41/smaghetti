@@ -4,7 +4,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0x2b;
 
 const ShoeGoomba: Entity = {
-	type: 'ShoeGoomba',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

@@ -4,7 +4,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0x1e;
 
 const Leaf: Entity = {
-	type: 'Leaf',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

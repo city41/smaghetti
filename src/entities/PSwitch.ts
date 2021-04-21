@@ -1,7 +1,6 @@
 import type { Entity } from './types';
 
 const PSwitch: Entity = {
-	type: 'PSwitch',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'none',

@@ -3,7 +3,6 @@ import type { Entity } from './types';
 const OBJECT_ID = 0xfa;
 
 const AceCoin: Entity = {
-	type: 'AceCoin',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

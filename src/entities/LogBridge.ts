@@ -2,7 +2,6 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 
 const LogBridge: Entity = {
-	type: 'LogBridge',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'x',

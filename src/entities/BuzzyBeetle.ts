@@ -4,7 +4,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0x70;
 
 const BuzzyBeetle: Entity = {
-	type: 'BuzzyBeetle',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

@@ -8,7 +8,6 @@ const angleToObjectId: Record<number, number> = {
 };
 
 const TriangularBlock: Entity = {
-	type: 'TriangularBlock',
 	// TODO: this should probably be entity
 	editorType: 'tile',
 	gameType: 'object',

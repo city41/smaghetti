@@ -4,7 +4,6 @@ import { simpleSpriteBinary } from './util';
 const OBJECT_ID = 0xda;
 
 const CapeFeather: Entity = {
-	type: 'CapeFeather',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

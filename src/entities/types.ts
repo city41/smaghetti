@@ -48,10 +48,6 @@ type Entity = StaticResource & {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		settings: Record<string, any>
 	) => number[];
-
-	// only need to implement this if parsing is different from the basic
-	// parsing provided in parseObjectsFromLevelFile
-	parseBinary?: (bytes: number[]) => LevelObject;
 };
 
 export type { Entity };

@@ -8,7 +8,6 @@ import type { Entity } from './types';
 const OBJECT_ID = 0xdb;
 
 const Bubble: Entity = {
-	type: 'Bubble',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',

@@ -4,7 +4,6 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 const FireBarBase: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
-	type: 'FireBarBase',
 	editorType: 'tile',
 	gameType: 'object',
 	dimensions: 'none',

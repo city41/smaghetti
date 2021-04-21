@@ -1,7 +1,6 @@
 import type { Entity } from './types';
 
 const Transport: Entity = {
-	type: 'Transport',
 	editorType: 'transport',
 	gameType: 'transport',
 	dimensions: 'none',

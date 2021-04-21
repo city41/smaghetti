@@ -3,9 +3,14 @@ import clsx from 'clsx';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { LevelTreeObject } from '../../types';
 import { ObjectIcon } from '../entityIcons';
-import { getEntityDefFromId, getEntityDefFromPayloadId } from '../util';
+import {
+	getEntityDefFromId,
+	getEntityDefFromPayloadId,
+	getEntityType,
+} from '../util';
 import { Entity } from '../../../../entities/types';
 import { EntityType } from '../../../../entities/entityMap';
+import { HiddenBlock } from '../../../../entities/HiddenBlock';
 
 type LevelObjectProps = {
 	object: LevelTreeObject;
@@ -60,6 +65,8 @@ function LevelObject({ object, scale, objectSet }: LevelObjectProps) {
 
 	const entityDef = entityDefViaId ?? entityDefViaPayload;
 
+	const entityType = entityDef ? getEntityType(entityDef) : undefined;
+
 	const widthInTiles = determineWidth(object, entityDef);
 	const heightInTiles = determineHeight(object, entityDef);
 
@@ -90,14 +97,13 @@ function LevelObject({ object, scale, objectSet }: LevelObjectProps) {
 		return (
 			<div
 				className={clsx('relative cursor-pointer', {
-					'border-2 border-dashed border-green-300':
-						entityDef?.type === 'HiddenBlock',
+					'border-2 border-dashed border-green-300': entityDef === HiddenBlock,
 				})}
 				style={style}
 			>
 				<ObjectIcon
 					className="absolute top-0 left-0"
-					entityType={entityDef?.type}
+					entityType={entityType}
 					style={style}
 				/>
 				<div style={payloadStyle} className={`${payloadType}-bg`} />
@@ -107,7 +113,7 @@ function LevelObject({ object, scale, objectSet }: LevelObjectProps) {
 		return (
 			<ObjectIcon
 				className="cursor-pointer"
-				entityType={entityDef?.type}
+				entityType={entityType}
 				style={style}
 			/>
 		);

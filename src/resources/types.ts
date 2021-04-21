@@ -7,7 +7,6 @@ type TileExtractionSpec = {
 };
 
 type StaticResource = {
-	type: string;
 	romOffset?: number;
 	palette: number[];
 	firstColorOpaque?: boolean;
@@ -15,9 +14,7 @@ type StaticResource = {
 };
 
 type DerivedResource = {
-	type: string;
-	romOffset?: number;
-	extract?: (rom: Uint8Array) => string;
+	extract: (rom: Uint8Array) => string;
 };
 
 type Resource = StaticResource | DerivedResource;

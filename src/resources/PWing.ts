@@ -1,7 +1,6 @@
 import { StaticResource } from './types';
 
 const PWing: StaticResource = {
-	type: 'PWing',
 	palette: [
 		0x7f96,
 		0x7fff,

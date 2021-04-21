@@ -7,7 +7,6 @@ import { simpleSpriteBinary } from './util';
  * sprites into a single entity
  */
 const HorizontalRedPirannaPlant: Entity = {
-	type: 'HorizontalRedPirannaPlant',
 	editorType: 'entity',
 	gameType: 'sprite',
 	dimensions: 'none',
