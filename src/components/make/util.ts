@@ -10,7 +10,7 @@ function isCompatibleEntity(
 	const isCompatibleObjectSetWise =
 		!entityDef.objectSets || entityDef.objectSets.includes(objectSet);
 	const isCompatibleGraphicSetWise =
-		!entityDef.graphicSets || !entityDef.graphicSets.includes(objectGraphicSet);
+		!entityDef.graphicSets || entityDef.graphicSets.includes(objectGraphicSet);
 
 	return isCompatibleObjectSetWise && isCompatibleGraphicSetWise;
 }
