@@ -5,14 +5,14 @@ import { TILE_SIZE } from '../../tiles/constants';
 import focusedStyles from '../../styles/focused.module.css';
 import { detailsMap } from '../details';
 
-import styles from './Tile.module.css';
+import styles from './Cell.module.css';
 import { EntityType } from '../../entities/entityMap';
 
-type TileProps = {
+type CellProps = {
 	className?: string;
 	ref?: RefObject<HTMLDivElement> | null;
 	id?: number;
-	tileType: EntityType;
+	type: EntityType;
 	scale?: number;
 	style?: CSSProperties;
 	top?: number;
@@ -28,12 +28,12 @@ type TileProps = {
 	onClick?: () => void;
 };
 
-const Tile = memo(
-	forwardRef<HTMLDivElement, TileProps>(function Tile(
+const Cell = memo(
+	forwardRef<HTMLDivElement, CellProps>(function Tile(
 		{
 			className,
 			id,
-			tileType,
+			type,
 			scale = 1,
 			style = {},
 			top,
@@ -44,7 +44,7 @@ const Tile = memo(
 			onEntitySettingsChange,
 			opacity = 1,
 			onClick,
-		}: TileProps,
+		}: CellProps,
 		ref
 	) {
 		const leftStyle =
@@ -67,19 +67,19 @@ const Tile = memo(
 		};
 
 		const showingDetailsEditPane =
-			focused && !!detailsMap[tileType]?.edit && !!settings;
+			focused && !!detailsMap[type]?.edit && !!settings;
 
 		let detailsEdit = null;
 		let detailsView = null;
 		//
 		if (
 			focused &&
-			detailsMap[tileType]?.edit &&
+			detailsMap[type]?.edit &&
 			!!settings &&
 			onEntitySettingsChange &&
 			id
 		) {
-			const DetailsEditComponent = detailsMap[tileType]!.edit;
+			const DetailsEditComponent = detailsMap[type]!.edit;
 
 			detailsEdit = (
 				// @ts-ignore does not have any construct or call signatures???
@@ -92,8 +92,8 @@ const Tile = memo(
 			);
 		}
 
-		if (detailsMap[tileType]?.view && id && settings) {
-			const DetailsViewComponent = detailsMap[tileType]!.view;
+		if (detailsMap[type]?.view && id && settings) {
+			const DetailsViewComponent = detailsMap[type]!.view;
 
 			// @ts-ignore does not have any construct or call signatures???
 			detailsView = <DetailsViewComponent settings={settings ?? {}} />;
@@ -104,7 +104,7 @@ const Tile = memo(
 			[focusedStyles.focused]: focused && !detailsEdit,
 			'z-10': showingDetailsEditPane,
 			'border-2 border-dashed border-green-300 bg-green-50':
-				tileType === 'HiddenBlock',
+				type === 'HiddenBlock',
 		});
 
 		return (
@@ -112,11 +112,11 @@ const Tile = memo(
 				ref={ref}
 				className={finalClassName}
 				style={finalStyle}
-				data-tiletype={tileType}
+				data-tiletype={type}
 				data-editor-type="tile"
 				onClick={onClick}
 			>
-				<div className={`${tileType}-bg w-full h-full bg-cover`} />
+				<div className={`${type}-bg w-full h-full bg-cover`} />
 				{detailsView}
 				{detailsEdit}
 			</div>
@@ -124,7 +124,7 @@ const Tile = memo(
 	})
 );
 
-Tile.displayName = 'Tile';
+Cell.displayName = 'Tile';
 
-export { Tile };
-export type { TileProps };
+export { Cell };
+export type { CellProps };

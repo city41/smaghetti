@@ -85,7 +85,7 @@ function ManageRooms({
 								)}
 								bgGraphic={r.settings.bgGraphic}
 								entities={r.entities}
-								tileData={r.tiles}
+								matrix={r.matrix}
 								scale={scale}
 								tileHeight={r.roomTileHeight}
 								tileWidth={r.roomTileWidth}

@@ -140,7 +140,7 @@ function TransportDestinationModal({
 						tileWidth={curDestRoom.roomTileWidth}
 						tileHeight={curDestRoom.roomTileHeight}
 						scale={SCALE}
-						tileData={curDestRoom.tiles}
+						matrix={curDestRoom.matrix}
 						entities={curDestRoom.entities}
 					>
 						{curDestX > -1 && curDestY > -1 && (

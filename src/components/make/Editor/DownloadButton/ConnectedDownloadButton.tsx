@@ -25,10 +25,10 @@ function ConnectedDownloadButton(props: PublicDownloadButtonProps) {
 				rooms: rooms.map((r) => {
 					return {
 						...r,
-						tileLayer: {
+						matrixLayer: {
 							width: r.roomTileWidth,
 							height: r.roomTileHeight,
-							data: r.tiles,
+							data: r.matrix,
 						},
 					};
 				}),

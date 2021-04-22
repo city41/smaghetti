@@ -7,7 +7,7 @@ const payloadToObjectId = {
 };
 
 const HiddenBlock: Entity = {
-	editorType: 'tile',
+	editorType: 'cell',
 	gameType: 'object',
 	settingsType: 'single',
 	defaultSettings: { payload: 'MusicBlock' },

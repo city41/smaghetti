@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { TILE_SIZE } from '../../tiles/constants';
 
 import { Entity as EntityCmp } from '../Entity';
-import { Tile } from '../Tile';
+import { Cell } from '../Cell';
 import { bgGraphicToResourceMap } from '../../resources/bgGraphicToResourceMap';
 
 type LevelThumbnailProps = {
@@ -14,30 +14,30 @@ type LevelThumbnailProps = {
 	tileHeight: number;
 	bgGraphic?: number;
 	scale: number;
-	tileData: TileMatrix;
+	matrix: EditorEntityMatrix;
 	entities: EditorEntity[];
 	children?: ReactNode;
 };
 
-type TileRowProps = {
-	tiles: Array<Tile | null>;
-	y: number;
+type MatrixRowProps = {
+	entities: Array<EditorEntity | null>;
 	scale: number;
-	tileX: number;
-	tileWidth: number;
+	startingX: number;
+	y: number;
+	width: number;
 };
 
-function TileRow({ tiles, y, scale, tileX, tileWidth }: TileRowProps) {
-	const tileEls = tiles.map((t, x) => {
-		if (!t || x < tileX || x >= tileX + tileWidth) {
+function MatrixRow({ entities, startingX, y, scale, width }: MatrixRowProps) {
+	const tileEls = entities.map((t, x) => {
+		if (!t || x < x || x >= x + width) {
 			return null;
 		}
 		return (
-			<Tile
-				left={(x - tileX) * TILE_SIZE * scale}
+			<Cell
+				left={(x - startingX) * TILE_SIZE * scale}
 				key={t.id}
 				id={t.id}
-				tileType={t.tileType}
+				type={t.type}
 				scale={scale}
 			/>
 		);
@@ -58,26 +58,26 @@ function LevelThumbnail({
 	tileHeight,
 	bgGraphic,
 	scale,
-	tileData,
+	matrix,
 	entities,
 	children,
 }: LevelThumbnailProps) {
 	const width = tileWidth * TILE_SIZE * scale;
 	const height = tileHeight * TILE_SIZE * scale;
 
-	const tileRows = tileData.map((row, y) => {
+	const tileRows = matrix.map((row, y) => {
 		if (!row || y < tileY || y >= tileY + tileHeight) {
 			return null;
 		}
 
 		return (
-			<TileRow
+			<MatrixRow
 				key={y}
-				tiles={row}
+				entities={row}
 				y={y - tileY}
 				scale={scale}
-				tileX={tileX}
-				tileWidth={tileWidth}
+				startingX={tileX}
+				width={tileWidth}
 			/>
 		);
 	});

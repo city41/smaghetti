@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 
 const BuriedVegetable: Entity = {
-	editorType: 'tile',
+	editorType: 'cell',
 	gameType: 'object',
 	settingsType: 'single',
 	defaultSettings: { payload: 'SmallVegetable' },

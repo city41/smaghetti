@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 
 const WoodWalkway: Entity = {
-	editorType: 'tile',
+	editorType: 'cell',
 	gameType: 'object',
 	dimensions: 'x',
 	objectId: 0x61,

@@ -52,14 +52,14 @@ function LevelEntry({
 							'bg-red-100 group-hover:bg-red-100': showDeleteConfirmation,
 						})}
 						tileX={0}
-						tileY={level.data.rooms[0].tileLayer.height - THUMBNAIL_HEIGHT}
+						tileY={level.data.rooms[0].matrixLayer.height - THUMBNAIL_HEIGHT}
 						tileWidth={Math.min(
-							level.data.rooms[0].tileLayer.width,
+							level.data.rooms[0].matrixLayer.width,
 							PLAY_WINDOW_TILE_WIDTH * 2
 						)}
 						tileHeight={THUMBNAIL_HEIGHT}
 						scale={0.75}
-						tileData={level.data.rooms[0].tileLayer.data}
+						matrix={level.data.rooms[0].matrixLayer.data}
 						entities={level.data.rooms[0].entities}
 					/>
 				</div>

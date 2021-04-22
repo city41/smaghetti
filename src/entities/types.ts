@@ -13,7 +13,7 @@ type Entity = {
 	 * not specified means all graphic sets (ie goomba)
 	 */
 	graphicSets?: number[];
-	editorType: 'entity' | 'tile' | 'transport';
+	editorType: 'entity' | 'cell' | 'transport';
 	gameType: 'sprite' | 'object' | 'transport';
 	dimensions: 'none' | 'x' | 'y' | 'xy';
 	/**

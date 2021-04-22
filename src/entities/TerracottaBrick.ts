@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 
 const TerracottaBrick: Entity = {
-	editorType: 'tile',
+	editorType: 'cell',
 	gameType: 'object',
 	dimensions: 'xy',
 	objectId: 0x5f,

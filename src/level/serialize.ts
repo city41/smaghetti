@@ -3,10 +3,10 @@ import isEqual from 'lodash/isEqual';
 import { entityMap } from '../entities/entityMap';
 
 function serializeRoom(room: RoomData): SerializedRoomData {
-	const tiles = room.tileLayer.data;
+	const tiles = room.matrixLayer.data;
 
 	const serializedTiles = [];
-	const serializedTileSettings: SerializedTileSettings[] = [];
+	const serializedTileSettings: SerializedMatrixEntitySettings[] = [];
 
 	for (let y = 0; y < tiles.length; y += 1) {
 		const row = tiles[y];
@@ -21,11 +21,11 @@ function serializeRoom(room: RoomData): SerializedRoomData {
 				if (!tile) {
 					serializedRow.push('');
 				} else {
-					const serializedId = TILE_TYPE_TO_SERIALIZE_ID_MAP[tile.tileType];
+					const serializedId = TILE_TYPE_TO_SERIALIZE_ID_MAP[tile.type];
 
 					if (!serializedId) {
 						throw new Error(
-							`${tile.tileType} not found in TILE_TYPE_TO_SERIALIZE_ID_MAP`
+							`${tile.type} not found in TILE_TYPE_TO_SERIALIZE_ID_MAP`
 						);
 					}
 
@@ -35,7 +35,7 @@ function serializeRoom(room: RoomData): SerializedRoomData {
 					if (
 						tile.settings &&
 						Object.keys(tile.settings).length > 0 &&
-						!isEqual(entityMap[tile.tileType].defaultSettings, tile.settings)
+						!isEqual(entityMap[tile.type].defaultSettings, tile.settings)
 					) {
 						serializedTileSettings.push({ x, y, s: tile.settings });
 					}
@@ -46,14 +46,14 @@ function serializeRoom(room: RoomData): SerializedRoomData {
 	}
 
 	const tileLayer = {
-		...room.tileLayer,
+		...room.matrixLayer,
 		data: serializedTiles,
 	};
 
 	return {
 		...room,
-		tileLayer,
-		tileSettings: serializedTileSettings,
+		matrixLayer: tileLayer,
+		matrixEntitySettings: serializedTileSettings,
 	};
 }
 

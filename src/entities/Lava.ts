@@ -5,7 +5,7 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 const Lava: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
-	editorType: 'tile',
+	editorType: 'cell',
 	gameType: 'object',
 	settingsType: 'single',
 	dimensions: 'xy',

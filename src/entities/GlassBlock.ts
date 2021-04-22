@@ -5,7 +5,7 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 const GlassBlock: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.underground.objectGraphicSet],
-	editorType: 'tile',
+	editorType: 'cell',
 	gameType: 'object',
 	dimensions: 'x',
 	param2: 'width',

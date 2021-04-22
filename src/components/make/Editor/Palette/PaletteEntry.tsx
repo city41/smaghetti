@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-import { Tile } from '../../../Tile';
+import { Cell } from '../../../Cell';
 import { Entity } from '../../../Entity';
 import { TILE_SIZE } from '../../../../tiles/constants';
 
@@ -38,8 +38,8 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 	let item;
 
 	switch (entityMap[entry].editorType) {
-		case 'tile':
-			item = <Tile tileType={entry} scale={SCALE} />;
+		case 'cell':
+			item = <Cell type={entry} scale={SCALE} />;
 			break;
 		case 'entity':
 			item = <Entity scale={6.25} maxWidth={50} maxHeight={50} type={entry} />;

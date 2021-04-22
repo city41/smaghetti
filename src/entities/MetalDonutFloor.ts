@@ -5,7 +5,7 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 const MetalDonutFloor: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
-	editorType: 'tile',
+	editorType: 'cell',
 	gameType: 'object',
 	dimensions: 'xy',
 	param1: 'height',

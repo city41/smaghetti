@@ -1187,7 +1187,7 @@ GameBoyAdvanceSoftwareRenderer.prototype.writeBackgroundHOffset = function (
 	bg,
 	value
 ) {
-	this.bg[bg].x = value & 0x1ff;
+	this.bg[bg].startingX = value & 0x1ff;
 };
 
 GameBoyAdvanceSoftwareRenderer.prototype.writeBackgroundVOffset = function (

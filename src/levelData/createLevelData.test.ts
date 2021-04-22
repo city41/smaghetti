@@ -37,7 +37,7 @@ describe('createLevelData', () => {
 				paletteEntries: [],
 				entities,
 				transports: [],
-				tileLayer: {
+				matrixLayer: {
 					width: 0,
 					height: 0,
 					data: [],
@@ -66,17 +66,17 @@ describe('createLevelData', () => {
 
 	describe('objects', () => {
 		it('should create a single 2D object', () => {
-			const tileLayer: TileLayer = {
+			const matrixLayer: MatrixLayer = {
 				width: 2,
 				height: 2,
 				data: [
 					[
-						{ id: 1, x: 0, y: 0, tileType: 'Brick', tileIndex: 0 },
-						{ id: 2, x: 1, y: 0, tileType: 'Brick', tileIndex: 0 },
+						{ id: 1, x: 0, y: 0, type: 'Brick' },
+						{ id: 2, x: 1, y: 0, type: 'Brick' },
 					],
 					[
-						{ id: 3, x: 0, y: 1, tileType: 'Brick', tileIndex: 0 },
-						{ id: 4, x: 1, y: 1, tileType: 'Brick', tileIndex: 0 },
+						{ id: 3, x: 0, y: 1, type: 'Brick' },
+						{ id: 4, x: 1, y: 1, type: 'Brick' },
 					],
 				],
 			};
@@ -94,7 +94,7 @@ describe('createLevelData', () => {
 					paletteEntries: [],
 					entities: [],
 					transports: [],
-					tileLayer,
+					matrixLayer,
 				},
 			]);
 

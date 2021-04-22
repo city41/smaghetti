@@ -21,7 +21,7 @@ const EMPTY_ROOM: RoomState = {
 		spriteGraphicSet: [0, 0, 0, 0, 0, 0],
 	},
 	entities: [],
-	tiles: [],
+	matrix: [],
 	transports: [],
 	roomTileWidth: 16,
 	roomTileHeight: 15,

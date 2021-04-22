@@ -30,37 +30,27 @@ type NewEditorTransport = {
 
 type EditorTransport = NewEditorTransport & IDable;
 
-type NewTile = {
-	x: number;
-	y: number;
-	tileType: import('./src/entities/entityMap').EntityType;
-	tileIndex: number;
-	settings?: EntitySettings;
-};
-
-type Tile = NewTile & IDable;
-
 type Point = {
 	x: number;
 	y: number;
 };
 
-type TileRow = Array<Tile | null>;
-type TileMatrix = Array<TileRow | null>;
+type EditorEntityRow = Array<EditorEntity | null>;
+type EditorEntityMatrix = Array<EditorEntityRow | null>;
 
-type TileLayer = {
+type MatrixLayer = {
 	width: number;
 	height: number;
-	data: TileMatrix;
+	data: EditorEntityMatrix;
 };
 
-// the string is the short id for the tile type, ie "metal" -> "me"
-type SerializedTileMatrix = Array<string | Array<string>>;
+// the string is the short id for the entity type, ie "Brick" -> "Br"
+type SerializedEditorEntityMatrix = Array<string | Array<string>>;
 
-type SerializedTileLayer = {
+type SerializedMatrixLayer = {
 	width: number;
 	height: number;
-	data: SerializedTileMatrix;
+	data: SerializedEditorEntityMatrix;
 };
 
 type RoomSettings = {
@@ -77,18 +67,18 @@ type RoomData = {
 	paletteEntries: EntityType[];
 	entities: EditorEntity[];
 	transports: EditorTransport[];
-	tileLayer: TileLayer;
+	matrixLayer: MatrixLayer;
 };
 
-type SerializedTileSettings = {
+type SerializedMatrixEntitySettings = {
 	x: number;
 	y: number;
 	s: EntitySettings;
 };
 
-type SerializedRoomData = Omit<RoomData, 'tileLayer'> & {
-	tileLayer: SerializedTileLayer;
-	tileSettings: SerializedTileSettings[];
+type SerializedRoomData = Omit<RoomData, 'matrixLayer'> & {
+	matrixLayer: SerializedMatrixLayer;
+	matrixEntitySettings: SerializedMatrixEntitySettings[];
 };
 
 type LevelData = {

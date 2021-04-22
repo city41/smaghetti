@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 
 const UndergroundFlatTerrain_VerticalLeft: Entity = {
-	editorType: 'tile',
+	editorType: 'cell',
 	gameType: 'object',
 	dimensions: 'y',
 	param1: 'height',

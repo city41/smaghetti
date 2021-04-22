@@ -36,7 +36,7 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 		currentPaletteEntry,
 		entities,
 		transports,
-		tiles,
+		matrix,
 		roomTileWidth,
 		roomTileHeight,
 		scale,
@@ -74,7 +74,7 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 			entities={entities}
 			transportSources={transports}
 			transportDestinations={transportDestinations}
-			tiles={tiles}
+			matrix={matrix}
 			focused={focused}
 			isSelecting={isSelecting}
 			dragOffset={dragOffset}

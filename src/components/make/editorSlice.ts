@@ -28,7 +28,7 @@ import { deserialize } from '../../level/deserialize';
 import isEqual from 'lodash/isEqual';
 import cloneDeep from 'lodash/cloneDeep';
 
-import { TILE_SIZE, TILE_TYPE_TO_GROUP_TYPE_MAP } from '../../tiles/constants';
+import { TILE_SIZE } from '../../tiles/constants';
 import { entityMap, EntityType } from '../../entities/entityMap';
 import { ROOM_TYPE_SETTINGS } from '../../levelData/constants';
 import { isCompatibleEntity } from './util';
@@ -65,7 +65,7 @@ type RoomState = {
 	settings: RoomSettings;
 	entities: EditorEntity[];
 	transports: EditorTransport[];
-	tiles: TileMatrix;
+	matrix: EditorEntityMatrix;
 	roomTileWidth: number;
 	roomTileHeight: number;
 
@@ -150,7 +150,7 @@ const initialRoomState: RoomState = {
 		},
 	],
 	transports: [],
-	tiles: [],
+	matrix: [],
 	roomTileWidth: INITIAL_LEVEL_TILE_WIDTH,
 	roomTileHeight: INITIAL_LEVEL_TILE_HEIGHT,
 	scale: initialScale,
@@ -192,12 +192,12 @@ const EMPTY_SERIALIZED_LEVEL: SerializedLevelData = {
 			paletteEntries: [...initialState.rooms[0].paletteEntries],
 			entities: [...initialState.rooms[0].entities],
 			transports: [],
-			tileLayer: {
+			matrixLayer: {
 				data: [],
 				width: PLAY_WINDOW_TILE_WIDTH,
 				height: PLAY_WINDOW_TILE_HEIGHT,
 			},
-			tileSettings: [],
+			matrixEntitySettings: [],
 		},
 	],
 };
@@ -216,15 +216,15 @@ type FloodBounds = {
 };
 
 function floodFill(
-	tiles: TileMatrix,
-	floodTileType: EntityType,
+	matrix: EditorEntityMatrix,
+	floodCellType: EntityType,
 	indexX: number,
 	indexY: number,
 	levelTileWidth: number,
 	levelTileHeight: number
 ): FloodBounds {
-	const targetTile = tiles[indexY]?.[indexX];
-	const targetType = targetTile?.tileType ?? 0;
+	const targetCell = matrix[indexY]?.[indexX];
+	const targetType = targetCell?.type ?? 0;
 
 	const toProcess: Point[] = [{ x: indexX, y: indexY }];
 
@@ -259,23 +259,22 @@ function floodFill(
 		floodBounds.maxX = Math.max(floodBounds.maxX, point.x);
 		floodBounds.maxY = Math.max(floodBounds.maxY, point.y);
 
-		const tileAtPoint = tiles[point.y]?.[point.x];
+		const cellAtPoint = matrix[point.y]?.[point.x];
 
 		let exploreNeighbors = false;
 
-		if (tileAtPoint) {
-			if (tileAtPoint.tileType === targetType) {
-				tileAtPoint.tileType = floodTileType;
+		if (cellAtPoint) {
+			if (cellAtPoint.type === targetType) {
+				cellAtPoint.type = floodCellType;
 				exploreNeighbors = true;
 			}
 		} else if (targetType === 0) {
-			tiles[point.y] = tiles[point.y] || [];
-			tiles[point.y]![point.x] = {
+			matrix[point.y] = matrix[point.y] || [];
+			matrix[point.y]![point.x] = {
 				id: idCounter++,
 				x: point.x,
 				y: point.y,
-				tileType: floodTileType,
-				tileIndex: 0,
+				type: floodCellType,
 			};
 			exploreNeighbors = true;
 		}
@@ -462,46 +461,46 @@ function ensureLevelIsInView(state: InternalEditorState) {
 }
 
 function removeOutOfBoundsEntities(state: InternalEditorState) {
+	const currentRoom = getCurrentRoom(state);
+
 	const levelBounds = {
 		upperLeft: { x: 0, y: 0 },
 		lowerRight: {
-			x: getCurrentRoom(state).roomTileWidth * TILE_SIZE,
-			y: getCurrentRoom(state).roomTileHeight * TILE_SIZE,
+			x: currentRoom.roomTileWidth * TILE_SIZE,
+			y: currentRoom.roomTileHeight * TILE_SIZE,
 		},
 	};
 
-	getCurrentRoom(state).entities = getCurrentRoom(state).entities.filter(
-		(e) => {
-			if (nonDeletableEntityTypes.includes(e.type)) {
-				return true;
-			}
-
-			const pixelBounds = getEntityPixelBounds(e);
-
-			return overlap(pixelBounds, levelBounds);
+	currentRoom.entities = currentRoom.entities.filter((e) => {
+		if (nonDeletableEntityTypes.includes(e.type)) {
+			return true;
 		}
-	);
+
+		const pixelBounds = getEntityPixelBounds(e);
+
+		return overlap(pixelBounds, levelBounds);
+	});
 }
 
-function removeOutOfBoundsTiles(state: InternalEditorState) {
-	getCurrentRoom(state).tiles = getCurrentRoom(state).tiles.map((row) => {
-		return row?.slice(0, getCurrentRoom(state).roomTileWidth) ?? null;
+function removeOutOfBoundsCells(state: InternalEditorState) {
+	const currentRoom = getCurrentRoom(state);
+
+	currentRoom.matrix = currentRoom.matrix.map((row) => {
+		return row?.slice(0, currentRoom.roomTileWidth) ?? null;
 	});
 
-	getCurrentRoom(state).tiles = getCurrentRoom(state).tiles.slice(
-		0,
-		getCurrentRoom(state).roomTileHeight
-	);
+	currentRoom.matrix = currentRoom.matrix.slice(0, currentRoom.roomTileHeight);
 }
 
 function scaleTo(state: InternalEditorState, newScale: number) {
+	const currentRoom = getCurrentRoom(state);
+
 	const newScaleIndex = scales.indexOf(newScale);
 
-	getCurrentRoom(state).scale = newScale;
-	getCurrentRoom(state).canIncreaseScale =
+	currentRoom.scale = newScale;
+	currentRoom.canIncreaseScale =
 		newScaleIndex !== -1 && newScaleIndex < scales.length - 1;
-	getCurrentRoom(state).canDecreaseScale =
-		newScaleIndex !== -1 && newScaleIndex > 0;
+	currentRoom.canDecreaseScale = newScaleIndex !== -1 && newScaleIndex > 0;
 }
 
 /**
@@ -568,54 +567,14 @@ function centerLevelInWindow(state: InternalEditorState) {
 	currentRoom.scrollOffset.y = -upperPixels / currentRoom.scale;
 }
 
-function selectEntireTileEntity(
-	focused: Record<number, boolean>,
-	tiles: TileMatrix,
-	focusedTile: Tile
-) {
-	const groupType = TILE_TYPE_TO_GROUP_TYPE_MAP[focusedTile.tileType];
-	const { x, y } = focusedTile;
-
-	if (groupType === 'x') {
-		let startX = focusedTile.x;
-
-		while (tiles[y]?.[startX - 1]?.tileType === focusedTile.tileType) {
-			startX -= 1;
-		}
-
-		let endX = focusedTile.x;
-
-		while (tiles[y]?.[endX + 1]?.tileType === focusedTile.tileType) {
-			endX += 1;
-		}
-
-		for (let t = startX; t <= endX; ++t) {
-			focused[tiles[y]![t]!.id] = true;
-		}
-	} else if (groupType === 'y') {
-		let startY = focusedTile.y;
-
-		while (tiles[startY - 1]?.[x]?.tileType === focusedTile.tileType) {
-			startY -= 1;
-		}
-
-		let endY = focusedTile.y;
-
-		while (tiles[endY + 1]?.[x]?.tileType === focusedTile.tileType) {
-			endY += 1;
-		}
-
-		for (let t = startY; t <= endY; ++t) {
-			focused[tiles[t]![x]!.id] = true;
-		}
-	}
-}
-
-function findTile(tiles: TileMatrix, id: number): Tile | null {
-	for (let y = 0; y < tiles.length; ++y) {
-		for (let x = 0; !!tiles[y] && x < tiles[y]!.length; ++x) {
-			if (tiles[y]![x]?.id === id) {
-				return tiles[y]![x];
+function findCellEntity(
+	matrix: EditorEntityMatrix,
+	id: number
+): EditorEntity | null {
+	for (let y = 0; y < matrix.length; ++y) {
+		for (let x = 0; !!matrix[y] && x < matrix[y]!.length; ++x) {
+			if (matrix[y]![x]?.id === id) {
+				return matrix[y]![x];
 			}
 		}
 	}
@@ -775,7 +734,7 @@ const editorSlice = createSlice({
 				maxX = Math.max(maxX, indexX);
 				maxY = Math.max(maxY, indexY);
 
-				const existingTile = currentRoom.tiles[indexY]?.[indexX];
+				const existingTile = currentRoom.matrix[indexY]?.[indexX];
 
 				const tilePoint = {
 					x: indexX,
@@ -801,8 +760,8 @@ const editorSlice = createSlice({
 							}
 						}
 
-						if (currentRoom.tiles[indexY]) {
-							currentRoom.tiles[indexY]![indexX] = null;
+						if (currentRoom.matrix[indexY]) {
+							currentRoom.matrix[indexY]![indexX] = null;
 						}
 
 						const existingTransport = currentRoom.transports.find((t) => {
@@ -824,27 +783,25 @@ const editorSlice = createSlice({
 					case 'draw': {
 						if (
 							currentRoom.currentPaletteEntry &&
-							entityMap[currentRoom.currentPaletteEntry].editorType === 'tile'
+							entityMap[currentRoom.currentPaletteEntry].editorType === 'cell'
 						) {
-							// replace a tile
+							// replace a cell
 							if (existingTile) {
-								existingTile.tileType = currentRoom.currentPaletteEntry;
+								existingTile.type = currentRoom.currentPaletteEntry;
 							} else {
 								// paint a new tile
-								currentRoom.tiles[indexY] = currentRoom.tiles[indexY] || [];
-								currentRoom.tiles[indexY]![indexX] = {
+								currentRoom.matrix[indexY] = currentRoom.matrix[indexY] || [];
+								currentRoom.matrix[indexY]![indexX] = {
 									id: idCounter++,
 									x: indexX,
 									y: indexY,
-									tileType: currentRoom.currentPaletteEntry,
-									// TODO: tileIndex isn't really used anymore
-									tileIndex: 0,
+									type: currentRoom.currentPaletteEntry,
 								};
 
 								const objectDef = entityMap[currentRoom.currentPaletteEntry];
 
 								if (objectDef.settingsType === 'single') {
-									currentRoom.tiles[indexY]![indexX]!.settings = {
+									currentRoom.matrix[indexY]![indexX]!.settings = {
 										...objectDef.defaultSettings,
 									};
 								}
@@ -918,10 +875,10 @@ const editorSlice = createSlice({
 					case 'fill': {
 						if (
 							currentRoom.currentPaletteEntry &&
-							entityMap[currentRoom.currentPaletteEntry].editorType === 'tile'
+							entityMap[currentRoom.currentPaletteEntry].editorType === 'cell'
 						) {
 							const floodResult = floodFill(
-								currentRoom.tiles,
+								currentRoom.matrix,
 								currentRoom.currentPaletteEntry,
 								indexX,
 								indexY,
@@ -961,7 +918,7 @@ const editorSlice = createSlice({
 			let maxX = 0;
 			let maxY = 0;
 
-			currentRoom.tiles = currentRoom.tiles.map((row, y) => {
+			currentRoom.matrix = currentRoom.matrix.map((row, y) => {
 				if (!row) {
 					return null;
 				}
@@ -1143,7 +1100,7 @@ const editorSlice = createSlice({
 				isCompatibleEntity(e.type, settings)
 			);
 
-			room.tiles = room.tiles.map((row) => {
+			room.matrix = room.matrix.map((row) => {
 				if (!row) {
 					return row;
 				}
@@ -1153,7 +1110,7 @@ const editorSlice = createSlice({
 						return tile;
 					}
 
-					return isCompatibleEntity(tile.tileType, settings) ? tile : null;
+					return isCompatibleEntity(tile.type, settings) ? tile : null;
 				});
 			});
 
@@ -1200,9 +1157,9 @@ const editorSlice = createSlice({
 					settings: r.settings,
 					entities: r.entities.filter((e) => !!entityMap[e.type]),
 					transports: r.transports,
-					tiles: r.tileLayer.data,
-					roomTileHeight: r.tileLayer.height,
-					roomTileWidth: r.tileLayer.width,
+					matrix: r.matrixLayer.data,
+					roomTileHeight: r.matrixLayer.height,
+					roomTileWidth: r.matrixLayer.width,
 					scale: initialScale,
 					canIncreaseScale: scales.indexOf(initialScale) < scales.length - 1,
 					canDecreaseScale: scales.indexOf(initialScale) > 0,
@@ -1312,7 +1269,7 @@ const editorSlice = createSlice({
 			});
 
 			const tileUnderStart =
-				currentRoom.tiles[tileStartingPoint.y]?.[tileStartingPoint.x];
+				currentRoom.matrix[tileStartingPoint.y]?.[tileStartingPoint.x];
 
 			if (entityUnderStart || transportUnderStart || tileUnderStart) {
 				const idUnderStart =
@@ -1375,8 +1332,8 @@ const editorSlice = createSlice({
 						x < tileBounds.lowerRight.x;
 						++x
 					) {
-						if (currentRoom.tiles[y]?.[x]) {
-							state.focused[currentRoom.tiles[y]![x]!.id] = true;
+						if (currentRoom.matrix[y]?.[x]) {
+							state.focused[currentRoom.matrix[y]![x]!.id] = true;
 						}
 					}
 				}
@@ -1422,13 +1379,13 @@ const editorSlice = createSlice({
 						movedTransports.push(transport);
 					}
 
-					const tile = findTile(currentRoom.tiles, Number(fid));
+					const tile = findCellEntity(currentRoom.matrix, Number(fid));
 
 					if (tile) {
-						currentRoom.tiles[tile.y]![tile.x] = null;
-						currentRoom.tiles[tile.y + tileYOffset] =
-							currentRoom.tiles[tile.y + tileYOffset] || [];
-						currentRoom.tiles[tile.y + tileYOffset]![
+						currentRoom.matrix[tile.y]![tile.x] = null;
+						currentRoom.matrix[tile.y + tileYOffset] =
+							currentRoom.matrix[tile.y + tileYOffset] || [];
+						currentRoom.matrix[tile.y + tileYOffset]![
 							tile.x + tileXOffset
 						] = tile;
 
@@ -1533,21 +1490,16 @@ const editorSlice = createSlice({
 				state.focused = {};
 				state.focused[entity.id] = true;
 			} else {
-				const tile = findTile(getCurrentRoom(state).tiles, id);
+				const cell = findCellEntity(getCurrentRoom(state).matrix, id);
 
-				if (tile) {
-					tile.settings = {
-						...tile.settings,
+				if (cell) {
+					cell.settings = {
+						...cell.settings,
 						...settings,
 					};
 
 					// TODO: nasty hack! see above in entity section
 					state.focused = {};
-					selectEntireTileEntity(
-						state.focused,
-						getCurrentRoom(state).tiles,
-						tile
-					);
 				}
 			}
 		},
@@ -1569,10 +1521,10 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 					paletteEntries: room.paletteEntries,
 					entities: room.entities,
 					transports: room.transports,
-					tileLayer: {
+					matrixLayer: {
 						width: room.roomTileWidth,
 						height: room.roomTileHeight,
-						data: room.tiles,
+						data: room.matrix,
 					},
 				};
 			}),
@@ -1646,7 +1598,7 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 					localStorageData.levelData.rooms &&
 					localStorageData.levelData.rooms[0] &&
 					localStorageData.levelData.rooms[0].entities &&
-					localStorageData.levelData.rooms[0].tileLayer
+					localStorageData.levelData.rooms[0].matrixLayer
 				) {
 					dispatch(
 						editorSlice.actions.setLevelDataFromLoad(localStorageData.levelData)
@@ -1682,10 +1634,10 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 					paletteEntries: r.paletteEntries,
 					entities: r.entities,
 					transports: r.transports,
-					tileLayer: {
+					matrixLayer: {
 						width: r.roomTileWidth,
 						height: r.roomTileHeight,
-						data: r.tiles,
+						data: r.matrix,
 					},
 				};
 			}),
@@ -1764,7 +1716,7 @@ function cleanUpReducer(state: InternalEditorState, action: Action) {
 		ensurePlayerIsInView(draftState, { x: 0, y: 0 });
 		ensureLevelIsInView(draftState);
 
-		removeOutOfBoundsTiles(draftState);
+		removeOutOfBoundsCells(draftState);
 		removeOutOfBoundsEntities(draftState);
 	});
 

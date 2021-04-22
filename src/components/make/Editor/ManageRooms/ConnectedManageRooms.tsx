@@ -56,7 +56,7 @@ function isIncompatibleSwitch(room: RoomState, type: string) {
 		return !isCompatibleEntity(e.type, settings);
 	});
 
-	const hasIncompatibleTiles = room.tiles.reduce<boolean>((building, row) => {
+	const hasIncompatibleTiles = room.matrix.reduce<boolean>((building, row) => {
 		if (!row) {
 			return building;
 		}
@@ -68,7 +68,7 @@ function isIncompatibleSwitch(room: RoomState, type: string) {
 					return false;
 				}
 
-				return !isCompatibleEntity(t.tileType, settings);
+				return !isCompatibleEntity(t.type, settings);
 			})
 		);
 	}, false);

@@ -11,7 +11,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { Entity } from '../../../Entity';
 import { TransportSource } from '../../../Transport/TransportSource';
 import { TransportDestination } from '../../../Transport/TransportDestination';
-import { Tile } from '../../../Tile';
+import { Cell } from '../../../Cell';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { MouseMode, RoomState } from '../../editorSlice';
 import {
@@ -41,7 +41,7 @@ type CanvasProps = {
 	entities: EditorEntity[];
 	transportSources: EditorTransport[];
 	transportDestinations: EditorTransport[];
-	tiles: TileMatrix;
+	matrix: EditorEntityMatrix;
 	focused: Record<number, boolean>;
 	isSelecting: boolean;
 	dragOffset: Point | null;
@@ -66,8 +66,8 @@ function getTranslation(scale: number): string {
 	return `${((scale - 1) / 2) * 100}%`;
 }
 
-type TileRowProps = {
-	tiles: (Tile | null)[];
+type MatrixRowProps = {
+	cells: EditorEntityRow;
 	y: number;
 	focused: Record<number, boolean>;
 	dragOffset: Point | null;
@@ -77,28 +77,28 @@ type TileRowProps = {
 	}) => void;
 };
 
-const TileRow: FunctionComponent<TileRowProps> = memo(function TileRow({
-	tiles,
+const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
+	cells,
 	y,
 	focused,
 	dragOffset,
 	onEntitySettingsChange,
 }) {
-	const tileEls = tiles.map((t, x) => {
-		const isFocused = !dragOffset && t !== null && focused[t.id];
+	const tileEls = cells.map((c, x) => {
+		const isFocused = !dragOffset && c !== null && focused[c.id];
 
 		return (
-			t && (
-				<Tile
+			c && (
+				<Cell
 					left={x * TILE_SIZE}
-					key={t.id}
-					id={t.id}
-					tileType={t.tileType}
+					key={c.id}
+					id={c.id}
+					type={c.type}
 					animateIn
 					focused={isFocused}
-					settings={t.settings}
+					settings={c.settings}
 					onEntitySettingsChange={onEntitySettingsChange}
-					opacity={dragOffset && focused[t.id] ? 0.3 : 1}
+					opacity={dragOffset && focused[c.id] ? 0.3 : 1}
 				/>
 			)
 		);
@@ -107,19 +107,19 @@ const TileRow: FunctionComponent<TileRowProps> = memo(function TileRow({
 	let draggingEls = null;
 
 	if (dragOffset) {
-		draggingEls = tiles.map((t, x) => {
-			if (!t) {
+		draggingEls = cells.map((c, x) => {
+			if (!c) {
 				return null;
 			}
 
-			if (focused[t.id]) {
+			if (focused[c.id]) {
 				return (
-					<Tile
+					<Cell
 						left={x * TILE_SIZE + dragOffset.x}
 						top={dragOffset.y}
-						key={`dragging-${t.id}`}
-						id={t.id}
-						tileType={t.tileType}
+						key={`dragging-${c.id}`}
+						id={c.id}
+						type={c.type}
 						focused
 					/>
 				);
@@ -329,7 +329,7 @@ const Canvas = memo(function Canvas({
 	entities,
 	transportSources,
 	transportDestinations,
-	tiles,
+	matrix,
 	focused,
 	isSelecting,
 	dragOffset,
@@ -342,7 +342,7 @@ const Canvas = memo(function Canvas({
 }: CanvasProps) {
 	const [divRef, setDivRef] = useState<HTMLDivElement | null>(null);
 	const [mouseDown, setMouseDown] = useState(false);
-	const tileGhostRef = useRef<HTMLDivElement | null>(null);
+	const cellGhostRef = useRef<HTMLDivElement | null>(null);
 	const entityGhostRef = useRef<HTMLDivElement | null>(null);
 	const transportGhostRef = useRef<HTMLDivElement | null>(null);
 	const lastMousePoint = useRef<Point | null>(null);
@@ -399,12 +399,12 @@ const Canvas = memo(function Canvas({
 		lastMousePoint.current = curMousePoint;
 	}
 
-	const tileRows = tiles.map(
+	const matrixRows = matrix.map(
 		(row, y) =>
 			row && (
-				<TileRow
+				<MatrixRow
 					key={y}
-					tiles={row}
+					cells={row}
 					y={y}
 					focused={focused}
 					dragOffset={dragOffset}
@@ -418,10 +418,10 @@ const Canvas = memo(function Canvas({
 		height: height * scale + 4,
 	};
 
-	const tileGhostDisplay =
+	const cellGhostDisplay =
 		mouseMode === 'draw' &&
 		currentPaletteEntry &&
-		entityMap[currentPaletteEntry].editorType === 'tile'
+		entityMap[currentPaletteEntry].editorType === 'cell'
 			? 'block'
 			: 'none';
 	const entityGhostDisplay =
@@ -487,10 +487,10 @@ const Canvas = memo(function Canvas({
 						sendPaint(getMousePoint(e), false);
 					} else {
 						const ghostPoint = getMousePoint(e);
-						if (tileGhostRef.current) {
-							tileGhostRef.current.style.left =
+						if (cellGhostRef.current) {
+							cellGhostRef.current.style.left =
 								snap(ghostPoint.x, TILE_SIZE) + 'px';
-							tileGhostRef.current.style.top =
+							cellGhostRef.current.style.top =
 								snap(ghostPoint.y, TILE_SIZE) + 'px';
 						}
 						if (
@@ -520,16 +520,16 @@ const Canvas = memo(function Canvas({
 				}}
 			>
 				{currentPaletteEntry &&
-					entityMap[currentPaletteEntry].editorType === 'tile' && (
-						<Tile
-							ref={tileGhostRef}
+					entityMap[currentPaletteEntry].editorType === 'cell' && (
+						<Cell
+							ref={cellGhostRef}
 							opacity={0.3}
 							style={{
-								display: tileGhostDisplay,
+								display: cellGhostDisplay,
 								position: 'fixed',
 								zIndex: 200,
 							}}
-							tileType={currentPaletteEntry}
+							type={currentPaletteEntry}
 						/>
 					)}
 				{currentPaletteEntry &&
@@ -564,7 +564,7 @@ const Canvas = memo(function Canvas({
 					)}
 				<div className={styles.grid} style={tileGridStyles} />
 				<div className={styles.grid} style={viewportGridStyles} />
-				{tileRows}
+				{matrixRows}
 				<Entities
 					entities={entities}
 					focused={focused}

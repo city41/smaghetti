@@ -27,7 +27,7 @@ function deserializeRoom(
 	room: SerializedRoomData,
 	idCounter: number
 ): { idCounter: number; room: RoomData } {
-	const { width, height } = room.tileLayer;
+	const { width, height } = room.matrixLayer;
 
 	const { idCounter: newIdCounter, normalizedEntities } = normalizeIds(
 		room.entities,
@@ -36,7 +36,7 @@ function deserializeRoom(
 
 	idCounter = newIdCounter;
 
-	const tiles = room.tileLayer.data.map((row, y) => {
+	const tiles = room.matrixLayer.data.map((row, y) => {
 		if (row === null) {
 			return row;
 		}
@@ -54,18 +54,18 @@ function deserializeRoom(
 				return null;
 			}
 
-			const tileType = TILE_SERIALIZED_ID_TO_TYPE_MAP[cell];
-			const tileSettings = room.tileSettings.find(
+			const type = TILE_SERIALIZED_ID_TO_TYPE_MAP[cell];
+			const tileSettings = room.matrixEntitySettings.find(
 				(f) => f.x === x && f.y === y
 			);
 
 			if (tileSettings) {
-				room.tileSettings = room.tileSettings.filter(
+				room.matrixEntitySettings = room.matrixEntitySettings.filter(
 					(te) => te !== tileSettings
 				);
 			}
 
-			const objectDef = entityMap[tileType];
+			const objectDef = entityMap[type];
 			let settings = tileSettings?.s;
 
 			if (!settings && objectDef.settingsType === 'single') {
@@ -76,9 +76,7 @@ function deserializeRoom(
 				id: idCounter++,
 				x,
 				y,
-				tileType,
-				// TODO: tileIndex isn't really used anymore
-				tileIndex: 0,
+				type,
 				settings,
 			};
 		});
@@ -89,7 +87,7 @@ function deserializeRoom(
 		room: {
 			...room,
 			entities: normalizedEntities,
-			tileLayer: {
+			matrixLayer: {
 				width,
 				height,
 				data: tiles,
