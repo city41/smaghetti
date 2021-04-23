@@ -1,4 +1,5 @@
 import React from 'react';
+import screenshotPng from '../../../screenshot.png';
 
 import { Root } from '../layout/Root';
 
@@ -23,6 +24,12 @@ function IndexPage() {
 					>
 						Try the editor
 					</a>
+					<img
+						src={screenshotPng}
+						width={1259}
+						height={713}
+						alt="screenshot of the editor"
+					/>
 				</div>
 				<h2 className="text-2xl font-bold">Status</h2>
 				<div className="space-y-4 pt-4 pb-16">
