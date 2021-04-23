@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
@@ -22,7 +22,6 @@ import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
 import { MetadataMenu } from './MetadataMenu';
 import { PageMenu } from '../../PageMenu';
 import { useFirstRender } from '../../../hooks/useFirstRender';
-import { useScrollWheel } from '../../../hooks/useScrollWheel';
 
 import styles from './Editor.module.css';
 import { IconButtonGroup } from '../../IconButton/IconButtonGroup';
@@ -32,28 +31,13 @@ type EditorProps = {
 	noScript?: boolean;
 	mode: 'editing' | 'resizing' | 'managing-rooms';
 	loadLevelState: 'dormant' | 'loading' | 'success' | 'missing' | 'error';
-	onScaleIncreased: () => void;
-	onScaleDecreased: () => void;
 };
 
-function Editor({
-	noScript,
-	mode,
-	loadLevelState,
-	onScaleIncreased,
-	onScaleDecreased,
-}: EditorProps) {
+function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 	const router = useRouter();
 	const [isPlaying, setPlaying] = useState(false);
 	const [showKeyboardHelpModal, setShowKeyboardHelpModal] = useState(false);
 	const dispatch = useDispatch();
-	const rootDivRef = useRef<HTMLDivElement | null>(null);
-
-	useScrollWheel({
-		down: onScaleDecreased,
-		up: onScaleIncreased,
-		element: rootDivRef.current,
-	});
 
 	const firstRender = useFirstRender();
 
@@ -122,10 +106,7 @@ function Editor({
 				isOpen={showKeyboardHelpModal}
 				onRequestClose={() => setShowKeyboardHelpModal(false)}
 			/>
-			<div
-				className="hidden sm:block select-none w-full h-full"
-				ref={rootDivRef}
-			>
+			<div className="hidden sm:block select-none w-full h-full">
 				{noScript && (
 					<Warning>
 						<div>

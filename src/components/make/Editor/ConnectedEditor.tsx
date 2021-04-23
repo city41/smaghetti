@@ -2,19 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Editor, EditorProps } from './Editor';
-import { AppState, dispatch } from '../../../store';
-import { bindActionCreators } from 'redux';
-import { scaleDecreased, scaleIncreased } from '../editorSlice';
+import { AppState } from '../../../store';
 
 type ConnectedEditorProps = Partial<EditorProps>;
-
-const actions = bindActionCreators(
-	{
-		onScaleDecreased: scaleDecreased,
-		onScaleIncreased: scaleIncreased,
-	},
-	dispatch
-);
 
 const ConnectedEditor: FunctionComponent<ConnectedEditorProps> = (props) => {
 	const {
@@ -29,14 +19,7 @@ const ConnectedEditor: FunctionComponent<ConnectedEditorProps> = (props) => {
 		? 'managing-rooms'
 		: 'editing';
 
-	return (
-		<Editor
-			mode={mode}
-			loadLevelState={loadLevelState}
-			{...props}
-			{...actions}
-		/>
-	);
+	return <Editor mode={mode} loadLevelState={loadLevelState} {...props} />;
 };
 
 export { ConnectedEditor };
