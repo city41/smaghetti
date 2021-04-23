@@ -6,7 +6,7 @@ import {
 } from '../../../../entities/spriteIdMap';
 import { LevelTreeSprite } from '../../types';
 import { SpriteIcon } from '../entityIcons';
-import { getEntitySize } from '../../../Entity';
+import { entityMap } from '../../../../entities/entityMap';
 
 type LevelSpriteProps = {
 	sprite: LevelTreeSprite;
@@ -20,13 +20,14 @@ function LevelSprite({ sprite, scale }: LevelSpriteProps) {
 			? bank0SpriteIdToEntityType[sprite.id]
 			: bank1SpriteIdToEntityType[sprite.id];
 
-	const entitySize = spriteType
-		? getEntitySize(spriteType)
-		: { width: 16, height: 16 };
+	const spriteDef = entityMap[spriteType];
+
+	const tileWidth = spriteDef?.width ?? 1;
+	const tileHeight = spriteDef?.height ?? 1;
 
 	// hmmm....
-	const width = entitySize.width * scale;
-	const height = entitySize.height * scale;
+	const width = tileWidth * TILE_SIZE * scale;
+	const height = tileHeight * TILE_SIZE * scale;
 
 	const style = {
 		width,

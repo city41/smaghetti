@@ -11,7 +11,6 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { Entity } from '../../../Entity';
 import { TransportSource } from '../../../Transport/TransportSource';
 import { TransportDestination } from '../../../Transport/TransportDestination';
-import { Cell } from '../../../Cell';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { MouseMode, RoomState } from '../../editorSlice';
 import {
@@ -52,7 +51,7 @@ type CanvasProps = {
 	onDeleteFocused: () => void;
 	onEntitySettingsChange: (arg: {
 		id: number;
-		settings: EntitySettings;
+		settings: EditorEntitySettings;
 	}) => void;
 	onTransportDestinationChange: (arg: {
 		id: number;
@@ -73,7 +72,7 @@ type MatrixRowProps = {
 	dragOffset: Point | null;
 	onEntitySettingsChange: (arg: {
 		id: number;
-		settings: EntitySettings;
+		settings: EditorEntitySettings;
 	}) => void;
 };
 
@@ -86,20 +85,29 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 }) {
 	const tileEls = cells.map((c, x) => {
 		const isFocused = !dragOffset && c !== null && focused[c.id];
+		const focusCount = Object.keys(focused).length;
+
+		const style = {
+			position: 'absolute',
+			left: x * TILE_SIZE,
+			top: 0,
+			opacity: dragOffset && c && focused[c.id] ? 0.3 : 1,
+		} as const;
 
 		return (
 			c && (
-				<Cell
-					left={x * TILE_SIZE}
-					key={c.id}
-					id={c.id}
-					type={c.type}
-					animateIn
-					focused={isFocused}
-					settings={c.settings}
-					onEntitySettingsChange={onEntitySettingsChange}
-					opacity={dragOffset && focused[c.id] ? 0.3 : 1}
-				/>
+				<div key={c.id} style={style}>
+					<Entity
+						id={c.id}
+						type={c.type}
+						focused={isFocused}
+						soleFocused={isFocused && focusCount === 1}
+						settings={c.settings}
+						onEntitySettingsChange={(newSettings) =>
+							onEntitySettingsChange({ id: c.id, settings: newSettings })
+						}
+					/>
+				</div>
 			)
 		);
 	});
@@ -113,15 +121,24 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 			}
 
 			if (focused[c.id]) {
+				const style = {
+					position: 'absolute',
+					left: x * TILE_SIZE + dragOffset.x,
+					top: dragOffset.y,
+					opacity: dragOffset && c && focused[c.id] ? 0.3 : 1,
+				} as const;
+
 				return (
-					<Cell
-						left={x * TILE_SIZE + dragOffset.x}
-						top={dragOffset.y}
-						key={`dragging-${c.id}`}
-						id={c.id}
-						type={c.type}
-						focused
-					/>
+					<div key={c.id} style={style}>
+						<Entity
+							id={c.id}
+							type={c.type}
+							focused
+							dragging
+							settings={c.settings}
+							onEntitySettingsChange={() => {}}
+						/>
+					</div>
 				);
 			} else {
 				return null;
@@ -145,7 +162,7 @@ type EntitiesProps = {
 	dragOffset: Point | null;
 	onEntitySettingsChange: (arg: {
 		id: number;
-		settings: EntitySettings;
+		settings: EditorEntitySettings;
 	}) => void;
 };
 
@@ -153,17 +170,15 @@ const Entities = memo(function Entities({
 	entities,
 	mouseMode,
 	focused,
-	isSelecting,
 	dragOffset,
 	onEntitySettingsChange,
 }: EntitiesProps) {
+	const focusCount = Object.keys(focused).length;
 	return (
 		<>
 			{entities.map((e) => {
 				const isFocused =
 					focused[e.id] && (mouseMode === 'select' || mouseMode === 'pan');
-				const soleFocused =
-					isFocused && Object.keys(focused).length === 1 && !isSelecting;
 
 				return (
 					<Entity
@@ -172,14 +187,17 @@ const Entities = memo(function Entities({
 							position: 'absolute',
 							top: e.y,
 							left: e.x,
+							opacity: !!dragOffset && isFocused ? 0.3 : 1,
 						}}
 						id={e.id}
 						type={e.type}
 						settings={e.settings}
-						focused={!dragOffset && isFocused}
-						soleFocused={!dragOffset && soleFocused}
-						opacity={!!dragOffset && isFocused ? 0.3 : 1}
-						onEntitySettingsChange={onEntitySettingsChange}
+						focused={isFocused}
+						soleFocused={isFocused && focusCount === 1}
+						dragging={!!dragOffset}
+						onEntitySettingsChange={(newSettings) =>
+							onEntitySettingsChange({ id: e.id, settings: newSettings })
+						}
 					/>
 				);
 			})}
@@ -197,10 +215,12 @@ const Entities = memo(function Entities({
 								top: e.y + dragOffset.y,
 								left: e.x + dragOffset.x,
 							}}
+							focused
+							dragging
 							id={e.id}
 							type={e.type}
 							settings={e.settings}
-							focused
+							onEntitySettingsChange={() => {}}
 						/>
 					);
 				})}
@@ -342,9 +362,7 @@ const Canvas = memo(function Canvas({
 }: CanvasProps) {
 	const [divRef, setDivRef] = useState<HTMLDivElement | null>(null);
 	const [mouseDown, setMouseDown] = useState(false);
-	const cellGhostRef = useRef<HTMLDivElement | null>(null);
 	const entityGhostRef = useRef<HTMLDivElement | null>(null);
-	const transportGhostRef = useRef<HTMLDivElement | null>(null);
 	const lastMousePoint = useRef<Point | null>(null);
 
 	useHotkeys('del', () => onDeleteFocused());
@@ -418,24 +436,8 @@ const Canvas = memo(function Canvas({
 		height: height * scale + 4,
 	};
 
-	const cellGhostDisplay =
-		mouseMode === 'draw' &&
-		currentPaletteEntry &&
-		entityMap[currentPaletteEntry].editorType === 'cell'
-			? 'block'
-			: 'none';
 	const entityGhostDisplay =
-		mouseMode === 'draw' &&
-		currentPaletteEntry &&
-		entityMap[currentPaletteEntry].editorType === 'entity'
-			? 'block'
-			: 'none';
-	const entityTransportDisplay =
-		mouseMode === 'draw' &&
-		currentPaletteEntry &&
-		entityMap[currentPaletteEntry].editorType === 'transport'
-			? 'block'
-			: 'none';
+		mouseMode === 'draw' && currentPaletteEntry ? 'block' : 'none';
 
 	return (
 		// TODO: why is border on its own div? probably due to scaling?
@@ -487,30 +489,10 @@ const Canvas = memo(function Canvas({
 						sendPaint(getMousePoint(e), false);
 					} else {
 						const ghostPoint = getMousePoint(e);
-						if (cellGhostRef.current) {
-							cellGhostRef.current.style.left =
-								snap(ghostPoint.x, TILE_SIZE) + 'px';
-							cellGhostRef.current.style.top =
-								snap(ghostPoint.y, TILE_SIZE) + 'px';
-						}
-						if (
-							entityGhostRef.current &&
-							currentPaletteEntry &&
-							entityMap[currentPaletteEntry].editorType === 'entity'
-						) {
+						if (entityGhostRef.current && currentPaletteEntry) {
 							entityGhostRef.current.style.left =
 								snap(ghostPoint.x, TILE_SIZE) + 'px';
 							entityGhostRef.current.style.top =
-								snap(ghostPoint.y, TILE_SIZE) + 'px';
-						}
-						if (
-							transportGhostRef.current &&
-							currentPaletteEntry &&
-							entityMap[currentPaletteEntry].editorType === 'transport'
-						) {
-							transportGhostRef.current.style.left =
-								snap(ghostPoint.x, TILE_SIZE) + 'px';
-							transportGhostRef.current.style.top =
 								snap(ghostPoint.y, TILE_SIZE) + 'px';
 						}
 					}
@@ -519,49 +501,19 @@ const Canvas = memo(function Canvas({
 					setMouseDown(false);
 				}}
 			>
-				{currentPaletteEntry &&
-					entityMap[currentPaletteEntry].editorType === 'cell' && (
-						<Cell
-							ref={cellGhostRef}
-							opacity={0.3}
-							style={{
-								display: cellGhostDisplay,
-								position: 'fixed',
-								zIndex: 200,
-							}}
-							type={currentPaletteEntry}
-						/>
-					)}
-				{currentPaletteEntry &&
-					entityMap[currentPaletteEntry].editorType === 'entity' && (
-						<Entity
-							ref={entityGhostRef}
-							opacity={0.3}
-							style={{
-								display: entityGhostDisplay,
-								position: 'fixed',
-								zIndex: 200,
-							}}
-							type={currentPaletteEntry}
-						/>
-					)}
-				{currentPaletteEntry &&
-					entityMap[currentPaletteEntry].editorType === 'transport' && (
-						<TransportSource
-							ref={transportGhostRef}
-							style={{
-								opacity: 0.3,
-								display: entityTransportDisplay,
-								position: 'fixed',
-								zIndex: 200,
-							}}
-							destRoom={-1}
-							destX={-1}
-							destY={-1}
-							exitType={1}
-							label="warp"
-						/>
-					)}
+				{currentPaletteEntry && (
+					<div
+						ref={entityGhostRef}
+						style={{
+							display: entityGhostDisplay,
+							position: 'fixed',
+							zIndex: 200,
+							opacity: 0.3,
+						}}
+					>
+						{entityMap[currentPaletteEntry].render(false, {}, () => {})}
+					</div>
+				)}
 				<div className={styles.grid} style={tileGridStyles} />
 				<div className={styles.grid} style={viewportGridStyles} />
 				{matrixRows}

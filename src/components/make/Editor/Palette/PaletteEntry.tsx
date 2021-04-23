@@ -1,14 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-import { Cell } from '../../../Cell';
-import { Entity } from '../../../Entity';
-import { TILE_SIZE } from '../../../../tiles/constants';
 
 import styles from './PaletteEntry.module.css';
 import { entityMap, EntityType } from '../../../../entities/entityMap';
-import { TransportSource } from '../../../Transport/TransportSource';
-
-const SCALE = 50 / TILE_SIZE;
 
 type PaletteEntryProps = {
 	className?: string;
@@ -35,29 +29,8 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 	onRemoveClick,
 	incompatible,
 }) => {
-	let item;
-
-	switch (entityMap[entry].editorType) {
-		case 'cell':
-			item = <Cell type={entry} scale={SCALE} />;
-			break;
-		case 'entity':
-			item = <Entity scale={6.25} maxWidth={50} maxHeight={50} type={entry} />;
-			break;
-		case 'transport':
-			item = (
-				<div style={{ transform: `scale(${SCALE * 1.3})` }}>
-					<TransportSource
-						label="warp"
-						destRoom={-1}
-						destX={-1}
-						destY={-1}
-						exitType={0}
-					/>
-				</div>
-			);
-			break;
-	}
+	const entityDef = entityMap[entry];
+	const item = entityDef.simpleRender(50, 50);
 
 	return (
 		<div

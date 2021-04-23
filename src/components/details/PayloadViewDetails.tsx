@@ -1,17 +1,21 @@
 import React from 'react';
 import clsx from 'clsx';
+import { EntityType } from '../../entities/entityMap';
+import { ResourceType } from '../../resources/resourceMap';
 
-import { DetailsViewProps } from './index';
+type PayloadViewDetailsProps = {
+	payload: EntityType | ResourceType | undefined;
+};
 
-function PayloadViewDetails({ settings }: DetailsViewProps) {
-	if (!settings.payload) {
+function PayloadViewDetails({ payload }: PayloadViewDetailsProps) {
+	if (!payload) {
 		return null;
 	}
 
 	return (
 		<div
 			className={clsx(
-				`${settings.payload}-bg`,
+				`${payload}-bg`,
 				'bg-cover absolute bottom-0 right-0 w-2 h-2 bg-black rounded-sm'
 			)}
 		/>

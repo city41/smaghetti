@@ -7,4 +7,6 @@ export default {
 	component: Entity,
 };
 
-export const Basic = (): ReactElement => <Entity type="Player" />;
+export const Basic = (): ReactElement => (
+	<Entity type="Player" onEntitySettingsChange={() => {}} />
+);

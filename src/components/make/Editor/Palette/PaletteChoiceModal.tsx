@@ -497,6 +497,44 @@ const transports: PaletteChoiceModalEntry[] = [
 	},
 ];
 
+const bastards: PaletteChoiceModalEntry[] = [
+	{
+		entry: 'GiantGoomba',
+		info: {
+			title: 'Giant Goomba',
+			description: '',
+		},
+	},
+	{
+		entry: 'GiantGreenKoopa',
+		info: {
+			title: 'Giant Green Koopa',
+			description: '',
+		},
+	},
+	{
+		entry: 'HorizontalRedPiranhaPlant',
+		info: {
+			title: 'Horizontal Red Piranha Plant',
+			description: '',
+		},
+	},
+	{
+		entry: 'FlyingPiranhaPlant',
+		info: {
+			title: 'FPP',
+			description: '',
+		},
+	},
+	{
+		entry: 'Bubble',
+		info: {
+			title: 'bubba',
+			description: '',
+		},
+	},
+];
+
 const tabs = [
 	'Enemies',
 	'Terrain',
@@ -505,6 +543,7 @@ const tabs = [
 	'Power Ups',
 	'Bosses',
 	'Warps',
+	...(process.env.NODE_ENV === 'production' ? [] : ['Bastards']),
 ];
 const entries = [
 	enemies,
@@ -514,6 +553,7 @@ const entries = [
 	powerUps,
 	bosses,
 	transports,
+	...(process.env.NODE_ENV === 'production' ? [] : [bastards]),
 ];
 
 function isCompatible(

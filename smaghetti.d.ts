@@ -6,14 +6,14 @@ type Bounds = {
 type IDable = { id: number };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type EntitySettings = Record<string, any>;
+type EditorEntitySettings = Record<string, any>;
 
 type NewEditorEntity = {
 	x: number;
 	y: number;
 	type: import('./src/entities/entityMap').EntityType;
 	disableDrag?: boolean;
-	settings?: EntitySettings;
+	settings?: EditorEntitySettings;
 };
 
 type EditorEntity = NewEditorEntity & IDable;
@@ -73,7 +73,7 @@ type RoomData = {
 type SerializedMatrixEntitySettings = {
 	x: number;
 	y: number;
-	s: EntitySettings;
+	s: EditorEntitySettings;
 };
 
 type SerializedRoomData = Omit<RoomData, 'matrixLayer'> & {

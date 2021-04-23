@@ -21,6 +21,7 @@ import {
 import { MouseMode, RoomState } from '../make/editorSlice';
 
 type TransportProps = {
+	className?: string;
 	style?: CSSProperties;
 	rooms?: RoomState[];
 	destRoom: number;
@@ -42,6 +43,7 @@ const exitTypeIconMap: Record<number, ComponentType<{ className: string }>> = {
 const TransportSource = forwardRef<HTMLDivElement, TransportProps>(
 	function Transport(
 		{
+			className,
 			style,
 			rooms,
 			destRoom,
@@ -82,7 +84,9 @@ const TransportSource = forwardRef<HTMLDivElement, TransportProps>(
 				)}
 				<div
 					ref={ref}
-					className={clsx(styles.root, { [focusedStyles.focused]: focused })}
+					className={clsx(className, styles.root, {
+						[focusedStyles.focused]: focused,
+					})}
 					style={finalStyle}
 				>
 					<div

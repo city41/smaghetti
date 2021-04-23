@@ -2,9 +2,8 @@ import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { TILE_SIZE } from '../../tiles/constants';
 
-import { Entity as EntityCmp } from '../Entity';
-import { Cell } from '../Cell';
 import { bgGraphicToResourceMap } from '../../resources/bgGraphicToResourceMap';
+import { scaledEntityRender } from '../../entities/util';
 
 type LevelThumbnailProps = {
 	className?: string;
@@ -32,14 +31,16 @@ function MatrixRow({ entities, startingX, y, scale, width }: MatrixRowProps) {
 		if (!t || x < x || x >= x + width) {
 			return null;
 		}
+		const style = {
+			position: 'absolute',
+			left: (x - startingX) * TILE_SIZE * scale,
+			top: 0,
+		} as const;
+
 		return (
-			<Cell
-				left={(x - startingX) * TILE_SIZE * scale}
-				key={t.id}
-				id={t.id}
-				type={t.type}
-				scale={scale}
-			/>
+			<div key={t.id} style={style}>
+				{scaledEntityRender(t.type, scale)}
+			</div>
 		);
 	});
 
@@ -96,17 +97,19 @@ function LevelThumbnail({
 			return null;
 		}
 
+		const body = scaledEntityRender(e.type, scale);
+
 		return (
-			<EntityCmp
+			<div
 				key={e.id}
 				style={{
 					position: 'absolute',
 					top,
 					left,
 				}}
-				type={e.type}
-				scale={scale}
-			/>
+			>
+				{body}
+			</div>
 		);
 	});
 

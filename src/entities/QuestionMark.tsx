@@ -1,0 +1,61 @@
+import type { Entity } from './types';
+import { simpleSpriteBinary } from './util';
+import { TILE_SIZE } from '../tiles/constants';
+import React from 'react';
+
+/**
+ * A question mark icon that once touched, completes the level.
+ */
+
+const OBJECT_ID = 0x4a;
+
+const QuestionMark: Entity = {
+	editorType: 'entity',
+	gameType: 'sprite',
+	dimensions: 'none',
+
+	resource: {
+		palette: [
+			0x7f96,
+			0x7fff,
+			0x18c6,
+			0x101a,
+			0x10bf,
+			0x125f,
+			0x25fd,
+			0x369e,
+			0x475f,
+			0x139f,
+			0x177,
+			0x21c,
+			0x29f,
+			0x47bf,
+			0x137f,
+			0x25f,
+		],
+		romOffset: 0x16ea40,
+		tiles: [
+			[238, 239],
+			[254, 255],
+		],
+	},
+
+	toBinary(x, y) {
+		return simpleSpriteBinary(x, y, OBJECT_ID);
+	},
+
+	simpleRender(mw, mh) {
+		return (
+			<div
+				className="QuestionMark-bg bg-cover"
+				style={{ width: mw, height: mh }}
+			/>
+		);
+	},
+
+	render() {
+		return this.simpleRender!(TILE_SIZE, TILE_SIZE);
+	},
+};
+
+export { QuestionMark };

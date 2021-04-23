@@ -21,6 +21,7 @@ import { DryBones } from './DryBones';
 import { FireBar } from './FireBar';
 import { FireBarBase } from './FireBarBase';
 import { FireFlower } from './FireFlower';
+import { FlyingPiranhaPlant } from './FlyingPiranhaPlant';
 import { FortressBrick } from './FortressBrick';
 import { UpFortressSpike } from './UpFortressSpike';
 import { GiantGoomba } from './GiantGoomba';
@@ -30,7 +31,7 @@ import { Goomba } from './Goomba';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
 import { HiddenBlock } from './HiddenBlock';
-import { HorizontalRedPirannaPlant } from './HorizontalRedPirannaPlant';
+import { HorizontalRedPiranhaPlant } from './HorizontalRedPiranhaPlant';
 import { IndestructibleBrick } from './IndestructibleBrick';
 import { Key } from './Key';
 import { Lakitu } from './Lakitu';
@@ -96,6 +97,7 @@ const entityMap = {
 	FireBar,
 	FireBarBase,
 	FireFlower,
+	FlyingPiranhaPlant,
 	FortressBrick,
 	UpFortressSpike,
 	GiantGoomba,
@@ -105,7 +107,7 @@ const entityMap = {
 	GreenKoopaTroopa,
 	GreenParaTroopa,
 	HiddenBlock,
-	HorizontalRedPirannaPlant,
+	HorizontalRedPiranhaPlant,
 	IndestructibleBrick,
 	Key,
 	Lakitu,

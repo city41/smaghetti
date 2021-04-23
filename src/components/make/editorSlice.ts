@@ -32,7 +32,6 @@ import { TILE_SIZE } from '../../tiles/constants';
 import { entityMap, EntityType } from '../../entities/entityMap';
 import { ROOM_TYPE_SETTINGS } from '../../levelData/constants';
 import { isCompatibleEntity } from './util';
-import { getEntitySize } from '../Entity';
 
 type LocalStorageData = {
 	metadata: {
@@ -311,9 +310,12 @@ function clamp(value: number, min: number, max: number): number {
 }
 
 function getEntityPixelBounds(entity: NewEditorEntity): Bounds {
-	const entitySize = getEntitySize(entity.type);
-	const width = Math.max(entitySize.width, TILE_SIZE);
-	const height = Math.max(entitySize.height, TILE_SIZE);
+	const entityDef = entityMap[entity.type];
+	const tileWidth = entityDef.width ?? 1;
+	const tileHeight = entityDef.height ?? 1;
+
+	const width = tileWidth * TILE_SIZE; // Math.max(entitySize.width, TILE_SIZE);
+	const height = tileHeight * TILE_SIZE; // Math.max(entitySize.height, TILE_SIZE);
 
 	return {
 		upperLeft: { x: entity.x, y: entity.y },
@@ -322,9 +324,9 @@ function getEntityPixelBounds(entity: NewEditorEntity): Bounds {
 }
 
 function getEntityTileBounds(entity: NewEditorEntity): Bounds {
-	const entitySize = getEntitySize(entity.type);
-	const tileWidth = entitySize.width / TILE_SIZE;
-	const tileHeight = entitySize.height / TILE_SIZE;
+	const entityDef = entityMap[entity.type];
+	const tileWidth = entityDef.width ?? 1;
+	const tileHeight = entityDef.height ?? 1;
 
 	const minX = Math.floor(entity.x / TILE_SIZE);
 	const minY = Math.floor(entity.y / TILE_SIZE);
@@ -1470,7 +1472,7 @@ const editorSlice = createSlice({
 		},
 		setEntitySettings(
 			state: InternalEditorState,
-			action: PayloadAction<{ id: number; settings: EntitySettings }>
+			action: PayloadAction<{ id: number; settings: EditorEntitySettings }>
 		) {
 			const { id, settings } = action.payload;
 
@@ -1482,13 +1484,7 @@ const editorSlice = createSlice({
 					...settings,
 				};
 
-				// TODO: nasty hack! this is needed due to mutating the entity just above
-				// since immer is used, a new copy of the entity is created, and that breaks
-				// the focused set, which is using tile/entity refs
-
-				// remove this hack once the TileEntity work is done
 				state.focused = {};
-				state.focused[entity.id] = true;
 			} else {
 				const cell = findCellEntity(getCurrentRoom(state).matrix, id);
 
@@ -1498,7 +1494,6 @@ const editorSlice = createSlice({
 						...settings,
 					};
 
-					// TODO: nasty hack! see above in entity section
 					state.focused = {};
 				}
 			}

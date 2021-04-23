@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { Resource } from '../resources/types';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
@@ -16,6 +17,9 @@ type Entity = {
 	editorType: 'entity' | 'cell' | 'transport';
 	gameType: 'sprite' | 'object' | 'transport';
 	dimensions: 'none' | 'x' | 'y' | 'xy';
+
+	width?: number;
+	height?: number;
 	/**
 	 * For entities that have parameters, mostly objects, this metadata
 	 * indicates what the parameters are for. Mostly used by HexTree.
@@ -37,18 +41,24 @@ type Entity = {
 	payloadToObjectId?: Partial<Record<EntityType | ResourceType, number>>;
 	// TODO: I think group settings is coming, but if not, switch to boolean
 	settingsType?: 'single';
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	defaultSettings?: Record<string, any>;
+	defaultSettings?: EditorEntitySettings;
+	resource?: Resource;
+
 	toBinary: (
 		x: number,
 		y: number,
 		w: number,
 		h: number,
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		settings: Record<string, any>
+		settings: EditorEntitySettings
 	) => number[];
 
-	resource?: Resource;
+	simpleRender: (maxWidth: number, maxHeight: number) => ReactElement;
+
+	render: (
+		showDetails: boolean,
+		settings: EditorEntitySettings,
+		onSettingsChange: (newSettings: EditorEntitySettings) => void
+	) => ReactElement;
 };
 
 export type { Entity };
