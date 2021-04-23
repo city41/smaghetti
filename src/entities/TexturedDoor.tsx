@@ -2,10 +2,13 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
+import { TransportSource } from '../components/Transport/TransportSource';
+import { TransportEditDetails } from '../components/details/TransportEditDetails';
 
 const TexturedDoor: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
+	objectId: 0x46,
 
 	resource: {
 		palette: [
@@ -35,10 +38,30 @@ const TexturedDoor: Entity = {
 		],
 	},
 
-	// TODO: add getTransports and toSpriteBinary for locks
+	// TODO: add toSpriteBinary for locks
+
+	getTransports(room, x, y, settings) {
+		const dest = settings.destination;
+
+		if (dest) {
+			return [
+				{
+					destRoom: dest.room as number,
+					destX: dest.x as number,
+					destY: dest.y as number,
+					x,
+					y,
+					room,
+					exitType: 0,
+				},
+			];
+		}
+
+		return [];
+	},
 
 	toObjectBinary(x, y) {
-		return [0, y, x, 0x46];
+		return [0, y, x, this.objectId!];
 	},
 
 	simpleRender(mw, mh) {
@@ -53,17 +76,48 @@ const TexturedDoor: Entity = {
 		);
 	},
 
-	render() {
+	render(showDetails, settings, onSettingsChange) {
 		const style = {
 			width: TILE_SIZE,
 			height: TILE_SIZE * 2,
 		};
 
-		return (
-			<div className="TexturedDoor-bg bg-cover bg-no-repeat" style={style}>
+		const body = (
+			<div
+				className="relative TexturedDoor-bg bg-cover bg-no-repeat"
+				style={style}
+			>
 				<TileSpace />
+				{settings.destination && (
+					<TransportSource
+						className="absolute top-0 left-0"
+						destRoom={settings.destination.room}
+						destX={settings.destination.x}
+						destY={settings.destination.y}
+						exitType={0}
+					/>
+				)}
 			</div>
 		);
+
+		if (showDetails) {
+			return (
+				<TransportEditDetails
+					width={TILE_SIZE}
+					height={TILE_SIZE * 2}
+					onDestinationSet={(newDestination) => {
+						onSettingsChange({ ...settings, destination: newDestination });
+					}}
+					onLockChange={(locked) => {
+						onSettingsChange({ ...settings, locked });
+					}}
+				>
+					{body}
+				</TransportEditDetails>
+			);
+		} else {
+			return body;
+		}
 	},
 };
 

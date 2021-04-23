@@ -1,7 +1,8 @@
+import React from 'react';
+
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
-import React from 'react';
 import { TransportSource } from '../components/Transport/TransportSource';
 import { TransportEditDetails } from '../components/details/TransportEditDetails';
 
@@ -41,7 +42,7 @@ const WoodDoor: Entity = {
 		],
 	},
 
-	// TODO: add getTransports and toSpriteBinary for locks
+	// TODO: add toSpriteBinary for locks
 	getTransports(room, x, y, settings) {
 		const dest = settings.destination;
 
