@@ -468,20 +468,6 @@ const bosses: PaletteChoiceModalEntry[] = [
 
 const transports: PaletteChoiceModalEntry[] = [
 	{
-		entry: 'Transport',
-		info: {
-			title: 'Warp',
-			description: (
-				<>
-					<p>These enable Mario to warp someplace else</p>
-					<p>
-						Place them on top of doors then click to decide where the door goes
-					</p>
-				</>
-			),
-		},
-	},
-	{
 		entry: 'WoodDoor',
 		info: {
 			title: 'Wood Door',

@@ -7,7 +7,6 @@ const OBJECT_ID = 0xbb;
 
 const SpringBoard: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -42,7 +41,7 @@ const SpringBoard: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, OBJECT_ID);
 	},
 

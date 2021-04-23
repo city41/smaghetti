@@ -5,7 +5,6 @@ import React from 'react';
 
 const LogBridge: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'x',
 	objectId: 0x21,
 	emptyBank: 1,
@@ -37,7 +36,7 @@ const LogBridge: Entity = {
 		],
 	},
 
-	toBinary(x, y, w) {
+	toObjectBinary(x, y, w) {
 		return [getBankParam1(1, w), y, x, this.objectId!];
 	},
 

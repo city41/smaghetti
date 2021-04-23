@@ -15,7 +15,6 @@ const angleToObjectId: Record<number, number> = {
 const TriangularBlock: Entity = {
 	// TODO: this should probably be entity
 	editorType: 'cell',
-	gameType: 'object',
 	settingsType: 'single',
 	dimensions: 'none',
 	defaultSettings: { angle: 0 },
@@ -46,7 +45,7 @@ const TriangularBlock: Entity = {
 		],
 	},
 
-	toBinary(x, y, _w, _h, settings) {
+	toObjectBinary(x, y, _w, _h, settings) {
 		return [0, y, x, angleToObjectId[settings.angle as number]];
 	},
 

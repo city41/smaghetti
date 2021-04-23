@@ -4,7 +4,6 @@ import React from 'react';
 
 const PSwitch: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'none',
 	objectId: 0x28,
 	emptyBank: 0,
@@ -35,7 +34,7 @@ const PSwitch: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toObjectBinary(x, y) {
 		return [0, y, x, this.objectId!];
 	},
 

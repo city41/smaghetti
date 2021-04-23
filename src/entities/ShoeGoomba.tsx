@@ -8,7 +8,6 @@ const OBJECT_ID = 0x2b;
 
 const ShoeGoomba: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -46,7 +45,7 @@ const ShoeGoomba: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, OBJECT_ID);
 	},
 

@@ -5,7 +5,6 @@ import React from 'react';
 
 const IndestructibleBrick: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'y',
 	param1: 'height',
 	objectId: 0x80,
@@ -37,7 +36,7 @@ const IndestructibleBrick: Entity = {
 		],
 	},
 
-	toBinary(x, y, _w, h) {
+	toObjectBinary(x, y, _w, h) {
 		return [getBankParam1(1, h), y, x, this.objectId!, 0];
 	},
 

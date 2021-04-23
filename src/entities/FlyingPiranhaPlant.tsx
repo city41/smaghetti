@@ -13,7 +13,6 @@ const OBJECT_ID = 0xd8;
 
 const FlyingPiranhaPlant: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -46,7 +45,7 @@ const FlyingPiranhaPlant: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, OBJECT_ID);
 	},
 

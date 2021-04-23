@@ -12,7 +12,6 @@ import React from 'react';
  */
 const CoinChallenge: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 	objectId: 0xfd,
 	param1: 'other',
@@ -43,7 +42,7 @@ const CoinChallenge: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return [0, this.objectId!, x, y, 4];
 	},
 

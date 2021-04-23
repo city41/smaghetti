@@ -9,7 +9,6 @@ import React from 'react';
  */
 const DryBones: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 	objectId: 0x3f,
 
@@ -41,7 +40,7 @@ const DryBones: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 

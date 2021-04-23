@@ -8,7 +8,6 @@ const OBJECT_ID = 0x6f;
 
 const RedParaTroopa: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -50,7 +49,7 @@ const RedParaTroopa: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, OBJECT_ID);
 	},
 

@@ -8,7 +8,6 @@ const GlassBlock: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.underground.objectGraphicSet],
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'x',
 	param2: 'width',
 	objectId: 0x28,
@@ -40,7 +39,7 @@ const GlassBlock: Entity = {
 		],
 	},
 
-	toBinary(x, y, w) {
+	toObjectBinary(x, y, w) {
 		return [getBankParam1(1, 0), y, x, this.objectId!, w];
 	},
 

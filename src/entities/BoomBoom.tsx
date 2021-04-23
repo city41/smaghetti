@@ -11,7 +11,6 @@ const OBJECT_ID = 0x4b;
 
 const BoomBoom: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -56,7 +55,7 @@ const BoomBoom: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, OBJECT_ID);
 	},
 

@@ -8,7 +8,6 @@ import React from 'react';
  */
 const Player: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -64,10 +63,6 @@ const Player: Entity = {
 				},
 			],
 		],
-	},
-
-	toBinary() {
-		return [];
 	},
 
 	simpleRender(mw, mh) {

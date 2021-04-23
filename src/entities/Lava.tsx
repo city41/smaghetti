@@ -8,7 +8,6 @@ const Lava: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',
-	gameType: 'object',
 	settingsType: 'single',
 	dimensions: 'xy',
 	objectId: 0x30,
@@ -42,7 +41,7 @@ const Lava: Entity = {
 		],
 	},
 
-	toBinary(x, y, w, h): number[] {
+	toObjectBinary(x, y, w, h): number[] {
 		return [getBankParam1(1, h), y, x, this.objectId!, w];
 	},
 

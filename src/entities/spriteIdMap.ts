@@ -3,17 +3,13 @@ import { EntityType, entityMap } from './entityMap';
 const bank1SpriteIdToEntityType: Record<number, EntityType> = (function () {
 	return Object.keys(entityMap).reduce<Record<number, EntityType>>(
 		(building, key) => {
-			if (key === 'Player') {
-				return building;
-			}
-
 			const s = entityMap[key as EntityType];
 
-			if (s.gameType !== 'sprite') {
+			if (!s.toSpriteBinary) {
 				return building;
 			}
 
-			const bytes = s.toBinary(0, 0, 1, 1, {});
+			const bytes = s.toSpriteBinary(0, 0, 1, 1, {});
 
 			// bank
 			if (bytes[0] !== 1) {
@@ -30,17 +26,13 @@ const bank1SpriteIdToEntityType: Record<number, EntityType> = (function () {
 const bank0SpriteIdToEntityType: Record<number, EntityType> = (function () {
 	return Object.keys(entityMap).reduce<Record<number, EntityType>>(
 		(building, key) => {
-			if (key === 'Player') {
-				return building;
-			}
-
 			const s = entityMap[key as EntityType];
 
-			if (s.gameType !== 'sprite') {
+			if (!s.toSpriteBinary) {
 				return building;
 			}
 
-			const bytes = s.toBinary(0, 0, 1, 1, {});
+			const bytes = s.toSpriteBinary(0, 0, 1, 1, {});
 
 			// bank
 			if (bytes[0] !== 0) {

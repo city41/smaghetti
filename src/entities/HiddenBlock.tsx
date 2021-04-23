@@ -14,7 +14,6 @@ const payloadToObjectId = {
 
 const HiddenBlock: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	settingsType: 'single',
 	defaultSettings: { payload: 'MusicBlock' },
 	dimensions: 'none',
@@ -37,7 +36,7 @@ const HiddenBlock: Entity = {
 		],
 	},
 
-	toBinary(x, y, _w, _h, settings): number[] {
+	toObjectBinary(x, y, _w, _h, settings): number[] {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		const objectId =

@@ -8,7 +8,6 @@ const OBJECT_ID = 0x6d;
 
 const RedKoopaTroopa: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -39,7 +38,7 @@ const RedKoopaTroopa: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, OBJECT_ID);
 	},
 

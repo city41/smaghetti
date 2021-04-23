@@ -8,7 +8,6 @@ const MetalDonutFloor: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'xy',
 	param1: 'height',
 	param2: 'width',
@@ -41,7 +40,7 @@ const MetalDonutFloor: Entity = {
 		],
 	},
 
-	toBinary(x, y, w, h) {
+	toObjectBinary(x, y, w, h) {
 		return [getBankParam1(1, h), y, x, this.objectId!, w];
 	},
 

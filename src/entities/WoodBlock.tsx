@@ -9,7 +9,6 @@ import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const WoodBlock: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	settingsType: 'single',
 	dimensions: 'xy',
 	defaultSettings: {},
@@ -50,7 +49,7 @@ const WoodBlock: Entity = {
 		],
 	},
 
-	toBinary(x, y, w, h, settings) {
+	toObjectBinary(x, y, w, h, settings) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		if (settings.payload in payloadToObjectId) {

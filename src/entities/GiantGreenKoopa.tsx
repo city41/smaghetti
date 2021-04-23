@@ -9,7 +9,6 @@ import { TileSpace } from './TileSpace';
  */
 const GiantGreenKoopa: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 	objectId: 0x7a,
 
@@ -41,7 +40,7 @@ const GiantGreenKoopa: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 

@@ -5,7 +5,6 @@ import React from 'react';
 
 const UndergroundFlatTerrain_HorizontalTop: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'x',
 	param2: 'width',
 	objectId: 0x43,
@@ -42,7 +41,7 @@ const UndergroundFlatTerrain_HorizontalTop: Entity = {
 		],
 	},
 
-	toBinary(x, y, w) {
+	toObjectBinary(x, y, w) {
 		return [getBankParam1(1, 0), y, x, this.objectId!, w];
 	},
 

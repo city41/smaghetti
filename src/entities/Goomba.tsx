@@ -5,7 +5,6 @@ import { TILE_SIZE } from '../tiles/constants';
 
 const Goomba: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 	objectId: 0x72,
 
@@ -35,7 +34,7 @@ const Goomba: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 

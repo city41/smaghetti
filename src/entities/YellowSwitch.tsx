@@ -5,7 +5,6 @@ import React from 'react';
 
 const YellowSwitch: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 	objectId: 0xc6,
 
@@ -35,7 +34,7 @@ const YellowSwitch: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 

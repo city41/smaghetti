@@ -5,7 +5,6 @@ import { TileSpace } from './TileSpace';
 
 const TexturedDoor: Entity = {
 	editorType: 'entity',
-	gameType: 'object',
 	dimensions: 'none',
 
 	resource: {
@@ -36,7 +35,9 @@ const TexturedDoor: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	// TODO: add getTransports and toSpriteBinary for locks
+
+	toObjectBinary(x, y) {
 		return [0, y, x, 0x46];
 	},
 

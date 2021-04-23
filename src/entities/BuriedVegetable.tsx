@@ -9,7 +9,6 @@ import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const BuriedVegetable: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	settingsType: 'single',
 	defaultSettings: { payload: 'SmallVegetable' },
 	dimensions: 'none',
@@ -56,7 +55,7 @@ const BuriedVegetable: Entity = {
 		],
 	},
 
-	toBinary(x, y, _w, _h, settings) {
+	toObjectBinary(x, y, _w, _h, settings) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		const objectId =

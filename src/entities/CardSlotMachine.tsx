@@ -8,7 +8,6 @@ const OBJECT_ID = 0x41;
 
 const CardSlotMachine: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -58,7 +57,7 @@ const CardSlotMachine: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, OBJECT_ID);
 	},
 

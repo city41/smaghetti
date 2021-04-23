@@ -8,7 +8,6 @@ const OBJECT_ID = 0x83;
 
 const Lakitu: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -50,7 +49,7 @@ const Lakitu: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, OBJECT_ID);
 	},
 

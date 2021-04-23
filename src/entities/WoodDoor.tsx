@@ -5,7 +5,6 @@ import React from 'react';
 
 const WoodDoor: Entity = {
 	editorType: 'entity',
-	gameType: 'object',
 	dimensions: 'none',
 	objectId: 0xf,
 	emptyBank: 0,
@@ -38,7 +37,9 @@ const WoodDoor: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	// TODO: add getTransports and toSpriteBinary for locks
+
+	toObjectBinary(x, y) {
 		return [0, y, x, this.objectId!];
 	},
 

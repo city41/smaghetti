@@ -8,7 +8,6 @@ import { EntityType } from './entityMap';
 
 const Chest: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 	settingsType: 'single',
 	defaultSettings: { payload: 'Mushroom' },
@@ -58,7 +57,7 @@ const Chest: Entity = {
 		],
 	},
 
-	toBinary(x, y, _w, _h, settings) {
+	toSpriteBinary(x, y, _w, _h, settings) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		if (settings.payload in payloadToObjectId) {

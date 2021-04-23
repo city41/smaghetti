@@ -7,7 +7,6 @@ const OBJECT_ID = 0x49;
 // TODO: should this be called spike?
 const Stalactite: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'none',
 
 	resource: {
@@ -36,7 +35,7 @@ const Stalactite: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toObjectBinary(x, y) {
 		return [0, y, x, OBJECT_ID];
 	},
 

@@ -8,7 +8,6 @@ const FortressBrick: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'xy',
 	objectId: 0xd,
 	emptyBank: 1,
@@ -56,7 +55,7 @@ const FortressBrick: Entity = {
 		],
 	},
 
-	toBinary(x, y, w, h): number[] {
+	toObjectBinary(x, y, w, h): number[] {
 		return [getBankParam1(1, h), y, x, this.objectId!, w];
 	},
 

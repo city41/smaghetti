@@ -5,7 +5,6 @@ import React from 'react';
 
 const FireBar: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 	objectId: 0xb9,
 
@@ -35,8 +34,8 @@ const FireBar: Entity = {
 		],
 	},
 
-	toBinary(x, y): number[] {
-		// todo: 3 means 4 fireballs counterclockwise, need a details pan to let user choose
+	toSpriteBinary(x, y): number[] {
+		// todo: 3 means 4 fireballs counterclockwise, need a details pane to let user choose
 		return [0, this.objectId!, x, y, 3];
 	},
 

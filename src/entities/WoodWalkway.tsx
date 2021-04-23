@@ -5,7 +5,6 @@ import React from 'react';
 
 const WoodWalkway: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'x',
 	objectId: 0x61,
 	emptyBank: 1,
@@ -40,7 +39,7 @@ const WoodWalkway: Entity = {
 		],
 	},
 
-	toBinary(x, y, w) {
+	toObjectBinary(x, y, w) {
 		return [getBankParam1(1, w), y, x, this.objectId!];
 	},
 

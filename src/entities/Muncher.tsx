@@ -6,7 +6,6 @@ const OBJECT_ID = 0x15;
 
 const Muncher: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'none',
 
 	resource: {
@@ -40,7 +39,7 @@ const Muncher: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toObjectBinary(x, y) {
 		return [0, y, x, OBJECT_ID];
 	},
 

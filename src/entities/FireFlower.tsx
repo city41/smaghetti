@@ -5,7 +5,6 @@ import React from 'react';
 
 const FireFlower: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 	objectId: 0x19,
 
@@ -47,7 +46,7 @@ const FireFlower: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 

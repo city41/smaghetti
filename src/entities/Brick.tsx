@@ -9,7 +9,6 @@ import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const Brick: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	settingsType: 'single',
 	dimensions: 'xy',
 	objectId: 0xf,
@@ -54,7 +53,7 @@ const Brick: Entity = {
 		],
 	},
 
-	toBinary(x, y, w, h, settings): number[] {
+	toObjectBinary(x, y, w, h, settings): number[] {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		if (settings.payload in payloadToObjectId) {

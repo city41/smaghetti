@@ -9,7 +9,6 @@ const OBJECT_ID = 0xfa;
 
 const AceCoin: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -40,7 +39,7 @@ const AceCoin: Entity = {
 		],
 	},
 
-	toBinary(x, y, _w, _h, settings) {
+	toSpriteBinary(x, y, _w, _h, settings) {
 		// if (typeof settings.aceCoinIndex !== 'number') {
 		// 	throw new Error('AceCoin#toBinary: no aceCoinIndex setting found');
 		// }

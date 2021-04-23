@@ -4,7 +4,6 @@ import React from 'react';
 
 const UndergroundFlatTerrain_UpperRightCorner: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'none',
 	objectId: 0x4,
 	emptyBank: 0,
@@ -40,7 +39,7 @@ const UndergroundFlatTerrain_UpperRightCorner: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toObjectBinary(x, y) {
 		return [0, y, x, this.objectId!];
 	},
 

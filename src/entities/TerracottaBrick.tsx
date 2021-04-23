@@ -5,7 +5,6 @@ import React from 'react';
 
 const TerracottaBrick: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'xy',
 	objectId: 0x5f,
 	param1: 'width',
@@ -38,7 +37,7 @@ const TerracottaBrick: Entity = {
 		],
 	},
 
-	toBinary(x, y, w, h): number[] {
+	toObjectBinary(x, y, w, h): number[] {
 		return [getBankParam1(1, w), y, x, this.objectId!, h];
 	},
 

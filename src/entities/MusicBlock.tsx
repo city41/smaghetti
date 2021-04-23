@@ -9,7 +9,6 @@ import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const MusicBlock: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	settingsType: 'single',
 	defaultSettings: {},
 	dimensions: 'x',
@@ -49,7 +48,7 @@ const MusicBlock: Entity = {
 		],
 	},
 
-	toBinary(x, y, w, h, settings): number[] {
+	toObjectBinary(x, y, w, h, settings): number[] {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		if (settings.payload in payloadToObjectId) {

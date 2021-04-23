@@ -7,7 +7,6 @@ const FireBarBase: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'none',
 	objectId: 0x2,
 	emptyBank: 0,
@@ -38,7 +37,7 @@ const FireBarBase: Entity = {
 		],
 	},
 
-	toBinary(x, y): number[] {
+	toObjectBinary(x, y): number[] {
 		return [0, y, x, this.objectId!];
 	},
 

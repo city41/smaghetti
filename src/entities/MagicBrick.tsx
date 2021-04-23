@@ -5,7 +5,6 @@ import React from 'react';
 
 const MagicBrick: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	settingsType: 'single',
 	dimensions: 'xy',
 	objectId: 0x2b,
@@ -39,7 +38,7 @@ const MagicBrick: Entity = {
 		],
 	},
 
-	toBinary(x, y, w, h): number[] {
+	toObjectBinary(x, y, w, h): number[] {
 		return [getBankParam1(1, w), y, x, this.objectId!, h];
 	},
 

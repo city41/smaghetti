@@ -9,7 +9,6 @@ import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const QuestionBlock: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	settingsType: 'single',
 	defaultSettings: {},
 	dimensions: 'x',
@@ -53,7 +52,7 @@ const QuestionBlock: Entity = {
 		],
 	},
 
-	toBinary(x, y, w, h, settings) {
+	toObjectBinary(x, y, w, h, settings) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		if (settings.payload in payloadToObjectId) {

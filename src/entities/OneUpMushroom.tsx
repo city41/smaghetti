@@ -7,7 +7,6 @@ const OBJECT_ID = 0xb;
 
 const OneUpMushroom: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -36,7 +35,7 @@ const OneUpMushroom: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, OBJECT_ID);
 	},
 

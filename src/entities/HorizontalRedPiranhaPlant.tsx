@@ -10,7 +10,6 @@ import { TileSpace } from './TileSpace';
  */
 const HorizontalRedPiranhaPlant: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 	objectId: 0xff,
 	param1: 'other',
@@ -41,7 +40,7 @@ const HorizontalRedPiranhaPlant: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		// fifth byte
 		// 0 -- face right
 		// 1 -- face left

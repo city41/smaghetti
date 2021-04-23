@@ -169,7 +169,13 @@ function getObjects(
 		for (let x = 0; x < row.length; ++x) {
 			const tile = row[x];
 
-			if (!tile || entityMap[tile.type].gameType !== 'object') {
+			if (!tile) {
+				continue;
+			}
+
+			const objectDef = entityMap[tile.type];
+
+			if (!objectDef.toObjectBinary) {
 				continue;
 			}
 
@@ -183,10 +189,14 @@ function getObjects(
 			const yDiff = tileLayer.height - (y + 1);
 			const encodedY = MAX_Y - yDiff;
 
-			const objectDef = entityMap[tile.type];
-
 			objects.push(
-				...objectDef.toBinary(x, encodedY, length, height, tile.settings ?? {})
+				...objectDef.toObjectBinary(
+					x,
+					encodedY,
+					length,
+					height,
+					tile.settings ?? {}
+				)
 			);
 
 			erase(tile.y, bestY, tile.x, endXTile.x);
@@ -196,7 +206,7 @@ function getObjects(
 	const entityObjectData = entities.reduce<number[]>((building, e) => {
 		const entityDef = entityMap[e.type];
 
-		if (entityDef.gameType !== 'object') {
+		if (!entityDef.toObjectBinary) {
 			return building;
 		}
 
@@ -205,7 +215,13 @@ function getObjects(
 		const encodedY = MAX_Y - yDiff;
 
 		return building.concat(
-			entityDef.toBinary(e.x / TILE_SIZE, encodedY, 1, 1, e.settings ?? {})
+			entityDef.toObjectBinary(
+				e.x / TILE_SIZE,
+				encodedY,
+				1,
+				1,
+				e.settings ?? {}
+			)
 		);
 	}, []);
 
@@ -214,22 +230,16 @@ function getObjects(
 
 function getSprites(
 	entities: EditorEntity[],
-	tiles: EditorEntity[],
 	levelHeightInTiles: number
 ): number[] {
-	// TODO: also need to sort tile entities into this
 	const sortedEntities = [...entities].sort((a, b) => {
 		return a.x - b.x;
 	});
 
-	const sprites = sortedEntities.reduce<number[]>((building, entity) => {
-		if (entity.type === 'Player') {
-			return building;
-		}
-
+	return sortedEntities.reduce<number[]>((building, entity) => {
 		const entityDef = entityMap[entity.type];
 
-		if (entityDef.gameType !== 'sprite') {
+		if (!entityDef.toSpriteBinary) {
 			return building;
 		}
 
@@ -239,34 +249,21 @@ function getSprites(
 		const y = MAX_Y - yDiff;
 
 		return building.concat(
-			entityDef.toBinary(x, y, 1, 1, entity.settings ?? {})
+			entityDef.toSpriteBinary(x, y, 1, 1, entity.settings ?? {})
 		);
 	}, []);
-
-	const tileSprites = tiles.reduce<number[]>((building, t) => {
-		const entityDef = entityMap[t.type];
-
-		if (entityDef.gameType !== 'sprite') {
-			return building;
-		}
-
-		return building.concat(
-			entityDef.toBinary(t.x, t.y, 1, 1, t.settings ?? {})
-		);
-	}, []);
-
-	return sprites.concat(tileSprites);
 }
 
 function getTransports(
-	transports: EditorTransport[],
+	entities: EditorEntity[],
 	allRooms: RoomData[]
 ): number[] {
-	if (transports.length > 255) {
-		throw new Error(
-			'createLevelData#getTransports: more than 255 transports in one room'
+	const transports = entities.reduce<EditorTransport[]>((building, e) => {
+		return building.concat(
+			entityMap[e.type].getTransports?.(e.x, e.y, e.settings ?? {}, allRooms) ??
+				[]
 		);
-	}
+	}, []);
 
 	// transports are not 0xff terminated, rather a tiny header indicating
 	// how many transports follow. This is either a 16 bit value (why? more than 255 transports in one room???)
@@ -306,8 +303,8 @@ function getTransports(
 	}, transportsHeader);
 }
 
-function flattenTiles(tileLayer: MatrixLayer): EditorEntity[] {
-	return tileLayer.data.reduce<EditorEntity[]>((building, row) => {
+function flattenCells(matrixLayer: MatrixLayer): EditorEntity[] {
+	return matrixLayer.data.reduce<EditorEntity[]>((building, row) => {
 		if (!row) {
 			return building;
 		}
@@ -324,15 +321,17 @@ function flattenTiles(tileLayer: MatrixLayer): EditorEntity[] {
 }
 
 function getRoom(roomIndex: number, allRooms: RoomData[]): Room {
-	const { settings, matrixLayer, entities, transports } = allRooms[roomIndex];
-	const flatTiles = flattenTiles(matrixLayer);
+	const { settings, matrixLayer, entities } = allRooms[roomIndex];
+	const cellEntities = flattenCells(matrixLayer);
+
+	const allEntities = entities.concat(cellEntities);
 
 	const objectHeader = getObjectHeader(settings);
 	const objects = getObjects(entities, matrixLayer);
 	const levelSettings = getLevelSettings(settings);
-	const transportData = getTransports(transports, allRooms);
+	const transportData = getTransports(allEntities, allRooms);
 	const spriteHeader = [0x0];
-	const sprites = getSprites(entities, flatTiles, matrixLayer.height);
+	const sprites = getSprites(allEntities, matrixLayer.height);
 
 	return {
 		objects: objectHeader.concat(objects, [0xff]),

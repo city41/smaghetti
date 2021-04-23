@@ -10,7 +10,6 @@ const OBJECT_ID = 0x55;
 
 const Bobomb: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -39,7 +38,7 @@ const Bobomb: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, OBJECT_ID);
 	},
 

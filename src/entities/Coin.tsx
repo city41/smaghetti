@@ -5,7 +5,6 @@ import React from 'react';
 
 const Coin: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'xy',
 	objectId: 0x16,
 	emptyBank: 1,
@@ -38,7 +37,7 @@ const Coin: Entity = {
 		],
 	},
 
-	toBinary(x, y, w, h) {
+	toObjectBinary(x, y, w, h) {
 		return [getBankParam1(1, w), y, x, this.objectId!, h];
 	},
 

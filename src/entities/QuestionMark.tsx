@@ -11,7 +11,6 @@ const OBJECT_ID = 0x4a;
 
 const QuestionMark: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -40,7 +39,7 @@ const QuestionMark: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, OBJECT_ID);
 	},
 

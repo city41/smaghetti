@@ -15,7 +15,6 @@ type Entity = {
 	 */
 	graphicSets?: number[];
 	editorType: 'entity' | 'cell' | 'transport';
-	gameType: 'sprite' | 'object' | 'transport';
 	dimensions: 'none' | 'x' | 'y' | 'xy';
 
 	width?: number;
@@ -44,13 +43,28 @@ type Entity = {
 	defaultSettings?: EditorEntitySettings;
 	resource?: Resource;
 
-	toBinary: (
+	toObjectBinary?: (
 		x: number,
 		y: number,
 		w: number,
 		h: number,
 		settings: EditorEntitySettings
 	) => number[];
+
+	toSpriteBinary?: (
+		x: number,
+		y: number,
+		w: number,
+		h: number,
+		settings: EditorEntitySettings
+	) => number[];
+
+	getTransports?: (
+		x: number,
+		y: number,
+		settings: EditorEntitySettings,
+		rooms: RoomData[]
+	) => EditorTransport[];
 
 	simpleRender: (maxWidth: number, maxHeight: number) => ReactElement;
 

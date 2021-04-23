@@ -5,7 +5,6 @@ import React from 'react';
 
 const YellowSwitchBrick: Entity = {
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'x',
 	objectId: 0x56,
 	param1: 'width',
@@ -37,7 +36,7 @@ const YellowSwitchBrick: Entity = {
 		],
 	},
 
-	toBinary(x, y, w): number[] {
+	toObjectBinary(x, y, w): number[] {
 		return [getBankParam1(1, w), y, x, this.objectId!];
 	},
 

@@ -5,7 +5,6 @@ import React from 'react';
 
 const DoorLock: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 	objectId: 0xce,
 
@@ -35,7 +34,7 @@ const DoorLock: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 

@@ -8,7 +8,6 @@ const BowserLaserStatue: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'entity',
-	gameType: 'object',
 	dimensions: 'none',
 	objectId: 0x5,
 	emptyBank: 0,
@@ -41,7 +40,7 @@ const BowserLaserStatue: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toObjectBinary(x, y) {
 		return [0, y, x, this.objectId!];
 	},
 

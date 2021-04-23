@@ -12,7 +12,6 @@ const OBJECT_ID = 0xdb;
 
 const Bubble: Entity = {
 	editorType: 'entity',
-	gameType: 'sprite',
 	dimensions: 'none',
 
 	resource: {
@@ -43,7 +42,8 @@ const Bubble: Entity = {
 		],
 	},
 
-	toBinary(x, y) {
+	toSpriteBinary(x, y) {
+		// TODO: pretty sure bubbles are six bytes
 		return [0, OBJECT_ID, x, y, 2];
 	},
 

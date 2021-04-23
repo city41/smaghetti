@@ -8,7 +8,6 @@ const DownFortressSpike: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',
-	gameType: 'object',
 	dimensions: 'x',
 	param1: 'width',
 	objectId: 0xc,
@@ -43,7 +42,7 @@ const DownFortressSpike: Entity = {
 		],
 	},
 
-	toBinary(x, y, w) {
+	toObjectBinary(x, y, w) {
 		return [getBankParam1(1, w), y, x, this.objectId!];
 	},
 

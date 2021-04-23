@@ -10,7 +10,6 @@ const directionToObjectId = {
 
 const ArrowSign: Entity = {
 	editorType: 'entity',
-	gameType: 'object',
 	settingsType: 'single',
 	dimensions: 'none',
 	defaultSettings: { direction: 'right' },
@@ -46,7 +45,7 @@ const ArrowSign: Entity = {
 		],
 	},
 
-	toBinary(x, y, _w, _h, settings): number[] {
+	toObjectBinary(x, y, _w, _h, settings): number[] {
 		const direction = settings?.direction ?? this.defaultSettings!.direction;
 
 		return [
