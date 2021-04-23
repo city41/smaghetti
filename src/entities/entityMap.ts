@@ -15,7 +15,6 @@ import { Chest } from './Chest';
 import { Coin } from './Coin';
 import { CoinChallenge } from './CoinChallenge';
 import { ConveyorBelt } from './ConveyorBelt';
-import { DoorLock } from './DoorLock';
 import { DownFortressSpike } from './DownFortressSpike';
 import { DryBones } from './DryBones';
 import { FireBar } from './FireBar';
@@ -90,7 +89,6 @@ const entityMap = {
 	Coin,
 	CoinChallenge,
 	ConveyorBelt,
-	DoorLock,
 	DownFortressSpike,
 	DryBones,
 	FireBar,

@@ -1,6 +1,7 @@
 import { ClimbingVineHead } from './ClimbingVineHead';
 import { CoinCache } from './CoinCache';
 import { CoinSnake } from './CoinSnake';
+import { DoorLock } from './DoorLock';
 import { FortressBackground } from './FortressBackground';
 import { FrogSuit } from './FrogSuit';
 import { GiantVegetable } from './GiantVegetable';
@@ -17,6 +18,7 @@ const resourceMap = {
 	ClimbingVineHead,
 	CoinCache,
 	CoinSnake,
+	DoorLock,
 	FortressBackground,
 	FrogSuit,
 	GiantVegetable,

@@ -311,13 +311,6 @@ const objects: PaletteChoiceModalEntry[] = [
 				'Once Mario hits this, he is tasked with collecting a certain amount of coins. If he succeeds, he gets 3up.',
 		},
 	},
-	{
-		entry: 'Key',
-		info: {
-			title: 'Key',
-			description: '',
-		},
-	},
 	// pulling bubble out for now, it's pretty broken needs more research
 	// {
 	// 	entry: 'Bubble',
@@ -467,6 +460,13 @@ const bosses: PaletteChoiceModalEntry[] = [
 ];
 
 const transports: PaletteChoiceModalEntry[] = [
+	{
+		entry: 'Key',
+		info: {
+			title: 'Key',
+			description: 'Use to unlock a door',
+		},
+	},
 	{
 		entry: 'WoodDoor',
 		info: {

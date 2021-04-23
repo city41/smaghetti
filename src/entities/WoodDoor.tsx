@@ -5,6 +5,9 @@ import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { TransportSource } from '../components/Transport/TransportSource';
 import { TransportEditDetails } from '../components/details/TransportEditDetails';
+import { simpleSpriteBinary } from './util';
+
+const DOOR_LOCK_OBJECT_ID = 0xce;
 
 const WoodDoor: Entity = {
 	editorType: 'entity',
@@ -42,7 +45,6 @@ const WoodDoor: Entity = {
 		],
 	},
 
-	// TODO: add toSpriteBinary for locks
 	getTransports(room, x, y, settings) {
 		const dest = settings.destination;
 
@@ -67,6 +69,14 @@ const WoodDoor: Entity = {
 		return [0, y, x, this.objectId!];
 	},
 
+	toSpriteBinary(x, y, _w, _h, settings) {
+		if (settings.locked) {
+			return simpleSpriteBinary(x, y, DOOR_LOCK_OBJECT_ID);
+		} else {
+			return [];
+		}
+	},
+
 	simpleRender(mw, mh) {
 		const style = {
 			width: mw,
@@ -86,6 +96,12 @@ const WoodDoor: Entity = {
 		const body = (
 			<div className="relative WoodDoor-bg bg-cover bg-no-repeat" style={style}>
 				<TileSpace />
+				{settings.locked && (
+					<div
+						className="DoorLock-bg absolute left-0 top-3"
+						style={{ width: TILE_SIZE / 2, height: TILE_SIZE }}
+					/>
+				)}
 				{settings.destination && (
 					<TransportSource
 						className="absolute top-0 left-0"
@@ -106,6 +122,7 @@ const WoodDoor: Entity = {
 					onDestinationSet={(newDestination) => {
 						onSettingsChange({ ...settings, destination: newDestination });
 					}}
+					locked={!!settings.locked}
 					onLockChange={(locked) => {
 						onSettingsChange({ ...settings, locked });
 					}}
