@@ -36,7 +36,6 @@ describe('createLevelData', () => {
 				},
 				paletteEntries: [],
 				entities,
-				transports: [],
 				matrixLayer: {
 					width: 0,
 					height: 0,
@@ -93,7 +92,6 @@ describe('createLevelData', () => {
 					},
 					paletteEntries: [],
 					entities: [],
-					transports: [],
 					matrixLayer,
 				},
 			]);

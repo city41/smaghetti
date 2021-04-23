@@ -14,7 +14,7 @@ type Entity = {
 	 * not specified means all graphic sets (ie goomba)
 	 */
 	graphicSets?: number[];
-	editorType: 'entity' | 'cell' | 'transport';
+	editorType: 'entity' | 'cell';
 	dimensions: 'none' | 'x' | 'y' | 'xy';
 
 	width?: number;
@@ -60,10 +60,10 @@ type Entity = {
 	) => number[];
 
 	getTransports?: (
+		room: number,
 		x: number,
 		y: number,
-		settings: EditorEntitySettings,
-		rooms: RoomData[]
+		settings: EditorEntitySettings
 	) => EditorTransport[];
 
 	simpleRender: (maxWidth: number, maxHeight: number) => ReactElement;

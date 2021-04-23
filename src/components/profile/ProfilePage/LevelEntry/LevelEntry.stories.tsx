@@ -33,7 +33,6 @@ const blankLevel: Level = {
 				},
 				paletteEntries: [],
 				entities: [],
-				transports: [],
 				matrixLayer: {
 					width: PLAY_WINDOW_TILE_WIDTH * 3,
 					height: PLAY_WINDOW_TILE_HEIGHT * 1.5,

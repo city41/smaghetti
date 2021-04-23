@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 import { Entity } from '../../../Entity';
-import { TransportSource } from '../../../Transport/TransportSource';
 import { TransportDestination } from '../../../Transport/TransportDestination';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { MouseMode, RoomState } from '../../editorSlice';
@@ -38,7 +37,6 @@ type CanvasProps = {
 	rooms: RoomState[];
 	currentRoomIndex: number;
 	entities: EditorEntity[];
-	transportSources: EditorTransport[];
 	transportDestinations: EditorTransport[];
 	matrix: EditorEntityMatrix;
 	focused: Record<number, boolean>;
@@ -52,12 +50,6 @@ type CanvasProps = {
 	onEntitySettingsChange: (arg: {
 		id: number;
 		settings: EditorEntitySettings;
-	}) => void;
-	onTransportDestinationChange: (arg: {
-		id: number;
-		room: number;
-		x: number;
-		y: number;
 	}) => void;
 };
 
@@ -228,82 +220,6 @@ const Entities = memo(function Entities({
 	);
 });
 
-type TransportsProps = {
-	transports: EditorTransport[];
-	rooms: RoomState[];
-	mouseMode: MouseMode;
-	focused: Record<number, boolean>;
-	dragOffset: Point | null;
-	onTransportDestinationChange: (arg: {
-		id: number;
-		room: number;
-		x: number;
-		y: number;
-	}) => void;
-};
-
-const Transports = memo(function Transports({
-	transports,
-	rooms,
-	mouseMode,
-	focused,
-	dragOffset,
-	onTransportDestinationChange,
-}: TransportsProps) {
-	return (
-		<>
-			{transports.map((t) => {
-				const isFocused =
-					focused[t.id] && (mouseMode === 'select' || mouseMode === 'pan');
-
-				return (
-					<TransportSource
-						key={`transport-${t.id}`}
-						style={{
-							position: 'absolute',
-							top: t.y * TILE_SIZE,
-							left: t.x * TILE_SIZE,
-							opacity: !!dragOffset && isFocused ? 0.3 : 1,
-						}}
-						rooms={rooms}
-						destRoom={t.destRoom}
-						destX={t.destX}
-						destY={t.destY}
-						exitType={t.exitType}
-						mouseMode={mouseMode}
-						focused={!dragOffset && isFocused}
-						onDestinationChange={({ room, x, y }) =>
-							onTransportDestinationChange({ id: t.id, room, x, y })
-						}
-					/>
-				);
-			})}
-			{!!dragOffset &&
-				transports.map((t) => {
-					if (!focused[t.id]) {
-						return null;
-					}
-
-					return (
-						<TransportSource
-							key={`dragging-transport-${t.id}`}
-							style={{
-								position: 'absolute',
-								top: t.y * TILE_SIZE + dragOffset.y,
-								left: t.x * TILE_SIZE + dragOffset.x,
-							}}
-							destRoom={t.destRoom}
-							destX={t.destX}
-							destY={t.destY}
-							exitType={t.exitType}
-							focused
-						/>
-					);
-				})}
-		</>
-	);
-});
-
 function getPointsBetween(oldP: Point, newP: Point, scale: number): Point[] {
 	let distance = Math.sqrt((newP.x - oldP.x) ** 2 + (newP.y - oldP.y) ** 2);
 
@@ -347,7 +263,6 @@ const Canvas = memo(function Canvas({
 	rooms,
 	currentRoomIndex,
 	entities,
-	transportSources,
 	transportDestinations,
 	matrix,
 	focused,
@@ -358,7 +273,6 @@ const Canvas = memo(function Canvas({
 	onPainted,
 	onDeleteFocused,
 	onEntitySettingsChange,
-	onTransportDestinationChange,
 }: CanvasProps) {
 	const [divRef, setDivRef] = useState<HTMLDivElement | null>(null);
 	const [mouseDown, setMouseDown] = useState(false);
@@ -525,24 +439,15 @@ const Canvas = memo(function Canvas({
 					dragOffset={dragOffset}
 					onEntitySettingsChange={onEntitySettingsChange}
 				/>
-				<Transports
-					rooms={rooms}
-					transports={transportSources}
-					focused={focused}
-					mouseMode={mouseMode}
-					dragOffset={dragOffset}
-					onTransportDestinationChange={onTransportDestinationChange}
-				/>
-				{transportDestinations.map((td) => (
+				{transportDestinations.map((td, i) => (
 					<TransportDestination
-						key={td.id}
+						key={i}
 						style={{
 							position: 'absolute',
 							top: td.destY * TILE_SIZE,
 							left: td.destX * TILE_SIZE,
 						}}
 						mouseMode={mouseMode}
-						rooms={rooms}
 						destX={td.destX}
 						destY={td.destY}
 						destRoom={td.destRoom}

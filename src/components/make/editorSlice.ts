@@ -63,7 +63,6 @@ const scales: number[] = [
 type RoomState = {
 	settings: RoomSettings;
 	entities: EditorEntity[];
-	transports: EditorTransport[];
 	matrix: EditorEntityMatrix;
 	roomTileWidth: number;
 	roomTileHeight: number;
@@ -148,7 +147,6 @@ const initialRoomState: RoomState = {
 			type: 'Player',
 		},
 	],
-	transports: [],
 	matrix: [],
 	roomTileWidth: INITIAL_LEVEL_TILE_WIDTH,
 	roomTileHeight: INITIAL_LEVEL_TILE_HEIGHT,
@@ -190,7 +188,6 @@ const EMPTY_SERIALIZED_LEVEL: SerializedLevelData = {
 			settings: { ...initialState.rooms[0].settings },
 			paletteEntries: [...initialState.rooms[0].paletteEntries],
 			entities: [...initialState.rooms[0].entities],
-			transports: [],
 			matrixLayer: {
 				data: [],
 				width: PLAY_WINDOW_TILE_WIDTH,
@@ -766,20 +763,6 @@ const editorSlice = createSlice({
 							currentRoom.matrix[indexY]![indexX] = null;
 						}
 
-						const existingTransport = currentRoom.transports.find((t) => {
-							return pointIsInside(tilePoint, {
-								// TODO: are bounds inclusive?
-								upperLeft: { x: t.x, y: t.y },
-								lowerRight: { x: t.x + 1, y: t.y + 1 },
-							});
-						});
-
-						if (existingTransport) {
-							currentRoom.transports = currentRoom.transports.filter(
-								(t) => t !== existingTransport
-							);
-						}
-
 						break;
 					}
 					case 'draw': {
@@ -846,30 +829,6 @@ const editorSlice = createSlice({
 									assignAceCoinIndices(state.rooms);
 								}
 							}
-						} else if (
-							currentRoom.currentPaletteEntry &&
-							entityMap[currentRoom.currentPaletteEntry].editorType ===
-								'transport'
-						) {
-							const newTransport: EditorTransport = {
-								id: idCounter++,
-								x: getEntityX(point.x) / TILE_SIZE,
-								y: getEntityY(point.y) / TILE_SIZE,
-								room: state.currentRoomIndex,
-								destX: -1,
-								destY: -1,
-								destRoom: -1,
-								exitType: 0,
-							};
-
-							// only allow the new transport if one doesn't already exist at that location
-							if (
-								!currentRoom.transports.some(
-									(t) => t.x === newTransport.x && t.y === newTransport.y
-								)
-							) {
-								currentRoom.transports.push(newTransport);
-							}
 						}
 						break;
 					}
@@ -909,10 +868,6 @@ const editorSlice = createSlice({
 
 			currentRoom.entities = currentRoom.entities.filter((e) => {
 				return nonDeletableEntityTypes.includes(e.type) || !state.focused[e.id];
-			});
-
-			currentRoom.transports = currentRoom.transports.filter((t) => {
-				return !state.focused[t.id];
 			});
 
 			let minX = currentRoom.roomTileWidth;
@@ -1158,7 +1113,6 @@ const editorSlice = createSlice({
 				return {
 					settings: r.settings,
 					entities: r.entities.filter((e) => !!entityMap[e.type]),
-					transports: r.transports,
 					matrix: r.matrixLayer.data,
 					roomTileHeight: r.matrixLayer.height,
 					roomTileWidth: r.matrixLayer.width,
@@ -1262,23 +1216,11 @@ const editorSlice = createSlice({
 				return pointIsInside(scaledStartingPoint, pixelBounds);
 			});
 
-			const transportUnderStart = currentRoom.transports.find((t) => {
-				const pixelBounds = {
-					upperLeft: { x: t.x * TILE_SIZE, y: t.y * TILE_SIZE },
-					lowerRight: { x: (t.x + 1) * TILE_SIZE, y: (t.y + 1) * TILE_SIZE },
-				};
-				return pointIsInside(scaledStartingPoint, pixelBounds);
-			});
-
 			const tileUnderStart =
 				currentRoom.matrix[tileStartingPoint.y]?.[tileStartingPoint.x];
 
-			if (entityUnderStart || transportUnderStart || tileUnderStart) {
-				const idUnderStart =
-					entityUnderStart?.id ??
-					transportUnderStart?.id ??
-					tileUnderStart?.id ??
-					0;
+			if (entityUnderStart || tileUnderStart) {
+				const idUnderStart = entityUnderStart?.id ?? tileUnderStart?.id ?? 0;
 
 				const underStartAlreadyFocused = state.focused[idUnderStart];
 
@@ -1290,9 +1232,6 @@ const editorSlice = createSlice({
 				if (Object.keys(state.focused).length === 0) {
 					if (entityUnderStart) {
 						state.focused[entityUnderStart.id] = true;
-					}
-					if (transportUnderStart) {
-						state.focused[transportUnderStart.id] = true;
 					}
 					if (tileUnderStart) {
 						state.focused[tileUnderStart.id] = true;
@@ -1314,17 +1253,6 @@ const editorSlice = createSlice({
 						!nonDeletableEntityTypes.includes(e.type)
 					) {
 						state.focused[e.id] = true;
-					}
-				});
-
-				currentRoom.transports.forEach((t) => {
-					const pixelBounds = {
-						upperLeft: { x: t.x * TILE_SIZE, y: t.y * TILE_SIZE },
-						lowerRight: { x: (t.x + 1) * TILE_SIZE, y: (t.y + 1) * TILE_SIZE },
-					};
-
-					if (overlap(pixelBounds, scaledBounds)) {
-						state.focused[t.id] = true;
 					}
 				});
 
@@ -1350,7 +1278,6 @@ const editorSlice = createSlice({
 
 				const spotsToClear: Point[] = [];
 				const movedEntities: EditorEntity[] = [];
-				const movedTransports: EditorTransport[] = [];
 
 				let minX = currentRoom.roomTileWidth;
 				let minY = currentRoom.roomTileHeight;
@@ -1372,37 +1299,28 @@ const editorSlice = createSlice({
 						movedEntities.push(entity);
 					}
 
-					const transport = currentRoom.transports.find(
-						(t) => t.id === Number(fid)
-					);
-					if (transport) {
-						transport.x += tileXOffset;
-						transport.y += tileYOffset;
-						movedTransports.push(transport);
-					}
+					const cell = findCellEntity(currentRoom.matrix, Number(fid));
 
-					const tile = findCellEntity(currentRoom.matrix, Number(fid));
+					if (cell) {
+						currentRoom.matrix[cell.y]![cell.x] = null;
+						currentRoom.matrix[cell.y + tileYOffset] =
+							currentRoom.matrix[cell.y + tileYOffset] || [];
+						currentRoom.matrix[cell.y + tileYOffset]![
+							cell.x + tileXOffset
+						] = cell;
 
-					if (tile) {
-						currentRoom.matrix[tile.y]![tile.x] = null;
-						currentRoom.matrix[tile.y + tileYOffset] =
-							currentRoom.matrix[tile.y + tileYOffset] || [];
-						currentRoom.matrix[tile.y + tileYOffset]![
-							tile.x + tileXOffset
-						] = tile;
+						minX = Math.min(minX, cell.x);
+						minY = Math.min(minY, cell.y);
+						maxX = Math.max(maxX, cell.x);
+						maxY = Math.max(maxY, cell.y);
 
-						minX = Math.min(minX, tile.x);
-						minY = Math.min(minY, tile.y);
-						maxX = Math.max(maxX, tile.x);
-						maxY = Math.max(maxY, tile.y);
+						cell.x += tileXOffset;
+						cell.y += tileYOffset;
 
-						tile.x += tileXOffset;
-						tile.y += tileYOffset;
-
-						minX = Math.min(minX, tile.x);
-						minY = Math.min(minY, tile.y);
-						maxX = Math.max(maxX, tile.x);
-						maxY = Math.max(maxY, tile.y);
+						minX = Math.min(minX, cell.x);
+						minY = Math.min(minY, cell.y);
+						maxX = Math.max(maxX, cell.x);
+						maxY = Math.max(maxY, cell.y);
 					}
 				});
 
@@ -1418,19 +1336,6 @@ const editorSlice = createSlice({
 					});
 
 					return !spotToClear;
-				});
-
-				currentRoom.transports = currentRoom.transports.filter((t) => {
-					if (movedTransports.includes(t)) {
-						return true;
-					}
-
-					// moved a transport on top of another one? delete the one that was already there
-					if (movedTransports.some((mt) => mt.x === t.x && mt.y === t.y)) {
-						return false;
-					}
-
-					return true;
 				});
 			}
 
@@ -1450,25 +1355,6 @@ const editorSlice = createSlice({
 		},
 		clearFocusedEntity(state: InternalEditorState) {
 			state.focused = {};
-		},
-		setTransportDestination(
-			state: InternalEditorState,
-			action: PayloadAction<{ id: number; room: number; x: number; y: number }>
-		) {
-			const { id, room, x, y } = action.payload;
-			const transport = getCurrentRoom(state).transports.find(
-				(t) => t.id === id
-			);
-
-			if (!transport) {
-				throw new Error(
-					`setTransportDestination: transport with id ${id} not found`
-				);
-			}
-
-			transport.destRoom = room;
-			transport.destX = x;
-			transport.destY = y;
 		},
 		setEntitySettings(
 			state: InternalEditorState,
@@ -1515,7 +1401,6 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 					settings: room.settings,
 					paletteEntries: room.paletteEntries,
 					entities: room.entities,
-					transports: room.transports,
 					matrixLayer: {
 						width: room.roomTileWidth,
 						height: room.roomTileHeight,
@@ -1577,7 +1462,8 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 // 3.0.1: fix issue where room paletteEntries were not being restored
 // 3.1.0: added room settings
 // 3.1.1: room settings: spriteGraphicSet
-const LOCALSTORAGE_KEY = 'smaghetti_3.1.1';
+// 4.0.0: transports no longer separate, but rather settings on doors/pipes
+const LOCALSTORAGE_KEY = 'smaghetti_4.0.0';
 
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {
@@ -1628,7 +1514,6 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 					settings: r.settings,
 					paletteEntries: r.paletteEntries,
 					entities: r.entities,
-					transports: r.transports,
 					matrixLayer: {
 						width: r.roomTileWidth,
 						height: r.roomTileHeight,
@@ -1693,7 +1578,6 @@ const {
 	setCurrentPaletteEntryByIndex,
 	clearFocusedEntity,
 	setEntitySettings,
-	setTransportDestination,
 	eraseLevel,
 } = editorSlice.actions;
 
@@ -1905,7 +1789,6 @@ export {
 	setCurrentPaletteEntryByIndex,
 	clearFocusedEntity,
 	setEntitySettings,
-	setTransportDestination,
 	saveLevel,
 	loadLevel,
 	loadFromLocalStorage,

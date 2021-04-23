@@ -35,15 +35,18 @@ type DestinationSetProps = {
 	y: number;
 };
 
-type TransportDestinationModalProps = {
+type PublicTransportDestinationModalProps = {
 	isOpen: boolean;
 	onRequestClose: () => void;
-	rooms: RoomState[];
 	destRoom?: number;
 	destX?: number;
 	destY?: number;
 	exitType: number;
 	onDestinationSet?: (props: DestinationSetProps) => void;
+};
+
+type InternalTransportDestinationModalProps = {
+	rooms: RoomState[];
 };
 
 // <div className="flex flex-row items-center space-x-2">
@@ -76,7 +79,8 @@ function TransportDestinationModal({
 	destX,
 	destY,
 	onDestinationSet,
-}: TransportDestinationModalProps) {
+}: PublicTransportDestinationModalProps &
+	InternalTransportDestinationModalProps) {
 	const [curDestRoomIndex, setCurDestRoomIndex] = useState(
 		Math.max(destRoom, 0)
 	);
@@ -106,6 +110,9 @@ function TransportDestinationModal({
 	}
 
 	function handleThumbnailClick(e: React.MouseEvent<HTMLDivElement>) {
+		e.stopPropagation();
+		e.preventDefault();
+
 		const bounds = e.currentTarget.getBoundingClientRect();
 		const { scrollLeft, scrollTop } = e.currentTarget;
 
@@ -131,7 +138,7 @@ function TransportDestinationModal({
 				</div>
 				<div
 					className="max-w-full max-h-32 overflow-auto grid place-items-center cursor-crosshair"
-					onClick={handleThumbnailClick}
+					onMouseDown={handleThumbnailClick}
 				>
 					<LevelThumbnail
 						className="relative bg-blue-300 border-2 border-white"
@@ -167,4 +174,4 @@ function TransportDestinationModal({
 }
 
 export { TransportDestinationModal };
-export type { DestinationSetProps };
+export type { DestinationSetProps, PublicTransportDestinationModalProps };

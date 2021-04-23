@@ -4,11 +4,9 @@ import { FaDoorOpen } from 'react-icons/fa';
 import { GiWarpPipe } from 'react-icons/gi';
 
 import styles from './transportStyles.module.css';
-import {
-	DestinationSetProps,
-	TransportDestinationModal,
-} from './TransportDestinationModal';
-import { MouseMode, RoomState } from '../make/editorSlice';
+import { TransportDestinationModal } from './TransportDestinationModal';
+import { DestinationSetProps } from './TransportDestinationModal/TransportDestinationModal';
+import { MouseMode } from '../make/editorSlice';
 
 type TransportDestinationProps = {
 	style?: CSSProperties;
@@ -17,7 +15,6 @@ type TransportDestinationProps = {
 	destX: number;
 	destY: number;
 	destRoom: number;
-	rooms: RoomState[];
 	onDestinationChange?: (props: DestinationSetProps) => void;
 };
 
@@ -33,7 +30,6 @@ function TransportDestination({
 	destX,
 	destY,
 	destRoom,
-	rooms,
 	onDestinationChange,
 }: TransportDestinationProps) {
 	const [modalOpen, setModalOpen] = useState(false);
@@ -46,18 +42,15 @@ function TransportDestination({
 
 	return (
 		<>
-			{rooms && (
-				<TransportDestinationModal
-					isOpen={modalOpen}
-					onRequestClose={() => setModalOpen(false)}
-					rooms={rooms}
-					destRoom={destRoom}
-					destX={destX}
-					destY={destY}
-					exitType={exitType}
-					onDestinationSet={onDestinationChange}
-				/>
-			)}
+			<TransportDestinationModal
+				isOpen={modalOpen}
+				onRequestClose={() => setModalOpen(false)}
+				destRoom={destRoom}
+				destX={destX}
+				destY={destY}
+				exitType={exitType}
+				onDestinationSet={onDestinationChange}
+			/>
 			<div
 				style={finalStyle}
 				className={styles.root}

@@ -59,7 +59,6 @@ const EMPTY_LEVEL = createLevelData([
 		},
 		paletteEntries: [],
 		entities: [],
-		transports: [],
 		matrixLayer: { width: 0, height: 0, data: [] },
 	},
 ]);

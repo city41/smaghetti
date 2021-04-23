@@ -22,7 +22,6 @@ const EMPTY_ROOM: RoomState = {
 	},
 	entities: [],
 	matrix: [],
-	transports: [],
 	roomTileWidth: 16,
 	roomTileHeight: 15,
 	currentPaletteEntry: 'Goomba',

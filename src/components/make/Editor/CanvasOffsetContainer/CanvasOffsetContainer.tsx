@@ -21,6 +21,8 @@ type CanvasOffsetContainerProps = {
 	children?: ReactNode;
 };
 
+const MODAL_OPEN_CLASS = 'ReactModal__Body--open';
+
 // const Root = styled.div`
 // 	position: relative;
 // 	overflow: hidden;
@@ -210,7 +212,13 @@ function CanvasOffsetContainer({
 	}, [mouseMode, dragOffset, onSelectDrag, onPan, onDragComplete]);
 
 	const handleMouseDown = (e: React.MouseEvent) => {
-		if (e.button !== 0 || (mouseMode !== 'pan' && mouseMode !== 'select')) {
+		// TODO: HACK! bailing if a modal is open is strange. but mouse down causes strange interactions as
+		// can't tell if the user wants to drag or is interacting with a detail pane
+		if (
+			e.button !== 0 ||
+			(mouseMode !== 'pan' && mouseMode !== 'select') ||
+			document.body.classList.contains(MODAL_OPEN_CLASS)
+		) {
 			return;
 		}
 

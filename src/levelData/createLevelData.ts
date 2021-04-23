@@ -255,13 +255,24 @@ function getSprites(
 }
 
 function getTransports(
+	roomIndex: number,
 	entities: EditorEntity[],
 	allRooms: RoomData[]
 ): number[] {
 	const transports = entities.reduce<EditorTransport[]>((building, e) => {
+		const entityDef = entityMap[e.type];
+
+		if (!entityDef.getTransports) {
+			return building;
+		}
+
 		return building.concat(
-			entityMap[e.type].getTransports?.(e.x, e.y, e.settings ?? {}, allRooms) ??
-				[]
+			entityDef.getTransports(
+				roomIndex,
+				Math.floor(e.x / TILE_SIZE),
+				Math.floor(e.y / TILE_SIZE),
+				e.settings ?? {}
+			)
 		);
 	}, []);
 
@@ -329,7 +340,7 @@ function getRoom(roomIndex: number, allRooms: RoomData[]): Room {
 	const objectHeader = getObjectHeader(settings);
 	const objects = getObjects(entities, matrixLayer);
 	const levelSettings = getLevelSettings(settings);
-	const transportData = getTransports(allEntities, allRooms);
+	const transportData = getTransports(roomIndex, allEntities, allRooms);
 	const spriteHeader = [0x0];
 	const sprites = getSprites(allEntities, matrixLayer.height);
 

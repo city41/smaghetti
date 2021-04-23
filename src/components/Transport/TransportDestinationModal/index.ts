@@ -1,1 +1,1 @@
-export * from './TransportDestinationModal';
+export { ConnectedTransportDestinationModal as TransportDestinationModal } from './ConnectedTransportDestinationModal';

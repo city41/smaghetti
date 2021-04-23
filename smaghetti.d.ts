@@ -18,7 +18,7 @@ type NewEditorEntity = {
 
 type EditorEntity = NewEditorEntity & IDable;
 
-type NewEditorTransport = {
+type EditorTransport = {
 	x: number;
 	y: number;
 	room: number;
@@ -27,8 +27,6 @@ type NewEditorTransport = {
 	destRoom: number;
 	exitType: number;
 };
-
-type EditorTransport = NewEditorTransport & IDable;
 
 type Point = {
 	x: number;
@@ -66,7 +64,6 @@ type RoomData = {
 	settings: RoomSettings;
 	paletteEntries: EntityType[];
 	entities: EditorEntity[];
-	transports: EditorTransport[];
 	matrixLayer: MatrixLayer;
 };
 

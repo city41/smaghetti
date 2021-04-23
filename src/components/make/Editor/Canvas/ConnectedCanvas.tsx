@@ -9,12 +9,12 @@ import {
 	scaleDecreased,
 	scaleIncreased,
 	setEntitySettings,
-	setTransportDestination,
 } from '../../editorSlice';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { AppState, dispatch } from '../../../../store';
 
 import { Canvas, CanvasProps } from './Canvas';
+import { entityMap } from '../../../../entities/entityMap';
 
 type ConnectedCanvasProps = Partial<CanvasProps>;
 
@@ -26,7 +26,6 @@ const actions = bindActionCreators(
 		onScaleDecreased: scaleDecreased,
 		onScaleIncreased: scaleIncreased,
 		onEntitySettingsChange: setEntitySettings,
-		onTransportDestinationChange: setTransportDestination,
 	},
 	dispatch
 );
@@ -35,7 +34,6 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 	const {
 		currentPaletteEntry,
 		entities,
-		transports,
 		matrix,
 		roomTileWidth,
 		roomTileHeight,
@@ -52,15 +50,27 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 		rooms,
 	} = useSelector((state: AppState) => state.editor.present);
 
-	const transportDestinations = rooms.reduce<EditorTransport[]>(
-		(building, room) => {
-			const transportsDestinedToThisRoom = room.transports.filter(
-				(t) => t.destRoom === currentRoomIndex
-			);
+	const allTransports = rooms.reduce<EditorTransport[]>((building, room) => {
+		const thisRoomTransports = room.entities.reduce<EditorTransport[]>(
+			(buildingRoom, e, roomIndex) => {
+				const entityDef = entityMap[e.type];
 
-			return building.concat(transportsDestinedToThisRoom);
-		},
-		[]
+				if (entityDef.getTransports) {
+					return buildingRoom.concat(
+						entityDef.getTransports(roomIndex, e.x, e.y, e.settings ?? {})
+					);
+				} else {
+					return buildingRoom;
+				}
+			},
+			[]
+		);
+
+		return building.concat(thisRoomTransports);
+	}, []);
+
+	const transportDestinations = allTransports.filter(
+		(t) => t.destRoom === currentRoomIndex
 	);
 
 	return (
@@ -72,7 +82,6 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 			rooms={rooms}
 			currentRoomIndex={currentRoomIndex}
 			entities={entities}
-			transportSources={transports}
 			transportDestinations={transportDestinations}
 			matrix={matrix}
 			focused={focused}
