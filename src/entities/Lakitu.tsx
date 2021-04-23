@@ -70,7 +70,6 @@ const Lakitu: Entity = {
 			height: TILE_SIZE * 2,
 			marginTop: -TILE_SIZE,
 			paddingTop: TILE_SIZE,
-			backgroundPositionY: 2,
 		};
 
 		return (

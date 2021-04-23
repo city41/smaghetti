@@ -54,7 +54,7 @@ const ShoeGoomba: Entity = {
 		const style = {
 			width: mw,
 			height: mh,
-			backgroundSize: '50% 100%',
+			backgroundSize: '66% 100%',
 		};
 
 		return (
