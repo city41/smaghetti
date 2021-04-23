@@ -311,15 +311,14 @@ const objects: PaletteChoiceModalEntry[] = [
 				'Once Mario hits this, he is tasked with collecting a certain amount of coins. If he succeeds, he gets 3up.',
 		},
 	},
-	// pulling bubble out for now, it's pretty broken needs more research
-	// {
-	// 	entry: 'Bubble',
-	// 	info: {
-	// 		title: 'Bubble',
-	// 		description:
-	// 			'Can put things inside of it, need to throw vegetables at it to get at the item.',
-	// 	},
-	// },
+	{
+		entry: 'Bubble',
+		info: {
+			title: 'Bubble',
+			description:
+				'Can put things inside of it, need to throw vegetables at it to get at the item.',
+		},
+	},
 	{
 		entry: 'QuestionBlock',
 		info: {
@@ -509,13 +508,6 @@ const bastards: PaletteChoiceModalEntry[] = [
 		entry: 'FlyingPiranhaPlant',
 		info: {
 			title: 'FPP',
-			description: '',
-		},
-	},
-	{
-		entry: 'Bubble',
-		info: {
-			title: 'bubba',
 			description: '',
 		},
 	},

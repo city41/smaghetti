@@ -27,6 +27,7 @@ const knownSixByteIds: number[] = [
 	0xe0, // first sprite in mushroom09,room1
 	0x5, // first sprite in promo3,room0
 	0x6, // second sprite in promo3,room0
+	0xdb, // bubble
 ];
 
 function parseSprite(
