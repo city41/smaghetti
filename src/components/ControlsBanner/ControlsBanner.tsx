@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 import { ControlsHelpModal } from './ControlsHelpModal';
 import { FirefoxWarning } from './FirefoxWarning';
+import { SafariWarning } from './SafariWarning';
 
 type ControlsBannerProps = {
 	className?: string;
@@ -11,10 +12,14 @@ type ControlsBannerProps = {
 function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 	const [showHelp, setShowHelp] = useState(false);
 	const [showFirefoxWarning, setShowFirefoxWarning] = useState(false);
+	const [showSafariWarning, setShowSafariWarning] = useState(false);
 
 	useEffect(() => {
 		setShowFirefoxWarning(
 			navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+		);
+		setShowSafariWarning(
+			navigator.userAgent.toLowerCase().indexOf('safari') > -1
 		);
 	}, []);
 
@@ -44,6 +49,7 @@ function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 				</a>
 			</div>
 			{showFirefoxWarning && <FirefoxWarning />}
+			{showSafariWarning && <SafariWarning />}
 		</>
 	);
 }
