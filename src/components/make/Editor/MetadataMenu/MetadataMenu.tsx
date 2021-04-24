@@ -6,6 +6,7 @@ import { PlainIconButton } from '../../../PlainIconButton';
 
 type PublicMetadataMenuProps = {
 	className?: string;
+	disabled?: boolean;
 };
 
 type InternalMetadataMenuProps = {
@@ -19,6 +20,7 @@ type InternalMetadataMenuProps = {
 
 function MetadataMenu({
 	className,
+	disabled,
 	levelName,
 	onSetLevelName,
 	currentRoomIndex,
@@ -41,9 +43,11 @@ function MetadataMenu({
 	useHotkeys(
 		'r',
 		() => {
-			onRoomIndexChange((currentRoomIndex + 1) % roomCount);
+			if (!disabled) {
+				onRoomIndexChange((currentRoomIndex + 1) % roomCount);
+			}
 		},
-		[currentRoomIndex, roomCount]
+		[currentRoomIndex, roomCount, disabled]
 	);
 
 	let body;
@@ -97,6 +101,7 @@ function MetadataMenu({
 							icon={MdEdit}
 							label="edit level name"
 							onClick={() => setEditing(true)}
+							disabled={disabled}
 						/>
 					)}
 				</div>
@@ -106,6 +111,7 @@ function MetadataMenu({
 				<select
 					className="text-black p-1"
 					value={currentRoomIndex}
+					disabled={disabled}
 					onChange={(e) => {
 						onRoomIndexChange(Number(e.target.value));
 						// allow the user to jump right back into keyboard shortcuts,
@@ -119,6 +125,7 @@ function MetadataMenu({
 					icon={MdEdit}
 					label="manage rooms"
 					onClick={onManageRoomsClick}
+					disabled={disabled}
 				/>
 			</div>
 		</div>

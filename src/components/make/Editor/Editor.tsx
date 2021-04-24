@@ -140,7 +140,7 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 						</div>
 						<div className="grid grid-cols-12">
 							<Palette className="col-span-9" disabled={isPlaying} />
-							<MetadataMenu className="col-span-3" />
+							<MetadataMenu className="col-span-3" disabled={isPlaying} />
 						</div>
 					</div>
 					<PageMenu className="fixed right-0 bottom-0 pointer-events-auto" />
