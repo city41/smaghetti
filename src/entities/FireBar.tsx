@@ -1,7 +1,9 @@
+import React from 'react';
+import { GiAnticlockwiseRotation } from 'react-icons/gi';
+
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
-import React from 'react';
 
 const FireBar: Entity = {
 	editorType: 'entity',
@@ -28,10 +30,7 @@ const FireBar: Entity = {
 			0x25f,
 		],
 		romOffset: 0x163768,
-		tiles: [
-			[290, 290],
-			[306, 306],
-		],
+		tiles: [[290], [306]],
 	},
 
 	toSpriteBinary(x, y): number[] {
@@ -43,26 +42,40 @@ const FireBar: Entity = {
 		const style = {
 			width: mw,
 			height: mh,
+			backgroundSize: '100%',
 		};
 
-		return <div className="FireBar-bg bg-cover bg-no-repeat" style={style} />;
+		return <div className="FireBar-bg bg-center bg-no-repeat" style={style} />;
 	},
 
 	render() {
+		const FIREBALL_SIZE = TILE_SIZE - 5;
+
 		const style = {
-			width: TILE_SIZE * 2,
-			height: TILE_SIZE,
-			marginLeft: TILE_SIZE / 4,
-			backgroundSize: '50% 100%',
-			backgroundPosition: `${TILE_SIZE / 2}px 0`,
-			paddingRight: TILE_SIZE,
+			width: FIREBALL_SIZE - 2.5,
+			height: FIREBALL_SIZE - 2.5,
+			top: 4,
 		};
 
+		const fireballs = [];
+
+		for (let i = 0; i < 4; ++i) {
+			fireballs.push(
+				<div
+					className="FireBar-bg absolute bg-center bg-no-repeat"
+					style={{ ...style, left: -i * FIREBALL_SIZE + 3 }}
+				/>
+			);
+		}
+
 		return (
-			<div className="FireBar-bg" style={style}>
-				<div className="w-full h-full" style={{ marginLeft: -TILE_SIZE / 4 }}>
-					<TileSpace />
-				</div>
+			<div className="relative" style={{ width: TILE_SIZE, height: TILE_SIZE }}>
+				{fireballs}
+				<TileSpace />
+				<GiAnticlockwiseRotation
+					className="absolute w-1 h-1 bg-black text-white"
+					style={{ left: 1, bottom: 1, padding: 0.25 }}
+				/>
 			</div>
 		);
 	},
