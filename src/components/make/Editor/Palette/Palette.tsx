@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 import isEqual from 'lodash/isEqual';
+import { FaPlus } from 'react-icons/fa';
 
 import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
 import { PaletteChoiceModal } from './PaletteChoiceModal';
 
-import styles from './Palette.module.css';
 import { EntityType } from '../../../../entities/entityMap';
 
 type PaletteProps = {
@@ -57,21 +57,24 @@ function Palette({
 	));
 
 	return (
-		<div className={clsx(className, styles.root)} dir="rtl">
-			{entries}
+		<div
+			className={clsx(
+				className,
+				'flex flex-row items-center justify-center overflow-auto bg-white'
+			)}
+		>
 			<button
-				className={clsx(
-					styles.addButton,
-					'w-16 h-16 m-4 mb-6 flex items-center justify-center font-bold text-xl border-dashed border-2 border-white cursor-pointer outline-none'
-				)}
+				className="bg-white text-gray-700 px-4 h-full hover:bg-yellow-100 cursor-pointer outline-none flex flex-col items-center justify-center"
 				onClick={() => {
 					setModalOpen(true);
 				}}
 			>
-				+
+				<FaPlus className="w-6 h-6" />
+				<div className="text-xs">add</div>
 			</button>
+			<div className="overflow-x-auto flex flex-row flex-1 pb-1">{entries}</div>
 			<PaletteChoiceModal
-				open={modalOpen}
+				isOpen={modalOpen}
 				currentPaletteEntries={paletteEntries}
 				onEntryAdded={(addedEntry) => {
 					onPaletteEntryAdded(addedEntry);

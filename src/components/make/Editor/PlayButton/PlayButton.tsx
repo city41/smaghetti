@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FaPlay, FaHammer } from 'react-icons/fa';
-import { IconButton } from '../../../IconButton';
+import { PlainIconButton } from '../../../PlainIconButton';
 
 type PlayButtonProps = {
 	className?: string;
@@ -66,12 +66,11 @@ function PlayButton({ className, isPlaying, onClick }: PlayButtonProps) {
 	const title = isPlaying ? 'edit your level' : 'preview your level';
 
 	return (
-		<IconButton
+		<PlainIconButton
 			className={className}
-			anchor="top-left"
+			size="medium"
 			label={`${title} (p)`}
 			icon={Icon}
-			alternate
 			onClick={() => {
 				onClick?.();
 

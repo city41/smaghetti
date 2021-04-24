@@ -86,7 +86,7 @@ function MetadataMenu({
 		<div
 			className={clsx(
 				className,
-				'p-4 bg-gray-700 border-white flex flex-row space-x-4 items-center justify-center rounded-tr-xl border-r-4 border-t-4 pointer-events-auto'
+				'px-4 bg-gray-900 flex flex-row space-x-4 items-center justify-center pointer-events-auto'
 			)}
 		>
 			<label className="flex flex-col">
@@ -120,10 +120,6 @@ function MetadataMenu({
 					label="manage rooms"
 					onClick={onManageRoomsClick}
 				/>
-			</div>
-			<div className="pl-4 w-24 text-xs -mt-2">
-				press <span className="font-bold text-sm">?</span> for keyboard
-				shortcuts
 			</div>
 		</div>
 	);

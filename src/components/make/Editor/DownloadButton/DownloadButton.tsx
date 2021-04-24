@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { MdFileDownload } from 'react-icons/md';
 
-import { IconButton } from '../../../IconButton';
+import { PlainIconButton } from '../../../PlainIconButton';
 
 type PublicDownloadButtonProps = {
 	className?: string;
@@ -16,13 +16,12 @@ const DownloadButton = memo(function DownloadButton({
 	onClick,
 }: PublicDownloadButtonProps & InternalDownloadButtonProps) {
 	return (
-		<IconButton
+		<PlainIconButton
 			className={className}
-			anchor="top"
+			size="large"
 			label="download this level"
 			onClick={onClick}
 			icon={MdFileDownload}
-			alternate
 		/>
 	);
 });

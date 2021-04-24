@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -13,7 +13,7 @@ import {
 	eraseLevel,
 	toggleResizeMode,
 } from '../../editorSlice';
-import { Toolbox, ToolboxProps } from './Toolbox';
+import { Toolbox, PublicToolboxProps } from './Toolbox';
 
 const actions = bindActionCreators(
 	{
@@ -29,7 +29,7 @@ const actions = bindActionCreators(
 	dispatch
 );
 
-const ConnectedToolbox: FunctionComponent<Partial<ToolboxProps>> = (props) => {
+function ConnectedToolbox(props: PublicToolboxProps) {
 	const { mouseMode, showGrid, storedForResizeMode } = useSelector(
 		(state: AppState) => state.editor.present
 	);
@@ -59,6 +59,6 @@ const ConnectedToolbox: FunctionComponent<Partial<ToolboxProps>> = (props) => {
 			{...props}
 		/>
 	);
-};
+}
 
 export { ConnectedToolbox };

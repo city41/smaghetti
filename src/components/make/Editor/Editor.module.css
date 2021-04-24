@@ -1,6 +1,6 @@
 .chrome {
-    grid-template-columns: min-content 1fr min-content;
-    grid-template-rows: min-content 1fr 60px;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content 1fr;
 
     --item-spacing: 1rem;
 }

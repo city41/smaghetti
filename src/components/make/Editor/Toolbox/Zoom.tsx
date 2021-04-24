@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
+import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 import { TiZoomIn, TiZoomOut } from 'react-icons/ti';
 
-import { IconButton } from '../../../IconButton';
-import { IconButtonGroup } from '../../../IconButton/IconButtonGroup';
+import { PlainIconButton } from '../../../PlainIconButton';
 
 type ZoomProps = {
 	className?: string;
@@ -25,24 +25,24 @@ const Zoom: FunctionComponent<ZoomProps> = ({
 	useHotkeys('=,shift+=', () => onScaleIncreased());
 
 	return (
-		<IconButtonGroup className={className}>
-			<IconButton
+		<div className={clsx(className, 'flex flex-row items-center space-x-1')}>
+			<PlainIconButton
+				size="large"
 				label="zoom out (-)"
-				anchor="top"
 				icon={TiZoomOut}
 				style={{ fontSize: 32 }}
 				onClick={() => onScaleDecreased()}
 				disabled={!canDecreaseScale}
 			/>
-			<IconButton
+			<PlainIconButton
+				size="large"
 				label="zoom in (+)"
-				anchor="top"
 				icon={TiZoomIn}
 				style={{ fontSize: 32 }}
 				onClick={() => onScaleIncreased()}
 				disabled={!canIncreaseScale}
 			/>
-		</IconButtonGroup>
+		</div>
 	);
 };
 

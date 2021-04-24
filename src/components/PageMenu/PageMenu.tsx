@@ -6,7 +6,6 @@ import styles from './PageMenu.module.css';
 
 type PublicPageMenuProps = {
 	className?: string;
-	anchor: 'top' | 'bottom' | 'bottom-right';
 	children?: ReactNode;
 };
 
@@ -18,7 +17,6 @@ type InternalPageMenuProps = {
 
 function PageMenu({
 	className,
-	anchor,
 	isLoggedIn,
 	onSignInClicked,
 	onJoinClicked,
@@ -61,12 +59,7 @@ function PageMenu({
 			className={clsx(
 				styles.root,
 				className,
-				'p-4 bg-gray-700 border-white flex flex-row space-x-4 items-center justify-center',
-				{
-					'rounded-t-xl border-l-4 border-t-4 border-r-4': anchor === 'bottom',
-					'rounded-tl-xl border-l-4 border-t-4': anchor === 'bottom-right',
-					'rounded-b-xl border-l-4 border-b-4 border-r-4': anchor === 'top',
-				}
+				'p-4 bg-gray-700 flex flex-row space-x-4 items-center justify-center'
 			)}
 		>
 			{children}

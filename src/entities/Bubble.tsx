@@ -75,8 +75,17 @@ const Bubble: Entity = {
 	},
 
 	simpleRender(mw, mh) {
+		const style = {
+			width: mw,
+			height: mh,
+			backgroundSize: '92%',
+		};
+
 		return (
-			<div className="Bubble-bg bg-cover" style={{ width: mw, height: mh }} />
+			<div
+				className="Bubble-bg bg-center bg-no-repeat bg-gray-200"
+				style={style}
+			/>
 		);
 	},
 

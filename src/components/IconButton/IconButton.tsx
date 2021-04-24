@@ -10,7 +10,6 @@ type IconButtonProps = {
 	icon?: ElementType;
 	label?: ReactNode;
 	alternate?: boolean;
-	toggleable?: boolean;
 	toggled?: boolean;
 	disabled?: boolean;
 	loading?: boolean;

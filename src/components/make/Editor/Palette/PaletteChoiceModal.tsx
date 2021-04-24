@@ -10,7 +10,7 @@ import tabStyles from '../../../../styles/tabs.module.css';
 import { entityMap, EntityType } from '../../../../entities/entityMap';
 
 type PaletteChoiceModalProps = {
-	open: boolean;
+	isOpen: boolean;
 	currentPaletteEntries: EntityType[];
 	onEntryAdded: (addedEntry: EntityType) => void;
 	onEntryRemoved: (removedEntry: EntityType) => void;
@@ -567,7 +567,7 @@ function getSortComparator(objectSet: number, graphicSet: number) {
 }
 
 function PaletteChoiceModal({
-	open,
+	isOpen,
 	currentPaletteEntries,
 	onEntryAdded,
 	onCancel,
@@ -584,7 +584,7 @@ function PaletteChoiceModal({
 		<Modal
 			className={styles.modal}
 			noAnimation={true}
-			isOpen={open}
+			isOpen={isOpen}
 			onRequestClose={onCancel}
 			onXClick={onCancel}
 		>

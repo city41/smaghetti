@@ -41,7 +41,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 			onClick={onClick}
 		>
 			<div
-				className={clsx('w-full h-full grid place-items-center', {
+				className={clsx('w-full h-full grid place-items-center py-1 px-2', {
 					'opacity-20 hover:opacity-100': incompatible,
 				})}
 			>

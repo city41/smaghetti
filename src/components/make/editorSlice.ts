@@ -159,8 +159,17 @@ const initialRoomState: RoomState = {
 		height: 0,
 	},
 	scrollOffset: { x: 0, y: calcYForScrollToBottom() },
-	paletteEntries: ['Brick', 'Coin', 'Goomba'],
-	currentPaletteEntry: 'Goomba',
+	paletteEntries: [
+		'Brick',
+		'Coin',
+		'Goomba',
+		'QuestionBlock',
+		'GreenKoopaTroopa',
+		'Chest',
+		'CardSlotMachine',
+		'PSwitch',
+	],
+	currentPaletteEntry: 'Brick',
 };
 
 const defaultInitialState: InternalEditorState = {

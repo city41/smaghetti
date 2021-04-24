@@ -4,18 +4,19 @@ import { useHotkeys } from 'react-hotkeys-hook';
 
 import { FaBomb } from 'react-icons/fa';
 import { MdGridOn, MdPanTool } from 'react-icons/md';
-import { GiArrowCursor, GiResize } from 'react-icons/gi';
+import { GiArrowCursor } from 'react-icons/gi';
 import { RiPencilFill, RiPaintFill, RiEraserFill } from 'react-icons/ri';
 import { ImUndo2, ImRedo2 } from 'react-icons/im';
 
 import { MouseMode } from '../../editorSlice';
-import { IconButton } from '../../../IconButton';
-import { IconButtonGroup } from '../../../IconButton/IconButtonGroup';
+import { PlainIconButton } from '../../../PlainIconButton';
 import { isMac } from '../../../../util/isMac';
 
 import { Zoom } from './Zoom';
-import { MuteButton } from './MuteButton';
 import { entityMap, EntityType } from '../../../../entities/entityMap';
+import { PlayButton } from '../PlayButton';
+import { SaveButton } from '../SaveButton';
+import { DownloadButton } from '../DownloadButton';
 
 const icons: Record<MouseMode, ElementType> = {
 	select: GiArrowCursor,
@@ -25,8 +26,13 @@ const icons: Record<MouseMode, ElementType> = {
 	pan: MdPanTool,
 };
 
-type ToolboxProps = {
+type PublicToolboxProps = {
 	className?: string;
+	isPlaying: boolean;
+	onPlayClick: () => void;
+};
+
+type InternalToolboxProps = {
 	currentPaletteEntry?: EntityType;
 	mouseMode: MouseMode;
 	onMouseModeChanged: (mouseMode: MouseMode) => void;
@@ -58,12 +64,13 @@ const Toolbox = memo(function Toolbox({
 	onRedo,
 	canUndo,
 	canRedo,
-	onToggleResizeMode,
 	resizeMode,
 	showGrid,
 	onToggleGrid,
 	onEraseLevel,
-}: ToolboxProps) {
+	isPlaying,
+	onPlayClick,
+}: InternalToolboxProps & PublicToolboxProps) {
 	useHotkeys('g', () => onToggleGrid());
 	useHotkeys(isMac ? 'command+z' : 'ctrl+z', onUndo);
 	useHotkeys(isMac ? 'command+shift+z' : 'ctrl+shift+z', onRedo);
@@ -78,11 +85,10 @@ const Toolbox = memo(function Toolbox({
 		useHotkeys(mm.hotkey, () => onMouseModeChanged(mm.mode));
 
 		return (
-			<IconButton
+			<PlainIconButton
 				key={mm.hotkey}
+				size="large"
 				icon={icons[mm.mode]}
-				anchor="top"
-				toggleable
 				toggled={mm.mode === mouseMode}
 				disabled={
 					resizeMode ||
@@ -100,10 +106,16 @@ const Toolbox = memo(function Toolbox({
 		<div
 			className={clsx(
 				className,
-				'flex flex-row flex-wrap items-start pointer-events-none space-x-8'
+				'bg-gray-700 flex flex-row flex-wrap items-center space-x-12 px-2 py-2'
 			)}
 		>
-			<IconButtonGroup>{buttons}</IconButtonGroup>
+			<div className="flex flex-row items-center space-x-2 bg-yellow-600 -my-2 py-2 -ml-2 px-2">
+				<PlayButton isPlaying={isPlaying} onClick={onPlayClick} />
+				<SaveButton />
+				<DownloadButton />
+			</div>
+
+			<div className="flex flex-row items-center space-x-2">{buttons}</div>
 
 			<Zoom
 				onScaleDecreased={onScaleDecreased}
@@ -112,50 +124,34 @@ const Toolbox = memo(function Toolbox({
 				canDecreaseScale={canDecreaseScale}
 			/>
 
-			<IconButtonGroup>
-				<IconButton
-					className="resizeModeButton"
-					label="resize level"
-					anchor="top"
-					icon={GiResize}
-					toggled={resizeMode}
-					toggleable
-					onClick={() => onToggleResizeMode()}
-				/>
-				<IconButton
-					label="toggle grid (r)"
-					anchor="top"
-					icon={MdGridOn}
-					toggled={!resizeMode && showGrid}
-					toggleable
-					disabled={resizeMode}
-					onClick={() => onToggleGrid()}
-				/>
-				<MuteButton />
-			</IconButtonGroup>
+			<PlainIconButton
+				label="toggle grid (r)"
+				size="large"
+				icon={MdGridOn}
+				toggled={!resizeMode && showGrid}
+				disabled={resizeMode}
+				onClick={() => onToggleGrid()}
+			/>
 
-			<IconButtonGroup className="undoRedoButtons" anchor="top-right">
-				<IconButton
+			<div style={{ flex: 1 }} />
+
+			<div className="flex flex-row items-center space-x-2">
+				<PlainIconButton
 					label="undo"
-					anchor="top"
 					icon={ImUndo2}
 					onClick={() => onUndo()}
 					disabled={!canUndo}
 				/>
-				<IconButton
+				<PlainIconButton
 					label="redo"
-					anchor="top"
 					icon={ImRedo2}
 					onClick={() => onRedo()}
 					disabled={!canRedo}
 				/>
-			</IconButtonGroup>
+			</div>
 
-			<div style={{ flex: 1 }} />
-
-			<IconButton
+			<PlainIconButton
 				label="erase entire level"
-				anchor="top-right"
 				icon={FaBomb}
 				onClick={() => onEraseLevel()}
 			/>
@@ -164,4 +160,4 @@ const Toolbox = memo(function Toolbox({
 });
 
 export { Toolbox };
-export type { ToolboxProps };
+export type { PublicToolboxProps };

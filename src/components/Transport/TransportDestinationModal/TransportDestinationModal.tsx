@@ -98,7 +98,6 @@ function TransportDestinationModal({
 				key={i}
 				disabled={i >= rooms.length}
 				label={(i + 1).toString()}
-				toggleable
 				toggled={curDestRoomIndex === i}
 				onClick={() => {
 					setCurDestRoomIndex(i);

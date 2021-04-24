@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { FaVolumeDown, FaVolumeMute } from 'react-icons/fa';
 
-import { IconButton } from '../../../IconButton';
+import { PlainIconButton } from '../../../PlainIconButton';
 
 type MuteButtonProps = {
 	className?: string;
@@ -35,13 +35,12 @@ function MuteButton({ className }: MuteButtonProps) {
 	const icon = isMuted ? FaVolumeMute : FaVolumeDown;
 
 	return (
-		<IconButton
+		<PlainIconButton
 			className={className}
 			icon={icon}
 			label="toggle sound"
-			anchor="top"
-			toggleable
-			toggled={isMuted}
+			// toggleable
+			// toggled={isMuted}
 			onClick={() => {
 				setMuted(!isMuted);
 			}}

@@ -13,18 +13,13 @@ import { LevelResizer } from './LevelResizer';
 import { ManageRooms } from './ManageRooms';
 import { LevelPlayer } from './LevelPlayer';
 import { Toolbox } from './Toolbox';
-import { PlayButton } from './PlayButton';
-import { SaveButton } from './SaveButton';
-import { DownloadButton } from './DownloadButton';
 import { KeyboardHelpModal } from './KeyboardHelpModal';
 import { Warning } from '../../Warning';
-import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
 import { MetadataMenu } from './MetadataMenu';
 import { PageMenu } from '../../PageMenu';
 import { useFirstRender } from '../../../hooks/useFirstRender';
 
 import styles from './Editor.module.css';
-import { IconButtonGroup } from '../../IconButton/IconButtonGroup';
 import { LoadingBar } from '../../LoadingBar';
 
 type EditorProps = {
@@ -135,47 +130,20 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 						'fixed z-10 top-0 left-0 w-full h-full grid pointer-events-none'
 					)}
 				>
-					<div className={styles.playButtonContainer}>
-						<IconButtonGroup>
-							<PlayButton
-								isPlaying={isPlaying}
-								onClick={() => setPlaying(!isPlaying)}
-							/>
-							{!isPlaying && <SaveButton />}
-							{!isPlaying && <DownloadButton />}
-						</IconButtonGroup>
-					</div>
-					<div
-						className={clsx(styles.pullOut, styles.pullUp, 'toolbox', {
-							[styles.pulled]: isPlaying,
-						})}
-					>
-						<Toolbox className="ml-8" />
-					</div>
-					<div
-						className={clsx(
-							styles.pullOut,
-							styles.pullLeft,
-							styles.paletteContainer,
-							{ [styles.pulled]: isPlaying || mode !== 'editing' }
-						)}
-					>
-						<Palette />
-					</div>
-					<div
-						className={clsx(
-							styles.pullOut,
-							styles.pullDown,
-							styles.bottomTray,
-							{ [styles.pulled]: isPlaying }
-						)}
-					>
-						<MetadataMenu />
+					<div className="flex flex-col pointer-events-auto shadow-lg">
 						<div className="flex flex-row">
-							<EarlyPreviewStarburst className="fixed z-10 bottom-2 -left-4 pointer-events-auto" />
-							<PageMenu anchor="bottom-right" className="pointer-events-auto" />
+							<Toolbox
+								className="flex-1"
+								isPlaying={isPlaying}
+								onPlayClick={() => setPlaying((p) => !p)}
+							/>
+						</div>
+						<div className="grid grid-cols-12">
+							<Palette className="col-span-9" />
+							<MetadataMenu className="col-span-3" />
 						</div>
 					</div>
+					<PageMenu className="fixed right-0 bottom-0 pointer-events-auto" />
 				</div>
 			</div>
 			{loadLevelState === 'loading' && (

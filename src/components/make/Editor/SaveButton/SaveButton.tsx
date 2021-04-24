@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import clsx from 'clsx';
 import { AiFillSave } from 'react-icons/ai';
 
-import { IconButton } from '../../../IconButton';
+import { PlainIconButton } from '../../../PlainIconButton';
 
 type PublicSaveButtonProps = {
 	className?: string;
@@ -34,13 +34,12 @@ const SaveButton = memo(function SaveButton({
 	return (
 		<>
 			{toast}
-			<IconButton
+			<PlainIconButton
 				className={className}
-				anchor="top"
+				size="large"
 				label="save this level"
 				onClick={onClick}
 				icon={AiFillSave}
-				alternate
 				loading={saveLevelState === 'saving'}
 			/>
 		</>

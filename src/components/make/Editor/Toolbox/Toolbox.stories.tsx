@@ -30,6 +30,8 @@ export const Basic = () => {
 			onToggleGrid={noop}
 			showGrid={true}
 			onEraseLevel={noop}
+			isPlaying={false}
+			onPlayClick={() => {}}
 		/>
 	);
 };
