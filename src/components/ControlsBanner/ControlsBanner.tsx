@@ -15,12 +15,11 @@ function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 	const [showSafariWarning, setShowSafariWarning] = useState(false);
 
 	useEffect(() => {
+		const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+		setShowSafariWarning(isSafari);
+
 		setShowFirefoxWarning(
 			navigator.userAgent.toLowerCase().indexOf('firefox') > -1
-		);
-		setShowSafariWarning(
-			navigator.userAgent.toLowerCase().indexOf('applewebkit') > -1 &&
-				navigator.userAgent.toLowerCase().indexOf('chrome') === -1
 		);
 	}, []);
 
