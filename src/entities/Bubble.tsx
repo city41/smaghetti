@@ -104,7 +104,7 @@ const Bubble: Entity = {
 				<TileSpace />
 				<PayloadViewDetails
 					className="bottom-3 right-3"
-					payload={settings.payload}
+					payload={settings.payload ?? this.defaultSettings!.payload}
 				/>
 			</div>
 		);
