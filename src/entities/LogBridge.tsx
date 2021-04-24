@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { TileSpace } from './TileSpace';
 
 const LogBridge: Entity = {
 	editorType: 'cell',
@@ -49,9 +50,22 @@ const LogBridge: Entity = {
 		);
 	},
 
-	// TODO: offset the bridge visually
 	render() {
-		return this.simpleRender!(TILE_SIZE, TILE_SIZE);
+		const style = {
+			marginTop: TILE_SIZE / 2,
+			width: TILE_SIZE,
+			height: TILE_SIZE * 1.5,
+			backgroundPositionY: TILE_SIZE / 2,
+			paddingBottom: TILE_SIZE / 2,
+		};
+
+		return (
+			<div className="LogBridge-bg bg-no-repeat" style={style}>
+				<div className="w-full h-full" style={{ marginTop: -TILE_SIZE / 2 }}>
+					<TileSpace />
+				</div>
+			</div>
+		);
 	},
 };
 
