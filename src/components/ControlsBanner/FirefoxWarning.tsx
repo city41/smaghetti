@@ -14,7 +14,7 @@ function FirefoxWarning({ className }: FirefoxWarningProps): ReactElement {
 			className={clsx(
 				className,
 				styles.root,
-				'flex flex-row py-1 px-3 items-center space-x-2'
+				'flex flex-row py-1 px-3 items-center space-x-2 text-xs'
 			)}
 		>
 			<FaFirefox />

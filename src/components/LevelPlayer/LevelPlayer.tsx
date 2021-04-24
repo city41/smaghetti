@@ -52,7 +52,7 @@ function LevelPlayer({
 				levelData={createLevelData(rooms)}
 				isPlaying={isPlaying}
 			/>
-			<ControlsBanner className="rounded-tl-lg rounded-tr-lg" />
+			<ControlsBanner />
 		</div>
 	);
 }

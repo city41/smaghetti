@@ -25,7 +25,7 @@ function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 	}, []);
 
 	return (
-		<>
+		<div className="flex flex-col">
 			{showHelp && (
 				<ControlsHelpModal
 					isOpen={showHelp}
@@ -51,7 +51,7 @@ function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 			</div>
 			{showFirefoxWarning && <FirefoxWarning />}
 			{showSafariWarning && <SafariWarning />}
-		</>
+		</div>
 	);
 }
 
