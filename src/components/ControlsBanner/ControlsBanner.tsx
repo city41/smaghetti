@@ -19,7 +19,8 @@ function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 			navigator.userAgent.toLowerCase().indexOf('firefox') > -1
 		);
 		setShowSafariWarning(
-			navigator.userAgent.toLowerCase().indexOf('safari') > -1
+			navigator.userAgent.toLowerCase().indexOf('applewebkit') > -1 &&
+				navigator.userAgent.toLowerCase().indexOf('chrome') === -1
 		);
 	}, []);
 
