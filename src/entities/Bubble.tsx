@@ -11,6 +11,7 @@ const Bubble: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xdb,
+	defaultSettings: { payload: 'Mushroom' },
 
 	payloadToObjectId: {
 		OneUpMushroom: 0,
