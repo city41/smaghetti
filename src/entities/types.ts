@@ -71,7 +71,9 @@ type Entity = {
 	render: (
 		showDetails: boolean,
 		settings: EditorEntitySettings,
-		onSettingsChange: (newSettings: EditorEntitySettings) => void
+		onSettingsChange: (newSettings: EditorEntitySettings) => void,
+		entity?: EditorEntity,
+		matrix?: EditorEntityMatrix
 	) => ReactElement;
 };
 

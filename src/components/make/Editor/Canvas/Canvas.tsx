@@ -59,6 +59,7 @@ function getTranslation(scale: number): string {
 
 type MatrixRowProps = {
 	cells: EditorEntityRow;
+	matrix: EditorEntityMatrix;
 	y: number;
 	focused: Record<number, boolean>;
 	dragOffset: Point | null;
@@ -70,6 +71,7 @@ type MatrixRowProps = {
 
 const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 	cells,
+	matrix,
 	y,
 	focused,
 	dragOffset,
@@ -91,7 +93,8 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 				<div key={c.id} style={style}>
 					<Entity
 						id={c.id}
-						type={c.type}
+						entity={c}
+						matrix={matrix}
 						focused={isFocused}
 						soleFocused={isFocused && focusCount === 1}
 						settings={c.settings}
@@ -124,7 +127,8 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 					<div key={c.id} style={style}>
 						<Entity
 							id={c.id}
-							type={c.type}
+							entity={c}
+							matrix={matrix}
 							focused
 							dragging
 							settings={c.settings}
@@ -182,7 +186,8 @@ const Entities = memo(function Entities({
 							opacity: !!dragOffset && isFocused ? 0.3 : 1,
 						}}
 						id={e.id}
-						type={e.type}
+						entity={e}
+						matrix={[]}
 						settings={e.settings}
 						focused={isFocused}
 						soleFocused={isFocused && focusCount === 1}
@@ -210,7 +215,8 @@ const Entities = memo(function Entities({
 							focused
 							dragging
 							id={e.id}
-							type={e.type}
+							entity={e}
+							matrix={[]}
 							settings={e.settings}
 							onEntitySettingsChange={() => {}}
 						/>
@@ -337,6 +343,7 @@ const Canvas = memo(function Canvas({
 				<MatrixRow
 					key={y}
 					cells={row}
+					matrix={matrix}
 					y={y}
 					focused={focused}
 					dragOffset={dragOffset}

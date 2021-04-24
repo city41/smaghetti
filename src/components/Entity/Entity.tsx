@@ -1,12 +1,13 @@
 import React, { CSSProperties, Ref, RefObject } from 'react';
 import clsx from 'clsx';
-import { entityMap, EntityType } from '../../entities/entityMap';
+import { entityMap } from '../../entities/entityMap';
 
 import focusedStyles from '../../styles/focused.module.css';
 
 type EntityProps = {
 	className?: string;
-	type: EntityType;
+	entity: EditorEntity;
+	matrix: EditorEntityMatrix;
 	scale?: number;
 	id?: number;
 	style?: CSSProperties;
@@ -22,19 +23,22 @@ function Entity(props: EntityProps) {
 	const {
 		className,
 		style,
-		type,
+		entity,
+		matrix,
 		settings,
 		focused,
 		soleFocused,
 		dragging,
 		onEntitySettingsChange,
 	} = props;
-	const entityDef = entityMap[type];
+	const entityDef = entityMap[entity.type];
 
-	const entity = entityDef.render(
+	const body = entityDef.render(
 		!!soleFocused && !dragging,
 		settings ?? {},
-		onEntitySettingsChange
+		onEntitySettingsChange,
+		entity,
+		matrix
 	);
 
 	return (
@@ -42,7 +46,7 @@ function Entity(props: EntityProps) {
 			className={clsx(className, { [focusedStyles.focused]: focused })}
 			style={style}
 		>
-			{entity}
+			{body}
 		</div>
 	);
 }

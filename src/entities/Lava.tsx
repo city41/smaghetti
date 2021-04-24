@@ -3,6 +3,24 @@ import { getBankParam1 } from './util';
 import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import clsx from 'clsx';
+
+function isLavaAbove(
+	entity: EditorEntity | undefined,
+	matrix: EditorEntityMatrix | undefined
+): boolean {
+	if (!entity || !matrix) {
+		return false;
+	}
+
+	const cellAbove = matrix[entity.y - 1]?.[entity.x];
+
+	if (!cellAbove) {
+		return false;
+	}
+
+	return cellAbove.type === 'Lava';
+}
 
 const Lava: Entity = {
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
@@ -51,8 +69,23 @@ const Lava: Entity = {
 		);
 	},
 
-	render() {
-		return this.simpleRender!(TILE_SIZE, TILE_SIZE);
+	render(_showDetails, _settings, _osc, entity, matrix) {
+		const lavaAbove = isLavaAbove(entity, matrix);
+
+		const style = {
+			width: TILE_SIZE,
+			height: TILE_SIZE,
+			backgroundColor: lavaAbove ? 'rgb(208, 0, 0)' : 'transparent',
+		};
+
+		return (
+			<div
+				style={style}
+				className={clsx({
+					'Lava-bg bg-cover': !isLavaAbove(entity, matrix),
+				})}
+			/>
+		);
 	},
 };
 
