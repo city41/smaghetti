@@ -656,8 +656,14 @@ function PaletteChoiceModal({
 							currentObjectSet,
 							currentGraphicSet
 						) && (
-							<div className="mt-4 text-red-500">
-								Incompatible with the current room type
+							<div className="space-y-3">
+								<div className="mt-4 text-red-500 font-bold">
+									Incompatible with the current room type.
+								</div>
+								<div className="text-xs">
+									This incompatibility is probably temporary. I need to figure
+									out how the game works.
+								</div>
 							</div>
 						)}
 				</div>

@@ -6,10 +6,13 @@ import { TileSpace } from './TileSpace';
 import { TransportSource } from '../components/Transport/TransportSource';
 import { TransportEditDetails } from '../components/details/TransportEditDetails';
 import { simpleSpriteBinary } from './util';
+import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 
 const DOOR_LOCK_OBJECT_ID = 0xce;
 
 const WoodDoor: Entity = {
+	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
+	graphicSets: [ROOM_TYPE_SETTINGS.underground.objectGraphicSet],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xf,
