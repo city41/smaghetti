@@ -253,8 +253,8 @@ const terrain: PaletteChoiceModalEntry[] = [
 	{
 		entry: 'FireBar',
 		info: {
-			title: 'Fire Bare',
-			description: '',
+			title: 'Fire Bar',
+			description: 'round and round we go',
 		},
 	},
 	{
