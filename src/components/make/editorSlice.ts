@@ -423,22 +423,22 @@ function getEntityY(inputY: number): number {
 	return Math.floor(inputY / TILE_SIZE) * TILE_SIZE;
 }
 
-function ensurePlayerIsInView(state: InternalEditorState, offsetDelta: Point) {
-	const player = getCurrentRoom(state).entities.find(
-		(e) => e.type === 'Player'
-	)!;
-
-	player.x = clamp(
-		player.x + offsetDelta.x,
-		0,
-		(getCurrentRoom(state).roomTileWidth - 1) * TILE_SIZE
-	);
-	player.y = clamp(
-		player.y + offsetDelta.y,
-		0,
-		(getCurrentRoom(state).roomTileHeight - 1) * TILE_SIZE
-	);
-}
+// function ensurePlayerIsInView(state: InternalEditorState, offsetDelta: Point) {
+// 	const player = getCurrentRoom(state).entities.find(
+// 		(e) => e.type === 'Player'
+// 	)!;
+//
+// 	player.x = clamp(
+// 		player.x + offsetDelta.x,
+// 		0,
+// 		(getCurrentRoom(state).roomTileWidth - 1) * TILE_SIZE
+// 	);
+// 	player.y = clamp(
+// 		player.y + offsetDelta.y,
+// 		0,
+// 		(getCurrentRoom(state).roomTileHeight - 1) * TILE_SIZE
+// 	);
+// }
 
 /**
  * Ensures that scrollOffset doesn't get too far out, which would cause the level
@@ -1148,26 +1148,26 @@ const editorSlice = createSlice({
 			idCounter = maxId;
 		},
 		pan(state: InternalEditorState, action: PayloadAction<Point>) {
+			const currentRoom = getCurrentRoom(state);
+
 			const { x, y } = action.payload;
 
-			const newX =
-				getCurrentRoom(state).scrollOffset.x - x / getCurrentRoom(state).scale;
-			const newY =
-				getCurrentRoom(state).scrollOffset.y - y / getCurrentRoom(state).scale;
+			const newX = currentRoom.scrollOffset.x - x / currentRoom.scale;
+			const newY = currentRoom.scrollOffset.y - y / currentRoom.scale;
 
-			const { x: lastOffsetX, y: lastOffsetY } = {
-				...getCurrentRoom(state).scrollOffset,
-			};
+			// const { x: lastOffsetX, y: lastOffsetY } = {
+			// 	...currentRoom.scrollOffset,
+			// };
 
-			getCurrentRoom(state).scrollOffset.x = newX;
-			getCurrentRoom(state).scrollOffset.y = newY;
+			currentRoom.scrollOffset.x = newX;
+			currentRoom.scrollOffset.y = newY;
 
-			const delta = {
-				x: getCurrentRoom(state).scrollOffset.x - lastOffsetX,
-				y: getCurrentRoom(state).scrollOffset.y - lastOffsetY,
-			};
+			// const delta = {
+			// 	x: currentRoom.scrollOffset.x - lastOffsetX,
+			// 	y: currentRoom.scrollOffset.y - lastOffsetY,
+			// };
 
-			ensurePlayerIsInView(state, delta);
+			// ensurePlayerIsInView(state, delta);
 		},
 		selectDrag(
 			state: InternalEditorState,
@@ -1220,6 +1220,12 @@ const editorSlice = createSlice({
 			};
 
 			const entityUnderStart = currentRoom.entities.find((e) => {
+				// temp hack: don't allow dragging the player until player location
+				// is taken into account when creating the gba level
+				if (e.type === 'Player') {
+					return false;
+				}
+
 				const pixelBounds = getEntityPixelBounds(e);
 
 				return pointIsInside(scaledStartingPoint, pixelBounds);
@@ -1601,7 +1607,7 @@ function cleanUpReducer(state: InternalEditorState, action: Action) {
 	const newState = reducer(state, action);
 
 	const nextState = produce(newState, (draftState) => {
-		ensurePlayerIsInView(draftState, { x: 0, y: 0 });
+		// ensurePlayerIsInView(draftState, { x: 0, y: 0 });
 		ensureLevelIsInView(draftState);
 
 		removeOutOfBoundsCells(draftState);
