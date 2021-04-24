@@ -25,7 +25,7 @@ Proper documentation and tutorial videos will come later, but for now some featu
 
 * keyboard shortcuts, all the toolbar buttons show their shortcut in their tooltip. Also you can focus certain entities in the palete on the left side using numbers 1 through 9. ctrl/cmnd-z undoes, and ctrl/cmnd-shift-z redoes.
 * Hold the space bar then click and drag on the canvas to pan it around
-* Use your mouse's scrollwheel to zoom in and out
+* Press + and - to zoom in and out
 * drag and select entities, then move them.
 * select a single entity to edit details about it. Only some entities support this, try the question block.
 
