@@ -6,6 +6,7 @@ import { PlainIconButton } from '../../../PlainIconButton';
 
 type PublicSaveButtonProps = {
 	className?: string;
+	disabled?: boolean;
 };
 
 type InternalSaveButtonProps = {
@@ -15,6 +16,7 @@ type InternalSaveButtonProps = {
 
 const SaveButton = memo(function SaveButton({
 	className,
+	disabled,
 	onClick,
 	saveLevelState,
 }: PublicSaveButtonProps & InternalSaveButtonProps) {
@@ -41,6 +43,7 @@ const SaveButton = memo(function SaveButton({
 				onClick={onClick}
 				icon={AiFillSave}
 				loading={saveLevelState === 'saving'}
+				disabled={disabled}
 			/>
 		</>
 	);

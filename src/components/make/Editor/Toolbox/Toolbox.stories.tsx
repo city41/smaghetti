@@ -25,8 +25,6 @@ export const Basic = () => {
 			onRedo={noop}
 			canUndo={true}
 			canRedo={false}
-			onToggleResizeMode={noop}
-			resizeMode={false}
 			onToggleGrid={noop}
 			showGrid={true}
 			onEraseLevel={noop}

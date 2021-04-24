@@ -8,6 +8,7 @@ import { PlainIconButton } from '../../../PlainIconButton';
 
 type ZoomProps = {
 	className?: string;
+	disabled?: boolean;
 	onScaleIncreased: () => void;
 	onScaleDecreased: () => void;
 	canIncreaseScale: boolean;
@@ -16,13 +17,30 @@ type ZoomProps = {
 
 const Zoom: FunctionComponent<ZoomProps> = ({
 	className,
+	disabled,
 	onScaleIncreased,
 	onScaleDecreased,
 	canIncreaseScale,
 	canDecreaseScale,
 }) => {
-	useHotkeys('-', () => onScaleDecreased());
-	useHotkeys('=,shift+=', () => onScaleIncreased());
+	useHotkeys(
+		'-',
+		() => {
+			if (!disabled) {
+				onScaleDecreased();
+			}
+		},
+		[disabled]
+	);
+	useHotkeys(
+		'=,shift+=',
+		() => {
+			if (!disabled) {
+				onScaleIncreased();
+			}
+		},
+		[disabled]
+	);
 
 	return (
 		<div className={clsx(className, 'flex flex-row items-center space-x-1')}>
@@ -32,7 +50,7 @@ const Zoom: FunctionComponent<ZoomProps> = ({
 				icon={TiZoomOut}
 				style={{ fontSize: 32 }}
 				onClick={() => onScaleDecreased()}
-				disabled={!canDecreaseScale}
+				disabled={!canDecreaseScale || disabled}
 			/>
 			<PlainIconButton
 				size="large"
@@ -40,7 +58,7 @@ const Zoom: FunctionComponent<ZoomProps> = ({
 				icon={TiZoomIn}
 				style={{ fontSize: 32 }}
 				onClick={() => onScaleIncreased()}
-				disabled={!canIncreaseScale}
+				disabled={!canIncreaseScale || disabled}
 			/>
 		</div>
 	);

@@ -5,6 +5,7 @@ import { PlainIconButton } from '../../../PlainIconButton';
 
 type PublicDownloadButtonProps = {
 	className?: string;
+	disabled?: boolean;
 };
 
 type InternalDownloadButtonProps = {
@@ -13,6 +14,7 @@ type InternalDownloadButtonProps = {
 
 const DownloadButton = memo(function DownloadButton({
 	className,
+	disabled,
 	onClick,
 }: PublicDownloadButtonProps & InternalDownloadButtonProps) {
 	return (
@@ -22,6 +24,7 @@ const DownloadButton = memo(function DownloadButton({
 			label="download this level"
 			onClick={onClick}
 			icon={MdFileDownload}
+			disabled={disabled}
 		/>
 	);
 });

@@ -44,8 +44,6 @@ type InternalToolboxProps = {
 	onRedo: () => void;
 	canUndo: boolean;
 	canRedo: boolean;
-	onToggleResizeMode: () => void;
-	resizeMode: boolean;
 	onToggleGrid: () => void;
 	showGrid: boolean;
 	onEraseLevel: () => void;
@@ -64,7 +62,6 @@ const Toolbox = memo(function Toolbox({
 	onRedo,
 	canUndo,
 	canRedo,
-	resizeMode,
 	showGrid,
 	onToggleGrid,
 	onEraseLevel,
@@ -91,7 +88,7 @@ const Toolbox = memo(function Toolbox({
 				icon={icons[mm.mode]}
 				toggled={mm.mode === mouseMode}
 				disabled={
-					resizeMode ||
+					isPlaying ||
 					(mm.mode === 'fill' &&
 						currentPaletteEntry &&
 						entityMap[currentPaletteEntry].editorType === 'entity')
@@ -111,13 +108,14 @@ const Toolbox = memo(function Toolbox({
 		>
 			<div className="flex flex-row items-center space-x-2 bg-yellow-600 -my-2 py-2 -ml-2 px-2">
 				<PlayButton isPlaying={isPlaying} onClick={onPlayClick} />
-				<SaveButton />
-				<DownloadButton />
+				<SaveButton disabled={isPlaying} />
+				<DownloadButton disabled={isPlaying} />
 			</div>
 
 			<div className="flex flex-row items-center space-x-2">{buttons}</div>
 
 			<Zoom
+				disabled={isPlaying}
 				onScaleDecreased={onScaleDecreased}
 				onScaleIncreased={onScaleIncreased}
 				canIncreaseScale={canIncreaseScale}
@@ -128,8 +126,8 @@ const Toolbox = memo(function Toolbox({
 				label="toggle grid (r)"
 				size="large"
 				icon={MdGridOn}
-				toggled={!resizeMode && showGrid}
-				disabled={resizeMode}
+				toggled={showGrid}
+				disabled={isPlaying}
 				onClick={() => onToggleGrid()}
 			/>
 
@@ -140,17 +138,18 @@ const Toolbox = memo(function Toolbox({
 					label="undo"
 					icon={ImUndo2}
 					onClick={() => onUndo()}
-					disabled={!canUndo}
+					disabled={!canUndo || isPlaying}
 				/>
 				<PlainIconButton
 					label="redo"
 					icon={ImRedo2}
 					onClick={() => onRedo()}
-					disabled={!canRedo}
+					disabled={!canRedo || isPlaying}
 				/>
 			</div>
 
 			<PlainIconButton
+				disabled={isPlaying}
 				label="erase entire level"
 				icon={FaBomb}
 				onClick={() => onEraseLevel()}

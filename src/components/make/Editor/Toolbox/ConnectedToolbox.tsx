@@ -30,7 +30,7 @@ const actions = bindActionCreators(
 );
 
 function ConnectedToolbox(props: PublicToolboxProps) {
-	const { mouseMode, showGrid, storedForResizeMode } = useSelector(
+	const { mouseMode, showGrid } = useSelector(
 		(state: AppState) => state.editor.present
 	);
 
@@ -54,7 +54,6 @@ function ConnectedToolbox(props: PublicToolboxProps) {
 			canUndo={canUndo}
 			canRedo={canRedo}
 			showGrid={showGrid}
-			resizeMode={!!storedForResizeMode}
 			{...actions}
 			{...props}
 		/>

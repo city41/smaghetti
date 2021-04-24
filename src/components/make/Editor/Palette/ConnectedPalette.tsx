@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -8,7 +8,7 @@ import {
 } from '../../editorSlice';
 import { AppState, dispatch } from '../../../../store';
 
-import { Palette, PaletteProps } from './Palette';
+import { Palette, PublicPaletteProps } from './Palette';
 
 const actions = bindActionCreators(
 	{
@@ -19,7 +19,7 @@ const actions = bindActionCreators(
 	dispatch
 );
 
-const ConnectedPalette: FunctionComponent<Partial<PaletteProps>> = (props) => {
+function ConnectedPalette(props: PublicPaletteProps) {
 	const { currentPaletteEntry, paletteEntries, settings } = useSelector(
 		(state: AppState) => state.editor.currentRoom
 	);
@@ -34,6 +34,6 @@ const ConnectedPalette: FunctionComponent<Partial<PaletteProps>> = (props) => {
 			{...actions}
 		/>
 	);
-};
+}
 
 export { ConnectedPalette };

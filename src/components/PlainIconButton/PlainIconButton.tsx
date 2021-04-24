@@ -14,6 +14,7 @@ type PlainIconButtonProps = Omit<
 	size?: 'small' | 'medium' | 'large';
 	toggled?: boolean;
 	loading?: boolean;
+	disabled?: boolean;
 };
 
 function PlainIconButton({
@@ -23,6 +24,7 @@ function PlainIconButton({
 	size = 'medium',
 	toggled,
 	loading,
+	disabled,
 	...rest
 }: PlainIconButtonProps) {
 	const Icon = loading ? RiLoaderFill : icon;
@@ -30,16 +32,15 @@ function PlainIconButton({
 		<button
 			aria-label={label}
 			title={label}
-			className={clsx(
-				className,
-				styles.root,
-				'text-white py-0.5 px-1 border-b-2',
-				{
-					'bg-blue-400 text-gray-700 border-white': toggled,
-					'border-transparent': !toggled,
-					'animate-spin': loading,
-				}
-			)}
+			disabled={disabled}
+			className={clsx(className, 'text-white py-0.5 px-1 border-b-2', {
+				'bg-blue-400 text-gray-700 border-white': toggled && !disabled,
+				'border-transparent': !toggled || disabled,
+				'animate-spin': loading,
+				'opacity-50 cursor-default': disabled,
+				'cursor-pointer': !disabled,
+				[styles.hover]: !disabled,
+			})}
 			{...rest}
 		>
 			<Icon

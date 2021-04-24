@@ -1,5 +1,5 @@
 .root {
-    @apply relative w-16 h-16 m-2 cursor-pointer flex flex-col items-center justify-center;
+    @apply relative w-16 h-16 m-2 flex flex-col items-center justify-center;
 }
 
 .button {
@@ -13,8 +13,4 @@
 
 .buttonsOnHover:hover .button {
     @apply visible opacity-100;
-}
-
-.isCurrent, .root:hover {
-    @apply bg-yellow-200;
 }
