@@ -131,7 +131,10 @@ const Toolbox = memo(function Toolbox({
 				onClick={() => onToggleGrid()}
 			/>
 
-			<div style={{ flex: 1 }} />
+			<div className="flex-1 text-center text-sm text-gray-300">
+				press <span className="font-bold text-base">?</span> for keyboard
+				shortcuts
+			</div>
 
 			<div className="flex flex-row items-center space-x-2">
 				<PlainIconButton
