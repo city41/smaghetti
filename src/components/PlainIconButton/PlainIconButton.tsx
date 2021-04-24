@@ -36,7 +36,6 @@ function PlainIconButton({
 			className={clsx(className, 'text-white py-0.5 px-1 border-b-2', {
 				'bg-blue-400 text-gray-700 border-white': toggled && !disabled,
 				'border-transparent': !toggled || disabled,
-				'animate-spin': loading,
 				'opacity-50 cursor-default': disabled,
 				'cursor-pointer': !disabled,
 				[styles.hover]: !disabled,
@@ -48,6 +47,7 @@ function PlainIconButton({
 					'text-l': size === 'small',
 					'text-xl': size === 'medium',
 					'text-2xl': size === 'large',
+					'animate-spin': loading,
 				})}
 			/>
 		</button>
