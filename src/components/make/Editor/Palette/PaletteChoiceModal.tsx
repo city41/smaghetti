@@ -127,6 +127,13 @@ const enemies: PaletteChoiceModalEntry[] = [
 
 const terrain: PaletteChoiceModalEntry[] = [
 	{
+		entry: 'SpikeBall',
+		info: {
+			title: 'Spike Ball',
+			description: '',
+		},
+	},
+	{
 		entry: 'Brick',
 		info: {
 			title: 'Brick',
