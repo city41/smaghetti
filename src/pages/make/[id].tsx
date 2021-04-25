@@ -13,6 +13,8 @@ function NextMakeIdPage() {
 	// hack to let this get posted on romhacking, so stupid
 	if (typeof id === 'string' && id.endsWith('.html')) {
 		id = undefined;
+		router.replace('/make');
+		return null;
 	}
 
 	return (
