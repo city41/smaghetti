@@ -18,7 +18,7 @@ const Chest: Entity = {
 		FrogSuit: 4,
 		TanookiSuit: 5,
 		//HammerBrosSuit: 6
-		//LakituCloud: 7
+		LakituCloud: 7,
 		PWing: 8,
 		StarMan: 9,
 		// Anchor: 0xa,

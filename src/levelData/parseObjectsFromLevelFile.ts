@@ -66,7 +66,8 @@ const knownFourByteIds: Record<number, number[]> = {
 		0x1b, // something in Classic 1-2, also think it's a pipe
 		0x1c, // something in Classic 1-2, also think it's a pipe
 
-		0x19, // brick -- coin
+		0x11, // brick -- coin
+		0x19, // brick -- coin (duplicate of above)
 		0x1a, // brick -- coin cache
 		0x16, // brick -- fireflower
 		0x17, // brick -- leaf
@@ -75,7 +76,8 @@ const knownFourByteIds: Record<number, number[]> = {
 		0x1d, // brick -- pswitch
 		0x1c, // brick -- climbing vine
 
-		0x2e, // cactus
+		0x36, // first object in mushroom19,room0
+		0x70, // second object in mushroom19,room0
 	],
 	[ROOM_TYPE_SETTINGS.underground.objectSet]: [
 		0x3a, // initial wall at start of Classic 1-2
@@ -91,11 +93,19 @@ const knownFourByteIds: Record<number, number[]> = {
 		0x81, // something in promo03,room0
 		0xb, // pointing up spike strip
 	],
+	// mushroom20,room0's objectset (sky)
+	0x1: [
+		0x2d, // lakitu cloud
+	],
 	// TODO: not sure what this object set is yet, but it is mushroom11, room 0, the one with music blocks galore
 	0x4: [
 		0x14, // empty music block
 		0x5, // not sure yet, but it is in mushroom11,room0
 		0x17, // seems to be a upward pipe, mushroom11,room2
+	],
+	// mushroom19,room0's objectset (desert)
+	0x9: [
+		0x2e, // cactus
 	],
 	0xa: [
 		0x2f, // first object in mushroom05,room0. no idea what it is, but it is clearly 4 bytes

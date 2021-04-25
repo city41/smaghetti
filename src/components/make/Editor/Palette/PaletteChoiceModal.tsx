@@ -525,6 +525,13 @@ const bastards: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
+	{
+		entry: 'LakituCloud',
+		info: {
+			title: 'Lakitu Cloud',
+			description: '',
+		},
+	},
 ];
 
 const tabs = [

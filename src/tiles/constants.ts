@@ -17,6 +17,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	FireBarBase: 'Fbb',
 	FortressBrick: 'Fb',
 	GlassBlock: 'Gb',
+	LakituCloud: 'Lc',
 	UpFortressSpike: 'UFs',
 	DownFortressSpike: 'DFs',
 	HiddenBlock: 'Hb',

@@ -35,6 +35,7 @@ import { HorizontalRedPiranhaPlant } from './HorizontalRedPiranhaPlant';
 import { IndestructibleBrick } from './IndestructibleBrick';
 import { Key } from './Key';
 import { Lakitu } from './Lakitu';
+import { LakituCloud } from './LakituCloud';
 import { Lava } from './Lava';
 import { Leaf } from './Leaf';
 import { LogBridge } from './LogBridge';
@@ -111,6 +112,7 @@ const entityMap = {
 	IndestructibleBrick,
 	Key,
 	Lakitu,
+	LakituCloud,
 	Lava,
 	Leaf,
 	LogBridge,

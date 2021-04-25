@@ -6,36 +6,36 @@ import React from 'react';
 /**
  * Does not work in current fortress/underground rooms
  */
-const Cactus: Entity = {
+const LakituCloud: Entity = {
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',
-	objectId: 0x2e,
+	objectId: 0x2d,
 	emptyBank: 1,
 
 	resource: {
 		palette: [
-			0x7f40,
+			0x7f96,
 			0x7fff,
-			0x0,
-			0x7629,
-			0x7f30,
-			0x7fd2,
+			0x18c6,
+			0x3192,
+			0x1636,
+			0x2a9c,
+			0x1f4,
+			0x29a,
+			0x37f,
+			0x42ff,
+			0x4a52,
+			0x6318,
+			0x77bd,
 			0x7ffb,
-			0x2e39,
-			0x42bd,
-			0x535f,
-			0x3708,
-			0x3f6d,
-			0x4bd1,
-			0x5bf4,
-			0x36df,
-			0x6bf8,
+			0x7fd2,
+			0x732c,
 		],
-		romOffset: 0x16ea40,
+		romOffset: 0x163768,
 		tiles: [
-			[117, 118],
-			[120, 121],
+			[362, 363],
+			[378, 379],
 		],
 	},
 
@@ -45,7 +45,10 @@ const Cactus: Entity = {
 
 	simpleRender(mw, mh) {
 		return (
-			<div className="Cactus-bg bg-cover" style={{ width: mw, height: mh }} />
+			<div
+				className="LakituCloud-bg bg-cover"
+				style={{ width: mw, height: mh }}
+			/>
 		);
 	},
 
@@ -54,4 +57,4 @@ const Cactus: Entity = {
 	},
 };
 
-export { Cactus };
+export { LakituCloud };
