@@ -8,11 +8,10 @@ import { store } from '../../store';
 function NextMakeIdPage() {
 	const router = useRouter();
 
-	let { id } = router.query;
+	const { id } = router.query;
 
 	// hack to let this get posted on romhacking, so stupid
 	if (typeof id === 'string' && id.endsWith('.html')) {
-		id = undefined;
 		router.replace('/make');
 		return null;
 	}
