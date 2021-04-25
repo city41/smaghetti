@@ -319,7 +319,7 @@ const objects: PaletteChoiceModalEntry[] = [
 	{
 		entry: 'AceCoin',
 		info: {
-			title: 'Ace Coin',
+			title: 'Advance Coin',
 			description:
 				'Special coins to search for. At most a level can have five of them.',
 		},
