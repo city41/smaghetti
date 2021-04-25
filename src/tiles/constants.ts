@@ -11,6 +11,7 @@ const TILE_SIZE = 16;
 const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	Brick: 'Br',
 	BuriedVegetable: 'Bu',
+	Cactus: 'Ca',
 	Coin: '$',
 	ConveyorBelt: 'Cb',
 	FireBarBase: 'Fbb',

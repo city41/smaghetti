@@ -65,6 +65,17 @@ const knownFourByteIds: Record<number, number[]> = {
 		0x18, // something in Classic 1-2, also think it's a pipe
 		0x1b, // something in Classic 1-2, also think it's a pipe
 		0x1c, // something in Classic 1-2, also think it's a pipe
+
+		0x19, // brick -- coin
+		0x1a, // brick -- coin cache
+		0x16, // brick -- fireflower
+		0x17, // brick -- leaf
+		0x1b, // brick -- 1up mushroom
+		0x18, // brick --starman
+		0x1d, // brick -- pswitch
+		0x1c, // brick -- climbing vine
+
+		0x2e, // cactus
 	],
 	[ROOM_TYPE_SETTINGS.underground.objectSet]: [
 		0x3a, // initial wall at start of Classic 1-2

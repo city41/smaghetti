@@ -518,6 +518,13 @@ const bastards: PaletteChoiceModalEntry[] = [
 			description: '',
 		},
 	},
+	{
+		entry: 'Cactus',
+		info: {
+			title: 'Cactus',
+			description: '',
+		},
+	},
 ];
 
 const tabs = [

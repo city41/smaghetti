@@ -9,6 +9,7 @@ import { Brick } from './Brick';
 import { Bubble } from './Bubble';
 import { BuriedVegetable } from './BuriedVegetable';
 import { BuzzyBeetle } from './BuzzyBeetle';
+import { Cactus } from './Cactus';
 import { CapeFeather } from './CapeFeather';
 import { CardSlotMachine } from './CardSlotMachine';
 import { Chest } from './Chest';
@@ -84,6 +85,7 @@ const entityMap = {
 	Bubble,
 	BuriedVegetable,
 	BuzzyBeetle,
+	Cactus,
 	CapeFeather,
 	CardSlotMachine,
 	Chest,
