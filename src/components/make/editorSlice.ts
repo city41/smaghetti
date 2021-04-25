@@ -135,6 +135,35 @@ function calcYForScrollToBottom() {
 	return (levelHeight - windowHeight) / initialScale;
 }
 
+let idCounter = 10;
+
+const SINGLE_BRICK_SO_PLAYER_DOESNT_FALL: EditorEntityMatrix = (function () {
+	const rows = [];
+	for (let y = 0; y < INITIAL_PLAYER_Y_TILE + 1; ++y) {
+		rows.push(null);
+	}
+
+	const playerRow = [];
+	for (let x = 0; x < INITIAL_PLAYER_X_TILE; ++x) {
+		playerRow.push(null);
+	}
+
+	playerRow.push({
+		id: idCounter++,
+		type: 'Brick',
+		x: INITIAL_PLAYER_X_TILE,
+		y: INITIAL_PLAYER_Y_TILE + 1,
+	} as const);
+
+	rows.push(playerRow);
+
+	while (rows.length < INITIAL_LEVEL_TILE_HEIGHT) {
+		rows.push(null);
+	}
+
+	return rows;
+})();
+
 const initialRoomState: RoomState = {
 	settings: {
 		...ROOM_TYPE_SETTINGS.underground,
@@ -147,7 +176,7 @@ const initialRoomState: RoomState = {
 			type: 'Player',
 		},
 	],
-	matrix: [],
+	matrix: cloneDeep(SINGLE_BRICK_SO_PLAYER_DOESNT_FALL),
 	roomTileWidth: INITIAL_LEVEL_TILE_WIDTH,
 	roomTileHeight: INITIAL_LEVEL_TILE_HEIGHT,
 	scale: initialScale,
@@ -206,8 +235,6 @@ const EMPTY_SERIALIZED_LEVEL: SerializedLevelData = {
 		},
 	],
 };
-
-let idCounter = 10;
 
 function getPaintedGroup(point: Point, mouseMode: MouseMode) {
 	return `${mouseMode}-${point.x}-${point.y}`;
