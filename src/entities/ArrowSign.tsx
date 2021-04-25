@@ -2,6 +2,10 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import React from 'react';
+import {
+	CardinalDirection,
+	CardinalDirectionEditDetails,
+} from '../components/details/CardinalDirectionEditDetails';
 
 const directionToObjectId = {
 	left: 0x4c,
@@ -68,18 +72,42 @@ const ArrowSign: Entity = {
 		);
 	},
 
-	render() {
-		const style = {
+	render(showDetails, settings, onSettingsChange) {
+		const baseStyle = {
 			width: TILE_SIZE * 2,
 			height: TILE_SIZE * 2,
 			backgroundSize: '75%',
 		};
+		const transformStyle =
+			settings.direction === 'left' ? { transform: 'scale(-1, 1)' } : {};
 
-		return (
-			<div className="ArrowSign-bg bg-cover bg-no-repeat" style={style}>
+		const body = (
+			<div
+				className="ArrowSign-bg bg-cover bg-no-repeat relative cursor-pointer"
+				style={{ ...transformStyle, ...baseStyle }}
+			>
 				<TileSpace />
 			</div>
 		);
+
+		if (showDetails) {
+			const directions = Object.keys(
+				directionToObjectId
+			) as CardinalDirection[];
+
+			return (
+				<CardinalDirectionEditDetails
+					directions={directions}
+					width={TILE_SIZE * 2}
+					height={TILE_SIZE * 2}
+					onDirectionChange={(direction) => onSettingsChange({ direction })}
+				>
+					{body}
+				</CardinalDirectionEditDetails>
+			);
+		} else {
+			return body;
+		}
 	},
 };
 
