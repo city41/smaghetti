@@ -89,6 +89,7 @@ const knownFourByteIds: Record<number, number[]> = {
 		0x21, // the bridge in classic fortresses
 		0x79, // not sure yet, but it is in mushroom04
 		0x56, // yellow switch brick
+		0x57, // arrow floor
 		0x61, // ghost house wooden walkway
 		0x81, // something in promo03,room0
 		0xb, // pointing up spike strip

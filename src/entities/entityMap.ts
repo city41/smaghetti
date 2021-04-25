@@ -1,4 +1,5 @@
 import { AceCoin } from './AceCoin';
+import { ArrowFloor } from './ArrowFloor';
 import { ArrowSign } from './ArrowSign';
 import { Bobomb } from './Bobomb';
 import { BonyBeetle } from './BonyBeetle';
@@ -76,6 +77,7 @@ import { YellowSwitchBrick } from './YellowSwitchBrick';
 
 const entityMap = {
 	AceCoin,
+	ArrowFloor,
 	ArrowSign,
 	Bobomb,
 	BonyBeetle,
