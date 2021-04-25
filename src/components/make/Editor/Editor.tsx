@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -28,8 +27,11 @@ type EditorProps = {
 	loadLevelState: 'dormant' | 'loading' | 'success' | 'missing' | 'error';
 };
 
+function toFreshEditor() {
+	window.location.replace('/make');
+}
+
 function Editor({ noScript, mode, loadLevelState }: EditorProps) {
-	const router = useRouter();
 	const [isPlaying, setPlaying] = useState(false);
 	const [showKeyboardHelpModal, setShowKeyboardHelpModal] = useState(false);
 	const dispatch = useDispatch();
@@ -167,7 +169,7 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 						<a
 							className="block mt-4 text-blue-700 cursor-pointer"
 							onClick={() => {
-								router.replace('/make');
+								toFreshEditor();
 							}}
 						>
 							start a fresh level instead
@@ -185,7 +187,7 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 							<a
 								className="text-blue-700 cursor-pointer"
 								onClick={() => {
-									router.replace('/make');
+									toFreshEditor();
 								}}
 							>
 								start a fresh level instead
