@@ -6,6 +6,7 @@ import { FortressBackground } from './FortressBackground';
 import { FrogSuit } from './FrogSuit';
 import { GiantVegetable } from './GiantVegetable';
 import { KoopaShell } from './KoopaShell';
+import { ParaWing } from './ParaWing';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PWing } from './PWing';
 import { RegularVegetable } from './RegularVegetable';
@@ -23,6 +24,7 @@ const resourceMap = {
 	FrogSuit,
 	GiantVegetable,
 	KoopaShell,
+	ParaWing,
 	PoisonMushroom,
 	PWing,
 	RegularVegetable,

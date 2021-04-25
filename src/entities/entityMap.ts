@@ -46,6 +46,7 @@ import { Muncher } from './Muncher';
 import { Mushroom } from './Mushroom';
 import { MusicBlock } from './MusicBlock';
 import { OneUpMushroom } from './OneUpMushroom';
+import { ParaGoomba } from './ParaGoomba';
 import { Player } from './Player';
 import { PSwitch } from './PSwitch';
 import { QuestionBlock } from './QuestionBlock';
@@ -125,6 +126,7 @@ const entityMap = {
 	MusicBlock,
 	OneUpMushroom,
 	PSwitch,
+	ParaGoomba,
 	Player,
 	QuestionBlock,
 	QuestionMark,

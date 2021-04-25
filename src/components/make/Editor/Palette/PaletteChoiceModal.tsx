@@ -33,6 +33,13 @@ const enemies: PaletteChoiceModalEntry[] = [
 		},
 	},
 	{
+		entry: 'ParaGoomba',
+		info: {
+			title: 'Para Goomba',
+			description: '',
+		},
+	},
+	{
 		entry: 'ShoeGoomba',
 		info: {
 			title: 'Shoe Goomba',

@@ -86,6 +86,7 @@ const knownFourByteIds: Record<number, number[]> = {
 	[ROOM_TYPE_SETTINGS.fortress.objectSet]: [
 		0x17, // something in promo03,room0, I think it's a pipe
 		0x18, // vertical grey pipe, coming up from bottom
+		0x32, // conveyor belt
 		0x21, // the bridge in classic fortresses
 		0x79, // not sure yet, but it is in mushroom04
 		0x56, // yellow switch brick
