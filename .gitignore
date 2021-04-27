@@ -33,7 +33,8 @@ yarn-error.log*
 .idea
 
 # copyrighted files
-/public/sma4.gba
+**/*.gba
 /src/levelData/sma4savtool_classic1_2.sav
 /src/levelData/smaghetti_classic1_2.sav
 /src/levelData/star_02.level
+/brute/results*

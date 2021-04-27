@@ -150,7 +150,7 @@ const SINGLE_BRICK_SO_PLAYER_DOESNT_FALL: EditorEntityMatrix = (function () {
 
 	playerRow.push({
 		id: idCounter++,
-		type: 'Brick',
+		type: 'IndestructibleBrick',
 		x: INITIAL_PLAYER_X_TILE,
 		y: INITIAL_PLAYER_Y_TILE + 1,
 	} as const);
@@ -1837,4 +1837,5 @@ export {
 	saveToLocalStorage,
 	eraseLevel,
 	LOCALSTORAGE_KEY,
+	SINGLE_BRICK_SO_PLAYER_DOESNT_FALL,
 };

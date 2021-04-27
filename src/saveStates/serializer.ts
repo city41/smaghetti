@@ -43,7 +43,8 @@ function deserialize(str: string): any {
 				if (value.constructor === 'ArrayBuffer') {
 					return new Uint8Array(value.data).buffer;
 				} else {
-					return new window[value.constructor as keyof Window](value.data);
+					// @ts-ignore ignored due to brute using it
+					return new global[value.constructor](value.data);
 				}
 			} catch (e) {
 				console.error('deserialize, conversion of typed array failed', e);

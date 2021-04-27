@@ -51,6 +51,7 @@ const ArrowSign: Entity = {
 
 	toObjectBinary(x, y, _w, _h, settings): number[] {
 		const direction = settings?.direction ?? this.defaultSettings!.direction;
+		console.log('ArrowSign says helo', direction);
 
 		return [
 			0,

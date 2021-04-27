@@ -1,0 +1,16 @@
+require('./util.js');
+require('./core.js');
+require('./arm.js');
+require('./thumb.js');
+require('./mmu.js');
+require('./io.js');
+require('./audio.js');
+require('./video.js');
+require('./video/software.js');
+require('./irq.js');
+require('./keypad.js');
+require('./sio.js');
+require('./savedata.js');
+require('./gpio.js');
+require('./gba.js');
+require('./xhr.js');
