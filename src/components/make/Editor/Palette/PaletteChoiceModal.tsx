@@ -134,13 +134,6 @@ const enemies: PaletteChoiceModalEntry[] = [
 
 const terrain: PaletteChoiceModalEntry[] = [
 	{
-		entry: 'MetalMushroom',
-		info: {
-			title: 'Metal Mushroom',
-			description: 'Love the SMB2 stuff!',
-		},
-	},
-	{
 		entry: 'ArrowFloor',
 		info: {
 			title: 'Arrow Floor',
@@ -316,6 +309,13 @@ const terrain: PaletteChoiceModalEntry[] = [
 ];
 
 const objects: PaletteChoiceModalEntry[] = [
+	{
+		entry: 'MetalMushroom',
+		info: {
+			title: 'Metal Mushroom',
+			description: 'Love the SMB2 stuff!',
+		},
+	},
 	{
 		entry: 'Coin',
 		info: {
