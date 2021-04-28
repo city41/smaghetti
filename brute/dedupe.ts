@@ -31,7 +31,7 @@ function writeOutUniques(srcPath: string, map: ShaMap) {
 	mkdirp.sync(destDir);
 
 	const values = Object.values(map);
-	const uniques = values.filter((v) => v.length === 1).map((v) => v[0]);
+	const uniques = values.map((v) => v[0]);
 
 	// /home/matt/dev/smaghetti/brute/results_bank1_5bytes/obj_02/gfx_2_id_0d.png
 	uniques.forEach((uniquePath) => {
@@ -67,11 +67,13 @@ function main(rootDir: string | undefined) {
 	const uniques = Object.values(dedupeMap).filter((v) => v.length === 1);
 	const dupes = Object.values(dedupeMap).filter((v) => v.length > 1);
 
+	const totalUniqueCount = uniques.length + dupes.length;
+
 	const dupeCount = dupes.reduce<number>((building, d) => {
 		return building + d.length;
 	}, 0);
 
-	console.log('uniques', uniques.length, 'dupes', dupeCount);
+	console.log('uniques', totalUniqueCount, 'dupes', dupeCount - dupes.length);
 
 	writeOutUniques(rootDirPath, dedupeMap);
 }
