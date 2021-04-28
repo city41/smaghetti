@@ -134,6 +134,13 @@ const enemies: PaletteChoiceModalEntry[] = [
 
 const terrain: PaletteChoiceModalEntry[] = [
 	{
+		entry: 'DiggableSand',
+		info: {
+			title: 'Diggable Sand',
+			description: 'Mario can dig down through it',
+		},
+	},
+	{
 		entry: 'ArrowFloor',
 		info: {
 			title: 'Arrow Floor',

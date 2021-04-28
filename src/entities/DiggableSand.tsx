@@ -1,39 +1,40 @@
 import type { Entity } from './types';
 import { getBankParam1 } from './util';
+import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
-const MetalMushroom: Entity = {
+const DiggableSand: Entity = {
 	editorType: 'cell',
 	dimensions: 'xy',
-	objectId: 0x51,
+	objectId: 0x6a,
 	emptyBank: 1,
 	param1: 'width',
 	param2: 'height',
 
 	resource: {
 		palette: [
-			0x23df,
+			0x7f96,
 			0x7fff,
 			0x0,
-			0x4e71,
-			0x5ef5,
-			0x6f79,
-			0x7bdd,
-			0x13,
-			0x19,
-			0x1f,
-			0x112,
-			0x5a1f,
-			0x6ebf,
-			0x7f9f,
-			0x579f,
-			0x6fff,
+			0x15d2,
+			0x2257,
+			0x2afc,
+			0x37be,
+			0x20ba,
+			0x21be,
+			0x32df,
+			0x3192,
+			0x1636,
+			0x2a9c,
+			0x42ff,
+			0x0,
+			0x0,
 		],
 		romOffset: 0x20e4f0,
 		tiles: [
-			[70, 71],
-			[86, 87],
+			[72, 73],
+			[88, 89],
 		],
 	},
 
@@ -44,7 +45,7 @@ const MetalMushroom: Entity = {
 	simpleRender(mw, mh) {
 		return (
 			<div
-				className="MetalMushroom-bg bg-cover"
+				className="DiggableSand-bg bg-cover"
 				style={{ width: mw, height: mh }}
 			/>
 		);
@@ -55,4 +56,4 @@ const MetalMushroom: Entity = {
 	},
 };
 
-export { MetalMushroom };
+export { DiggableSand };
