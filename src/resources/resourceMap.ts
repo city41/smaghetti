@@ -6,6 +6,7 @@ import { FortressBackground } from './FortressBackground';
 import { FrogSuit } from './FrogSuit';
 import { GiantVegetable } from './GiantVegetable';
 import { KoopaShell } from './KoopaShell';
+import { OneNumberBlock } from './OneNumberBlock';
 import { ParaWing } from './ParaWing';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PWing } from './PWing';
@@ -13,6 +14,8 @@ import { RegularVegetable } from './RegularVegetable';
 import { Shoe } from './Shoe';
 import { SmallVegetable } from './SmallVegetable';
 import { TanookiSuit } from './TanookiSuit';
+import { ThreeNumberBlock } from './ThreeNumberBlock';
+import { TwoNumberBlock } from './TwoNumberBlock';
 import { UndergroundBackground } from './UndergroundBackground';
 
 const resourceMap = {
@@ -24,6 +27,7 @@ const resourceMap = {
 	FrogSuit,
 	GiantVegetable,
 	KoopaShell,
+	OneNumberBlock,
 	ParaWing,
 	PoisonMushroom,
 	PWing,
@@ -31,6 +35,8 @@ const resourceMap = {
 	Shoe,
 	SmallVegetable,
 	TanookiSuit,
+	ThreeNumberBlock,
+	TwoNumberBlock,
 	UndergroundBackground,
 };
 

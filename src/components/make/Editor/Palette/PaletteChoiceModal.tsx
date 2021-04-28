@@ -317,6 +317,14 @@ const terrain: PaletteChoiceModalEntry[] = [
 
 const objects: PaletteChoiceModalEntry[] = [
 	{
+		entry: 'NumberBlock',
+		info: {
+			title: 'Number Block',
+			description:
+				'If the number is greater than zero, Mario can pick it up and spawn a new block',
+		},
+	},
+	{
 		entry: 'MetalMushroom',
 		info: {
 			title: 'Metal Mushroom',

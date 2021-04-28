@@ -47,6 +47,7 @@ import { MetalMushroom } from './MetalMushroom';
 import { Muncher } from './Muncher';
 import { Mushroom } from './Mushroom';
 import { MusicBlock } from './MusicBlock';
+import { NumberBlock } from './NumberBlock';
 import { OneUpMushroom } from './OneUpMushroom';
 import { ParaGoomba } from './ParaGoomba';
 import { Player } from './Player';
@@ -128,6 +129,7 @@ const entityMap = {
 	Muncher,
 	Mushroom,
 	MusicBlock,
+	NumberBlock,
 	OneUpMushroom,
 	PSwitch,
 	ParaGoomba,

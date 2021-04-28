@@ -1,6 +1,5 @@
 import type { Entity } from './types';
 import { getBankParam1 } from './util';
-import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
