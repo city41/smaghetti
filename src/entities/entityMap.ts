@@ -42,6 +42,7 @@ import { Leaf } from './Leaf';
 import { LogBridge } from './LogBridge';
 import { MagicBrick } from './MagicBrick';
 import { MetalDonutFloor } from './MetalDonutFloor';
+import { MetalMushroom } from './MetalMushroom';
 import { Muncher } from './Muncher';
 import { Mushroom } from './Mushroom';
 import { MusicBlock } from './MusicBlock';
@@ -121,6 +122,7 @@ const entityMap = {
 	LogBridge,
 	MagicBrick,
 	MetalDonutFloor,
+	MetalMushroom,
 	Muncher,
 	Mushroom,
 	MusicBlock,

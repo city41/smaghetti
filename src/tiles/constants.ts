@@ -27,6 +27,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	LogBridge: 'Lbg',
 	MagicBrick: 'Mgb',
 	MetalDonutFloor: 'Mdf',
+	MetalMushroom: 'Mm',
 	Muncher: 'Mu',
 	MusicBlock: 'Mb',
 	PSwitch: 'Ps',
