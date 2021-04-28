@@ -51,7 +51,7 @@ function main() {
 			if (levelSettings.length > 0) {
 				const graphicSet = levelSettings
 					.slice(16, 16 + 6)
-					.map(toHexString)
+					.map((v) => `0x${toHexString(v)}`)
 					.join(',');
 
 				const bucket = (levelSettingsMap[graphicSet] =
@@ -62,6 +62,12 @@ function main() {
 	});
 
 	console.log('unique graphic set count', Object.keys(levelSettingsMap).length);
+
+	const graphicSets = Object.keys(levelSettingsMap);
+
+	console.log('const ereaderGraphicSets = [');
+	console.log(graphicSets.map((gs) => `[${gs}]`).join(',\n'));
+	console.log('];');
 }
 
 main();
