@@ -32,6 +32,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	Muncher: 'Mu',
 	MusicBlock: 'Mb',
 	NumberBlock: 'Nb',
+	POWBlock: 'POW',
 	PSwitch: 'Ps',
 	QuestionBlock: '?',
 	Stalactite: 'St',

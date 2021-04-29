@@ -423,6 +423,13 @@ const objects: PaletteChoiceModalEntry[] = [
 
 const gizmos: PaletteChoiceModalEntry[] = [
 	{
+		entry: 'POWBlock',
+		info: {
+			title: 'POW Block',
+			description: '',
+		},
+	},
+	{
 		entry: 'SpringBoard',
 		info: {
 			title: 'Spring Board',
