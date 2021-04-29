@@ -510,6 +510,13 @@ const transports: PaletteChoiceModalEntry[] = [
 		},
 	},
 	{
+		entry: 'SimpleBlackDoor',
+		info: {
+			title: 'Simple Black Door',
+			description: '',
+		},
+	},
+	{
 		entry: 'WoodDoor',
 		info: {
 			title: 'Wood Door',
@@ -718,8 +725,8 @@ function PaletteChoiceModal({
 									Incompatible with the current room type.
 								</div>
 								<div className="text-xs">
-									This incompatibility is probably temporary. I need to figure
-									out how the game works.
+									This incompatibility may be temporary. I need to figure out
+									more on how the game works here. Stay tuned.
 								</div>
 							</div>
 						)}

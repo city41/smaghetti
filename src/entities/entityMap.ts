@@ -57,6 +57,7 @@ import { QuestionMark } from './QuestionMark';
 import { RedKoopaTroopa } from './RedKoopaTroopa';
 import { RedParaTroopa } from './RedParaTroopa';
 import { ShoeGoomba } from './ShoeGoomba';
+import { SimpleBlackDoor } from './SimpleBlackDoor';
 import { SpikeBall } from './SpikeBall';
 import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
@@ -139,6 +140,7 @@ const entityMap = {
 	RedKoopaTroopa,
 	RedParaTroopa,
 	ShoeGoomba,
+	SimpleBlackDoor,
 	SpikeBall,
 	Spiny,
 	SpringBoard,

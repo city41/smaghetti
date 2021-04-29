@@ -1,5 +1,5 @@
 type TileExtractionSpec = {
-	romOffset: number;
+	romOffset?: number;
 	tileIndex: number;
 	flip?: 'h' | 'v' | 'hv';
 	uncompressed?: boolean;

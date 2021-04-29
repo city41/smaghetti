@@ -160,7 +160,9 @@ function extractResourceTileData(
 			return tileIndexRow.map((t) => {
 				const tileIndex = typeof t === 'number' ? t : t.tileIndex;
 				const romOffset =
-					typeof t === 'number' ? resource.romOffset : t.romOffset;
+					typeof t === 'number'
+						? resource.romOffset
+						: t.romOffset ?? resource.romOffset;
 
 				if (typeof romOffset !== 'number') {
 					throw new Error('extractResourceToDataUrl: romOffset not specified');
