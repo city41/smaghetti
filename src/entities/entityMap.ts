@@ -5,6 +5,7 @@ import { Bobomb } from './Bobomb';
 import { BonyBeetle } from './BonyBeetle';
 import { Boo } from './Boo';
 import { BoomBoom } from './BoomBoom';
+import { BowserDoor } from './BowserDoor';
 import { BowserLaserStatue } from './BowserLaserStatue';
 import { Brick } from './Brick';
 import { Bubble } from './Bubble';
@@ -88,6 +89,7 @@ const entityMap = {
 	BonyBeetle,
 	Boo,
 	BoomBoom,
+	BowserDoor,
 	BowserLaserStatue,
 	Brick,
 	Bubble,

@@ -534,6 +534,13 @@ const transports: PaletteChoiceModalEntry[] = [
 
 const bastards: PaletteChoiceModalEntry[] = [
 	{
+		entry: 'BowserDoor',
+		info: {
+			title: 'Bowser Door',
+			description: '',
+		},
+	},
+	{
 		entry: 'GiantGoomba',
 		info: {
 			title: 'Giant Goomba',
