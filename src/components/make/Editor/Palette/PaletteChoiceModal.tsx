@@ -134,6 +134,13 @@ const enemies: PaletteChoiceModalEntry[] = [
 
 const terrain: PaletteChoiceModalEntry[] = [
 	{
+		entry: 'DonutBlock',
+		info: {
+			title: 'Donut Block',
+			description: 'Falls after standing on it for a bit',
+		},
+	},
+	{
 		entry: 'DiggableSand',
 		info: {
 			title: 'Diggable Sand',
