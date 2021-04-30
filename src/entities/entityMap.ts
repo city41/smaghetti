@@ -74,6 +74,7 @@ import { TexturedDoor } from './TexturedDoor';
 import { ThreeUpMoon } from './ThreeUpMoon';
 import { Thwimp } from './Thwimp';
 import { Thwomp } from './Thwomp';
+import { Tornado } from './Tornado';
 import { TriangularBlock } from './TriangularBlock';
 import { UndergroundFlatTerrain_HorizontalTop } from './UndergroundFlatTerrain_HorizontalTop';
 import { UndergroundFlatTerrain_UpperLeftCorner } from './UndergroundFlatTerrain_UpperLeftCorner';
@@ -163,6 +164,7 @@ const entityMap = {
 	ThreeUpMoon,
 	Thwimp,
 	Thwomp,
+	Tornado,
 	TriangularBlock,
 	UndergroundFlatTerrain_HorizontalTop,
 	UndergroundFlatTerrain_UpperLeftCorner,
