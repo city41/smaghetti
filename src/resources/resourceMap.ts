@@ -11,6 +11,7 @@ import { ParaWing } from './ParaWing';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PWing } from './PWing';
 import { RegularVegetable } from './RegularVegetable';
+import { SeeSawPivotPoint } from './SeeSawPivotPoint';
 import { Shoe } from './Shoe';
 import { SmallVegetable } from './SmallVegetable';
 import { TanookiSuit } from './TanookiSuit';
@@ -32,6 +33,7 @@ const resourceMap = {
 	PoisonMushroom,
 	PWing,
 	RegularVegetable,
+	SeeSawPivotPoint,
 	Shoe,
 	SmallVegetable,
 	TanookiSuit,
