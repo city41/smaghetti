@@ -3,13 +3,14 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
-const Mushroom: Entity = {
+const Clock: Entity = {
 	paletteCategory: 'power-up',
 	paletteInfo: {
-		title: 'Mushroom',
+		title: 'Clock',
+		description: 'It just stops the timer for a little bit. Shrug.',
 	},
 
-	objectId: 0xd,
+	objectId: 0xbf,
 	editorType: 'entity',
 	dimensions: 'none',
 
@@ -18,24 +19,24 @@ const Mushroom: Entity = {
 			0x7f96,
 			0x7fff,
 			0x18c6,
-			0x101a,
-			0x10bf,
-			0x125f,
-			0x25fd,
-			0x369e,
-			0x475f,
-			0x139f,
-			0x177,
-			0x21c,
-			0x29f,
-			0x47bf,
-			0x137f,
-			0x25f,
+			0x3192,
+			0x1636,
+			0x2a9c,
+			0x1f4,
+			0x29a,
+			0x37f,
+			0x42ff,
+			0x4a52,
+			0x6318,
+			0x77bd,
+			0x7ffb,
+			0x7fd2,
+			0x732c,
 		],
-		romOffset: 0x134104,
+		romOffset: 0x18af80,
 		tiles: [
-			[266, 267],
-			[298, 299],
+			[70, 71],
+			[102, 103],
 		],
 	},
 
@@ -45,7 +46,7 @@ const Mushroom: Entity = {
 
 	simpleRender(mw, mh) {
 		return (
-			<div className="Mushroom-bg bg-cover" style={{ width: mw, height: mh }} />
+			<div className="Clock-bg bg-cover" style={{ width: mw, height: mh }} />
 		);
 	},
 
@@ -54,4 +55,4 @@ const Mushroom: Entity = {
 	},
 };
 
-export { Mushroom };
+export { Clock };
