@@ -53,6 +53,7 @@ import { MusicBlock } from './MusicBlock';
 import { NumberBlock } from './NumberBlock';
 import { OneUpMushroom } from './OneUpMushroom';
 import { ParaGoomba } from './ParaGoomba';
+import { PileDriverMiniGoomba } from './PileDriverMiniGoomba';
 import { Player } from './Player';
 import { POWBlock } from './POWBlock';
 import { PowerUpSlotMachine } from './PowerUpSlotMachine';
@@ -144,6 +145,7 @@ const entityMap = {
 	OneUpMushroom,
 	PSwitch,
 	ParaGoomba,
+	PileDriverMiniGoomba,
 	Player,
 	POWBlock,
 	PowerUpSlotMachine,
