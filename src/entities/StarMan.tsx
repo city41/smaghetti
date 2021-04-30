@@ -6,6 +6,11 @@ import React from 'react';
 const OBJECT_ID = 0xc;
 
 const StarMan: Entity = {
+	paletteCategory: 'power-up',
+	paletteInfo: {
+		title: 'Star Man',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

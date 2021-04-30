@@ -7,6 +7,12 @@ import { TileSpace } from './TileSpace';
 const OBJECT_ID = 0x41;
 
 const CardSlotMachine: Entity = {
+	paletteCategory: 'object',
+	paletteInfo: {
+		title: 'Card Slot Machine',
+		description: 'Collecting the card is one way to complete a level',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

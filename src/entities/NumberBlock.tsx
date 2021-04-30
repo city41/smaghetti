@@ -9,6 +9,13 @@ import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const NumberBlock: Entity = {
+	paletteCategory: 'object',
+	paletteInfo: {
+		title: 'Number Block',
+		description:
+			'If the number is greater than zero, Mario can pick it up and create a new block',
+	},
+
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0x54,

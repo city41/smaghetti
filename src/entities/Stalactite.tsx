@@ -6,6 +6,11 @@ const OBJECT_ID = 0x49;
 
 // TODO: should this be called spike?
 const Stalactite: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Stalactite',
+	},
+
 	editorType: 'cell',
 	dimensions: 'none',
 

@@ -7,6 +7,12 @@ import { ResourceType } from '../resources/resourceMap';
 import { EntityType } from './entityMap';
 
 const Chest: Entity = {
+	paletteCategory: 'object',
+	paletteInfo: {
+		title: 'Chest',
+		description: 'Collecting a chest ends the level',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 	settingsType: 'single',

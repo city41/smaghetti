@@ -5,6 +5,12 @@ import { TileSpace } from './TileSpace';
 import React from 'react';
 
 const BowserLaserStatue: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Bowser Laser Statue',
+		description: "They can't shoot lasers just yet...",
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'entity',

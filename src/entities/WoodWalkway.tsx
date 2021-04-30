@@ -4,6 +4,11 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const WoodWalkway: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Wood Walkway',
+	},
+
 	editorType: 'cell',
 	dimensions: 'x',
 	objectId: 0x61,

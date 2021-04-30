@@ -4,6 +4,11 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const MagicBrick: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'A brick you can pick up and throw',
+	},
+
 	editorType: 'cell',
 	settingsType: 'single',
 	dimensions: 'xy',

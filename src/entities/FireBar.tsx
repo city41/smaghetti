@@ -6,6 +6,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 
 const FireBar: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Fire Bar',
+		description: 'round and round we go',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xb9,

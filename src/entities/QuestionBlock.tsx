@@ -8,6 +8,11 @@ import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const QuestionBlock: Entity = {
+	paletteCategory: 'object',
+	paletteInfo: {
+		title: 'Question Block',
+	},
+
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: {},

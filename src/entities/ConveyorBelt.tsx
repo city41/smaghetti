@@ -5,6 +5,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const ConveyorBelt: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Conveyor Belt',
+		description: 'Only goes in one direction so far...',
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',

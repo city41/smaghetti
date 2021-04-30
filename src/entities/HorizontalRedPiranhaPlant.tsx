@@ -9,6 +9,10 @@ import { TileSpace } from './TileSpace';
  * sprites into a single entity
  */
 const HorizontalRedPiranhaPlant: Entity = {
+	paletteInfo: {
+		title: 'Horizontal Red Piranha Plant',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xff,

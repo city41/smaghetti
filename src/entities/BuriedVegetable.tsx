@@ -8,6 +8,12 @@ import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const BuriedVegetable: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Buried Vegetable',
+		description: 'Can pull up all kinds of things...',
+	},
+
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: { payload: 'SmallVegetable' },

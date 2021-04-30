@@ -8,6 +8,11 @@ import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const Brick: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Brick',
+	},
+
 	editorType: 'cell',
 	settingsType: 'single',
 	dimensions: 'xy',

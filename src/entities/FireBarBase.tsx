@@ -4,6 +4,13 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const FireBarBase: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Fire Bar Base',
+		description:
+			'These can be the base of a fire bar, or just used on their own',
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',

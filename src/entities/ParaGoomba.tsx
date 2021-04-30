@@ -4,6 +4,11 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 
 const ParaGoomba: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Para Goomba',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x73,

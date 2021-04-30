@@ -8,6 +8,10 @@ import { TileSpace } from './TileSpace';
  * not compatible with any existing room types :(
  */
 const GiantGreenKoopa: Entity = {
+	paletteInfo: {
+		title: 'Giant Green Koopa',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x7a,

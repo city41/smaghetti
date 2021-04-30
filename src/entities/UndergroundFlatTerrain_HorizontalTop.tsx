@@ -4,6 +4,10 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const UndergroundFlatTerrain_HorizontalTop: Entity = {
+	paletteInfo: {
+		title: 'Underground Flat Terrain -- Horizontal Top',
+	},
+
 	editorType: 'cell',
 	dimensions: 'x',
 	param2: 'width',

@@ -3,6 +3,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const PSwitch: Entity = {
+	paletteCategory: 'gizmo',
+	paletteInfo: {
+		title: 'P-Switch',
+		description: 'Coins to bricks, bricks to coins, and other secrets...',
+	},
+
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x28,

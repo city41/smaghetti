@@ -8,6 +8,7 @@ import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
 import styles from './PaletteChoiceModal.module.css';
 import tabStyles from '../../../../styles/tabs.module.css';
 import { entityMap, EntityType } from '../../../../entities/entityMap';
+import { Entity } from '../../../../entities/types';
 
 type PaletteChoiceModalProps = {
 	isOpen: boolean;
@@ -21,603 +22,37 @@ type PaletteChoiceModalProps = {
 
 type PaletteChoiceModalEntry = {
 	entry: EntityType;
-	info: { title: string; description: ReactNode; limitationsId?: string };
+	info: { title: string; description?: ReactNode };
 };
 
-const enemies: PaletteChoiceModalEntry[] = [
-	{
-		entry: 'Goomba',
-		info: {
-			title: 'Goomba',
-			description: '',
-		},
-	},
-	{
-		entry: 'ParaGoomba',
-		info: {
-			title: 'Para Goomba',
-			description: '',
-		},
-	},
-	{
-		entry: 'ShoeGoomba',
-		info: {
-			title: 'Shoe Goomba',
-			description: 'Kuribo is the Japanese name for Goombas',
-		},
-	},
-	{
-		entry: 'GreenKoopaTroopa',
-		info: {
-			title: 'Green Koopa Troopa',
-			description: 'Walks in a straight line, only turns if hits a wall',
-		},
-	},
-	{
-		entry: 'GreenParaTroopa',
-		info: {
-			title: 'Green Para Troopa',
-			description: 'Bounces along',
-		},
-	},
-	{
-		entry: 'RedKoopaTroopa',
-		info: {
-			title: 'Red Koopa Troopa',
-			description: 'Turns around at cliffs',
-		},
-	},
-	{
-		entry: 'RedParaTroopa',
-		info: {
-			title: 'Red Para Troopa',
-			description: 'Flies up and down',
-		},
-	},
-	{
-		entry: 'Spiny',
-		info: {
-			title: 'Spiny',
-			description: '',
-		},
-	},
-	{
-		entry: 'BuzzyBeetle',
-		info: {
-			title: 'Buzzy Beetle',
-			description: '',
-		},
-	},
-	{
-		entry: 'Bobomb',
-		info: {
-			title: 'Bobomb',
-			description: '',
-		},
-	},
-	{
-		entry: 'Lakitu',
-		info: {
-			title: 'Lakitu',
-			description: "Dammit it's Lakitu!",
-		},
-	},
-	{
-		entry: 'Boo',
-		info: {
-			title: 'Boo',
-			description: '',
-		},
-	},
-	{
-		entry: 'BonyBeetle',
-		info: {
-			title: 'Bony Beetle',
-			description: '',
-		},
-	},
-	{
-		entry: 'Thwomp',
-		info: {
-			title: 'Thwomp',
-			description: '',
-		},
-	},
-	{
-		entry: 'Thwimp',
-		info: {
-			title: 'Thwimp',
-			description: '',
-		},
-	},
+type TabType = {
+	title: string;
+	category: Required<Entity>['paletteCategory'];
+};
+
+const devTabs: TabType[] = [{ title: 'Unfinished', category: 'unfinished' }];
+
+const tabs: TabType[] = [
+	{ title: 'Enemies', category: 'enemy' },
+	{ title: 'Terrain', category: 'terrain' },
+	{ title: 'Objects', category: 'object' },
+	{ title: 'Gizmos', category: 'gizmo' },
+	{ title: 'Power Ups', category: 'power-up' },
+	{ title: 'Bosses', category: 'boss' },
+	{ title: 'Warps', category: 'transport' },
+	...(process.env.NODE_ENV === 'production' ? [] : devTabs),
 ];
 
-const terrain: PaletteChoiceModalEntry[] = [
-	{
-		entry: 'DonutBlock',
-		info: {
-			title: 'Donut Block',
-			description: 'Falls after standing on it for a bit',
-		},
-	},
-	{
-		entry: 'DiggableSand',
-		info: {
-			title: 'Diggable Sand',
-			description: 'Mario can dig down through it',
-		},
-	},
-	{
-		entry: 'ArrowFloor',
-		info: {
-			title: 'Arrow Floor',
-			description: 'Just decoration',
-		},
-	},
-	{
-		entry: 'SpikeBall',
-		info: {
-			title: 'Spike Ball',
-			description: '',
-		},
-	},
-	{
-		entry: 'Brick',
-		info: {
-			title: 'Brick',
-			description: 'Flexible, can be terrain, smashed, and contain items',
-		},
-	},
-	{
-		entry: 'MagicBrick',
-		info: {
-			title: 'Magic Brick',
-			description: 'Pick it up and throw it!',
-		},
-	},
-	{
-		entry: 'IndestructibleBrick',
-		info: {
-			title: 'Indestructible Brick',
-			description: 'I always thought these looked like chocolate',
-		},
-	},
-	{
-		entry: 'TerracottaBrick',
-		info: {
-			title: 'Terracotta Brick',
-			description: '',
-		},
-	},
-	{
-		entry: 'GlassBlock',
-		info: {
-			title: 'Glass Block',
-			description: 'Not slippery',
-		},
-	},
-	{
-		entry: 'WoodBlock',
-		info: {
-			title: 'Wood Brick',
-			description: '',
-		},
-	},
-	{
-		entry: 'MetalDonutFloor',
-		info: {
-			title: 'Metal Donut Floor ',
-			description: 'Unlike regular donuts, these stay in place',
-		},
-	},
-	{
-		entry: 'WoodWalkway',
-		info: {
-			title: 'Wood Walkway',
-			description: '',
-		},
-	},
-	{
-		entry: 'MusicBlock',
-		info: {
-			title: 'Music Block',
-			description: 'Bouncy bounce, and can also contain items!',
-		},
-	},
-	{
-		entry: 'Muncher',
-		info: {
-			title: 'Muncher',
-			description: 'Small, but mighty.',
-		},
-	},
-	{
-		entry: 'Stalactite',
-		info: {
-			title: 'Stalactite',
-			description: '',
-		},
-	},
-	{
-		entry: 'BuriedVegetable',
-		info: {
-			title: 'Buried Vegetable',
-			description: 'Can pull up all kinds of things! Nice throwback to SMB2.',
-		},
-	},
-	{
-		entry: 'FortressBrick',
-		info: {
-			title: 'Fortress Brick',
-			description: '',
-		},
-	},
-	{
-		entry: 'Lava',
-		info: {
-			title: 'Lava',
-			description: '',
-		},
-	},
-	{
-		entry: 'UpFortressSpike',
-		info: {
-			title: 'Upward Fortress Spike',
-			description: '',
-		},
-	},
-	{
-		entry: 'DownFortressSpike',
-		info: {
-			title: 'Downward Fortress Spike',
-			description: '',
-		},
-	},
-	{
-		entry: 'FireBarBase',
-		info: {
-			title: 'Fire Bar Base',
-			description: (
-				<>
-					<p>Normally these are coupled with fire bars</p>
-					<p>But it is not required, and Mario can stand on them</p>
-				</>
-			),
-		},
-	},
-	{
-		entry: 'FireBar',
-		info: {
-			title: 'Fire Bar',
-			description: 'round and round we go',
-		},
-	},
-	{
-		entry: 'LogBridge',
-		info: {
-			title: 'Log Bridge',
-			description: '',
-		},
-	},
-	{
-		entry: 'YellowSwitchBrick',
-		info: {
-			title: 'Yellow Switch Brick',
-			description: 'Only solid while a yellow switch is active',
-		},
-	},
-	{
-		entry: 'ConveyorBelt',
-		info: {
-			title: 'Conveyor Belt',
-			description: '',
-		},
-	},
-	{
-		entry: 'BowserLaserStatue',
-		info: {
-			title: 'Bowser Laser Statue',
-			description: '',
-		},
-	},
-];
-
-const objects: PaletteChoiceModalEntry[] = [
-	{
-		entry: 'NumberBlock',
-		info: {
-			title: 'Number Block',
-			description:
-				'If the number is greater than zero, Mario can pick it up and spawn a new block',
-		},
-	},
-	{
-		entry: 'MetalMushroom',
-		info: {
-			title: 'Metal Mushroom',
-			description: 'Love the SMB2 stuff!',
-		},
-	},
-	{
-		entry: 'Coin',
-		info: {
-			title: 'Coin',
-			description: 'The ever present coin',
-		},
-	},
-	{
-		entry: 'AceCoin',
-		info: {
-			title: 'Advance Coin',
-			description:
-				'Special coins to search for. At most a level can have five of them.',
-		},
-	},
-	{
-		entry: 'CoinChallenge',
-		info: {
-			title: 'Coin Challenge',
-			description:
-				'Once Mario hits this, he is tasked with collecting a certain amount of coins. If he succeeds, he gets 3up.',
-		},
-	},
-	{
-		entry: 'Bubble',
-		info: {
-			title: 'Bubble',
-			description:
-				'Can put things inside of it, need to throw vegetables at it to get at the item.',
-		},
-	},
-	{
-		entry: 'QuestionBlock',
-		info: {
-			title: 'Question Block',
-			description: 'Can contain a coin, power up or other things',
-		},
-	},
-	{
-		entry: 'HiddenBlock',
-		info: {
-			title: 'Hidden Block',
-			description: 'Pretty much an invisible Question Block',
-		},
-	},
-	{
-		entry: 'CardSlotMachine',
-		info: {
-			title: 'Card Slot Machine',
-			description: 'Touching this completes the level.',
-		},
-	},
-	{
-		entry: 'QuestionMark',
-		info: {
-			title: 'Question Mark Ball',
-			description: 'Touching this completes the level.',
-		},
-	},
-	{
-		entry: 'TriangularBlock',
-		info: {
-			title: 'Triangular Block',
-			description: 'Lets Mario run up walls and ceilings',
-		},
-	},
-	{
-		entry: 'ArrowSign',
-		info: {
-			title: 'Arrow Sign',
-			description: 'Shows the way to go ... or not go?',
-		},
-	},
-	{
-		entry: 'Chest',
-		info: {
-			title: 'Chest',
-			description:
-				'Contain a power up. Mario finishes the level upon opening it.',
-		},
-	},
-];
-
-const gizmos: PaletteChoiceModalEntry[] = [
-	{
-		entry: 'POWBlock',
-		info: {
-			title: 'POW Block',
-			description: '',
-		},
-	},
-	{
-		entry: 'SpringBoard',
-		info: {
-			title: 'Spring Board',
-			description: 'Bounce high. Pick it up and move it if needed.',
-		},
-	},
-	{
-		entry: 'PSwitch',
-		info: {
-			title: 'P-Switch',
-			description: '',
-		},
-	},
-	{
-		entry: 'YellowSwitch',
-		info: {
-			title: 'Yellow Switch',
-			description: '',
-		},
-	},
-];
-
-const powerUps: PaletteChoiceModalEntry[] = [
-	{
-		entry: 'Mushroom',
-		info: {
-			title: 'Mushroom',
-			description: '',
-		},
-	},
-	{
-		entry: 'FireFlower',
-		info: {
-			title: 'Fire Flower',
-			description: '',
-		},
-	},
-	{
-		entry: 'Leaf',
-		info: {
-			title: 'Leaf',
-			description:
-				'Not great on its own, as it just floats off the screen. Probably better inside a brick.',
-		},
-	},
-	{
-		entry: 'CapeFeather',
-		info: {
-			title: 'Cape Feather',
-			description: 'The cape power-up from Super Mario World',
-		},
-	},
-	{
-		entry: 'StarMan',
-		info: {
-			title: 'Star Man',
-			description: 'I can hear the song now...',
-		},
-	},
-	{
-		entry: 'OneUpMushroom',
-		info: {
-			title: '1up Mushroom',
-			description: '',
-		},
-	},
-	{
-		entry: 'ThreeUpMoon',
-		info: {
-			title: '3up Moon',
-			description: '',
-		},
-	},
-];
-
-const bosses: PaletteChoiceModalEntry[] = [
-	{
-		entry: 'BoomBoom',
-		info: {
-			title: 'Boom Boom',
-			description: '',
-		},
-	},
-];
-
-const transports: PaletteChoiceModalEntry[] = [
-	{
-		entry: 'Key',
-		info: {
-			title: 'Key',
-			description: 'Use to unlock a door',
-		},
-	},
-	{
-		entry: 'SimpleBlackDoor',
-		info: {
-			title: 'Simple Black Door',
-			description: '',
-		},
-	},
-	{
-		entry: 'WoodDoor',
-		info: {
-			title: 'Wood Door',
-			description: '',
-		},
-	},
-	{
-		entry: 'TexturedDoor',
-		info: {
-			title: 'Textured Door',
-			description: '',
-		},
-	},
-];
-
-const bastards: PaletteChoiceModalEntry[] = [
-	{
-		entry: 'BowserDoor',
-		info: {
-			title: 'Bowser Door',
-			description: '',
-		},
-	},
-	{
-		entry: 'GiantGoomba',
-		info: {
-			title: 'Giant Goomba',
-			description: '',
-		},
-	},
-	{
-		entry: 'GiantGreenKoopa',
-		info: {
-			title: 'Giant Green Koopa',
-			description: '',
-		},
-	},
-	{
-		entry: 'HorizontalRedPiranhaPlant',
-		info: {
-			title: 'Horizontal Red Piranha Plant',
-			description: '',
-		},
-	},
-	{
-		entry: 'FlyingPiranhaPlant',
-		info: {
-			title: 'FPP',
-			description: '',
-		},
-	},
-	{
-		entry: 'Cactus',
-		info: {
-			title: 'Cactus',
-			description: '',
-		},
-	},
-	{
-		entry: 'LakituCloud',
-		info: {
-			title: 'Lakitu Cloud',
-			description: '',
-		},
-	},
-];
-
-const tabs = [
-	'Enemies',
-	'Terrain',
-	'Objects',
-	'Gizmos',
-	'Power Ups',
-	'Bosses',
-	'Warps',
-	...(process.env.NODE_ENV === 'production' ? [] : ['Bastards']),
-];
-const entries = [
-	enemies,
-	terrain,
-	objects,
-	gizmos,
-	powerUps,
-	bosses,
-	transports,
-	...(process.env.NODE_ENV === 'production' ? [] : [bastards]),
-];
+const entries: PaletteChoiceModalEntry[][] = tabs.map((t) => {
+	return Object.entries(entityMap)
+		.filter((e) => (e[1].paletteCategory ?? 'unfinished') === t.category)
+		.map((e) => {
+			return {
+				entry: e[0] as EntityType,
+				info: e[1].paletteInfo,
+			};
+		});
+});
 
 function isCompatible(
 	type: EntityType,
@@ -678,7 +113,7 @@ function PaletteChoiceModal({
 					<div className={clsx(tabStyles.tabs, '-mt-3')}>
 						{tabs.map((t, i) => (
 							<li
-								key={t}
+								key={t.category}
 								className={clsx({
 									[tabStyles.currentTab]: i === currentTabIndex,
 								})}
@@ -687,7 +122,7 @@ function PaletteChoiceModal({
 									setCurrentEntryIndex(0);
 								}}
 							>
-								{t}
+								{t.title}
 							</li>
 						))}
 					</div>
@@ -722,7 +157,7 @@ function PaletteChoiceModal({
 							})}
 						{currentEntries.length === 0 && (
 							<div className={styles.noEntries}>
-								No {tabs[currentTabIndex].toLowerCase()} yet!
+								No {tabs[currentTabIndex].title.toLowerCase()} yet!
 							</div>
 						)}
 					</div>

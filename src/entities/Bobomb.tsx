@@ -9,6 +9,11 @@ import { TILE_SIZE } from '../tiles/constants';
 const OBJECT_ID = 0x55;
 
 const Bobomb: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Bobomb',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

@@ -8,6 +8,11 @@ import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const WoodBlock: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Wood Block',
+	},
+
 	editorType: 'cell',
 	settingsType: 'single',
 	dimensions: 'xy',

@@ -8,6 +8,13 @@ import { TileSpace } from './TileSpace';
 const OBJECT_ID = 0xfa;
 
 const AceCoin: Entity = {
+	paletteCategory: 'object',
+	paletteInfo: {
+		title: 'Advance Coin',
+		description:
+			'Special coins to search for. At most a level can have five of them.',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

@@ -12,6 +12,10 @@ import { TileSpace } from './TileSpace';
 const OBJECT_ID = 0xd8;
 
 const FlyingPiranhaPlant: Entity = {
+	paletteInfo: {
+		title: 'Flying Piranha Plant',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

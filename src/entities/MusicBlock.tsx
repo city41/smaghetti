@@ -8,6 +8,11 @@ import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const MusicBlock: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Music Block',
+	},
+
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: {},

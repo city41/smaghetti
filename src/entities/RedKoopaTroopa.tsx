@@ -7,6 +7,11 @@ import React from 'react';
 const OBJECT_ID = 0x6d;
 
 const RedKoopaTroopa: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Red Koopa Troopa',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

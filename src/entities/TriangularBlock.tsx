@@ -13,6 +13,11 @@ const angleToObjectId: Record<number, number> = {
 };
 
 const TriangularBlock: Entity = {
+	paletteCategory: 'object',
+	paletteInfo: {
+		title: 'Triangular Block',
+	},
+
 	// TODO: this should probably be entity
 	editorType: 'cell',
 	settingsType: 'single',

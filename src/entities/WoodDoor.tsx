@@ -11,6 +11,11 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 const DOOR_LOCK_OBJECT_ID = 0xce;
 
 const WoodDoor: Entity = {
+	paletteCategory: 'transport',
+	paletteInfo: {
+		title: 'Wood Door',
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.underground.objectGraphicSet],
 	editorType: 'entity',

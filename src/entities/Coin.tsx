@@ -4,6 +4,11 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const Coin: Entity = {
+	paletteCategory: 'object',
+	paletteInfo: {
+		title: 'Coin',
+	},
+
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0x16,

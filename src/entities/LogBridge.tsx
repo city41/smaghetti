@@ -5,6 +5,11 @@ import React from 'react';
 import { TileSpace } from './TileSpace';
 
 const LogBridge: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Log Bridge',
+	},
+
 	editorType: 'cell',
 	dimensions: 'x',
 	objectId: 0x21,

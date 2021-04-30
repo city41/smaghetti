@@ -8,6 +8,13 @@ import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const Bubble: Entity = {
+	paletteCategory: 'object',
+	paletteInfo: {
+		title: 'Bubble',
+		description:
+			'A cool SMA4 exclusive. Throw vegetables at it three times to release the item.',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xdb,

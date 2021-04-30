@@ -6,6 +6,12 @@ import React from 'react';
 const OBJECT_ID = 0xbb;
 
 const SpringBoard: Entity = {
+	paletteCategory: 'gizmo',
+	paletteInfo: {
+		title: 'Spring Board',
+		description: 'Mario can carry it around',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

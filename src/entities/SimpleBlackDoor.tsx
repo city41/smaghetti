@@ -10,6 +10,11 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 const DOOR_LOCK_OBJECT_ID = 0xce;
 
 const SimpleBlackDoor: Entity = {
+	paletteCategory: 'transport',
+	paletteInfo: {
+		title: 'Simple Black Door',
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'entity',

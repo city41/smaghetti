@@ -6,6 +6,11 @@ import React from 'react';
 const OBJECT_ID = 0x71;
 
 const Spiny: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Spiny',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

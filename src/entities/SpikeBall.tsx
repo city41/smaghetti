@@ -4,6 +4,11 @@ import React from 'react';
 import { TileSpace } from './TileSpace';
 
 const SpikeBall: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Spike Ball',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x4d,

@@ -4,6 +4,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const YellowSwitchBrick: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Yellow Switch Brick',
+		description: 'Become solid when a yellow switch is active',
+	},
+
 	editorType: 'cell',
 	dimensions: 'x',
 	objectId: 0x56,

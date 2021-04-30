@@ -7,6 +7,11 @@ import React from 'react';
 const OBJECT_ID = 0x2b;
 
 const ShoeGoomba: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Shoe Goomba',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

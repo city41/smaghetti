@@ -5,6 +5,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const DonutBlock: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Donut Block',
+		description: "After they fall, they don't respawn in this game",
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',

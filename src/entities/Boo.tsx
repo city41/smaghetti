@@ -5,6 +5,11 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const Boo: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Boo',
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'entity',

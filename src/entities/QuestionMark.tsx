@@ -10,6 +10,12 @@ import React from 'react';
 const OBJECT_ID = 0x4a;
 
 const QuestionMark: Entity = {
+	paletteCategory: 'object',
+	paletteInfo: {
+		title: 'Magic Question Mark Ball',
+		description: 'Touching this completes the level',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

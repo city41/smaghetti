@@ -11,6 +11,13 @@ import React from 'react';
  * TODO: details panel allowing user to specify the coin number. so far hardcoded to 100
  */
 const CoinChallenge: Entity = {
+	paletteCategory: 'object',
+	paletteInfo: {
+		title: 'Coin Challenge',
+		description:
+			'If the player hits it, they are challenged to collect a certain number of coins. If they succeed, they get 3 lives',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xfd,

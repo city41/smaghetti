@@ -6,6 +6,11 @@ import React from 'react';
 const OBJECT_ID = 0x1a;
 
 const Key: Entity = {
+	paletteCategory: 'transport',
+	paletteInfo: {
+		title: 'Key',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

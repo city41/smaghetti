@@ -5,6 +5,11 @@ import React from 'react';
 const OBJECT_ID = 0x15;
 
 const Muncher: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Muncher',
+	},
+
 	editorType: 'cell',
 	dimensions: 'none',
 

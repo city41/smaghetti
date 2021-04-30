@@ -7,6 +7,11 @@ import { TileSpace } from './TileSpace';
 const OBJECT_ID = 0x6c;
 
 const GreenKoopaTroopa: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Green Koopa Troopa',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

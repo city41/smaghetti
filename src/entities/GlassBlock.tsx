@@ -5,6 +5,11 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const GlassBlock: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Glass Block',
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.underground.objectGraphicSet],
 	editorType: 'cell',

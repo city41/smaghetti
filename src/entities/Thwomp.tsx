@@ -6,6 +6,11 @@ import { TileSpace } from './TileSpace';
 import React from 'react';
 
 const Thwomp: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Thwomp',
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'entity',

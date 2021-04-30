@@ -4,6 +4,11 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const FireFlower: Entity = {
+	paletteCategory: 'power-up',
+	paletteInfo: {
+		title: 'Fire Flower',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x19,

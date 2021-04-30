@@ -5,6 +5,11 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const FortressBrick: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Fortress Brick',
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',

@@ -6,6 +6,12 @@ import React from 'react';
 const OBJECT_ID = 0xda;
 
 const CapeFeather: Entity = {
+	paletteCategory: 'power-up',
+	paletteInfo: {
+		title: 'Cape Feather',
+		description: 'From Super Mario World',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

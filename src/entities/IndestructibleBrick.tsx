@@ -4,6 +4,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const IndestructibleBrick: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Indestructible Brick',
+		description: 'Kinda looks like chocolate',
+	},
+
 	editorType: 'cell',
 	dimensions: 'y',
 	param1: 'height',

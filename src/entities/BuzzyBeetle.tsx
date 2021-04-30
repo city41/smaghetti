@@ -6,6 +6,11 @@ import React from 'react';
 const OBJECT_ID = 0x70;
 
 const BuzzyBeetle: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Buzzy Beetle',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

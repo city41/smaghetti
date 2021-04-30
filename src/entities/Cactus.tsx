@@ -7,6 +7,10 @@ import React from 'react';
  * Does not work in current fortress/underground rooms
  */
 const Cactus: Entity = {
+	paletteInfo: {
+		title: 'Cactus',
+	},
+
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

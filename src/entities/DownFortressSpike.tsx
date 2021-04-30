@@ -5,6 +5,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const DownFortressSpike: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Fortress Spike',
+		description: 'Pointing down',
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',

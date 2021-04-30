@@ -5,6 +5,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const MetalDonutFloor: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Metal Donut Floor',
+		description: "These don't fall away",
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',

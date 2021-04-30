@@ -7,6 +7,10 @@ import React from 'react';
  * Does not work in current fortress/underground rooms
  */
 const LakituCloud: Entity = {
+	paletteInfo: {
+		title: 'Lakitu Cloud',
+	},
+
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

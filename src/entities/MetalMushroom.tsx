@@ -4,6 +4,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const MetalMushroom: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Metal Mushroom',
+		description: 'Pick up and build structures or throw them at enemies',
+	},
+
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0x51,

@@ -7,6 +7,11 @@ import React from 'react';
 const OBJECT_ID = 0x6e;
 
 const GreenParaTroopa: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Green Para Troopa',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, ReactNode } from 'react';
 import { Resource } from '../resources/types';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
@@ -15,6 +15,24 @@ type Entity = {
 	 */
 	graphicSets?: number[];
 	editorType: 'entity' | 'cell';
+	/**
+	 * When placing this entity in the palette choice modal, which category should it go under.
+	 * If this is absent, the entity will be placed in "unfinished"
+	 */
+	paletteCategory?:
+		| 'enemy'
+		| 'terrain'
+		| 'object'
+		| 'gizmo'
+		| 'power-up'
+		| 'boss'
+		| 'transport'
+		| 'unfinished';
+	paletteInfo: {
+		title: string;
+		description?: ReactNode;
+	};
+
 	dimensions: 'none' | 'x' | 'y' | 'xy';
 
 	width?: number;

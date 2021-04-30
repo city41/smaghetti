@@ -8,6 +8,10 @@ import { TileSpace } from './TileSpace';
  * not compatible with any existing room types :(
  */
 const GiantGoomba: Entity = {
+	paletteInfo: {
+		title: 'Giant Goomba',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x7c,

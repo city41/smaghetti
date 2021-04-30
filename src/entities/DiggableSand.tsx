@@ -4,6 +4,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const DiggableSand: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Diggable Sand',
+		description: 'Mario can dig through it',
+	},
+
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0x6a,

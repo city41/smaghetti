@@ -5,6 +5,11 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const Thwimp: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Thwimp',
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'entity',

@@ -13,6 +13,12 @@ const payloadToObjectId = {
 };
 
 const HiddenBlock: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Hidden Block',
+		description: 'Basically an invisible question block',
+	},
+
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: { payload: 'MusicBlock' },

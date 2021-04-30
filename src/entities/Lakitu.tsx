@@ -7,6 +7,12 @@ import React from 'react';
 const OBJECT_ID = 0x83;
 
 const Lakitu: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Lakitu',
+		description: "Dammit, it's lakitu...",
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

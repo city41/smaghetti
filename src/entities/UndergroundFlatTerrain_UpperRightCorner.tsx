@@ -3,6 +3,10 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const UndergroundFlatTerrain_UpperRightCorner: Entity = {
+	paletteInfo: {
+		title: 'Underground Flat Terrain -- Upper Right Corner',
+	},
+
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x4,

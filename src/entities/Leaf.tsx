@@ -6,6 +6,11 @@ import React from 'react';
 const OBJECT_ID = 0x1e;
 
 const Leaf: Entity = {
+	paletteCategory: 'power-up',
+	paletteInfo: {
+		title: 'Leaf',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

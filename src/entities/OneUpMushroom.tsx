@@ -6,6 +6,11 @@ import React from 'react';
 const OBJECT_ID = 0xb;
 
 const OneUpMushroom: Entity = {
+	paletteCategory: 'power-up',
+	paletteInfo: {
+		title: 'One Up Mushroom',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

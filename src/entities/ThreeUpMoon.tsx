@@ -6,6 +6,11 @@ import React from 'react';
 const OBJECT_ID = 0xa;
 
 const ThreeUpMoon: Entity = {
+	paletteCategory: 'power-up',
+	paletteInfo: {
+		title: 'Three Up Moon',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

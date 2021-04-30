@@ -3,6 +3,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const POWBlock: Entity = {
+	paletteCategory: 'gizmo',
+	paletteInfo: {
+		title: 'POW Block',
+		description: 'Kills all enemies on the screen',
+	},
+
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x59,

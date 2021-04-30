@@ -13,6 +13,11 @@ const directionToObjectId = {
 };
 
 const ArrowSign: Entity = {
+	paletteCategory: 'object',
+	paletteInfo: {
+		title: 'Arrow Sign',
+	},
+
 	editorType: 'entity',
 	settingsType: 'single',
 	dimensions: 'none',

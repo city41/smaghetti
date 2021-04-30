@@ -9,6 +9,11 @@ import { simpleSpriteBinary } from './util';
 const DOOR_LOCK_OBJECT_ID = 0xce;
 
 const TexturedDoor: Entity = {
+	paletteCategory: 'transport',
+	paletteInfo: {
+		title: 'Textured Door',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x46,

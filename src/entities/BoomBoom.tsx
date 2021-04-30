@@ -10,6 +10,11 @@ import { TileSpace } from './TileSpace';
 const OBJECT_ID = 0x4b;
 
 const BoomBoom: Entity = {
+	paletteCategory: 'boss',
+	paletteInfo: {
+		title: 'Boom Boom',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

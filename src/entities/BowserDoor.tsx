@@ -17,6 +17,10 @@ const DOOR_LOCK_OBJECT_ID = 0xce;
  * a random object that happened to use bowser door tiles
  */
 const BowserDoor: Entity = {
+	paletteInfo: {
+		title: 'Bowser Door',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x43,

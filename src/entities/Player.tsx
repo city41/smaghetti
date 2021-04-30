@@ -7,6 +7,10 @@ import React from 'react';
  * side, but on the editor side it acts like a sprite
  */
 const Player: Entity = {
+	paletteInfo: {
+		title: 'Player',
+	},
+
 	editorType: 'entity',
 	dimensions: 'none',
 

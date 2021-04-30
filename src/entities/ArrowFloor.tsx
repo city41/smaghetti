@@ -7,6 +7,12 @@ import React from 'react';
  * Does not work in current fortress/underground rooms
  */
 const ArrowFloor: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Arrow Floor',
+		description: 'The arrows are just decoration',
+	},
+
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

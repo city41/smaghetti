@@ -4,6 +4,11 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const TerracottaBrick: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Terracotta Brick',
+	},
+
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0x5f,

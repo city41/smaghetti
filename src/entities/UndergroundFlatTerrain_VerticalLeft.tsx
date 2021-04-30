@@ -4,6 +4,10 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const UndergroundFlatTerrain_VerticalLeft: Entity = {
+	paletteInfo: {
+		title: 'Underground Flat Terrain -- Vertical Left',
+	},
+
 	editorType: 'cell',
 	dimensions: 'y',
 	param1: 'height',

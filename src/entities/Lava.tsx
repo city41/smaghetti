@@ -23,6 +23,11 @@ function isLavaAbove(
 }
 
 const Lava: Entity = {
+	paletteCategory: 'terrain',
+	paletteInfo: {
+		title: 'Lava',
+	},
+
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',
