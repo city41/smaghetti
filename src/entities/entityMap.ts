@@ -55,6 +55,7 @@ import { OneUpMushroom } from './OneUpMushroom';
 import { ParaGoomba } from './ParaGoomba';
 import { Player } from './Player';
 import { POWBlock } from './POWBlock';
+import { PowerUpSlotMachine } from './PowerUpSlotMachine';
 import { PSwitch } from './PSwitch';
 import { QuestionBlock } from './QuestionBlock';
 import { QuestionMark } from './QuestionMark';
@@ -143,6 +144,7 @@ const entityMap = {
 	ParaGoomba,
 	Player,
 	POWBlock,
+	PowerUpSlotMachine,
 	QuestionBlock,
 	QuestionMark,
 	RedKoopaTroopa,
