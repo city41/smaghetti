@@ -20,6 +20,7 @@ import { useFirstRender } from '../../../hooks/useFirstRender';
 
 import styles from './Editor.module.css';
 import { LoadingBar } from '../../LoadingBar';
+import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
 
 type EditorProps = {
 	noScript?: boolean;
@@ -144,6 +145,9 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 							<Palette className="col-span-9" disabled={isPlaying} />
 							<MetadataMenu className="col-span-3" disabled={isPlaying} />
 						</div>
+					</div>
+					<div className="fixed right-0 bottom-20 pointer-events-auto z-10">
+						<EarlyPreviewStarburst />
 					</div>
 					<PageMenu className="fixed right-0 bottom-0 pointer-events-auto" />
 				</div>

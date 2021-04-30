@@ -55,6 +55,11 @@ function deserializeRoom(
 			}
 
 			const type = TILE_SERIALIZED_ID_TO_TYPE_MAP[cell];
+
+			if (!type) {
+				return null;
+			}
+
 			const tileSettings = room.matrixEntitySettings.find(
 				(f) => f.x === x && f.y === y
 			);
