@@ -3,6 +3,7 @@ import { getBankParam1 } from './util';
 import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ResizeEditDetails } from '../components/details/ResizeEditDetails';
 
 const ConveyorBelt: Entity = {
 	paletteCategory: 'terrain',
@@ -13,8 +14,10 @@ const ConveyorBelt: Entity = {
 
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
-	editorType: 'cell',
-	dimensions: 'x',
+	editorType: 'entity',
+	settingsType: 'single',
+	defaultSettings: { width: 1, height: 1 },
+	dimensions: 'none',
 	param1: 'width',
 	objectId: 0x32,
 	emptyBank: 1,
@@ -45,8 +48,9 @@ const ConveyorBelt: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w) {
-		return [getBankParam1(1, w), y, x, this.objectId!];
+	toObjectBinary(x, y, _w, _h, settings) {
+		const width = settings.width ?? 1;
+		return [getBankParam1(1, width - 1), y, x, this.objectId!];
 	},
 
 	simpleRender(mw, mh) {
@@ -58,8 +62,30 @@ const ConveyorBelt: Entity = {
 		);
 	},
 
-	render() {
-		return this.simpleRender!(TILE_SIZE, TILE_SIZE);
+	render(showDetails, settings, onSettingsChange) {
+		const width = settings.width ?? 1;
+
+		const style = {
+			width: width * TILE_SIZE,
+			height: TILE_SIZE,
+		};
+
+		const body = <div className="ConveyorBelt-bg" style={style} />;
+
+		if (showDetails) {
+			return (
+				<ResizeEditDetails
+					width={TILE_SIZE}
+					height={TILE_SIZE}
+					currentWidth={width}
+					onResizeChange={(newWidth) => onSettingsChange({ width: newWidth })}
+				>
+					{body}
+				</ResizeEditDetails>
+			);
+		} else {
+			return body;
+		}
 	},
 };
 

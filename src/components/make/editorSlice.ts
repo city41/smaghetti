@@ -1411,8 +1411,6 @@ const editorSlice = createSlice({
 					...entity.settings,
 					...settings,
 				};
-
-				state.focused = {};
 			} else {
 				const cell = findCellEntity(getCurrentRoom(state).matrix, id);
 
@@ -1421,8 +1419,6 @@ const editorSlice = createSlice({
 						...cell.settings,
 						...settings,
 					};
-
-					state.focused = {};
 				}
 			}
 		},
