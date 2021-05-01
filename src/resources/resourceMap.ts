@@ -16,6 +16,8 @@ import { Shoe } from './Shoe';
 import { SmallVegetable } from './SmallVegetable';
 import { TanookiSuit } from './TanookiSuit';
 import { ThreeNumberBlock } from './ThreeNumberBlock';
+import { TiltPlatformBall } from './TiltPlatformBall';
+import { TiltPlatformPivot } from './TiltPlatformPivot';
 import { TwoNumberBlock } from './TwoNumberBlock';
 import { UndergroundBackground } from './UndergroundBackground';
 
@@ -38,6 +40,8 @@ const resourceMap = {
 	SmallVegetable,
 	TanookiSuit,
 	ThreeNumberBlock,
+	TiltPlatformBall,
+	TiltPlatformPivot,
 	TwoNumberBlock,
 	UndergroundBackground,
 };
