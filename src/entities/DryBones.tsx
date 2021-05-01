@@ -8,7 +8,6 @@ import React from 'react';
  * not compatible with any existing room types :(
  */
 const DryBones: Entity = {
-	paletteCategory: 'enemy',
 	paletteInfo: {
 		title: 'Dry Bones',
 	},
