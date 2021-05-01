@@ -92,7 +92,7 @@ type Entity = {
 		onSettingsChange: (newSettings: EditorEntitySettings) => void,
 		entity?: EditorEntity,
 		matrix?: EditorEntityMatrix
-	) => ReactElement;
+	) => ReactElement | null;
 };
 
 export type { Entity };

@@ -70,6 +70,7 @@ import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
 import { Stalactite } from './Stalactite';
 import { StarMan } from './StarMan';
+import { StretchBlock } from './StretchBlock';
 import { TerracottaBrick } from './TerracottaBrick';
 import { TexturedDoor } from './TexturedDoor';
 import { ThreeUpMoon } from './ThreeUpMoon';
@@ -161,6 +162,7 @@ const entityMap = {
 	SpringBoard,
 	Stalactite,
 	StarMan,
+	StretchBlock,
 	TerracottaBrick,
 	TexturedDoor,
 	ThreeUpMoon,
