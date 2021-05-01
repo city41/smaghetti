@@ -5,7 +5,7 @@ import React from 'react';
 import { TileSpace } from './TileSpace';
 
 const TiltPlatform: Entity = {
-	paletteCategory: 'terrain',
+	paletteCategory: 'gizmo',
 	paletteInfo: {
 		title: 'Tilt Platform',
 		description: 'Tilts slowly depending on which side Mario is standing on',

@@ -5,7 +5,7 @@ import React from 'react';
 import { TileSpace } from './TileSpace';
 
 const FallAwayPlatform: Entity = {
-	paletteCategory: 'terrain',
+	paletteCategory: 'gizmo',
 	paletteInfo: {
 		title: 'Fall Away Platform',
 		description: 'Whenever Mario is standing on this platform, it falls',
