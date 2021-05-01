@@ -64,6 +64,7 @@ import { RedKoopaTroopa } from './RedKoopaTroopa';
 import { RedParaTroopa } from './RedParaTroopa';
 import { SeeSawPlatform } from './SeeSawPlatform';
 import { ShoeGoomba } from './ShoeGoomba';
+import { SilverPSwitch } from './SilverPSwitch';
 import { SimpleBlackDoor } from './SimpleBlackDoor';
 import { SpikeBall } from './SpikeBall';
 import { Spiny } from './Spiny';
@@ -156,6 +157,7 @@ const entityMap = {
 	RedParaTroopa,
 	SeeSawPlatform,
 	ShoeGoomba,
+	SilverPSwitch,
 	SimpleBlackDoor,
 	SpikeBall,
 	Spiny,
