@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 
 /**
  * A question mark icon that once touched, completes the level.
@@ -15,6 +16,9 @@ const QuestionMark: Entity = {
 		title: 'Magic Question Mark Ball',
 		description: 'Touching this completes the level',
 	},
+
+	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
+	graphicSets: [ROOM_TYPE_SETTINGS.underground.objectGraphicSet],
 
 	editorType: 'entity',
 	dimensions: 'none',
