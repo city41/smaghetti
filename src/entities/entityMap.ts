@@ -24,6 +24,7 @@ import { DiggableSand } from './DiggableSand';
 import { DonutBlock } from './DonutBlock';
 import { DownFortressSpike } from './DownFortressSpike';
 import { DryBones } from './DryBones';
+import { FallAwayPlatform } from './FallAwayPlatform';
 import { FireBar } from './FireBar';
 import { FireBarBase } from './FireBarBase';
 import { FireFlower } from './FireFlower';
@@ -118,6 +119,7 @@ const entityMap = {
 	DonutBlock,
 	DownFortressSpike,
 	DryBones,
+	FallAwayPlatform,
 	FireBar,
 	FireBarBase,
 	FireFlower,
