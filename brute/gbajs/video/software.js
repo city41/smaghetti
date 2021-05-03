@@ -1906,7 +1906,8 @@ GameBoyAdvanceSoftwareRenderer.prototype.drawScanline = function (y) {
 	// Draw lower priority first and then draw over them
 	for (var i = 0; i < this.drawLayers.length; ++i) {
 		layer = this.drawLayers[i];
-		if (!layer.enabled || layer !== this.bg[1]) {
+		if (!layer.enabled) {
+			//|| layer === this.objLayers[1]) {
 			continue;
 		}
 		this.objwinActive = false;

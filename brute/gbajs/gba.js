@@ -50,7 +50,7 @@ const goIntoLevelScript = [
 		// a dummy input because callbackWithStatus
 		// can't have frameDelay
 		description: 'A to confirm first level',
-		frameDelay: 60 * 7,
+		frameDelay: 60 * 4,
 		input: A_BUTTON,
 	},
 	{
