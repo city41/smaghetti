@@ -180,11 +180,11 @@ function PaletteChoiceModal({
 						) && (
 							<div className="space-y-3">
 								<div className="mt-4 text-red-500 font-bold">
-									Incompatible with the current room
+									Incompatible with other added entities
 								</div>
 								<div className="text-xs">
-									This entity is not compatible with the current room and
-									can&apos;t be added.
+									This entity is not compatible with other entities that you
+									have placed in the room
 								</div>
 								<a
 									className="text-xs text-blue-500"
