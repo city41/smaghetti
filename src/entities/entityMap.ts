@@ -16,6 +16,7 @@ import { BuzzyBeetle } from './BuzzyBeetle';
 import { Cactus } from './Cactus';
 import { CapeFeather } from './CapeFeather';
 import { CardSlotMachine } from './CardSlotMachine';
+import { ChainChomp } from './ChainChomp';
 import { Clock } from './Clock';
 import { Chest } from './Chest';
 import { Coin } from './Coin';
@@ -120,6 +121,7 @@ const entityMap = {
 	Cactus,
 	CapeFeather,
 	CardSlotMachine,
+	ChainChomp,
 	Clock,
 	Chest,
 	Coin,
