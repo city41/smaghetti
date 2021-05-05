@@ -73,6 +73,7 @@ import { SeeSawPlatform } from './SeeSawPlatform';
 import { ShoeGoomba } from './ShoeGoomba';
 import { SilverPSwitch } from './SilverPSwitch';
 import { SimpleBlackDoor } from './SimpleBlackDoor';
+import { SledgeBro } from './SledgeBro';
 import { SpikeBall } from './SpikeBall';
 import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
@@ -174,6 +175,7 @@ const entityMap = {
 	ShoeGoomba,
 	SilverPSwitch,
 	SimpleBlackDoor,
+	SledgeBro,
 	SpikeBall,
 	Spiny,
 	SpringBoard,
