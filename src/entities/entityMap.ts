@@ -78,6 +78,7 @@ import { ShoeGoomba } from './ShoeGoomba';
 import { SilverPSwitch } from './SilverPSwitch';
 import { SimpleBlackDoor } from './SimpleBlackDoor';
 import { SledgeBro } from './SledgeBro';
+import { Spike } from './Spike';
 import { SpikeBall } from './SpikeBall';
 import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
@@ -184,6 +185,7 @@ const entityMap = {
 	SilverPSwitch,
 	SimpleBlackDoor,
 	SledgeBro,
+	Spike,
 	SpikeBall,
 	Spiny,
 	SpringBoard,
