@@ -708,26 +708,31 @@ function updateValidEntityTypes(room: RoomState) {
 	}, []);
 
 	const allSprites = spriteEntities.concat(spriteCells);
-	const currentGraphicSetNumbers = determineValidGraphicSetValues(allSprites);
 
-	room.validEntityTypes = Object.keys(entityMap).filter((type) => {
-		const def = entityMap[type as EntityType];
-		if (!def.toSpriteBinary) {
-			return true;
-		}
+	if (allSprites.length === 0) {
+		room.validEntityTypes = Object.keys(entityMap) as EntityType[];
+	} else {
+		const currentGraphicSetNumbers = determineValidGraphicSetValues(allSprites);
 
-		if (!def.spriteGraphicSets) {
-			return true;
-		}
+		room.validEntityTypes = Object.keys(entityMap).filter((type) => {
+			const def = entityMap[type as EntityType];
+			if (!def.toSpriteBinary) {
+				return true;
+			}
 
-		if (
-			isGraphicSetCompatible(def.spriteGraphicSets, currentGraphicSetNumbers)
-		) {
-			return true;
-		}
+			if (!def.spriteGraphicSets) {
+				return true;
+			}
 
-		return false;
-	}) as EntityType[];
+			if (
+				isGraphicSetCompatible(def.spriteGraphicSets, currentGraphicSetNumbers)
+			) {
+				return true;
+			}
+
+			return false;
+		}) as EntityType[];
+	}
 
 	room.paletteEntries = room.paletteEntries.filter((pe) =>
 		room.validEntityTypes.includes(pe)
