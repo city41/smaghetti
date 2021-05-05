@@ -8,7 +8,8 @@ const Bowser: Entity = {
 	paletteCategory: 'boss',
 	paletteInfo: {
 		title: ' Bowser',
-		description: 'SMB3 style Bowser',
+		description:
+			'SMB3 style Bowser. Be sure to user bowser bricks as the flooring, they are the only kind he can smash through.',
 	},
 
 	// TODO: see if this can be loosened. Also might need to change
