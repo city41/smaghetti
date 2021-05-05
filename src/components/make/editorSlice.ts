@@ -1592,7 +1592,8 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 // 3.1.0: added room settings
 // 3.1.1: room settings: spriteGraphicSet
 // 4.0.0: transports no longer separate, but rather settings on doors/pipes
-const LOCALSTORAGE_KEY = 'smaghetti_4.0.0';
+// 4.0.1: sprite graphic sets
+const LOCALSTORAGE_KEY = 'smaghetti_4.0.1';
 
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {
