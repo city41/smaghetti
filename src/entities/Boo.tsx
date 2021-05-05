@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_BELOW_16 } from './constants';
 
 const Boo: Entity = {
 	paletteCategory: 'enemy',
@@ -9,7 +10,7 @@ const Boo: Entity = {
 		title: 'Boo',
 	},
 
-	spriteGraphicSets: [[6, 8], 0, 0, 0, 0, 0],
+	spriteGraphicSets: [[6, 8], 0, 0, 0, 0, ANY_BELOW_16],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x2f,
