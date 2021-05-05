@@ -61,6 +61,7 @@ import { Mushroom } from './Mushroom';
 import { MusicBlock } from './MusicBlock';
 import { NumberBlock } from './NumberBlock';
 import { OneUpMushroom } from './OneUpMushroom';
+import { ParaBeetle } from './ParaBeetle';
 import { ParaBomberGoomba } from './ParaBomberGoomba';
 import { ParaGoomba } from './ParaGoomba';
 import { PileDriverMiniGoomba } from './PileDriverMiniGoomba';
@@ -169,6 +170,7 @@ const entityMap = {
 	NumberBlock,
 	OneUpMushroom,
 	PSwitch,
+	ParaBeetle,
 	ParaBomberGoomba,
 	ParaGoomba,
 	PileDriverMiniGoomba,
