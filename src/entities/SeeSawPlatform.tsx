@@ -11,6 +11,8 @@ const SeeSawPlatform: Entity = {
 		description: '',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+
 	width: 1,
 	height: 1,
 	objectId: 0xb3,

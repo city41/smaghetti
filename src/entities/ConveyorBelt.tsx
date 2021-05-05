@@ -12,8 +12,8 @@ const ConveyorBelt: Entity = {
 		description: 'Only goes in one direction so far...',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
-	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'entity',
 	settingsType: 'single',
 	defaultSettings: { width: 1, height: 1 },

@@ -31,7 +31,7 @@ import { FireFlower } from './FireFlower';
 import { FlyingPiranhaPlant } from './FlyingPiranhaPlant';
 import { FortressBrick } from './FortressBrick';
 import { UpFortressSpike } from './UpFortressSpike';
-import { GiantGoomba } from './GiantGoomba';
+import { GrandGoomba } from './GrandGoomba';
 import { GiantGreenKoopa } from './GiantGreenKoopa';
 import { GlassBlock } from './GlassBlock';
 import { Goomba } from './Goomba';
@@ -128,7 +128,7 @@ const entityMap = {
 	FlyingPiranhaPlant,
 	FortressBrick,
 	UpFortressSpike,
-	GiantGoomba,
+	GrandGoomba,
 	GiantGreenKoopa,
 	GlassBlock,
 	Goomba,

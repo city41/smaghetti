@@ -16,8 +16,9 @@ const WoodDoor: Entity = {
 		title: 'Wood Door',
 	},
 
+	// this is for the lock sprite, which truly is universal
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
-	graphicSets: [ROOM_TYPE_SETTINGS.underground.objectGraphicSet],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xf,

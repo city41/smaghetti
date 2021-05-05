@@ -9,6 +9,7 @@ const Coin: Entity = {
 		title: 'Coin',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0x16,

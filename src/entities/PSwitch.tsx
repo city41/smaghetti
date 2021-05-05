@@ -9,6 +9,7 @@ const PSwitch: Entity = {
 		description: 'Coins to bricks, bricks to coins, and other secrets...',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x28,

@@ -10,6 +10,7 @@ const DiggableSand: Entity = {
 		description: 'Mario can dig through it',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0x6a,

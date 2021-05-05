@@ -9,6 +9,7 @@ const WoodWalkway: Entity = {
 		title: 'Wood Walkway',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'x',
 	objectId: 0x61,

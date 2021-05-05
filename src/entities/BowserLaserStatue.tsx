@@ -11,8 +11,8 @@ const BowserLaserStatue: Entity = {
 		description: "They can't shoot lasers just yet...",
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
-	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x5,

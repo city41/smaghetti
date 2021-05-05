@@ -11,8 +11,8 @@ const FireBarBase: Entity = {
 			'These can be the base of a fire bar, or just used on their own',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
-	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x2,

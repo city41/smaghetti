@@ -17,6 +17,7 @@ const StretchBlock: Entity = {
 		title: 'Stretch Block',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
 	settingsType: 'single',

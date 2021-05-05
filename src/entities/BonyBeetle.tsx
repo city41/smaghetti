@@ -1,6 +1,5 @@
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
-import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
@@ -10,8 +9,7 @@ const BonyBeetle: Entity = {
 		title: 'Bony Beetle',
 	},
 
-	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
-	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0xd],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xd2,

@@ -11,8 +11,8 @@ const DonutBlock: Entity = {
 		description: "After they fall, they don't respawn in this game",
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
-	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

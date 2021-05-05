@@ -9,6 +9,7 @@ const POWBlock: Entity = {
 		description: 'Kills all enemies on the screen',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x59,

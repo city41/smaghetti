@@ -13,6 +13,7 @@ const Brick: Entity = {
 		title: 'Brick',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	settingsType: 'single',
 	dimensions: 'xy',

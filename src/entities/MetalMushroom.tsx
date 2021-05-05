@@ -10,6 +10,7 @@ const MetalMushroom: Entity = {
 		description: 'Pick up and build structures or throw them at enemies',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0x51,

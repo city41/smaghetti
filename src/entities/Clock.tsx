@@ -10,6 +10,7 @@ const Clock: Entity = {
 		description: 'It just stops the timer for a little bit. Shrug.',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectId: 0xbf,
 	editorType: 'entity',
 	dimensions: 'none',

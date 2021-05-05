@@ -9,6 +9,7 @@ const Mushroom: Entity = {
 		title: 'Mushroom',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectId: 0xd,
 	editorType: 'entity',
 	dimensions: 'none',

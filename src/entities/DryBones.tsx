@@ -8,10 +8,12 @@ import React from 'react';
  * not compatible with any existing room types :(
  */
 const DryBones: Entity = {
+	paletteCategory: 'enemy',
 	paletteInfo: {
 		title: 'Dry Bones',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 1, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x3f,

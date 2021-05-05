@@ -6,6 +6,8 @@ import { PayloadViewDetails } from '../components/details/PayloadViewDetails';
 import { ResourceType } from '../resources/resourceMap';
 import { EntityType } from './entityMap';
 
+const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
 const Chest: Entity = {
 	paletteCategory: 'object',
 	paletteInfo: {
@@ -13,6 +15,14 @@ const Chest: Entity = {
 		description: 'Collecting a chest ends the level',
 	},
 
+	spriteGraphicSets: [
+		graphicSets,
+		graphicSets,
+		graphicSets,
+		graphicSets,
+		0,
+		graphicSets,
+	],
 	editorType: 'entity',
 	dimensions: 'none',
 	settingsType: 'single',
@@ -32,7 +42,7 @@ const Chest: Entity = {
 		// Flute: 0xc,
 		// MusicBox: 0xd,
 		CapeFeather: 0xe,
-		// Boomerang: 0xf,
+		Boomerang: 0xf,
 		// OneUp: 0x10 // note this is not a 1up mushroom, just an immediate 1up
 		// ThreeUp: 0x11 // note this is not a 3up moon, just an immediate 3up
 	},

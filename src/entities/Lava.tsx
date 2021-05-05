@@ -28,8 +28,8 @@ const Lava: Entity = {
 		title: 'Lava',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
-	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',
 	settingsType: 'single',
 	dimensions: 'xy',

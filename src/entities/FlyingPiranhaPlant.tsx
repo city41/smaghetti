@@ -5,17 +5,16 @@ import React from 'react';
 import { TileSpace } from './TileSpace';
 
 /**
- * TODO: palette, tiles and figure out which level type it can reside in
- * in underground levels its tail is messed up
+ * no single graphic set made this valid, probably needs two? or possibly
+ * this is just a bogus entity
  */
-
-const OBJECT_ID = 0xd8;
-
 const FlyingPiranhaPlant: Entity = {
 	paletteInfo: {
 		title: 'Flying Piranha Plant',
 	},
 
+	spriteGraphicSets: [-1, -1, -1, -1, -1, -1],
+	objectId: 0xd8,
 	editorType: 'entity',
 	dimensions: 'none',
 
@@ -50,7 +49,7 @@ const FlyingPiranhaPlant: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, OBJECT_ID);
+		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
 	simpleRender(mw, mh) {

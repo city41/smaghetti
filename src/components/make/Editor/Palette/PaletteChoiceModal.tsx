@@ -13,10 +13,10 @@ import { Entity } from '../../../../entities/types';
 type PaletteChoiceModalProps = {
 	isOpen: boolean;
 	currentPaletteEntries: EntityType[];
+	validEntityTypes: EntityType[];
 	onEntryAdded: (addedEntry: EntityType) => void;
 	onEntryRemoved: (removedEntry: EntityType) => void;
 	onCancel: () => void;
-	currentGraphicSet: number;
 	currentObjectSet: number;
 };
 
@@ -57,22 +57,24 @@ const entries: PaletteChoiceModalEntry[][] = tabs.map((t) => {
 function isCompatible(
 	type: EntityType,
 	objectSet: number,
-	graphicSet: number
+	validEntityTypes: EntityType[]
 ): boolean {
+	if (!validEntityTypes.includes(type)) {
+		return false;
+	}
+
 	const entityDef = entityMap[type];
 
 	const objectSetCompatible =
 		!entityDef.objectSets || entityDef.objectSets.includes(objectSet);
-	const graphicSetCompatible =
-		!entityDef.graphicSets || entityDef.graphicSets.includes(graphicSet);
 
-	return objectSetCompatible && graphicSetCompatible;
+	return objectSetCompatible;
 }
 
-function getSortComparator(objectSet: number, graphicSet: number) {
+function getSortComparator(objectSet: number, validEntityTypes: EntityType[]) {
 	return (a: PaletteChoiceModalEntry, b: PaletteChoiceModalEntry) => {
-		const aCompat = isCompatible(a.entry, objectSet, graphicSet);
-		const bCompat = isCompatible(b.entry, objectSet, graphicSet);
+		const aCompat = isCompatible(a.entry, objectSet, validEntityTypes);
+		const bCompat = isCompatible(b.entry, objectSet, validEntityTypes);
 
 		if (aCompat && !bCompat) {
 			return -1;
@@ -89,10 +91,10 @@ function getSortComparator(objectSet: number, graphicSet: number) {
 function PaletteChoiceModal({
 	isOpen,
 	currentPaletteEntries,
+	validEntityTypes,
 	onEntryAdded,
 	onCancel,
 	currentObjectSet,
-	currentGraphicSet,
 }: PaletteChoiceModalProps) {
 	const [currentTabIndex, setCurrentTabIndex] = useState(0);
 	const [currentEntryIndex, setCurrentEntryIndex] = useState(0);
@@ -128,7 +130,7 @@ function PaletteChoiceModal({
 					</div>
 					<div className={styles.currentEntries}>
 						{currentEntries
-							.sort(getSortComparator(currentObjectSet, currentGraphicSet))
+							.sort(getSortComparator(currentObjectSet, validEntityTypes))
 							.map((ce, i) => {
 								return (
 									<PaletteEntryCmp
@@ -146,7 +148,7 @@ function PaletteChoiceModal({
 											!isCompatible(
 												ce.entry,
 												currentObjectSet,
-												currentGraphicSet
+												validEntityTypes
 											)
 										}
 										onAddClick={() => {
@@ -174,16 +176,23 @@ function PaletteChoiceModal({
 						!isCompatible(
 							currentEntry.entry,
 							currentObjectSet,
-							currentGraphicSet
+							validEntityTypes
 						) && (
 							<div className="space-y-3">
 								<div className="mt-4 text-red-500 font-bold">
-									Incompatible with the current room type.
+									Incompatible with the current room
 								</div>
 								<div className="text-xs">
-									This incompatibility may be temporary. I need to figure out
-									more on how the game works here. Stay tuned.
+									This entity is not compatible with the current room and
+									can&apos;t be added.
 								</div>
+								<a
+									className="text-xs text-blue-500"
+									href="/docs/how-entities-are-divided-into-sets"
+									target="_blank"
+								>
+									learn more
+								</a>
 							</div>
 						)}
 				</div>

@@ -11,6 +11,7 @@ const UndergroundFlatTerrain_UpperRightCorner: Entity = {
 	dimensions: 'none',
 	objectId: 0x4,
 	emptyBank: 0,
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 
 	resource: {
 		palette: [

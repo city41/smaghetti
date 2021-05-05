@@ -13,6 +13,7 @@ const HorizontalRedPiranhaPlant: Entity = {
 		title: 'Horizontal Red Piranha Plant',
 	},
 
+	spriteGraphicSets: [-1, -1, -1, -1, -1, -1],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xff,

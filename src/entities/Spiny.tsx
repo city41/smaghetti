@@ -3,7 +3,7 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
-const OBJECT_ID = 0x71;
+const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 const Spiny: Entity = {
 	paletteCategory: 'enemy',
@@ -11,6 +11,15 @@ const Spiny: Entity = {
 		title: 'Spiny',
 	},
 
+	spriteGraphicSets: [
+		graphicSets,
+		graphicSets,
+		0,
+		graphicSets,
+		graphicSets,
+		graphicSets,
+	],
+	objectId: 0x71,
 	editorType: 'entity',
 	dimensions: 'none',
 
@@ -41,7 +50,7 @@ const Spiny: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, OBJECT_ID);
+		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
 	simpleRender(mw, mh) {

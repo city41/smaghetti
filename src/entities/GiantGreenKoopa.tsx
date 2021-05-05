@@ -4,14 +4,15 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
 
-/**
- * not compatible with any existing room types :(
- */
+const graphicSets = [0xb, 0xc, 0xd, 0xe, 0xf];
+
 const GiantGreenKoopa: Entity = {
+	paletteCategory: 'enemy',
 	paletteInfo: {
 		title: 'Giant Green Koopa',
 	},
 
+	spriteGraphicSets: [graphicSets, 0, 0, 0, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x7a,

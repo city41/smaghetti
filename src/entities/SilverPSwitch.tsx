@@ -10,6 +10,7 @@ const SilverPSwitch: Entity = {
 		description: 'Turns all enemies into silver coins for massive 1ups',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xc1,

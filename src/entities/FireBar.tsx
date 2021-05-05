@@ -12,6 +12,7 @@ const FireBar: Entity = {
 		description: 'round and round we go',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xb9,

@@ -11,8 +11,8 @@ const MetalDonutFloor: Entity = {
 		description: "These don't fall away",
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
-	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',
 	dimensions: 'xy',
 	param1: 'height',

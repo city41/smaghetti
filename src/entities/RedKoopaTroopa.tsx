@@ -4,7 +4,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import React from 'react';
 
-const OBJECT_ID = 0x6d;
+const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 const RedKoopaTroopa: Entity = {
 	paletteCategory: 'enemy',
@@ -12,8 +12,10 @@ const RedKoopaTroopa: Entity = {
 		title: 'Red Koopa Troopa',
 	},
 
+	spriteGraphicSets: [0, 0, 0, graphicSetValues, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
+	objectId: 0x6d,
 
 	resource: {
 		palette: [
@@ -44,7 +46,7 @@ const RedKoopaTroopa: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, OBJECT_ID);
+		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
 	simpleRender(mw, mh) {

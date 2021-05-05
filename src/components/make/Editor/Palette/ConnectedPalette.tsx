@@ -20,16 +20,19 @@ const actions = bindActionCreators(
 );
 
 function ConnectedPalette(props: PublicPaletteProps) {
-	const { currentPaletteEntry, paletteEntries, settings } = useSelector(
-		(state: AppState) => state.editor.currentRoom
-	);
+	const {
+		currentPaletteEntry,
+		paletteEntries,
+		settings,
+		validEntityTypes,
+	} = useSelector((state: AppState) => state.editor.currentRoom);
 
 	return (
 		<Palette
 			currentPaletteEntry={currentPaletteEntry}
 			paletteEntries={paletteEntries}
 			currentObjectSet={settings.objectSet}
-			currentGraphicSet={settings.objectGraphicSet}
+			validEntityTypes={validEntityTypes}
 			{...props}
 			{...actions}
 		/>

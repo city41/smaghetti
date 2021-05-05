@@ -10,8 +10,8 @@ const GlassBlock: Entity = {
 		title: 'Glass Block',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
-	graphicSets: [ROOM_TYPE_SETTINGS.underground.objectGraphicSet],
 	editorType: 'cell',
 	dimensions: 'x',
 	param2: 'width',

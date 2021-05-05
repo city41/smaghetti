@@ -9,6 +9,7 @@ const TerracottaBrick: Entity = {
 		title: 'Terracotta Brick',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0x5f,

@@ -57,12 +57,13 @@ type RoomSettings = {
 	music: number;
 	bgGraphic: number;
 	bgColor: number;
-	spriteGraphicSet: [number, number, number, number, number, number];
+	bgExtraColorAndEffect: number;
 };
 
 type RoomData = {
 	settings: RoomSettings;
 	paletteEntries: EntityType[];
+	validEntityTypes: EntityType[];
 	entities: EditorEntity[];
 	matrixLayer: MatrixLayer;
 };

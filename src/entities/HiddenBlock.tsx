@@ -19,6 +19,7 @@ const HiddenBlock: Entity = {
 		description: 'Basically an invisible question block',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: { payload: 'MusicBlock' },

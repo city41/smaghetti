@@ -18,6 +18,7 @@ const CoinChallenge: Entity = {
 			'If the player hits it, they are challenged to collect a certain number of coins. If they succeed, they get 3 lives',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xfd,

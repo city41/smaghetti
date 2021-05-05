@@ -13,6 +13,7 @@ const WoodBlock: Entity = {
 		title: 'Wood Block',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	settingsType: 'single',
 	dimensions: 'xy',

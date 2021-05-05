@@ -24,8 +24,7 @@ export const ROOM_TYPE_SETTINGS: Record<string, RoomSettings> = {
 		music: 0xd,
 		bgGraphic: 0x37,
 		bgColor: 0x1,
-		// taken from star02,room0
-		spriteGraphicSet: [0, 0, 0, 2, 0, 0],
+		bgExtraColorAndEffect: 0,
 	},
 	fortress: {
 		objectSet: 0x2,
@@ -33,7 +32,7 @@ export const ROOM_TYPE_SETTINGS: Record<string, RoomSettings> = {
 		music: 0xf,
 		bgGraphic: 0x6,
 		bgColor: 0x98,
-		// taken from mushroom09,room0
-		spriteGraphicSet: [6, 0, 0, 3, 0, 0xd],
+		// this is what adds the second layer of columns with parallax
+		bgExtraColorAndEffect: 0x49,
 	},
 };

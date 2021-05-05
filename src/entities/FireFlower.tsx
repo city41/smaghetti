@@ -9,6 +9,7 @@ const FireFlower: Entity = {
 		title: 'Fire Flower',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x19,

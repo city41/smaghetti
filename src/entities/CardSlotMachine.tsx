@@ -4,8 +4,6 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
 
-const OBJECT_ID = 0x41;
-
 const CardSlotMachine: Entity = {
 	paletteCategory: 'object',
 	paletteInfo: {
@@ -13,6 +11,8 @@ const CardSlotMachine: Entity = {
 		description: 'Collecting the card is one way to complete a level',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	objectId: 0x41,
 	editorType: 'entity',
 	dimensions: 'none',
 
@@ -64,7 +64,7 @@ const CardSlotMachine: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, OBJECT_ID);
+		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
 	simpleRender(mw, mh) {

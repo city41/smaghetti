@@ -10,6 +10,7 @@ const YellowSwitchBrick: Entity = {
 		description: 'Become solid when a yellow switch is active',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'x',
 	objectId: 0x56,

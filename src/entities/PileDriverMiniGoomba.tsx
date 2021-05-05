@@ -2,7 +2,6 @@ import React from 'react';
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
-import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 
 const PileDriverMiniGoomba: Entity = {
 	paletteCategory: 'enemy',
@@ -10,8 +9,9 @@ const PileDriverMiniGoomba: Entity = {
 		title: 'Pile Driver Mini Goomba',
 	},
 
-	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
-	graphicSets: [ROOM_TYPE_SETTINGS.underground.objectGraphicSet],
+	// TODO: there are probably more sets, but since the dump always just
+	// shows a brick, need to figure this one out manually
+	spriteGraphicSets: [0, 0, 0, 2, 0, 0],
 
 	editorType: 'entity',
 	dimensions: 'none',

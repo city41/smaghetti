@@ -27,6 +27,7 @@ import { serialize } from '../../level/serialize';
 import { deserialize } from '../../level/deserialize';
 import isEqual from 'lodash/isEqual';
 import cloneDeep from 'lodash/cloneDeep';
+import intersection from 'lodash/intersection';
 
 import { TILE_SIZE } from '../../tiles/constants';
 import { entityMap, EntityType } from '../../entities/entityMap';
@@ -74,6 +75,7 @@ type RoomState = {
 	scrollOffset: Point;
 	paletteEntries: EntityType[];
 	currentPaletteEntry?: EntityType;
+	validEntityTypes: EntityType[];
 };
 
 type InternalEditorState = {
@@ -198,6 +200,7 @@ const initialRoomState: RoomState = {
 		'CardSlotMachine',
 		'PSwitch',
 	],
+	validEntityTypes: Object.keys(entityMap) as EntityType[],
 	currentPaletteEntry: 'Brick',
 };
 
@@ -225,6 +228,7 @@ const EMPTY_SERIALIZED_LEVEL: SerializedLevelData = {
 		{
 			settings: { ...initialState.rooms[0].settings },
 			paletteEntries: [...initialState.rooms[0].paletteEntries],
+			validEntityTypes: [...initialState.rooms[0].validEntityTypes],
 			entities: [...initialState.rooms[0].entities],
 			matrixLayer: {
 				data: [],
@@ -620,6 +624,7 @@ function findCellEntity(
 // Each ace coin is given a specific index, so the game can keep track of
 // which coins have been collected. Whenever a new ace coin is added or deleted,
 // the indices need to be updated
+// TODO: ace coins can also be payloads in bubbles, need to account for those
 function assignAceCoinIndices(rooms: RoomState[]) {
 	const allEntities = rooms.reduce<EditorEntity[]>((building, room) => {
 		return building.concat(room.entities);
@@ -639,6 +644,94 @@ function assignAceCoinIndices(rooms: RoomState[]) {
 			}
 		}
 	}
+}
+
+function determineValidGraphicSetValues(entities: EditorEntity[]) {
+	const currentValid: Array<number[]> = [[0], [0], [0], [0], [0], [0]];
+
+	entities.forEach((e) => {
+		const def = entityMap[e.type];
+
+		if (def.spriteGraphicSets) {
+			for (let i = 0; i < currentValid.length; ++i) {
+				if (def.spriteGraphicSets[i] !== 0) {
+					const value = def.spriteGraphicSets[i];
+					const asArray = Array.isArray(value) ? value : [value];
+
+					if (isEqual(currentValid[i], [0])) {
+						currentValid[i] = [...asArray];
+					} else {
+						currentValid[i] = intersection(currentValid[i], asArray);
+					}
+				}
+			}
+		}
+	});
+
+	return currentValid;
+}
+
+function isGraphicSetCompatible(
+	spriteGraphicSet: Array<number | number[]>,
+	currentGraphicSet: Array<number[]>
+) {
+	return spriteGraphicSet.every((v, i) => {
+		if (v === 0 || isEqual(currentGraphicSet[i], [0])) {
+			return true;
+		}
+
+		const asArray = Array.isArray(v) ? v : [v];
+
+		return intersection(asArray, currentGraphicSet[i]).length > 0;
+	});
+}
+
+function updateValidEntityTypes(room: RoomState) {
+	const spriteEntities = room.entities.filter(
+		(e) => !!entityMap[e.type].toSpriteBinary
+	);
+
+	const spriteCells = room.matrix.reduce<EditorEntity[]>((building, row) => {
+		if (!row) {
+			return building;
+		}
+
+		const rowSpriteCells = row.reduce<EditorEntity[]>((rowBuilding, cell) => {
+			if (!cell || !entityMap[cell.type].toSpriteBinary) {
+				return rowBuilding;
+			}
+
+			return rowBuilding.concat(cell);
+		}, []);
+
+		return building.concat(rowSpriteCells);
+	}, []);
+
+	const allSprites = spriteEntities.concat(spriteCells);
+	const currentGraphicSetNumbers = determineValidGraphicSetValues(allSprites);
+
+	room.validEntityTypes = Object.keys(entityMap).filter((type) => {
+		const def = entityMap[type as EntityType];
+		if (!def.toSpriteBinary) {
+			return true;
+		}
+
+		if (!def.spriteGraphicSets) {
+			return true;
+		}
+
+		if (
+			isGraphicSetCompatible(def.spriteGraphicSets, currentGraphicSetNumbers)
+		) {
+			return true;
+		}
+
+		return false;
+	}) as EntityType[];
+
+	room.paletteEntries = room.paletteEntries.filter((pe) =>
+		room.validEntityTypes.includes(pe)
+	);
 }
 
 const editorSlice = createSlice({
@@ -793,6 +886,7 @@ const editorSlice = createSlice({
 							if (existingEntity.type === 'AceCoin') {
 								assignAceCoinIndices(state.rooms);
 							}
+							updateValidEntityTypes(currentRoom);
 						}
 
 						if (currentRoom.matrix[indexY]) {
@@ -864,6 +958,7 @@ const editorSlice = createSlice({
 								if (type === 'AceCoin') {
 									assignAceCoinIndices(state.rooms);
 								}
+								updateValidEntityTypes(currentRoom);
 							}
 						}
 						break;
@@ -937,6 +1032,7 @@ const editorSlice = createSlice({
 			state.focused = {};
 
 			assignAceCoinIndices(state.rooms);
+			updateValidEntityTypes(currentRoom);
 		},
 		mouseModeChanged(
 			state: InternalEditorState,
@@ -1162,6 +1258,7 @@ const editorSlice = createSlice({
 					},
 					scrollOffset: { x: 0, y: calcYForScrollToBottom() },
 					paletteEntries: r.paletteEntries ?? [],
+					validEntityTypes: r.validEntityTypes ?? [],
 					currentPaletteEntry: r.paletteEntries?.[0],
 				};
 			});
@@ -1170,6 +1267,7 @@ const editorSlice = createSlice({
 				const player = r.entities.find((e) => e.type === 'Player')!;
 				player.x = TILE_SIZE * INITIAL_PLAYER_X_TILE;
 				player.y = TILE_SIZE * INITIAL_PLAYER_Y_TILE;
+				updateValidEntityTypes(r);
 			});
 
 			idCounter = maxId;
@@ -1438,6 +1536,7 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 				return {
 					settings: room.settings,
 					paletteEntries: room.paletteEntries,
+					validEntityTypes: room.validEntityTypes,
 					entities: room.entities,
 					matrixLayer: {
 						width: room.roomTileWidth,
@@ -1551,6 +1650,7 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 				return {
 					settings: r.settings,
 					paletteEntries: r.paletteEntries,
+					validEntityTypes: r.validEntityTypes,
 					entities: r.entities,
 					matrixLayer: {
 						width: r.roomTileWidth,

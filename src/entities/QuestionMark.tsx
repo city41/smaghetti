@@ -2,13 +2,13 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 
 /**
  * A question mark icon that once touched, completes the level.
  */
 
-const OBJECT_ID = 0x4a;
+const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+const graphicSetsExceptNine = [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15];
 
 const QuestionMark: Entity = {
 	paletteCategory: 'object',
@@ -17,9 +17,15 @@ const QuestionMark: Entity = {
 		description: 'Touching this completes the level',
 	},
 
-	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
-	graphicSets: [ROOM_TYPE_SETTINGS.underground.objectGraphicSet],
-
+	spriteGraphicSets: [
+		graphicSets,
+		graphicSets,
+		graphicSets,
+		graphicSetsExceptNine,
+		graphicSets,
+		0,
+	],
+	objectId: 0x4a,
 	editorType: 'entity',
 	dimensions: 'none',
 
@@ -50,7 +56,7 @@ const QuestionMark: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, OBJECT_ID);
+		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
 	simpleRender(mw, mh) {

@@ -9,6 +9,7 @@ const SpikeBall: Entity = {
 		title: 'Spike Ball',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x4d,

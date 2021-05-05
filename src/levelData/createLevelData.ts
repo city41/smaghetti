@@ -3,6 +3,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import cloneDeep from 'lodash/cloneDeep';
 import { entityMap } from '../entities/entityMap';
 import isEqual from 'lodash/isEqual';
+import intersection from 'lodash/intersection';
 
 type Room = {
 	objects: number[];
@@ -53,13 +54,53 @@ function getObjectHeader(settings: RoomSettings): Tuple<number, 11> {
 		0xa1, // top nibble is scroll settings, bottom unknown, copied from 1-2
 		settings.objectGraphicSet, // top 3 bits: level entry action, bottom 5: graphics set
 		0x08, // top nibble: graphics set, bottom: unknown
-		0x00, // top nibble: extra color, bottom: extre effect
+		settings.bgExtraColorAndEffect ?? 0,
 		// background graphics, copied from 1-2
 		settings.bgGraphic,
 	];
 }
 
-function getLevelSettings(settings: RoomSettings): Tuple<number, 32> {
+/**
+ * given the provided entities, returns the six bytes that can satisfy all
+ * of their graphic set needs. The assumption is the passed in entities are all
+ * compatible with each other
+ */
+function buildGraphicSetBytes(entities: EditorEntity[]): Tuple<number, 6> {
+	const graphicSets = [];
+
+	for (let i = 0; i < 6; ++i) {
+		const candidates = entities.reduce<number[][]>((building, entity) => {
+			const def = entityMap[entity.type];
+
+			if (
+				!def.toSpriteBinary ||
+				def.spriteGraphicSets[i] === 0 ||
+				isEqual(def.spriteGraphicSets[i], [0])
+			) {
+				return building;
+			}
+
+			const value = def.spriteGraphicSets[i];
+			const asArray = Array.isArray(value) ? value : [value];
+			building.push(asArray);
+			return building;
+		}, []);
+
+		const intersected = intersection(...candidates);
+
+		// after the intersection any value will do, so grab the first one
+		// no values? then all entities declared zero here. again,
+		// assuming the passed in entities are all compatible
+		graphicSets.push(intersected[0] ?? 0);
+	}
+
+	return graphicSets;
+}
+
+function getLevelSettings(
+	settings: RoomSettings,
+	entities: EditorEntity[]
+): Tuple<number, 32> {
 	return [
 		0xbf, // screen y boundary, least sig byte
 		0x01, // screen y boundary, most sig byte
@@ -77,7 +118,7 @@ function getLevelSettings(settings: RoomSettings): Tuple<number, 32> {
 		0, // object set, most sig byte
 		settings.music, // music, least sig byte
 		0, // music, most sig byte
-		...settings.spriteGraphicSet,
+		...buildGraphicSetBytes(entities),
 		// the rest of the bytes are largely unknown and copied from classic 1-2
 		0x18,
 		0,
@@ -339,7 +380,7 @@ function getRoom(roomIndex: number, allRooms: RoomData[]): Room {
 
 	const objectHeader = getObjectHeader(settings);
 	const objects = getObjects(entities, matrixLayer);
-	const levelSettings = getLevelSettings(settings);
+	const levelSettings = getLevelSettings(settings, allEntities);
 	const transportData = getTransports(roomIndex, allEntities, allRooms);
 	const spriteHeader = [0x0];
 	const sprites = getSprites(allEntities, matrixLayer.height);

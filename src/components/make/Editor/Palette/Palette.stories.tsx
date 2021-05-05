@@ -15,11 +15,11 @@ export const Basic = () => {
 		<div className="inline-block p-4 bg-blue-200">
 			<Palette
 				paletteEntries={['Brick', 'Coin', 'Goomba']}
+				validEntityTypes={['Brick', 'Coin', 'Goomba']}
 				onPaletteEntryIndexChosen={() => {}}
 				onPaletteEntryRemove={() => {}}
 				onPaletteEntryAdded={() => {}}
 				currentObjectSet={0}
-				currentGraphicSet={0}
 			/>
 		</div>
 	);

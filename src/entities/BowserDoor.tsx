@@ -21,6 +21,8 @@ const BowserDoor: Entity = {
 		title: 'Bowser Door',
 	},
 
+	// this is for the lock sprite, which truly is universal
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x43,

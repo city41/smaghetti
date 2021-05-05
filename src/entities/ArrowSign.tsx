@@ -18,6 +18,7 @@ const ArrowSign: Entity = {
 		title: 'Arrow Sign',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'entity',
 	settingsType: 'single',
 	dimensions: 'none',

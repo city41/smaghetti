@@ -18,7 +18,7 @@ const TriangularBlock: Entity = {
 		title: 'Triangular Block',
 	},
 
-	// TODO: this should probably be entity
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	settingsType: 'single',
 	dimensions: 'none',

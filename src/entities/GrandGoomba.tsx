@@ -4,14 +4,16 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
 
-/**
- * not compatible with any existing room types :(
- */
-const GiantGoomba: Entity = {
+const graphicSets = [0xb, 0xc, 0xd, 0xe, 0xf];
+
+const GrandGoomba: Entity = {
+	paletteCategory: 'enemy',
 	paletteInfo: {
-		title: 'Giant Goomba',
+		title: 'Grand Goomba',
+		description: 'Goomba, but grand',
 	},
 
+	spriteGraphicSets: [graphicSets, 0, 0, 0, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x7c,
@@ -55,7 +57,7 @@ const GiantGoomba: Entity = {
 		};
 
 		return (
-			<div className="GiantGoomba-bg bg-center bg-no-repeat" style={style} />
+			<div className="GrandGoomba-bg bg-center bg-no-repeat" style={style} />
 		);
 	},
 
@@ -70,7 +72,7 @@ const GiantGoomba: Entity = {
 		};
 
 		return (
-			<div className="GiantGoomba-bg bg-center bg-no-repeat" style={style}>
+			<div className="GrandGoomba-bg bg-center bg-no-repeat" style={style}>
 				<div className="w-full h-full" style={{ marginTop: -TILE_SIZE }}>
 					<TileSpace />
 				</div>
@@ -79,4 +81,4 @@ const GiantGoomba: Entity = {
 	},
 };
 
-export { GiantGoomba };
+export { GrandGoomba };

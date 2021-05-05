@@ -11,6 +11,7 @@ const Cactus: Entity = {
 		title: 'Cactus',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

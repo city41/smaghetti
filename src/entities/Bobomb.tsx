@@ -3,10 +3,7 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 
-/**
- * Bobomb
- */
-const OBJECT_ID = 0x55;
+const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 const Bobomb: Entity = {
 	paletteCategory: 'enemy',
@@ -14,6 +11,15 @@ const Bobomb: Entity = {
 		title: 'Bobomb',
 	},
 
+	spriteGraphicSets: [
+		graphicSets,
+		graphicSets,
+		0,
+		graphicSets,
+		graphicSets,
+		graphicSets,
+	],
+	objectId: 0x55,
 	editorType: 'entity',
 	dimensions: 'none',
 
@@ -44,7 +50,7 @@ const Bobomb: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, OBJECT_ID);
+		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
 	simpleRender(mw, mh) {

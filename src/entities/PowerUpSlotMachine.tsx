@@ -10,6 +10,7 @@ const PowerUpSlotMachine: Entity = {
 		description: '',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectId: 0xb7,
 	editorType: 'entity',
 	dimensions: 'none',

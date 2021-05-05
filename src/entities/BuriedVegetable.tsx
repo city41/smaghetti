@@ -14,6 +14,7 @@ const BuriedVegetable: Entity = {
 		description: 'Can pull up all kinds of things...',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: { payload: 'SmallVegetable' },

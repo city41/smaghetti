@@ -18,7 +18,7 @@ const EMPTY_ROOM: RoomState = {
 		music: 0,
 		bgColor: 0,
 		bgGraphic: 0,
-		spriteGraphicSet: [0, 0, 0, 0, 0, 0],
+		bgExtraColorAndEffect: 0,
 	},
 	entities: [],
 	matrix: [],
@@ -29,6 +29,7 @@ const EMPTY_ROOM: RoomState = {
 	canIncreaseScale: false,
 	scale: 1,
 	paletteEntries: [],
+	validEntityTypes: [],
 	editorVisibleWindow: {
 		height: 0,
 		width: 0,

@@ -13,6 +13,7 @@ const QuestionBlock: Entity = {
 		title: 'Question Block',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: {},

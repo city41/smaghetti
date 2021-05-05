@@ -13,6 +13,7 @@ const UndergroundFlatTerrain_HorizontalTop: Entity = {
 	param2: 'width',
 	objectId: 0x43,
 	emptyBank: 1,
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 
 	resource: {
 		palette: [

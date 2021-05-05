@@ -13,6 +13,7 @@ const MusicBlock: Entity = {
 		title: 'Music Block',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: {},

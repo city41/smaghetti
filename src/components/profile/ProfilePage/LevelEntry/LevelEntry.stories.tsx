@@ -29,9 +29,10 @@ const blankLevel: Level = {
 					music: 0,
 					bgColor: 0,
 					bgGraphic: 0,
-					spriteGraphicSet: [0, 0, 0, 0, 0, 0],
+					bgExtraColorAndEffect: 0,
 				},
 				paletteEntries: [],
+				validEntityTypes: [],
 				entities: [],
 				matrixLayer: {
 					width: PLAY_WINDOW_TILE_WIDTH * 3,

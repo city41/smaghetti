@@ -2,16 +2,16 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
-const OBJECT_ID = 0x15;
-
 const Muncher: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		title: 'Muncher',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'none',
+	objectId: 0x15,
 
 	resource: {
 		palette: [
@@ -45,7 +45,7 @@ const Muncher: Entity = {
 	},
 
 	toObjectBinary(x, y) {
-		return [0, y, x, OBJECT_ID];
+		return [0, y, x, this.objectId!];
 	},
 
 	simpleRender(mw, mh) {

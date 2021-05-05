@@ -4,10 +4,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
 
-/**
- * Boom Boom boss
- */
-const OBJECT_ID = 0x4b;
+const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 const BoomBoom: Entity = {
 	paletteCategory: 'boss',
@@ -15,8 +12,17 @@ const BoomBoom: Entity = {
 		title: 'Boom Boom',
 	},
 
+	spriteGraphicSets: [
+		graphicSets,
+		graphicSets,
+		graphicSets,
+		graphicSets,
+		graphicSets,
+		0,
+	],
 	editorType: 'entity',
 	dimensions: 'none',
+	objectId: 0x4b,
 
 	resource: {
 		palette: [
@@ -61,7 +67,7 @@ const BoomBoom: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, OBJECT_ID);
+		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
 	simpleRender(mw, mh) {

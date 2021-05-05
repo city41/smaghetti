@@ -13,6 +13,7 @@ const UndergroundFlatTerrain_VerticalRight: Entity = {
 	param1: 'height',
 	objectId: 0xd,
 	emptyBank: 1,
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 
 	resource: {
 		palette: [

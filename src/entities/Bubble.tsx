@@ -7,6 +7,8 @@ import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
+const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
 const Bubble: Entity = {
 	paletteCategory: 'object',
 	paletteInfo: {
@@ -15,6 +17,14 @@ const Bubble: Entity = {
 			'A cool SMA4 exclusive. Throw vegetables at it three times to release the item.',
 	},
 
+	spriteGraphicSets: [
+		graphicSets,
+		graphicSets,
+		graphicSets,
+		graphicSets,
+		0,
+		graphicSets,
+	],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xdb,

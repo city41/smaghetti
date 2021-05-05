@@ -10,6 +10,7 @@ const IndestructibleBrick: Entity = {
 		description: 'Kinda looks like chocolate',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'y',
 	param1: 'height',

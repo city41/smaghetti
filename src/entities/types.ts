@@ -3,17 +3,32 @@ import { Resource } from '../resources/types';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
 
+type SpriteGraphicSet = number | number[];
+type SpriteGraphicSets = [
+	SpriteGraphicSet,
+	SpriteGraphicSet,
+	SpriteGraphicSet,
+	SpriteGraphicSet,
+	SpriteGraphicSet,
+	SpriteGraphicSet
+];
+
 type Entity = {
 	/**
 	 * which object sets are this entity compatible with?
 	 * not specified means all object sets (ie question block)
 	 */
 	objectSets?: number[];
+
 	/**
-	 * which graphic sets are this entity compatible with?
-	 * not specified means all graphic sets (ie goomba)
+	 * which sprite graphic set values does this entity need? If not specified,
+	 * it doesn't care (mushroom, objects) otherwise it will specify the value(s)
+	 * at the indices it needs. for example [0, 0, 0, 2, 0, 0] means it only cares
+	 * about index 3, and it must be set to 2. [0, 0, 0, [1, 2], 0, 0] means it
+	 * only cares about index 3, and it can be 1 or 2
 	 */
-	graphicSets?: number[];
+	spriteGraphicSets: SpriteGraphicSets;
+
 	editorType: 'entity' | 'cell';
 	/**
 	 * When placing this entity in the palette choice modal, which category should it go under.
@@ -95,4 +110,4 @@ type Entity = {
 	) => ReactElement | null;
 };
 
-export type { Entity };
+export type { Entity, SpriteGraphicSet, SpriteGraphicSets };

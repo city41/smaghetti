@@ -16,6 +16,7 @@ const NumberBlock: Entity = {
 			'If the number is greater than zero, Mario can pick it up and create a new block',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0x54,

@@ -3,14 +3,14 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
-const OBJECT_ID = 0x1a;
-
 const Key: Entity = {
 	paletteCategory: 'transport',
 	paletteInfo: {
 		title: 'Key',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	objectId: 0x1a,
 	editorType: 'entity',
 	dimensions: 'none',
 
@@ -41,7 +41,7 @@ const Key: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, OBJECT_ID);
+		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
 	simpleRender(mw, mh) {

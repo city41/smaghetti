@@ -10,8 +10,8 @@ const FortressBrick: Entity = {
 		title: 'Fortress Brick',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
-	graphicSets: [ROOM_TYPE_SETTINGS.fortress.objectGraphicSet],
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0xd,

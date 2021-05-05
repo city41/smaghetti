@@ -5,8 +5,6 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 
-const OBJECT_ID = 0xfa;
-
 const AceCoin: Entity = {
 	paletteCategory: 'object',
 	paletteInfo: {
@@ -15,8 +13,10 @@ const AceCoin: Entity = {
 			'Special coins to search for. At most a level can have five of them.',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
+	objectId: 0xfa,
 
 	resource: {
 		romOffset: 0x18af80,
@@ -51,7 +51,7 @@ const AceCoin: Entity = {
 		// 	throw new Error('AceCoin#toBinary: no aceCoinIndex setting found');
 		// }
 
-		return [0, OBJECT_ID, x, y, settings.aceCoinIndex];
+		return [0, this.objectId!, x, y, settings.aceCoinIndex];
 	},
 
 	simpleRender(mw, mh) {

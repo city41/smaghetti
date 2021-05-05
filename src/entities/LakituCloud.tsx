@@ -11,6 +11,7 @@ const LakituCloud: Entity = {
 		title: 'Lakitu Cloud',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

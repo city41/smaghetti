@@ -3,8 +3,6 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
-const OBJECT_ID = 0xda;
-
 const CapeFeather: Entity = {
 	paletteCategory: 'power-up',
 	paletteInfo: {
@@ -12,6 +10,8 @@ const CapeFeather: Entity = {
 		description: 'From Super Mario World',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	objectId: 0xda,
 	editorType: 'entity',
 	dimensions: 'none',
 
@@ -42,7 +42,7 @@ const CapeFeather: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, OBJECT_ID);
+		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
 	simpleRender(mw, mh) {

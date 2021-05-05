@@ -17,6 +17,7 @@ const MagicBrick: Entity = {
 	param2: 'height',
 	emptyBank: 1,
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	resource: {
 		palette: [
 			0x7f96,

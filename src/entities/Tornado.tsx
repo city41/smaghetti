@@ -21,6 +21,7 @@ const Tornado: Entity = {
 		title: 'Tornado',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x5d,

@@ -9,6 +9,7 @@ const Boomerang: Entity = {
 		title: 'Boomerang',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectId: 0xcf,
 	editorType: 'entity',
 	dimensions: 'none',

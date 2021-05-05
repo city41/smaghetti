@@ -13,6 +13,7 @@ const ArrowFloor: Entity = {
 		description: 'The arrows are just decoration',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

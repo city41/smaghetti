@@ -11,6 +11,7 @@ const FallAwayPlatform: Entity = {
 		description: 'Whenever Mario is standing on this platform, it falls',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	objectId: 0x20,
 	editorType: 'entity',
 	dimensions: 'none',

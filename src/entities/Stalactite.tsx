@@ -11,6 +11,7 @@ const Stalactite: Entity = {
 		title: 'Stalactite',
 	},
 
+	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
 	editorType: 'cell',
 	dimensions: 'none',
 

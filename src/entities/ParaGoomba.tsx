@@ -3,12 +3,15 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 
+const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
 const ParaGoomba: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		title: 'Para Goomba',
 	},
 
+	spriteGraphicSets: [0, 0, 0, graphicSetValues, 0, 0],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x73,
