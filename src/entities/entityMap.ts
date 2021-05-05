@@ -20,6 +20,7 @@ import { CapeFeather } from './CapeFeather';
 import { CardSlotMachine } from './CardSlotMachine';
 import { ChainChomp } from './ChainChomp';
 import { ChargingChuck } from './ChargingChuck';
+import { ClassicBowser } from './ClassicBowser';
 import { Clock } from './Clock';
 import { Chest } from './Chest';
 import { Coin } from './Coin';
@@ -131,6 +132,7 @@ const entityMap = {
 	CardSlotMachine,
 	ChainChomp,
 	ChargingChuck,
+	ClassicBowser,
 	Clock,
 	Chest,
 	Coin,
