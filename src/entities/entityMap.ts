@@ -35,6 +35,7 @@ import { FortressBrick } from './FortressBrick';
 import { UpFortressSpike } from './UpFortressSpike';
 import { GrandGoomba } from './GrandGoomba';
 import { GiantGreenKoopa } from './GiantGreenKoopa';
+import { GiantRedKoopa } from './GiantRedKoopa';
 import { GlassBlock } from './GlassBlock';
 import { Goomba } from './Goomba';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
@@ -137,6 +138,7 @@ const entityMap = {
 	UpFortressSpike,
 	GrandGoomba,
 	GiantGreenKoopa,
+	GiantRedKoopa,
 	GlassBlock,
 	Goomba,
 	GreenKoopaTroopa,
