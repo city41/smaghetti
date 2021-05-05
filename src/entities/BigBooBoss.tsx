@@ -11,7 +11,7 @@ const BigBooBoss: Entity = {
 			'Throw magic blocks at him to hurt him. Beating him completes the level.',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0xb],
+	spriteGraphicSets: [-1, -1, -1, -1, -1, 0xb],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x25,

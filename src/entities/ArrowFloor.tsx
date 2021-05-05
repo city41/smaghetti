@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 /**
  * Does not work in current fortress/underground rooms
@@ -13,7 +14,7 @@ const ArrowFloor: Entity = {
 		description: 'The arrows are just decoration',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

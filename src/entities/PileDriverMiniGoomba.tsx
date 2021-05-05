@@ -11,7 +11,7 @@ const PileDriverMiniGoomba: Entity = {
 
 	// TODO: there are probably more sets, but since the dump always just
 	// shows a brick, need to figure this one out manually
-	spriteGraphicSets: [0, 0, 0, 2, 0, 0],
+	spriteGraphicSets: [-1, -1, -1, 2, -1, -1],
 
 	editorType: 'entity',
 	dimensions: 'none',

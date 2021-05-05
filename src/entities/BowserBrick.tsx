@@ -3,6 +3,7 @@ import { getBankParam1 } from './util';
 import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const BowserBrick: Entity = {
 	paletteCategory: 'terrain',
@@ -12,7 +13,7 @@ const BowserBrick: Entity = {
 			'I named this Bowser brick because this is the only kind of brick he will smash through when he dive bombs',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	editorType: 'cell',
 	dimensions: 'xy',

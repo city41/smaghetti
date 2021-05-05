@@ -7,6 +7,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const NumberBlock: Entity = {
 	paletteCategory: 'object',
@@ -16,7 +17,7 @@ const NumberBlock: Entity = {
 			'If the number is greater than zero, Mario can pick it up and create a new block',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0x54,

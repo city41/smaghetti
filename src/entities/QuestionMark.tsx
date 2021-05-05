@@ -2,7 +2,6 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { ANY_BELOW_16 } from './constants';
 
 /**
  * A question mark icon that once touched, completes the level.
@@ -24,7 +23,7 @@ const QuestionMark: Entity = {
 		graphicSets,
 		graphicSetsExceptNine,
 		graphicSets,
-		ANY_BELOW_16,
+		0,
 	],
 	objectId: 0x4a,
 	editorType: 'entity',

@@ -1,6 +1,7 @@
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const Muncher: Entity = {
 	paletteCategory: 'terrain',
@@ -8,7 +9,7 @@ const Muncher: Entity = {
 		title: 'Muncher',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x15,

@@ -4,6 +4,7 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ResizeEditDetails } from '../components/details/ResizeEditDetails';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const ConveyorBelt: Entity = {
 	paletteCategory: 'terrain',
@@ -12,7 +13,7 @@ const ConveyorBelt: Entity = {
 		description: 'Only goes in one direction so far...',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	editorType: 'entity',
 	settingsType: 'single',

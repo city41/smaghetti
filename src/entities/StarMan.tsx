@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const StarMan: Entity = {
 	paletteCategory: 'power-up',
@@ -9,7 +10,7 @@ const StarMan: Entity = {
 		title: 'Star Man',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0xc,
 	editorType: 'entity',
 	dimensions: 'none',

@@ -11,7 +11,7 @@ const Player: Entity = {
 		title: 'Player',
 	},
 
-	spriteGraphicSets: [-1, -1, -1, -1, -1, -1],
+	spriteGraphicSets: [-2, -2, -2, -2, -2, -2],
 	editorType: 'entity',
 	dimensions: 'none',
 

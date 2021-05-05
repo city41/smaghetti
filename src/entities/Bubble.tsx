@@ -22,7 +22,7 @@ const Bubble: Entity = {
 		graphicSets,
 		graphicSets,
 		graphicSets,
-		0,
+		-1,
 		graphicSets,
 	],
 	editorType: 'entity',

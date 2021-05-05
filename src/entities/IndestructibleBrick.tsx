@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const IndestructibleBrick: Entity = {
 	paletteCategory: 'terrain',
@@ -10,7 +11,7 @@ const IndestructibleBrick: Entity = {
 		description: 'Kinda looks like chocolate',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	dimensions: 'y',
 	param1: 'height',

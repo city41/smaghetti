@@ -10,7 +10,7 @@ const Boo: Entity = {
 		title: 'Boo',
 	},
 
-	spriteGraphicSets: [[6, 8], 0, 0, 0, 0, ANY_BELOW_16],
+	spriteGraphicSets: [[6, 8], -1, -1, -1, -1, ANY_BELOW_16],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x2f,

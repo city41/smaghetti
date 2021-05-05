@@ -19,3 +19,13 @@ export const ANY_BELOW_16 = [
 	14,
 	15,
 ];
+
+// for entities that don't care about sprite graphic sets
+export const ANY_SPRITE_GRAPHIC_SET: [
+	number,
+	number,
+	number,
+	number,
+	number,
+	number
+] = [-1, -1, -1, -1, -1, -1];

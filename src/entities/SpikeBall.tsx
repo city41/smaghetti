@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const SpikeBall: Entity = {
 	paletteCategory: 'terrain',
@@ -9,7 +10,7 @@ const SpikeBall: Entity = {
 		title: 'Spike Ball',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x4d,

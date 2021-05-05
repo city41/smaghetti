@@ -7,6 +7,7 @@ import { TransportSource } from '../components/Transport/TransportSource';
 import { TransportEditDetails } from '../components/details/TransportEditDetails';
 import { simpleSpriteBinary } from './util';
 import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const DOOR_LOCK_OBJECT_ID = 0xce;
 
@@ -17,7 +18,7 @@ const WoodDoor: Entity = {
 	},
 
 	// this is for the lock sprite, which truly is universal
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
 	editorType: 'entity',
 	dimensions: 'none',

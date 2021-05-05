@@ -1,6 +1,7 @@
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 /**
  * This is the weird thing at the beginning of mushroom05, Bombarded by Bob-ombs.
@@ -18,7 +19,7 @@ const CoinChallenge: Entity = {
 			'If the player hits it, they are challenged to collect a certain number of coins. If they succeed, they get 3 lives',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xfd,

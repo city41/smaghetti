@@ -14,7 +14,7 @@ const Bobomb: Entity = {
 	spriteGraphicSets: [
 		graphicSets,
 		graphicSets,
-		0,
+		-1,
 		graphicSets,
 		graphicSets,
 		graphicSets,

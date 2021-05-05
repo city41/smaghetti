@@ -14,7 +14,7 @@ const GrandGoomba: Entity = {
 		description: 'Goomba, but grand',
 	},
 
-	spriteGraphicSets: [graphicSets, 0, 0, 0, 0, ANY_BELOW_16],
+	spriteGraphicSets: [graphicSets, -1, -1, -1, -1, ANY_BELOW_16],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x7c,

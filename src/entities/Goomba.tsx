@@ -11,7 +11,7 @@ const Goomba: Entity = {
 		title: 'Goomba',
 	},
 
-	spriteGraphicSets: [0, 0, 0, graphicSetValues, 0, 0],
+	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, -1],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x72,

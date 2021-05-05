@@ -3,6 +3,7 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import React from 'react';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const BowserLaserStatue: Entity = {
 	paletteCategory: 'terrain',
@@ -11,7 +12,7 @@ const BowserLaserStatue: Entity = {
 		description: "They can't shoot lasers just yet...",
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	editorType: 'entity',
 	dimensions: 'none',

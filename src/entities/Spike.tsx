@@ -3,13 +3,16 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 
+/**
+ * This is the creature that coughs up metal balls and throws them
+ */
 const Spike: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		title: 'Spike',
 	},
 
-	spriteGraphicSets: [3, 0, 0, 0, 0, 0],
+	spriteGraphicSets: [3, -1, -1, -1, -1, -1],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x29,

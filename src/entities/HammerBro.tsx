@@ -10,7 +10,7 @@ const HammerBro: Entity = {
 		title: 'Hammer Bro',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 1],
+	spriteGraphicSets: [-1, -1, -1, -1, -1, 1],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x81,

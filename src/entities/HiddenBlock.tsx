@@ -5,6 +5,7 @@ import { PayloadViewDetails } from '../components/details/PayloadViewDetails';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const payloadToObjectId = {
 	MusicBlock: 0x20,
@@ -19,7 +20,7 @@ const HiddenBlock: Entity = {
 		description: 'Basically an invisible question block',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: { payload: 'MusicBlock' },

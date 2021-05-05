@@ -4,6 +4,7 @@ import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import clsx from 'clsx';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 function isLavaAbove(
 	entity: EditorEntity | undefined,
@@ -28,7 +29,7 @@ const Lava: Entity = {
 		title: 'Lava',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	editorType: 'cell',
 	settingsType: 'single',

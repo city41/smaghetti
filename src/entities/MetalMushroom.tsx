@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const MetalMushroom: Entity = {
 	paletteCategory: 'terrain',
@@ -10,7 +11,7 @@ const MetalMushroom: Entity = {
 		description: 'Pick up and build structures or throw them at enemies',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0x51,

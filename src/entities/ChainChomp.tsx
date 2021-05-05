@@ -8,8 +8,7 @@ const ChainChomp: Entity = {
 	paletteInfo: {
 		title: 'Chain Chomp',
 	},
-
-	spriteGraphicSets: [[2, 3], 0, 0, 0, 0, 0],
+	spriteGraphicSets: [[2, 3], -1, -1, -1, -1, -1],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x89,

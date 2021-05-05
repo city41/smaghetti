@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const MagicBrick: Entity = {
 	paletteCategory: 'terrain',
@@ -17,7 +18,7 @@ const MagicBrick: Entity = {
 	param2: 'height',
 	emptyBank: 1,
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	resource: {
 		palette: [
 			0x7f96,

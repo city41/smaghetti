@@ -4,6 +4,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { DirectionEditDetails } from '../components/details/DirectionEditDetails';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const directionToObjectId = {
 	vertical: 0xbd,
@@ -17,7 +18,7 @@ const StretchBlock: Entity = {
 		title: 'Stretch Block',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'entity',
 	dimensions: 'none',
 	settingsType: 'single',

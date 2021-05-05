@@ -10,7 +10,7 @@ const FireBro: Entity = {
 		title: 'Fire Bro',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 1],
+	spriteGraphicSets: [-1, -1, -1, -1, -1, 1],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x87,

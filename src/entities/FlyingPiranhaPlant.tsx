@@ -13,7 +13,7 @@ const FlyingPiranhaPlant: Entity = {
 		title: 'Flying Piranha Plant',
 	},
 
-	spriteGraphicSets: [-1, -1, -1, -1, -1, -1],
+	spriteGraphicSets: [-2, -2, -2, -2, -2, -2],
 	objectId: 0xd8,
 	editorType: 'entity',
 	dimensions: 'none',

@@ -6,6 +6,7 @@ import {
 	CardinalDirection,
 	CardinalDirectionEditDetails,
 } from '../components/details/CardinalDirectionEditDetails';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const directionToObjectId = {
 	left: 0x4c,
@@ -18,7 +19,7 @@ const ArrowSign: Entity = {
 		title: 'Arrow Sign',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'entity',
 	settingsType: 'single',
 	dimensions: 'none',

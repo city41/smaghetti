@@ -1,6 +1,7 @@
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const PSwitch: Entity = {
 	paletteCategory: 'gizmo',
@@ -9,7 +10,7 @@ const PSwitch: Entity = {
 		description: 'Coins to bricks, bricks to coins, and other secrets...',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x28,

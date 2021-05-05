@@ -13,7 +13,7 @@ const TiltPlatform: Entity = {
 		description: 'Tilts slowly depending on which side Mario is standing on',
 	},
 
-	spriteGraphicSets: [0, 0, 0, graphicSetValues, 0, 0],
+	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, -1],
 	objectId: 0x90,
 	editorType: 'entity',
 	dimensions: 'none',

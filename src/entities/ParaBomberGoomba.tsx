@@ -12,7 +12,7 @@ const ParaBomberGoomba: Entity = {
 		description: 'Flies high and drops mini goombas',
 	},
 
-	spriteGraphicSets: [0, 0, 0, graphicSetValues, 0, 0],
+	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, -1],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x74,

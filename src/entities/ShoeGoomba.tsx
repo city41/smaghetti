@@ -12,7 +12,7 @@ const ShoeGoomba: Entity = {
 		title: 'Shoe Goomba',
 	},
 
-	spriteGraphicSets: [0, 0, 0, graphicSetValues, 0, 0],
+	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, -1],
 	objectId: 0x2b,
 	editorType: 'entity',
 	dimensions: 'none',

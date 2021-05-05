@@ -10,7 +10,7 @@ const ParaBeetle: Entity = {
 		title: 'ParaBeetle',
 	},
 
-	spriteGraphicSets: [5, 0, 0, 0, 0, ANY_BELOW_16],
+	spriteGraphicSets: [5, -1, -1, -1, -1, ANY_BELOW_16],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x9f,

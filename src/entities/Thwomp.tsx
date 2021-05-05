@@ -11,7 +11,7 @@ const Thwomp: Entity = {
 		title: 'Thwomp',
 	},
 
-	spriteGraphicSets: [6, 0, 0, 0, 0, ANY_BELOW_16],
+	spriteGraphicSets: [6, -1, -1, -1, -1, ANY_BELOW_16],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x8a,

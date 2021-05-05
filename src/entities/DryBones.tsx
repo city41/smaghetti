@@ -13,7 +13,7 @@ const DryBones: Entity = {
 		title: 'Dry Bones',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 1, 0, 0],
+	spriteGraphicSets: [-1, -1, -1, 1, -1, -1],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x3f,

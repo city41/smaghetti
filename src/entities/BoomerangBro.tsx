@@ -10,7 +10,7 @@ const BoomerangBro: Entity = {
 		title: 'Boomerang Bro',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 1],
+	spriteGraphicSets: [-1, -1, -1, -1, -1, 1],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x82,

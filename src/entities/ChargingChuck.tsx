@@ -10,7 +10,7 @@ const ChargingChuck: Entity = {
 		title: 'Charging Chuck',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 9],
+	spriteGraphicSets: [-1, -1, -1, -1, -1, 9],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x9b,

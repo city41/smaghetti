@@ -74,8 +74,8 @@ function buildGraphicSetBytes(entities: EditorEntity[]): Tuple<number, 6> {
 
 			if (
 				!def.toSpriteBinary ||
-				def.spriteGraphicSets[i] === 0 ||
-				isEqual(def.spriteGraphicSets[i], [0])
+				def.spriteGraphicSets[i] === -1 ||
+				isEqual(def.spriteGraphicSets[i], [-1])
 			) {
 				return building;
 			}
@@ -94,7 +94,8 @@ function buildGraphicSetBytes(entities: EditorEntity[]): Tuple<number, 6> {
 		graphicSets.push(intersected[0] ?? 0);
 	}
 
-	return graphicSets;
+	// if any ended up as -1, push them up to zero
+	return graphicSets.map((v) => Math.max(v, 0));
 }
 
 function getLevelSettings(

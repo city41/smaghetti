@@ -6,6 +6,7 @@ import { PayloadViewDetails } from '../components/details/PayloadViewDetails';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const MusicBlock: Entity = {
 	paletteCategory: 'terrain',
@@ -13,7 +14,7 @@ const MusicBlock: Entity = {
 		title: 'Music Block',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: {},

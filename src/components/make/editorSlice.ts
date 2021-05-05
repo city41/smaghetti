@@ -676,7 +676,7 @@ function isGraphicSetCompatible(
 	currentGraphicSet: Array<number[]>
 ) {
 	return spriteGraphicSet.every((v, i) => {
-		if (v === 0 || isEqual(currentGraphicSet[i], [0])) {
+		if (v === -1 || isEqual(currentGraphicSet[i], [-1])) {
 			return true;
 		}
 

@@ -4,6 +4,7 @@ import { GiAnticlockwiseRotation } from 'react-icons/gi';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const FireBar: Entity = {
 	paletteCategory: 'terrain',
@@ -12,7 +13,7 @@ const FireBar: Entity = {
 		description: 'round and round we go',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xb9,

@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const SpringBoard: Entity = {
 	paletteCategory: 'gizmo',
@@ -10,7 +11,7 @@ const SpringBoard: Entity = {
 		description: 'Mario can carry it around',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0xbb,
 	editorType: 'entity',
 	dimensions: 'none',

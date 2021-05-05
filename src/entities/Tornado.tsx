@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const dotPositions: Point[] = [
 	{ x: 2, y: 1 },
@@ -21,7 +22,7 @@ const Tornado: Entity = {
 		title: 'Tornado',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x5d,

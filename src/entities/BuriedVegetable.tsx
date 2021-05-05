@@ -6,6 +6,7 @@ import { PayloadViewDetails } from '../components/details/PayloadViewDetails';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const BuriedVegetable: Entity = {
 	paletteCategory: 'terrain',
@@ -14,7 +15,7 @@ const BuriedVegetable: Entity = {
 		description: 'Can pull up all kinds of things...',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: { payload: 'SmallVegetable' },

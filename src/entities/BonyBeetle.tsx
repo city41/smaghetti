@@ -9,7 +9,7 @@ const BonyBeetle: Entity = {
 		title: 'Bony Beetle',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0xd],
+	spriteGraphicSets: [-1, -1, -1, -1, -1, 0xd],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xd2,

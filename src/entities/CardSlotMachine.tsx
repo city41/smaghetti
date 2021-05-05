@@ -3,6 +3,7 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const CardSlotMachine: Entity = {
 	paletteCategory: 'object',
@@ -11,7 +12,7 @@ const CardSlotMachine: Entity = {
 		description: 'Collecting the card is one way to complete a level',
 	},
 
-	spriteGraphicSets: [0, 0, 0, 0, 0, 0],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0x41,
 	editorType: 'entity',
 	dimensions: 'none',

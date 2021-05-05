@@ -12,7 +12,7 @@ const BusterBeetle: Entity = {
 			'Will pick up any magic bricks it finds and throw them at Mario',
 	},
 
-	spriteGraphicSets: [3, 0, 0, 0, 0, ANY_BELOW_16],
+	spriteGraphicSets: [3, -1, -1, -1, -1, ANY_BELOW_16],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x40,
