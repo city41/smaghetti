@@ -11,6 +11,7 @@ import { DoorLock } from './DoorLock';
 import { FortressBackground } from './FortressBackground';
 import { FrogSuit } from './FrogSuit';
 import { GiantVegetable } from './GiantVegetable';
+import { KoopalingWand } from './KoopalingWand';
 import { KoopaShell } from './KoopaShell';
 import { OneNumberBlock } from './OneNumberBlock';
 import { ParaWing } from './ParaWing';
@@ -41,6 +42,7 @@ const resourceMap = {
 	FortressBackground,
 	FrogSuit,
 	GiantVegetable,
+	KoopalingWand,
 	KoopaShell,
 	OneNumberBlock,
 	ParaWing,
