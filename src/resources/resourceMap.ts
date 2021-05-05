@@ -1,3 +1,7 @@
+import { BigBooArm } from './BigBooArm';
+import { BigBooBody } from './BigBooBody';
+import { BigBooFace } from './BigBooFace';
+import { BigBooTail } from './BigBooTail';
 import { ChargingChuckBody } from './ChargingChuckBody';
 import { ChargingChuckHead } from './ChargingChuckHead';
 import { ClimbingVineHead } from './ClimbingVineHead';
@@ -24,6 +28,10 @@ import { TwoNumberBlock } from './TwoNumberBlock';
 import { UndergroundBackground } from './UndergroundBackground';
 
 const resourceMap = {
+	BigBooArm,
+	BigBooBody,
+	BigBooFace,
+	BigBooTail,
 	ChargingChuckBody,
 	ChargingChuckHead,
 	ClimbingVineHead,
