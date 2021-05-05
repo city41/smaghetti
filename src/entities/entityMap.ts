@@ -6,6 +6,7 @@ import { BonyBeetle } from './BonyBeetle';
 import { Boo } from './Boo';
 import { BoomBoom } from './BoomBoom';
 import { Boomerang } from './Boomerang';
+import { BoomerangBro } from './BoomerangBro';
 import { BowserDoor } from './BowserDoor';
 import { BowserLaserStatue } from './BowserLaserStatue';
 import { Brick } from './Brick';
@@ -26,6 +27,7 @@ import { DownFortressSpike } from './DownFortressSpike';
 import { DryBones } from './DryBones';
 import { FallAwayPlatform } from './FallAwayPlatform';
 import { FireBar } from './FireBar';
+import { FireBro } from './FireBro';
 import { FireBarBase } from './FireBarBase';
 import { FireFlower } from './FireFlower';
 import { FlyingPiranhaPlant } from './FlyingPiranhaPlant';
@@ -105,6 +107,7 @@ const entityMap = {
 	Boo,
 	BoomBoom,
 	Boomerang,
+	BoomerangBro,
 	BowserDoor,
 	BowserLaserStatue,
 	Brick,
@@ -125,6 +128,7 @@ const entityMap = {
 	DryBones,
 	FallAwayPlatform,
 	FireBar,
+	FireBro,
 	FireBarBase,
 	FireFlower,
 	FlyingPiranhaPlant,
