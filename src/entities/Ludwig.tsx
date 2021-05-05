@@ -9,7 +9,7 @@ const Ludwig: Entity = {
 		title: 'Ludwig',
 	},
 
-	spriteGraphicSets: [-1, -1, -1, -1, -1, 5],
+	spriteGraphicSets: [-1, -1, 2, -1, -1, 5],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x72,
