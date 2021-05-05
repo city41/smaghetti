@@ -3,6 +3,7 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
+import { ANY_BELOW_16 } from './constants';
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -18,7 +19,7 @@ const BoomBoom: Entity = {
 		graphicSets,
 		graphicSets,
 		graphicSets,
-		0,
+		ANY_BELOW_16,
 	],
 	editorType: 'entity',
 	dimensions: 'none',
