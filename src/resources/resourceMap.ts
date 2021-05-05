@@ -1,3 +1,5 @@
+import { ChargingChuckBody } from './ChargingChuckBody';
+import { ChargingChuckHead } from './ChargingChuckHead';
 import { ClimbingVineHead } from './ClimbingVineHead';
 import { CoinCache } from './CoinCache';
 import { CoinSnake } from './CoinSnake';
@@ -22,6 +24,8 @@ import { TwoNumberBlock } from './TwoNumberBlock';
 import { UndergroundBackground } from './UndergroundBackground';
 
 const resourceMap = {
+	ChargingChuckBody,
+	ChargingChuckHead,
 	ClimbingVineHead,
 	CoinCache,
 	CoinSnake,
