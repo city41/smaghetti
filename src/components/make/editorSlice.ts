@@ -758,20 +758,12 @@ const editorSlice = createSlice({
 
 			const newEntry = action.payload;
 
-			if (!currentRoom.paletteEntries.some((p) => p === newEntry)) {
-				currentRoom.paletteEntries.push(newEntry);
-				currentRoom.currentPaletteEntry =
-					currentRoom.paletteEntries[currentRoom.paletteEntries.length - 1];
-			} else {
-				// already in the palette? just select it then
-				const index = currentRoom.paletteEntries.findIndex((p) =>
-					isEqual(p, newEntry)
-				);
+			currentRoom.paletteEntries = currentRoom.paletteEntries.filter(
+				(p) => p !== newEntry
+			);
 
-				if (index > -1) {
-					currentRoom.currentPaletteEntry = currentRoom.paletteEntries[index];
-				}
-			}
+			currentRoom.paletteEntries.unshift(newEntry);
+			currentRoom.currentPaletteEntry = currentRoom.paletteEntries[0];
 		},
 		removePaletteEntry(
 			state: InternalEditorState,
