@@ -124,7 +124,7 @@ function getLevelSettings(
 		0,
 		0x38,
 		0,
-		0x01,
+		0,
 		0,
 		0,
 		0,
