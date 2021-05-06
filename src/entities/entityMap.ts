@@ -55,6 +55,7 @@ import { IndestructibleBrick } from './IndestructibleBrick';
 import { Key } from './Key';
 import { Lakitu } from './Lakitu';
 import { LakituCloud } from './LakituCloud';
+import { LargeSpike } from './LargeSpike';
 import { Lava } from './Lava';
 import { Leaf } from './Leaf';
 import { LilSparky } from './LilSparky';
@@ -170,6 +171,7 @@ const entityMap = {
 	Key,
 	Lakitu,
 	LakituCloud,
+	LargeSpike,
 	Lava,
 	Leaf,
 	LilSparky,

@@ -2,19 +2,18 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { getBankParam1 } from './util';
 
-const OBJECT_ID = 0x49;
-
-// TODO: should this be called spike?
 const Stalactite: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		title: 'Stalactite',
 	},
 
+	objectId: 0x5e,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
-	dimensions: 'none',
+	dimensions: 'x',
 
 	resource: {
 		palette: [
@@ -37,13 +36,13 @@ const Stalactite: Entity = {
 		],
 		romOffset: 0x16ea40,
 		tiles: [
-			[122, 250],
-			[123, 250],
+			[122, 122],
+			[123, 123],
 		],
 	},
 
-	toObjectBinary(x, y) {
-		return [0, y, x, OBJECT_ID];
+	toObjectBinary(x, y, w) {
+		return [getBankParam1(1, w), y, x, this.objectId!];
 	},
 
 	simpleRender(mw, mh) {
