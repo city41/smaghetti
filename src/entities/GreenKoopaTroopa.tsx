@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
+import { ANY_BELOW_16 } from './constants';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -12,7 +13,7 @@ const GreenKoopaTroopa: Entity = {
 		title: 'Green Koopa Troopa',
 	},
 
-	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, -1],
+	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, ANY_BELOW_16],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x6c,

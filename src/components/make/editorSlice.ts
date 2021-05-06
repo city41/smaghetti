@@ -646,19 +646,19 @@ function assignAceCoinIndices(rooms: RoomState[]) {
 	}
 }
 
-function determineValidGraphicSetValues(entities: EditorEntity[]) {
-	const currentValid: Array<number[]> = [[0], [0], [0], [0], [0], [0]];
+function determineValidGraphicSetValues(entities: EditorEntity[]): number[][] {
+	const currentValid: Array<number[]> = [[-1], [-1], [-1], [-1], [-1], [-1]];
 
 	entities.forEach((e) => {
 		const def = entityMap[e.type];
 
 		if (def.spriteGraphicSets) {
 			for (let i = 0; i < currentValid.length; ++i) {
-				if (def.spriteGraphicSets[i] !== 0) {
+				if (def.spriteGraphicSets[i] !== -1) {
 					const value = def.spriteGraphicSets[i];
 					const asArray = Array.isArray(value) ? value : [value];
 
-					if (isEqual(currentValid[i], [0])) {
+					if (isEqual(currentValid[i], [-1])) {
 						currentValid[i] = [...asArray];
 					} else {
 						currentValid[i] = intersection(currentValid[i], asArray);
@@ -676,6 +676,10 @@ function isGraphicSetCompatible(
 	currentGraphicSet: Array<number[]>
 ) {
 	return spriteGraphicSet.every((v, i) => {
+		if (isEqual(currentGraphicSet, [-1])) {
+			return true;
+		}
+
 		if (v === -1 || isEqual(currentGraphicSet[i], [-1])) {
 			return true;
 		}
@@ -710,6 +714,10 @@ function updateValidEntityTypes(room: RoomState) {
 	} else {
 		const currentGraphicSetNumbers = determineValidGraphicSetValues(
 			allEntities
+		);
+		console.log(
+			'currentGraphicSetNumbers',
+			currentGraphicSetNumbers.map((a) => `[${a.join(',')}]`).join(',')
 		);
 
 		room.validEntityTypes = Object.keys(entityMap).filter((type) => {
