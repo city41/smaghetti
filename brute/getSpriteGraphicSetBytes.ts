@@ -196,17 +196,18 @@ function capture(
 }
 
 function captureEmptyLevel(
-	_graphicSetIndex: number,
-	_graphicSetValue: number
+	graphicSetIndex: number,
+	graphicSetValue: number
 ): Promise<{ buffer: Buffer; data: Uint8ClampedArray }> {
-	return getGbaScreen([0, 0xe8, 5, 0x16], [0, 0, 0, 0, 0, 0]);
+	const graphicSet = getGraphicSet(graphicSetIndex, graphicSetValue);
+	return getGbaScreen([], graphicSet);
 }
 
-const STARTING_VALUE = 0xff;
+const STARTING_VALUE = 0x0;
 // this is the starting value after the first iteration
 // this is done to avoid dumping 0_0_0_0_0_0 repeatedly
-const SUBSEQUENT_STARTING_VALUE = 0xff;
-const ENDING_VALUE = 0x100;
+const SUBSEQUENT_STARTING_VALUE = 0x1;
+const ENDING_VALUE = 0x10;
 
 function dumpAllWithId(
 	spriteBytes: number[],

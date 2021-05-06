@@ -715,10 +715,6 @@ function updateValidEntityTypes(room: RoomState) {
 		const currentGraphicSetNumbers = determineValidGraphicSetValues(
 			allEntities
 		);
-		console.log(
-			'currentGraphicSetNumbers',
-			currentGraphicSetNumbers.map((a) => `[${a.join(',')}]`).join(',')
-		);
 
 		room.validEntityTypes = Object.keys(entityMap).filter((type) => {
 			const def = entityMap[type as EntityType];
