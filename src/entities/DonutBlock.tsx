@@ -6,7 +6,8 @@ import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const DonutBlock: Entity = {
-	paletteCategory: 'terrain',
+	// could have swore these worked, but now when they fall they get bad tiles
+	// paletteCategory: 'terrain',
 	paletteInfo: {
 		title: 'Donut Block',
 		description: "After they fall, they don't respawn in this game",
