@@ -687,17 +687,13 @@ function isGraphicSetCompatible(
 }
 
 function updateValidEntityTypes(room: RoomState) {
-	const spriteEntities = room.entities.filter(
-		(e) => !!entityMap[e.type].toSpriteBinary
-	);
-
-	const spriteCells = room.matrix.reduce<EditorEntity[]>((building, row) => {
+	const cells = room.matrix.reduce<EditorEntity[]>((building, row) => {
 		if (!row) {
 			return building;
 		}
 
 		const rowSpriteCells = row.reduce<EditorEntity[]>((rowBuilding, cell) => {
-			if (!cell || !entityMap[cell.type].toSpriteBinary) {
+			if (!cell) {
 				return rowBuilding;
 			}
 
@@ -707,12 +703,14 @@ function updateValidEntityTypes(room: RoomState) {
 		return building.concat(rowSpriteCells);
 	}, []);
 
-	const allSprites = spriteEntities.concat(spriteCells);
+	const allEntities = room.entities.concat(cells);
 
-	if (allSprites.length === 0) {
+	if (allEntities.length === 0) {
 		room.validEntityTypes = Object.keys(entityMap) as EntityType[];
 	} else {
-		const currentGraphicSetNumbers = determineValidGraphicSetValues(allSprites);
+		const currentGraphicSetNumbers = determineValidGraphicSetValues(
+			allEntities
+		);
 
 		room.validEntityTypes = Object.keys(entityMap).filter((type) => {
 			const def = entityMap[type as EntityType];

@@ -73,7 +73,6 @@ function buildGraphicSetBytes(entities: EditorEntity[]): Tuple<number, 6> {
 			const def = entityMap[entity.type];
 
 			if (
-				!def.toSpriteBinary ||
 				def.spriteGraphicSets[i] === -1 ||
 				isEqual(def.spriteGraphicSets[i], [-1])
 			) {
