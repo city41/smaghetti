@@ -37,16 +37,16 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 	return (
 		<div
 			className={clsx(className, styles.root, {
-				[styles.isCurrent]: isCurrent,
 				[styles.buttonsOnHover]: buttonsOnHover && !disabled,
-				'bg-yellow-200': isCurrent && !disabled,
-				'hover:bg-yellow-200 cursor-pointer': !disabled,
+				'border-2 border-transparent': !isCurrent,
+				'border-2 border-gray-700 bg-yellow-400': isCurrent && !disabled,
+				'hover:bg-yellow-300 cursor-pointer': !disabled && !isCurrent,
 				'opacity-50 cursor-default': disabled,
 			})}
 			onClick={disabled ? undefined : onClick}
 		>
 			<div
-				className={clsx('w-full h-full grid place-items-center py-1 px-2', {
+				className={clsx('w-full h-full grid place-items-center p-1', {
 					'opacity-20 hover:opacity-100': incompatible,
 				})}
 			>

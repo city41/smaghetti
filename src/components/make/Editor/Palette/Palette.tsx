@@ -66,7 +66,6 @@ function Palette({
 			disabled={disabled}
 			entry={pe}
 			isCurrent={isEqual(pe, currentPaletteEntry)}
-			className={clsx({ firstEntry: i === 0 })}
 			onClick={() => {
 				onPaletteEntryIndexChosen(i);
 			}}
