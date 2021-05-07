@@ -18,6 +18,7 @@ import { OneNumberBlock } from './OneNumberBlock';
 import { ParaWing } from './ParaWing';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PWing } from './PWing';
+import { RedCheepCheep } from './RedCheepCheep';
 import { RegularVegetable } from './RegularVegetable';
 import { SeeSawPivotPoint } from './SeeSawPivotPoint';
 import { Shoe } from './Shoe';
@@ -50,6 +51,7 @@ const resourceMap = {
 	ParaWing,
 	PoisonMushroom,
 	PWing,
+	RedCheepCheep,
 	RegularVegetable,
 	SeeSawPivotPoint,
 	Shoe,
