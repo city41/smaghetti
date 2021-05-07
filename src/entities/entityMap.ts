@@ -89,6 +89,7 @@ import { QuestionBlock } from './QuestionBlock';
 import { QuestionMark } from './QuestionMark';
 import { RedKoopaTroopa } from './RedKoopaTroopa';
 import { RedParaTroopa } from './RedParaTroopa';
+import { RiverCheepCheep } from './RiverCheepCheep';
 import { SeeSawPlatform } from './SeeSawPlatform';
 import { ShoeGoomba } from './ShoeGoomba';
 import { SilverPSwitch } from './SilverPSwitch';
@@ -212,6 +213,7 @@ const entityMap = {
 	QuestionMark,
 	RedKoopaTroopa,
 	RedParaTroopa,
+	RiverCheepCheep,
 	SeeSawPlatform,
 	ShoeGoomba,
 	SilverPSwitch,
