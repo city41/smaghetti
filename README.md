@@ -13,8 +13,6 @@ It's available here: https://smaghetti.com
 
 Very early. The editor itself was from a previous project and is pretty mature. But there is still a lot of work to do reverse engineering the game and adding missing features.
 
-If really curious where things are at or what's next, check out the [trello board](https://trello.com/b/SKzcVqgT/smaghetti)
-
 ## Editor quick start
 
 The editor is at https://smaghetti.com/make
