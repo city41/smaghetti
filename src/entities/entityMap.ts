@@ -115,6 +115,7 @@ import { UndergroundFlatTerrain_UpperLeftCorner } from './UndergroundFlatTerrain
 import { UndergroundFlatTerrain_UpperRightCorner } from './UndergroundFlatTerrain_UpperRightCorner';
 import { UndergroundFlatTerrain_VerticalLeft } from './UndergroundFlatTerrain_VerticalLeft';
 import { UndergroundFlatTerrain_VerticalRight } from './UndergroundFlatTerrain_VerticalRight';
+import { WaterCheepCheep } from './WaterCheepCheep';
 import { WoodBlock } from './WoodBlock';
 import { WoodDoor } from './WoodDoor';
 import { WoodWalkway } from './WoodWalkway';
@@ -239,6 +240,7 @@ const entityMap = {
 	UndergroundFlatTerrain_UpperRightCorner,
 	UndergroundFlatTerrain_VerticalLeft,
 	UndergroundFlatTerrain_VerticalRight,
+	WaterCheepCheep,
 	WoodBlock,
 	WoodDoor,
 	WoodWalkway,
