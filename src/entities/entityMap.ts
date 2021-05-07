@@ -54,6 +54,7 @@ import { HammerBro } from './HammerBro';
 import { HiddenBlock } from './HiddenBlock';
 import { HorizontalRedPiranhaPlant } from './HorizontalRedPiranhaPlant';
 import { IndestructibleBrick } from './IndestructibleBrick';
+import { InvisibleBlock } from './InvisibleBlock';
 import { Key } from './Key';
 import { Lakitu } from './Lakitu';
 import { LakituCloud } from './LakituCloud';
@@ -173,6 +174,7 @@ const entityMap = {
 	HiddenBlock,
 	HorizontalRedPiranhaPlant,
 	IndestructibleBrick,
+	InvisibleBlock,
 	Key,
 	Lakitu,
 	LakituCloud,

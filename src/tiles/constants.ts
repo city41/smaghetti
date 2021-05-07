@@ -23,6 +23,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	GlassBlock: 'Gb',
 	HiddenBlock: 'Hb',
 	IndestructibleBrick: 'In',
+	InvisibleBlock: 'Inv',
 	LakituCloud: 'Lc',
 	LargeSpike: 'Ls',
 	Lava: 'Lv',
