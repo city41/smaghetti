@@ -46,6 +46,7 @@ type Entity = {
 	paletteInfo: {
 		title: string;
 		description?: ReactNode;
+		warning?: ReactNode;
 	};
 
 	dimensions: 'none' | 'x' | 'y' | 'xy';

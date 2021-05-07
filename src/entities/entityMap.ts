@@ -30,6 +30,7 @@ import { Coin } from './Coin';
 import { CoinChallenge } from './CoinChallenge';
 import { ConveyorBelt } from './ConveyorBelt';
 import { DiggableSand } from './DiggableSand';
+import { DolphinPod } from './DolphinPod';
 import { DonutBlock } from './DonutBlock';
 import { DownFortressSpike } from './DownFortressSpike';
 import { DryBones } from './DryBones';
@@ -150,6 +151,7 @@ const entityMap = {
 	CoinChallenge,
 	ConveyorBelt,
 	DiggableSand,
+	DolphinPod,
 	DonutBlock,
 	DownFortressSpike,
 	DryBones,

@@ -1,0 +1,73 @@
+import React from 'react';
+import type { Entity } from './types';
+import { TILE_SIZE } from '../tiles/constants';
+import { TileSpace } from './TileSpace';
+
+const DolphinPod: Entity = {
+	paletteCategory: 'enemy',
+	paletteInfo: {
+		title: 'Dolphin Pod',
+		description: "They don't hurt Mario, but riding them is challenging...",
+		warning:
+			"These are strange and don't always work as expected. More research is needed.",
+	},
+
+	spriteGraphicSets: [-1, -1, -1, -1, -1, 0xa],
+	editorType: 'entity',
+	dimensions: 'none',
+	objectId: 0x6b,
+
+	resource: {
+		romOffset: 0x163768,
+		palette: [
+			0x7f96,
+			0x7fff,
+			0x18c6,
+			0x26b,
+			0x1b10,
+			0x13b4,
+			0x25fd,
+			0x369e,
+			0x475f,
+			0x1abf,
+			0x1c,
+			0x253f,
+			0x463f,
+			0x7ad1,
+			0x6e2c,
+			0x59a6,
+		],
+		tiles: [
+			[682, 683],
+			[698, 699],
+		],
+	},
+
+	toSpriteBinary(x, y) {
+		return [1, this.objectId!, x, y];
+	},
+
+	simpleRender(width, height) {
+		const style = { width, height, backgroundSize: '100% 50%' };
+		return (
+			<div
+				className="HorizontalDolphin-bg bg-center bg-no-repeat"
+				style={style}
+			/>
+		);
+	},
+
+	render() {
+		const width = TILE_SIZE * 2.5;
+		const height = TILE_SIZE;
+
+		const style = { width, height, paddingRight: TILE_SIZE * 1.5 };
+		return (
+			<div className="HorizontalDolphin-bg bg-cover bg-no-repeat" style={style}>
+				<TileSpace />
+			</div>
+		);
+	},
+};
+
+export { DolphinPod };

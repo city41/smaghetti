@@ -22,7 +22,7 @@ type PaletteChoiceModalProps = {
 
 type PaletteChoiceModalEntry = {
 	entry: EntityType;
-	info: { title: string; description?: ReactNode };
+	info: { title: string; description?: ReactNode; warning?: ReactNode };
 };
 
 type TabType = {
@@ -171,6 +171,11 @@ function PaletteChoiceModal({
 					)}
 					{currentEntry && (
 						<div className="space-y-4">{currentEntry.info.description}</div>
+					)}
+					{currentEntry?.info?.warning && (
+						<div className="mt-4 bg-red-100 text-red-700 p-2 text-xs">
+							{currentEntry.info.warning}
+						</div>
 					)}
 					{currentEntry &&
 						!isCompatible(
