@@ -30,6 +30,8 @@ import { TiltPlatformBall } from './TiltPlatformBall';
 import { TiltPlatformPivot } from './TiltPlatformPivot';
 import { TwoNumberBlock } from './TwoNumberBlock';
 import { UndergroundBackground } from './UndergroundBackground';
+import { WingedPlatformBlock } from './WingedPlatformBlock';
+import { WingedPlatformWing } from './WingedPlatformWing';
 
 const resourceMap = {
 	BigBooArm,
@@ -64,6 +66,8 @@ const resourceMap = {
 	TiltPlatformPivot,
 	TwoNumberBlock,
 	UndergroundBackground,
+	WingedPlatformBlock,
+	WingedPlatformWing,
 };
 
 type ResourceType = keyof typeof resourceMap;
