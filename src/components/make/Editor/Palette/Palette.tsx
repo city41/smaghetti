@@ -82,12 +82,12 @@ function Palette({
 		<div
 			className={clsx(
 				className,
-				'flex flex-row items-center justify-center overflow-auto bg-white'
+				'flex flex-row items-center justify-center overflow-auto bg-gray-200'
 			)}
 		>
 			<button
 				className={clsx(
-					'bg-white text-gray-700 px-4 h-full outline-none flex flex-col items-center justify-center',
+					'bg-gray-200 text-gray-700 px-4 h-full outline-none flex flex-col items-center justify-center',
 					{
 						'cursor-pointer hover:bg-yellow-100': !disabled,
 						'opacity-50 cursor-default': disabled,

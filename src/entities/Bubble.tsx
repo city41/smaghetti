@@ -99,12 +99,7 @@ const Bubble: Entity = {
 			backgroundSize: '92%',
 		};
 
-		return (
-			<div
-				className="Bubble-bg bg-center bg-no-repeat bg-gray-200"
-				style={style}
-			/>
-		);
+		return <div className="Bubble-bg bg-center bg-no-repeat" style={style} />;
 	},
 
 	render(showDetails, settings, onSettingsChange) {
