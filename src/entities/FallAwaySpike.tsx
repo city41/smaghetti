@@ -6,13 +6,12 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 /**
  * if the player stands on top of these, they fall,
- * but when they fall, a bogus tile is shown. need to figure
- * out the correct object set for these before adding to palette
  */
-const LargeSpike: Entity = {
-	// paletteCategory: 'terrain',
+const FallAwaySpike: Entity = {
+	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'Large Spike',
+		title: 'Fall Away Spike',
+		description: 'Deadly from below, but also fall if you stand on top of them',
 	},
 
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
@@ -55,7 +54,7 @@ const LargeSpike: Entity = {
 	simpleRender(mw, mh) {
 		return (
 			<div
-				className="LargeSpike-bg bg-cover"
+				className="FallAwaySpike-bg bg-cover"
 				style={{ width: mw, height: mh }}
 			/>
 		);
@@ -66,4 +65,4 @@ const LargeSpike: Entity = {
 	},
 };
 
-export { LargeSpike };
+export { FallAwaySpike };
