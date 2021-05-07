@@ -23,11 +23,19 @@ const InvisibleBlock: Entity = {
 	},
 
 	simpleRender(width, height) {
-		return <div style={{ width, height, border: '1px dotted white' }} />;
+		return <div style={{ width, height, border: '2px dotted white' }} />;
 	},
 
 	render() {
-		return this.simpleRender!(TILE_SIZE, TILE_SIZE);
+		return (
+			<div
+				style={{
+					width: TILE_SIZE,
+					height: TILE_SIZE,
+					border: '1px dotted white',
+				}}
+			/>
+		);
 	},
 };
 
