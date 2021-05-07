@@ -16,6 +16,8 @@ import { HorizontalDolphin } from './HorizontalDolphin';
 import { KoopalingWand } from './KoopalingWand';
 import { KoopaShell } from './KoopaShell';
 import { OneNumberBlock } from './OneNumberBlock';
+import { OneWayDoorHorizontalFlipper } from './OneWayDoorHorizontalFlipper';
+import { OneWayDoorVerticalFlipper } from './OneWayDoorVerticalFlipper';
 import { ParaWing } from './ParaWing';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PWing } from './PWing';
@@ -52,6 +54,8 @@ const resourceMap = {
 	KoopalingWand,
 	KoopaShell,
 	OneNumberBlock,
+	OneWayDoorHorizontalFlipper,
+	OneWayDoorVerticalFlipper,
 	ParaWing,
 	PoisonMushroom,
 	PWing,

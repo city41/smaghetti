@@ -1,21 +1,25 @@
 import React, { ReactNode } from 'react';
 import { FaArrowsAltH, FaArrowsAltV, FaArrowsAlt } from 'react-icons/fa';
 
-type DirectionEditDetailsProps = {
+type Orientation = 'vertical' | 'horizontal' | 'both';
+
+type OrientationEditDetailsProps = {
 	width: number;
 	height: number;
-	onDirectionChange: (newDirection: string) => void;
+	includeBoth?: boolean;
+	onOrientationChange: (newOrientation: Orientation) => void;
 	children: ReactNode;
 };
 
 const PADDING = 1;
 
-function DirectionEditDetails({
+function OrientationEditDetails({
 	width,
 	height,
-	onDirectionChange,
+	includeBoth,
+	onOrientationChange,
 	children,
-}: DirectionEditDetailsProps) {
+}: OrientationEditDetailsProps) {
 	const style = {
 		marginTop: -PADDING,
 		marginLeft: -PADDING,
@@ -36,7 +40,7 @@ function DirectionEditDetails({
 					onMouseDown={(e) => {
 						e.preventDefault();
 						e.stopPropagation();
-						onDirectionChange('horizontal');
+						onOrientationChange('horizontal');
 					}}
 				/>
 				<FaArrowsAltV
@@ -45,21 +49,23 @@ function DirectionEditDetails({
 					onMouseDown={(e) => {
 						e.preventDefault();
 						e.stopPropagation();
-						onDirectionChange('vertical');
+						onOrientationChange('vertical');
 					}}
 				/>
-				<FaArrowsAlt
-					className="hover:bg-gray-500"
-					style={{ fontSize: '0.25rem' }}
-					onMouseDown={(e) => {
-						e.preventDefault();
-						e.stopPropagation();
-						onDirectionChange('both');
-					}}
-				/>
+				{includeBoth && (
+					<FaArrowsAlt
+						className="hover:bg-gray-500"
+						style={{ fontSize: '0.25rem' }}
+						onMouseDown={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
+							onOrientationChange('both');
+						}}
+					/>
+				)}
 			</div>
 		</div>
 	);
 }
 
-export { DirectionEditDetails };
+export { OrientationEditDetails };

@@ -3,10 +3,10 @@ import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
-import { DirectionEditDetails } from '../components/details/DirectionEditDetails';
+import { OrientationEditDetails } from '../components/details/OrientationEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
-const directionToObjectId = {
+const orientationToObjectId = {
 	vertical: 0xbd,
 	horizontal: 0xbe,
 	both: 0xbc,
@@ -22,7 +22,7 @@ const StretchBlock: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	settingsType: 'single',
-	defaultSettings: { direction: 'horizontal' },
+	defaultSettings: { orientation: 'horizontal' },
 
 	resource: {
 		romOffset: 0x18af80,
@@ -51,9 +51,10 @@ const StretchBlock: Entity = {
 	},
 
 	toSpriteBinary(x, y, _w, _h, settings) {
-		const direction = settings.direction ?? this.defaultSettings!.direction;
+		const orientation =
+			settings.orientation ?? this.defaultSettings!.orientation;
 		const objectId =
-			directionToObjectId[direction as keyof typeof directionToObjectId];
+			orientationToObjectId[orientation as keyof typeof orientationToObjectId];
 
 		return [0, objectId, x, y];
 	},
@@ -76,7 +77,7 @@ const StretchBlock: Entity = {
 			height: TILE_SIZE,
 		};
 
-		switch (settings.direction ?? 'horizontal') {
+		switch (settings.orientation ?? 'horizontal') {
 			case 'horizontal': {
 				const style = {
 					width: TILE_SIZE,
@@ -106,15 +107,16 @@ const StretchBlock: Entity = {
 									top: 0,
 								}}
 							>
-								<DirectionEditDetails
+								<OrientationEditDetails
 									width={TILE_SIZE}
 									height={TILE_SIZE}
-									onDirectionChange={(newDirection) =>
-										onSettingsChange({ direction: newDirection })
+									includeBoth
+									onOrientationChange={(newOrientation) =>
+										onSettingsChange({ direction: newOrientation })
 									}
 								>
 									<div className="StretchBlock-bg" style={singleBlockStyle} />
-								</DirectionEditDetails>
+								</OrientationEditDetails>
 							</div>
 						) : (
 							tileBody
@@ -163,15 +165,16 @@ const StretchBlock: Entity = {
 									left: 0,
 								}}
 							>
-								<DirectionEditDetails
+								<OrientationEditDetails
 									width={TILE_SIZE}
 									height={TILE_SIZE}
-									onDirectionChange={(newDirection) =>
-										onSettingsChange({ direction: newDirection })
+									includeBoth
+									onOrientationChange={(newOrientation) =>
+										onSettingsChange({ direction: newOrientation })
 									}
 								>
 									<div className="StretchBlock-bg" style={singleBlockStyle} />
-								</DirectionEditDetails>
+								</OrientationEditDetails>
 							</div>
 						) : (
 							tileBody
@@ -226,15 +229,16 @@ const StretchBlock: Entity = {
 									left: TILE_SIZE * 2,
 								}}
 							>
-								<DirectionEditDetails
+								<OrientationEditDetails
 									width={TILE_SIZE}
 									height={TILE_SIZE}
-									onDirectionChange={(newDirection) =>
-										onSettingsChange({ direction: newDirection })
+									includeBoth
+									onOrientationChange={(newOrientation) =>
+										onSettingsChange({ direction: newOrientation })
 									}
 								>
 									<div className="StretchBlock-bg" style={singleBlockStyle} />
-								</DirectionEditDetails>
+								</OrientationEditDetails>
 							</div>
 						) : (
 							tileBody
