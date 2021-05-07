@@ -46,6 +46,7 @@ import { FloatingBlock } from './FloatingBlock';
 import { FlyingPiranhaPlant } from './FlyingPiranhaPlant';
 import { FortressBrick } from './FortressBrick';
 import { UpFortressSpike } from './UpFortressSpike';
+import { Galoomba } from './Galoomba';
 import { GrandGoomba } from './GrandGoomba';
 import { GiantGreenKoopa } from './GiantGreenKoopa';
 import { GiantGreenParaKoopa } from './GiantGreenParaKoopa';
@@ -170,6 +171,7 @@ const entityMap = {
 	FlyingPiranhaPlant,
 	FortressBrick,
 	UpFortressSpike,
+	Galoomba,
 	GrandGoomba,
 	GiantGreenKoopa,
 	GiantGreenParaKoopa,
