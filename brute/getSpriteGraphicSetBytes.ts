@@ -207,7 +207,7 @@ const STARTING_VALUE = 0x0;
 // this is the starting value after the first iteration
 // this is done to avoid dumping 0_0_0_0_0_0 repeatedly
 const SUBSEQUENT_STARTING_VALUE = 0x1;
-const ENDING_VALUE = 0x10;
+const ENDING_VALUE = 0x20;
 
 function dumpAllWithId(
 	spriteBytes: number[],

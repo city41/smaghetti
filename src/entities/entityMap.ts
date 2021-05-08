@@ -45,6 +45,7 @@ import { FireBarBase } from './FireBarBase';
 import { FireFlower } from './FireFlower';
 import { Fishbone } from './Fishbone';
 import { FloatingBlock } from './FloatingBlock';
+import { Flutter } from './Flutter';
 import { FlyingPiranhaPlant } from './FlyingPiranhaPlant';
 import { FortressBrick } from './FortressBrick';
 import { UpFortressSpike } from './UpFortressSpike';
@@ -175,6 +176,7 @@ const entityMap = {
 	FireFlower,
 	Fishbone,
 	FloatingBlock,
+	Flutter,
 	FlyingPiranhaPlant,
 	FortressBrick,
 	UpFortressSpike,

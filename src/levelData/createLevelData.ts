@@ -120,15 +120,15 @@ function getLevelSettings(
 		0, // music, most sig byte
 		...buildGraphicSetBytes(entities),
 		// the rest of the bytes are largely unknown and copied from classic 1-2
-		0x18,
+		0x0,
 		0,
-		0x38,
+		0x0,
+		0,
+		0x6, // needs to be zero for arrow lift and others
 		0,
 		0,
 		0,
 		0,
-		0,
-		0xf4,
 		0,
 	];
 }
