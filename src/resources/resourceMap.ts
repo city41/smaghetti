@@ -13,6 +13,7 @@ import { FrogSuit } from './FrogSuit';
 import { GiantVegetable } from './GiantVegetable';
 import { GreenCheepCheep } from './GreenCheepCheep';
 import { HorizontalDolphin } from './HorizontalDolphin';
+import { HotHeadEyes } from './HotHeadEyes';
 import { KoopalingWand } from './KoopalingWand';
 import { KoopaShell } from './KoopaShell';
 import { OneNumberBlock } from './OneNumberBlock';
@@ -48,6 +49,7 @@ const resourceMap = {
 	DoorLock,
 	FortressBackground,
 	FrogSuit,
+	HotHeadEyes,
 	HorizontalDolphin,
 	GiantVegetable,
 	GreenCheepCheep,
