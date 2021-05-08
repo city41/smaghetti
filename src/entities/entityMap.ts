@@ -13,6 +13,7 @@ import { BoomerangBro } from './BoomerangBro';
 import { Bowser } from './Bowser';
 import { BowserBrick } from './BowserBrick';
 import { BowserDoor } from './BowserDoor';
+import { BowserFireStatue } from './BowserFireStatue';
 import { BowserLaserStatue } from './BowserLaserStatue';
 import { Brick } from './Brick';
 import { Bubble } from './Bubble';
@@ -142,6 +143,7 @@ const entityMap = {
 	Bowser,
 	BowserBrick,
 	BowserDoor,
+	BowserFireStatue,
 	BowserLaserStatue,
 	Brick,
 	Bubble,

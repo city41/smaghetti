@@ -9,7 +9,7 @@ const BowserLaserStatue: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		title: 'Bowser Laser Statue',
-		description: "They can't shoot lasers just yet...",
+		warning: "They can't shoot lasers just yet...",
 	},
 
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
