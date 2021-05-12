@@ -14,6 +14,14 @@ function NextToolsIndexPage() {
 					These are tools I have built to help in the reverse engineering of
 					SMA4.
 				</p>
+				<p className="p-2 -mx-2 bg-red-600 text-white">
+					<h2 className="block text-lg">These tools are very raw and buggy</h2>
+					They are just good enough to get the job done. I put them here in case
+					people are curious and want to try them. If you want to help reverse
+					engineer the game with these tools and are having trouble,{' '}
+					<a href="mailto:matt.e.greer@gmail.com">let me know</a> and I can make
+					them easier to use
+				</p>
 				<ul>
 					<li>
 						<p>
