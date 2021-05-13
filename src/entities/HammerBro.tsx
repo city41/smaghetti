@@ -3,6 +3,7 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
+import { ANY_OBJECT_SET } from './constants';
 
 const HammerBro: Entity = {
 	paletteCategory: 'enemy',
@@ -10,6 +11,7 @@ const HammerBro: Entity = {
 		title: 'Hammer Bro',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, -1, -1, 1],
 	editorType: 'entity',
 	dimensions: 'none',

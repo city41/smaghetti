@@ -21,7 +21,6 @@ type InternalPaletteProps = {
 	onPaletteEntryIndexChosen: (index: number) => void;
 	onPaletteEntryRemove: (removedEntry: EntityType) => void;
 	onPaletteEntryAdded: (addedEntry: EntityType) => void;
-	currentObjectSet: number;
 };
 
 function Palette({
@@ -33,7 +32,6 @@ function Palette({
 	onPaletteEntryIndexChosen,
 	onPaletteEntryRemove,
 	onPaletteEntryAdded,
-	currentObjectSet,
 }: InternalPaletteProps & PublicPaletteProps) {
 	const [modalOpen, setModalOpen] = useState(false);
 
@@ -111,7 +109,6 @@ function Palette({
 				}}
 				onEntryRemoved={onPaletteEntryRemove}
 				onCancel={() => setModalOpen(false)}
-				currentObjectSet={currentObjectSet}
 			/>
 		</div>
 	);

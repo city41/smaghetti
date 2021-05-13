@@ -4,6 +4,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { entityMap } from '../entities/entityMap';
 import isEqual from 'lodash/isEqual';
 import intersection from 'lodash/intersection';
+import { decodeObjectSet } from '../entities/util';
 
 type Room = {
 	objects: number[];
@@ -43,7 +44,36 @@ function getLevelName(name: string): number[] {
 	return asEreader;
 }
 
-function getObjectHeader(settings: RoomSettings): Tuple<number, 11> {
+function getObjectSet(entities: EditorEntity[]): [number, number] {
+	const intersected = entities.reduce<number[]>((building, entity) => {
+		const entityDef = entityMap[entity.type];
+
+		if (
+			!entityDef.objectSets ||
+			entityDef.objectSets.length === 0 ||
+			isEqual(entityDef.objectSets, [-1])
+		) {
+			return building;
+		}
+
+		if (building.length === 0) {
+			return entityDef.objectSets;
+		}
+
+		return intersection(building, entityDef.objectSets);
+	}, []);
+
+	const resultingSet = intersected[0] ?? 0;
+
+	return decodeObjectSet(resultingSet);
+}
+
+function getObjectHeader(
+	settings: RoomSettings,
+	entities: EditorEntity[]
+): Tuple<number, 11> {
+	const [, objectGraphicSet] = getObjectSet(entities);
+
 	return [
 		0x09, // time, hundreds digit
 		0x00, // time, tens and ones
@@ -52,7 +82,7 @@ function getObjectHeader(settings: RoomSettings): Tuple<number, 11> {
 		0x0c, // bottom nibble is length of level, copied from classic 1-2
 		settings.bgColor, // background color
 		0xa1, // top nibble is scroll settings, bottom unknown, copied from 1-2
-		settings.objectGraphicSet, // top 3 bits: level entry action, bottom 5: graphics set
+		objectGraphicSet, // top 3 bits: level entry action, bottom 5: graphics set
 		0x08, // top nibble: graphics set, bottom: unknown
 		settings.bgExtraColorAndEffect ?? 0,
 		// background graphics, copied from 1-2
@@ -65,7 +95,9 @@ function getObjectHeader(settings: RoomSettings): Tuple<number, 11> {
  * of their graphic set needs. The assumption is the passed in entities are all
  * compatible with each other
  */
-function buildGraphicSetBytes(entities: EditorEntity[]): Tuple<number, 6> {
+function buildSpriteGraphicSetBytes(
+	entities: EditorEntity[]
+): Tuple<number, 6> {
 	const graphicSets = [];
 
 	for (let i = 0; i < 6; ++i) {
@@ -101,6 +133,8 @@ function getLevelSettings(
 	settings: RoomSettings,
 	entities: EditorEntity[]
 ): Tuple<number, 32> {
+	const [objectSet] = getObjectSet(entities);
+
 	return [
 		0xbf, // screen y boundary, least sig byte
 		0x01, // screen y boundary, most sig byte
@@ -114,11 +148,11 @@ function getLevelSettings(
 		0x02, // player x
 		0x12, // screen y
 		0, // screen x
-		settings.objectSet, // object set, least sig byte
+		objectSet, // object set, least sig byte
 		0, // object set, most sig byte
 		settings.music, // music, least sig byte
 		0, // music, most sig byte
-		...buildGraphicSetBytes(entities),
+		...buildSpriteGraphicSetBytes(entities),
 		// the rest of the bytes are largely unknown and copied from classic 1-2
 		0x0,
 		0,
@@ -378,7 +412,7 @@ function getRoom(roomIndex: number, allRooms: RoomData[]): Room {
 
 	const allEntities = entities.concat(cellEntities);
 
-	const objectHeader = getObjectHeader(settings);
+	const objectHeader = getObjectHeader(settings, allEntities);
 	const objects = getObjects(entities, matrixLayer);
 	const levelSettings = getLevelSettings(settings, allEntities);
 	const transportData = getTransports(roomIndex, allEntities, allRooms);

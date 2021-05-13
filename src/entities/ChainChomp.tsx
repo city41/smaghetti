@@ -2,12 +2,15 @@ import React from 'react';
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
+import { ANY_OBJECT_SET } from './constants';
 
 const ChainChomp: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		title: 'Chain Chomp',
 	},
+
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [[2, 3], -1, -1, -1, -1, -1],
 	editorType: 'entity',
 	dimensions: 'none',

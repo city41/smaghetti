@@ -1,19 +1,23 @@
 import type { Entity } from './types';
-import { getBankParam1 } from './util';
-import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
+import { encodeObjectSets, getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 
 const DonutBlock: Entity = {
-	// could have swore these worked, but now when they fall they get bad tiles
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		title: 'Donut Block',
 		description: "After they fall, they don't respawn in this game",
 	},
 
+	objectSets: encodeObjectSets([
+		[2, 12],
+		[2, 2],
+		[2, 5],
+		[2, 6],
+		[2, 8],
+	]),
 	spriteGraphicSets: [[5, 6], -1, -1, -1, -1, -1],
-	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

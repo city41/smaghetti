@@ -5,6 +5,7 @@ import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 import { PayloadViewDetails } from '../components/details/PayloadViewDetails';
 import { ResourceType } from '../resources/resourceMap';
 import { EntityType } from './entityMap';
+import { ANY_OBJECT_SET } from './constants';
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -15,6 +16,7 @@ const Chest: Entity = {
 		description: 'Collecting a chest ends the level',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [
 		graphicSets,
 		graphicSets,

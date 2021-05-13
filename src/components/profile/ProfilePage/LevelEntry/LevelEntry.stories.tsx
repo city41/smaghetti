@@ -24,8 +24,6 @@ const blankLevel: Level = {
 		rooms: [
 			{
 				settings: {
-					objectSet: 0,
-					objectGraphicSet: 0,
 					music: 0,
 					bgColor: 0,
 					bgGraphic: 0,

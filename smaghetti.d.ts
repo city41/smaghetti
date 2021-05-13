@@ -52,8 +52,6 @@ type SerializedMatrixLayer = {
 };
 
 type RoomSettings = {
-	objectSet: number;
-	objectGraphicSet: number;
 	music: number;
 	bgGraphic: number;
 	bgColor: number;

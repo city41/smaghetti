@@ -3,6 +3,7 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import React from 'react';
+import { ANY_OBJECT_SET } from './constants';
 
 /**
  * not compatible with any existing room types :(
@@ -13,6 +14,7 @@ const DryBones: Entity = {
 		title: 'Dry Bones',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, 1, -1, -1],
 	editorType: 'entity',
 	dimensions: 'none',

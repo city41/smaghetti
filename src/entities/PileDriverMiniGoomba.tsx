@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
+import { ANY_OBJECT_SET } from './constants';
 
 const PileDriverMiniGoomba: Entity = {
 	paletteCategory: 'enemy',
@@ -9,10 +10,10 @@ const PileDriverMiniGoomba: Entity = {
 		title: 'Pile Driver Mini Goomba',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	// TODO: there are probably more sets, but since the dump always just
 	// shows a brick, need to figure this one out manually
 	spriteGraphicSets: [-1, -1, -1, 2, -1, -1],
-
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x6b,

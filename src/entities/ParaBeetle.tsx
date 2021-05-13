@@ -2,7 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
-import { ANY_BELOW_16 } from './constants';
+import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
 
 const ParaBeetle: Entity = {
 	paletteCategory: 'enemy',
@@ -10,6 +10,7 @@ const ParaBeetle: Entity = {
 		title: 'ParaBeetle',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [5, -1, -1, -1, -1, ANY_BELOW_16],
 	editorType: 'entity',
 	dimensions: 'none',

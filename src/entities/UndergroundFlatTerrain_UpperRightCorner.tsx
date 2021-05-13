@@ -1,7 +1,7 @@
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const UndergroundFlatTerrain_UpperRightCorner: Entity = {
 	paletteInfo: {
@@ -12,6 +12,7 @@ const UndergroundFlatTerrain_UpperRightCorner: Entity = {
 	dimensions: 'none',
 	objectId: 0x4,
 	emptyBank: 0,
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 
 	resource: {

@@ -3,7 +3,7 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import React from 'react';
-import { ANY_BELOW_16 } from './constants';
+import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
 
 const Thwomp: Entity = {
 	paletteCategory: 'enemy',
@@ -11,6 +11,7 @@ const Thwomp: Entity = {
 		title: 'Thwomp',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [6, -1, -1, -1, -1, ANY_BELOW_16],
 	editorType: 'entity',
 	dimensions: 'none',

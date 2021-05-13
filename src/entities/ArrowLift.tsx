@@ -2,7 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { TileSpace } from './TileSpace';
 
 const ArrowLift: Entity = {
@@ -12,6 +12,7 @@ const ArrowLift: Entity = {
 		description: "A neat toy from Yoshi's Island",
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'entity',
 	dimensions: 'none',

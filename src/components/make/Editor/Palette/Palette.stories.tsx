@@ -19,7 +19,6 @@ export const Basic = () => {
 				onPaletteEntryIndexChosen={() => {}}
 				onPaletteEntryRemove={() => {}}
 				onPaletteEntryAdded={() => {}}
-				currentObjectSet={0}
 			/>
 		</div>
 	);

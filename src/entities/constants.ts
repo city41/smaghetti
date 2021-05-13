@@ -29,3 +29,5 @@ export const ANY_SPRITE_GRAPHIC_SET: [
 	number,
 	number
 ] = [-1, -1, -1, -1, -1, -1];
+
+export const ANY_OBJECT_SET = [-1];

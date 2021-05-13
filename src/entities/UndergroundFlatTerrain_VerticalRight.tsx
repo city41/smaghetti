@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const UndergroundFlatTerrain_VerticalRight: Entity = {
 	paletteInfo: {
@@ -14,6 +14,7 @@ const UndergroundFlatTerrain_VerticalRight: Entity = {
 	param1: 'height',
 	objectId: 0xd,
 	emptyBank: 1,
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 
 	resource: {

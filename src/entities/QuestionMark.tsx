@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_OBJECT_SET } from './constants';
 
 /**
  * A question mark icon that once touched, completes the level.
@@ -17,6 +18,7 @@ const QuestionMark: Entity = {
 		description: 'Touching this completes the level',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [
 		graphicSets,
 		graphicSets,

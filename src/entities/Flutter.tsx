@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
+import { ANY_OBJECT_SET } from './constants';
 
 const Flutter: Entity = {
 	paletteCategory: 'enemy',
@@ -10,6 +11,7 @@ const Flutter: Entity = {
 		description: 'A wiggler with wings??',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, -1, -1, 0x14],
 	editorType: 'entity',
 	dimensions: 'none',

@@ -1,17 +1,15 @@
 import type { Entity } from './types';
-import { getBankParam1 } from './util';
+import { encodeObjectSets, getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
-/**
- * Does not work in current fortress/underground rooms
- */
 const Cactus: Entity = {
 	paletteInfo: {
 		title: 'Cactus',
 	},
 
+	objectSets: encodeObjectSets([[9, 9]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	dimensions: 'x',

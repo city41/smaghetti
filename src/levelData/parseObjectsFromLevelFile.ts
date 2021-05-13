@@ -2,7 +2,6 @@ import {
 	ROOM_LEVELSETTING_POINTERS,
 	ROOM_OBJECT_HEADER_SIZE_IN_BYTES,
 	ROOM_OBJECT_POINTERS,
-	ROOM_TYPE_SETTINGS,
 } from '../levelData/constants';
 
 type LevelObject = {
@@ -79,11 +78,11 @@ const knownFourByteIds: Record<number, number[]> = {
 		0x36, // first object in mushroom19,room0
 		0x70, // second object in mushroom19,room0
 	],
-	[ROOM_TYPE_SETTINGS.underground.objectSet]: [
+	0xe: [
 		0x3a, // initial wall at start of Classic 1-2
 		0xd, // final most wall in Classic 1-2 (right side of warp pipe "room")
 	],
-	[ROOM_TYPE_SETTINGS.fortress.objectSet]: [
+	0x2: [
 		0x17, // something in promo03,room0, I think it's a pipe
 		0x18, // vertical grey pipe, coming up from bottom
 		0x32, // conveyor belt
@@ -115,7 +114,7 @@ const knownFourByteIds: Record<number, number[]> = {
 };
 
 const knownFiveByteIds: Record<number, number[]> = {
-	[ROOM_TYPE_SETTINGS.fortress.objectSet]: [
+	0x2: [
 		0xd, // the main fortress "metal" brick
 	],
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
+import { ANY_OBJECT_SET } from './constants';
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -11,6 +12,7 @@ const Bobomb: Entity = {
 		title: 'Bobomb',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [
 		graphicSets,
 		graphicSets,

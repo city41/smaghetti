@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
+import { ANY_OBJECT_SET } from './constants';
 
 const fireballGraphicSets = [4, 5, 6, 7, 8, 9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf];
 const ClassicBowser: Entity = {
@@ -11,6 +12,7 @@ const ClassicBowser: Entity = {
 		description: 'SMB1 style Bowser',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	// TODO: see if this can be loosened. Also might need to change
 	// to account for hammers
 	spriteGraphicSets: [-1, 3, fireballGraphicSets, -1, 2, 0x16],

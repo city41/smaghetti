@@ -19,16 +19,12 @@ export const ROOM_AUTOSCROLL_POINTERS = [0xf, 0x1b, 0x27, 0x33];
 
 export const ROOM_TYPE_SETTINGS: Record<string, RoomSettings> = {
 	underground: {
-		objectSet: 0xe,
-		objectGraphicSet: 0x3,
 		music: 0xd,
 		bgGraphic: 0x37,
 		bgColor: 0x1,
 		bgExtraColorAndEffect: 0,
 	},
 	fortress: {
-		objectSet: 0x2,
-		objectGraphicSet: 0x2,
 		music: 0xf,
 		bgGraphic: 0x6,
 		bgColor: 0x98,

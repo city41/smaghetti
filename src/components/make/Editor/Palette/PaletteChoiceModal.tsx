@@ -17,7 +17,6 @@ type PaletteChoiceModalProps = {
 	onEntryAdded: (addedEntry: EntityType) => void;
 	onEntryRemoved: (removedEntry: EntityType) => void;
 	onCancel: () => void;
-	currentObjectSet: number;
 };
 
 type PaletteChoiceModalEntry = {
@@ -56,25 +55,15 @@ const entries: PaletteChoiceModalEntry[][] = tabs.map((t) => {
 
 function isCompatible(
 	type: EntityType,
-	objectSet: number,
 	validEntityTypes: EntityType[]
 ): boolean {
-	if (!validEntityTypes.includes(type)) {
-		return false;
-	}
-
-	const entityDef = entityMap[type];
-
-	const objectSetCompatible =
-		!entityDef.objectSets || entityDef.objectSets.includes(objectSet);
-
-	return objectSetCompatible;
+	return validEntityTypes.includes(type);
 }
 
-function getSortComparator(objectSet: number, validEntityTypes: EntityType[]) {
+function getSortComparator(validEntityTypes: EntityType[]) {
 	return (a: PaletteChoiceModalEntry, b: PaletteChoiceModalEntry) => {
-		const aCompat = isCompatible(a.entry, objectSet, validEntityTypes);
-		const bCompat = isCompatible(b.entry, objectSet, validEntityTypes);
+		const aCompat = isCompatible(a.entry, validEntityTypes);
+		const bCompat = isCompatible(b.entry, validEntityTypes);
 
 		if (aCompat && !bCompat) {
 			return -1;
@@ -94,7 +83,6 @@ function PaletteChoiceModal({
 	validEntityTypes,
 	onEntryAdded,
 	onCancel,
-	currentObjectSet,
 }: PaletteChoiceModalProps) {
 	const [currentTabIndex, setCurrentTabIndex] = useState(0);
 	const [currentEntryIndex, setCurrentEntryIndex] = useState(0);
@@ -130,7 +118,7 @@ function PaletteChoiceModal({
 					</div>
 					<div className={styles.currentEntries}>
 						{currentEntries
-							.sort(getSortComparator(currentObjectSet, validEntityTypes))
+							.sort(getSortComparator(validEntityTypes))
 							.map((ce, i) => {
 								return (
 									<PaletteEntryCmp
@@ -144,13 +132,7 @@ function PaletteChoiceModal({
 										buttonsOnHover
 										showAdd
 										showRemove={false}
-										incompatible={
-											!isCompatible(
-												ce.entry,
-												currentObjectSet,
-												validEntityTypes
-											)
-										}
+										incompatible={!isCompatible(ce.entry, validEntityTypes)}
 										onAddClick={() => {
 											onEntryAdded(ce.entry);
 										}}
@@ -177,29 +159,24 @@ function PaletteChoiceModal({
 							{currentEntry.info.warning}
 						</div>
 					)}
-					{currentEntry &&
-						!isCompatible(
-							currentEntry.entry,
-							currentObjectSet,
-							validEntityTypes
-						) && (
-							<div className="space-y-3">
-								<div className="mt-4 text-red-500 font-bold">
-									Incompatible with other added entities
-								</div>
-								<div className="text-xs">
-									This entity is not compatible with other entities that you
-									have placed in the room
-								</div>
-								<a
-									className="text-xs text-blue-500"
-									href="/docs/how-entities-are-divided-into-sets"
-									target="_blank"
-								>
-									learn more
-								</a>
+					{currentEntry && !isCompatible(currentEntry.entry, validEntityTypes) && (
+						<div className="space-y-3">
+							<div className="mt-4 text-red-500 font-bold">
+								Incompatible with other added entities
 							</div>
-						)}
+							<div className="text-xs">
+								This entity is not compatible with other entities that you have
+								placed in the room
+							</div>
+							<a
+								className="text-xs text-blue-500"
+								href="/docs/how-entities-are-divided-into-sets"
+								target="_blank"
+							>
+								learn more
+							</a>
+						</div>
+					)}
 				</div>
 			</div>
 		</Modal>

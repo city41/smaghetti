@@ -1,6 +1,5 @@
 import type { Entity } from './types';
-import { getBankParam1 } from './util';
-import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
+import { encodeObjectSets, getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ResizeEditDetails } from '../components/details/ResizeEditDetails';
@@ -13,8 +12,23 @@ const ConveyorBelt: Entity = {
 		description: 'Only goes in one direction so far...',
 	},
 
+	objectSets: encodeObjectSets([
+		[2, 10],
+		[2, 11],
+		[2, 12],
+		[2, 13],
+		[2, 14],
+		[2, 15],
+		[2, 1],
+		[2, 2],
+		[2, 3],
+		[2, 4],
+		[2, 5],
+		[2, 6],
+		[2, 8],
+		[2, 9],
+	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
-	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	editorType: 'entity',
 	settingsType: 'single',
 	defaultSettings: { width: 1, height: 1 },

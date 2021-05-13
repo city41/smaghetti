@@ -1,6 +1,5 @@
 import type { Entity } from './types';
-import { getBankParam1 } from './util';
-import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
+import { encodeObjectSets, getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
@@ -11,8 +10,8 @@ const FortressBrick: Entity = {
 		title: 'Fortress Brick',
 	},
 
+	objectSets: encodeObjectSets([[2, 2]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
-	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0xd,

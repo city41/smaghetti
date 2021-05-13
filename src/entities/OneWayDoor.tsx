@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { TileSpace } from './TileSpace';
 import { AngleEditDetails } from '../components/details/AngleEditDetails';
 
@@ -29,6 +29,7 @@ const OneWayDoor: Entity = {
 		title: 'One Way Door',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'entity',
 	dimensions: 'none',

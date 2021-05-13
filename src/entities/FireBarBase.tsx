@@ -1,8 +1,8 @@
 import type { Entity } from './types';
-import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { encodeObjectSets } from './util';
 
 const FireBarBase: Entity = {
 	paletteCategory: 'terrain',
@@ -12,8 +12,8 @@ const FireBarBase: Entity = {
 			'These can be the base of a fire bar, or just used on their own',
 	},
 
+	objectSets: encodeObjectSets([[2, 2]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
-	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x2,

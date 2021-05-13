@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
+import { ANY_OBJECT_SET } from './constants';
 
 const ChargingChuck: Entity = {
 	paletteCategory: 'enemy',
@@ -10,6 +11,7 @@ const ChargingChuck: Entity = {
 		title: 'Charging Chuck',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, -1, -1, 9],
 	editorType: 'entity',
 	dimensions: 'none',

@@ -4,7 +4,7 @@ import React from 'react';
 import { TileSpace } from './TileSpace';
 import { TransportSource } from '../components/Transport/TransportSource';
 import { TransportEditDetails } from '../components/details/TransportEditDetails';
-import { simpleSpriteBinary } from './util';
+import { encodeObjectSets, simpleSpriteBinary } from './util';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const DOOR_LOCK_OBJECT_ID = 0xce;
@@ -22,6 +22,7 @@ const BowserDoor: Entity = {
 		title: 'Bowser Door',
 	},
 
+	objectSets: encodeObjectSets([[2, 2]]),
 	// this is for the lock sprite, which truly is universal
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'entity',

@@ -1,7 +1,7 @@
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 /*
  * Player is special since it's not really a sprite or object on the SMA4
@@ -12,6 +12,7 @@ const Player: Entity = {
 		title: 'Player',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'entity',
 	dimensions: 'none',

@@ -3,6 +3,7 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import React from 'react';
+import { ANY_OBJECT_SET } from './constants';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -12,6 +13,7 @@ const ShoeGoomba: Entity = {
 		title: 'Shoe Goomba',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, -1],
 	objectId: 0x2b,
 	editorType: 'entity',

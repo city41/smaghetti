@@ -22,3 +22,16 @@ export function scaledEntityRender(entityType: EntityType, scale = 1) {
 
 	return entityDef.simpleRender(entityWidth, entityHeight);
 }
+
+export function encodeObjectSets(sets: number[][]): number[] {
+	return sets.map((s) => {
+		return (s[0] << 16) | s[1];
+	});
+}
+
+export function decodeObjectSet(set: number): [number, number] {
+	const objectSet = set >> 16;
+	const objectGraphicSet = set & 0xffff;
+
+	return [objectSet, objectGraphicSet];
+}

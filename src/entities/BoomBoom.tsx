@@ -3,6 +3,7 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
+import { ANY_OBJECT_SET } from './constants';
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -12,6 +13,7 @@ const BoomBoom: Entity = {
 		title: 'Boom Boom',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [
 		graphicSets,
 		graphicSets,

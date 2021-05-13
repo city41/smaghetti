@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
+import isEqual from 'lodash/isEqual';
 
 import { AppState, dispatch } from '../../../../store';
 import {
@@ -8,7 +9,6 @@ import {
 	setCurrentRoomIndex,
 	toggleManageRoomsMode,
 	roomSettingsChange,
-	RoomState,
 } from '../../editorSlice';
 
 import { ManageRooms } from './ManageRooms';
@@ -16,7 +16,6 @@ import type { PublicManageRoomsProps } from './ManageRooms';
 import { useSelector } from 'react-redux';
 import { ROOM_TYPE_SETTINGS } from '../../../../levelData/constants';
 import { IncompatibleEntitiesWarningModal } from './IncompatibleEntitiesWarningModal';
-import { isCompatibleEntity } from '../../util';
 
 const actions = bindActionCreators(
 	{
@@ -32,10 +31,7 @@ const roomTypes = Object.keys(ROOM_TYPE_SETTINGS);
 
 function getRoomType(settings: RoomSettings): string {
 	const entry = Object.entries(ROOM_TYPE_SETTINGS).find((rts) => {
-		return (
-			settings.objectGraphicSet === rts[1].objectGraphicSet &&
-			settings.objectSet === rts[1].objectSet
-		);
+		return isEqual(settings, rts[1]);
 	});
 
 	if (!entry) {
@@ -47,33 +43,6 @@ function getRoomType(settings: RoomSettings): string {
 	}
 
 	return entry[0];
-}
-
-function isIncompatibleSwitch(room: RoomState, type: string) {
-	const settings = ROOM_TYPE_SETTINGS[type as keyof typeof ROOM_TYPE_SETTINGS];
-
-	const hasIncompatibleEntities = room.entities.some((e) => {
-		return !isCompatibleEntity(e.type, settings);
-	});
-
-	const hasIncompatibleTiles = room.matrix.reduce<boolean>((building, row) => {
-		if (!row) {
-			return building;
-		}
-
-		return (
-			building ||
-			row.some((t) => {
-				if (!t) {
-					return false;
-				}
-
-				return !isCompatibleEntity(t.type, settings);
-			})
-		);
-	}, false);
-
-	return hasIncompatibleEntities || hasIncompatibleTiles;
 }
 
 function ConnectedManageRooms(props: PublicManageRoomsProps) {
@@ -105,12 +74,7 @@ function ConnectedManageRooms(props: PublicManageRoomsProps) {
 	}
 
 	function handleRoomTypeChange(index: number, type: string) {
-		if (isIncompatibleSwitch(rooms[currentRoomIndex], type)) {
-			setPendingRoomTypeChange({ index, type });
-			setShowIncompatibleWarningModal(true);
-		} else {
-			dispatchRoomSettingsChange(index, type);
-		}
+		dispatchRoomSettingsChange(index, type);
 	}
 
 	function handleProceed() {

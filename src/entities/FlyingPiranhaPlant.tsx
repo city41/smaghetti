@@ -3,7 +3,7 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 /**
  * no single graphic set made this valid, probably needs two? or possibly
@@ -14,6 +14,7 @@ const FlyingPiranhaPlant: Entity = {
 		title: 'Flying Piranha Plant',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0xd8,
 	editorType: 'entity',

@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const Mushroom: Entity = {
 	paletteCategory: 'power-up',
@@ -10,6 +10,7 @@ const Mushroom: Entity = {
 		title: 'Mushroom',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0xd,
 	editorType: 'entity',

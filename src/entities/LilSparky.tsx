@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
+import { ANY_OBJECT_SET } from './constants';
 
 const LilSparky: Entity = {
 	paletteCategory: 'enemy',
@@ -9,6 +10,7 @@ const LilSparky: Entity = {
 		title: 'Lil Sparky',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, -1, -1, 0xd],
 	editorType: 'entity',
 	dimensions: 'none',

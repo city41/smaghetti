@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
+import { ANY_OBJECT_SET } from './constants';
 
 const BabyCheepCheep: Entity = {
 	paletteCategory: 'enemy',
@@ -11,6 +12,7 @@ const BabyCheepCheep: Entity = {
 			"Normally they come out of big bertha's mouth. But you can spawn them separately too!",
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [7, -1, -1, -1, -1, -1],
 	editorType: 'entity',
 	dimensions: 'none',

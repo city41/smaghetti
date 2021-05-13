@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
+import { ANY_OBJECT_SET } from './constants';
 
 const Galoomba: Entity = {
 	paletteCategory: 'enemy',
@@ -10,6 +11,7 @@ const Galoomba: Entity = {
 		description: 'The Goombas of SMW',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, -1, -1, 6],
 	editorType: 'entity',
 	dimensions: 'none',

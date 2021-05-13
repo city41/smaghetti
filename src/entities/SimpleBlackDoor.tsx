@@ -4,8 +4,7 @@ import React from 'react';
 import { TileSpace } from './TileSpace';
 import { TransportSource } from '../components/Transport/TransportSource';
 import { TransportEditDetails } from '../components/details/TransportEditDetails';
-import { simpleSpriteBinary } from './util';
-import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
+import { encodeObjectSets, simpleSpriteBinary } from './util';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const DOOR_LOCK_OBJECT_ID = 0xce;
@@ -16,9 +15,25 @@ const SimpleBlackDoor: Entity = {
 		title: 'Simple Black Door',
 	},
 
+	objectSets: encodeObjectSets([
+		[2, 0],
+		[2, 10],
+		[2, 11],
+		[2, 12],
+		[2, 13],
+		[2, 14],
+		[2, 15],
+		[2, 1],
+		[2, 2],
+		[2, 3],
+		[2, 4],
+		[2, 5],
+		[2, 6],
+		[2, 8],
+		[2, 9],
+	]),
 	// this is for the lock sprite, which truly is universal
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
-	objectSets: [ROOM_TYPE_SETTINGS.fortress.objectSet],
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x5,

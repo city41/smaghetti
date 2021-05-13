@@ -3,7 +3,7 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const FallAwayPlatform: Entity = {
 	paletteCategory: 'gizmo',
@@ -12,6 +12,7 @@ const FallAwayPlatform: Entity = {
 		description: 'Whenever Mario is standing on this platform, it falls',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0x20,
 	editorType: 'entity',

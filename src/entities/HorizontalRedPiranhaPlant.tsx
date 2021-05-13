@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 /**
  * TODO: needs a detail pane to pick direction.
@@ -14,6 +14,7 @@ const HorizontalRedPiranhaPlant: Entity = {
 		title: 'Horizontal Red Piranha Plant',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'entity',
 	dimensions: 'none',

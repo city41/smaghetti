@@ -3,7 +3,7 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
-import { ANY_BELOW_16 } from './constants';
+import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
 
 const graphicSets = [0xb, 0xc, 0xd, 0xe, 0xf];
 
@@ -13,6 +13,7 @@ const GiantRedKoopa: Entity = {
 		title: 'Giant Red Koopa',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [graphicSets, -1, -1, -1, -1, ANY_BELOW_16],
 	editorType: 'entity',
 	dimensions: 'none',

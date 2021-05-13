@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { getBankParam1 } from './util';
+import { encodeObjectSets, getBankParam1 } from './util';
 
 const Stalactite: Entity = {
 	paletteCategory: 'terrain',
@@ -10,8 +10,26 @@ const Stalactite: Entity = {
 		title: 'Stalactite',
 	},
 
-	objectId: 0x5e,
+	// TODO: many more object sets are valid, mostly alternate colors
+	objectSets: encodeObjectSets([
+		[14, 0],
+		[14, 10],
+		[14, 11],
+		[14, 12],
+		[14, 13],
+		[14, 14],
+		[14, 15],
+		[14, 1],
+		[14, 2],
+		[14, 3],
+		[14, 4],
+		[14, 5],
+		[14, 6],
+		[14, 8],
+		[14, 9],
+	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	objectId: 0x5e,
 	editorType: 'cell',
 	dimensions: 'x',
 

@@ -4,7 +4,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { OrientationEditDetails } from '../components/details/OrientationEditDetails';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const orientationToObjectId = {
 	vertical: 0xbd,
@@ -18,6 +18,7 @@ const StretchBlock: Entity = {
 		title: 'Stretch Block',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'entity',
 	dimensions: 'none',

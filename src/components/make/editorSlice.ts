@@ -32,7 +32,12 @@ import intersection from 'lodash/intersection';
 import { TILE_SIZE } from '../../tiles/constants';
 import { entityMap, EntityType } from '../../entities/entityMap';
 import { ROOM_TYPE_SETTINGS } from '../../levelData/constants';
-import { isCompatibleEntity } from './util';
+import { Entity } from '../../entities/types';
+
+type ObjectAndGraphicSets = {
+	spriteGraphicSets: number[][];
+	objectSets: number[];
+};
 
 type LocalStorageData = {
 	metadata: {
@@ -646,48 +651,92 @@ function assignAceCoinIndices(rooms: RoomState[]) {
 	}
 }
 
-function determineValidGraphicSetValues(entities: EditorEntity[]): number[][] {
-	const currentValid: Array<number[]> = [[-1], [-1], [-1], [-1], [-1], [-1]];
+function determineValidGraphicAndObjectSetValues(
+	entities: EditorEntity[]
+): ObjectAndGraphicSets {
+	const currentValidSpriteGraphicSets: Array<number[]> = [
+		[-1],
+		[-1],
+		[-1],
+		[-1],
+		[-1],
+		[-1],
+	];
+
+	let currentValidObjectSets = [-1];
 
 	entities.forEach((e) => {
 		const def = entityMap[e.type];
 
 		if (def.spriteGraphicSets) {
-			for (let i = 0; i < currentValid.length; ++i) {
+			for (let i = 0; i < currentValidSpriteGraphicSets.length; ++i) {
 				if (def.spriteGraphicSets[i] !== -1) {
 					const value = def.spriteGraphicSets[i];
 					const asArray = Array.isArray(value) ? value : [value];
 
-					if (isEqual(currentValid[i], [-1])) {
-						currentValid[i] = [...asArray];
+					if (isEqual(currentValidSpriteGraphicSets[i], [-1])) {
+						currentValidSpriteGraphicSets[i] = [...asArray];
 					} else {
-						currentValid[i] = intersection(currentValid[i], asArray);
+						currentValidSpriteGraphicSets[i] = intersection(
+							currentValidSpriteGraphicSets[i],
+							asArray
+						);
 					}
 				}
 			}
 		}
+
+		if (def.objectSets) {
+			if (isEqual(currentValidObjectSets, [-1])) {
+				currentValidObjectSets = [...def.objectSets];
+			} else {
+				currentValidObjectSets = intersection(
+					currentValidObjectSets,
+					def.objectSets
+				);
+			}
+		}
 	});
 
-	return currentValid;
+	return {
+		spriteGraphicSets: currentValidSpriteGraphicSets,
+		objectSets: currentValidObjectSets,
+	};
 }
 
-function isGraphicSetCompatible(
-	spriteGraphicSet: Array<number | number[]>,
-	currentGraphicSet: Array<number[]>
+function isGraphicAndObjectSetCompatible(
+	entityDef: Entity,
+	currentObjectAndGraphicSets: ObjectAndGraphicSets
 ) {
-	return spriteGraphicSet.every((v, i) => {
-		if (isEqual(currentGraphicSet, [-1])) {
-			return true;
+	const spriteGraphicSetCompatible = entityDef.spriteGraphicSets.every(
+		(v, i) => {
+			if (isEqual(currentObjectAndGraphicSets.spriteGraphicSets[i], [-1])) {
+				return true;
+			}
+
+			if (
+				v === -1 ||
+				isEqual(currentObjectAndGraphicSets.spriteGraphicSets[i], [-1])
+			) {
+				return true;
+			}
+
+			const asArray = Array.isArray(v) ? v : [v];
+
+			return (
+				intersection(asArray, currentObjectAndGraphicSets.spriteGraphicSets[i])
+					.length > 0
+			);
 		}
+	);
 
-		if (v === -1 || isEqual(currentGraphicSet[i], [-1])) {
-			return true;
-		}
+	const objectSetCompatible =
+		isEqual(currentObjectAndGraphicSets.objectSets, [-1]) ||
+		isEqual(entityDef.objectSets, [-1]) ||
+		intersection(entityDef.objectSets, currentObjectAndGraphicSets.objectSets)
+			.length > 0;
 
-		const asArray = Array.isArray(v) ? v : [v];
-
-		return intersection(asArray, currentGraphicSet[i]).length > 0;
-	});
+	return spriteGraphicSetCompatible && objectSetCompatible;
 }
 
 function updateValidEntityTypes(room: RoomState) {
@@ -712,27 +761,16 @@ function updateValidEntityTypes(room: RoomState) {
 	if (allEntities.length === 0) {
 		room.validEntityTypes = Object.keys(entityMap) as EntityType[];
 	} else {
-		const currentGraphicSetNumbers = determineValidGraphicSetValues(
+		const currentGraphicAndObjectSetNumbers = determineValidGraphicAndObjectSetValues(
 			allEntities
 		);
 
 		room.validEntityTypes = Object.keys(entityMap).filter((type) => {
 			const def = entityMap[type as EntityType];
-			if (!def.toSpriteBinary) {
-				return true;
-			}
-
-			if (!def.spriteGraphicSets) {
-				return true;
-			}
-
-			if (
-				isGraphicSetCompatible(def.spriteGraphicSets, currentGraphicSetNumbers)
-			) {
-				return true;
-			}
-
-			return false;
+			return isGraphicAndObjectSetCompatible(
+				def,
+				currentGraphicAndObjectSetNumbers
+			);
 		}) as EntityType[];
 	}
 
@@ -957,9 +995,9 @@ const editorSlice = createSlice({
 								if (type === 'AceCoin') {
 									assignAceCoinIndices(state.rooms);
 								}
-								updateValidEntityTypes(currentRoom);
 							}
 						}
+						updateValidEntityTypes(currentRoom);
 						break;
 					}
 					// TODO: fill entities
@@ -981,6 +1019,7 @@ const editorSlice = createSlice({
 							minY = floodResult.minY;
 							maxX = floodResult.maxX;
 							maxY = floodResult.maxY;
+							updateValidEntityTypes(currentRoom);
 						}
 
 						break;
@@ -1183,35 +1222,6 @@ const editorSlice = createSlice({
 			const { index, settings } = action.payload;
 			const room = state.rooms[index];
 			room.settings = settings;
-
-			room.entities = room.entities.filter((e) =>
-				isCompatibleEntity(e.type, settings)
-			);
-
-			room.matrix = room.matrix.map((row) => {
-				if (!row) {
-					return row;
-				}
-
-				return row.map((tile) => {
-					if (!tile) {
-						return tile;
-					}
-
-					return isCompatibleEntity(tile.type, settings) ? tile : null;
-				});
-			});
-
-			room.paletteEntries = room.paletteEntries.filter((pe) =>
-				isCompatibleEntity(pe, settings)
-			);
-
-			if (
-				room.currentPaletteEntry &&
-				!isCompatibleEntity(room.currentPaletteEntry, settings)
-			) {
-				room.currentPaletteEntry = room.paletteEntries[0];
-			}
 		},
 		setSaveLevelState(
 			state: InternalEditorState,
@@ -1600,6 +1610,7 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 // 3.1.1: room settings: spriteGraphicSet
 // 4.0.0: transports no longer separate, but rather settings on doors/pipes
 // 4.0.1: sprite graphic sets
+// 4.0.2: object sets
 const LOCALSTORAGE_KEY = 'smaghetti_4.0.1';
 
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {

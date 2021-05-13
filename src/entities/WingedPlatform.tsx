@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
+import { ANY_OBJECT_SET } from './constants';
 
 const WingedPlatform: Entity = {
 	paletteCategory: 'gizmo',
@@ -11,6 +12,7 @@ const WingedPlatform: Entity = {
 		description: 'Normally a hammer bro rides it',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, -1, 4, -1],
 	editorType: 'entity',
 	dimensions: 'none',

@@ -1,6 +1,7 @@
 import { LevelTreeObject, LevelTreeRoom } from '../types';
 import { Entity } from '../../../entities/types';
 import { entityMap, EntityType } from '../../../entities/entityMap';
+import { decodeObjectSet } from '../../../entities/util';
 
 const entityDefs = Object.values(entityMap);
 
@@ -35,7 +36,10 @@ export function getEntityDefFromId(
 ): Entity | null {
 	return (
 		entityDefs.find((ed) => {
-			if (ed.objectSets && !ed.objectSets.includes(objectSet)) {
+			if (
+				ed.objectSets &&
+				!ed.objectSets.some((os) => decodeObjectSet(os)[0] === objectSet)
+			) {
 				return false;
 			}
 
@@ -50,7 +54,10 @@ export function getEntityDefFromPayloadId(
 ): Entity | null {
 	return (
 		entityDefs.find((ed) => {
-			if (ed.objectSets && !ed.objectSets.includes(objectSet)) {
+			if (
+				ed.objectSets &&
+				!ed.objectSets.some((os) => decodeObjectSet(os)[0] === objectSet)
+			) {
 				return false;
 			}
 

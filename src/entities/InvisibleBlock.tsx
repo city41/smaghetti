@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
+import { encodeObjectSets } from './util';
 
 const InvisibleBlock: Entity = {
 	paletteCategory: 'terrain',
@@ -11,7 +11,9 @@ const InvisibleBlock: Entity = {
 		description: 'A block you can stand on, but is invisible.',
 	},
 
-	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
+	// TODO: this is classic1-2's values. Need to figure out
+	// a way to get all of the object sets
+	objectSets: encodeObjectSets([[0xe, 0x3]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	dimensions: 'none',

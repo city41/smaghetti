@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
-import { ANY_BELOW_16 } from './constants';
+import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -13,6 +13,7 @@ const RiverCheepCheep: Entity = {
 			'Aggressively swims back and forth near the surface of the water. Jumps out at Mario if he is above.',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, ANY_BELOW_16],
 	editorType: 'entity',
 	dimensions: 'none',

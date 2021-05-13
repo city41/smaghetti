@@ -3,7 +3,7 @@ import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const SeeSawPlatform: Entity = {
 	paletteCategory: 'gizmo',
@@ -12,8 +12,8 @@ const SeeSawPlatform: Entity = {
 		description: '',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
-
 	width: 1,
 	height: 1,
 	objectId: 0xb3,

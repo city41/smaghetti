@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
+import { ANY_OBJECT_SET } from './constants';
 
 const Fishbone: Entity = {
 	paletteCategory: 'enemy',
@@ -9,6 +10,7 @@ const Fishbone: Entity = {
 		title: 'Fishbone',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, -1, -1, 0xd],
 	editorType: 'entity',
 	dimensions: 'none',

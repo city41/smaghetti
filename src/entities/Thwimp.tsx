@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import { ANY_OBJECT_SET } from './constants';
 
 const Thwimp: Entity = {
 	paletteCategory: 'enemy',
@@ -9,6 +10,7 @@ const Thwimp: Entity = {
 		title: 'Thwimp',
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, -1, -1, 0xd],
 	editorType: 'entity',
 	dimensions: 'none',

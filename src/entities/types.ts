@@ -15,10 +15,16 @@ type SpriteGraphicSets = [
 
 type Entity = {
 	/**
-	 * which object sets are this entity compatible with?
-	 * not specified means all object sets (ie question block)
+	 * which object set/object graphic set pairs are this entity compatible with?
+	 * [-1] means all object sets (ie question block)
+	 *
+	 * The objectSet and objectGraphicSet are packed into the same number, see
+	 * util/encodeObjectSet
+	 *
+	 * This is because intersectionWith() is significantly slower than intersection(),
+	 * to the point the editor chugged every time an entity was drawn or erased
 	 */
-	objectSets?: number[];
+	objectSets: Array<number>;
 
 	/**
 	 * which sprite graphic set values does this entity need? If not specified,

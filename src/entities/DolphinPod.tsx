@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
+import { ANY_OBJECT_SET } from './constants';
 
 const DolphinPod: Entity = {
 	paletteCategory: 'enemy',
@@ -12,6 +13,7 @@ const DolphinPod: Entity = {
 			"These are strange and don't always work as expected. More research is needed.",
 	},
 
+	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, -1, -1, 0xa],
 	editorType: 'entity',
 	dimensions: 'none',

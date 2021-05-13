@@ -1,6 +1,5 @@
 import type { Entity } from './types';
-import { getBankParam1 } from './util';
-import { ROOM_TYPE_SETTINGS } from '../levelData/constants';
+import { encodeObjectSets, getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
@@ -11,10 +10,16 @@ const GlassBlock: Entity = {
 		title: 'Glass Block',
 	},
 
+	objectSets: encodeObjectSets([
+		[14, 14],
+		[14, 3],
+		[3, 14],
+		[3, 3],
+	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
-	objectSets: [ROOM_TYPE_SETTINGS.underground.objectSet],
 	editorType: 'cell',
-	dimensions: 'x',
+	dimensions: 'xy',
+	param1: 'height',
 	param2: 'width',
 	objectId: 0x28,
 	emptyBank: 1,
@@ -45,8 +50,8 @@ const GlassBlock: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w) {
-		return [getBankParam1(1, 0), y, x, this.objectId!, w];
+	toObjectBinary(x, y, w, h) {
+		return [getBankParam1(1, h), y, x, this.objectId!, w];
 	},
 
 	simpleRender(mw, mh) {
