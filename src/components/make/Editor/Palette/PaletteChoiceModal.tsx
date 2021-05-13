@@ -32,13 +32,14 @@ type TabType = {
 const devTabs: TabType[] = [{ title: 'Unfinished', category: 'unfinished' }];
 
 const tabs: TabType[] = [
-	{ title: 'Enemies', category: 'enemy' },
 	{ title: 'Terrain', category: 'terrain' },
+	{ title: 'Enemies', category: 'enemy' },
 	{ title: 'Objects', category: 'object' },
 	{ title: 'Gizmos', category: 'gizmo' },
 	{ title: 'Power Ups', category: 'power-up' },
 	{ title: 'Bosses', category: 'boss' },
 	{ title: 'Warps', category: 'transport' },
+	{ title: 'Decoration', category: 'decoration' },
 	...(process.env.NODE_ENV === 'production' ? [] : devTabs),
 ];
 

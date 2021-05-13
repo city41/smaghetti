@@ -48,6 +48,7 @@ type Entity = {
 		| 'power-up'
 		| 'boss'
 		| 'transport'
+		| 'decoration'
 		| 'unfinished';
 	paletteInfo: {
 		title: string;
