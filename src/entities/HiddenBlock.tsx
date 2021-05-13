@@ -7,7 +7,7 @@ import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { encodeObjectSets } from './util';
-// import { objectSets } from './objectSets';
+import { objectSets } from './QuestionBlock/objectSets';
 
 const payloadToObjectId = {
 	MusicBlock: 0x20,
@@ -16,13 +16,13 @@ const payloadToObjectId = {
 };
 
 const HiddenBlock: Entity = {
-	paletteCategory: 'terrain',
+	paletteCategory: 'object',
 	paletteInfo: {
 		title: 'Hidden Block',
 		description: 'Basically an invisible question block',
 	},
 
-	objectSets: encodeObjectSets([[1, 1]]),
+	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	settingsType: 'single',
