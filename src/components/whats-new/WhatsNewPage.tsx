@@ -49,6 +49,12 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h2 className="font-bold mb-12 text-2xl pl-4 sm:pl-0">What’s new</h2>
+				<NewEntry title="Fluffy Cloud" date="2021-05-14">
+					<p>new entity:</p>
+					<ul className="ml-8 list-disc">
+						<li>Fluffy Cloud</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="Compatibility Pages" date="2021-05-13">
 					<p>
 						If the palette says an entity can&apos;t be added, it&apos;s because
