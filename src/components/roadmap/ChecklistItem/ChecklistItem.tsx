@@ -26,8 +26,8 @@ function ChecklistItem({ className, status, children }: CheckistItemProps) {
 
 	return (
 		<div
-			className={clsx(className, 'py-4 grid items-center gap-x-4')}
-			style={{ gridTemplateColumns: '2rem max-content' }}
+			className={clsx(className, 'py-4 grid items-center gap-x-4 w-full')}
+			style={{ gridTemplateColumns: '2rem 1fr' }}
 		>
 			{icon}
 			<div>{children}</div>
