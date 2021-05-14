@@ -59,7 +59,7 @@ function PageMenu({
 			className={clsx(
 				styles.root,
 				className,
-				'px-1 bg-gray-700 flex flex-row space-x-4 items-center justify-around'
+				'p-1 text-sm bg-gray-700 flex flex-row space-x-4 items-center justify-around'
 			)}
 		>
 			{children}

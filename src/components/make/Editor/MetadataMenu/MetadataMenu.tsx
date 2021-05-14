@@ -95,7 +95,7 @@ function MetadataMenu({
 		>
 			<label className="flex flex-col">
 				<div className="flex flex-row items-center">
-					<div className="text-xs text-gray-400">Level Name</div>
+					<div>{body}</div>
 					{!editing && (
 						<PlainIconButton
 							icon={MdEdit}
@@ -105,7 +105,6 @@ function MetadataMenu({
 						/>
 					)}
 				</div>
-				<div>{body}</div>
 			</label>
 			<div className="flex flex-row space-x-2 items-center px-4">
 				<select
