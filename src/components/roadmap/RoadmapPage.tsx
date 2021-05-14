@@ -27,7 +27,7 @@ const alphaChecklist: MilestoneChecklistItem[] = [
 	{ status: 'not-started', description: 'Movement vectors for platforms' },
 	{ status: 'not-started', description: 'Room settings' },
 	{ status: 'not-started', description: 'Resizable rooms' },
-	{ status: 'not-started', description: "Player's starting location" },
+	{ status: 'not-started', description: "Change player's starting location" },
 ];
 
 const betaChecklist: MilestoneChecklistItem[] = [
