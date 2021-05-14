@@ -57,6 +57,9 @@ function CompatibilityPage({
 					<div className="grid place-items-center">
 						{entityDef.simpleRender(80, 80)}
 					</div>
+					<h1 className="font-bold text-2xl text-center mt-4">
+						{entityDef.paletteInfo.title} Compatibility
+					</h1>
 					<p className="-mx-2 p-2 bg-green-700 my-8">
 						The Game Boy Advance needs to load graphic data into its video RAM.
 						There is not enough RAM to load everything at once. Because of this,
