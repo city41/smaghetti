@@ -10,7 +10,6 @@ function NextMakeIdPage() {
 
 	const { id } = router.query;
 
-	// hack to let this get posted on romhacking, so stupid
 	if (typeof id === 'string' && id.endsWith('.html')) {
 		router.replace('/make');
 		return null;

@@ -8,7 +8,8 @@ import { objectSets } from './objectSets';
 const MagicBrick: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'A brick you can pick up and throw',
+		title: 'Magic Brick',
+		description: 'A brick you can pick up and throw',
 	},
 
 	editorType: 'cell',

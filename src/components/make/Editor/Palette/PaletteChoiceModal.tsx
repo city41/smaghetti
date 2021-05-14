@@ -165,16 +165,13 @@ function PaletteChoiceModal({
 							<div className="mt-4 text-red-500 font-bold">
 								Incompatible with other added entities
 							</div>
-							<div className="text-xs">
-								This entity is not compatible with other entities that you have
-								placed in the room
-							</div>
 							<a
 								className="text-xs text-blue-500"
-								href="/docs/how-entities-are-divided-into-sets"
+								href={`/compatibility/${currentEntry.entry}`}
 								target="_blank"
+								rel="noreferrer"
 							>
-								learn more
+								see compatibility chart
 							</a>
 						</div>
 					)}

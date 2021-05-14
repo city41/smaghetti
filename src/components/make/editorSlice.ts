@@ -27,17 +27,14 @@ import { serialize } from '../../level/serialize';
 import { deserialize } from '../../level/deserialize';
 import isEqual from 'lodash/isEqual';
 import cloneDeep from 'lodash/cloneDeep';
-import intersection from 'lodash/intersection';
 
 import { TILE_SIZE } from '../../tiles/constants';
 import { entityMap, EntityType } from '../../entities/entityMap';
 import { ROOM_TYPE_SETTINGS } from '../../levelData/constants';
-import { Entity } from '../../entities/types';
-
-type ObjectAndGraphicSets = {
-	spriteGraphicSets: number[][];
-	objectSets: number[];
-};
+import {
+	determineValidGraphicAndObjectSetValues,
+	isGraphicAndObjectSetCompatible,
+} from '../../entities/util';
 
 type LocalStorageData = {
 	metadata: {
@@ -651,94 +648,6 @@ function assignAceCoinIndices(rooms: RoomState[]) {
 	}
 }
 
-function determineValidGraphicAndObjectSetValues(
-	entities: EditorEntity[]
-): ObjectAndGraphicSets {
-	const currentValidSpriteGraphicSets: Array<number[]> = [
-		[-1],
-		[-1],
-		[-1],
-		[-1],
-		[-1],
-		[-1],
-	];
-
-	let currentValidObjectSets = [-1];
-
-	entities.forEach((e) => {
-		const def = entityMap[e.type];
-
-		if (def.spriteGraphicSets) {
-			for (let i = 0; i < currentValidSpriteGraphicSets.length; ++i) {
-				if (def.spriteGraphicSets[i] !== -1) {
-					const value = def.spriteGraphicSets[i];
-					const asArray = Array.isArray(value) ? value : [value];
-
-					if (isEqual(currentValidSpriteGraphicSets[i], [-1])) {
-						currentValidSpriteGraphicSets[i] = [...asArray];
-					} else {
-						currentValidSpriteGraphicSets[i] = intersection(
-							currentValidSpriteGraphicSets[i],
-							asArray
-						);
-					}
-				}
-			}
-		}
-
-		if (def.objectSets) {
-			if (isEqual(currentValidObjectSets, [-1])) {
-				currentValidObjectSets = [...def.objectSets];
-			} else {
-				currentValidObjectSets = intersection(
-					currentValidObjectSets,
-					def.objectSets
-				);
-			}
-		}
-	});
-
-	return {
-		spriteGraphicSets: currentValidSpriteGraphicSets,
-		objectSets: currentValidObjectSets,
-	};
-}
-
-function isGraphicAndObjectSetCompatible(
-	entityDef: Entity,
-	currentObjectAndGraphicSets: ObjectAndGraphicSets
-) {
-	const spriteGraphicSetCompatible = entityDef.spriteGraphicSets.every(
-		(v, i) => {
-			if (isEqual(currentObjectAndGraphicSets.spriteGraphicSets[i], [-1])) {
-				return true;
-			}
-
-			if (
-				v === -1 ||
-				isEqual(currentObjectAndGraphicSets.spriteGraphicSets[i], [-1])
-			) {
-				return true;
-			}
-
-			const asArray = Array.isArray(v) ? v : [v];
-
-			return (
-				intersection(asArray, currentObjectAndGraphicSets.spriteGraphicSets[i])
-					.length > 0
-			);
-		}
-	);
-
-	const objectSetCompatible =
-		isEqual(currentObjectAndGraphicSets.objectSets, [-1]) ||
-		isEqual(entityDef.objectSets, [-1]) ||
-		intersection(entityDef.objectSets, currentObjectAndGraphicSets.objectSets)
-			.length > 0;
-
-	return spriteGraphicSetCompatible && objectSetCompatible;
-}
-
 function updateValidEntityTypes(room: RoomState) {
 	const cells = room.matrix.reduce<EditorEntity[]>((building, row) => {
 		if (!row) {
@@ -762,7 +671,7 @@ function updateValidEntityTypes(room: RoomState) {
 		room.validEntityTypes = Object.keys(entityMap) as EntityType[];
 	} else {
 		const currentGraphicAndObjectSetNumbers = determineValidGraphicAndObjectSetValues(
-			allEntities
+			allEntities.map((e) => entityMap[e.type])
 		);
 
 		room.validEntityTypes = Object.keys(entityMap).filter((type) => {
