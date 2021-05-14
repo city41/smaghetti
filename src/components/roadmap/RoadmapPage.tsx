@@ -40,6 +40,7 @@ const betaChecklist: MilestoneChecklistItem[] = [
 
 const finalChecklist: MilestoneChecklistItem[] = [
 	{ status: 'not-started', description: 'Warning if level gets too full' },
+	{ status: 'not-started', description: 'Credits page' },
 	{
 		status: 'not-started',
 		description: "Fork other people's levels and share levels with friends",

@@ -1,5 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
+import Link from 'next/link';
+import { ImPointUp } from 'react-icons/im';
 import { Head } from './Head';
 import { Footer } from './Footer';
 
@@ -13,11 +15,31 @@ type RootProps = {
 	subheading?: React.ReactNode;
 	metaDescription: string;
 	socialMediaImg?: string;
+	highlightEditor?: boolean;
 	children: React.ReactNode;
 };
 
 function MenuLink(props: JSX.IntrinsicElements['a']) {
-	return <a className="text-link cursor-pointer hover:underline" {...props} />;
+	return (
+		<a
+			className={clsx(
+				props.className,
+				'text-link cursor-pointer hover:underline'
+			)}
+			{...props}
+		/>
+	);
+}
+
+function HighlightEditor() {
+	return (
+		<Link href="/make">
+			<div className="absolute -bottom-14 -left-4 p-2 bg-green-500 rounded-lg flex flex-row items-center space-x-2">
+				<ImPointUp className="w-8 h-8" />
+				<div className="w-20 text-sm text-center">try it here</div>
+			</div>
+		</Link>
+	);
 }
 
 function Root({
@@ -26,6 +48,7 @@ function Root({
 	subheading,
 	metaDescription,
 	socialMediaImg,
+	highlightEditor,
 	children,
 }: RootProps) {
 	return (
@@ -59,7 +82,15 @@ function Root({
 								<a href="/">Smaghetti</a>
 							</div>
 						</div>
-						<MenuLink href="/make">editor</MenuLink>
+						<div className={clsx({ relative: highlightEditor })}>
+							<MenuLink
+								href="/make"
+								className={clsx({ 'border-b-2 border-white': highlightEditor })}
+							>
+								editor
+							</MenuLink>
+							{highlightEditor && <HighlightEditor />}
+						</div>
 						<MenuLink href="/tools">tools</MenuLink>
 						<MenuLink href="/whats-new">what&apos;s new</MenuLink>
 						<MenuLink href="/roadmap">roadmap</MenuLink>
