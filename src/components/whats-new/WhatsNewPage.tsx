@@ -74,7 +74,8 @@ function WhatsNewPage() {
 						objects can be in the same room together and how to load them.
 					</p>
 					<p>
-						With object sets now in place, these new entities could be added:
+						With object sets now in place, these new entities have now been
+						added:
 					</p>
 					<ul className="ml-8 list-disc">
 						<li>Cactus</li>
