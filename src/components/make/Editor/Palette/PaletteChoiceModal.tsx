@@ -39,7 +39,7 @@ const tabs: TabType[] = [
 	{ title: 'Power Ups', category: 'power-up' },
 	{ title: 'Bosses', category: 'boss' },
 	{ title: 'Warps', category: 'transport' },
-	{ title: 'Decoration', category: 'decoration' },
+	{ title: 'Decorations', category: 'decoration' },
 	...(process.env.NODE_ENV === 'production' ? [] : devTabs),
 ];
 
