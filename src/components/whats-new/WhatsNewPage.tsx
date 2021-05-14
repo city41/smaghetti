@@ -54,7 +54,7 @@ function WhatsNewPage() {
 						If the palette says an entity can&apos;t be added, it&apos;s because
 						that entity is not compatible with another entity you&apos;ve
 						already added to the room. Now if you click on the &quot;see
-						compatibily chart&quot; link in the palette, it will show you a
+						compatibility chart&quot; link in the palette, it will show you a
 						breakdown of which entities work and don&apos;t work together. For
 						example,{' '}
 						<a
