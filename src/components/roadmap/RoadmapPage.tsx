@@ -15,7 +15,7 @@ const alphaChecklist: MilestoneChecklistItem[] = [
 	{ status: 'completed', description: 'Sprite Graphic Sets' },
 	{
 		status: 'in-progress',
-		description: 'Most entities available to build levels with',
+		description: 'Many entities in SMA4 are available to build levels with',
 	},
 	{
 		status: 'in-progress',
@@ -33,6 +33,10 @@ const alphaChecklist: MilestoneChecklistItem[] = [
 ];
 
 const betaChecklist: MilestoneChecklistItem[] = [
+	{
+		status: 'not-started',
+		description: 'Most entities in SMA4 are available to build levels with',
+	},
 	{ status: 'not-started', description: 'Water levels' },
 	{ status: 'not-started', description: 'Airship Levels' },
 	{ status: 'not-started', description: 'All entities are fully configurable' },
@@ -42,6 +46,10 @@ const betaChecklist: MilestoneChecklistItem[] = [
 
 const finalChecklist: MilestoneChecklistItem[] = [
 	{ status: 'not-started', description: 'Warning if level gets too full' },
+	{
+		status: 'not-started',
+		description: 'All entities in SMA4 are available to build levels with',
+	},
 	{ status: 'not-started', description: 'Credits page' },
 	{
 		status: 'not-started',
