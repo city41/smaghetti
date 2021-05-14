@@ -832,13 +832,13 @@ const editorSlice = createSlice({
 							if (existingEntity.type === 'AceCoin') {
 								assignAceCoinIndices(state.rooms);
 							}
-							updateValidEntityTypes(currentRoom);
 						}
 
 						if (currentRoom.matrix[indexY]) {
 							currentRoom.matrix[indexY]![indexX] = null;
 						}
 
+						updateValidEntityTypes(currentRoom);
 						break;
 					}
 					case 'draw': {
