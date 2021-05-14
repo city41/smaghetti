@@ -16,6 +16,10 @@ type RootProps = {
 	children: React.ReactNode;
 };
 
+function MenuLink(props: JSX.IntrinsicElements['a']) {
+	return <a className="text-link cursor-pointer hover:underline" {...props} />;
+}
+
 function Root({
 	className,
 	title,
@@ -55,24 +59,10 @@ function Root({
 								<a href="/">Smaghetti</a>
 							</div>
 						</div>
-						<a
-							className="className text-link cursor-pointer hover:underline"
-							href="/make"
-						>
-							editor
-						</a>
-						<a
-							className="className text-link cursor-pointer hover:underline"
-							href="/tools"
-						>
-							tools
-						</a>
-						<a
-							className="className text-link cursor-pointer hover:underline"
-							href="/whats-new"
-						>
-							what&apos;s new
-						</a>
+						<MenuLink href="/make">editor</MenuLink>
+						<MenuLink href="/tools">tools</MenuLink>
+						<MenuLink href="/whats-new">what&apos;s new</MenuLink>
+						<MenuLink href="/roadmap">roadmap</MenuLink>
 					</div>
 				</div>
 				{subheading && (
