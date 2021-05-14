@@ -4,43 +4,44 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
-const LakituCloud: Entity = {
+const CementBlock: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'Lakitu Cloud',
+		title: 'Cement Block',
+		description: "I guess it's cement?",
 	},
 
-	objectSets: encodeObjectSets([[1, 1]]),
+	objectSets: encodeObjectSets([[9, 9]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',
-	objectId: 0x2d,
+	objectId: 0x31,
 	emptyBank: 1,
 
 	resource: {
 		palette: [
 			0x7f96,
 			0x7fff,
-			0x18c6,
-			0x3192,
-			0x1636,
-			0x2a9c,
-			0x1f4,
-			0x29a,
-			0x37f,
-			0x42ff,
+			0x0,
+			0x39ce,
 			0x4a52,
 			0x6318,
 			0x77bd,
-			0x7ffb,
-			0x7fd2,
 			0x732c,
+			0x7fd2,
+			0x7ffb,
+			0xdf7,
+			0x267c,
+			0x435f,
+			0x5bbf,
+			0x0,
+			0x0,
 		],
-		romOffset: 0x163768,
+		romOffset: 0x16ea40,
 		tiles: [
-			[362, 363],
-			[378, 379],
+			[66, 67],
+			[68, 69],
 		],
 	},
 
@@ -51,7 +52,7 @@ const LakituCloud: Entity = {
 	simpleRender(mw, mh) {
 		return (
 			<div
-				className="LakituCloud-bg bg-cover"
+				className="CementBlock-bg bg-cover"
 				style={{ width: mw, height: mh }}
 			/>
 		);
@@ -62,4 +63,4 @@ const LakituCloud: Entity = {
 	},
 };
 
-export { LakituCloud };
+export { CementBlock };

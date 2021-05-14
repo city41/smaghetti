@@ -24,6 +24,7 @@ import { BuzzyBeetle } from './BuzzyBeetle';
 import { Cactus } from './Cactus';
 import { CapeFeather } from './CapeFeather';
 import { CardSlotMachine } from './CardSlotMachine';
+import { CementBlock } from './CementBlock';
 import { ChainChomp } from './ChainChomp';
 import { ChargingChuck } from './ChargingChuck';
 import { ClassicBowser } from './ClassicBowser';
@@ -158,6 +159,7 @@ const entityMap = {
 	Cactus,
 	CapeFeather,
 	CardSlotMachine,
+	CementBlock,
 	ChainChomp,
 	ChargingChuck,
 	ClassicBowser,
