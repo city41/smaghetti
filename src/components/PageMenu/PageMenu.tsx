@@ -64,6 +64,11 @@ function PageMenu({
 		>
 			{children}
 			{menu}
+			<Link href="/whats-new" passHref>
+				<a target="_blank" rel="noreferrer">
+					what&apos;s new
+				</a>
+			</Link>
 			<Link href="/" passHref>
 				<a className={styles.homeLink} />
 			</Link>

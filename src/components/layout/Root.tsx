@@ -67,6 +67,12 @@ function Root({
 						>
 							tools
 						</a>
+						<a
+							className="className text-link cursor-pointer hover:underline"
+							href="/whats-new"
+						>
+							what&apos;s new
+						</a>
 					</div>
 				</div>
 				{subheading && (
