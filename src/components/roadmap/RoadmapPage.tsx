@@ -10,6 +10,8 @@ const alphaChecklist: MilestoneChecklistItem[] = [
 	{ status: 'completed', description: 'Load e-reader level into the game' },
 	{ status: 'completed', description: 'A pretty good and easy to use editor' },
 	{ status: 'completed', description: 'Object Sets' },
+	{ status: 'completed', description: 'Test out your level in an emulator' },
+	{ status: 'completed', description: 'Download levels as save files' },
 	{ status: 'completed', description: 'Sprite Graphic Sets' },
 	{
 		status: 'in-progress',
