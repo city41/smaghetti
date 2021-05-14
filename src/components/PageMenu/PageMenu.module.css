@@ -10,9 +10,3 @@
     content: '|';
     @apply inline-block text-gray-700 font-bold mr-4;
 }
-
-.homeLink {
-    @apply w-6 h-6 bg-center bg-no-repeat;
-    background-image: url(../../images/logo.png);
-    background-size: 90%;
-}

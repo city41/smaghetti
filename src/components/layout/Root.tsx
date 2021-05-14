@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { ImPointUp } from 'react-icons/im';
+import { RiGithubFill, RiRedditLine } from 'react-icons/ri';
 import { Head } from './Head';
 import { Footer } from './Footer';
 
@@ -67,7 +68,7 @@ function Root({
 			/>
 			<header className="xborder-b border-gray-500 bg-gray-900">
 				<div className="bg-heading h-16 flex flex-row items-center justify-between lg:px-4">
-					<div className="flex flex-row items-center justify-start space-x-6 max-w-7xl mx-auto w-full">
+					<div className="flex flex-row items-center justify-start space-x-5 max-w-7xl mx-auto w-full">
 						<div className="flex flex-row items-center">
 							<a href="/" className={clsx(styles.logo, 'block lg:-ml-4')}>
 								<img
@@ -91,9 +92,24 @@ function Root({
 							</MenuLink>
 							{highlightEditor && <HighlightEditor />}
 						</div>
-						<MenuLink href="/tools">tools</MenuLink>
 						<MenuLink href="/whats-new">what&apos;s new</MenuLink>
 						<MenuLink href="/roadmap">roadmap</MenuLink>
+						<MenuLink
+							href="https://www.reddit.com/r/smaghetti/"
+							target="_blank"
+							rel="noreferrer"
+							title="Smaghetti subreddit"
+						>
+							<RiRedditLine className="w-6 h-6" />
+						</MenuLink>
+						<MenuLink
+							href="https://github.com/city41/smaghetti"
+							target="_blank"
+							rel="noreferrer"
+							title="GitHub repo"
+						>
+							<RiGithubFill className="w-6 h-6" />
+						</MenuLink>
 					</div>
 				</div>
 				{subheading && (

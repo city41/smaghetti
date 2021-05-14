@@ -1,4 +1,5 @@
 import React, { ElementType, memo } from 'react';
+import Link from 'next/link';
 import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 
@@ -17,6 +18,8 @@ import { entityMap, EntityType } from '../../../../entities/entityMap';
 import { PlayButton } from '../PlayButton';
 import { SaveButton } from '../SaveButton';
 import { DownloadButton } from '../DownloadButton';
+
+import styles from './Toolbox.module.css';
 
 const icons: Record<MouseMode, ElementType> = {
 	select: GiArrowCursor,
@@ -157,6 +160,9 @@ const Toolbox = memo(function Toolbox({
 				icon={FaBomb}
 				onClick={() => onEraseLevel()}
 			/>
+			<Link href="/" passHref>
+				<a className={styles.homeLink} />
+			</Link>
 		</div>
 	);
 });

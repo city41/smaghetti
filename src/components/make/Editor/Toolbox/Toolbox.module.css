@@ -1,0 +1,5 @@
+.homeLink {
+    @apply w-6 h-6 bg-center bg-no-repeat;
+    background-image: url(../../../../images/logo.png);
+    background-size: 90%;
+}

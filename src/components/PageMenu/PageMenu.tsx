@@ -69,6 +69,11 @@ function PageMenu({
 					what&apos;s new
 				</a>
 			</Link>
+			<Link href="https://www.reddit.com/r/smaghetti" passHref>
+				<a target="_blank" rel="noreferrer">
+					subreddit
+				</a>
+			</Link>
 		</nav>
 	);
 }
