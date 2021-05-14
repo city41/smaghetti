@@ -143,13 +143,15 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 						</div>
 						<div className="grid grid-cols-12">
 							<Palette className="col-span-9" disabled={isPlaying} />
-							<MetadataMenu className="col-span-3" disabled={isPlaying} />
+							<div className="col-span-3 grid grid-rows-3 items-stretch">
+								<MetadataMenu className="row-span-2" disabled={isPlaying} />
+								<PageMenu />
+							</div>
 						</div>
 					</div>
-					<div className="fixed right-0 bottom-20 pointer-events-auto z-10">
+					<div className="fixed right-0 top-36 pointer-events-auto z-10">
 						<EarlyPreviewStarburst />
 					</div>
-					<PageMenu className="fixed right-0 bottom-0 pointer-events-auto" />
 				</div>
 			</div>
 			{loadLevelState === 'loading' && (

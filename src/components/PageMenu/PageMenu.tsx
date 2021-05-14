@@ -59,7 +59,7 @@ function PageMenu({
 			className={clsx(
 				styles.root,
 				className,
-				'p-4 bg-gray-700 flex flex-row space-x-4 items-center justify-center'
+				'px-1 bg-gray-700 flex flex-row space-x-4 items-center justify-around'
 			)}
 		>
 			{children}
@@ -68,9 +68,6 @@ function PageMenu({
 				<a target="_blank" rel="noreferrer">
 					what&apos;s new
 				</a>
-			</Link>
-			<Link href="/" passHref>
-				<a className={styles.homeLink} />
 			</Link>
 		</nav>
 	);
