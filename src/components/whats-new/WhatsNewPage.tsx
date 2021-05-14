@@ -48,7 +48,7 @@ function WhatsNewPage() {
 			metaDescription="A list of the latest features and additions to smaghetti.com"
 		>
 			<div className="max-w-2xl mx-auto pt-16">
-				<h2 className="font-bold mb-12 text-2xl pl-4 sm:pl-0">What’s new</h2>
+				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
 				<NewEntry title="Fluffy Cloud" date="2021-05-14">
 					<p>new entity:</p>
 					<ul className="ml-8 list-disc">

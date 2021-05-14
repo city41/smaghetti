@@ -9,7 +9,12 @@ function NextToolsIndexPage() {
 			<div
 				className={clsx(typographyStyles.typography, 'max-w-2xl mx-auto pt-16')}
 			>
-				<h1>Tools</h1>
+				<h1
+					className="font-bold text-5xl text-center mb-8"
+					style={{ fontSize: '3rem' }}
+				>
+					Tools
+				</h1>
 				<p>
 					These are tools I have built to help in the reverse engineering of
 					SMA4.

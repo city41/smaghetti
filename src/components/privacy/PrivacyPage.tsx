@@ -10,7 +10,12 @@ function PrivacyPage() {
 			<div
 				className={clsx(typographyStyles.typography, 'max-w-2xl mx-auto pt-16')}
 			>
-				<h1>Privacy Policy</h1>
+				<h1
+					className="font-bold text-5xl text-center mb-8"
+					style={{ fontSize: '3rem' }}
+				>
+					Privacy Policy
+				</h1>
 				<h2>Introduction</h2>
 				<p>
 					Thank you for visiting Smaghetti. Please read our{' '}

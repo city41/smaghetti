@@ -10,7 +10,12 @@ function TOSPage() {
 			<div
 				className={clsx(typographyStyles.typography, 'max-w-2xl mx-auto pt-16')}
 			>
-				<h1>Terms of Service</h1>
+				<h1
+					className="font-bold text-5xl text-center mb-8"
+					style={{ fontSize: '3rem' }}
+				>
+					Terms of Service
+				</h1>
 				<h2>Introduction</h2>
 				<p>
 					Here are the rules you must follow, otherwise you may be banned. In
