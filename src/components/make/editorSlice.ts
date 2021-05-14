@@ -1661,7 +1661,7 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 				return {
 					settings: r.settings,
 					paletteEntries: r.paletteEntries,
-					validEntityTypes: r.validEntityTypes,
+					validEntityTypes: [],
 					entities: r.entities,
 					matrixLayer: {
 						width: r.roomTileWidth,
