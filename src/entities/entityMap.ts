@@ -45,9 +45,11 @@ import { FireBarBase } from './FireBarBase';
 import { FireFlower } from './FireFlower';
 import { Fishbone } from './Fishbone';
 import { FloatingBlock } from './FloatingBlock';
+import { FlowerBush } from './FlowerBush';
 import { Flutter } from './Flutter';
 import { FlyingPiranhaPlant } from './FlyingPiranhaPlant';
 import { FortressBrick } from './FortressBrick';
+import { FullerFlowerBush } from './FullerFlowerBush';
 import { UpFortressSpike } from './UpFortressSpike';
 import { Galoomba } from './Galoomba';
 import { GrandGoomba } from './GrandGoomba';
@@ -176,9 +178,11 @@ const entityMap = {
 	FireFlower,
 	Fishbone,
 	FloatingBlock,
+	FlowerBush,
 	Flutter,
 	FlyingPiranhaPlant,
 	FortressBrick,
+	FullerFlowerBush,
 	UpFortressSpike,
 	Galoomba,
 	GrandGoomba,
