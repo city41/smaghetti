@@ -120,7 +120,7 @@ function CompatibilityPage({
 							);
 						})}
 					</div>
-					<p className="-mx-2 p-2 bg-green-700 my-8">
+					<p className="-mx-2 p-2 bg-green-700 my-8 text-center">
 						Compatibility may improve as we learn more about how the game works
 					</p>
 				</div>
