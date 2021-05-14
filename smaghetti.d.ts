@@ -92,6 +92,12 @@ type SerializedLevelData = {
 };
 
 type Level = NewLevel & { id: string };
+type BrokenLevel = {
+	id: string;
+	name: string;
+	created_at: string;
+	broken: true;
+};
 
 type SerializedLevel = Omit<Level, 'data'> & { data: SerializedLevelData };
 

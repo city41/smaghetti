@@ -13,7 +13,7 @@ type ProfileState = {
 	loadState: 'dormant' | 'loading' | 'error' | 'success';
 	deleteState: Record<string, DeleteState>;
 	user: User | null;
-	levels: Level[];
+	levels: Array<Level | BrokenLevel>;
 };
 
 const initialState: ProfileState = {
@@ -52,10 +52,17 @@ const profileSlice = createSlice({
 		setProfile(state: ProfileState, action: PayloadAction<ProfileData>) {
 			state.user = action.payload.user;
 			state.levels = action.payload.levels.map((l) => {
-				return {
-					...l,
-					data: deserialize(l.data).levelData,
-				};
+				try {
+					return {
+						...l,
+						data: deserialize(l.data).levelData,
+					};
+				} catch {
+					return {
+						...l,
+						broken: true,
+					};
+				}
 			});
 		},
 	},
@@ -81,7 +88,9 @@ const loadProfile = (): ProfileSliceThunk => async (dispatch) => {
 	}
 };
 
-const deleteLevel = (level: Level): ProfileSliceThunk => async (dispatch) => {
+const deleteLevel = (level: Level | BrokenLevel): ProfileSliceThunk => async (
+	dispatch
+) => {
 	dispatch(
 		profileSlice.actions.setDeleteState({ id: level.id, state: 'deleting' })
 	);

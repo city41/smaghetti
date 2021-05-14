@@ -12,13 +12,17 @@ type ProfilePageProps = {
 	allFilesReady: boolean;
 	loadState: 'dormant' | 'loading' | 'success' | 'error';
 	user: User | null;
-	levels: Level[];
+	levels: Array<Level | BrokenLevel>;
 	onEditLevel: (level: Level) => void;
-	onDeleteLevel: (level: Level) => void;
+	onDeleteLevel: (level: Level | BrokenLevel) => void;
 	onDownloadLevel: (level: Level) => void;
 };
 
 const tabs = ['Levels', 'Settings'];
+
+function isBrokenLevel(level: Level | BrokenLevel): level is BrokenLevel {
+	return 'broken' in level;
+}
 
 function ProfilePage({
 	allFilesReady,
@@ -50,9 +54,17 @@ function ProfilePage({
 							<LevelEntry
 								key={l.id}
 								level={l}
-								onEdit={() => onEditLevel(l)}
+								onEdit={() => {
+									if (!isBrokenLevel(l)) {
+										onEditLevel(l);
+									}
+								}}
 								onDelete={() => onDeleteLevel(l)}
-								onDownload={() => onDownloadLevel(l)}
+								onDownload={() => {
+									if (!isBrokenLevel(l)) {
+										onDownloadLevel(l);
+									}
+								}}
 							/>
 						);
 					})}

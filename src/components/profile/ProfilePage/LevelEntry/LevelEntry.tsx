@@ -12,13 +12,34 @@ import { HowToUseDownloadModal } from './HowToUseDownloadModal';
 
 type LevelEntryProps = {
 	className?: string;
-	level: Level;
+	level: Level | BrokenLevel;
 	onEdit: () => void;
 	onDelete: () => void;
 	onDownload: () => void;
 };
 
 const THUMBNAIL_HEIGHT = PLAY_WINDOW_TILE_HEIGHT * 1.5 + 1;
+
+function isBrokenLevel(level: Level | BrokenLevel): level is BrokenLevel {
+	return 'broken' in level;
+}
+
+function NoLongerCompatible({ className }: { className?: string }) {
+	return (
+		<div
+			style={{ width: 360, height: 192 }}
+			className={clsx(
+				className,
+				'bg-red-300 text-black text-sm flex flex-col items-center justify-center space-y-4 px-4 text-center'
+			)}
+		>
+			<p className="font-bold">No longer compatible. Sorry :(</p>
+			<p>
+				Levels will stop breaking like this once Smaghetti reaches beta quality
+			</p>
+		</div>
+	);
+}
 
 function LevelEntry({
 	className,
@@ -46,22 +67,30 @@ function LevelEntry({
 			>
 				<div>
 					<h3 className="text-xl font-bold pl-2 pb-0.5">{level.name}</h3>
-					<LevelThumbnail
-						className={clsx('border-4 border-white rounded-l-xl', {
-							'bg-blue-100 group-hover:bg-blue-500': !showDeleteConfirmation,
-							'bg-red-100 group-hover:bg-red-100': showDeleteConfirmation,
-						})}
-						tileX={0}
-						tileY={level.data.rooms[0].matrixLayer.height - THUMBNAIL_HEIGHT}
-						tileWidth={Math.min(
-							level.data.rooms[0].matrixLayer.width,
-							PLAY_WINDOW_TILE_WIDTH * 2
-						)}
-						tileHeight={THUMBNAIL_HEIGHT}
-						scale={0.75}
-						matrix={level.data.rooms[0].matrixLayer.data}
-						entities={level.data.rooms[0].entities}
-					/>
+					{isBrokenLevel(level) ? (
+						<NoLongerCompatible
+							className={clsx('border-4 border-white rounded-l-xl', {
+								'bg-red-100 group-hover:bg-red-100': showDeleteConfirmation,
+							})}
+						/>
+					) : (
+						<LevelThumbnail
+							className={clsx('border-4 border-white rounded-l-xl', {
+								'bg-blue-100 group-hover:bg-blue-500': !showDeleteConfirmation,
+								'bg-red-100 group-hover:bg-red-100': showDeleteConfirmation,
+							})}
+							tileX={0}
+							tileY={level.data.rooms[0].matrixLayer.height - THUMBNAIL_HEIGHT}
+							tileWidth={Math.min(
+								level.data.rooms[0].matrixLayer.width,
+								PLAY_WINDOW_TILE_WIDTH * 2
+							)}
+							tileHeight={THUMBNAIL_HEIGHT}
+							scale={0.75}
+							matrix={level.data.rooms[0].matrixLayer.data}
+							entities={level.data.rooms[0].entities}
+						/>
+					)}
 				</div>
 				<IconButtonGroup className="self-end" anchor="left">
 					<IconButton
@@ -70,6 +99,7 @@ function LevelEntry({
 						label="Edit level"
 						alternate
 						onClick={onEdit}
+						disabled={isBrokenLevel(level)}
 					/>
 					<IconButton
 						anchor="left"
@@ -87,6 +117,7 @@ function LevelEntry({
 							onDownload();
 							setShowDownloadMessage(true);
 						}}
+						disabled={isBrokenLevel(level)}
 					/>
 					<IconButton
 						anchor="left"
