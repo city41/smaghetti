@@ -63,4 +63,6 @@ PRs are welcome, but please open an issue and discuss with me first before start
 
 Since Smaghetti is so young, there are a ton of bugs. Feel free to file them here as an issue
 
+## Subreddit
 
+General discussion subreddit here: https://reddit.com/r/smaghetti
