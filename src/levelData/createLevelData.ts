@@ -158,7 +158,7 @@ function getLevelSettings(
 		0,
 		0x0,
 		0,
-		0, // needs to be zero for arrow lift and others
+		1, // needs to be zero for arrow lift and others
 		0,
 		0,
 		0,

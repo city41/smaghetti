@@ -6,7 +6,10 @@ import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const SeeSawPlatform: Entity = {
-	paletteCategory: 'gizmo',
+	// SeeSaw requires the sixth to last byte of level settings to be 1, not zero/
+	// can't make it 1 as that would break arrow lift and several others.
+	// TODO: that byte, and probably others, needs to become a factor in compatibility
+	paletteCategory: 'unfinished',
 	paletteInfo: {
 		title: 'See Saw Platform',
 		description: '',
