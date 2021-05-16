@@ -9,7 +9,8 @@ const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 const CeilingSpiny: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		title: 'CeilingSpiny',
+		title: 'Ceiling Spiny',
+		description: 'Drops down and attacks when Mario is below',
 	},
 
 	objectSets: ANY_OBJECT_SET,
