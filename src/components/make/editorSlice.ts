@@ -34,6 +34,7 @@ import { ROOM_TYPE_SETTINGS } from '../../levelData/constants';
 import {
 	determineValidGraphicAndObjectSetValues,
 	isGraphicAndObjectSetCompatible,
+	isWorkingEntityType,
 } from '../../entities/util';
 
 type LocalStorageData = {
@@ -1162,7 +1163,13 @@ const editorSlice = createSlice({
 			state.rooms = levelData.rooms.map((r) => {
 				return {
 					settings: r.settings,
-					entities: r.entities.filter((e) => !!entityMap[e.type]),
+					entities: r.entities.filter((e) => {
+						if (e.type === 'Player') {
+							return true;
+						}
+
+						return isWorkingEntityType(e.type);
+					}),
 					matrix: r.matrixLayer.data,
 					roomTileHeight: r.matrixLayer.height,
 					roomTileWidth: r.matrixLayer.width,
@@ -1175,7 +1182,7 @@ const editorSlice = createSlice({
 						height: 0,
 					},
 					scrollOffset: { x: 0, y: calcYForScrollToBottom() },
-					paletteEntries: r.paletteEntries ?? [],
+					paletteEntries: (r.paletteEntries ?? []).filter(isWorkingEntityType),
 					validEntityTypes: r.validEntityTypes ?? [],
 					currentPaletteEntry: r.paletteEntries?.[0],
 				};

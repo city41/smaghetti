@@ -129,3 +129,17 @@ export function isGraphicAndObjectSetCompatible(
 
 	return spriteGraphicSetCompatible && objectSetCompatible;
 }
+
+export function isWorkingEntityType(type: EntityType): boolean {
+	// in dev mode, everything is "working"
+	if (process.env.NODE_ENV !== 'production') {
+		return true;
+	}
+
+	const entityDef = entityMap[type];
+	return !!(
+		entityDef &&
+		entityDef.paletteCategory &&
+		entityDef.paletteCategory !== 'unfinished'
+	);
+}
