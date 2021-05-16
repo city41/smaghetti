@@ -1,9 +1,12 @@
 import type { Entity } from './types';
-import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import React from 'react';
 import { ANY_OBJECT_SET } from './constants';
+import { ResourceType } from '../resources/resourceMap';
+import { PayloadViewDetails } from '../components/details/PayloadViewDetails';
+import { EntityType } from './entityMap';
+import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -14,6 +17,12 @@ const Lakitu: Entity = {
 		description: "Dammit, it's lakitu...",
 	},
 
+	payloadToObjectId: {
+		GreenSpinyEgg: 1,
+		OrangeSpinyEgg: 0,
+	},
+	defaultSettings: { payload: 'OrangeSpinyEgg' },
+
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [
 		graphicSets,
@@ -23,7 +32,7 @@ const Lakitu: Entity = {
 		graphicSets,
 		graphicSets,
 	],
-	objectId: 0x83,
+	objectId: 0x1f,
 	editorType: 'entity',
 	dimensions: 'none',
 
@@ -66,8 +75,10 @@ const Lakitu: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, this.objectId!);
+	toSpriteBinary(x, y, _w, _h, settings) {
+		const payload = settings.payload ?? this.defaultSettings!.payload;
+		const eggId = this.payloadToObjectId![payload as ResourceType]!;
+		return [1, this.objectId!, x, y, eggId];
 	},
 
 	simpleRender(mw, mh) {
@@ -80,7 +91,7 @@ const Lakitu: Entity = {
 		return <div className="Lakitu-bg bg-center bg-no-repeat" style={style} />;
 	},
 
-	render() {
+	render(showDetails, settings, onSettingsChange) {
 		const style = {
 			width: TILE_SIZE,
 			height: TILE_SIZE * 2,
@@ -88,11 +99,31 @@ const Lakitu: Entity = {
 			paddingTop: TILE_SIZE,
 		};
 
-		return (
-			<div className="Lakitu-bg bg-cover bg-no-repeat" style={style}>
+		const body = (
+			<div className="Lakitu-bg bg-cover relative cursor-pointer" style={style}>
 				<TileSpace />
+				<PayloadViewDetails payload={settings.payload} />
 			</div>
 		);
+
+		if (showDetails) {
+			const payloads = Object.keys(this.payloadToObjectId!) as Array<
+				EntityType | ResourceType
+			>;
+
+			return (
+				<PayloadEditDetails
+					width={TILE_SIZE}
+					height={TILE_SIZE}
+					onPayloadChange={(payload) => onSettingsChange({ payload })}
+					payloads={payloads}
+				>
+					{body}
+				</PayloadEditDetails>
+			);
+		} else {
+			return body;
+		}
 	},
 };
 

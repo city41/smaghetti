@@ -18,6 +18,7 @@ import { FortressBackground } from './FortressBackground';
 import { FrogSuit } from './FrogSuit';
 import { GiantVegetable } from './GiantVegetable';
 import { GreenCheepCheep } from './GreenCheepCheep';
+import { GreenSpinyEgg } from './GreenSpinyEgg';
 import { HorizontalDolphin } from './HorizontalDolphin';
 import { HotHeadEyes } from './HotHeadEyes';
 import { KoopalingWand } from './KoopalingWand';
@@ -25,6 +26,7 @@ import { KoopaShell } from './KoopaShell';
 import { OneNumberBlock } from './OneNumberBlock';
 import { OneWayDoorHorizontalFlipper } from './OneWayDoorHorizontalFlipper';
 import { OneWayDoorVerticalFlipper } from './OneWayDoorVerticalFlipper';
+import { OrangeSpinyEgg } from './OrangeSpinyEgg';
 import { ParaWing } from './ParaWing';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PWing } from './PWing';
@@ -65,11 +67,13 @@ const resourceMap = {
 	HorizontalDolphin,
 	GiantVegetable,
 	GreenCheepCheep,
+	GreenSpinyEgg,
 	KoopalingWand,
 	KoopaShell,
 	OneNumberBlock,
 	OneWayDoorHorizontalFlipper,
 	OneWayDoorVerticalFlipper,
+	OrangeSpinyEgg,
 	ParaWing,
 	PoisonMushroom,
 	PWing,

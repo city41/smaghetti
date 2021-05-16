@@ -49,8 +49,18 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
-				<NewEntry title="Fluffy Cloud" date="2021-05-14">
-					<p>new entity:</p>
+				<NewEntry title="Lakitu payloads" date="2021-05-15">
+					<p>
+						Lakitu can now be set to either throw an orange egg, which becomes a
+						spiny upon landing. Or a green egg, which stays an egg upon landing
+						and is more aggressive than spinies.
+					</p>
+					<p>
+						Possibly can configure Lakitu to throw coins as well, but so far
+						have not been able to find that setting.
+					</p>
+				</NewEntry>
+				<NewEntry title="New Entity" date="2021-05-14">
 					<ul className="ml-8 list-disc">
 						<li>Fluffy Cloud</li>
 					</ul>
