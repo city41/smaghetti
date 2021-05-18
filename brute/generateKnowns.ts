@@ -18,12 +18,25 @@ function processObjectDir(objectDirPath: string): ObjectSetRecord {
 		};
 	}
 
-	return pngs.reduce<Record<number, number[]>>((building, png) => {
-		const { objectSet, objectId } = parseObjectPngFilename(png);
-		const objectIds = (building[objectSet] = building[objectSet] ?? []);
-		objectIds.push(objectId);
-		return building;
-	}, {});
+	const setResults = pngs.reduce<Record<number, Set<number>>>(
+		(building, png) => {
+			const { objectSet, objectId } = parseObjectPngFilename(png);
+			const objectIds = (building[objectSet] =
+				building[objectSet] ?? new Set<number>());
+			objectIds.add(objectId);
+			return building;
+		},
+		{}
+	);
+
+	return Object.keys(setResults).reduce<Record<number, number[]>>(
+		(building, keyStr) => {
+			const key = parseInt(keyStr);
+			building[key] = Array.from(setResults[key]);
+			return building;
+		},
+		{}
+	);
 }
 
 function processSpriteDir(spriteDirPath: string): ObjectSetRecord {
