@@ -110,6 +110,7 @@ GameBoyAdvance = function GameBoyAdvance() {
 	this.seenSave = false;
 	this.lastVblank = 0;
 
+	// this.reportFPS = console.log.bind(console);
 	this.reportFPS = null;
 
 	var self = this;
@@ -122,6 +123,10 @@ GameBoyAdvance = function GameBoyAdvance() {
 
 	this.scriptIndex = 0;
 	this.script = null;
+};
+
+GameBoyAdvance.prototype.requestFrame = function (callback) {
+	setTimeout(callback, 16);
 };
 
 GameBoyAdvance.prototype.setCanvas = function (canvas) {
@@ -314,7 +319,7 @@ GameBoyAdvance.prototype.runStable = function () {
 				if (self.paused) {
 					return;
 				} else {
-					requestAnimationFrame(runFunc);
+					self.requestFrame(runFunc);
 				}
 				start = Date.now();
 				self.advanceFrame();
@@ -341,7 +346,7 @@ GameBoyAdvance.prototype.runStable = function () {
 					// currently automating? run the emulator as fast as possible
 					setTimeout(runFunc, 1);
 				} else {
-					requestAnimationFrame(runFunc);
+					self.requestFrame(runFunc);
 				}
 				self.advanceFrame();
 			} catch (exception) {
@@ -353,7 +358,7 @@ GameBoyAdvance.prototype.runStable = function () {
 			}
 		};
 	}
-	requestAnimationFrame(runFunc);
+	self.requestFrame(runFunc);
 };
 
 GameBoyAdvance.prototype.setSavedata = function (data) {
