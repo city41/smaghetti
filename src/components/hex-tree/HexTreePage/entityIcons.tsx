@@ -1,12 +1,14 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import clsx from 'clsx';
 import { TILE_SIZE } from '../../../tiles/constants';
+import { FaCheck, FaQuestion } from 'react-icons/fa';
 
 type EntityIconProps = {
 	className?: string;
 	entityType?: string;
 	style?: CSSProperties;
 	onClick?: () => void;
+	isKnown?: boolean;
 };
 
 type BaseIconProps = EntityIconProps & {
@@ -20,13 +22,16 @@ function BaseIcon({
 	style,
 	onClick,
 	missingTypeClassName,
+	isKnown,
 	children,
 }: BaseIconProps) {
 	const bgClass = `${entityType}-bg`;
 
+	const KnownIcon = isKnown ? FaCheck : FaQuestion;
+
 	return (
 		<div
-			className={clsx(className, bgClass, 'bg-repeat', {
+			className={clsx(className, bgClass, 'relative bg-repeat', {
 				'grid place-items-center text-xs': !entityType,
 				[missingTypeClassName]: !entityType,
 				'cursor-pointer': !!onClick,
@@ -39,6 +44,12 @@ function BaseIcon({
 			onClick={onClick}
 		>
 			{!entityType && children}
+			<KnownIcon
+				className={clsx('absolute right-0 bottom-0 text-white w-1.5 h-1.5', {
+					'bg-green-500': isKnown,
+					'bg-red-500': !isKnown,
+				})}
+			/>
 		</div>
 	);
 }

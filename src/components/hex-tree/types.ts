@@ -10,6 +10,7 @@ type LevelTreeObject = {
 	param1: number;
 	param2?: number;
 	rawBytes: number[];
+	isKnown: boolean;
 	exclude?: boolean;
 };
 

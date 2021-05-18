@@ -7,7 +7,9 @@ import {
 	knownFiveByteBank1ObjectIds,
 	knownFourByteBank0ObjectIds,
 	knownFourByteBank1ObjectIds,
-} from './generated_knownIds';
+} from './knownIds';
+import { entityMap } from '../entities/entityMap';
+import { decodeObjectSet } from '../entities/util';
 
 type LevelObject = {
 	bank: number;
@@ -17,6 +19,7 @@ type LevelObject = {
 	param2?: number;
 	id: number;
 	rawBytes: number[];
+	isKnown: boolean;
 };
 
 function getObjectSet(data: Uint8Array, roomIndex: number): number {
@@ -39,20 +42,33 @@ function getObjectSet(data: Uint8Array, roomIndex: number): number {
 	return objectSet;
 }
 
-function parseObject(
-	levelData: Uint8Array | number[],
-	objectIndex: number,
+function getRawByteLength(
 	objectSet: number,
+	bank: number,
+	id: number,
 	fourByteIds: number[],
 	fiveByteIds: number[]
-): LevelObject {
-	const bankAndParam1 = levelData[objectIndex];
-	const bank = bankAndParam1 >> 6;
-	const param1 = bankAndParam1 & 0x3f;
-	const id = levelData[objectIndex + 3];
+): { isKnown: boolean; rawByteLength: number } {
+	const matchingEntity = Object.entries(entityMap).find((entry) => {
+		const e = entry[1];
+		return (
+			!!e.toObjectBinary &&
+			e.objectId === id &&
+			e.emptyBank === bank &&
+			e.objectSets.some((os) => decodeObjectSet(os)[0] === objectSet)
+		);
+	});
+
+	if (matchingEntity) {
+		// console.log('matchingEntity', matchingEntity[0]);
+		return {
+			isKnown: true,
+			rawByteLength: matchingEntity[1].toObjectBinary!(0, 0, 1, 1, {}).length,
+		};
+	}
 
 	const knownFourByteIds =
-		bank > 0 ? knownFourByteBank0ObjectIds : knownFourByteBank1ObjectIds;
+		bank === 0 ? knownFourByteBank0ObjectIds : knownFourByteBank1ObjectIds;
 
 	const allKnownFourByteIds = [
 		...(knownFourByteIds[objectSet] ?? []),
@@ -76,6 +92,34 @@ function parseObject(
 		rawByteLength = 5;
 	}
 
+	const isKnown =
+		(bank === 0 && knownFourByteBank0ObjectIds[objectSet].includes(id)) ||
+		(bank === 1 && knownFourByteBank1ObjectIds[objectSet].includes(id)) ||
+		(bank === 1 && knownFiveByteBank1ObjectIds[objectSet].includes(id));
+
+	return { isKnown, rawByteLength };
+}
+
+function parseObject(
+	levelData: Uint8Array | number[],
+	objectIndex: number,
+	objectSet: number,
+	fourByteIds: number[],
+	fiveByteIds: number[]
+): LevelObject {
+	const bankAndParam1 = levelData[objectIndex];
+	const bank = bankAndParam1 >> 6;
+	const param1 = bankAndParam1 & 0x3f;
+	const id = levelData[objectIndex + 3];
+
+	const { rawByteLength, isKnown } = getRawByteLength(
+		objectSet,
+		bank,
+		id,
+		fourByteIds,
+		fiveByteIds
+	);
+
 	const rawBytes = Array.from(
 		levelData.slice(objectIndex, objectIndex + rawByteLength)
 	);
@@ -89,6 +133,7 @@ function parseObject(
 		param1: param1 + 1,
 		param2: rawBytes.length > 4 ? rawBytes[4] + 1 : undefined,
 		rawBytes,
+		isKnown,
 	};
 }
 

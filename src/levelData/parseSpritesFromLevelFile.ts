@@ -1,5 +1,5 @@
 import { ROOM_SPRITE_POINTERS } from '../levelData/constants';
-import { knownBank0SpriteIds, knownBank1SpriteIds } from './generated_knownIds';
+import { knownBank0SpriteIds, knownBank1SpriteIds } from './knownIds';
 
 type LevelSprite = {
 	bank: number;

@@ -130,7 +130,7 @@ function writeTsFile({
 		.replace('KNOWN_BANK1_SPRITE_IDS', JSON.stringify(spritesBank1, null, 2));
 
 	fs.writeFileSync(
-		'/home/matt/dev/smaghetti/src/levelData/generated_knownIds.ts',
+		'/home/matt/dev/smaghetti/src/levelData/knownIds/generated_knownIds.ts',
 		code
 	);
 }

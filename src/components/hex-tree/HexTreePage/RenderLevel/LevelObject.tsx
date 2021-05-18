@@ -115,6 +115,7 @@ function LevelObject({ object, scale, objectSet }: LevelObjectProps) {
 				className="cursor-pointer"
 				entityType={entityType}
 				style={style}
+				isKnown={object.isKnown}
 			/>
 		);
 	}

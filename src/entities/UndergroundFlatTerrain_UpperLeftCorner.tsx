@@ -1,7 +1,8 @@
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { encodeObjectSets } from './util';
 
 const UndergroundFlatTerrain_UpperLeftCorner: Entity = {
 	paletteInfo: {
@@ -12,7 +13,8 @@ const UndergroundFlatTerrain_UpperLeftCorner: Entity = {
 	dimensions: 'none',
 	objectId: 0x1,
 	emptyBank: 0,
-	objectSets: ANY_OBJECT_SET,
+	// TODO: actually determine all object sets, this is from star02,room0
+	objectSets: encodeObjectSets([[0xe, 3]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 
 	resource: {

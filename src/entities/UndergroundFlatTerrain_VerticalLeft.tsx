@@ -1,8 +1,8 @@
 import type { Entity } from './types';
-import { getBankParam1 } from './util';
+import { encodeObjectSets, getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const UndergroundFlatTerrain_VerticalLeft: Entity = {
 	paletteInfo: {
@@ -14,7 +14,8 @@ const UndergroundFlatTerrain_VerticalLeft: Entity = {
 	param1: 'height',
 	objectId: 0x3a,
 	emptyBank: 1,
-	objectSets: ANY_OBJECT_SET,
+	// TODO: actually determine all object sets, this is from star02,room0
+	objectSets: encodeObjectSets([[0xe, 3]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 
 	resource: {
