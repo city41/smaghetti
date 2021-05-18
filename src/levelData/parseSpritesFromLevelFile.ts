@@ -1,4 +1,5 @@
 import { ROOM_SPRITE_POINTERS } from '../levelData/constants';
+import { knownBank0SpriteIds, knownBank1SpriteIds } from './generated_knownIds';
 
 type LevelSprite = {
 	bank: number;
@@ -10,26 +11,6 @@ type LevelSprite = {
 	param2?: number;
 };
 
-const knownFourByteIds: number[] = [];
-const knownFiveByteIds: number[] = [
-	0x2a, // boos that help big boo in mushroom04, room 2
-	0xb9, // fortress fire bars
-	0xfa, // Ace Coin
-	0xea, // not sure, but it seems to be the first sprite in mushroom04, room 2
-	0xe5, // vertical one way door
-	0xe6, // horizontal one way door
-	0xfd, // "coin challenge" once you collect it you then have to collect param1 coins
-	0xab, // second sprite in mushroom05, not sure what it is, but confident it is 5 bytes
-	0xff, // horizontal, facing right, red piranna plants that spit fire
-	0x8, // chest
-];
-const knownSixByteIds: number[] = [
-	0xe0, // first sprite in mushroom09,room1
-	0x5, // first sprite in promo3,room0
-	0x6, // second sprite in promo3,room0
-	0xdb, // bubble
-];
-
 function parseSprite(
 	levelData: Uint8Array | number[],
 	spriteIndex: number,
@@ -40,11 +21,13 @@ function parseSprite(
 	const bank = levelData[spriteIndex];
 	const id = levelData[spriteIndex + 1];
 
-	const allKnownFourByteIds = [...knownFourByteIds, ...fourByteIds];
+	const knownMap = bank === 0 ? knownBank0SpriteIds : knownBank1SpriteIds;
 
-	const allKnownFiveByteIds = [...knownFiveByteIds, ...fiveByteIds];
+	const allKnownFourByteIds = [...knownMap[4], ...fourByteIds];
 
-	const allKnownSixByteIds = [...knownSixByteIds, ...sixByteIds];
+	const allKnownFiveByteIds = [...knownMap[5], ...fiveByteIds];
+
+	const allKnownSixByteIds = [...knownMap[6], ...sixByteIds];
 
 	let rawByteLength = 4;
 
