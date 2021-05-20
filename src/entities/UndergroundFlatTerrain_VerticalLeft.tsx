@@ -49,8 +49,8 @@ const UndergroundFlatTerrain_VerticalLeft: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w) {
-		return [getBankParam1(1, 0), y, x, this.objectId!, w];
+	toObjectBinary(x, y, _w, h) {
+		return [getBankParam1(1, h), y, x, this.objectId!];
 	},
 
 	simpleRender(mw, mh) {
