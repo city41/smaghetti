@@ -1434,7 +1434,8 @@ const editorSlice = createSlice({
 				const tileXOffset = Math.round(state.dragOffset!.x / TILE_SIZE);
 				const tileYOffset = Math.round(state.dragOffset!.y / TILE_SIZE);
 
-				const spotsToClear: Point[] = [];
+				const actorSpotsToClear: Point[] = [];
+				const stageSpotsToClear: Point[] = [];
 				const movedEntities: EditorEntity[] = [];
 
 				Object.keys(state.focused).forEach((fid) => {
@@ -1448,7 +1449,10 @@ const editorSlice = createSlice({
 
 						// nudge it over by one so entities just above or to the left won't
 						// get clobbered
-						spotsToClear.push({ x: actorEntity.x + 1, y: actorEntity.y + 1 });
+						actorSpotsToClear.push({
+							x: actorEntity.x + 1,
+							y: actorEntity.y + 1,
+						});
 						movedEntities.push(actorEntity);
 					}
 
@@ -1462,7 +1466,10 @@ const editorSlice = createSlice({
 
 						// nudge it over by one so entities just above or to the left won't
 						// get clobbered
-						spotsToClear.push({ x: stageEntity.x + 1, y: stageEntity.y + 1 });
+						stageSpotsToClear.push({
+							x: stageEntity.x + 1,
+							y: stageEntity.y + 1,
+						});
 						movedEntities.push(stageEntity);
 					}
 
@@ -1509,7 +1516,7 @@ const editorSlice = createSlice({
 
 						const bounds = getEntityPixelBounds(e);
 
-						const spotToClear = spotsToClear.find((spot) => {
+						const spotToClear = actorSpotsToClear.find((spot) => {
 							return pointIsInside(spot, bounds);
 						});
 
@@ -1524,7 +1531,7 @@ const editorSlice = createSlice({
 
 					const bounds = getEntityPixelBounds(e);
 
-					const spotToClear = spotsToClear.find((spot) => {
+					const spotToClear = stageSpotsToClear.find((spot) => {
 						return pointIsInside(spot, bounds);
 					});
 
