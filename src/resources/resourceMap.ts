@@ -19,6 +19,8 @@ import { FrogSuit } from './FrogSuit';
 import { GiantVegetable } from './GiantVegetable';
 import { GreenCheepCheep } from './GreenCheepCheep';
 import { GreenSpinyEgg } from './GreenSpinyEgg';
+import { HoppingBowserStatueBody } from './HoppingBowserStatueBody';
+import { HoppingBowserStatueHead } from './HoppingBowserStatueHead';
 import { HorizontalDolphin } from './HorizontalDolphin';
 import { HotHeadEyes } from './HotHeadEyes';
 import { KoopalingWand } from './KoopalingWand';
@@ -68,6 +70,8 @@ const resourceMap = {
 	GiantVegetable,
 	GreenCheepCheep,
 	GreenSpinyEgg,
+	HoppingBowserStatueBody,
+	HoppingBowserStatueHead,
 	KoopalingWand,
 	KoopaShell,
 	OneNumberBlock,

@@ -4,15 +4,15 @@ import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
 
-const BowserFireStatue: Entity = {
-	paletteCategory: 'terrain',
+const HoppingBowserStatue: Entity = {
+	paletteCategory: 'enemy',
 	paletteInfo: {
-		title: 'Bowser Fire Statue',
+		title: 'Hopping Bowser Statue',
 	},
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, -1, -1, 0xc],
-	layer: 'stage',
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xf,
@@ -23,9 +23,7 @@ const BowserFireStatue: Entity = {
 		// 0 - just a statue
 		// 1 - statute that shoots fire
 		// 2 - hops and attacks
-		// TODO: allow choosing zero with a details pane
-		// 2 is a separate entity, HoppingBowserStatue
-		return [0, this.objectId!, x, y, 1];
+		return [0, this.objectId!, x, y, 2];
 	},
 
 	simpleRender(width, height) {
@@ -42,11 +40,11 @@ const BowserFireStatue: Entity = {
 		return (
 			<div className="relative" style={style}>
 				<div
-					className="absolute BowserFireStatueHead-bg bg-cover bg-no-repeat"
+					className="absolute HoppingBowserStatueHead-bg bg-cover bg-no-repeat"
 					style={headStyle}
 				/>
 				<div
-					className="absolute BowserFireStatueBody-bg bg-cover bg-no-repeat right-0 bottom-0"
+					className="absolute HoppingBowserStatueBody-bg bg-cover bg-no-repeat right-0 bottom-0"
 					style={headStyle}
 				/>
 			</div>
@@ -76,11 +74,11 @@ const BowserFireStatue: Entity = {
 		return (
 			<div className="relative" style={style}>
 				<div
-					className="absolute BowserFireStatueHead-bg bg-cover bg-no-repeat"
+					className="absolute HoppingBowserStatueHead-bg bg-cover bg-no-repeat"
 					style={headStyle}
 				/>
 				<div
-					className="absolute BowserFireStatueBody-bg bg-cover bg-no-repeat right-0 bottom-0"
+					className="absolute HoppingBowserStatueBody-bg bg-cover bg-no-repeat right-0 bottom-0"
 					style={headStyle}
 				/>
 				<div className="absolute" style={spaceStyle}>
@@ -91,4 +89,4 @@ const BowserFireStatue: Entity = {
 	},
 };
 
-export { BowserFireStatue };
+export { HoppingBowserStatue };
