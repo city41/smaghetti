@@ -5,7 +5,6 @@ import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const SmallBackgroundHills: Entity = {
-	paletteCategory: 'decoration',
 	paletteInfo: {
 		title: 'SmallBackgroundHills',
 	},
