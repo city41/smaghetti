@@ -27,6 +27,18 @@ function EarlyPreviewModal({
 					things are still in flux. Wait until at least we are in beta before
 					building an awesome level!
 				</p>
+				<p>
+					Check the{' '}
+					<a
+						className="text-blue-500"
+						href="/roadmap"
+						target="_blank"
+						rel="noreferer"
+					>
+						roadmap
+					</a>{' '}
+					for more info
+				</p>
 			</div>
 		</Modal>
 	);
