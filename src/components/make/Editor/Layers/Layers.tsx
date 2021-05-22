@@ -15,15 +15,22 @@ type InternalLayersProps = {
 
 type PublicLayersProps = {
 	className?: string;
+	disabled?: boolean;
 };
 
 type LayerEntryProps = {
+	disabled?: boolean;
 	title: string;
 	locked: boolean;
 	onToggleLayerLock: () => void;
 };
 
-function LayerEntry({ title, locked, onToggleLayerLock }: LayerEntryProps) {
+function LayerEntry({
+	disabled,
+	title,
+	locked,
+	onToggleLayerLock,
+}: LayerEntryProps) {
 	const LockIcon = locked ? RiLockFill : RiLockUnlockFill;
 
 	return (
@@ -33,6 +40,7 @@ function LayerEntry({ title, locked, onToggleLayerLock }: LayerEntryProps) {
 		>
 			<div className="text-gray-500 text-xs">{title}</div>
 			<PlainIconButton
+				disabled={disabled}
 				className={clsx({ 'bg-red-500 rounded-sm': locked })}
 				label={`${locked ? 'unlock' : 'lock'} ${title}`}
 				icon={LockIcon}
@@ -44,6 +52,7 @@ function LayerEntry({ title, locked, onToggleLayerLock }: LayerEntryProps) {
 
 function Layers({
 	className,
+	disabled,
 	actors,
 	stage,
 	onToggleLayerLock,
@@ -58,11 +67,13 @@ function Layers({
 			<LayerEntry
 				title="actors"
 				{...actors}
+				disabled={disabled}
 				onToggleLayerLock={() => onToggleLayerLock('actors')}
 			/>
 			<LayerEntry
 				title="stage"
 				{...stage}
+				disabled={disabled}
 				onToggleLayerLock={() => onToggleLayerLock('stage')}
 			/>
 		</div>

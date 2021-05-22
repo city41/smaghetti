@@ -146,7 +146,7 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 							className="grid"
 							style={{ gridTemplateColumns: 'max-content 1fr max-content' }}
 						>
-							<Layers />
+							<Layers disabled={isPlaying} />
 							<Palette disabled={isPlaying} />
 							<div className="grid grid-rows-3 items-stretch">
 								<MetadataMenu className="row-span-2" disabled={isPlaying} />
