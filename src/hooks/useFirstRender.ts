@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
 function useFirstRender() {
-  const [firstRender, setFirstRender] = useState(true);
+	const [firstRender, setFirstRender] = useState(true);
 
-  useEffect(() => {
-    setFirstRender(false);
-  }, []);
+	useEffect(() => {
+		setFirstRender(false);
+	}, []);
 
-  return firstRender;
+	return firstRender;
 }
 
 export { useFirstRender };

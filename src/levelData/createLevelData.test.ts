@@ -32,13 +32,16 @@ describe('createLevelData', () => {
 					bgExtraColorAndEffect: 0,
 				},
 				paletteEntries: [],
-				validEntityTypes: [],
-				entities,
-				matrixLayer: {
-					width: 0,
-					height: 0,
-					data: [],
+				actors: {
+					entities,
+					matrix: [],
 				},
+				stage: {
+					entities,
+					matrix: [],
+				},
+				roomTileWidth: 0,
+				roomTileHeight: 0,
 			};
 
 			const levelData = createLevelData([room]);
@@ -63,20 +66,16 @@ describe('createLevelData', () => {
 
 	describe('objects', () => {
 		it('should create a single 2D object', () => {
-			const matrixLayer: MatrixLayer = {
-				width: 2,
-				height: 2,
-				data: [
-					[
-						{ id: 1, x: 0, y: 0, type: 'Brick' },
-						{ id: 2, x: 1, y: 0, type: 'Brick' },
-					],
-					[
-						{ id: 3, x: 0, y: 1, type: 'Brick' },
-						{ id: 4, x: 1, y: 1, type: 'Brick' },
-					],
+			const matrix = [
+				[
+					{ id: 1, x: 0, y: 0, type: 'Brick' },
+					{ id: 2, x: 1, y: 0, type: 'Brick' },
 				],
-			};
+				[
+					{ id: 3, x: 0, y: 1, type: 'Brick' },
+					{ id: 4, x: 1, y: 1, type: 'Brick' },
+				],
+			] as EditorEntityMatrix;
 
 			const levelData = createLevelData([
 				{
@@ -87,9 +86,16 @@ describe('createLevelData', () => {
 						bgExtraColorAndEffect: 0,
 					},
 					paletteEntries: [],
-					validEntityTypes: [],
-					entities: [],
-					matrixLayer,
+					actors: {
+						entities: [],
+						matrix: [],
+					},
+					stage: {
+						entities: [],
+						matrix,
+					},
+					roomTileWidth: 2,
+					roomTileHeight: 2,
 				},
 			]);
 

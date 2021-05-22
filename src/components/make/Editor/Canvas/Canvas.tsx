@@ -36,9 +36,17 @@ type CanvasProps = {
 	currentPaletteEntry?: EntityType;
 	rooms: RoomState[];
 	currentRoomIndex: number;
-	entities: EditorEntity[];
+	actors: {
+		entities: EditorEntity[];
+		matrix: EditorEntityMatrix;
+		locked: boolean;
+	};
+	stage: {
+		entities: EditorEntity[];
+		matrix: EditorEntityMatrix;
+		locked: boolean;
+	};
 	transportDestinations: EditorTransport[];
-	matrix: EditorEntityMatrix;
 	focused: Record<number, boolean>;
 	isSelecting: boolean;
 	dragOffset: Point | null;
@@ -59,6 +67,7 @@ function getTranslation(scale: number): string {
 
 type MatrixRowProps = {
 	cells: EditorEntityRow;
+	locked: boolean;
 	matrix: EditorEntityMatrix;
 	y: number;
 	focused: Record<number, boolean>;
@@ -71,6 +80,7 @@ type MatrixRowProps = {
 
 const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 	cells,
+	locked,
 	matrix,
 	y,
 	focused,
@@ -81,11 +91,21 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 		const isFocused = !dragOffset && c !== null && focused[c.id];
 		const focusCount = Object.keys(focused).length;
 
+		let opacity = 1;
+
+		if (dragOffset && c && focused[c.id]) {
+			opacity = 0.3;
+		}
+
+		if (locked) {
+			opacity = 0.15;
+		}
+
 		const style = {
 			position: 'absolute',
 			left: x * TILE_SIZE,
 			top: 0,
-			opacity: dragOffset && c && focused[c.id] ? 0.3 : 1,
+			opacity,
 		} as const;
 
 		return (
@@ -152,6 +172,7 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 
 type EntitiesProps = {
 	entities: EditorEntity[];
+	locked: boolean;
 	mouseMode: MouseMode;
 	focused: Record<number, boolean>;
 	isSelecting: boolean;
@@ -164,6 +185,7 @@ type EntitiesProps = {
 
 const Entities = memo(function Entities({
 	entities,
+	locked,
 	mouseMode,
 	focused,
 	dragOffset,
@@ -176,6 +198,16 @@ const Entities = memo(function Entities({
 				const isFocused =
 					focused[e.id] && (mouseMode === 'select' || mouseMode === 'pan');
 
+				let opacity = 1;
+
+				if (!!dragOffset && isFocused) {
+					opacity = 0.3;
+				}
+
+				if (locked) {
+					opacity = 0.15;
+				}
+
 				return (
 					<Entity
 						key={`${e.type}-${e.id}`}
@@ -183,7 +215,7 @@ const Entities = memo(function Entities({
 							position: 'absolute',
 							top: e.y,
 							left: e.x,
-							opacity: !!dragOffset && isFocused ? 0.3 : 1,
+							opacity,
 						}}
 						id={e.id}
 						entity={e}
@@ -268,9 +300,9 @@ const Canvas = memo(function Canvas({
 	currentPaletteEntry,
 	rooms,
 	currentRoomIndex,
-	entities,
+	actors,
+	stage,
 	transportDestinations,
-	matrix,
 	focused,
 	isSelecting,
 	dragOffset,
@@ -337,13 +369,30 @@ const Canvas = memo(function Canvas({
 		lastMousePoint.current = curMousePoint;
 	}
 
-	const matrixRows = matrix.map(
+	const stageMatrixRows = stage.matrix.map(
 		(row, y) =>
 			row && (
 				<MatrixRow
 					key={y}
 					cells={row}
-					matrix={matrix}
+					locked={stage.locked}
+					matrix={stage.matrix}
+					y={y}
+					focused={focused}
+					dragOffset={dragOffset}
+					onEntitySettingsChange={onEntitySettingsChange}
+				/>
+			)
+	);
+
+	const actorMatrixRows = actors.matrix.map(
+		(row, y) =>
+			row && (
+				<MatrixRow
+					key={y}
+					cells={row}
+					locked={actors.locked}
+					matrix={actors.matrix}
 					y={y}
 					focused={focused}
 					dragOffset={dragOffset}
@@ -437,9 +486,20 @@ const Canvas = memo(function Canvas({
 				)}
 				<div className={styles.grid} style={tileGridStyles} />
 				<div className={styles.grid} style={viewportGridStyles} />
-				{matrixRows}
+				{stageMatrixRows}
 				<Entities
-					entities={entities}
+					entities={stage.entities}
+					locked={stage.locked}
+					focused={focused}
+					isSelecting={isSelecting}
+					mouseMode={mouseMode}
+					dragOffset={dragOffset}
+					onEntitySettingsChange={onEntitySettingsChange}
+				/>
+				{actorMatrixRows}
+				<Entities
+					entities={actors.entities}
+					locked={actors.locked}
 					focused={focused}
 					isSelecting={isSelecting}
 					mouseMode={mouseMode}

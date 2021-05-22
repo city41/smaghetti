@@ -22,6 +22,7 @@ const Spiny: Entity = {
 		graphicSets,
 	],
 	objectId: 0x71,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

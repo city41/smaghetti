@@ -1,7 +1,14 @@
+type Point = {
+	x: number;
+	y: number;
+};
+
 type Bounds = {
 	upperLeft: Point;
 	lowerRight: Point;
 };
+
+type EntityType = import('./src/entities/entityMap').EntityType;
 
 type IDable = { id: number };
 
@@ -11,7 +18,7 @@ type EditorEntitySettings = Record<string, any>;
 type NewEditorEntity = {
 	x: number;
 	y: number;
-	type: import('./src/entities/entityMap').EntityType;
+	type: EntityType;
 	disableDrag?: boolean;
 	settings?: EditorEntitySettings;
 };
@@ -28,28 +35,11 @@ type EditorTransport = {
 	exitType: number;
 };
 
-type Point = {
-	x: number;
-	y: number;
-};
-
 type EditorEntityRow = Array<EditorEntity | null>;
 type EditorEntityMatrix = Array<EditorEntityRow | null>;
 
-type MatrixLayer = {
-	width: number;
-	height: number;
-	data: EditorEntityMatrix;
-};
-
 // the string is the short id for the entity type, ie "Brick" -> "Br"
 type SerializedEditorEntityMatrix = Array<string | Array<string>>;
-
-type SerializedMatrixLayer = {
-	width: number;
-	height: number;
-	data: SerializedEditorEntityMatrix;
-};
 
 type RoomSettings = {
 	music: number;
@@ -58,12 +48,20 @@ type RoomSettings = {
 	bgExtraColorAndEffect: number;
 };
 
+type RoomLayer = {
+	entities: EditorEntity[];
+	matrix: EditorEntityMatrix;
+	// giantMatrix: EditorEntityMatrix;
+};
+
 type RoomData = {
 	settings: RoomSettings;
+	actors: RoomLayer;
+	stage: RoomLayer;
+	roomTileWidth: number;
+	roomTileHeight: number;
+	// not really room data, but these need to be persisted
 	paletteEntries: EntityType[];
-	validEntityTypes: EntityType[];
-	entities: EditorEntity[];
-	matrixLayer: MatrixLayer;
 };
 
 type SerializedMatrixEntitySettings = {
@@ -72,9 +70,15 @@ type SerializedMatrixEntitySettings = {
 	s: EditorEntitySettings;
 };
 
-type SerializedRoomData = Omit<RoomData, 'matrixLayer'> & {
-	matrixLayer: SerializedMatrixLayer;
-	matrixEntitySettings: SerializedMatrixEntitySettings[];
+type SerializedRoomLayer = {
+	entities: EditorEntity[];
+	matrix: SerializedEditorEntityMatrix;
+	matrixSettings: SerializedMatrixEntitySettings[];
+};
+
+type SerializedRoomData = Omit<RoomData, 'actors' | 'stage'> & {
+	actors: SerializedRoomLayer;
+	stage: SerializedRoomLayer;
 };
 
 type LevelData = {

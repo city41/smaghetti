@@ -94,7 +94,7 @@ const Toolbox = memo(function Toolbox({
 					isPlaying ||
 					(mm.mode === 'fill' &&
 						currentPaletteEntry &&
-						entityMap[currentPaletteEntry].editorType === 'entity')
+						!entityMap[currentPaletteEntry].layer.includes('matrix'))
 				}
 				onClick={() => onMouseModeChanged(mm.mode)}
 				label={`${mm.mode} (${mm.hotkey})`}
@@ -109,7 +109,7 @@ const Toolbox = memo(function Toolbox({
 				'bg-gray-700 flex flex-row flex-wrap items-center space-x-12 px-2 py-2'
 			)}
 		>
-			<div className="flex flex-row items-center space-x-2 bg-yellow-600 -my-2 py-2 -ml-2 px-2">
+			<div className="w-32 flex flex-row items-center space-x-2 bg-yellow-600 -my-2 py-2 -ml-2 px-2">
 				<PlayButton isPlaying={isPlaying} onClick={onPlayClick} />
 				<SaveButton disabled={isPlaying} />
 				<DownloadButton disabled={isPlaying} />

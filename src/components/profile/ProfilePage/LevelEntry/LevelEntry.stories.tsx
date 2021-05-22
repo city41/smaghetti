@@ -2,10 +2,6 @@ import React from 'react';
 import { Meta } from '@storybook/react';
 
 import { LevelEntry } from './LevelEntry';
-import {
-	PLAY_WINDOW_TILE_HEIGHT,
-	PLAY_WINDOW_TILE_WIDTH,
-} from '../../../make/constants';
 
 const meta: Meta = {
 	title: 'LevelEntry',
@@ -30,16 +26,26 @@ const blankLevel: Level = {
 					bgExtraColorAndEffect: 0,
 				},
 				paletteEntries: [],
-				validEntityTypes: [],
-				entities: [],
-				matrixLayer: {
-					width: PLAY_WINDOW_TILE_WIDTH * 3,
-					height: PLAY_WINDOW_TILE_HEIGHT * 1.5,
-					data: [[]],
+				actors: {
+					entities: [],
+					matrix: [],
 				},
+				stage: {
+					entities: [],
+					matrix: [],
+				},
+				roomTileWidth: 0,
+				roomTileHeight: 0,
 			},
 		],
 	},
+};
+
+const brokenLevel: BrokenLevel = {
+	id: '1',
+	created_at: '',
+	name: 'Storybook Level',
+	broken: true,
 };
 
 export const Basic = () => {
@@ -47,6 +53,19 @@ export const Basic = () => {
 		<div className="inline-block">
 			<LevelEntry
 				level={blankLevel}
+				onDelete={() => {}}
+				onEdit={() => {}}
+				onDownload={() => {}}
+			/>
+		</div>
+	);
+};
+
+export const BrokenLevel = () => {
+	return (
+		<div className="inline-block">
+			<LevelEntry
+				level={brokenLevel}
 				onDelete={() => {}}
 				onEdit={() => {}}
 				onDownload={() => {}}

@@ -22,7 +22,7 @@ const alphaChecklist: MilestoneChecklistItem[] = [
 		description: 'Pipes and pipe warps',
 	},
 	{
-		status: 'in-progress',
+		status: 'completed',
 		description:
 			'Layers (mostly to support complex terrain and background things)',
 	},

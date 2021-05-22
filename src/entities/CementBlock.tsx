@@ -13,6 +13,7 @@ const CementBlock: Entity = {
 
 	objectSets: encodeObjectSets([[9, 9]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

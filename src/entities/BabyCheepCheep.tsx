@@ -14,6 +14,7 @@ const BabyCheepCheep: Entity = {
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [7, -1, -1, -1, -1, -1],
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x48,

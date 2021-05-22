@@ -33,6 +33,7 @@ const Lakitu: Entity = {
 		graphicSets,
 	],
 	objectId: 0x1f,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

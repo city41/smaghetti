@@ -20,6 +20,7 @@ const SeeSawPlatform: Entity = {
 	width: 1,
 	height: 1,
 	objectId: 0xb3,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

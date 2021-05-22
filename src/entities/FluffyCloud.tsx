@@ -16,6 +16,7 @@ const FluffyCloud: Entity = {
 		[12, 12],
 	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
 	param1: 'width',

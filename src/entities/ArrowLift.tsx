@@ -14,6 +14,7 @@ const ArrowLift: Entity = {
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xe8,

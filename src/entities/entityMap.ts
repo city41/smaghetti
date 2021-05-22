@@ -40,6 +40,7 @@ import { DolphinPod } from './DolphinPod';
 import { DonutBlock } from './DonutBlock';
 import { DownFortressSpike } from './DownFortressSpike';
 import { DryBones } from './DryBones';
+import { EndOfLevelBackdrop } from './EndOfLevelBackdrop';
 import { FallAwayPlatform } from './FallAwayPlatform';
 import { FallAwaySpike } from './FallAwaySpike';
 import { FireBar } from './FireBar';
@@ -107,6 +108,7 @@ import { ShoeGoomba } from './ShoeGoomba';
 import { SilverPSwitch } from './SilverPSwitch';
 import { SimpleBlackDoor } from './SimpleBlackDoor';
 import { SledgeBro } from './SledgeBro';
+import { SmallBackgroundHills } from './SmallBackgroundHills';
 import { Spike } from './Spike';
 import { SpikeBall } from './SpikeBall';
 import { Spiny } from './Spiny';
@@ -178,6 +180,7 @@ const entityMap = {
 	DonutBlock,
 	DownFortressSpike,
 	DryBones,
+	EndOfLevelBackdrop,
 	FallAwayPlatform,
 	FireBar,
 	FireBro,
@@ -245,6 +248,7 @@ const entityMap = {
 	SilverPSwitch,
 	SimpleBlackDoor,
 	SledgeBro,
+	SmallBackgroundHills,
 	Spike,
 	SpikeBall,
 	Spiny,

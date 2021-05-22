@@ -1,7 +1,7 @@
 .pan {
-    cursor: grab;
+	cursor: grab;
 }
 
 .pan.panning {
-    cursor: grabbing;
+	cursor: grabbing;
 }

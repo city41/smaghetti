@@ -7,10 +7,10 @@ import { entityMap } from '../entities/entityMap';
  * where bugs from previous builds cause duplicate ids
  */
 function normalizeIds(
-	entities: EditorEntity[],
+	layer: SerializedRoomLayer,
 	idCounter: number
 ): { idCounter: number; normalizedEntities: EditorEntity[] } {
-	const normalizedEntities = entities.map((e) => {
+	const normalizedEntities = layer.entities.map((e) => {
 		return {
 			...e,
 			id: idCounter++,
@@ -23,20 +23,11 @@ function normalizeIds(
 	};
 }
 
-function deserializeRoom(
-	room: SerializedRoomData,
+function deserializeMatrix(
+	layer: SerializedRoomLayer,
 	idCounter: number
-): { idCounter: number; room: RoomData } {
-	const { width, height } = room.matrixLayer;
-
-	const { idCounter: newIdCounter, normalizedEntities } = normalizeIds(
-		room.entities,
-		idCounter
-	);
-
-	idCounter = newIdCounter;
-
-	const tiles = room.matrixLayer.data.map((row, y) => {
+): { matrix: EditorEntityMatrix; idCounter: number } {
+	const matrix = layer.matrix.map((row, y) => {
 		if (row === null) {
 			return row;
 		}
@@ -60,12 +51,12 @@ function deserializeRoom(
 				return null;
 			}
 
-			const tileSettings = room.matrixEntitySettings.find(
+			const tileSettings = layer.matrixSettings.find(
 				(f) => f.x === x && f.y === y
 			);
 
 			if (tileSettings) {
-				room.matrixEntitySettings = room.matrixEntitySettings.filter(
+				layer.matrixSettings = layer.matrixSettings.filter(
 					(te) => te !== tileSettings
 				);
 			}
@@ -87,15 +78,39 @@ function deserializeRoom(
 		});
 	});
 
+	return { matrix, idCounter };
+}
+
+function deserializeRoom(
+	room: SerializedRoomData,
+	idCounter: number
+): { idCounter: number; room: RoomData } {
+	const actorEntitiesResult = normalizeIds(room.actors, 1);
+	const actorMatrixResult = deserializeMatrix(
+		room.actors,
+		actorEntitiesResult.idCounter
+	);
+	const stageEntitiesResult = normalizeIds(
+		room.stage,
+		actorMatrixResult.idCounter
+	);
+	const stageMatrixResult = deserializeMatrix(
+		room.stage,
+		stageEntitiesResult.idCounter
+	);
+	idCounter = stageMatrixResult.idCounter;
+
 	return {
 		idCounter,
 		room: {
 			...room,
-			entities: normalizedEntities,
-			matrixLayer: {
-				width,
-				height,
-				data: tiles,
+			actors: {
+				entities: actorEntitiesResult.normalizedEntities,
+				matrix: actorMatrixResult.matrix,
+			},
+			stage: {
+				entities: stageEntitiesResult.normalizedEntities,
+				matrix: stageMatrixResult.matrix,
 			},
 		},
 	};

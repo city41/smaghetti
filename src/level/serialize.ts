@@ -2,17 +2,20 @@ import { TILE_TYPE_TO_SERIALIZE_ID_MAP } from '../tiles/constants';
 import isEqual from 'lodash/isEqual';
 import { entityMap } from '../entities/entityMap';
 
-function serializeRoom(room: RoomData): SerializedRoomData {
-	const tiles = room.matrixLayer.data;
+function serializeMatrix(
+	matrix: EditorEntityMatrix
+): {
+	matrix: SerializedEditorEntityMatrix;
+	matrixSettings: SerializedMatrixEntitySettings[];
+} {
+	const serializedMatrix = [];
+	const serializedMatrixSettings: SerializedMatrixEntitySettings[] = [];
 
-	const serializedTiles = [];
-	const serializedTileSettings: SerializedMatrixEntitySettings[] = [];
-
-	for (let y = 0; y < tiles.length; y += 1) {
-		const row = tiles[y];
+	for (let y = 0; y < matrix.length; y += 1) {
+		const row = matrix[y];
 
 		if (!row) {
-			serializedTiles.push('');
+			serializedMatrix.push('');
 		} else {
 			const serializedRow = [];
 			for (let x = 0; x < row.length; x += 1) {
@@ -37,24 +40,31 @@ function serializeRoom(room: RoomData): SerializedRoomData {
 						Object.keys(tile.settings).length > 0 &&
 						!isEqual(entityMap[tile.type].defaultSettings, tile.settings)
 					) {
-						serializedTileSettings.push({ x, y, s: tile.settings });
+						serializedMatrixSettings.push({ x, y, s: tile.settings });
 					}
 				}
 			}
-			serializedTiles.push(serializedRow);
+			serializedMatrix.push(serializedRow);
 		}
 	}
 
-	const tileLayer = {
-		...room.matrixLayer,
-		data: serializedTiles,
+	return { matrix: serializedMatrix, matrixSettings: serializedMatrixSettings };
+}
+
+function serializeRoom(room: RoomData): SerializedRoomData {
+	const serializedRoom = {
+		...room,
+		actors: {
+			...room.actors,
+			...serializeMatrix(room.actors.matrix),
+		},
+		stage: {
+			...room.stage,
+			...serializeMatrix(room.stage.matrix),
+		},
 	};
 
-	return {
-		...room,
-		matrixLayer: tileLayer,
-		matrixEntitySettings: serializedTileSettings,
-	};
+	return serializedRoom;
 }
 
 function serialize(levelData: LevelData): SerializedLevelData {

@@ -22,6 +22,7 @@ const Bobomb: Entity = {
 		graphicSets,
 	],
 	objectId: 0x55,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

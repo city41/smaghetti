@@ -13,6 +13,7 @@ const WoodWalkway: Entity = {
 
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'x',
 	objectId: 0x61,

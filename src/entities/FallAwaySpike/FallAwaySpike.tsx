@@ -19,6 +19,7 @@ const FallAwaySpike: Entity = {
 	// TODO: this is not true, when the spikes fall away they become sprites
 	// which have finite graphic sets
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'x',
 	objectId: 0x5d,

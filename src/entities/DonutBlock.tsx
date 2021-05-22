@@ -18,6 +18,7 @@ const DonutBlock: Entity = {
 		[2, 8],
 	]),
 	spriteGraphicSets: [[5, 6], -1, -1, -1, -1, -1],
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

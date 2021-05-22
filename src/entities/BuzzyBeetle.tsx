@@ -22,6 +22,7 @@ const BuzzyBeetle: Entity = {
 		graphicSets,
 	],
 	objectId: 0x70,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

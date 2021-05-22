@@ -13,12 +13,10 @@ import {
 	MAX_LEVEL_TILE_WIDTH,
 	MIN_LEVEL_TILE_HEIGHT,
 	MAX_LEVEL_TILE_HEIGHT,
-	INITIAL_LEVEL_TILE_HEIGHT,
-	INITIAL_LEVEL_TILE_WIDTH,
+	INITIAL_ROOM_TILE_HEIGHT,
+	INITIAL_ROOM_TILE_WIDTH,
 	INITIAL_PLAYER_Y_TILE,
 	INITIAL_PLAYER_X_TILE,
-	PLAY_WINDOW_TILE_WIDTH,
-	PLAY_WINDOW_TILE_HEIGHT,
 } from './constants';
 import { getPlayerScaleFromWindow } from '../../util/getPlayerScaleFromWindow';
 import { saveLevel as saveLevelMutation } from '../../remoteData/saveLevel';
@@ -38,6 +36,7 @@ import {
 } from '../../entities/util';
 
 type LocalStorageData = {
+	version: string;
 	metadata: {
 		name: string;
 	};
@@ -64,21 +63,24 @@ const scales: number[] = [
 	playerScale * 2,
 ];
 
+type EditorRoomLayer = RoomLayer & {
+	locked: boolean;
+};
+
 type RoomState = {
 	settings: RoomSettings;
-	entities: EditorEntity[];
-	matrix: EditorEntityMatrix;
+	actors: EditorRoomLayer;
+	stage: EditorRoomLayer;
 	roomTileWidth: number;
 	roomTileHeight: number;
-
+	paletteEntries: EntityType[];
+	validEntityTypes: EntityType[];
 	scale: number;
 	canIncreaseScale: boolean;
 	canDecreaseScale: boolean;
 	editorVisibleWindow: EditorFocusRect;
 	scrollOffset: Point;
-	paletteEntries: EntityType[];
 	currentPaletteEntry?: EntityType;
-	validEntityTypes: EntityType[];
 };
 
 type InternalEditorState = {
@@ -122,6 +124,34 @@ function getCurrentRoom(state: InternalEditorState): RoomState {
 	return state.rooms[state.currentRoomIndex];
 }
 
+function isEditable(layer: EditorRoomLayer): boolean {
+	return !layer.locked;
+}
+
+function unfocusEntities(
+	focused: Record<number, boolean>,
+	entities: EditorEntity[]
+) {
+	entities.forEach((e) => {
+		focused[e.id] = false;
+	});
+}
+
+function unfocusMatrix(
+	focused: Record<number, boolean>,
+	matrix: EditorEntityMatrix
+) {
+	matrix.forEach((row) => {
+		if (row) {
+			row.forEach((cell) => {
+				if (cell) {
+					focused[cell.id] = false;
+				}
+			});
+		}
+	});
+}
+
 /**
  * Figure out what the y scroll should be such that the player and start
  * are placed in the lower left corner of the browser window.
@@ -134,7 +164,7 @@ function calcYForScrollToBottom() {
 		return 0;
 	}
 
-	const levelHeight = INITIAL_LEVEL_TILE_HEIGHT * TILE_SIZE * initialScale;
+	const levelHeight = INITIAL_ROOM_TILE_HEIGHT * TILE_SIZE * initialScale;
 	const windowHeight = window.innerHeight;
 
 	return (levelHeight - windowHeight) / initialScale;
@@ -162,7 +192,7 @@ const SINGLE_BRICK_SO_PLAYER_DOESNT_FALL: EditorEntityMatrix = (function () {
 
 	rows.push(playerRow);
 
-	while (rows.length < INITIAL_LEVEL_TILE_HEIGHT) {
+	while (rows.length < INITIAL_ROOM_TILE_HEIGHT) {
 		rows.push(null);
 	}
 
@@ -173,17 +203,25 @@ const initialRoomState: RoomState = {
 	settings: {
 		...ROOM_TYPE_SETTINGS.underground,
 	},
-	entities: [
-		{
-			id: 1,
-			x: TILE_SIZE * INITIAL_PLAYER_X_TILE,
-			y: TILE_SIZE * INITIAL_PLAYER_Y_TILE,
-			type: 'Player',
-		},
-	],
-	matrix: cloneDeep(SINGLE_BRICK_SO_PLAYER_DOESNT_FALL),
-	roomTileWidth: INITIAL_LEVEL_TILE_WIDTH,
-	roomTileHeight: INITIAL_LEVEL_TILE_HEIGHT,
+	actors: {
+		entities: [
+			{
+				id: 1,
+				x: TILE_SIZE * INITIAL_PLAYER_X_TILE,
+				y: TILE_SIZE * INITIAL_PLAYER_Y_TILE,
+				type: 'Player',
+			},
+		],
+		matrix: [],
+		locked: false,
+	},
+	stage: {
+		entities: [],
+		matrix: cloneDeep(SINGLE_BRICK_SO_PLAYER_DOESNT_FALL),
+		locked: false,
+	},
+	roomTileWidth: INITIAL_ROOM_TILE_WIDTH,
+	roomTileHeight: INITIAL_ROOM_TILE_HEIGHT,
 	scale: initialScale,
 	canIncreaseScale: scales.indexOf(initialScale) < scales.length - 1,
 	canDecreaseScale: scales.indexOf(initialScale) > 0,
@@ -229,16 +267,20 @@ const initialState = defaultInitialState;
 const EMPTY_SERIALIZED_LEVEL: SerializedLevelData = {
 	rooms: [
 		{
-			settings: { ...initialState.rooms[0].settings },
-			paletteEntries: [...initialState.rooms[0].paletteEntries],
-			validEntityTypes: [...initialState.rooms[0].validEntityTypes],
-			entities: [...initialState.rooms[0].entities],
-			matrixLayer: {
-				data: [],
-				width: PLAY_WINDOW_TILE_WIDTH,
-				height: PLAY_WINDOW_TILE_HEIGHT,
+			settings: { ...initialRoomState.settings },
+			actors: {
+				...initialState.rooms[0].actors,
+				matrix: [],
+				matrixSettings: [],
 			},
-			matrixEntitySettings: [],
+			stage: {
+				...initialState.rooms[0].actors,
+				matrix: [],
+				matrixSettings: [],
+			},
+			paletteEntries: [...initialRoomState.paletteEntries],
+			roomTileHeight: INITIAL_ROOM_TILE_HEIGHT,
+			roomTileWidth: INITIAL_ROOM_TILE_WIDTH,
 		},
 	],
 };
@@ -449,12 +491,8 @@ function canDrop(
 	});
 }
 
-function getEntityX(inputX: number): number {
+function snapEntityCoordToGrid(inputX: number): number {
 	return Math.floor(inputX / TILE_SIZE) * TILE_SIZE;
-}
-
-function getEntityY(inputY: number): number {
-	return Math.floor(inputY / TILE_SIZE) * TILE_SIZE;
 }
 
 // function ensurePlayerIsInView(state: InternalEditorState, offsetDelta: Point) {
@@ -513,7 +551,7 @@ function removeOutOfBoundsEntities(state: InternalEditorState) {
 		},
 	};
 
-	currentRoom.entities = currentRoom.entities.filter((e) => {
+	currentRoom.actors.entities = currentRoom.actors.entities.filter((e) => {
 		if (nonDeletableEntityTypes.includes(e.type)) {
 			return true;
 		}
@@ -527,11 +565,14 @@ function removeOutOfBoundsEntities(state: InternalEditorState) {
 function removeOutOfBoundsCells(state: InternalEditorState) {
 	const currentRoom = getCurrentRoom(state);
 
-	currentRoom.matrix = currentRoom.matrix.map((row) => {
+	currentRoom.stage.matrix = currentRoom.stage.matrix.map((row) => {
 		return row?.slice(0, currentRoom.roomTileWidth) ?? null;
 	});
 
-	currentRoom.matrix = currentRoom.matrix.slice(0, currentRoom.roomTileHeight);
+	currentRoom.stage.matrix = currentRoom.stage.matrix.slice(
+		0,
+		currentRoom.roomTileHeight
+	);
 }
 
 function scaleTo(state: InternalEditorState, newScale: number) {
@@ -630,7 +671,7 @@ function findCellEntity(
 // TODO: ace coins can also be payloads in bubbles, need to account for those
 function assignAceCoinIndices(rooms: RoomState[]) {
 	const allEntities = rooms.reduce<EditorEntity[]>((building, room) => {
-		return building.concat(room.entities);
+		return building.concat(room.actors.entities);
 	}, []);
 
 	let aceCoinIndex = 0;
@@ -650,7 +691,7 @@ function assignAceCoinIndices(rooms: RoomState[]) {
 }
 
 function updateValidEntityTypes(room: RoomState) {
-	const cells = room.matrix.reduce<EditorEntity[]>((building, row) => {
+	const cells = room.stage.matrix.reduce<EditorEntity[]>((building, row) => {
 		if (!row) {
 			return building;
 		}
@@ -666,7 +707,7 @@ function updateValidEntityTypes(room: RoomState) {
 		return building.concat(rowSpriteCells);
 	}, []);
 
-	const allEntities = room.entities.concat(cells);
+	const allEntities = room.actors.entities.concat(cells);
 
 	if (allEntities.length === 0) {
 		room.validEntityTypes = Object.keys(entityMap) as EntityType[];
@@ -687,6 +728,94 @@ function updateValidEntityTypes(room: RoomState) {
 	room.paletteEntries = room.paletteEntries.filter((pe) =>
 		room.validEntityTypes.includes(pe)
 	);
+}
+
+function eraseAt(layer: EditorRoomLayer, tilePoint: Point) {
+	if (!isEditable(layer)) {
+		return;
+	}
+
+	const existingEntity = layer.entities.find((e) => {
+		return pointIsInside(tilePoint, getEntityTileBounds(e));
+	});
+
+	if (
+		existingEntity &&
+		!nonDeletableEntityTypes.includes(existingEntity.type)
+	) {
+		layer.entities = layer.entities.filter((e) => e !== existingEntity);
+	}
+
+	if (layer.matrix[tilePoint.y]) {
+		layer.matrix[tilePoint.y]![tilePoint.x] = null;
+	}
+}
+
+function drawAt(layer: EditorRoomLayer, { x, y }: Point, type: EntityType) {
+	if (!isEditable(layer)) {
+		return;
+	}
+
+	const entityDef = entityMap[type];
+
+	if (entityDef.editorType === 'cell') {
+		const existingTile = layer.matrix[y]?.[x];
+
+		if (existingTile) {
+			existingTile.type = type;
+		} else {
+			// paint a new tile
+			layer.matrix[y] = layer.matrix[y] || [];
+			layer.matrix[y]![x] = {
+				id: idCounter++,
+				x,
+				y,
+				type,
+			};
+
+			if (entityDef.settingsType === 'single') {
+				layer.matrix[y]![x]!.settings = {
+					...entityDef.defaultSettings,
+				};
+			}
+		}
+	} else if (entityDef.editorType === 'entity') {
+		const newEntity: NewEditorEntity = {
+			x: x * TILE_SIZE,
+			y: y * TILE_SIZE,
+			type,
+			settings: entityDef.defaultSettings
+				? { ...entityDef.defaultSettings }
+				: undefined,
+		};
+
+		if (
+			canDrop(newEntity, layer.entities) &&
+			(type !== 'AceCoin' ||
+				layer.entities.filter((e) => e.type === 'AceCoin').length < 5)
+		) {
+			const completeEntity: EditorEntity = {
+				...newEntity,
+				id: idCounter++,
+			};
+
+			layer.entities.push(completeEntity);
+		}
+	}
+}
+
+function fillAt(
+	layer: EditorRoomLayer,
+	{ x, y }: Point,
+	type: EntityType,
+	tileWidth: number,
+	tileHeight: number
+) {
+	if (!isEditable(layer) || entityMap[type].editorType !== 'cell') {
+		return;
+	}
+
+	floodFill(layer.matrix, type, x, y, tileWidth, tileHeight);
 }
 
 const editorSlice = createSlice({
@@ -760,222 +889,117 @@ const editorSlice = createSlice({
 			state: InternalEditorState,
 			action: PayloadAction<EditorEntity | NewEditorEntity>
 		) {
-			if (!canDrop(action.payload, getCurrentRoom(state).entities)) {
+			const currentRoom = getCurrentRoom(state);
+
+			if (!canDrop(action.payload, getCurrentRoom(state).actors.entities)) {
 				return;
 			}
 
 			if ('id' in action.payload) {
 				const { id } = action.payload;
-				const entity = getCurrentRoom(state).entities.find((e) => e.id === id);
+				const entity = currentRoom.actors.entities.find((e) => e.id === id);
 
 				if (entity) {
 					Object.assign(entity, action.payload, {
-						x: getEntityX(action.payload.x),
-						y: getEntityY(action.payload.y),
+						x: snapEntityCoordToGrid(action.payload.x),
+						y: snapEntityCoordToGrid(action.payload.y),
 					});
 				}
 			} else {
-				getCurrentRoom(state).entities.push({
+				currentRoom.actors.entities.push({
 					...action.payload,
-					x: getEntityX(action.payload.x),
-					y: getEntityY(action.payload.y),
+					x: snapEntityCoordToGrid(action.payload.x),
+					y: snapEntityCoordToGrid(action.payload.y),
 					id: idCounter++,
 				});
 			}
 		},
-		// TODO: refactor this, so messy
 		painted(
 			state: InternalEditorState,
 			action: PayloadAction<{ points: Point[]; newGroup: boolean }>
 		) {
 			const currentRoom = getCurrentRoom(state);
 			const { points, newGroup } = action.payload;
+			let currentLayer: EditorRoomLayer | null = null;
+
+			if (currentRoom.currentPaletteEntry) {
+				currentLayer =
+					entityMap[currentRoom.currentPaletteEntry].layer === 'stage'
+						? currentRoom.stage
+						: currentRoom.actors;
+			}
 
 			if (newGroup) {
 				state.paintedGroup = getPaintedGroup(points[0], state.mouseMode);
 			}
 
-			let minX = currentRoom.roomTileWidth;
-			let minY = currentRoom.roomTileHeight;
-			let maxX = 0;
-			let maxY = 0;
-
 			points.forEach((point) => {
-				const indexX = Math.floor(point.x / TILE_SIZE);
-				const indexY = Math.floor(point.y / TILE_SIZE);
-
-				minX = Math.min(minX, indexX);
-				minY = Math.min(minY, indexY);
-				maxX = Math.max(maxX, indexX);
-				maxY = Math.max(maxY, indexY);
-
-				const existingTile = currentRoom.matrix[indexY]?.[indexX];
-
 				const tilePoint = {
-					x: indexX,
-					y: indexY,
+					x: Math.floor(point.x / TILE_SIZE),
+					y: Math.floor(point.y / TILE_SIZE),
 				};
 
 				switch (state.mouseMode) {
 					case 'erase': {
-						const existingEntity = currentRoom.entities.find((e) => {
-							return pointIsInside(tilePoint, getEntityTileBounds(e));
-						});
-
-						if (
-							existingEntity &&
-							!nonDeletableEntityTypes.includes(existingEntity.type)
-						) {
-							currentRoom.entities = currentRoom.entities.filter(
-								(e) => e !== existingEntity
-							);
-
-							if (existingEntity.type === 'AceCoin') {
-								assignAceCoinIndices(state.rooms);
-							}
-						}
-
-						if (currentRoom.matrix[indexY]) {
-							currentRoom.matrix[indexY]![indexX] = null;
-						}
-
-						updateValidEntityTypes(currentRoom);
+						eraseAt(currentRoom.actors, tilePoint);
+						eraseAt(currentRoom.stage, tilePoint);
 						break;
 					}
 					case 'draw': {
-						if (
-							currentRoom.currentPaletteEntry &&
-							entityMap[currentRoom.currentPaletteEntry].editorType === 'cell'
-						) {
-							// replace a cell
-							if (existingTile) {
-								existingTile.type = currentRoom.currentPaletteEntry;
-							} else {
-								// paint a new tile
-								currentRoom.matrix[indexY] = currentRoom.matrix[indexY] || [];
-								currentRoom.matrix[indexY]![indexX] = {
-									id: idCounter++,
-									x: indexX,
-									y: indexY,
-									type: currentRoom.currentPaletteEntry,
-								};
-
-								const objectDef = entityMap[currentRoom.currentPaletteEntry];
-
-								if (objectDef.settingsType === 'single') {
-									currentRoom.matrix[indexY]![indexX]!.settings = {
-										...objectDef.defaultSettings,
-									};
-								}
-							}
-						} else if (
-							currentRoom.currentPaletteEntry &&
-							entityMap[currentRoom.currentPaletteEntry].editorType === 'entity'
-						) {
-							// place an entity
-							const type = currentRoom.currentPaletteEntry;
-							const entityDef = entityMap[type];
-
-							const newEntity: NewEditorEntity = {
-								x: getEntityX(point.x),
-								y: getEntityY(point.y),
-								type,
-								settings: entityDef.defaultSettings
-									? { ...entityDef.defaultSettings }
-									: undefined,
-							};
-
-							if (
-								canDrop(newEntity, currentRoom.entities) &&
-								(type !== 'AceCoin' ||
-									currentRoom.entities.filter((e) => e.type === 'AceCoin')
-										.length < 5)
-							) {
-								const completeEntity: EditorEntity = {
-									...newEntity,
-									id: idCounter++,
-								};
-
-								currentRoom.entities.push(completeEntity);
-
-								// TODO: is this still necessary
-								// if (completeEntity.type in detailsPanes) {
-								// 	state.focused = { [completeEntity.id]: true };
-								// }
-								if (type === 'AceCoin') {
-									assignAceCoinIndices(state.rooms);
-								}
-							}
-						}
-						updateValidEntityTypes(currentRoom);
+						drawAt(currentLayer!, tilePoint, currentRoom.currentPaletteEntry!);
 						break;
 					}
-					// TODO: fill entities
 					case 'fill': {
-						if (
-							currentRoom.currentPaletteEntry &&
-							entityMap[currentRoom.currentPaletteEntry].editorType === 'cell'
-						) {
-							const floodResult = floodFill(
-								currentRoom.matrix,
-								currentRoom.currentPaletteEntry,
-								indexX,
-								indexY,
-								currentRoom.roomTileWidth,
-								currentRoom.roomTileHeight
-							);
-
-							minX = floodResult.minX;
-							minY = floodResult.minY;
-							maxX = floodResult.maxX;
-							maxY = floodResult.maxY;
-							updateValidEntityTypes(currentRoom);
-						}
-
+						fillAt(
+							currentLayer!,
+							tilePoint,
+							currentRoom.currentPaletteEntry!,
+							currentRoom.roomTileWidth,
+							currentRoom.roomTileHeight
+						);
 						break;
 					}
 				}
 			});
 
-			minX = Math.max(0, minX - 1);
-			minY = Math.max(0, minY - 1);
-			maxX = Math.min(currentRoom.roomTileWidth, maxX + 1);
-			maxY = Math.min(currentRoom.roomTileHeight, maxY + 1);
+			updateValidEntityTypes(currentRoom);
+			assignAceCoinIndices(state.rooms);
 		},
 		deleteFocused(state: InternalEditorState) {
 			const currentRoom = getCurrentRoom(state);
 
-			currentRoom.entities = currentRoom.entities.filter((e) => {
-				return nonDeletableEntityTypes.includes(e.type) || !state.focused[e.id];
-			});
+			// technically the isEditable checks are not needed, as if the layer is not editable then nothing in it should
+			// be focused, but it doesn't hurt to double up here
 
-			let minX = currentRoom.roomTileWidth;
-			let minY = currentRoom.roomTileHeight;
-			let maxX = 0;
-			let maxY = 0;
-
-			currentRoom.matrix = currentRoom.matrix.map((row, y) => {
-				if (!row) {
-					return null;
-				}
-
-				return row.map((t, x) => {
-					if (!t) {
-						return t;
+			if (isEditable(currentRoom.actors)) {
+				currentRoom.actors.entities = currentRoom.actors.entities.filter(
+					(e) => {
+						return (
+							nonDeletableEntityTypes.includes(e.type) || !state.focused[e.id]
+						);
 					}
+				);
+			}
 
-					if (state.focused[t.id]) {
-						minX = Math.min(minX, x);
-						maxX = Math.max(maxX, x);
-						minY = Math.min(minY, y);
-						maxY = Math.max(maxY, y);
-
+			if (isEditable(currentRoom.stage)) {
+				currentRoom.stage.matrix = currentRoom.stage.matrix.map((row) => {
+					if (!row) {
 						return null;
-					} else {
-						return t;
 					}
+
+					return row.map((t) => {
+						if (!t) {
+							return t;
+						}
+
+						if (state.focused[t.id]) {
+							return null;
+						} else {
+							return t;
+						}
+					});
 				});
-			});
+			}
 
 			state.focused = {};
 
@@ -990,7 +1014,7 @@ const editorSlice = createSlice({
 
 			if (
 				(currentRoom.currentPaletteEntry &&
-					entityMap[currentRoom.currentPaletteEntry].editorType !== 'entity') ||
+					entityMap[currentRoom.currentPaletteEntry].layer !== 'actor') ||
 				action.payload !== 'fill'
 			) {
 				state.mouseMode = action.payload;
@@ -1163,16 +1187,30 @@ const editorSlice = createSlice({
 			state.rooms = levelData.rooms.map((r) => {
 				return {
 					settings: r.settings,
-					entities: r.entities.filter((e) => {
-						if (e.type === 'Player') {
-							return true;
-						}
+					actors: {
+						...r.actors,
+						entities: r.actors.entities.filter((e) => {
+							if (e.type === 'Player') {
+								return true;
+							}
 
-						return isWorkingEntityType(e.type);
-					}),
-					matrix: r.matrixLayer.data,
-					roomTileHeight: r.matrixLayer.height,
-					roomTileWidth: r.matrixLayer.width,
+							return isWorkingEntityType(e.type);
+						}),
+						locked: false,
+					},
+					stage: {
+						...r.stage,
+						entities: r.stage.entities.filter((e) => {
+							if (e.type === 'Player') {
+								return true;
+							}
+
+							return isWorkingEntityType(e.type);
+						}),
+						locked: false,
+					},
+					roomTileHeight: r.roomTileHeight,
+					roomTileWidth: r.roomTileWidth,
 					scale: initialScale,
 					canIncreaseScale: scales.indexOf(initialScale) < scales.length - 1,
 					canDecreaseScale: scales.indexOf(initialScale) > 0,
@@ -1182,14 +1220,14 @@ const editorSlice = createSlice({
 						height: 0,
 					},
 					scrollOffset: { x: 0, y: calcYForScrollToBottom() },
-					paletteEntries: (r.paletteEntries ?? []).filter(isWorkingEntityType),
-					validEntityTypes: r.validEntityTypes ?? [],
-					currentPaletteEntry: r.paletteEntries?.[0],
+					paletteEntries: r.paletteEntries,
+					validEntityTypes: [],
+					currentPaletteEntry: r.paletteEntries[0],
 				};
 			});
 
 			state.rooms.forEach((r) => {
-				const player = r.entities.find((e) => e.type === 'Player')!;
+				const player = r.actors.entities.find((e) => e.type === 'Player')!;
 				player.x = TILE_SIZE * INITIAL_PLAYER_X_TILE;
 				player.y = TILE_SIZE * INITIAL_PLAYER_Y_TILE;
 				updateValidEntityTypes(r);
@@ -1205,20 +1243,10 @@ const editorSlice = createSlice({
 			const newX = currentRoom.scrollOffset.x - x / currentRoom.scale;
 			const newY = currentRoom.scrollOffset.y - y / currentRoom.scale;
 
-			// const { x: lastOffsetX, y: lastOffsetY } = {
-			// 	...currentRoom.scrollOffset,
-			// };
-
 			currentRoom.scrollOffset.x = newX;
 			currentRoom.scrollOffset.y = newY;
-
-			// const delta = {
-			// 	x: currentRoom.scrollOffset.x - lastOffsetX,
-			// 	y: currentRoom.scrollOffset.y - lastOffsetY,
-			// };
-
-			// ensurePlayerIsInView(state, delta);
 		},
+		// TODO: this is nuts now with actors/stage, was pretty nuts before that too
 		selectDrag(
 			state: InternalEditorState,
 			action: PayloadAction<{
@@ -1269,24 +1297,50 @@ const editorSlice = createSlice({
 				},
 			};
 
-			const entityUnderStart = currentRoom.entities.find((e) => {
-				// temp hack: don't allow dragging the player until player location
-				// is taken into account when creating the gba level
-				if (e.type === 'Player') {
-					return false;
-				}
+			const actorEntityUnderStart = !isEditable(currentRoom.actors)
+				? null
+				: currentRoom.actors.entities.find((e) => {
+						// temp hack: don't allow dragging the player until player location
+						// is taken into account when creating the gba level
+						if (e.type === 'Player') {
+							return false;
+						}
 
-				const pixelBounds = getEntityPixelBounds(e);
+						const pixelBounds = getEntityPixelBounds(e);
 
-				return pointIsInside(scaledStartingPoint, pixelBounds);
-			});
+						return pointIsInside(scaledStartingPoint, pixelBounds);
+				  });
 
-			const tileUnderStart =
-				currentRoom.matrix[tileStartingPoint.y]?.[tileStartingPoint.x];
+			const stageEntityUnderStart = !isEditable(currentRoom.stage)
+				? null
+				: currentRoom.stage.entities.find((e) => {
+						// temp hack: don't allow dragging the player until player location
+						// is taken into account when creating the gba level
+						if (e.type === 'Player') {
+							return false;
+						}
 
-			if (entityUnderStart || tileUnderStart) {
-				const idUnderStart = entityUnderStart?.id ?? tileUnderStart?.id ?? 0;
+						const pixelBounds = getEntityPixelBounds(e);
 
+						return pointIsInside(scaledStartingPoint, pixelBounds);
+				  });
+
+			const actorTileUnderStart = !isEditable(currentRoom.actors)
+				? null
+				: currentRoom.actors.matrix[tileStartingPoint.y]?.[tileStartingPoint.x];
+
+			const stageTileUnderStart = !isEditable(currentRoom.stage)
+				? null
+				: currentRoom.stage.matrix[tileStartingPoint.y]?.[tileStartingPoint.x];
+
+			const idUnderStart =
+				actorEntityUnderStart?.id ??
+				stageEntityUnderStart?.id ??
+				stageTileUnderStart?.id ??
+				actorTileUnderStart?.id ??
+				0;
+
+			if (idUnderStart) {
 				const underStartAlreadyFocused = state.focused[idUnderStart];
 
 				if (!underStartAlreadyFocused) {
@@ -1295,11 +1349,17 @@ const editorSlice = createSlice({
 
 				// this turned out to be a new select, not a drag
 				if (Object.keys(state.focused).length === 0) {
-					if (entityUnderStart) {
-						state.focused[entityUnderStart.id] = true;
+					if (actorEntityUnderStart) {
+						state.focused[actorEntityUnderStart.id] = true;
 					}
-					if (tileUnderStart) {
-						state.focused[tileUnderStart.id] = true;
+					if (stageEntityUnderStart) {
+						state.focused[stageEntityUnderStart.id] = true;
+					}
+					if (stageTileUnderStart) {
+						state.focused[stageTileUnderStart.id] = true;
+					}
+					if (actorTileUnderStart) {
+						state.focused[actorTileUnderStart.id] = true;
 					}
 				} else {
 					// drag
@@ -1312,23 +1372,56 @@ const editorSlice = createSlice({
 				// select
 				state.focused = {};
 
-				currentRoom.entities.forEach((e) => {
-					if (
-						overlap(getEntityPixelBounds(e), scaledBounds) &&
-						!nonDeletableEntityTypes.includes(e.type)
-					) {
-						state.focused[e.id] = true;
-					}
-				});
+				if (isEditable(currentRoom.actors)) {
+					currentRoom.actors.entities.forEach((e) => {
+						if (
+							overlap(getEntityPixelBounds(e), scaledBounds) &&
+							!nonDeletableEntityTypes.includes(e.type)
+						) {
+							state.focused[e.id] = true;
+						}
+					});
 
-				for (let y = tileBounds.upperLeft.y; y < tileBounds.lowerRight.y; ++y) {
 					for (
-						let x = tileBounds.upperLeft.x;
-						x < tileBounds.lowerRight.x;
-						++x
+						let y = tileBounds.upperLeft.y;
+						y < tileBounds.lowerRight.y;
+						++y
 					) {
-						if (currentRoom.matrix[y]?.[x]) {
-							state.focused[currentRoom.matrix[y]![x]!.id] = true;
+						for (
+							let x = tileBounds.upperLeft.x;
+							x < tileBounds.lowerRight.x;
+							++x
+						) {
+							if (currentRoom.actors.matrix[y]?.[x]) {
+								state.focused[currentRoom.actors.matrix[y]![x]!.id] = true;
+							}
+						}
+					}
+				}
+
+				if (isEditable(currentRoom.stage)) {
+					currentRoom.stage.entities.forEach((e) => {
+						if (
+							overlap(getEntityPixelBounds(e), scaledBounds) &&
+							!nonDeletableEntityTypes.includes(e.type)
+						) {
+							state.focused[e.id] = true;
+						}
+					});
+
+					for (
+						let y = tileBounds.upperLeft.y;
+						y < tileBounds.lowerRight.y;
+						++y
+					) {
+						for (
+							let x = tileBounds.upperLeft.x;
+							x < tileBounds.lowerRight.x;
+							++x
+						) {
+							if (currentRoom.stage.matrix[y]?.[x]) {
+								state.focused[currentRoom.stage.matrix[y]![x]!.id] = true;
+							}
 						}
 					}
 				}
@@ -1344,52 +1437,87 @@ const editorSlice = createSlice({
 				const spotsToClear: Point[] = [];
 				const movedEntities: EditorEntity[] = [];
 
-				let minX = currentRoom.roomTileWidth;
-				let minY = currentRoom.roomTileHeight;
-				let maxX = 0;
-				let maxY = 0;
-
-				// TODO: due to immer weirdness with sets, need to search by id
-				// rather than entity reference (due to the refs being wrapped by proxies)
 				Object.keys(state.focused).forEach((fid) => {
-					const entity = currentRoom.entities.find((e) => e.id === Number(fid));
+					const actorEntity = currentRoom.actors.entities.find(
+						(e) => e.id === Number(fid)
+					);
 
-					if (entity) {
-						entity.x += tileXOffset * TILE_SIZE;
-						entity.y += tileYOffset * TILE_SIZE;
+					if (actorEntity) {
+						actorEntity.x += tileXOffset * TILE_SIZE;
+						actorEntity.y += tileYOffset * TILE_SIZE;
 
 						// nudge it over by one so entities just above or to the left won't
 						// get clobbered
-						spotsToClear.push({ x: entity.x + 1, y: entity.y + 1 });
-						movedEntities.push(entity);
+						spotsToClear.push({ x: actorEntity.x + 1, y: actorEntity.y + 1 });
+						movedEntities.push(actorEntity);
 					}
 
-					const cell = findCellEntity(currentRoom.matrix, Number(fid));
+					const stageEntity = currentRoom.stage.entities.find(
+						(e) => e.id === Number(fid)
+					);
 
-					if (cell) {
-						currentRoom.matrix[cell.y]![cell.x] = null;
-						currentRoom.matrix[cell.y + tileYOffset] =
-							currentRoom.matrix[cell.y + tileYOffset] || [];
-						currentRoom.matrix[cell.y + tileYOffset]![
-							cell.x + tileXOffset
-						] = cell;
+					if (stageEntity) {
+						stageEntity.x += tileXOffset * TILE_SIZE;
+						stageEntity.y += tileYOffset * TILE_SIZE;
 
-						minX = Math.min(minX, cell.x);
-						minY = Math.min(minY, cell.y);
-						maxX = Math.max(maxX, cell.x);
-						maxY = Math.max(maxY, cell.y);
+						// nudge it over by one so entities just above or to the left won't
+						// get clobbered
+						spotsToClear.push({ x: stageEntity.x + 1, y: stageEntity.y + 1 });
+						movedEntities.push(stageEntity);
+					}
 
-						cell.x += tileXOffset;
-						cell.y += tileYOffset;
+					const stageCell = findCellEntity(
+						currentRoom.stage.matrix,
+						Number(fid)
+					);
 
-						minX = Math.min(minX, cell.x);
-						minY = Math.min(minY, cell.y);
-						maxX = Math.max(maxX, cell.x);
-						maxY = Math.max(maxY, cell.y);
+					if (stageCell) {
+						currentRoom.stage.matrix[stageCell.y]![stageCell.x] = null;
+						currentRoom.stage.matrix[stageCell.y + tileYOffset] =
+							currentRoom.stage.matrix[stageCell.y + tileYOffset] || [];
+						currentRoom.stage.matrix[stageCell.y + tileYOffset]![
+							stageCell.x + tileXOffset
+						] = stageCell;
+
+						stageCell.x += tileXOffset;
+						stageCell.y += tileYOffset;
+					}
+
+					const actorCell = findCellEntity(
+						currentRoom.actors.matrix,
+						Number(fid)
+					);
+
+					if (actorCell) {
+						currentRoom.actors.matrix[actorCell.y]![actorCell.x] = null;
+						currentRoom.actors.matrix[actorCell.y + tileYOffset] =
+							currentRoom.actors.matrix[actorCell.y + tileYOffset] || [];
+						currentRoom.actors.matrix[actorCell.y + tileYOffset]![
+							actorCell.x + tileXOffset
+						] = actorCell;
+
+						actorCell.x += tileXOffset;
+						actorCell.y += tileYOffset;
 					}
 				});
 
-				currentRoom.entities = currentRoom.entities.filter((e) => {
+				currentRoom.actors.entities = currentRoom.actors.entities.filter(
+					(e) => {
+						if (movedEntities.includes(e)) {
+							return true;
+						}
+
+						const bounds = getEntityPixelBounds(e);
+
+						const spotToClear = spotsToClear.find((spot) => {
+							return pointIsInside(spot, bounds);
+						});
+
+						return !spotToClear;
+					}
+				);
+
+				currentRoom.stage.entities = currentRoom.stage.entities.filter((e) => {
 					if (movedEntities.includes(e)) {
 						return true;
 					}
@@ -1418,6 +1546,20 @@ const editorSlice = createSlice({
 		toggleGrid(state: InternalEditorState) {
 			state.showGrid = !state.showGrid;
 		},
+		toggleLayerLock(
+			state: InternalEditorState,
+			action: PayloadAction<'actors' | 'stage'>
+		) {
+			const currentRoom = getCurrentRoom(state);
+
+			if (action.payload === 'actors') {
+				currentRoom.actors.locked = !currentRoom.actors.locked;
+				unfocusEntities(state.focused, currentRoom.actors.entities);
+			} else {
+				currentRoom.stage.locked = !currentRoom.stage.locked;
+				unfocusMatrix(state.focused, currentRoom.stage.matrix);
+			}
+		},
 		clearFocusedEntity(state: InternalEditorState) {
 			state.focused = {};
 		},
@@ -1425,9 +1567,13 @@ const editorSlice = createSlice({
 			state: InternalEditorState,
 			action: PayloadAction<{ id: number; settings: EditorEntitySettings }>
 		) {
+			const currentRoom = getCurrentRoom(state);
+
 			const { id, settings } = action.payload;
 
-			const entity = getCurrentRoom(state).entities.find((e) => e.id === id);
+			const entity =
+				currentRoom.actors.entities.find((e) => e.id === id) ??
+				currentRoom.stage.entities.find((e) => e.id === id);
 
 			if (entity) {
 				entity.settings = {
@@ -1435,7 +1581,9 @@ const editorSlice = createSlice({
 					...settings,
 				};
 			} else {
-				const cell = findCellEntity(getCurrentRoom(state).matrix, id);
+				const cell =
+					findCellEntity(currentRoom.stage.matrix, id) ??
+					findCellEntity(currentRoom.actors.matrix, id);
 
 				if (cell) {
 					cell.settings = {
@@ -1457,18 +1605,9 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 		const editorState = getState().editor.present;
 
 		const levelData: LevelData = {
-			rooms: editorState.rooms.map((room) => {
-				return {
-					settings: room.settings,
-					paletteEntries: room.paletteEntries,
-					validEntityTypes: room.validEntityTypes,
-					entities: room.entities,
-					matrixLayer: {
-						width: room.roomTileWidth,
-						height: room.roomTileHeight,
-						data: room.matrix,
-					},
-				};
+			rooms: editorState.rooms.map((r) => {
+				const { validEntityTypes, ...restOfRoom } = r;
+				return restOfRoom;
 			}),
 		};
 
@@ -1516,19 +1655,6 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 	}
 };
 
-// 1.0.0: first localstorage implementation
-// 1.0.1: changed some tile serialization ids
-// 1.1.0: added metadata.name
-// 2.0.0: paletteEntries switched to just be EntityType strings
-// 3.0.0: rooms
-// 3.0.1: fix issue where room paletteEntries were not being restored
-// 3.1.0: added room settings
-// 3.1.1: room settings: spriteGraphicSet
-// 4.0.0: transports no longer separate, but rather settings on doors/pipes
-// 4.0.1: sprite graphic sets
-// 4.0.2: object sets
-const LOCALSTORAGE_KEY = 'smaghetti_4.0.2';
-
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {
 		const rawJson = window.localStorage[LOCALSTORAGE_KEY];
@@ -1542,8 +1668,7 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 					localStorageData.levelData &&
 					localStorageData.levelData.rooms &&
 					localStorageData.levelData.rooms[0] &&
-					localStorageData.levelData.rooms[0].entities &&
-					localStorageData.levelData.rooms[0].matrixLayer
+					localStorageData.levelData.rooms[0].actors
 				) {
 					dispatch(
 						editorSlice.actions.setLevelDataFromLoad(localStorageData.levelData)
@@ -1556,15 +1681,32 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 					);
 				}
 			} catch (e) {
+				// eslint-disable-next-line no-console
 				console.error('loadFromLocalStorage error', e);
 				dispatch(editorSlice.actions.setLoadLevelState('error'));
 			}
 		}
 	} catch (e) {
+		// eslint-disable-next-line no-console
 		console.error('loadFromLocalStorage error', e);
 		dispatch(editorSlice.actions.setLoadLevelState('error'));
 	}
 };
+
+// 1.0.0: first localstorage implementation
+// 1.0.1: changed some tile serialization ids
+// 1.1.0: added metadata.name
+// 2.0.0: paletteEntries switched to just be EntityType strings
+// 3.0.0: rooms
+// 3.0.1: fix issue where room paletteEntries were not being restored
+// 3.1.0: added room settings
+// 3.1.1: room settings: spriteGraphicSet
+// 4.0.0: transports no longer separate, but rather settings on doors/pipes
+// 4.0.1: sprite graphic sets
+// 4.0.2: object sets
+// 5.0.0: layers
+const LOCALSTORAGE_VERSION = '5.0.0';
+const LOCALSTORAGE_KEY = 'smaghetti_editor';
 
 const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 	try {
@@ -1574,23 +1716,15 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 
 		const localStorageData: LevelData = {
 			rooms: editorState.rooms.map((r) => {
-				return {
-					settings: r.settings,
-					paletteEntries: r.paletteEntries,
-					validEntityTypes: [],
-					entities: r.entities,
-					matrixLayer: {
-						width: r.roomTileWidth,
-						height: r.roomTileHeight,
-						data: r.matrix,
-					},
-				};
+				const { validEntityTypes, ...restOfRoom } = r;
+				return restOfRoom;
 			}),
 		};
 
 		const serializedLevelData = serialize(localStorageData);
 
 		const dataToWrite: LocalStorageData = {
+			version: LOCALSTORAGE_VERSION,
 			metadata: {
 				...editorState.metadata,
 			},
@@ -1635,6 +1769,7 @@ const {
 	deleteRoom,
 	roomSettingsChange,
 	toggleGrid,
+	toggleLayerLock,
 	pushPan,
 	popPan,
 	resetOffset,
@@ -1681,6 +1816,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		resizeLevelComplete.toString(),
 		pan.toString(),
 		toggleGrid.toString(),
+		toggleLayerLock.toString(),
 		resetOffset.toString(),
 		addPaletteEntry.toString(),
 		removePaletteEntry.toString(),
@@ -1846,6 +1982,7 @@ export {
 	deleteRoom,
 	roomSettingsChange,
 	toggleGrid,
+	toggleLayerLock,
 	pushPan,
 	popPan,
 	resetOffset,

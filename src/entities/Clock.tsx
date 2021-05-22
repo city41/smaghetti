@@ -14,6 +14,7 @@ const Clock: Entity = {
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0xbf,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

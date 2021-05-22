@@ -13,6 +13,7 @@ const SilverPSwitch: Entity = {
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xc1,

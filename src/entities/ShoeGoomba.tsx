@@ -16,6 +16,7 @@ const ShoeGoomba: Entity = {
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, -1],
 	objectId: 0x2b,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

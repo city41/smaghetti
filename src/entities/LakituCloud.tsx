@@ -12,6 +12,7 @@ const LakituCloud: Entity = {
 
 	objectSets: encodeObjectSets([[1, 1]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

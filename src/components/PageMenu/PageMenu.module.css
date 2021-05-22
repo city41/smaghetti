@@ -1,12 +1,12 @@
 .root a {
-    @apply cursor-pointer hover:underline;
+	@apply cursor-pointer hover:underline;
 }
 
 .preDivider {
-    @apply relative;
+	@apply relative;
 }
 
 .preDivider::before {
-    content: '|';
-    @apply inline-block text-gray-700 font-bold mr-4;
+	content: '|';
+	@apply inline-block text-gray-700 font-bold mr-4;
 }

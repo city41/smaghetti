@@ -13,6 +13,7 @@ const Leaf: Entity = {
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0x1e,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

@@ -30,6 +30,7 @@ const Stalactite: Entity = {
 	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0x5e,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'x',
 

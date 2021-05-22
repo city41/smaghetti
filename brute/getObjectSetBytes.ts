@@ -10,8 +10,8 @@ import { injectLevelIntoSave } from '../src/levelData/injectLevelIntoSave';
 import cloneDeep from 'lodash/cloneDeep';
 import { deserialize } from '../src/saveStates/serializer';
 import {
-	INITIAL_LEVEL_TILE_HEIGHT,
-	INITIAL_LEVEL_TILE_WIDTH,
+	INITIAL_ROOM_TILE_HEIGHT,
+	INITIAL_ROOM_TILE_WIDTH,
 } from '../src/components/make/constants';
 import { ArrowSign } from '../src/entities/ArrowSign';
 import { toHexString } from '../src/components/hex-tree/HexTreePage/util';
@@ -51,8 +51,8 @@ function getRoom() {
 			},
 		],
 		matrixLayer: {
-			width: INITIAL_LEVEL_TILE_WIDTH,
-			height: INITIAL_LEVEL_TILE_HEIGHT,
+			width: INITIAL_ROOM_TILE_WIDTH,
+			height: INITIAL_ROOM_TILE_HEIGHT,
 			data: [[]],
 		},
 	};

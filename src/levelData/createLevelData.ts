@@ -145,7 +145,7 @@ function getLevelSettings(
 		0x38, // camera min
 		0, // camera max
 		0x19, // player y
-		0x02, // player x
+		0x2, // player x
 		0x12, // screen y
 		0, // screen x
 		objectSet, // object set, least sig byte
@@ -167,11 +167,8 @@ function getLevelSettings(
 	];
 }
 
-function getObjects(
-	entities: EditorEntity[],
-	tileLayer: MatrixLayer
-): number[] {
-	const clone = cloneDeep(tileLayer);
+function getObjects(layer: RoomLayer, roomTileHeight: number): number[] {
+	const clone = cloneDeep(layer.matrix);
 	const objects: number[] = [];
 
 	function getEndX(
@@ -203,8 +200,8 @@ function getObjects(
 		let y = tile.y;
 
 		while (
-			clone.data[y]?.[tile.x]?.type === tile.type &&
-			isEqual(clone.data[y]?.[tile.x]?.settings, tile.settings)
+			clone[y]?.[tile.x]?.type === tile.type &&
+			isEqual(clone[y]?.[tile.x]?.settings, tile.settings)
 		) {
 			++y;
 		}
@@ -216,7 +213,7 @@ function getObjects(
 		let curBest = Number.MAX_SAFE_INTEGER;
 
 		for (let x = startTile.x; x <= endTile.x; ++x) {
-			const thisColMaxY = getMaxY(clone.data[startTile.y]![x]!);
+			const thisColMaxY = getMaxY(clone[startTile.y]![x]!);
 
 			curBest = Math.min(curBest, thisColMaxY);
 		}
@@ -226,7 +223,7 @@ function getObjects(
 
 	function erase(startY: number, endY: number, startX: number, endX: number) {
 		for (let y = startY; y <= endY; ++y) {
-			const row = clone.data[y]!;
+			const row = clone[y]!;
 
 			for (let x = startX; x <= endX; ++x) {
 				row[x] = null;
@@ -234,8 +231,8 @@ function getObjects(
 		}
 	}
 
-	for (let y = 0; y < clone.height; ++y) {
-		const row = clone.data[y];
+	for (let y = 0; y < roomTileHeight; ++y) {
+		const row = clone[y];
 
 		if (!row) {
 			continue;
@@ -261,7 +258,7 @@ function getObjects(
 			const length = endXTile.x - tile.x;
 			const height = bestY - tile.y;
 
-			const yDiff = tileLayer.height - (y + 1);
+			const yDiff = roomTileHeight - (y + 1);
 			const encodedY = MAX_Y - yDiff;
 
 			objects.push(
@@ -278,7 +275,7 @@ function getObjects(
 		}
 	}
 
-	const entityObjectData = entities.reduce<number[]>((building, e) => {
+	const entityObjectData = layer.entities.reduce<number[]>((building, e) => {
 		const entityDef = entityMap[e.type];
 
 		if (!entityDef.toObjectBinary) {
@@ -286,7 +283,7 @@ function getObjects(
 		}
 
 		const y = e.y / TILE_SIZE;
-		const yDiff = tileLayer.height - (y + 1);
+		const yDiff = roomTileHeight - (y + 1);
 		const encodedY = MAX_Y - yDiff;
 
 		return building.concat(
@@ -364,13 +361,13 @@ function getTransports(
 		const sx = t.x;
 
 		const sy = t.y;
-		const syDiff = allRooms[t.room].matrixLayer.height - (sy + 1);
+		const syDiff = allRooms[t.room].roomTileHeight - (sy + 1);
 		const encodedSY = MAX_Y - syDiff;
 
 		const dx = t.destX;
 
 		const dy = t.destY;
-		const dyDiff = allRooms[t.destRoom].matrixLayer.height - (dy + 1);
+		const dyDiff = allRooms[t.destRoom].roomTileHeight - (dy + 1);
 		const encodedDY = MAX_Y - dyDiff;
 
 		// sx sy dr 0 dx dy cx cy 2 0 (exit type, two strange bytes)
@@ -389,8 +386,8 @@ function getTransports(
 	}, transportsHeader);
 }
 
-function flattenCells(matrixLayer: MatrixLayer): EditorEntity[] {
-	return matrixLayer.data.reduce<EditorEntity[]>((building, row) => {
+function flattenCells(matrix: EditorEntityMatrix): EditorEntity[] {
+	return matrix.reduce<EditorEntity[]>((building, row) => {
 		if (!row) {
 			return building;
 		}
@@ -407,20 +404,27 @@ function flattenCells(matrixLayer: MatrixLayer): EditorEntity[] {
 }
 
 function getRoom(roomIndex: number, allRooms: RoomData[]): Room {
-	const { settings, matrixLayer, entities } = allRooms[roomIndex];
-	const cellEntities = flattenCells(matrixLayer);
+	const { settings, actors, stage, roomTileHeight } = allRooms[roomIndex];
 
-	const allEntities = entities.concat(cellEntities);
+	const cellActorEntities = flattenCells(actors.matrix);
+	const cellStageEntities = flattenCells(stage.matrix);
+
+	const allEntities = actors.entities.concat(
+		stage.entities,
+		cellActorEntities,
+		cellStageEntities
+	);
 
 	const objectHeader = getObjectHeader(settings, allEntities);
-	const objects = getObjects(entities, matrixLayer);
+	const actorObjects = getObjects(actors, roomTileHeight);
+	const stageObjects = getObjects(stage, roomTileHeight);
 	const levelSettings = getLevelSettings(settings, allEntities);
 	const transportData = getTransports(roomIndex, allEntities, allRooms);
 	const spriteHeader = [0x0];
-	const sprites = getSprites(allEntities, matrixLayer.height);
+	const sprites = getSprites(allEntities, roomTileHeight);
 
 	return {
-		objects: objectHeader.concat(objects, [0xff]),
+		objects: objectHeader.concat(actorObjects, stageObjects, [0xff]),
 		levelSettings,
 		transportData,
 		sprites: spriteHeader.concat(sprites, [0xff]),
@@ -459,18 +463,19 @@ function getFullRoomData(rooms: Room[]): number[] {
 	}, []);
 }
 
-function getAllEntities(rooms: RoomData[]): EditorEntity[] {
+function getAllNonCellEntities(rooms: RoomData[]): EditorEntity[] {
 	return rooms.reduce<EditorEntity[]>((building, room) => {
-		return building.concat(room.entities);
+		return building.concat(room.actors.entities, room.stage.entities);
 	}, []);
 }
 
 function createLevelData(roomDatas: RoomData[]): Uint8Array {
 	const rooms = roomDatas.map((_r, i, arr) => getRoom(i, arr));
 
-	const allEntities = getAllEntities(roomDatas);
+	const allNonCellEntities = getAllNonCellEntities(roomDatas);
 
-	const aceCoinCount = allEntities.filter((e) => e.type === 'AceCoin').length;
+	const aceCoinCount = allNonCellEntities.filter((e) => e.type === 'AceCoin')
+		.length;
 
 	const header = getHeader(aceCoinCount);
 	// four rooms, each with six pointers, pointers are two bytes

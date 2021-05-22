@@ -38,10 +38,11 @@ function ConnectedLevelPlayer(props: LevelPlayerProps) {
 	const roomDatas: RoomData[] = rooms.map((r) => {
 		return {
 			...r,
+			entities: r.actors.entities,
 			matrixLayer: {
 				width: r.roomTileWidth,
 				height: r.roomTileHeight,
-				data: r.matrix,
+				data: r.stage.matrix,
 			},
 		};
 	});

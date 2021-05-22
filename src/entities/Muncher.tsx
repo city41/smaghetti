@@ -41,6 +41,7 @@ const Muncher: Entity = {
 		[11, 9],
 	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x15,

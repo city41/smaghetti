@@ -25,6 +25,7 @@ const BowserDoor: Entity = {
 	objectSets: encodeObjectSets([[2, 2]]),
 	// this is for the lock sprite, which truly is universal
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x43,

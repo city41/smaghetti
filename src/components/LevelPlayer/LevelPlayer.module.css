@@ -1,4 +1,4 @@
 .root {
-    grid-template-columns: min-content;
-    grid-template-rows: 1fr min-content;
+	grid-template-columns: min-content;
+	grid-template-rows: 1fr min-content;
 }

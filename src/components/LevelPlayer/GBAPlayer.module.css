@@ -1,6 +1,6 @@
 .root {
-    transform: scale(var(--scale));
-    transform-origin: center center;
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
+	transform: scale(var(--scale));
+	transform-origin: center center;
+	image-rendering: pixelated;
+	image-rendering: crisp-edges;
 }

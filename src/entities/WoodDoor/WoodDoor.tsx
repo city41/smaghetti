@@ -19,6 +19,7 @@ const WoodDoor: Entity = {
 	objectSets: encodeObjectSets(objectSets),
 	// this is for the lock sprite, which truly is universal
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xf,

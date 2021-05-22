@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '../../Modal';
 import { IconButtonGroup } from '../../IconButton/IconButtonGroup';
 import { IconButton } from '../../IconButton';
-import { LevelThumbnail } from '../../LevelThumbnail';
+import { RoomThumbnail } from '../../RoomThumbnail';
 import { RoomState } from '../../make/editorSlice';
 import { TILE_SIZE } from '../../../tiles/constants';
 import { Button } from '../../Button';
@@ -139,20 +139,18 @@ function TransportDestinationModal({
 					className="max-w-full max-h-32 overflow-auto grid place-items-center cursor-crosshair"
 					onMouseDown={handleThumbnailClick}
 				>
-					<LevelThumbnail
+					<RoomThumbnail
 						className="relative bg-blue-300 border-2 border-white"
-						tileX={0}
-						tileY={0}
-						tileWidth={curDestRoom.roomTileWidth}
-						tileHeight={curDestRoom.roomTileHeight}
+						upperLeftTile={{ x: 0, y: 0 }}
+						widthInTiles={curDestRoom.roomTileWidth}
+						heightInTiles={curDestRoom.roomTileHeight}
 						scale={SCALE}
-						matrix={curDestRoom.matrix}
-						entities={curDestRoom.entities}
+						room={curDestRoom}
 					>
 						{curDestX > -1 && curDestY > -1 && (
 							<DestinationHighlight x={curDestX} y={curDestY} scale={SCALE} />
 						)}
-					</LevelThumbnail>
+					</RoomThumbnail>
 				</div>
 				<Button
 					disabled={cantOkay}

@@ -31,6 +31,7 @@ const OneWayDoor: Entity = {
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	settingsType: 'single',

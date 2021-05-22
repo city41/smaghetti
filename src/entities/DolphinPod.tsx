@@ -15,6 +15,7 @@ const DolphinPod: Entity = {
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, -1, -1, 0xa],
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x6b,

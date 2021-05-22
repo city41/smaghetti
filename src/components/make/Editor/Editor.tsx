@@ -6,6 +6,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { loadFromLocalStorage, saveToLocalStorage } from '../editorSlice';
 
 import { Palette } from './Palette';
+import { Layers } from './Layers';
 import { Canvas } from './Canvas';
 import { CanvasOffsetContainer } from './CanvasOffsetContainer';
 import { LevelResizer } from './LevelResizer';
@@ -141,9 +142,13 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 								onPlayClick={() => setPlaying((p) => !p)}
 							/>
 						</div>
-						<div className="grid grid-cols-12">
-							<Palette className="col-span-9" disabled={isPlaying} />
-							<div className="col-span-3 grid grid-rows-3 items-stretch">
+						<div
+							className="grid"
+							style={{ gridTemplateColumns: 'max-content 1fr max-content' }}
+						>
+							<Layers />
+							<Palette disabled={isPlaying} />
+							<div className="grid grid-rows-3 items-stretch">
 								<MetadataMenu className="row-span-2" disabled={isPlaying} />
 								<PageMenu />
 							</div>

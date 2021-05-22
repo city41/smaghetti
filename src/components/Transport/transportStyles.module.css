@@ -1,11 +1,11 @@
 .root {
-    width: var(--size);
-    height: var(--size);
-    font-size: 2.5px;
-    padding: 1px;
+	width: var(--size);
+	height: var(--size);
+	font-size: 2.5px;
+	padding: 1px;
 }
 
 .icon {
-    width: 6px;
-    height: 6px;
+	width: 6px;
+	height: 6px;
 }

@@ -10,8 +10,8 @@ import { injectLevelIntoSave } from '../src/levelData/injectLevelIntoSave';
 import cloneDeep from 'lodash/cloneDeep';
 import { deserialize } from '../src/saveStates/serializer';
 import {
-	INITIAL_LEVEL_TILE_HEIGHT,
-	INITIAL_LEVEL_TILE_WIDTH,
+	INITIAL_ROOM_TILE_HEIGHT,
+	INITIAL_ROOM_TILE_WIDTH,
 	INITIAL_PLAYER_Y_TILE,
 	PLAY_WINDOW_TILE_WIDTH,
 } from '../src/components/make/constants';
@@ -39,7 +39,7 @@ const BRICKS_ALONG_BOTTOM: EditorEntityMatrix = (function () {
 
 	rows.push(playerRow);
 
-	while (rows.length < INITIAL_LEVEL_TILE_HEIGHT) {
+	while (rows.length < INITIAL_ROOM_TILE_HEIGHT) {
 		rows.push(null);
 	}
 
@@ -70,12 +70,12 @@ function getRoom(spriteGraphicSet: number[]) {
 				id: 1,
 				type: 'ArrowSign',
 				x: 8 * TILE_SIZE,
-				y: (INITIAL_LEVEL_TILE_HEIGHT - 4) * TILE_SIZE,
+				y: (INITIAL_ROOM_TILE_HEIGHT - 4) * TILE_SIZE,
 			},
 		],
 		matrixLayer: {
-			width: INITIAL_LEVEL_TILE_WIDTH,
-			height: INITIAL_LEVEL_TILE_HEIGHT,
+			width: INITIAL_ROOM_TILE_WIDTH,
+			height: INITIAL_ROOM_TILE_HEIGHT,
 			data: BRICKS_ALONG_BOTTOM,
 		},
 	};

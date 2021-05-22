@@ -45,6 +45,7 @@ const Lava: Entity = {
 		[2, 9],
 	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	settingsType: 'single',
 	dimensions: 'xy',

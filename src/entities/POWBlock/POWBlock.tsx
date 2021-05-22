@@ -14,6 +14,7 @@ const POWBlock: Entity = {
 
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x59,

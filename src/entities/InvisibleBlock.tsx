@@ -15,6 +15,7 @@ const InvisibleBlock: Entity = {
 	// a way to get all of the object sets
 	objectSets: encodeObjectSets([[0xe, 0x3]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x9,

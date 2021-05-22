@@ -1,11 +1,11 @@
 .checkerboard {
-    background-image: /* tint image */ linear-gradient(
-            to right,
-            rgba(192, 192, 192, 0.85),
-            rgba(192, 192, 192, 0.85)
-    ),
-        /* checkered effect */ linear-gradient(to right, black 50%, white 50%),
-    linear-gradient(to bottom, black 50%, white 50%);
-    background-blend-mode: normal, difference, normal;
-    background-size: 3em 3em;
+	background-image: /* tint image */ linear-gradient(
+			to right,
+			rgba(192, 192, 192, 0.85),
+			rgba(192, 192, 192, 0.85)
+		),
+		/* checkered effect */ linear-gradient(to right, black 50%, white 50%),
+		linear-gradient(to bottom, black 50%, white 50%);
+	background-blend-mode: normal, difference, normal;
+	background-size: 3em 3em;
 }

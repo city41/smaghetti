@@ -22,6 +22,7 @@ const BoomBoom: Entity = {
 		graphicSets,
 		0,
 	],
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x4b,

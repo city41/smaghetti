@@ -17,6 +17,7 @@ const TiltPlatform: Entity = {
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, -1],
 	objectId: 0x90,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

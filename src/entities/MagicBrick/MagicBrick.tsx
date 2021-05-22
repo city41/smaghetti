@@ -12,6 +12,7 @@ const MagicBrick: Entity = {
 		description: 'A brick you can pick up and throw',
 	},
 
+	layer: 'stage',
 	editorType: 'cell',
 	settingsType: 'single',
 	dimensions: 'xy',

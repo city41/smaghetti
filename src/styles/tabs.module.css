@@ -1,11 +1,11 @@
 .tabs {
-    @apply flex flex-wrap flex-row items-center content-between h-8 text-sm z-10;
+	@apply flex flex-wrap flex-row items-center content-between h-8 text-sm z-10;
 }
 
 .tabs li {
-    @apply h-full cursor-pointer font-bold whitespace-nowrap grid place-items-center px-4;
+	@apply h-full cursor-pointer font-bold whitespace-nowrap grid place-items-center px-4;
 }
 
 .tabs .currentTab {
-    @apply bg-gray-900;
+	@apply bg-gray-900;
 }

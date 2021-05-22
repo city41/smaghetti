@@ -12,6 +12,7 @@ const FortressBrick: Entity = {
 
 	objectSets: encodeObjectSets([[2, 2]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'xy',
 	objectId: 0xd,

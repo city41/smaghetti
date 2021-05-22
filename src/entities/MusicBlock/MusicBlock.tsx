@@ -18,6 +18,7 @@ const MusicBlock: Entity = {
 	// TODO: other object sets appear to also work with slightly different color palettes
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: {},

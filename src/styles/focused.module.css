@@ -1,15 +1,14 @@
-
 .focused {
-    position: relative;
+	position: relative;
 }
 
 .focused::after {
-    content: '';
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    z-index: 100;
-    background-color: rgba(255, 165, 0, 0.65);
+	content: '';
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	z-index: 100;
+	background-color: rgba(255, 165, 0, 0.65);
 }

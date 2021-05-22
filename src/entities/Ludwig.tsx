@@ -12,6 +12,7 @@ const Ludwig: Entity = {
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, 2, -1, -1, 5],
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x72,

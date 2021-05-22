@@ -12,6 +12,7 @@ const BowserFireStatue: Entity = {
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, -1, -1, 0xc],
+	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xf,

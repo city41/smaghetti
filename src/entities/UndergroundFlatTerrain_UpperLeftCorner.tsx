@@ -9,6 +9,7 @@ const UndergroundFlatTerrain_UpperLeftCorner: Entity = {
 		title: 'Underground Flat Terrain -- Upper Left Corner',
 	},
 
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'none',
 	objectId: 0x1,

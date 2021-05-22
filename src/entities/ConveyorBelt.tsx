@@ -29,6 +29,7 @@ const ConveyorBelt: Entity = {
 		[2, 9],
 	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'entity',
 	settingsType: 'single',
 	defaultSettings: { width: 1, height: 1 },

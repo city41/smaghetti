@@ -9,6 +9,7 @@ const UndergroundFlatTerrain_VerticalLeft: Entity = {
 		title: 'Underground Flat Terrain -- Vertical Left',
 	},
 
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'y',
 	param1: 'height',

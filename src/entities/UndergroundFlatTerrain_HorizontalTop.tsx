@@ -9,6 +9,7 @@ const UndergroundFlatTerrain_HorizontalTop: Entity = {
 		title: 'Underground Flat Terrain -- Horizontal Top',
 	},
 
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'x',
 	param2: 'width',

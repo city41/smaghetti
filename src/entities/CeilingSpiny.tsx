@@ -23,6 +23,7 @@ const CeilingSpiny: Entity = {
 		graphicSets,
 	],
 	objectId: 0x69,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

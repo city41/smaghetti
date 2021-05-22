@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { FaTrash, FaHammer } from 'react-icons/fa';
 import { RoomState } from '../../editorSlice';
-import { LevelThumbnail } from '../../../LevelThumbnail';
+import { RoomThumbnail } from '../../../RoomThumbnail';
 
 import { PlainIconButton } from '../../../PlainIconButton';
 import { Button } from '../../../Button';
@@ -79,18 +79,15 @@ function ManageRooms({
 							/>
 						</h2>
 						<div className="relative">
-							<LevelThumbnail
+							<RoomThumbnail
 								className={clsx(
 									'absolute top-0 left-0 border border-black bg-blue-200'
 								)}
-								bgGraphic={r.settings.bgGraphic}
-								entities={r.entities}
-								matrix={r.matrix}
 								scale={scale}
-								tileHeight={r.roomTileHeight}
-								tileWidth={r.roomTileWidth}
-								tileX={0}
-								tileY={0}
+								heightInTiles={r.roomTileHeight}
+								widthInTiles={r.roomTileWidth}
+								upperLeftTile={{ x: 0, y: 0 }}
+								room={r}
 							/>
 						</div>
 					</div>

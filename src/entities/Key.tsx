@@ -13,6 +13,7 @@ const Key: Entity = {
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0x1a,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

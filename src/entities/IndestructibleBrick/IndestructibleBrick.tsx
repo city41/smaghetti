@@ -14,6 +14,7 @@ const IndestructibleBrick: Entity = {
 
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'xy',
 	param1: 'height',

@@ -18,6 +18,7 @@ const BuriedVegetable: Entity = {
 
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	settingsType: 'single',
 	defaultSettings: { payload: 'SmallVegetable' },

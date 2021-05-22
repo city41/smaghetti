@@ -16,6 +16,7 @@ const AceCoin: Entity = {
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xfa,

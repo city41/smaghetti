@@ -28,6 +28,7 @@ const QuestionMark: Entity = {
 		0,
 	],
 	objectId: 0x4a,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

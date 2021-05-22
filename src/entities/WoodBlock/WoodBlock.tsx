@@ -18,6 +18,7 @@ const WoodBlock: Entity = {
 	// TODO: some alternate palettes available in some other object set groups
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	settingsType: 'single',
 	dimensions: 'xy',

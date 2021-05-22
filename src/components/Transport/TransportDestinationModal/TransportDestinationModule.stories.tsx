@@ -18,8 +18,16 @@ const EMPTY_ROOM: RoomState = {
 		bgGraphic: 0,
 		bgExtraColorAndEffect: 0,
 	},
-	entities: [],
-	matrix: [],
+	actors: {
+		entities: [],
+		matrix: [],
+		locked: false,
+	},
+	stage: {
+		entities: [],
+		matrix: [],
+		locked: false,
+	},
 	roomTileWidth: 16,
 	roomTileHeight: 15,
 	currentPaletteEntry: 'Goomba',

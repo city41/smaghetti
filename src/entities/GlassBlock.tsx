@@ -17,6 +17,7 @@ const GlassBlock: Entity = {
 		[3, 3],
 	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'xy',
 	param1: 'height',

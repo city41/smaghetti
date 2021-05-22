@@ -33,8 +33,8 @@ const actions = bindActionCreators(
 const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 	const {
 		currentPaletteEntry,
-		entities,
-		matrix,
+		actors,
+		stage,
 		roomTileWidth,
 		roomTileHeight,
 		scale,
@@ -51,7 +51,7 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 	} = useSelector((state: AppState) => state.editor.present);
 
 	const allTransports = rooms.reduce<EditorTransport[]>((building, room) => {
-		const thisRoomTransports = room.entities.reduce<EditorTransport[]>(
+		const thisRoomTransports = room.actors.entities.reduce<EditorTransport[]>(
 			(buildingRoom, e, roomIndex) => {
 				const entityDef = entityMap[e.type];
 
@@ -81,9 +81,9 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 			scale={scale}
 			rooms={rooms}
 			currentRoomIndex={currentRoomIndex}
-			entities={entities}
+			actors={actors}
+			stage={stage}
 			transportDestinations={transportDestinations}
-			matrix={matrix}
 			focused={focused}
 			isSelecting={isSelecting}
 			dragOffset={dragOffset}

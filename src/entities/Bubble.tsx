@@ -27,6 +27,7 @@ const Bubble: Entity = {
 		-1,
 		graphicSets,
 	],
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xdb,

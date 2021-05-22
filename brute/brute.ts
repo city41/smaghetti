@@ -12,8 +12,8 @@ import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
 import { deserialize } from '../src/saveStates/serializer';
 import {
-	INITIAL_LEVEL_TILE_HEIGHT,
-	INITIAL_LEVEL_TILE_WIDTH,
+	INITIAL_ROOM_TILE_HEIGHT,
+	INITIAL_ROOM_TILE_WIDTH,
 } from '../src/components/make/constants';
 import { TILE_SIZE } from '../src/tiles/constants';
 import { ArrowSign } from '../src/entities/ArrowSign';
@@ -46,12 +46,12 @@ function getRoom(objectSet: number, objectGraphicSet: number) {
 				id: 1,
 				type: 'ArrowSign',
 				x: 8 * TILE_SIZE,
-				y: (INITIAL_LEVEL_TILE_HEIGHT - 4) * TILE_SIZE,
+				y: (INITIAL_ROOM_TILE_HEIGHT - 4) * TILE_SIZE,
 			},
 		],
 		matrixLayer: {
-			width: INITIAL_LEVEL_TILE_WIDTH,
-			height: INITIAL_LEVEL_TILE_HEIGHT,
+			width: INITIAL_ROOM_TILE_WIDTH,
+			height: INITIAL_ROOM_TILE_HEIGHT,
 			data: SINGLE_BRICK_SO_PLAYER_DOESNT_FALL,
 		},
 	};

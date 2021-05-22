@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { MdDelete, MdEdit, MdFileDownload, MdShare } from 'react-icons/md';
-import { LevelThumbnail } from '../../../LevelThumbnail';
+import { RoomThumbnail } from '../../../RoomThumbnail';
 import {
 	PLAY_WINDOW_TILE_HEIGHT,
 	PLAY_WINDOW_TILE_WIDTH,
@@ -35,7 +35,19 @@ function NoLongerCompatible({ className }: { className?: string }) {
 		>
 			<p className="font-bold">No longer compatible. Sorry :(</p>
 			<p>
-				Levels will stop breaking like this once Smaghetti reaches beta quality
+				Levels will stop breaking like this once Smaghetti reaches beta quality.
+			</p>
+			<p>
+				See the{' '}
+				<a
+					className="text-blue-500"
+					href="/roadmap"
+					target="_blank"
+					rel="noreferrer"
+				>
+					roadmap
+				</a>{' '}
+				for more info.
 			</p>
 		</div>
 	);
@@ -74,21 +86,22 @@ function LevelEntry({
 							})}
 						/>
 					) : (
-						<LevelThumbnail
+						<RoomThumbnail
 							className={clsx('border-4 border-white rounded-l-xl', {
 								'bg-blue-100 group-hover:bg-blue-500': !showDeleteConfirmation,
 								'bg-red-100 group-hover:bg-red-100': showDeleteConfirmation,
 							})}
-							tileX={0}
-							tileY={level.data.rooms[0].matrixLayer.height - THUMBNAIL_HEIGHT}
-							tileWidth={Math.min(
-								level.data.rooms[0].matrixLayer.width,
+							upperLeftTile={{
+								x: 0,
+								y: level.data.rooms[0].roomTileHeight - THUMBNAIL_HEIGHT,
+							}}
+							widthInTiles={Math.min(
+								level.data.rooms[0].roomTileWidth,
 								PLAY_WINDOW_TILE_WIDTH * 2
 							)}
-							tileHeight={THUMBNAIL_HEIGHT}
+							heightInTiles={THUMBNAIL_HEIGHT}
 							scale={0.75}
-							matrix={level.data.rooms[0].matrixLayer.data}
-							entities={level.data.rooms[0].entities}
+							room={level.data.rooms[0]}
 						/>
 					)}
 				</div>

@@ -55,10 +55,17 @@ const EMPTY_LEVEL = createLevelData([
 			bgGraphic: 0,
 			bgExtraColorAndEffect: 0,
 		},
+		actors: {
+			entities: [],
+			matrix: [],
+		},
+		stage: {
+			entities: [],
+			matrix: [],
+		},
 		paletteEntries: [],
-		validEntityTypes: [],
-		entities: [],
-		matrixLayer: { width: 0, height: 0, data: [] },
+		roomTileWidth: 0,
+		roomTileHeight: 0,
 	},
 ]);
 

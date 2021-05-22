@@ -16,13 +16,14 @@ const directionToObjectId = {
 };
 
 const ArrowSign: Entity = {
-	paletteCategory: 'object',
+	paletteCategory: 'decoration',
 	paletteInfo: {
 		title: 'Arrow Sign',
 	},
 
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'entity',
 	settingsType: 'single',
 	dimensions: 'none',

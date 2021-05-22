@@ -15,6 +15,7 @@ const FallAwayPlatform: Entity = {
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0x20,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

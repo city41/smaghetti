@@ -15,6 +15,7 @@ const FullerFlowerBush: Entity = {
 		[12, 4],
 	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'x',
 	param1: 'width',

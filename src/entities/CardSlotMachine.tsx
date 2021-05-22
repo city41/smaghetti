@@ -15,6 +15,7 @@ const CardSlotMachine: Entity = {
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0x41,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

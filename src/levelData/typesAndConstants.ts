@@ -21,42 +21,42 @@ export const OFFSET_UNFINISHED = 0x29; // Current unfinished level record ID
 export const OFFSET_DATAIDLIST = 0x6d4; // Level data ID list
 
 type ELevelInfo = {
-  name: Uint8Array;
-  // this is for convenience/debugging and is never added to a save file
-  asciiName: string;
-  levelClass: number;
-  levelNumber: number;
-  icon: number;
-  eCoinID: number;
-  aceCoinTotal: number;
+	name: Uint8Array;
+	// this is for convenience/debugging and is never added to a save file
+	asciiName: string;
+	levelClass: number;
+	levelNumber: number;
+	icon: number;
+	eCoinID: number;
+	aceCoinTotal: number;
 };
 
 type ELevelRecord = {
-  info: ELevelInfo;
-  playable: number;
-  dataID: number;
+	info: ELevelInfo;
+	playable: number;
+	dataID: number;
 
-  // Progess data
-  eCoinCollected: number;
-  aceCoinCollectedFlag: number;
-  aceCoinPerfect: number;
-  clearedByMario: number;
-  clearedByLuigi: number;
+	// Progess data
+	eCoinCollected: number;
+	aceCoinCollectedFlag: number;
+	aceCoinPerfect: number;
+	clearedByMario: number;
+	clearedByLuigi: number;
 };
 
 type ELevelData = {
-  info: ELevelInfo;
-  recordID: number;
-  ecoinB: Uint8Array;
-  ecoinA: Uint8Array;
-  data: Uint8Array;
+	info: ELevelInfo;
+	recordID: number;
+	ecoinB: Uint8Array;
+	ecoinA: Uint8Array;
+	data: Uint8Array;
 };
 
 // note that this is not an entire SMA4 save file,
 // just the parts pertaining to ereader levels
 type SaveFile = {
-  records: ELevelRecord[];
-  data: ELevelData[];
+	records: ELevelRecord[];
+	data: ELevelData[];
 };
 
 export type { ELevelInfo, ELevelRecord, ELevelData, SaveFile };

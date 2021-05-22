@@ -13,6 +13,7 @@ const Boomerang: Entity = {
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0xcf,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

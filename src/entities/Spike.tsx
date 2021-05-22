@@ -15,6 +15,7 @@ const Spike: Entity = {
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [3, -1, -1, -1, -1, -1],
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x29,

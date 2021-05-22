@@ -12,6 +12,7 @@ const ParaBeetle: Entity = {
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [5, -1, -1, -1, -1, ANY_BELOW_16],
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x9f,

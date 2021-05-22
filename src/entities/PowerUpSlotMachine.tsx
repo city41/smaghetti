@@ -14,6 +14,7 @@ const PowerUpSlotMachine: Entity = {
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	objectId: 0xb7,
+	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
 

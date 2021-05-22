@@ -16,6 +16,7 @@ const ClassicBowser: Entity = {
 	// TODO: see if this can be loosened. Also might need to change
 	// to account for hammers
 	spriteGraphicSets: [-1, 3, fireballGraphicSets, -1, 2, 0x16],
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x27,

@@ -49,6 +49,19 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Layers" date="2021-05-22">
+					<p>The editor is now divided into two layers: actors and stage</p>
+					<p>
+						Often these layers don&apos;t matter much, but they become important
+						when working with large objects such as the black backdrop at the
+						end of levels and large terrain. The layers enable working with
+						these large entities without smaller things like enemies getting in
+						the way, and vice versa
+					</p>
+					<p>
+						Now that layers are in place, large terrain is the next thing to add
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-16">
 					<ul className="ml-8 list-disc">
 						<li>Ceiling Buzzy Beetle</li>

@@ -23,6 +23,7 @@ const CeilingBuzzyBeetle: Entity = {
 		graphicSets,
 	],
 	objectId: 0x68,
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 

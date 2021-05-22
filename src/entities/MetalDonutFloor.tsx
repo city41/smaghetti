@@ -13,6 +13,7 @@ const MetalDonutFloor: Entity = {
 
 	objectSets: encodeObjectSets([[2, 2]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'xy',
 	param1: 'height',

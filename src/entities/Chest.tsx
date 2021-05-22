@@ -25,6 +25,7 @@ const Chest: Entity = {
 		-1,
 		graphicSets,
 	],
+	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	settingsType: 'single',

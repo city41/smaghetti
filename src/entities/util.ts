@@ -3,6 +3,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import isEqual from 'lodash/isEqual';
 import intersection from 'lodash/intersection';
 import { Entity } from './types';
+import { isStaticResource } from '../resources/util';
 
 export function getBankParam1(bank: 0 | 1, length: number): number {
 	return (bank << 6) | length;
@@ -16,14 +17,40 @@ export function simpleSpriteBinary(
 	return [0, objectId, x, y];
 }
 
+function getEntityTileWidth(entityDef: Entity): number {
+	if (entityDef.width) {
+		return entityDef.width;
+	}
+
+	if (isStaticResource(entityDef.resource)) {
+		return entityDef.resource.tiles[0].length / 2;
+	}
+
+	return 1;
+}
+
+function getEntityTileHeight(entityDef: Entity): number {
+	if (entityDef.height) {
+		return entityDef.height;
+	}
+
+	if (isStaticResource(entityDef.resource)) {
+		return entityDef.resource.tiles.length / 2;
+	}
+
+	return 1;
+}
+
 export function scaledEntityRender(entityType: EntityType, scale = 1) {
 	const entityDef = entityMap[entityType];
-	const widthInTiles = entityDef.width ?? 1;
-	const heightInTiles = entityDef.height ?? 1;
+	const widthInTiles = getEntityTileWidth(entityDef);
+	const heightInTiles = getEntityTileHeight(entityDef);
 	const entityWidth = widthInTiles * TILE_SIZE * scale;
 	const entityHeight = heightInTiles * TILE_SIZE * scale;
+	const size = Math.max(entityWidth, entityHeight);
 
-	return entityDef.simpleRender(entityWidth, entityHeight);
+	// TODO: simpleRender should take a single size parameter
+	return entityDef.simpleRender(size, size);
 }
 
 export function encodeObjectSets(sets: number[][]): number[] {
