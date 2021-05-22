@@ -154,7 +154,7 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 							</div>
 						</div>
 					</div>
-					<div className="fixed right-0 top-36 pointer-events-auto z-10">
+					<div className="hidden fixed right-0 top-36 pointer-events-auto z-10">
 						<EarlyPreviewStarburst />
 					</div>
 				</div>
