@@ -51,22 +51,22 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 	} = useSelector((state: AppState) => state.editor.present);
 
 	const allTransports = rooms.reduce<EditorTransport[]>((building, room) => {
-		const thisRoomTransports = room.actors.entities.reduce<EditorTransport[]>(
-			(buildingRoom, e, roomIndex) => {
-				const entityDef = entityMap[e.type];
+		// transport capable entities should always be on the stage
+		const thisRoomStageTransports = room.stage.entities.reduce<
+			EditorTransport[]
+		>((buildingRoom, e, roomIndex) => {
+			const entityDef = entityMap[e.type];
 
-				if (entityDef.getTransports) {
-					return buildingRoom.concat(
-						entityDef.getTransports(roomIndex, e.x, e.y, e.settings ?? {})
-					);
-				} else {
-					return buildingRoom;
-				}
-			},
-			[]
-		);
+			if (entityDef.getTransports) {
+				return buildingRoom.concat(
+					entityDef.getTransports(roomIndex, e.x, e.y, e.settings ?? {})
+				);
+			} else {
+				return buildingRoom;
+			}
+		}, []);
 
-		return building.concat(thisRoomTransports);
+		return building.concat(thisRoomStageTransports);
 	}, []);
 
 	const transportDestinations = allTransports.filter(
