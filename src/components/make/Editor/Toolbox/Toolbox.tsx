@@ -94,7 +94,7 @@ const Toolbox = memo(function Toolbox({
 					isPlaying ||
 					(mm.mode === 'fill' &&
 						currentPaletteEntry &&
-						!entityMap[currentPaletteEntry].layer.includes('matrix'))
+						entityMap[currentPaletteEntry].editorType !== 'cell')
 				}
 				onClick={() => onMouseModeChanged(mm.mode)}
 				label={`${mm.mode} (${mm.hotkey})`}
