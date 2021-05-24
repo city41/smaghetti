@@ -79,11 +79,16 @@ const ArrowFloor: Entity = {
 	},
 
 	toObjectBinary(x, y, w) {
-		return [getBankParam1(1, w), y, x, this.objectId!];
+		return [getBankParam1(1, w), y, x, this.objectId];
 	},
 
 	simpleRender(size) {
-    return <div className="ArrowFloor-bg bg-cover" style={{ width: size, height: size }} />;
+		return (
+			<div
+				className="ArrowFloor-bg bg-cover"
+				style={{ width: size, height: size }}
+			/>
+		);
 	},
 
 	render() {

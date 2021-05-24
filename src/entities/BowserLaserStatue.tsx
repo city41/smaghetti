@@ -49,7 +49,7 @@ const BowserLaserStatue: Entity = {
 	},
 
 	toObjectBinary(x, y) {
-		return [0, y, x, this.objectId!];
+		return [0, y, x, this.objectId];
 	},
 
 	simpleRender(size) {

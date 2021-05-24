@@ -47,12 +47,15 @@ const POWBlock: Entity = {
 	},
 
 	toObjectBinary(x, y) {
-		return [0, y, x, this.objectId!];
+		return [0, y, x, this.objectId];
 	},
 
 	simpleRender(size) {
 		return (
-			<div className="POWBlock-bg bg-cover" style={{ width: size, height: size }} />
+			<div
+				className="POWBlock-bg bg-cover"
+				style={{ width: size, height: size }}
+			/>
 		);
 	},
 

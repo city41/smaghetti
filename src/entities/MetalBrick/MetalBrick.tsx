@@ -54,7 +54,7 @@ const MetalBrick: Entity = {
 	},
 
 	toObjectBinary(x, y, w, h): number[] {
-		return [getBankParam1(1, w), y, x, this.objectId!, h];
+		return [getBankParam1(1, w), y, x, this.objectId, h];
 	},
 
 	simpleRender(size) {

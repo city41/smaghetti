@@ -39,11 +39,11 @@ const Fishbone: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return [0, this.objectId!, x, y];
+		return [0, this.objectId, x, y];
 	},
 
 	simpleRender(size) {
-    const style = { width: size, height: size, backgroundSize: '100% 66%' };
+		const style = { width: size, height: size, backgroundSize: '100% 66%' };
 		return <div className="Fishbone-bg bg-center bg-no-repeat" style={style} />;
 	},
 

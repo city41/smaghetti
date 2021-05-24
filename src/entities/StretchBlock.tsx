@@ -18,6 +18,7 @@ const StretchBlock: Entity = {
 		title: 'Stretch Block',
 	},
 
+	objectId: 0xbe,
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'actor',

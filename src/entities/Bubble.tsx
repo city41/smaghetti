@@ -88,10 +88,10 @@ const Bubble: Entity = {
 			const payloadId = payloadToObjectId[
 				settings.payload as keyof typeof payloadToObjectId
 			]!;
-			return [0, this.objectId!, x, y, payloadId, 0];
+			return [0, this.objectId, x, y, payloadId, 0];
 		} else {
 			// TODO: figure out what the bytes are for empty bubble
-			return [0, this.objectId!, x, y, 0, 0];
+			return [0, this.objectId, x, y, 0, 0];
 		}
 	},
 

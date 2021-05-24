@@ -20,13 +20,13 @@ const BigBooBoss: Entity = {
 	objectId: 0x25,
 
 	toSpriteBinary(x, y) {
-		return [1, this.objectId!, x, y];
+		return [1, this.objectId, x, y];
 	},
 
 	simpleRender(size) {
 		const style = {
-      width: size,
-      height: size,
+			width: size,
+			height: size,
 			backgroundSize: '100%',
 			backgroundPosition: '0 0',
 		};

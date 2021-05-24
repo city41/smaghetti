@@ -79,7 +79,7 @@ const Lakitu: Entity = {
 	toSpriteBinary(x, y, _w, _h, settings) {
 		const payload = settings.payload ?? this.defaultSettings!.payload;
 		const eggId = this.payloadToObjectId![payload as ResourceType]!;
-		return [1, this.objectId!, x, y, eggId];
+		return [1, this.objectId, x, y, eggId];
 	},
 
 	simpleRender(size) {

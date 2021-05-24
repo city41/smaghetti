@@ -45,7 +45,7 @@ const FireBar: Entity = {
 
 	toSpriteBinary(x, y): number[] {
 		// todo: 3 means 4 fireballs counterclockwise, need a details pane to let user choose
-		return [0, this.objectId!, x, y, 3];
+		return [0, this.objectId, x, y, 3];
 	},
 
 	simpleRender(size) {

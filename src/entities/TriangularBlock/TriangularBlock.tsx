@@ -21,6 +21,7 @@ const TriangularBlock: Entity = {
 		title: 'Triangular Block',
 	},
 
+	objectId: 0x50,
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',

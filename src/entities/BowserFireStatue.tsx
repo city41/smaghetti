@@ -25,13 +25,13 @@ const BowserFireStatue: Entity = {
 		// 2 - hops and attacks
 		// TODO: allow choosing zero with a details pane
 		// 2 is a separate entity, HoppingBowserStatue
-		return [0, this.objectId!, x, y, 1];
+		return [0, this.objectId, x, y, 1];
 	},
 
 	simpleRender(size) {
 		const style = {
-      width: size,
-      height: size,
+			width: size,
+			height: size,
 		};
 
 		const headStyle = {

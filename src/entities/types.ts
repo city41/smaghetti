@@ -74,7 +74,7 @@ type Entity = {
 	 * (for example, a payloadable object in its empty state)
 	 * it should be put here. Mostly used by HexTree.
 	 */
-	objectId?: number;
+	objectId: number;
 	/**
 	 * If an entity has payloads, the payloads should be described here.
 	 * Mostly used by HexTree

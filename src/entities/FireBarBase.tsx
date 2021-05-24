@@ -47,7 +47,7 @@ const FireBarBase: Entity = {
 	},
 
 	toObjectBinary(x, y): number[] {
-		return [0, y, x, this.objectId!];
+		return [0, y, x, this.objectId];
 	},
 
 	simpleRender(size) {

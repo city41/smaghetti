@@ -47,7 +47,7 @@ const FloatingBlock: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return [0, this.objectId!, x, y];
+		return [0, this.objectId, x, y];
 	},
 
 	simpleRender(size) {

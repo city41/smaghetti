@@ -29,6 +29,7 @@ const OneWayDoor: Entity = {
 		title: 'One Way Door',
 	},
 
+	objectId: 0xe5,
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'actor',

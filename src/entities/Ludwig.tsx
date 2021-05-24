@@ -50,7 +50,7 @@ const Ludwig: Entity = {
 	},
 
 	simpleRender(size) {
-    const style = { width: size, height: size, backgroundSize: '75% 100%' };
+		const style = { width: size, height: size, backgroundSize: '75% 100%' };
 
 		return (
 			<div

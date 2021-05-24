@@ -9,12 +9,6 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { encodeObjectSets } from './util';
 import { objectSets } from './QuestionBlock/objectSets';
 
-const payloadToObjectId = {
-	MusicBlock: 0x20,
-	OneUpMushroom: 0x1f,
-	Coin: 0x1e,
-};
-
 const HiddenBlock: Entity = {
 	paletteCategory: 'object',
 	paletteInfo: {
@@ -22,6 +16,7 @@ const HiddenBlock: Entity = {
 		description: 'Basically an invisible question block',
 	},
 
+	objectId: 0,
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
@@ -100,4 +95,4 @@ const HiddenBlock: Entity = {
 	},
 };
 
-export { HiddenBlock, payloadToObjectId };
+export { HiddenBlock };

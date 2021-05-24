@@ -71,7 +71,7 @@ const BuriedVegetable: Entity = {
 
 		const objectId =
 			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId]! ??
-			this.objectId!;
+			this.objectId;
 
 		return [getBankParam1(1, 0), y, x, objectId];
 	},

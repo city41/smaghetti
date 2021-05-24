@@ -54,7 +54,7 @@ const CoinChallenge: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return [0, this.objectId!, x, y, 4];
+		return [0, this.objectId, x, y, 4];
 	},
 
 	simpleRender(size) {

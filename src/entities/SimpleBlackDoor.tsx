@@ -93,7 +93,7 @@ const SimpleBlackDoor: Entity = {
 	},
 
 	toObjectBinary(x, y) {
-		return [0x40, y, x, this.objectId!];
+		return [0x40, y, x, this.objectId];
 	},
 
 	toSpriteBinary(x, y, _w, _h, settings) {

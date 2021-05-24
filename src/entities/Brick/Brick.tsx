@@ -82,13 +82,16 @@ const Brick: Entity = {
 
 			return binaries;
 		} else {
-			return [getBankParam1(1, w), y, x, this.objectId!, h];
+			return [getBankParam1(1, w), y, x, this.objectId, h];
 		}
 	},
 
 	simpleRender(size) {
 		return (
-			<div className="Brick-bg bg-cover" style={{ width: size, height: size }} />
+			<div
+				className="Brick-bg bg-cover"
+				style={{ width: size, height: size }}
+			/>
 		);
 	},
 

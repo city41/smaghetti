@@ -83,15 +83,18 @@ const Chest: Entity = {
 			const payloadId =
 				payloadToObjectId[settings.payload as keyof typeof payloadToObjectId];
 
-			return [1, this.objectId!, x, y, payloadId!];
+			return [1, this.objectId, x, y, payloadId!];
 		} else {
-			return [1, this.objectId!, x, y];
+			return [1, this.objectId, x, y];
 		}
 	},
 
 	simpleRender(size) {
 		return (
-			<div className="Chest-bg bg-cover" style={{ width: size, height: size }} />
+			<div
+				className="Chest-bg bg-cover"
+				style={{ width: size, height: size }}
+			/>
 		);
 	},
 

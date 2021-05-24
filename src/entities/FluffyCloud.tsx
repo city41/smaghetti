@@ -60,11 +60,11 @@ const FluffyCloud: Entity = {
 	toObjectBinary(x, y) {
 		// TODO: param1 is actually cloud width, but need a details pane
 		// and custom resources to support it in the editor
-		return [getBankParam1(1, 2), y, x, this.objectId!];
+		return [getBankParam1(1, 2), y, x, this.objectId];
 	},
 
 	simpleRender(size) {
-    const style = { width: size, height: size, backgroundSize: '100% 75%' };
+		const style = { width: size, height: size, backgroundSize: '100% 75%' };
 		return (
 			<div className="FluffyCloud-bg bg-no-repeat bg-center" style={style} />
 		);

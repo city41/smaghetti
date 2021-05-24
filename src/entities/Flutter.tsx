@@ -45,13 +45,13 @@ const Flutter: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return [1, this.objectId!, x, y];
+		return [1, this.objectId, x, y];
 	},
 
 	simpleRender(size) {
 		const style = {
-      width: size,
-      height: size,
+			width: size,
+			height: size,
 		};
 
 		const leftWingStyle = {

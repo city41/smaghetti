@@ -22,11 +22,13 @@ const InvisibleBlock: Entity = {
 	emptyBank: 0,
 
 	toObjectBinary(x, y) {
-		return [0, y, x, this.objectId!];
+		return [0, y, x, this.objectId];
 	},
 
 	simpleRender(size) {
-    return <div style={{ width: size, height: size, border: '2px dotted white' }} />;
+		return (
+			<div style={{ width: size, height: size, border: '2px dotted white' }} />
+		);
 	},
 
 	render() {

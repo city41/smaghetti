@@ -66,7 +66,7 @@ const ConveyorBelt: Entity = {
 
 	toObjectBinary(x, y, _w, _h, settings) {
 		const width = settings.width ?? 1;
-		return [getBankParam1(1, width - 1), y, x, this.objectId!];
+		return [getBankParam1(1, width - 1), y, x, this.objectId];
 	},
 
 	simpleRender(size) {

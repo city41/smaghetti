@@ -54,7 +54,7 @@ const AceCoin: Entity = {
 		// 	throw new Error('AceCoin#toBinary: no aceCoinIndex setting found');
 		// }
 
-		return [0, this.objectId!, x, y, settings.aceCoinIndex];
+		return [0, this.objectId, x, y, settings.aceCoinIndex];
 	},
 
 	simpleRender(size) {

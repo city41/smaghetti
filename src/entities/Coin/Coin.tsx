@@ -48,7 +48,7 @@ const Coin: Entity = {
 	},
 
 	toObjectBinary(x, y, w, h) {
-		return [getBankParam1(1, w), y, x, this.objectId!, h];
+		return [getBankParam1(1, w), y, x, this.objectId, h];
 	},
 
 	simpleRender(size) {
@@ -59,7 +59,7 @@ const Coin: Entity = {
 
 	render() {
 		return this.simpleRender!(TILE_SIZE);
-  }
+	},
 };
 
 export { Coin };

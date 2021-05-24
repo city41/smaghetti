@@ -72,11 +72,11 @@ const EndOfLevelBackdrop: Entity = {
 	},
 
 	toObjectBinary(x, y) {
-		return [0, y, x, this.objectId!];
+		return [0, y, x, this.objectId];
 	},
 
 	simpleRender(size) {
-    const style = { width: size, height: size, gridTemplateColumns: '25% 75%' };
+		const style = { width: size, height: size, gridTemplateColumns: '25% 75%' };
 
 		const edgeStyle = {
 			backgroundSize: '100% 50%',

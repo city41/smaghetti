@@ -52,7 +52,7 @@ const HorizontalRedPiranhaPlant: Entity = {
 		// fifth byte
 		// 0 -- face right
 		// 1 -- face left
-		return [0, this.objectId!, x, y, 1];
+		return [0, this.objectId, x, y, 1];
 	},
 
 	simpleRender(size) {

@@ -21,11 +21,11 @@ const DolphinPod: Entity = {
 	objectId: 0x6b,
 
 	toSpriteBinary(x, y) {
-		return [1, this.objectId!, x, y];
+		return [1, this.objectId, x, y];
 	},
 
 	simpleRender(size) {
-    const style = { width: size, height: size, backgroundSize: '100% 50%' };
+		const style = { width: size, height: size, backgroundSize: '100% 50%' };
 		return (
 			<div
 				className="HorizontalDolphin-bg bg-center bg-no-repeat"

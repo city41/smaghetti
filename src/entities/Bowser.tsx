@@ -55,13 +55,13 @@ const Bowser: Entity = {
 		// TODO: the parameters almost certainly determine whether
 		// he throws hammers and all that. Possibly also what enemy
 		// he turns into if dies by fireballs
-		return [1, this.objectId!, x, y, 0, 0];
+		return [1, this.objectId, x, y, 0, 0];
 	},
 
 	simpleRender(size) {
 		const style = {
-      width: size,
-      height: size,
+			width: size,
+			height: size,
 			backgroundSize: `${(4 / 5) * 100}% 100%`,
 			backgroundPosition: 'center center',
 		};

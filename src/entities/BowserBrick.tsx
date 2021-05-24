@@ -49,7 +49,7 @@ const BowserBrick: Entity = {
 	},
 
 	toObjectBinary(x, y, w, h): number[] {
-		return [getBankParam1(1, h), y, x, this.objectId!, w];
+		return [getBankParam1(1, h), y, x, this.objectId, w];
 	},
 
 	simpleRender(size) {

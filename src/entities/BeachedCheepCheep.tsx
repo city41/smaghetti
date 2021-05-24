@@ -27,7 +27,7 @@ const BeachedCheepCheep: Entity = {
 		return (
 			<div
 				className="relative RedCheepCheep-bg bg-cover"
-        style={{ width: size, height: size }}
+				style={{ width: size, height: size }}
 			>
 				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
 					beached

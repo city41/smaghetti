@@ -23,13 +23,13 @@ const HoppingBowserStatue: Entity = {
 		// 0 - just a statue
 		// 1 - statute that shoots fire
 		// 2 - hops and attacks
-		return [0, this.objectId!, x, y, 2];
+		return [0, this.objectId, x, y, 2];
 	},
 
 	simpleRender(size) {
 		const style = {
-      width: size,
-      height: size,
+			width: size,
+			height: size,
 		};
 
 		const headStyle = {

@@ -12,6 +12,7 @@ const Player: Entity = {
 		title: 'Player',
 	},
 
+	objectId: 0,
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'actor',
@@ -75,7 +76,10 @@ const Player: Entity = {
 
 	simpleRender(size) {
 		return (
-			<div className="Player-bg bg-cover" style={{ width: size, height: size }} />
+			<div
+				className="Player-bg bg-cover"
+				style={{ width: size, height: size }}
+			/>
 		);
 	},
 

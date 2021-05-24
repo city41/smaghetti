@@ -79,7 +79,7 @@ const WoodBlock: Entity = {
 
 			return binaries;
 		} else {
-			return [getBankParam1(1, w), y, x, this.objectId!, h];
+			return [getBankParam1(1, w), y, x, this.objectId, h];
 		}
 	},
 
