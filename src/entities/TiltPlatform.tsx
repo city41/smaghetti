@@ -1,5 +1,4 @@
 import type { Entity } from './types';
-import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
@@ -22,14 +21,14 @@ const TiltPlatform: Entity = {
 	dimensions: 'none',
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, this.objectId!);
+		return [0, this.objectId!, x, y];
 	},
 
 	simpleRender(size) {
 		const style = { width: size, height: size };
 		const ballStyle = {
 			width: size / 5,
-			height: size / 5 * 2,
+			height: (size / 5) * 2,
 		};
 		return (
 			<div className="flex flex-row items-center" style={style}>

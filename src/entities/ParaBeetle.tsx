@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Entity } from './types';
-import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
 
@@ -44,7 +43,7 @@ const ParaBeetle: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, this.objectId!);
+		return [0, this.objectId!, x, y];
 	},
 
 	simpleRender(size) {

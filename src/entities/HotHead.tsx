@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Entity } from './types';
-import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
@@ -57,7 +56,7 @@ const HotHead: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, this.objectId!);
+		return [0, this.objectId!, x, y];
 	},
 
 	simpleRender(size) {
@@ -69,7 +68,10 @@ const HotHead: Entity = {
 		};
 
 		return (
-      <div className="relative HotHead-bg bg-cover" style={{ width: size, height: size }}>
+			<div
+				className="relative HotHead-bg bg-cover"
+				style={{ width: size, height: size }}
+			>
 				<div className="absolute HotHeadEyes-bg bg-cover" style={eyesStyle} />
 			</div>
 		);

@@ -1,5 +1,4 @@
 import type { Entity } from './types';
-import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_OBJECT_SET } from './constants';
@@ -53,12 +52,15 @@ const Spiny: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, this.objectId!);
+		return [0, this.objectId!, x, y];
 	},
 
 	simpleRender(size) {
 		return (
-			<div className="Spiny-bg bg-cover" style={{ width: size, height: size }} />
+			<div
+				className="Spiny-bg bg-cover"
+				style={{ width: size, height: size }}
+			/>
 		);
 	},
 

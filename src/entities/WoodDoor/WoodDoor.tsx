@@ -4,7 +4,7 @@ import { TILE_SIZE } from '../../tiles/constants';
 import { TileSpace } from '../TileSpace';
 import { TransportSource } from '../../components/Transport/TransportSource';
 import { TransportEditDetails } from '../../components/details/TransportEditDetails';
-import { encodeObjectSets, simpleSpriteBinary } from '../util';
+import { encodeObjectSets } from '../util';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
 
@@ -81,7 +81,7 @@ const WoodDoor: Entity = {
 
 	toSpriteBinary(x, y, _w, _h, settings) {
 		if (settings.locked) {
-			return simpleSpriteBinary(x, y, DOOR_LOCK_OBJECT_ID);
+			return [0, DOOR_LOCK_OBJECT_ID, x, y];
 		} else {
 			return [];
 		}

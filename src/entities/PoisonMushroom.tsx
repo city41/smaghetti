@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Entity } from './types';
-import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
@@ -18,7 +17,7 @@ const PoisonMushroom: Entity = {
 	objectId: 0xf1,
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, this.objectId!);
+		return [0, this.objectId!, x, y];
 	},
 
 	simpleRender(size) {

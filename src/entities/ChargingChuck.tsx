@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Entity } from './types';
-import { simpleSpriteBinary } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
@@ -19,12 +18,16 @@ const ChargingChuck: Entity = {
 	objectId: 0x9b,
 
 	toSpriteBinary(x, y) {
-		return simpleSpriteBinary(x, y, this.objectId!);
+		return [0, this.objectId!, x, y];
 	},
 
 	simpleRender(size) {
 		const style = { width: size, height: size };
-		const headStyle = { width: size * 0.66, height: size * 0.66, left: size / 6 };
+		const headStyle = {
+			width: size * 0.66,
+			height: size * 0.66,
+			left: size / 6,
+		};
 		const bodyStyle = { width: size, height: size * 0.66, top: size / 3 };
 
 		return (
