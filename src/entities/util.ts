@@ -49,8 +49,7 @@ export function scaledEntityRender(entityType: EntityType, scale = 1) {
 	const entityHeight = heightInTiles * TILE_SIZE * scale;
 	const size = Math.max(entityWidth, entityHeight);
 
-	// TODO: simpleRender should take a single size parameter
-	return entityDef.simpleRender(size, size);
+	return entityDef.simpleRender(size);
 }
 
 export function encodeObjectSets(sets: number[][]): number[] {

@@ -58,10 +58,10 @@ const Bowser: Entity = {
 		return [1, this.objectId!, x, y, 0, 0];
 	},
 
-	simpleRender(width, height) {
+	simpleRender(size) {
 		const style = {
-			width,
-			height,
+      width: size,
+      height: size,
 			backgroundSize: `${(4 / 5) * 100}% 100%`,
 			backgroundPosition: 'center center',
 		};

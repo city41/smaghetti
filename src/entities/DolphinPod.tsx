@@ -24,8 +24,8 @@ const DolphinPod: Entity = {
 		return [1, this.objectId!, x, y];
 	},
 
-	simpleRender(width, height) {
-		const style = { width, height, backgroundSize: '100% 50%' };
+	simpleRender(size) {
+    const style = { width: size, height: size, backgroundSize: '100% 50%' };
 		return (
 			<div
 				className="HorizontalDolphin-bg bg-center bg-no-repeat"

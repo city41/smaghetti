@@ -42,8 +42,8 @@ const Fishbone: Entity = {
 		return [0, this.objectId!, x, y];
 	},
 
-	simpleRender(width, height) {
-		const style = { width, height, backgroundSize: '100% 66%' };
+	simpleRender(size) {
+    const style = { width: size, height: size, backgroundSize: '100% 66%' };
 		return <div className="Fishbone-bg bg-center bg-no-repeat" style={style} />;
 	},
 

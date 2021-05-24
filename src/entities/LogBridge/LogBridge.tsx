@@ -51,11 +51,11 @@ const LogBridge: Entity = {
 		return [getBankParam1(1, w), y, x, this.objectId!];
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
 			<div
 				className="LogBridge-bg bg-cover"
-				style={{ width: mw, height: mh }}
+				style={{ width: size, height: size }}
 			/>
 		);
 	},

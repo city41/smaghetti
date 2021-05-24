@@ -57,17 +57,17 @@ const CeilingSpiny: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
 			<div
 				className="Spiny-bg bg-cover"
-				style={{ width: mw, height: mh, transform: 'scale(1, -1)' }}
+				style={{ width: size, height: size, transform: 'scale(1, -1)' }}
 			/>
 		);
 	},
 
 	render() {
-		return this.simpleRender!(TILE_SIZE, TILE_SIZE);
+		return this.simpleRender!(TILE_SIZE);
 	},
 };
 

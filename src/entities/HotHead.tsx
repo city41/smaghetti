@@ -60,16 +60,16 @@ const HotHead: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(width, height) {
+	simpleRender(size) {
 		const eyesStyle = {
-			width: width / 4,
-			height: height / 4,
-			left: width / 2,
-			top: height / 4,
+			width: size / 4,
+			height: size / 4,
+			left: size / 2,
+			top: size / 4,
 		};
 
 		return (
-			<div className="relative HotHead-bg bg-cover" style={{ width, height }}>
+      <div className="relative HotHead-bg bg-cover" style={{ width: size, height: size }}>
 				<div className="absolute HotHeadEyes-bg bg-cover" style={eyesStyle} />
 			</div>
 		);

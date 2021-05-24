@@ -81,14 +81,14 @@ const OneWayDoor: Entity = {
 		}
 	},
 
-	simpleRender(width, height) {
+	simpleRender(size) {
 		const singleFlipperStyle = {
-			width: (width * 3) / 8,
-			height: height / 2,
+			width: (size * 3) / 8,
+			height: size / 2,
 		};
 		const containerStyle = {
-			width: (width * 3) / 8,
-			height,
+			width: (size * 3) / 8,
+			size,
 			transform: 'scale(-1, 1)',
 		};
 

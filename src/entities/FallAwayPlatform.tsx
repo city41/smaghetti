@@ -46,8 +46,8 @@ const FallAwayPlatform: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(mw, mh) {
-		const style = { width: mw, height: mh, backgroundSize: '100% 25%' };
+	simpleRender(size) {
+		const style = { width: size, height: size, backgroundSize: '100% 25%' };
 		return (
 			<div
 				className="FallAwayPlatform-bg bg-center bg-no-repeat"

@@ -56,14 +56,14 @@ const Bobomb: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
-			<div className="Bobomb-bg bg-cover" style={{ width: mw, height: mh }} />
+			<div className="Bobomb-bg bg-cover" style={{ width: size, height: size }} />
 		);
 	},
 
 	render() {
-		return this.simpleRender!(TILE_SIZE, TILE_SIZE);
+		return this.simpleRender!(TILE_SIZE);
 	},
 };
 

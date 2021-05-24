@@ -53,17 +53,17 @@ const DownFortressSpike: Entity = {
 		return [getBankParam1(1, w), y, x, this.objectId!];
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
 			<div
 				className="DownFortressSpike-bg bg-cover"
-				style={{ width: mw, height: mh }}
+				style={{ width: size, height: size }}
 			/>
 		);
 	},
 
 	render() {
-		return this.simpleRender!(TILE_SIZE, TILE_SIZE);
+		return this.simpleRender!(TILE_SIZE);
 	},
 };
 

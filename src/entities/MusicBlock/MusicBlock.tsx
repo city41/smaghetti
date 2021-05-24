@@ -82,11 +82,11 @@ const MusicBlock: Entity = {
 		}
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
 			<div
 				className="MusicBlock-bg bg-cover"
-				style={{ width: mw, height: mh }}
+				style={{ width: size, height: size }}
 			/>
 		);
 	},

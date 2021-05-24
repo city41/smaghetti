@@ -25,8 +25,8 @@ const InvisibleBlock: Entity = {
 		return [0, y, x, this.objectId!];
 	},
 
-	simpleRender(width, height) {
-		return <div style={{ width, height, border: '2px dotted white' }} />;
+	simpleRender(size) {
+    return <div style={{ width: size, height: size, border: '2px dotted white' }} />;
 	},
 
 	render() {

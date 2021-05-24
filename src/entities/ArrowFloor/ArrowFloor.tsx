@@ -82,12 +82,12 @@ const ArrowFloor: Entity = {
 		return [getBankParam1(1, w), y, x, this.objectId!];
 	},
 
-	simpleRender(width, height) {
-		return <div className="ArrowFloor-bg bg-cover" style={{ width, height }} />;
+	simpleRender(size) {
+    return <div className="ArrowFloor-bg bg-cover" style={{ width: size, height: size }} />;
 	},
 
 	render() {
-		return this.simpleRender!(TILE_SIZE, TILE_SIZE);
+		return this.simpleRender!(TILE_SIZE);
 	},
 };
 

@@ -57,11 +57,11 @@ const MetalBrick: Entity = {
 		return [getBankParam1(1, w), y, x, this.objectId!, h];
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
 			<div
 				className="MetalBrick-bg bg-cover"
-				style={{ width: mw, height: mh }}
+				style={{ width: size, height: size }}
 			/>
 		);
 	},

@@ -73,13 +73,13 @@ const BoomBoom: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
 			<div
 				className="BoomBoom-bg bg-cover bg-no-repeat bg-center"
 				style={{
-					width: mw,
-					height: mh,
+					width: size,
+					height: size,
 					backgroundSize: '100% 66%',
 				}}
 			/>

@@ -52,10 +52,10 @@ const GreenKoopaTroopa: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		const style = {
-			width: mw,
-			height: mh,
+			width: size,
+			height: size,
 			backgroundSize: '50% 100%',
 		};
 

@@ -59,11 +59,11 @@ const TriangularBlock: Entity = {
 		return [0, y, x, angleToObjectId[(settings.angle ?? 0) as number]];
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
 			<div
 				className="TriangularBlock-bg bg-cover"
-				style={{ width: mw, height: mh }}
+				style={{ width: size, height: size }}
 			/>
 		);
 	},

@@ -69,11 +69,11 @@ const ConveyorBelt: Entity = {
 		return [getBankParam1(1, width - 1), y, x, this.objectId!];
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
 			<div
 				className="ConveyorBelt-bg bg-cover"
-				style={{ width: mw, height: mh }}
+				style={{ width: size, height: size }}
 			/>
 		);
 	},

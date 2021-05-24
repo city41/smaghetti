@@ -52,10 +52,10 @@ const BowserLaserStatue: Entity = {
 		return [0, y, x, this.objectId!];
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		const style = {
-			width: mw,
-			height: mh,
+			width: size,
+			height: size,
 			backgroundSize: '50% 100%',
 		};
 

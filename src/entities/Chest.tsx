@@ -89,9 +89,9 @@ const Chest: Entity = {
 		}
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
-			<div className="Chest-bg bg-cover" style={{ width: mw, height: mh }} />
+			<div className="Chest-bg bg-cover" style={{ width: size, height: size }} />
 		);
 	},
 

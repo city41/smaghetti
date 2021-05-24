@@ -63,8 +63,8 @@ const FluffyCloud: Entity = {
 		return [getBankParam1(1, 2), y, x, this.objectId!];
 	},
 
-	simpleRender(width, height) {
-		const style = { width, height, backgroundSize: '100% 75%' };
+	simpleRender(size) {
+    const style = { width: size, height: size, backgroundSize: '100% 75%' };
 		return (
 			<div className="FluffyCloud-bg bg-no-repeat bg-center" style={style} />
 		);

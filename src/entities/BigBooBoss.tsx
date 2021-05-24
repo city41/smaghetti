@@ -23,32 +23,32 @@ const BigBooBoss: Entity = {
 		return [1, this.objectId!, x, y];
 	},
 
-	simpleRender(width, height) {
+	simpleRender(size) {
 		const style = {
-			width,
-			height,
+      width: size,
+      height: size,
 			backgroundSize: '100%',
 			backgroundPosition: '0 0',
 		};
 		const tailStyle = {
-			width: width / 2,
-			height: height / 2,
+			width: size / 2,
+			height: size / 2,
 			bottom: 1,
 			right: 0,
 		};
 
 		const faceStyle = {
-			width: width / 4,
-			height: height / 2,
-			top: height / 4,
-			left: width / 8,
+			width: size / 4,
+			height: size / 2,
+			top: size / 4,
+			left: size / 8,
 		};
 
 		const armStyle = {
-			width: width / 4,
-			height: height / 4,
-			top: height / 3,
-			left: width / 2,
+			width: size / 4,
+			height: size / 4,
+			top: size / 3,
+			left: size / 2,
 		};
 
 		return (

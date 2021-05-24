@@ -23,11 +23,11 @@ const WaterCheepCheep: Entity = {
 		return [0, this.objectId!, x, y];
 	},
 
-	simpleRender(width, height) {
+	simpleRender(size) {
 		return (
 			<div
 				className="relative GreenCheepCheep-bg bg-cover"
-				style={{ width, height }}
+        style={{ width: size, height: size }}
 			>
 				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
 					water

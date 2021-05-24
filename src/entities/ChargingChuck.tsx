@@ -22,10 +22,10 @@ const ChargingChuck: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(mw, mh) {
-		const style = { width: mw, height: mh };
-		const headStyle = { width: mw * 0.66, height: mh * 0.66, left: mw / 6 };
-		const bodyStyle = { width: mw, height: mh * 0.66, top: mw / 3 };
+	simpleRender(size) {
+		const style = { width: size, height: size };
+		const headStyle = { width: size * 0.66, height: size * 0.66, left: size / 6 };
+		const bodyStyle = { width: size, height: size * 0.66, top: size / 3 };
 
 		return (
 			<div className="relative" style={style}>

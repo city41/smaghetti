@@ -32,7 +32,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 	disabled,
 }) => {
 	const entityDef = entityMap[entry];
-	const item = entityDef.simpleRender(50, 50);
+	const item = entityDef.simpleRender(50);
 
 	return (
 		<div

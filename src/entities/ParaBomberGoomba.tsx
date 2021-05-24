@@ -50,36 +50,36 @@ const ParaBomberGoomba: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
 			<div
 				className="relative ParaBomberGoomba-bg bg-cover"
-				style={{ width: mw, height: mh }}
+				style={{ width: size, height: size }}
 			>
 				<div
 					className="ParaWing-bg bg-cover absolute"
 					style={{
-						width: mw / 2,
-						height: mh,
-						right: (-mw * 1) / 5,
-						top: (-mh * 2) / 3,
+						width: size / 2,
+						height: size,
+						right: (-size * 1) / 5,
+						top: (-size * 2) / 3,
 					}}
 				/>
 				<div
 					className="ParaWing-bg bg-cover absolute"
 					style={{
-						width: mw / 2,
-						height: mh,
-						left: (-mw * 1) / 5,
-						top: (-mh * 2) / 3,
+						width: size / 2,
+						height: size,
+						left: (-size * 1) / 5,
+						top: (-size * 2) / 3,
 						transform: 'scale(-1, 1)',
 					}}
 				/>
 				<div
 					className="PileDriverMiniGoomba-bg bg-cover absolute bg-black"
 					style={{
-						width: mw / 4,
-						height: mh / 4,
+						width: size / 4,
+						height: size / 4,
 						right: -1,
 						bottom: -1,
 					}}
@@ -89,7 +89,7 @@ const ParaBomberGoomba: Entity = {
 	},
 
 	render() {
-		return this.simpleRender!(TILE_SIZE, TILE_SIZE);
+		return this.simpleRender!(TILE_SIZE);
 	},
 };
 

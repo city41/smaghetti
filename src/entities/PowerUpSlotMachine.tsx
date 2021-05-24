@@ -48,9 +48,9 @@ const PowerUpSlotMachine: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
-			<div className="relative" style={{ width: mw, height: mh }}>
+			<div className="relative" style={{ width: size, height: size }}>
 				<div className="absolute top-0 left-0 w-full h-full Mushroom-bg bg-cover opacity-50" />
 				<div className="absolute top-0 left-0 w-full h-full PowerUpSlotMachine-bg bg-cover" />
 			</div>
@@ -58,7 +58,7 @@ const PowerUpSlotMachine: Entity = {
 	},
 
 	render() {
-		return this.simpleRender!(TILE_SIZE, TILE_SIZE);
+		return this.simpleRender!(TILE_SIZE);
 	},
 };
 

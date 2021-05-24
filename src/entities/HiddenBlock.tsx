@@ -57,8 +57,8 @@ const HiddenBlock: Entity = {
 		return [0, y, x, objectId!];
 	},
 
-	simpleRender(mw, mh) {
-		const style = { width: mw, height: mh };
+	simpleRender(size) {
+		const style = { width: size, height: size };
 		return (
 			<div
 				className="border-green-400 border-2 border-dashed grid place-items-center font-xl font-bold"

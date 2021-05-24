@@ -70,15 +70,15 @@ const CardSlotMachine: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
 			<div
 				className="CardSlotMachine-bg bg-cover bg-no-repeat"
 				style={{
-					width: mw,
-					height: mh,
-					backgroundPosition: '-4px -4px',
-					backgroundSize: 'calc(100% + 8px)',
+					width: size,
+					height: size,
+					backgroundPosition: '-8% -8%',
+					backgroundSize: '100%',
 				}}
 			/>
 		);

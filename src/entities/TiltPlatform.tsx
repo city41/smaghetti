@@ -25,11 +25,11 @@ const TiltPlatform: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(mw, mh) {
-		const style = { width: mw, height: mh };
+	simpleRender(size) {
+		const style = { width: size, height: size };
 		const ballStyle = {
-			width: Math.min(mw, mh) / 5,
-			height: (Math.min(mw, mh) / 5) * 2,
+			width: size / 5,
+			height: size / 5 * 2,
 		};
 		return (
 			<div className="flex flex-row items-center" style={style}>

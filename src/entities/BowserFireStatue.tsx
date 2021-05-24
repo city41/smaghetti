@@ -28,15 +28,15 @@ const BowserFireStatue: Entity = {
 		return [0, this.objectId!, x, y, 1];
 	},
 
-	simpleRender(width, height) {
+	simpleRender(size) {
 		const style = {
-			width,
-			height,
+      width: size,
+      height: size,
 		};
 
 		const headStyle = {
-			width: (width * 2) / 3,
-			height: (height * 2) / 3,
+			width: (size * 2) / 3,
+			height: (size * 2) / 3,
 		};
 
 		return (

@@ -84,9 +84,9 @@ const Lava: Entity = {
 		return [getBankParam1(1, h), y, x, this.objectId!, w];
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
-			<div className="Lava-bg bg-cover" style={{ width: mw, height: mh }} />
+			<div className="Lava-bg bg-cover" style={{ width: size, height: size }} />
 		);
 	},
 

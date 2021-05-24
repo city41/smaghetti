@@ -48,46 +48,46 @@ const Flutter: Entity = {
 		return [1, this.objectId!, x, y];
 	},
 
-	simpleRender(width, height) {
+	simpleRender(size) {
 		const style = {
-			width,
-			height,
+      width: size,
+      height: size,
 		};
 
 		const leftWingStyle = {
-			width: width / 1.5,
-			height: height * 0.75,
-			left: -width / 6,
-			top: height / 8,
+			width: size / 1.5,
+			height: size * 0.75,
+			left: -size / 6,
+			top: size / 8,
 			transform: 'scale(-1, 1)',
 		};
 
 		const rightWingStyle = {
-			width: width / 1.5,
-			height: height * 0.75,
-			top: height * 0.125,
-			right: -width * 0.25,
+			width: size / 1.5,
+			height: size * 0.75,
+			top: size * 0.125,
+			right: -size * 0.25,
 		};
 
 		const headStyle = {
-			width: width / 1.5,
-			height: height / 2,
-			top: height / 4,
-			left: width * 0.25,
+			width: size / 1.5,
+			height: size / 2,
+			top: size / 4,
+			left: size * 0.25,
 		};
 
 		const bodyStyle = {
-			width: width / 1.5,
-			height: height / 2,
+			width: size / 1.5,
+			height: size / 2,
 			bottom: 0,
 			right: 0,
 		};
 
 		const flowerStyle = {
-			width: width / 3,
-			height: height / 4,
-			top: height / 8,
-			left: width / 2,
+			width: size / 3,
+			height: size / 4,
+			top: size / 8,
+			left: size / 2,
 		};
 
 		return (

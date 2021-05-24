@@ -55,7 +55,7 @@ function CompatibilityPage({
 			<Root title="Compatibility" metaDescription="">
 				<div className="max-w-2xl mx-auto pt-16">
 					<div className="grid place-items-center">
-						{entityDef.simpleRender(80, 80)}
+						{entityDef.simpleRender(80)}
 					</div>
 					<h1 className="font-bold text-2xl text-center mt-4">
 						{entityDef.paletteInfo.title} Compatibility
@@ -85,7 +85,7 @@ function CompatibilityPage({
 									key={et}
 									className="w-24 h-32 bg-gray-600 m-2 flex flex-col items-center justify-center p-2 space-y-2"
 								>
-									<div>{entityMap[et].simpleRender(50, 50)}</div>
+									<div>{entityMap[et].simpleRender(50)}</div>
 									<div className="text-xs text-center">
 										{def.paletteInfo.title}
 									</div>
@@ -112,7 +112,7 @@ function CompatibilityPage({
 									key={et}
 									className="w-24 h-32 bg-gray-600 m-2 flex flex-col items-center justify-center p-2 space-y-2"
 								>
-									<div>{entityMap[et].simpleRender(50, 50)}</div>
+									<div>{entityMap[et].simpleRender(50)}</div>
 									<div className="text-xs text-center">
 										{def.paletteInfo.title}
 									</div>

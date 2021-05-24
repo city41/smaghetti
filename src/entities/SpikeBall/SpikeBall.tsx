@@ -62,11 +62,11 @@ const SpikeBall: Entity = {
 		return [0, y, x, this.objectId!];
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
 			<div
 				className="SpikeBall-bg bg-cover"
-				style={{ width: mw, height: mh }}
+				style={{ width: size, height: size }}
 			/>
 		);
 	},

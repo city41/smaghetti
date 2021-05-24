@@ -61,10 +61,10 @@ const StretchBlock: Entity = {
 		return [0, objectId, x, y];
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		const style = {
-			width: mw,
-			height: mh,
+			width: size,
+			height: size,
 			backgroundPositionY: 'center',
 			backgroundRepeat: 'repeat-x',
 			backgroundSize: '20%',

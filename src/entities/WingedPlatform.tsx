@@ -49,29 +49,29 @@ const WingedPlatform: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(width, height) {
+	simpleRender(size) {
 		const style = {
-			width,
-			height,
-			paddingLeft: width / 4,
-			paddingRight: width / 4,
-			paddingTop: height / 4,
-			paddingBottom: height / 4,
+			width: size,
+			height: size,
+			paddingLeft: size / 4,
+			paddingRight: size / 4,
+			paddingTop: size / 4,
+			paddingBottom: size / 4,
 		};
-		const blockStyle = { width: width / 4, height: width / 4 };
+		const blockStyle = { width: size / 4, height: size / 4 };
 
 		const leftWingStyle = {
-			width: width / 4,
-			height: height / 4,
-			left: (width / 64) * 3,
-			top: (height / 64) * 3,
+			width: size / 4,
+			height: size / 4,
+			left: (size / 64) * 3,
+			top: (size / 64) * 3,
 			transform: 'scale(-1, 1)',
 		};
 		const rightWingStyle = {
-			width: width / 4,
-			height: height / 4,
-			right: (width / 64) * 3,
-			top: (height / 64) * 3,
+			width: size / 4,
+			height: size / 4,
+			right: (size / 64) * 3,
+			top: (size / 64) * 3,
 		};
 
 		return (

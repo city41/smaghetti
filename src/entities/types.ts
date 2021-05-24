@@ -108,7 +108,7 @@ type Entity = {
 		settings: EditorEntitySettings
 	) => EditorTransport[];
 
-	simpleRender: (maxWidth: number, maxHeight: number) => ReactElement;
+	simpleRender: (size: number) => ReactElement;
 
 	render: (
 		showDetails: boolean,

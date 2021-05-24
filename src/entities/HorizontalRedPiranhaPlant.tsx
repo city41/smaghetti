@@ -55,8 +55,8 @@ const HorizontalRedPiranhaPlant: Entity = {
 		return [0, this.objectId!, x, y, 1];
 	},
 
-	simpleRender(mw, mh) {
-		const style = { width: mw, height: mh, backgroundSize: '100% 66%' };
+	simpleRender(size) {
+		const style = { width: size, height: size, backgroundSize: '100% 66%' };
 		return (
 			<div
 				className="HorizontalRedPiranhaPlant-bg bg-center bg-no-repeat"

@@ -47,29 +47,29 @@ const PileDriverMiniGoomba: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(mw, mh) {
-		const style = { width: mw, height: mh };
+	simpleRender(size) {
+		const style = { width: size, height: size };
 
 		return (
 			<div className="relative" style={style}>
 				<div
 					className="absolute PileDriverMiniGoomba-bg bg-cover bg-no-repeat bottom-0"
 					style={{
-						left: mw / 4,
-						width: mw / 2,
-						height: mh / 2,
+						left: size / 4,
+						width: size / 2,
+						height: size / 2,
 					}}
 				/>
 				<div
 					className="absolute Brick-bg bg-cover bg-no-repeat w-full h-full left-0"
-					style={{ top: -4 }}
+					style={{ top: '-8%' }}
 				/>
 				<div
 					className="absolute PileDriverMiniGoomba-bg bg-cover bg-no-repeat bottom-0 opacity-25"
 					style={{
-						left: mw / 4,
-						width: mw / 2,
-						height: mh / 2,
+						left: size / 4,
+						width: size / 2,
+						height: size / 2,
 					}}
 				/>
 			</div>

@@ -48,10 +48,10 @@ const FireBar: Entity = {
 		return [0, this.objectId!, x, y, 3];
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		const style = {
-			width: mw,
-			height: mh,
+			width: size,
+			height: size,
 			backgroundSize: '100%',
 		};
 

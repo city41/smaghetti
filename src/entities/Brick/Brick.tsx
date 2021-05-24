@@ -86,9 +86,9 @@ const Brick: Entity = {
 		}
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		return (
-			<div className="Brick-bg bg-cover" style={{ width: mw, height: mh }} />
+			<div className="Brick-bg bg-cover" style={{ width: size, height: size }} />
 		);
 	},
 

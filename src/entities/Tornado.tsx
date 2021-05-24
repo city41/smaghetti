@@ -56,10 +56,10 @@ const Tornado: Entity = {
 		return simpleSpriteBinary(x, y, this.objectId!);
 	},
 
-	simpleRender(mw, mh) {
+	simpleRender(size) {
 		const style = {
-			width: mw,
-			height: mh,
+			width: size,
+			height: size,
 		};
 
 		const dotStyle = {
@@ -67,7 +67,7 @@ const Tornado: Entity = {
 			height: TILE_SIZE / 2,
 		};
 
-		const scale = Math.min(mw, mh) / (TILE_SIZE * 7);
+		const scale = size / (TILE_SIZE * 7);
 
 		return (
 			<div
@@ -81,7 +81,7 @@ const Tornado: Entity = {
 						style={{
 							...dotStyle,
 							top: p.y * scale,
-							left: mw / 4 + p.x * scale,
+							left: size / 4 + p.x * scale,
 						}}
 					/>
 				))}
