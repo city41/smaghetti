@@ -49,6 +49,18 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="FireBar Details Pane" date="2021-05-24">
+					<p>FireBar can now be fully configured.</p>
+					<ul className="ml-8 list-disc">
+						<li>Rotate clockwise or counter-clockwise</li>
+						<li>Pivot point at the end or in the center</li>
+						<li>Number of fireballs</li>
+					</ul>
+					<p>
+						The details pane is pretty ugly, but that&apos;s true of all detail
+						panes :) Making them look nicer is on the TODO list.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-22">
 					<ul className="ml-8 list-disc">
 						<li>Hopping Bowser Statue</li>
