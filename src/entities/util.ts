@@ -95,7 +95,7 @@ export function determineValidGraphicAndObjectSetValues(
 			}
 		}
 
-		if (def.objectSets) {
+		if (def.objectSets && def.objectSets[0] !== -1) {
 			if (isEqual(currentValidObjectSets, [-1])) {
 				currentValidObjectSets = [...def.objectSets];
 			} else {
