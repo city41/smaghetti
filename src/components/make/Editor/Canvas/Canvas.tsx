@@ -68,7 +68,7 @@ function getTranslation(scale: number): string {
 type MatrixRowProps = {
 	cells: EditorEntityRow;
 	locked: boolean;
-	matrix: EditorEntityMatrix;
+	room: RoomState;
 	y: number;
 	focused: Record<number, boolean>;
 	dragOffset: Point | null;
@@ -81,7 +81,7 @@ type MatrixRowProps = {
 const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 	cells,
 	locked,
-	matrix,
+	room,
 	y,
 	focused,
 	dragOffset,
@@ -114,7 +114,7 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 					<Entity
 						id={c.id}
 						entity={c}
-						matrix={matrix}
+						room={room}
 						focused={isFocused}
 						soleFocused={isFocused && focusCount === 1}
 						settings={c.settings}
@@ -148,7 +148,7 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 						<Entity
 							id={c.id}
 							entity={c}
-							matrix={matrix}
+							room={room}
 							focused
 							dragging
 							settings={c.settings}
@@ -172,6 +172,7 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 
 type EntitiesProps = {
 	entities: EditorEntity[];
+	room: RoomState;
 	locked: boolean;
 	mouseMode: MouseMode;
 	focused: Record<number, boolean>;
@@ -185,6 +186,7 @@ type EntitiesProps = {
 
 const Entities = memo(function Entities({
 	entities,
+	room,
 	locked,
 	mouseMode,
 	focused,
@@ -219,7 +221,7 @@ const Entities = memo(function Entities({
 						}}
 						id={e.id}
 						entity={e}
-						matrix={[]}
+						room={room}
 						settings={e.settings}
 						focused={isFocused}
 						soleFocused={isFocused && focusCount === 1}
@@ -248,7 +250,7 @@ const Entities = memo(function Entities({
 							dragging
 							id={e.id}
 							entity={e}
-							matrix={[]}
+							room={room}
 							settings={e.settings}
 							onEntitySettingsChange={() => {}}
 						/>
@@ -376,7 +378,7 @@ const Canvas = memo(function Canvas({
 					key={y}
 					cells={row}
 					locked={stage.locked}
-					matrix={stage.matrix}
+					room={rooms[currentRoomIndex]}
 					y={y}
 					focused={focused}
 					dragOffset={dragOffset}
@@ -392,7 +394,7 @@ const Canvas = memo(function Canvas({
 					key={y}
 					cells={row}
 					locked={actors.locked}
-					matrix={actors.matrix}
+					room={rooms[currentRoomIndex]}
 					y={y}
 					focused={focused}
 					dragOffset={dragOffset}
@@ -489,6 +491,7 @@ const Canvas = memo(function Canvas({
 				{stageMatrixRows}
 				<Entities
 					entities={stage.entities}
+					room={rooms[currentRoomIndex]}
 					locked={stage.locked}
 					focused={focused}
 					isSelecting={isSelecting}
@@ -499,6 +502,7 @@ const Canvas = memo(function Canvas({
 				{actorMatrixRows}
 				<Entities
 					entities={actors.entities}
+					room={rooms[currentRoomIndex]}
 					locked={actors.locked}
 					focused={focused}
 					isSelecting={isSelecting}

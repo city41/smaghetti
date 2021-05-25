@@ -3,11 +3,12 @@ import clsx from 'clsx';
 import { entityMap } from '../../entities/entityMap';
 
 import focusedStyles from '../../styles/focused.module.css';
+import { RoomState } from '../make/editorSlice';
 
 type EntityProps = {
 	className?: string;
 	entity: EditorEntity;
-	matrix: EditorEntityMatrix;
+	room?: RoomState;
 	scale?: number;
 	id?: number;
 	style?: CSSProperties;
@@ -24,7 +25,7 @@ function Entity(props: EntityProps) {
 		className,
 		style,
 		entity,
-		matrix,
+		room,
 		settings,
 		focused,
 		soleFocused,
@@ -38,7 +39,7 @@ function Entity(props: EntityProps) {
 		settings ?? {},
 		onEntitySettingsChange,
 		entity,
-		matrix
+		room
 	);
 
 	return (

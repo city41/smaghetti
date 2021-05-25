@@ -4,16 +4,17 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import clsx from 'clsx';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { RoomState } from '../components/make/editorSlice';
 
 function isLavaAbove(
 	entity: EditorEntity | undefined,
-	matrix: EditorEntityMatrix | undefined
+	room: RoomState | undefined
 ): boolean {
-	if (!entity || !matrix) {
+	if (!entity || !room) {
 		return false;
 	}
 
-	const cellAbove = matrix[entity.y - 1]?.[entity.x];
+	const cellAbove = room.stage.matrix[entity.y - 1]?.[entity.x];
 
 	if (!cellAbove) {
 		return false;
@@ -90,8 +91,8 @@ const Lava: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _osc, entity, matrix) {
-		const lavaAbove = isLavaAbove(entity, matrix);
+	render(_showDetails, _settings, _osc, entity, room) {
+		const lavaAbove = isLavaAbove(entity, room);
 
 		const style = {
 			width: TILE_SIZE,
@@ -103,7 +104,7 @@ const Lava: Entity = {
 			<div
 				style={style}
 				className={clsx({
-					'Lava-bg bg-cover': !isLavaAbove(entity, matrix),
+					'Lava-bg bg-cover': !isLavaAbove(entity, room),
 				})}
 			/>
 		);
