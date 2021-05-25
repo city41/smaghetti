@@ -94,35 +94,42 @@ function CompatibilityPage({
 						})}
 					</div>
 					<h2 className="text-xl font-bold flex flex-row items-center space-x-2 mb-4 mt-16">
-						and incompatible with
+						{incompatibleTypes.length === 0
+							? 'and has no incompatibilities'
+							: 'and incompatible with'}
 					</h2>
-					<div className="flex flex-row flex-wrap justify-center h-72 overflow-y-auto">
-						{incompatibleTypes.map((et) => {
-							const def = entityMap[et];
+					{incompatibleTypes.length > 0 && (
+						<>
+							<div className="flex flex-row flex-wrap justify-center h-72 overflow-y-auto">
+								{incompatibleTypes.map((et) => {
+									const def = entityMap[et];
 
-							if (
-								!def.paletteCategory ||
-								def.paletteCategory === 'unfinished'
-							) {
-								return null;
-							}
+									if (
+										!def.paletteCategory ||
+										def.paletteCategory === 'unfinished'
+									) {
+										return null;
+									}
 
-							return (
-								<div
-									key={et}
-									className="w-24 h-32 bg-gray-600 m-2 flex flex-col items-center justify-center p-2 space-y-2"
-								>
-									<div>{entityMap[et].simpleRender(50)}</div>
-									<div className="text-xs text-center">
-										{def.paletteInfo.title}
-									</div>
-								</div>
-							);
-						})}
-					</div>
-					<p className="-mx-2 p-2 bg-green-700 my-8 text-center">
-						Compatibility may improve as we learn more about how the game works
-					</p>
+									return (
+										<div
+											key={et}
+											className="w-24 h-32 bg-gray-600 m-2 flex flex-col items-center justify-center p-2 space-y-2"
+										>
+											<div>{entityMap[et].simpleRender(50)}</div>
+											<div className="text-xs text-center">
+												{def.paletteInfo.title}
+											</div>
+										</div>
+									);
+								})}
+							</div>
+							<p className="-mx-2 p-2 bg-green-700 my-8 text-center">
+								Compatibility may improve as we learn more about how the game
+								works
+							</p>
+						</>
+					)}
 				</div>
 			</Root>
 		</>
