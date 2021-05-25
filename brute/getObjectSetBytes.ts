@@ -36,25 +36,29 @@ const rom = fs.readFileSync(path.join(__dirname, './sma4.gba'));
 const canvas = createCanvas(240, 160);
 
 // TODO: nothing changes here, no longer needs to be a function
-function getRoom() {
+function getRoom(): RoomData {
 	return {
 		settings: {
 			...ROOM_TYPE_SETTINGS.underground,
 		},
 		paletteEntries: [],
-		entities: [
-			{
-				id: 1,
-				type: 'ArrowSign',
-				x: 0,
-				y: 0,
-			},
-		],
-		matrixLayer: {
-			width: INITIAL_ROOM_TILE_WIDTH,
-			height: INITIAL_ROOM_TILE_HEIGHT,
-			data: [[]],
+		actors: {
+			entities: [
+				{
+					id: 1,
+					type: 'ArrowSign',
+					x: 0,
+					y: 0,
+				},
+			],
+			matrix: [],
 		},
+		stage: {
+			entities: [],
+			matrix: [],
+		},
+		roomTileWidth: INITIAL_ROOM_TILE_WIDTH,
+		roomTileHeight: INITIAL_ROOM_TILE_HEIGHT,
 	};
 }
 
