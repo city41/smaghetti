@@ -671,7 +671,7 @@ function findCellEntity(
 // TODO: ace coins can also be payloads in bubbles, need to account for those
 function assignAceCoinIndices(rooms: RoomState[]) {
 	const allEntities = rooms.reduce<EditorEntity[]>((building, room) => {
-		return building.concat(room.actors.entities);
+		return building.concat(room.actors.entities, room.stage.entities);
 	}, []);
 
 	let aceCoinIndex = 0;
@@ -1234,6 +1234,8 @@ const editorSlice = createSlice({
 			});
 
 			idCounter = maxId;
+
+			assignAceCoinIndices(state.rooms);
 		},
 		pan(state: InternalEditorState, action: PayloadAction<Point>) {
 			const currentRoom = getCurrentRoom(state);
