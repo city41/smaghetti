@@ -132,6 +132,7 @@ import { UndergroundFlatTerrain_VerticalLeft } from './UndergroundFlatTerrain_Ve
 import { UndergroundFlatTerrain_VerticalRight } from './UndergroundFlatTerrain_VerticalRight';
 import { Vine } from './Vine';
 import { WaterCheepCheep } from './WaterCheepCheep';
+import { Waterfall } from './Waterfall';
 import { WingedPlatform } from './WingedPlatform';
 import { WoodBlock } from './WoodBlock';
 import { WoodDoor } from './WoodDoor';
@@ -274,6 +275,7 @@ const entityMap = {
 	UndergroundFlatTerrain_VerticalRight,
 	Vine,
 	WaterCheepCheep,
+	Waterfall,
 	WingedPlatform,
 	WoodBlock,
 	WoodDoor,

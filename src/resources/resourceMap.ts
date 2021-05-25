@@ -43,6 +43,7 @@ import { TiltPlatformBall } from './TiltPlatformBall';
 import { TiltPlatformPivot } from './TiltPlatformPivot';
 import { TwoNumberBlock } from './TwoNumberBlock';
 import { UndergroundBackground } from './UndergroundBackground';
+import { WaterfallTop } from './WaterfallTop';
 import { WingedPlatformBlock } from './WingedPlatformBlock';
 import { WingedPlatformWing } from './WingedPlatformWing';
 
@@ -92,6 +93,7 @@ const resourceMap = {
 	TiltPlatformPivot,
 	TwoNumberBlock,
 	UndergroundBackground,
+	WaterfallTop,
 	WingedPlatformBlock,
 	WingedPlatformWing,
 };

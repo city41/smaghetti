@@ -46,6 +46,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	TriangularBlock: 'Tb',
 	UpFortressSpike: 'UFs',
 	Vine: 'Vn',
+	Waterfall: 'Wf',
 	WoodBlock: 'Wo',
 	WoodWalkway: 'Wwy',
 	YellowSwitchBrick: 'ysb',
