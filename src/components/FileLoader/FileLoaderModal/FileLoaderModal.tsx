@@ -245,4 +245,4 @@ function FileLoaderModal({
 	);
 }
 
-export { FileLoaderModal };
+export { FileLoaderModal, ROM_KEY };

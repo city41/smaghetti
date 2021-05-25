@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
+import localForage from 'localforage';
 import Link from 'next/link';
 import { Root } from '../../layout/Root';
 import { LevelEntry } from './LevelEntry';
@@ -7,6 +8,8 @@ import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { LoadingBar } from '../../LoadingBar';
 
 import tabStyles from '../../../styles/tabs.module.css';
+import { Button } from '../../Button';
+import { ROM_KEY } from '../../FileLoader/FileLoaderModal/FileLoaderModal';
 
 type ProfilePageProps = {
 	allFilesReady: boolean;
@@ -37,6 +40,16 @@ function ProfilePage({
 	let body;
 
 	let currentTabBody;
+
+	async function handleClearRom() {
+		try {
+			await localForage.removeItem(ROM_KEY);
+			window.location.reload();
+		} catch (e) {
+			// eslint-disable-next-line no-console
+			console.log('localForage error', e);
+		}
+	}
 
 	switch (tabs[currentIndex]) {
 		case 'Levels':
@@ -82,9 +95,13 @@ function ProfilePage({
 
 		case 'Settings':
 			currentTabBody = (
-				<div>
-					No settings yet. This is where things like gamepad button config will
-					live. Stay tuned.
+				<div className="flex flex-row space-x-2 items-start">
+					<Button onClick={handleClearRom}>Clear the ROM</Button>
+					<p className="w-72">
+						You probably don&apos;t need to do this. This will delete
+						Smaghetti&apos;s copy of the SMA4 ROM and require you to re-add it
+						in order to use Smaghetti.
+					</p>
 				</div>
 			);
 			break;
