@@ -96,6 +96,7 @@ import { ParaGoomba } from './ParaGoomba';
 import { PileDriverMiniGoomba } from './PileDriverMiniGoomba';
 import { Player } from './Player';
 import { PoisonMushroom } from './PoisonMushroom';
+import { PoolOfWater } from './PoolOfWater';
 import { POWBlock } from './POWBlock';
 import { PowerUpSlotMachine } from './PowerUpSlotMachine';
 import { PSwitch } from './PSwitch';
@@ -240,6 +241,7 @@ const entityMap = {
 	PileDriverMiniGoomba,
 	Player,
 	PoisonMushroom,
+	PoolOfWater,
 	POWBlock,
 	PowerUpSlotMachine,
 	QuestionBlock,

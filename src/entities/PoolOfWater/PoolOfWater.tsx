@@ -2,12 +2,11 @@ import React from 'react';
 import type { Entity } from '../types';
 import { encodeObjectSets, getBankParam1 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
-import clsx from 'clsx';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { RoomState } from '../../components/make/editorSlice';
 import { objectSets } from './objectSets';
 
-function isWaterfallAbove(
+function isWaterAbove(
 	entity: EditorEntity | undefined,
 	room: RoomState | undefined
 ): boolean {
@@ -21,14 +20,14 @@ function isWaterfallAbove(
 		return false;
 	}
 
-	return cellAbove.type === 'Waterfall';
+	return cellAbove.type === 'PoolOfWater';
 }
 
-const Waterfall: Entity = {
+const PoolOfWater: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'Waterfall',
-		description: 'Pushes Mario down when he swims in it',
+		title: 'Pool of water',
+		description: 'Use this to create a little pocket of water',
 	},
 
 	objectSets: encodeObjectSets(objectSets),
@@ -36,7 +35,7 @@ const Waterfall: Entity = {
 	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'xy',
-	objectId: 0x23,
+	objectId: 0x25,
 	param1: 'height',
 	param2: 'width',
 	emptyBank: 1,
@@ -61,10 +60,7 @@ const Waterfall: Entity = {
 			0x2bf,
 		],
 		romOffset: 0x176be8,
-		tiles: [
-			[428, 429],
-			[430, 431],
-		],
+		tiles: [[199]],
 	},
 
 	toObjectBinary(x, y, w, h): number[] {
@@ -73,31 +69,44 @@ const Waterfall: Entity = {
 
 	simpleRender(size) {
 		return (
-			<div
-				className="WaterfallTop-bg bg-cover"
-				style={{ width: size, height: size }}
-			/>
+			<div style={{ width: size, height: size }} className="grid grid-rows-2">
+				<div
+					className="PoolOfWater-bg w-full h-full"
+					style={{ backgroundSize: '50% 100%', backgroundRepeat: 'repeat-x' }}
+				/>
+				<div
+					className="w-full h-full"
+					style={{
+						backgroundColor: 'rgb(24, 104, 200)',
+					}}
+				/>
+			</div>
 		);
 	},
 
 	render(_showDetails, _settings, _osc, entity, room) {
-		const waterAbove = isWaterfallAbove(entity, room);
-
+		const waterAbove = isWaterAbove(entity, room);
 		const style = {
 			width: TILE_SIZE,
 			height: TILE_SIZE,
 		};
 
-		return (
-			<div
-				style={style}
-				className={clsx('bg-cover', {
-					'WaterfallTop-bg': !waterAbove,
-					'Waterfall-bg': waterAbove,
-				})}
-			/>
-		);
+		if (waterAbove) {
+			return <div style={{ ...style, backgroundColor: 'rgb(24, 104, 200)' }} />;
+		} else {
+			return (
+				<div style={style} className="grid grid-rows-2">
+					<div className="PoolOfWater-bg w-full h-full" />
+					<div
+						className="w-full h-full"
+						style={{
+							backgroundColor: 'rgb(24, 104, 200)',
+						}}
+					/>
+				</div>
+			);
+		}
 	},
 };
 
-export { Waterfall };
+export { PoolOfWater };
