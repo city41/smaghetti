@@ -691,23 +691,49 @@ function assignAceCoinIndices(rooms: RoomState[]) {
 }
 
 function updateValidEntityTypes(room: RoomState) {
-	const cells = room.stage.matrix.reduce<EditorEntity[]>((building, row) => {
-		if (!row) {
-			return building;
-		}
-
-		const rowSpriteCells = row.reduce<EditorEntity[]>((rowBuilding, cell) => {
-			if (!cell) {
-				return rowBuilding;
+	const stageCells = room.stage.matrix.reduce<EditorEntity[]>(
+		(building, row) => {
+			if (!row) {
+				return building;
 			}
 
-			return rowBuilding.concat(cell);
-		}, []);
+			const rowSpriteCells = row.reduce<EditorEntity[]>((rowBuilding, cell) => {
+				if (!cell) {
+					return rowBuilding;
+				}
 
-		return building.concat(rowSpriteCells);
-	}, []);
+				return rowBuilding.concat(cell);
+			}, []);
 
-	const allEntities = room.actors.entities.concat(cells);
+			return building.concat(rowSpriteCells);
+		},
+		[]
+	);
+
+	const actorCells = room.actors.matrix.reduce<EditorEntity[]>(
+		(building, row) => {
+			if (!row) {
+				return building;
+			}
+
+			const rowSpriteCells = row.reduce<EditorEntity[]>((rowBuilding, cell) => {
+				if (!cell) {
+					return rowBuilding;
+				}
+
+				return rowBuilding.concat(cell);
+			}, []);
+
+			return building.concat(rowSpriteCells);
+		},
+		[]
+	);
+
+	const allEntities = room.actors.entities.concat(
+		actorCells,
+		stageCells,
+		room.stage.entities
+	);
 
 	if (allEntities.length === 0) {
 		room.validEntityTypes = Object.keys(entityMap) as EntityType[];

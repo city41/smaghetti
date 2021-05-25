@@ -9,7 +9,7 @@ const SmallBackgroundHills: Entity = {
 		title: 'SmallBackgroundHills',
 	},
 
-	objectSets: encodeObjectSets([[3, 3]]),
+	objectSets: encodeObjectSets([[1, 10]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
@@ -45,7 +45,8 @@ const SmallBackgroundHills: Entity = {
 	},
 
 	toObjectBinary(x, y) {
-		return [0, y, x, this.objectId];
+		// return [0, y, x, this.objectId];
+		return [0x40, y, x, 0x87];
 	},
 
 	simpleRender(size) {
