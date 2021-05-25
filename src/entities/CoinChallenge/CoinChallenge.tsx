@@ -1,7 +1,8 @@
-import type { Entity } from './types';
-import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import type { Entity } from '../types';
+import { TILE_SIZE } from '../../tiles/constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
+import { NumberPickerEditDetails } from './NumberPickerEditDetails';
 
 /**
  * This is the weird thing at the beginning of mushroom05, Bombarded by Bob-ombs.
@@ -24,6 +25,8 @@ const CoinChallenge: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
+	settingsType: 'single',
+	defaultSettings: { count: 10 },
 	objectId: 0xfd,
 	param1: 'other',
 
@@ -53,8 +56,9 @@ const CoinChallenge: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
-		return [0, this.objectId, x, y, 4];
+	toSpriteBinary(x, y, _w, _h, settings) {
+		const count = settings.count ?? this.defaultSettings!.count;
+		return [0, this.objectId, x, y, count];
 	},
 
 	simpleRender(size) {
@@ -66,8 +70,37 @@ const CoinChallenge: Entity = {
 		);
 	},
 
-	render() {
-		return this.simpleRender!(TILE_SIZE);
+	render(showDetails, settings, onSettingsChange) {
+		const count = settings.count ?? this.defaultSettings!.count;
+		const style = { width: TILE_SIZE, height: TILE_SIZE };
+
+		const body = (
+			<div className="relative CoinChallenge-bg bg-cover" style={style}>
+				<div
+					style={{ fontSize: 3 }}
+					className="absolute bottom-0 right-0 w-1.5 h-1 bg-black text-white rounded-xs text-center"
+				>
+					{count}
+				</div>
+			</div>
+		);
+
+		if (showDetails) {
+			return (
+				<NumberPickerEditDetails
+					min={1}
+					max={255}
+					value={count}
+					onValueChange={(newCount) => {
+						onSettingsChange({ count: newCount });
+					}}
+				>
+					{body}
+				</NumberPickerEditDetails>
+			);
+		} else {
+			return body;
+		}
 	},
 };
 

@@ -49,8 +49,14 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
-				<NewEntry title="FireBar Details Pane" date="2021-05-24">
-					<p>FireBar can now be fully configured.</p>
+				<NewEntry title="Coin Challenge Details Pane" date="2021-05-24">
+					<p>
+						You can now decide how many coins a Coin Challenge will require the
+						player to collect.
+					</p>
+				</NewEntry>
+				<NewEntry title="Fire Bar Details Pane" date="2021-05-24">
+					<p>Fire Bar can now be fully configured.</p>
 					<ul className="ml-8 list-disc">
 						<li>Rotate clockwise or counter-clockwise</li>
 						<li>Pivot point at the end or in the center</li>
