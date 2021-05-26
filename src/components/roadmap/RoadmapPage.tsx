@@ -14,7 +14,7 @@ const alphaChecklist: MilestoneChecklistItem[] = [
 	{ status: 'completed', description: 'Download levels as save files' },
 	{ status: 'completed', description: 'Sprite Graphic Sets' },
 	{
-		status: 'in-progress',
+		status: 'completed',
 		description: 'Many entities in SMA4 are available to build levels with',
 	},
 	{
