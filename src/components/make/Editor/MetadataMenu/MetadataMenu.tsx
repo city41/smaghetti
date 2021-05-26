@@ -33,6 +33,10 @@ function MetadataMenu({
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	useEffect(() => {
+		setEditedName(levelName);
+	}, [levelName]);
+
+	useEffect(() => {
 		const i = inputRef.current;
 		if (editing && i) {
 			i.focus();

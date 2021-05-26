@@ -1,4 +1,9 @@
-import { createSlice, Action, PayloadAction } from '@reduxjs/toolkit';
+import {
+	createSlice,
+	Action,
+	PayloadAction,
+	ThunkDispatch,
+} from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
 import undoable, {
 	ActionTypes as ReduxUndoActionTypes,
@@ -1633,25 +1638,20 @@ const editorSlice = createSlice({
 
 type LevelThunk = ThunkAction<void, AppState, null, Action>;
 
-const saveLevel = (): LevelThunk => async (dispatch, getState) => {
+async function doSave(
+	dispatch: ThunkDispatch<AppState, null, Action>,
+	levelData: LevelData,
+	id: string | undefined,
+	name: string | undefined
+) {
 	try {
 		dispatch(editorSlice.actions.setSaveLevelState('saving'));
-
-		const editorState = getState().editor.present;
-
-		const levelData: LevelData = {
-			rooms: editorState.rooms.map((r) => {
-				const { validEntityTypes, ...restOfRoom } = r;
-				return restOfRoom;
-			}),
-		};
-
 		const serializedLevelData = serialize(levelData);
 
 		try {
 			const createdLevelId = await saveLevelMutation(
-				editorState.savedLevelId ?? null,
-				editorState.metadata.name?.trim() ?? 'new level',
+				id ?? null,
+				name ?? 'new level',
 				'auto desc',
 				serializedLevelData
 			);
@@ -1667,6 +1667,40 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 			dispatch(editorSlice.actions.setSaveLevelState('dormant'));
 		}, 2000);
 	}
+}
+
+const saveLevel = (): LevelThunk => async (dispatch, getState) => {
+	const editorState = getState().editor.present;
+
+	const levelData: LevelData = {
+		rooms: editorState.rooms.map((r) => {
+			const { validEntityTypes, ...restOfRoom } = r;
+			return restOfRoom;
+		}),
+	};
+
+	await doSave(
+		dispatch,
+		levelData,
+		editorState.savedLevelId,
+		editorState.metadata.name
+	);
+};
+
+const saveLevelCopy = (): LevelThunk => async (dispatch, getState) => {
+	const editorState = getState().editor.present;
+
+	const levelData: LevelData = {
+		rooms: editorState.rooms.map((r) => {
+			const { validEntityTypes, ...restOfRoom } = r;
+			return restOfRoom;
+		}),
+	};
+
+	const levelName = (editorState.metadata.name ?? 'new level') + ' copy';
+	await doSave(dispatch, levelData, undefined, levelName);
+
+	dispatch(editorSlice.actions.setLevelName(levelName));
 };
 
 const loadLevel = (id: string): LevelThunk => async (dispatch) => {
@@ -1745,8 +1779,6 @@ const LOCALSTORAGE_KEY = 'smaghetti_editor';
 
 const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 	try {
-		dispatch(editorSlice.actions.setSaveLevelState('saving'));
-
 		const editorState = getState().editor.present;
 
 		const localStorageData: LevelData = {
@@ -1772,8 +1804,6 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 		} catch (e) {
 			dispatch(editorSlice.actions.setSaveLevelState('error'));
 		}
-
-		dispatch(editorSlice.actions.setSaveLevelState('success'));
 	} catch (e) {
 		dispatch(editorSlice.actions.setSaveLevelState('error'));
 	} finally {
@@ -1860,6 +1890,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		selectDrag.toString(),
 		'editor/savingLevel',
 		'editor/saveLevel',
+		'editor/saveLevelCopy',
 		'editor/saveLevelError',
 		'editor/loadLevel',
 		'editor/loadingLevel',
@@ -2027,6 +2058,7 @@ export {
 	clearFocusedEntity,
 	setEntitySettings,
 	saveLevel,
+	saveLevelCopy,
 	loadLevel,
 	loadFromLocalStorage,
 	saveToLocalStorage,

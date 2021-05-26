@@ -1,4 +1,4 @@
-import React, { ElementType } from 'react';
+import React, { ElementType, ReactNode } from 'react';
 import clsx from 'clsx';
 
 import styles from './PlainIconButton.module.css';
@@ -15,6 +15,7 @@ type PlainIconButtonProps = Omit<
 	toggled?: boolean;
 	loading?: boolean;
 	disabled?: boolean;
+	children?: ReactNode;
 };
 
 function PlainIconButton({
@@ -25,6 +26,7 @@ function PlainIconButton({
 	toggled,
 	loading,
 	disabled,
+	children,
 	...rest
 }: PlainIconButtonProps) {
 	const Icon = loading ? RiLoaderFill : icon;
@@ -50,6 +52,7 @@ function PlainIconButton({
 					'animate-spin': loading,
 				})}
 			/>
+			{children}
 		</button>
 	);
 }

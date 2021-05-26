@@ -26,6 +26,7 @@ type FileLoaderState = {
 	biosFileState: OtherFilesState;
 	emptySaveFileState: OtherFilesState;
 	saveStateJsonState: OtherFilesState;
+
 	otherFilesState: OtherFilesState;
 	allFilesReady: boolean;
 	overallExtractionState: ExtractionState;

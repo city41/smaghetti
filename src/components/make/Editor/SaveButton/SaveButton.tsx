@@ -10,14 +10,16 @@ type PublicSaveButtonProps = {
 };
 
 type InternalSaveButtonProps = {
-	onClick: () => void;
+	onSaveClick: () => void;
+	onSaveACopyClick?: () => void;
 	saveLevelState: 'dormant' | 'saving' | 'success' | 'error';
 };
 
 const SaveButton = memo(function SaveButton({
 	className,
 	disabled,
-	onClick,
+	onSaveClick,
+	onSaveACopyClick,
 	saveLevelState,
 }: PublicSaveButtonProps & InternalSaveButtonProps) {
 	const toast =
@@ -37,14 +39,23 @@ const SaveButton = memo(function SaveButton({
 		<>
 			{toast}
 			<PlainIconButton
-				className={className}
+				className={clsx(className, { 'relative group': !!onSaveACopyClick })}
 				size="large"
 				label="save this level"
-				onClick={onClick}
+				onClick={onSaveClick}
 				icon={AiFillSave}
 				loading={saveLevelState === 'saving'}
 				disabled={disabled}
-			/>
+			>
+				{!!onSaveACopyClick && (
+					<a
+						className="absolute z-10 hidden group-hover:block w-28 h-8 bg-yellow-800 -bottom-8 text-sm pt-1 hover:bg-yellow-700"
+						onClick={onSaveACopyClick}
+					>
+						or save a copy
+					</a>
+				)}
+			</PlainIconButton>
 		</>
 	);
 });
