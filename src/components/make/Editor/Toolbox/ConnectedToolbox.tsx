@@ -23,7 +23,6 @@ const actions = bindActionCreators(
 		onUndo: undo,
 		onRedo: redo,
 		onToggleGrid: toggleGrid,
-		onEraseLevel: eraseLevel,
 		onToggleResizeMode: toggleResizeMode,
 	},
 	dispatch
@@ -45,6 +44,11 @@ function ConnectedToolbox(props: PublicToolboxProps) {
 		canRedo: state.editor.future.length > 0,
 	}));
 
+	function handleEraseLevel() {
+		dispatch(eraseLevel());
+		history.replaceState({}, 'make', '/make/');
+	}
+
 	return (
 		<Toolbox
 			currentPaletteEntry={currentPaletteEntry}
@@ -54,6 +58,7 @@ function ConnectedToolbox(props: PublicToolboxProps) {
 			canUndo={canUndo}
 			canRedo={canRedo}
 			showGrid={showGrid}
+			onEraseLevel={handleEraseLevel}
 			{...actions}
 			{...props}
 		/>

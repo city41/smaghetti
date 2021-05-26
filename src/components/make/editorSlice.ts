@@ -1125,6 +1125,7 @@ const editorSlice = createSlice({
 			}
 
 			state.metadata.name = defaultInitialState.metadata.name;
+			state.savedLevelId = undefined;
 		},
 		resetOffset(state: InternalEditorState) {
 			getCurrentRoom(state).scrollOffset.x = 0;
