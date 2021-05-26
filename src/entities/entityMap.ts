@@ -273,7 +273,6 @@ const entityMap = {
 	TiltPlatform,
 	Tornado,
 	TriangularBlock,
-	VerticalRightGrass: GrassVerticalRight,
 	Vine,
 	WaterCheepCheep,
 	Waterfall,
