@@ -20,13 +20,13 @@ function isGrassAbove(
 		return false;
 	}
 
-	return cellAbove.type === 'HorizontalGrass';
+	return cellAbove.type === 'GrassHorizontal';
 }
 
-const HorizontalGrass: Entity = {
+const GrassHorizontal: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'Horizontal Grass',
+		title: 'Grass - Horizontal',
 	},
 
 	layer: 'stage',
@@ -75,7 +75,7 @@ const HorizontalGrass: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="HorizontalGrass-bg bg-cover"
+				className="GrassHorizontal-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -86,8 +86,8 @@ const HorizontalGrass: Entity = {
 		return (
 			<div
 				className={clsx('bg-cover', {
-					'HorizontalGrass-bg': !grassAbove,
-					'HorizontalGrassDirt-bg': grassAbove,
+					'GrassHorizontal-bg': !grassAbove,
+					'GrassHorizontalDirt-bg': grassAbove,
 				})}
 				style={{ width: TILE_SIZE, height: TILE_SIZE }}
 			/>
@@ -95,4 +95,4 @@ const HorizontalGrass: Entity = {
 	},
 };
 
-export { HorizontalGrass };
+export { GrassHorizontal };

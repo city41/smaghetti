@@ -63,6 +63,11 @@ import { GiantGreenParaKoopa } from './GiantGreenParaKoopa';
 import { GiantRedKoopa } from './GiantRedKoopa';
 import { GlassBlock } from './GlassBlock';
 import { Goomba } from './Goomba';
+import { GrassHorizontal } from './GrassHorizontal';
+import { GrassUpperLeftCorner } from './GrassUpperLeftCorner';
+import { GrassUpperRightCorner } from './GrassUpperRightCorner';
+import { GrassVerticalLeft } from './GrassVerticalLeft';
+import { GrassVerticalRight } from './GrassVerticalRight';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
 import { HammerBro } from './HammerBro';
@@ -125,11 +130,6 @@ import { Thwomp } from './Thwomp';
 import { TiltPlatform } from './TiltPlatform';
 import { Tornado } from './Tornado';
 import { TriangularBlock } from './TriangularBlock';
-import { HorizontalGrass } from './HorizontalGrass';
-import { UndergroundFlatTerrain_UpperLeftCorner } from './UndergroundFlatTerrain_UpperLeftCorner';
-import { UndergroundFlatTerrain_UpperRightCorner } from './UndergroundFlatTerrain_UpperRightCorner';
-import { VerticalLeftGrass } from './VerticalLeftGrass';
-import { VerticalRightGrass } from './VerticalRightGrass';
 import { Vine } from './Vine';
 import { WaterCheepCheep } from './WaterCheepCheep';
 import { Waterfall } from './Waterfall';
@@ -200,6 +200,11 @@ const entityMap = {
 	UpFortressSpike,
 	Galoomba,
 	GrandGoomba,
+	GrassHorizontal,
+	GrassUpperLeftCorner,
+	GrassUpperRightCorner,
+	GrassVerticalLeft,
+	GrassVerticalRight,
 	GiantGreenKoopa,
 	GiantGreenParaKoopa,
 	GiantRedKoopa,
@@ -268,11 +273,7 @@ const entityMap = {
 	TiltPlatform,
 	Tornado,
 	TriangularBlock,
-	HorizontalGrass,
-	UndergroundFlatTerrain_UpperLeftCorner,
-	UndergroundFlatTerrain_UpperRightCorner,
-	VerticalLeftGrass,
-	VerticalRightGrass,
+	VerticalRightGrass: GrassVerticalRight,
 	Vine,
 	WaterCheepCheep,
 	Waterfall,

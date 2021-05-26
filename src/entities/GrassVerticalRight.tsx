@@ -4,17 +4,17 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
-const VerticalLeftGrass: Entity = {
+const GrassVerticalRight: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'Vertical Left Grass',
+		title: 'Grass - Vertical Right',
 	},
 
 	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'y',
 	param1: 'height',
-	objectId: 0x3a,
+	objectId: 0xd,
 	emptyBank: 1,
 	objectSets: encodeObjectSets([[14, 3]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
@@ -40,12 +40,12 @@ const VerticalLeftGrass: Entity = {
 		],
 		tiles: [
 			[
-				{ romOffset: 0x182cb4, tileIndex: 256 },
-				{ romOffset: 0x167674, tileIndex: 788 },
+				{ romOffset: 0x167674, tileIndex: 788, flip: 'h' },
+				{ romOffset: 0x182cb4, tileIndex: 256, flip: 'h' },
 			],
 			[
-				{ romOffset: 0x182cb4, tileIndex: 272 },
-				{ romOffset: 0x167674, tileIndex: 789 },
+				{ romOffset: 0x167674, tileIndex: 789, flip: 'h' },
+				{ romOffset: 0x182cb4, tileIndex: 272, flip: 'h' },
 			],
 		],
 	},
@@ -57,7 +57,7 @@ const VerticalLeftGrass: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="VerticalLeftGrass-bg bg-cover"
+				className="GrassVerticalRight-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -68,4 +68,4 @@ const VerticalLeftGrass: Entity = {
 	},
 };
 
-export { VerticalLeftGrass };
+export { GrassVerticalRight };

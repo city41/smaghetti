@@ -1,21 +1,20 @@
 import type { Entity } from './types';
-import { encodeObjectSets, getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { encodeObjectSets } from './util';
 
-const VerticalRightGrass: Entity = {
+const GrassUpperRightCorner: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'Vertical Right Grass',
+		title: 'Grass - Upper Right Corner',
 	},
 
 	layer: 'stage',
 	editorType: 'cell',
-	dimensions: 'y',
-	param1: 'height',
-	objectId: 0xd,
-	emptyBank: 1,
+	dimensions: 'none',
+	objectId: 0x4,
+	emptyBank: 0,
 	objectSets: encodeObjectSets([[14, 3]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 
@@ -40,24 +39,24 @@ const VerticalRightGrass: Entity = {
 		],
 		tiles: [
 			[
-				{ romOffset: 0x167674, tileIndex: 788, flip: 'h' },
-				{ romOffset: 0x182cb4, tileIndex: 256, flip: 'h' },
+				{ romOffset: 0x167674, tileIndex: 782 },
+				{ romOffset: 0x167674, tileIndex: 785 },
 			],
 			[
-				{ romOffset: 0x167674, tileIndex: 789, flip: 'h' },
-				{ romOffset: 0x182cb4, tileIndex: 272, flip: 'h' },
+				{ romOffset: 0x182cb4, tileIndex: 272 },
+				{ romOffset: 0x167674, tileIndex: 789 },
 			],
 		],
 	},
 
-	toObjectBinary(x, y, _w, h) {
-		return [getBankParam1(1, h), y, x, this.objectId];
+	toObjectBinary(x, y) {
+		return [0, y, x, this.objectId];
 	},
 
 	simpleRender(size) {
 		return (
 			<div
-				className="VerticalRightGrass-bg bg-cover"
+				className="GrassUpperRightCorner-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -68,4 +67,4 @@ const VerticalRightGrass: Entity = {
 	},
 };
 
-export { VerticalRightGrass };
+export { GrassUpperRightCorner };

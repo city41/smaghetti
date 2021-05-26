@@ -52,9 +52,11 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-05-25">
 					<ul className="ml-8 list-disc">
 						<li>Flying Piranha Plant</li>
-						<li>Horizontal Grass</li>
-						<li>Vertical Left Grass</li>
-						<li>Vertical Right Grass</li>
+						<li>Grass - Horizontal</li>
+						<li>Grass - Upper Left Corner</li>
+						<li>Grass - Upper Right Corner</li>
+						<li>Grass - Vertical Left</li>
+						<li>Grass - Vertical Right</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="Save a copy of a level" date="2021-05-26">

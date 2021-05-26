@@ -19,10 +19,10 @@ import { FrogSuit } from './FrogSuit';
 import { GiantVegetable } from './GiantVegetable';
 import { GreenCheepCheep } from './GreenCheepCheep';
 import { GreenSpinyEgg } from './GreenSpinyEgg';
+import { GrassHorizontalDirt } from './GrassHorizontalDirt';
 import { HoppingBowserStatueBody } from './HoppingBowserStatueBody';
 import { HoppingBowserStatueHead } from './HoppingBowserStatueHead';
 import { HorizontalDolphin } from './HorizontalDolphin';
-import { HorizontalGrassDirt } from './HorizontalGrassDirt';
 import { HotHeadEyes } from './HotHeadEyes';
 import { KoopalingWand } from './KoopalingWand';
 import { KoopaShell } from './KoopaShell';
@@ -67,14 +67,14 @@ const resourceMap = {
 	FlutterWing,
 	FortressBackground,
 	FrogSuit,
-	HotHeadEyes,
-	HorizontalDolphin,
-	HorizontalGrassDirt,
+	GrassHorizontalDirt,
 	GiantVegetable,
 	GreenCheepCheep,
 	GreenSpinyEgg,
 	HoppingBowserStatueBody,
 	HoppingBowserStatueHead,
+	HotHeadEyes,
+	HorizontalDolphin,
 	KoopalingWand,
 	KoopaShell,
 	OneNumberBlock,

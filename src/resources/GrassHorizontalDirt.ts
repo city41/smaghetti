@@ -1,6 +1,6 @@
 import { StaticResource } from './types';
 
-const HorizontalGrassDirt: StaticResource = {
+const GrassHorizontalDirt: StaticResource = {
 	palette: [
 		0x7f96,
 		0x7fff,
@@ -24,4 +24,4 @@ const HorizontalGrassDirt: StaticResource = {
 	],
 };
 
-export { HorizontalGrassDirt };
+export { GrassHorizontalDirt };

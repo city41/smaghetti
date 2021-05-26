@@ -1,23 +1,22 @@
 import type { Entity } from './types';
+import { encodeObjectSets, getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { encodeObjectSets } from './util';
-import { WARNING } from './UndergroundFlatTerrain_UpperLeftCorner';
 
-const UndergroundFlatTerrain_UpperRightCorner: Entity = {
+const GrassVerticalLeft: Entity = {
+	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'Underground Flat Terrain -- Upper Right Corner',
-		warning: WARNING,
+		title: 'Grass - Vertical Left',
 	},
 
 	layer: 'stage',
 	editorType: 'cell',
-	dimensions: 'none',
-	objectId: 0x4,
-	emptyBank: 0,
-	// TODO: actually determine all object sets, this is from star02,room0
-	objectSets: encodeObjectSets([[0xe, 3]]),
+	dimensions: 'y',
+	param1: 'height',
+	objectId: 0x3a,
+	emptyBank: 1,
+	objectSets: encodeObjectSets([[14, 3]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 
 	resource: {
@@ -41,8 +40,8 @@ const UndergroundFlatTerrain_UpperRightCorner: Entity = {
 		],
 		tiles: [
 			[
-				{ romOffset: 0x167674, tileIndex: 782 },
-				{ romOffset: 0x167674, tileIndex: 785 },
+				{ romOffset: 0x182cb4, tileIndex: 256 },
+				{ romOffset: 0x167674, tileIndex: 788 },
 			],
 			[
 				{ romOffset: 0x182cb4, tileIndex: 272 },
@@ -51,14 +50,14 @@ const UndergroundFlatTerrain_UpperRightCorner: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y) {
-		return [0, y, x, this.objectId];
+	toObjectBinary(x, y, _w, h) {
+		return [getBankParam1(1, h), y, x, this.objectId];
 	},
 
 	simpleRender(size) {
 		return (
 			<div
-				className="UndergroundFlatTerrain_UpperRightCorner-bg bg-cover"
+				className="GrassVerticalLeft-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -69,4 +68,4 @@ const UndergroundFlatTerrain_UpperRightCorner: Entity = {
 	},
 };
 
-export { UndergroundFlatTerrain_UpperRightCorner };
+export { GrassVerticalLeft };

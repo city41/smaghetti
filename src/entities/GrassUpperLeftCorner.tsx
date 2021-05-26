@@ -4,13 +4,10 @@ import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { encodeObjectSets } from './util';
 
-export const WARNING =
-	'This works fine, but waiting until the big terrain entities are ready before adding.';
-
-const UndergroundFlatTerrain_UpperLeftCorner: Entity = {
+const GrassUpperLeftCorner: Entity = {
+	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'Underground Flat Terrain -- Upper Left Corner',
-		warning: WARNING,
+		title: 'Grass - Upper Left Corner',
 	},
 
 	layer: 'stage',
@@ -18,8 +15,7 @@ const UndergroundFlatTerrain_UpperLeftCorner: Entity = {
 	dimensions: 'none',
 	objectId: 0x1,
 	emptyBank: 0,
-	// TODO: actually determine all object sets, this is from star02,room0
-	objectSets: encodeObjectSets([[0xe, 3]]),
+	objectSets: encodeObjectSets([[14, 3]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 
 	resource: {
@@ -60,7 +56,7 @@ const UndergroundFlatTerrain_UpperLeftCorner: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="UndergroundFlatTerrain_UpperLeftCorner-bg bg-cover"
+				className="GrassUpperLeftCorner-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -71,4 +67,4 @@ const UndergroundFlatTerrain_UpperLeftCorner: Entity = {
 	},
 };
 
-export { UndergroundFlatTerrain_UpperLeftCorner };
+export { GrassUpperLeftCorner };
