@@ -3,10 +3,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { encodeObjectSets } from './util';
+import { WARNING } from './UndergroundFlatTerrain_UpperLeftCorner';
 
 const UndergroundFlatTerrain_UpperRightCorner: Entity = {
 	paletteInfo: {
 		title: 'Underground Flat Terrain -- Upper Right Corner',
+		warning: WARNING,
 	},
 
 	layer: 'stage',

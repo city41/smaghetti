@@ -4,9 +4,13 @@ import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { encodeObjectSets } from './util';
 
+export const WARNING =
+	'This works fine, but waiting until the big terrain entities are ready before adding.';
+
 const UndergroundFlatTerrain_UpperLeftCorner: Entity = {
 	paletteInfo: {
 		title: 'Underground Flat Terrain -- Upper Left Corner',
+		warning: WARNING,
 	},
 
 	layer: 'stage',

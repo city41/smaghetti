@@ -20,6 +20,8 @@ const DOOR_LOCK_OBJECT_ID = 0xce;
 const BowserDoor: Entity = {
 	paletteInfo: {
 		title: 'Bowser Door',
+		warning:
+			"Can't figure out how to get this door to work. Possibly it's just for decoration and can't be used to go to another room?",
 	},
 
 	objectSets: encodeObjectSets([[2, 2]]),

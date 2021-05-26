@@ -6,7 +6,8 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const SmallBackgroundHills: Entity = {
 	paletteInfo: {
-		title: 'SmallBackgroundHills',
+		title: 'Small Background Hills',
+		warning: "This works fine, but haven't finished extracting it yet.",
 	},
 
 	objectSets: encodeObjectSets([[1, 10]]),
@@ -45,8 +46,7 @@ const SmallBackgroundHills: Entity = {
 	},
 
 	toObjectBinary(x, y) {
-		// return [0, y, x, this.objectId];
-		return [0x40, y, x, 0x87];
+		return [0, y, x, this.objectId];
 	},
 
 	simpleRender(size) {

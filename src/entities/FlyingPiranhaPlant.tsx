@@ -2,19 +2,18 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
-import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
 
-/**
- * no single graphic set made this valid, probably needs two? or possibly
- * this is just a bogus entity
- */
+const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
 const FlyingPiranhaPlant: Entity = {
+	paletteCategory: 'enemy',
 	paletteInfo: {
 		title: 'Flying Piranha Plant',
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	spriteGraphicSets: [-1, -1, -1, graphicSetValues, [3, 4, 5], ANY_BELOW_16],
 	objectId: 0xd8,
 	layer: 'actor',
 	editorType: 'entity',

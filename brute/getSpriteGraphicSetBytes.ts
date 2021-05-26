@@ -66,19 +66,23 @@ function getRoom() {
 			...ROOM_TYPE_SETTINGS.underground,
 		},
 		paletteEntries: [],
-		entities: [
-			{
-				id: 1,
-				type: 'ArrowSign',
-				x: 8 * TILE_SIZE,
-				y: (INITIAL_ROOM_TILE_HEIGHT - 4) * TILE_SIZE,
-			},
-		],
-		matrixLayer: {
-			width: INITIAL_ROOM_TILE_WIDTH,
-			height: INITIAL_ROOM_TILE_HEIGHT,
-			data: BRICKS_ALONG_BOTTOM,
+		actors: {
+			entities: [
+				{
+					id: 1,
+					type: 'ArrowSign',
+					x: 8 * TILE_SIZE,
+					y: (INITIAL_ROOM_TILE_HEIGHT - 4) * TILE_SIZE,
+				},
+			],
+			matrix: [],
 		},
+		stage: {
+			entities: [],
+			matrix: BRICKS_ALONG_BOTTOM,
+		},
+		roomTileWidth: INITIAL_ROOM_TILE_WIDTH,
+		roomTileHeight: INITIAL_ROOM_TILE_HEIGHT,
 	};
 }
 

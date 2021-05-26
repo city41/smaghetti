@@ -4,9 +4,10 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
-const UndergroundFlatTerrain_VerticalRight: Entity = {
+const VerticalRightGrass: Entity = {
+	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'Underground Flat Terrain -- Vertical Right',
+		title: 'Vertical Right Grass',
 	},
 
 	layer: 'stage',
@@ -15,8 +16,7 @@ const UndergroundFlatTerrain_VerticalRight: Entity = {
 	param1: 'height',
 	objectId: 0xd,
 	emptyBank: 1,
-	// TODO: actually determine all object sets, this is from star02,room0
-	objectSets: encodeObjectSets([[0xe, 3]]),
+	objectSets: encodeObjectSets([[14, 3]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 
 	resource: {
@@ -57,7 +57,7 @@ const UndergroundFlatTerrain_VerticalRight: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="UndergroundFlatTerrain_VerticalRight-bg bg-cover"
+				className="VerticalRightGrass-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -68,4 +68,4 @@ const UndergroundFlatTerrain_VerticalRight: Entity = {
 	},
 };
 
-export { UndergroundFlatTerrain_VerticalRight };
+export { VerticalRightGrass };

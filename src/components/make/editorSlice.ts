@@ -125,6 +125,34 @@ type InternalEditorState = {
 
 const initialScale = playerScale;
 
+function isWorkingEditorEntity(e: EditorEntity): boolean {
+	if (e.type === 'Player') {
+		return true;
+	}
+
+	return isWorkingEntityType(e.type);
+}
+
+function filterNonWorkingFromEntities(es: EditorEntity[]): EditorEntity[] {
+	return es.filter(isWorkingEditorEntity);
+}
+
+function filterNonWorkingFromMatrix(m: EditorEntityMatrix): EditorEntityMatrix {
+	return m.map((row) => {
+		if (!row) {
+			return row;
+		}
+
+		return row.map((cell) => {
+			if (!cell || isWorkingEditorEntity(cell)) {
+				return cell;
+			}
+
+			return null;
+		});
+	});
+}
+
 function getCurrentRoom(state: InternalEditorState): RoomState {
 	return state.rooms[state.currentRoomIndex];
 }
@@ -1220,24 +1248,14 @@ const editorSlice = createSlice({
 					settings: r.settings,
 					actors: {
 						...r.actors,
-						entities: r.actors.entities.filter((e) => {
-							if (e.type === 'Player') {
-								return true;
-							}
-
-							return isWorkingEntityType(e.type);
-						}),
+						matrix: filterNonWorkingFromMatrix(r.actors.matrix),
+						entities: filterNonWorkingFromEntities(r.actors.entities),
 						locked: false,
 					},
 					stage: {
 						...r.stage,
-						entities: r.stage.entities.filter((e) => {
-							if (e.type === 'Player') {
-								return true;
-							}
-
-							return isWorkingEntityType(e.type);
-						}),
+						matrix: filterNonWorkingFromMatrix(r.stage.matrix),
+						entities: filterNonWorkingFromEntities(r.stage.entities),
 						locked: false,
 					},
 					roomTileHeight: r.roomTileHeight,

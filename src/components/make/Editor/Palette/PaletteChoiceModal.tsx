@@ -29,8 +29,6 @@ type TabType = {
 	category: Required<Entity>['paletteCategory'];
 };
 
-const devTabs: TabType[] = [{ title: 'Unfinished', category: 'unfinished' }];
-
 const tabs: TabType[] = [
 	{ title: 'Terrain', category: 'terrain' },
 	{ title: 'Enemies', category: 'enemy' },
@@ -40,7 +38,7 @@ const tabs: TabType[] = [
 	{ title: 'Bosses', category: 'boss' },
 	{ title: 'Warps', category: 'transport' },
 	{ title: 'Decorations', category: 'decoration' },
-	...(process.env.NODE_ENV === 'production' ? [] : devTabs),
+	{ title: 'Unfinished', category: 'unfinished' },
 ];
 
 const entries: PaletteChoiceModalEntry[][] = tabs.map((t) => {
@@ -78,6 +76,51 @@ function getSortComparator(validEntityTypes: EntityType[]) {
 	};
 }
 
+function UnfinishedDisclaimer() {
+	return (
+		<div className="bg-red-200 text-black p-2 space-y-2 text-sm">
+			<p>
+				These are entities that are not ready for use yet. There is something
+				about them that needs to be figured out before they can be used for
+				real.
+			</p>
+			<p className="font-bold text-red-800">
+				You can add them to your level and try them out, but they will only be
+				temporary. They get removed when you save your level.
+			</p>
+			<p>
+				Want to help get these working? Let me know on{' '}
+				<a
+					className="text-blue-700"
+					target="_blank"
+					rel="noreferrer"
+					href="https://reddit.com/r/smaghetti"
+				>
+					Reddit
+				</a>
+				,{' '}
+				<a
+					className="text-blue-700"
+					target="_blank"
+					rel="noreferrer"
+					href="https://github.com/city41/smaghetti/discussions"
+				>
+					GitHub
+				</a>
+				, or{' '}
+				<a
+					className="text-blue-700"
+					target="_blank"
+					rel="noreferrer"
+					href="https://twitter.com/mattegreer"
+				>
+					Twitter
+				</a>
+			</p>
+		</div>
+	);
+}
+
 function PaletteChoiceModal({
 	isOpen,
 	currentPaletteEntries,
@@ -107,6 +150,7 @@ function PaletteChoiceModal({
 								key={t.category}
 								className={clsx({
 									[tabStyles.currentTab]: i === currentTabIndex,
+									'text-red-200': t.category === 'unfinished',
 								})}
 								onClick={() => {
 									setCurrentTabIndex(i);
@@ -117,10 +161,18 @@ function PaletteChoiceModal({
 							</li>
 						))}
 					</div>
+					{tabs[currentTabIndex].category === 'unfinished' && (
+						<UnfinishedDisclaimer />
+					)}
 					<div className={styles.currentEntries}>
 						{currentEntries
 							.sort(getSortComparator(validEntityTypes))
 							.map((ce, i) => {
+								// TODO: player should not be an entity
+								if (ce.entry === 'Player') {
+									return null;
+								}
+
 								return (
 									<PaletteEntryCmp
 										key={ce.entry}

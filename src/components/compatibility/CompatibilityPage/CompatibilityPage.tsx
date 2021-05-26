@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { entityMap, EntityType } from '../../../entities/entityMap';
 import { Root } from '../../layout/Root';
@@ -15,6 +16,29 @@ type InternalCompatibilityPageProps = {
 type PublicCompatibilityPageProps = {
 	entityType: EntityType;
 };
+
+function isUnfinished(type: EntityType): boolean {
+	const entityDef = entityMap[type];
+
+	return (
+		!entityDef.paletteCategory || entityDef.paletteCategory === 'unfinished'
+	);
+}
+
+function sortUnfinishedLast(a: EntityType, b: EntityType): number {
+	const aUnfinished = isUnfinished(a);
+	const bUnfinished = isUnfinished(b);
+
+	if (aUnfinished && !bUnfinished) {
+		return 1;
+	}
+
+	if (bUnfinished && !aUnfinished) {
+		return -1;
+	}
+
+	return a.localeCompare(b);
+}
 
 function getCompatibility(
 	entityDef: Entity
@@ -39,7 +63,40 @@ function getCompatibility(
 		);
 	}) as EntityType[];
 
-	return { compatibleTypes, incompatibleTypes };
+	return {
+		compatibleTypes: compatibleTypes.sort(sortUnfinishedLast),
+		incompatibleTypes: incompatibleTypes.sort(sortUnfinishedLast),
+	};
+}
+
+function EntityList({ types }: { types: EntityType[] }) {
+	return (
+		<>
+			{types.map((et) => {
+				if (et === 'Player') {
+					return null;
+				}
+
+				const def = entityMap[et];
+
+				return (
+					<div
+						key={et}
+						className={clsx(
+							'w-24 h-32 bg-gray-600 m-2 flex flex-col items-center justify-center p-2 space-y-2',
+							{
+								'bg-gray-600': !isUnfinished(et),
+								'bg-red-300 text-gray-900': isUnfinished(et),
+							}
+						)}
+					>
+						<div>{entityMap[et].simpleRender(50)}</div>
+						<div className="text-xs text-center">{def.paletteInfo.title}</div>
+					</div>
+				);
+			})}
+		</>
+	);
 }
 
 function CompatibilityPage({
@@ -70,65 +127,26 @@ function CompatibilityPage({
 						{entityDef.paletteInfo.title} is compatible with
 					</h2>
 					<div className="flex flex-row flex-wrap justify-center h-72 overflow-y-auto">
-						{compatibleTypes.map((et) => {
-							const def = entityMap[et];
-
-							if (
-								!def.paletteCategory ||
-								def.paletteCategory === 'unfinished'
-							) {
-								return null;
-							}
-
-							return (
-								<div
-									key={et}
-									className="w-24 h-32 bg-gray-600 m-2 flex flex-col items-center justify-center p-2 space-y-2"
-								>
-									<div>{entityMap[et].simpleRender(50)}</div>
-									<div className="text-xs text-center">
-										{def.paletteInfo.title}
-									</div>
-								</div>
-							);
-						})}
+						<EntityList types={compatibleTypes} />
 					</div>
 					<h2 className="text-xl font-bold flex flex-row items-center space-x-2 mb-4 mt-16">
 						{incompatibleTypes.length === 0
 							? 'and has no incompatibilities'
 							: 'and incompatible with'}
 					</h2>
+					<div className="flex flex-row flex-wrap justify-center h-72 overflow-y-auto">
+						{incompatibleTypes.length > 0 && (
+							<>
+								<EntityList types={incompatibleTypes} />
+							</>
+						)}
+					</div>
 					{incompatibleTypes.length > 0 && (
-						<>
-							<div className="flex flex-row flex-wrap justify-center h-72 overflow-y-auto">
-								{incompatibleTypes.map((et) => {
-									const def = entityMap[et];
-
-									if (
-										!def.paletteCategory ||
-										def.paletteCategory === 'unfinished'
-									) {
-										return null;
-									}
-
-									return (
-										<div
-											key={et}
-											className="w-24 h-32 bg-gray-600 m-2 flex flex-col items-center justify-center p-2 space-y-2"
-										>
-											<div>{entityMap[et].simpleRender(50)}</div>
-											<div className="text-xs text-center">
-												{def.paletteInfo.title}
-											</div>
-										</div>
-									);
-								})}
-							</div>
-							<p className="-mx-2 p-2 bg-green-700 my-8 text-center">
-								Compatibility may improve as we learn more about how the game
-								works
-							</p>
-						</>
+						<p className="-mx-2 p-2 bg-green-700 my-8 text-center">
+							Compatibility may improve as we learn more about how the game
+							works, especially with unfinished entities (they have a red
+							background)
+						</p>
 					)}
 				</div>
 			</Root>

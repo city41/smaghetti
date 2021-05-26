@@ -110,7 +110,6 @@ import { ShoeGoomba } from './ShoeGoomba';
 import { SilverPSwitch } from './SilverPSwitch';
 import { SimpleBlackDoor } from './SimpleBlackDoor';
 import { SledgeBro } from './SledgeBro';
-import { SmallBackgroundHills } from './SmallBackgroundHills';
 import { Spike } from './Spike';
 import { SpikeBall } from './SpikeBall';
 import { Spiny } from './Spiny';
@@ -126,11 +125,11 @@ import { Thwomp } from './Thwomp';
 import { TiltPlatform } from './TiltPlatform';
 import { Tornado } from './Tornado';
 import { TriangularBlock } from './TriangularBlock';
-import { UndergroundFlatTerrain_HorizontalTop } from './UndergroundFlatTerrain_HorizontalTop';
+import { HorizontalGrass } from './HorizontalGrass';
 import { UndergroundFlatTerrain_UpperLeftCorner } from './UndergroundFlatTerrain_UpperLeftCorner';
 import { UndergroundFlatTerrain_UpperRightCorner } from './UndergroundFlatTerrain_UpperRightCorner';
-import { UndergroundFlatTerrain_VerticalLeft } from './UndergroundFlatTerrain_VerticalLeft';
-import { UndergroundFlatTerrain_VerticalRight } from './UndergroundFlatTerrain_VerticalRight';
+import { VerticalLeftGrass } from './VerticalLeftGrass';
+import { VerticalRightGrass } from './VerticalRightGrass';
 import { Vine } from './Vine';
 import { WaterCheepCheep } from './WaterCheepCheep';
 import { Waterfall } from './Waterfall';
@@ -254,7 +253,6 @@ const entityMap = {
 	SilverPSwitch,
 	SimpleBlackDoor,
 	SledgeBro,
-	SmallBackgroundHills,
 	Spike,
 	SpikeBall,
 	Spiny,
@@ -270,11 +268,11 @@ const entityMap = {
 	TiltPlatform,
 	Tornado,
 	TriangularBlock,
-	UndergroundFlatTerrain_HorizontalTop,
+	HorizontalGrass,
 	UndergroundFlatTerrain_UpperLeftCorner,
 	UndergroundFlatTerrain_UpperRightCorner,
-	UndergroundFlatTerrain_VerticalLeft,
-	UndergroundFlatTerrain_VerticalRight,
+	VerticalLeftGrass,
+	VerticalRightGrass,
 	Vine,
 	WaterCheepCheep,
 	Waterfall,

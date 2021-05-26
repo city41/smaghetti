@@ -49,6 +49,14 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-05-25">
+					<ul className="ml-8 list-disc">
+						<li>Flying Piranha Plant</li>
+						<li>Horizontal Grass</li>
+						<li>Vertical Left Grass</li>
+						<li>Vertical Right Grass</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="Save a copy of a level" date="2021-05-26">
 					<p>
 						When editing one of your levels, the save button now has an option

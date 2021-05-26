@@ -2,7 +2,13 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
-import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import {
+	ANY_BELOW_16,
+	ANY_OBJECT_SET,
+	ANY_SPRITE_GRAPHIC_SET,
+} from './constants';
+
+const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 /**
  * TODO: needs a detail pane to pick direction.
@@ -12,10 +18,12 @@ import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 const HorizontalRedPiranhaPlant: Entity = {
 	paletteInfo: {
 		title: 'Horizontal Red Piranha Plant',
+		warning:
+			"These will probably just be payloads that pipes can have, as they don't make sense by themselves",
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	spriteGraphicSets: [[10], -1, -1, graphicSetValues, -1, ANY_BELOW_16],
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',

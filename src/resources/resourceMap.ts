@@ -22,6 +22,7 @@ import { GreenSpinyEgg } from './GreenSpinyEgg';
 import { HoppingBowserStatueBody } from './HoppingBowserStatueBody';
 import { HoppingBowserStatueHead } from './HoppingBowserStatueHead';
 import { HorizontalDolphin } from './HorizontalDolphin';
+import { HorizontalGrassDirt } from './HorizontalGrassDirt';
 import { HotHeadEyes } from './HotHeadEyes';
 import { KoopalingWand } from './KoopalingWand';
 import { KoopaShell } from './KoopaShell';
@@ -68,6 +69,7 @@ const resourceMap = {
 	FrogSuit,
 	HotHeadEyes,
 	HorizontalDolphin,
+	HorizontalGrassDirt,
 	GiantVegetable,
 	GreenCheepCheep,
 	GreenSpinyEgg,
