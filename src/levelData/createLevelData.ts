@@ -183,13 +183,13 @@ function getObjects(layer: RoomLayer, roomTileHeight: number): number[] {
 
 		while (
 			row[x]?.type === startTile.type &&
-			isEqual(row[x]?.settings, startTile.settings)
+			isEqual(row[x]?.settings ?? {}, startTile.settings ?? {})
 		) {
 			++x;
 		}
 
 		// x goes one too far, so our tile is one back
-		return row[x - 1] as EditorEntity;
+		return row[Math.max(startTile.x, x - 1)] as EditorEntity;
 	}
 
 	function getMaxY(tile: EditorEntity): number {
@@ -201,12 +201,12 @@ function getObjects(layer: RoomLayer, roomTileHeight: number): number[] {
 
 		while (
 			clone[y]?.[tile.x]?.type === tile.type &&
-			isEqual(clone[y]?.[tile.x]?.settings, tile.settings)
+			isEqual(clone[y]?.[tile.x]?.settings ?? {}, tile.settings ?? {})
 		) {
 			++y;
 		}
 
-		return y - 1;
+		return Math.max(y - 1, tile.y);
 	}
 
 	function getBestY(startTile: EditorEntity, endTile: EditorEntity): number {

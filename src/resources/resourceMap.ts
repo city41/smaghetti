@@ -47,6 +47,7 @@ import { UndergroundBackground } from './UndergroundBackground';
 import { WaterfallTop } from './WaterfallTop';
 import { WingedPlatformBlock } from './WingedPlatformBlock';
 import { WingedPlatformWing } from './WingedPlatformWing';
+import { WoodFloorTop } from './WoodFloorTop';
 
 const resourceMap = {
 	BigBooArm,
@@ -98,6 +99,7 @@ const resourceMap = {
 	WaterfallTop,
 	WingedPlatformBlock,
 	WingedPlatformWing,
+	WoodFloorTop,
 };
 
 type ResourceType = keyof typeof resourceMap;
