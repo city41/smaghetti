@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { entityMap, EntityType } from '../../../entities/entityMap';
 import { Root } from '../../layout/Root';
-import { Entity } from '../../../entities/types';
 import {
 	determineValidGraphicAndObjectSetValues,
 	isGraphicAndObjectSetCompatible,
@@ -41,14 +40,21 @@ function sortUnfinishedLast(a: EntityType, b: EntityType): number {
 }
 
 function getCompatibility(
-	entityDef: Entity
+	entityType: EntityType
 ): { compatibleTypes: EntityType[]; incompatibleTypes: EntityType[] } {
+	const entityDef = entityMap[entityType];
+
 	const currentGraphicAndObjectSetNumbers = determineValidGraphicAndObjectSetValues(
 		[entityDef]
 	);
 
 	const compatibleTypes = Object.keys(entityMap).filter((type) => {
+		if (type === entityType) {
+			return false;
+		}
+
 		const def = entityMap[type as EntityType];
+
 		return isGraphicAndObjectSetCompatible(
 			def,
 			currentGraphicAndObjectSetNumbers
@@ -56,6 +62,10 @@ function getCompatibility(
 	}) as EntityType[];
 
 	const incompatibleTypes = Object.keys(entityMap).filter((type) => {
+		if (type === entityType) {
+			return false;
+		}
+
 		const def = entityMap[type as EntityType];
 		return !isGraphicAndObjectSetCompatible(
 			def,
@@ -104,7 +114,7 @@ function CompatibilityPage({
 	entityType,
 }: InternalCompatibilityPageProps & PublicCompatibilityPageProps) {
 	const entityDef = entityMap[entityType];
-	const { compatibleTypes, incompatibleTypes } = getCompatibility(entityDef);
+	const { compatibleTypes, incompatibleTypes } = getCompatibility(entityType);
 
 	return (
 		<>
