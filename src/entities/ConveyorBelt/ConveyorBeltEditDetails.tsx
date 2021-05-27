@@ -1,11 +1,7 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
-import {
-	FaArrowLeft,
-	FaArrowRight,
-	FaCaretLeft,
-	FaCaretRight,
-} from 'react-icons/fa';
+import { ImArrowLeft, ImArrowRight } from 'react-icons/im';
+import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
 
 type Direction = 'left' | 'right';
 
@@ -67,7 +63,7 @@ function ConveyorBeltEditDetails({
 					direction
 				</div>
 				<div className="grid grid-cols-2 items-center justify-items-center">
-					<FaArrowLeft
+					<ImArrowLeft
 						className={clsx({
 							'hover:bg-green-200': currentDirection !== 'left',
 							'bg-yellow-500': currentDirection === 'left',
@@ -79,7 +75,7 @@ function ConveyorBeltEditDetails({
 							onDirectionChange('left');
 						}}
 					/>
-					<FaArrowRight
+					<ImArrowRight
 						className={clsx({
 							'hover:bg-green-200': currentDirection !== 'right',
 							'bg-blue-500': currentDirection === 'right',

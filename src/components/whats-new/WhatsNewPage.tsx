@@ -49,8 +49,9 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
-				<NewEntry title="Conveyor belt details" date="2021-05-27">
+				<NewEntry title="Conveyor Belt and Thwomp details" date="2021-05-27">
 					<p>Conveyor belts can now be configured to go in either direction</p>
+					<p>Thwomp&apos;s pursuit direction can now be configured</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-26">
 					<ul className="ml-8 list-disc">
