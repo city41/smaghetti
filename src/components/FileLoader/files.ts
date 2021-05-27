@@ -2,6 +2,7 @@ let _bios: Uint8Array | null = null;
 let _rom: Uint8Array | null = null;
 let _emptySave: Uint8Array | null = null;
 let _saveState: Record<string, unknown> | null = null;
+let _exampleLevel: SerializedLevel | null = null;
 
 function setBios(bios: Uint8Array) {
 	_bios = bios;
@@ -17,6 +18,10 @@ function setEmptySave(emptySave: Uint8Array) {
 
 function setSaveState(saveState: Record<string, unknown>) {
 	_saveState = saveState;
+}
+
+function setExampleLevel(exampleLevel: SerializedLevel) {
+	_exampleLevel = exampleLevel;
 }
 
 function getBios(): Uint8Array | null {
@@ -35,13 +40,19 @@ function getSaveState(): Record<string, unknown> | null {
 	return _saveState;
 }
 
+function getExampleLevel(): SerializedLevel | null {
+	return _exampleLevel;
+}
+
 export {
 	setBios,
 	setRom,
 	setEmptySave,
 	setSaveState,
+	setExampleLevel,
 	getBios,
 	getRom,
 	getEmptySave,
 	getSaveState,
+	getExampleLevel,
 };

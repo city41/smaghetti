@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Editor } from '../Editor';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
@@ -6,12 +6,14 @@ import { IfNotTooSmall } from '../../IfNotTooSmall';
 import { TooSmall } from './TooSmall';
 import { NoscriptWarning } from './NoscriptWarning';
 import { Head } from '../../layout/Head';
+import { LevelChooserModal } from '../Editor/LevelChooserModal';
 
 type MakePageProps = {
 	allFilesReady: boolean;
+	showLevelChooser: boolean;
 };
 
-function MakePage({ allFilesReady }: MakePageProps) {
+function MakePage({ allFilesReady, showLevelChooser }: MakePageProps) {
 	const [afterFirstRender, setAfterFirstRender] = useState(false);
 	const head = <Head title="Level Editor" metaDescription="" />;
 
@@ -34,11 +36,12 @@ function MakePage({ allFilesReady }: MakePageProps) {
 			<IfNotTooSmall tooSmallDisplay={<TooSmall />}>
 				{() => {
 					return (
-						<Fragment>
+						<>
 							<NoscriptWarning />
 							<FileLoaderModal isOpen={!allFilesReady} />
+							<LevelChooserModal isOpen={allFilesReady && showLevelChooser} />
 							<Editor />
-						</Fragment>
+						</>
 					);
 				}}
 			</IfNotTooSmall>

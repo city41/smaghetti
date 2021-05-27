@@ -18,7 +18,7 @@ function ConnectedMakePage({ id }: ConnectedMakePageProps) {
 		}
 	}, [id]);
 
-	return <MakePage allFilesReady={allFilesReady} />;
+	return <MakePage allFilesReady={allFilesReady} showLevelChooser={!id} />;
 }
 
 export { ConnectedMakePage };

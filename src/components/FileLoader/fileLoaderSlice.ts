@@ -3,11 +3,17 @@ import { ThunkAction } from 'redux-thunk';
 // @ts-ignore no types
 import * as sha1 from 'js-sha1';
 import { AppState } from '../../store';
-import { setBios, setRom, setEmptySave, setSaveState } from './files';
+import {
+	setBios,
+	setRom,
+	setEmptySave,
+	setSaveState,
+	setExampleLevel,
+} from './files';
 import { getRom } from './files';
 import { entityMap, EntityType } from '../../entities/entityMap';
 import { extractResourcesToStylesheet } from '../../tiles/extractResourcesToStylesheet';
-import { deserialize } from '../../saveStates/serializer';
+import { deserialize as deserializeSaveState } from '../../saveStates/serializer';
 import { resourceMap } from '../../resources/resourceMap';
 import { Resource } from '../../resources/types';
 
@@ -26,6 +32,7 @@ type FileLoaderState = {
 	biosFileState: OtherFilesState;
 	emptySaveFileState: OtherFilesState;
 	saveStateJsonState: OtherFilesState;
+	exampleLevelState: OtherFilesState;
 
 	otherFilesState: OtherFilesState;
 	allFilesReady: boolean;
@@ -40,6 +47,7 @@ const defaultInitialState: FileLoaderState = {
 	biosFileState: 'loading',
 	emptySaveFileState: 'loading',
 	saveStateJsonState: 'loading',
+	exampleLevelState: 'loading',
 	otherFilesState: 'loading',
 	allFilesReady: false,
 	overallExtractionState: 'not-started',
@@ -49,17 +57,16 @@ const defaultInitialState: FileLoaderState = {
 const initialState = defaultInitialState;
 
 function settleState(state: FileLoaderState) {
-	if (
-		state.emptySaveFileState === 'error' ||
-		state.biosFileState === 'error' ||
-		state.saveStateJsonState === 'error'
-	) {
+	const states = [
+		state.emptySaveFileState,
+		state.biosFileState,
+		state.saveStateJsonState,
+		state.exampleLevelState,
+	];
+
+	if (states.some((s) => s === 'error')) {
 		state.otherFilesState = 'error';
-	} else if (
-		state.emptySaveFileState === 'loading' ||
-		state.biosFileState === 'loading' ||
-		state.saveStateJsonState === 'loading'
-	) {
+	} else if (states.some((s) => s === 'loading')) {
 		state.otherFilesState = 'loading';
 	} else {
 		state.otherFilesState = 'success';
@@ -94,6 +101,13 @@ const fileLoaderSlice = createSlice({
 			action: PayloadAction<OtherFilesState>
 		) {
 			state.saveStateJsonState = action.payload;
+			settleState(state);
+		},
+		exampleLevelState(
+			state: FileLoaderState,
+			action: PayloadAction<OtherFilesState>
+		) {
+			state.exampleLevelState = action.payload;
 			settleState(state);
 		},
 
@@ -185,7 +199,7 @@ const loadSaveState = (): FileLoaderThunk => async (dispatch) => {
 		fetch('/justOutsideEReaderMenu.json')
 			.then((r) => r.text())
 			.then((saveStateText) => {
-				const saveState = deserialize(saveStateText);
+				const saveState = deserializeSaveState(saveStateText);
 				setSaveState(saveState);
 				dispatch(fileLoaderSlice.actions.saveStateJsonState('success'));
 			})
@@ -196,6 +210,29 @@ const loadSaveState = (): FileLoaderThunk => async (dispatch) => {
 	} catch (e) {
 		console.error('failed to load save state json', e);
 		dispatch(fileLoaderSlice.actions.saveStateJsonState('error'));
+	}
+};
+
+const loadExampleLevel = (): FileLoaderThunk => async (dispatch) => {
+	try {
+		dispatch(fileLoaderSlice.actions.exampleLevelState('loading'));
+
+		fetch('/exampleLevel.json')
+			.then((r) => r.text())
+			.then((exampleLevelText) => {
+				const serializedExampleLevel = JSON.parse(
+					exampleLevelText
+				) as SerializedLevel;
+				setExampleLevel(serializedExampleLevel);
+				dispatch(fileLoaderSlice.actions.exampleLevelState('success'));
+			})
+			.catch((e) => {
+				console.error('failed to load example level', e);
+				dispatch(fileLoaderSlice.actions.exampleLevelState('error'));
+			});
+	} catch (e) {
+		console.error('failed to load example level', e);
+		dispatch(fileLoaderSlice.actions.exampleLevelState('error'));
 	}
 };
 
@@ -261,4 +298,12 @@ const reducer = fileLoaderSlice.reducer;
 
 export type { FileLoaderState };
 
-export { reducer, loadBios, loadRom, loadEmptySave, loadSaveState, extract };
+export {
+	reducer,
+	loadBios,
+	loadRom,
+	loadEmptySave,
+	loadSaveState,
+	loadExampleLevel,
+	extract,
+};

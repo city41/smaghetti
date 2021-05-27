@@ -9,6 +9,7 @@ import {
 	loadRom,
 	loadEmptySave,
 	loadSaveState,
+	loadExampleLevel,
 	extract,
 } from '../fileLoaderSlice';
 
@@ -32,6 +33,7 @@ function ConnectedFileLoaderModal({ isOpen }: ConnectedFileLoaderModalProps) {
 		dispatch(loadEmptySave());
 		dispatch(loadBios());
 		dispatch(loadSaveState());
+		dispatch(loadExampleLevel());
 	}, []);
 
 	useEffect(() => {
@@ -46,7 +48,7 @@ function ConnectedFileLoaderModal({ isOpen }: ConnectedFileLoaderModalProps) {
 
 	return (
 		<FileLoaderModal
-			isOpen={isOpen && process.env.NODE_ENV === 'production'}
+			isOpen={isOpen}
 			extractionState={overallExtractionState}
 			romFileState={romFileState}
 			otherFilesState={otherFilesState}

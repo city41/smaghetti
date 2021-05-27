@@ -39,6 +39,7 @@ import {
 	isGraphicAndObjectSetCompatible,
 	isWorkingEntityType,
 } from '../../entities/util';
+import { getExampleLevel } from '../FileLoader/files';
 
 type LocalStorageData = {
 	version: string;
@@ -1781,6 +1782,23 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	}
 };
 
+const loadExampleLevel = (): LevelThunk => (dispatch) => {
+	const exampleLevel = getExampleLevel();
+
+	if (!exampleLevel) {
+		throw new Error(
+			'editorSlice#loadExampleLevel: called before example level file has been loaded'
+		);
+	}
+
+	dispatch(editorSlice.actions.setLevelName(exampleLevel.name));
+	dispatch(editorSlice.actions.setLevelDataFromLoad(exampleLevel.data));
+};
+
+const loadBlankLevel = (): LevelThunk => (dispatch) => {
+	dispatch(editorSlice.actions.eraseLevel());
+};
+
 // 1.0.0: first localstorage implementation
 // 1.0.1: changed some tile serialization ids
 // 1.1.0: added metadata.name
@@ -1916,6 +1934,8 @@ const undoableReducer = undoable(cleanUpReducer, {
 		'editor/loadLevelError',
 		'editor/setLevelDataFromLoad',
 		'editor/loadFromLocalStorage',
+		'editor/loadExampleLevel',
+		'editor/loadBlankLevel',
 		'editor/saveToLocalStorage',
 		'@@INIT',
 		'preloader/resourceLoaded',
@@ -2080,6 +2100,8 @@ export {
 	saveLevelCopy,
 	loadLevel,
 	loadFromLocalStorage,
+	loadExampleLevel,
+	loadBlankLevel,
 	saveToLocalStorage,
 	eraseLevel,
 	LOCALSTORAGE_KEY,
