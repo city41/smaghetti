@@ -6,7 +6,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { RoomState } from '../../components/make/editorSlice';
 import { objectSets } from './objectSets';
 
-const WATER_COLOR = 'rgb(24, 139, 205)';
+const WATER_COLOR = 'rgb(24, 104, 200)';
 
 function isWaterAbove(
 	entity: EditorEntity | undefined,
@@ -22,13 +22,13 @@ function isWaterAbove(
 		return false;
 	}
 
-	return cellAbove.type === 'PoolOfWater';
+	return cellAbove.type === 'ChoppyWater';
 }
 
-const PoolOfWater: Entity = {
+const ChoppyWater: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'Pool of Water',
+		title: 'Choppy Water',
 	},
 
 	objectSets: encodeObjectSets(objectSets),
@@ -36,7 +36,7 @@ const PoolOfWater: Entity = {
 	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'xy',
-	objectId: 0x3e,
+	objectId: 0x25,
 	param1: 'height',
 	param2: 'width',
 	emptyBank: 1,
@@ -46,22 +46,22 @@ const PoolOfWater: Entity = {
 			0x7f96,
 			0x7fff,
 			0x0,
-			0x620d,
-			0x7271,
-			0x7b15,
-			0x7fbb,
-			0x6623,
-			0x7b2e,
+			0x65a3,
+			0x7a8b,
+			0x7f6e,
 			0x7fd6,
-			0x15f8,
-			0x2a5b,
-			0x3add,
-			0x475f,
-			0x0,
-			0x0,
+			0x1594,
+			0x2e39,
+			0x42bd,
+			0x11,
+			0x16,
+			0x1a,
+			0xdbe,
+			0x123f,
+			0x2bf,
 		],
 		romOffset: 0x176be8,
-		tiles: [[420, 421]],
+		tiles: [[199]],
 	},
 
 	toObjectBinary(x, y, w, h): number[] {
@@ -72,7 +72,7 @@ const PoolOfWater: Entity = {
 		return (
 			<div style={{ width: size, height: size }} className="grid grid-rows-2">
 				<div
-					className="PoolOfWater-bg w-full h-full"
+					className="ChoppyWater-bg w-full h-full"
 					style={{ backgroundSize: '50% 100%', backgroundRepeat: 'repeat-x' }}
 				/>
 				<div
@@ -97,7 +97,7 @@ const PoolOfWater: Entity = {
 		} else {
 			return (
 				<div style={style} className="grid grid-rows-2">
-					<div className="PoolOfWater-bg w-full h-full" />
+					<div className="ChoppyWater-bg w-full h-full" />
 					<div
 						className="w-full h-full"
 						style={{
@@ -110,4 +110,4 @@ const PoolOfWater: Entity = {
 	},
 };
 
-export { PoolOfWater };
+export { ChoppyWater };

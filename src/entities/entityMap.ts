@@ -29,6 +29,7 @@ import { CeilingSpiny } from './CeilingSpiny';
 import { CementBlock } from './CementBlock';
 import { ChainChomp } from './ChainChomp';
 import { ChargingChuck } from './ChargingChuck';
+import { ChoppyWater } from './ChoppyWater';
 import { ClassicBowser } from './ClassicBowser';
 import { Clock } from './Clock';
 import { Chest } from './Chest';
@@ -176,6 +177,7 @@ const entityMap = {
 	ClassicBowser,
 	Clock,
 	Chest,
+	ChoppyWater,
 	Coin,
 	CoinChallenge,
 	ConveyorBelt,
