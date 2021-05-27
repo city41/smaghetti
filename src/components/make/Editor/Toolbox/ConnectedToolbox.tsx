@@ -14,6 +14,7 @@ import {
 	toggleResizeMode,
 } from '../../editorSlice';
 import { Toolbox, PublicToolboxProps } from './Toolbox';
+import { useRouter } from 'next/router';
 
 const actions = bindActionCreators(
 	{
@@ -29,6 +30,8 @@ const actions = bindActionCreators(
 );
 
 function ConnectedToolbox(props: PublicToolboxProps) {
+	const router = useRouter();
+
 	const { mouseMode, showGrid } = useSelector(
 		(state: AppState) => state.editor.present
 	);
@@ -46,7 +49,7 @@ function ConnectedToolbox(props: PublicToolboxProps) {
 
 	function handleEraseLevel() {
 		dispatch(eraseLevel());
-		history.replaceState({}, 'make', '/make/');
+		router.replace('/make');
 	}
 
 	return (
