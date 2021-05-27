@@ -6,6 +6,7 @@ import { encodeObjectSets, getBankParam1 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { ConveyorBeltEditDetails, Direction } from './ConveyorBeltEditDetails';
+import { TileSpace } from '../TileSpace';
 
 const directionToObjectId: Record<Direction, number> = {
 	left: 0x31,
@@ -101,10 +102,15 @@ const ConveyorBelt: Entity = {
 			height: TILE_SIZE,
 		};
 
+		const spaceStyle = {
+			width: TILE_SIZE,
+			height: TILE_SIZE,
+		};
+
 		const body = (
-			<div className="ConveyorBelt-bg" style={style}>
+			<div className="relative ConveyorBelt-bg" style={style}>
 				<div
-					className={clsx('w-full h-full grid place-items-center border', {
+					className={clsx('w-full h-full grid place-items-center border z-10', {
 						'border-blue-200': direction === 'right',
 						'border-yellow-200': direction === 'left',
 					})}
@@ -115,6 +121,9 @@ const ConveyorBelt: Entity = {
 							'bg-yellow-500': direction === 'left',
 						})}
 					/>
+				</div>
+				<div className="absolute top-0 left-0" style={spaceStyle}>
+					<TileSpace />
 				</div>
 			</div>
 		);
