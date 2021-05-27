@@ -16,7 +16,7 @@ const angleToObjectId: Record<number, number> = {
 };
 
 const TriangularBlock: Entity = {
-	paletteCategory: 'object',
+	paletteCategory: 'gizmo',
 	paletteInfo: {
 		title: 'Triangular Block',
 	},
