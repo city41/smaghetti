@@ -74,6 +74,7 @@ import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
 import { HammerBro } from './HammerBro';
 import { HiddenBlock } from './HiddenBlock';
+import { HomingFireball } from './HomingFireball';
 import { HoppingBowserStatue } from './HoppingBowserStatue';
 import { HorizontalRedPiranhaPlant } from './HorizontalRedPiranhaPlant';
 import { HotHead } from './HotHead';
@@ -219,6 +220,7 @@ const entityMap = {
 	GreenParaTroopa,
 	HammerBro,
 	HiddenBlock,
+	HomingFireball,
 	HoppingBowserStatue,
 	HorizontalRedPiranhaPlant,
 	HotHead,
