@@ -123,6 +123,7 @@ import { SpikeBall } from './SpikeBall';
 import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
 import { Stalactite } from './Stalactite';
+import { PtooiePottedPiranhaPlant } from './PtooiePottedPiranhaPlant';
 import { PtooieWalkingPiranhaPlant } from './PtooieWalkingPiranhaPlant';
 import { StarMan } from './StarMan';
 import { StretchBlock } from './StretchBlock';
@@ -256,6 +257,7 @@ const entityMap = {
 	PoolOfWater,
 	POWBlock,
 	PowerUpSlotMachine,
+	PtooiePottedPiranhaPlant,
 	PtooieWalkingPiranhaPlant,
 	QuestionBlock,
 	QuestionMark,
