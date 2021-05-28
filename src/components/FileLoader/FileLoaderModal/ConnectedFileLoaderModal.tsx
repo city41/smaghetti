@@ -48,7 +48,7 @@ function ConnectedFileLoaderModal({ isOpen }: ConnectedFileLoaderModalProps) {
 
 	return (
 		<FileLoaderModal
-			isOpen={isOpen}
+			isOpen={isOpen && process.env.NODE_ENV === 'production'}
 			extractionState={overallExtractionState}
 			romFileState={romFileState}
 			otherFilesState={otherFilesState}
