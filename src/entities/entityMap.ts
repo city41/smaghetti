@@ -6,6 +6,7 @@ import { BabyCheepCheep } from './BabyCheepCheep';
 import { BeachedCheepCheep } from './BeachedCheepCheep';
 import { BigBooBoss } from './BigBooBoss';
 import { Bobomb } from './Bobomb';
+import { BoltLift } from './BoltLift';
 import { BonyBeetle } from './BonyBeetle';
 import { Boo } from './Boo';
 import { BoomBoom } from './BoomBoom';
@@ -151,6 +152,7 @@ const entityMap = {
 	BeachedCheepCheep,
 	BigBooBoss,
 	Bobomb,
+	BoltLift,
 	BonyBeetle,
 	Boo,
 	BoomBoom,
