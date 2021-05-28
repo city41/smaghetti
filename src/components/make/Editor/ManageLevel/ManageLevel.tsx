@@ -7,11 +7,11 @@ import { RoomThumbnail } from '../../../RoomThumbnail';
 import { PlainIconButton } from '../../../PlainIconButton';
 import { Button } from '../../../Button';
 
-type PublicManageRoomsProps = {
+type PublicManageLevelProps = {
 	className?: string;
 };
 
-type InternalManageRoomsProps = {
+type InternalManageLevelProps = {
 	rooms: Array<RoomState & { type: string }>;
 	currentRoomIndex: number;
 	onAddRoom: () => void;
@@ -23,7 +23,7 @@ type InternalManageRoomsProps = {
 	onRoomTypeChange: (index: number, type: string) => void;
 };
 
-function ManageRooms({
+function ManageLevel({
 	className,
 	rooms,
 	onAddRoom,
@@ -33,7 +33,7 @@ function ManageRooms({
 	scale,
 	roomTypes,
 	onRoomTypeChange,
-}: PublicManageRoomsProps & InternalManageRoomsProps) {
+}: PublicManageLevelProps & InternalManageLevelProps) {
 	return (
 		<div
 			className={clsx(
@@ -97,5 +97,5 @@ function ManageRooms({
 	);
 }
 
-export { ManageRooms };
-export type { PublicManageRoomsProps };
+export { ManageLevel };
+export type { PublicManageLevelProps };

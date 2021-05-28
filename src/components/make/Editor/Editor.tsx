@@ -10,7 +10,7 @@ import { Layers } from './Layers';
 import { Canvas } from './Canvas';
 import { CanvasOffsetContainer } from './CanvasOffsetContainer';
 import { LevelResizer } from './LevelResizer';
-import { ManageRooms } from './ManageRooms';
+import { ManageLevel } from './ManageLevel';
 import { LevelPlayer } from './LevelPlayer';
 import { Toolbox } from './Toolbox';
 import { KeyboardHelpModal } from './KeyboardHelpModal';
@@ -124,7 +124,7 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 						<CanvasOffsetContainer>
 							{mode !== 'managing-rooms' && <Canvas />}
 							{mode === 'resizing' && <LevelResizer />}
-							{mode === 'managing-rooms' && <ManageRooms />}
+							{mode === 'managing-rooms' && <ManageLevel />}
 						</CanvasOffsetContainer>
 					</div>
 				)}

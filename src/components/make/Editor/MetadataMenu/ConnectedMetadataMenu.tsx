@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import {
 	setLevelName,
 	setCurrentRoomIndex,
-	toggleManageRoomsMode,
+	toggleManageLevelMode,
 } from '../../editorSlice';
 import { AppState, dispatch } from '../../../../store';
 
@@ -16,7 +16,7 @@ const actions = bindActionCreators(
 	{
 		onSetLevelName: setLevelName,
 		onRoomIndexChange: setCurrentRoomIndex,
-		onManageRoomsClick: toggleManageRoomsMode,
+		onManageLevelClick: toggleManageLevelMode,
 	},
 	dispatch
 );

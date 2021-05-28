@@ -640,7 +640,7 @@ function determineResizeScale(state: InternalEditorState): number {
 	return Math.min(horizontalScale, verticalScale);
 }
 
-function setScaleAndOffsetForManageRooms(state: InternalEditorState) {
+function setScaleAndOffsetForManageLevel(state: InternalEditorState) {
 	const currentRoom = getCurrentRoom(state);
 
 	const widthInTiles = Math.max(...state.rooms.map((r) => r.roomTileWidth)) + 5;
@@ -1176,7 +1176,7 @@ const editorSlice = createSlice({
 				centerLevelInWindow(state);
 			}
 		},
-		toggleManageRoomsMode(state: InternalEditorState) {
+		toggleManageLevelMode(state: InternalEditorState) {
 			const currentRoom = getCurrentRoom(state);
 
 			if (state.storedForManageRoomsMode) {
@@ -1190,13 +1190,13 @@ const editorSlice = createSlice({
 					offset: { ...currentRoom.scrollOffset },
 				};
 
-				setScaleAndOffsetForManageRooms(state);
+				setScaleAndOffsetForManageLevel(state);
 			}
 		},
 		addRoom(state: InternalEditorState) {
 			if (state.rooms.length < 4) {
 				state.rooms.push(cloneDeep(initialRoomState));
-				setScaleAndOffsetForManageRooms(state);
+				setScaleAndOffsetForManageLevel(state);
 			}
 		},
 		deleteRoom(state: InternalEditorState, action: PayloadAction<number>) {
@@ -1207,7 +1207,7 @@ const editorSlice = createSlice({
 					state.currentRoomIndex,
 					state.rooms.length - 1
 				);
-				setScaleAndOffsetForManageRooms(state);
+				setScaleAndOffsetForManageLevel(state);
 			}
 		},
 		roomSettingsChange(
@@ -1866,7 +1866,7 @@ const {
 	scaleIncreased,
 	scaleDecreased,
 	toggleResizeMode,
-	toggleManageRoomsMode,
+	toggleManageLevelMode,
 	addRoom,
 	deleteRoom,
 	roomSettingsChange,
@@ -1914,7 +1914,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		scaleIncreased.toString(),
 		scaleDecreased.toString(),
 		toggleResizeMode.toString(),
-		toggleManageRoomsMode().toString(),
+		toggleManageLevelMode().toString(),
 		resizeLevelComplete.toString(),
 		pan.toString(),
 		toggleGrid.toString(),
@@ -2082,7 +2082,7 @@ export {
 	scaleIncreased,
 	scaleDecreased,
 	toggleResizeMode,
-	toggleManageRoomsMode,
+	toggleManageLevelMode,
 	addRoom,
 	deleteRoom,
 	roomSettingsChange,

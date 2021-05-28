@@ -7,12 +7,12 @@ import {
 	addRoom,
 	deleteRoom,
 	setCurrentRoomIndex,
-	toggleManageRoomsMode,
+	toggleManageLevelMode,
 	roomSettingsChange,
 } from '../../editorSlice';
 
-import { ManageRooms } from './ManageRooms';
-import type { PublicManageRoomsProps } from './ManageRooms';
+import { ManageLevel } from './ManageLevel';
+import type { PublicManageLevelProps } from './ManageLevel';
 import { useSelector } from 'react-redux';
 import { ROOM_TYPE_SETTINGS } from '../../../../levelData/constants';
 import { IncompatibleEntitiesWarningModal } from './IncompatibleEntitiesWarningModal';
@@ -22,7 +22,7 @@ const actions = bindActionCreators(
 		onAddRoom: addRoom,
 		onDeleteRoom: deleteRoom,
 		onRoomIndexChange: setCurrentRoomIndex,
-		onClose: toggleManageRoomsMode,
+		onClose: toggleManageLevelMode,
 	},
 	dispatch
 );
@@ -36,7 +36,7 @@ function getRoomType(settings: RoomSettings): string {
 
 	if (!entry) {
 		throw new Error(
-			`ConnectedManageRooms: failed to get a room type for: ${JSON.stringify(
+			`ConnectedManageLevel: failed to get a room type for: ${JSON.stringify(
 				settings
 			)}`
 		);
@@ -45,7 +45,7 @@ function getRoomType(settings: RoomSettings): string {
 	return entry[0];
 }
 
-function ConnectedManageRooms(props: PublicManageRoomsProps) {
+function ConnectedManageLevel(props: PublicManageLevelProps) {
 	const [
 		showIncompatibleWarningModal,
 		setShowIncompatibleWarningModal,
@@ -100,7 +100,7 @@ function ConnectedManageRooms(props: PublicManageRoomsProps) {
 				onProceed={handleProceed}
 				incompatibleType={pendingRoomTypeChange?.type}
 			/>
-			<ManageRooms
+			<ManageLevel
 				{...props}
 				{...actions}
 				rooms={roomsWithType}
@@ -113,4 +113,4 @@ function ConnectedManageRooms(props: PublicManageRoomsProps) {
 	);
 }
 
-export { ConnectedManageRooms };
+export { ConnectedManageLevel };

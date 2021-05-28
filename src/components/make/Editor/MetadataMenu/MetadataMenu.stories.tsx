@@ -17,7 +17,7 @@ export const Basic = () => {
 			onSetLevelName={() => {}}
 			currentRoomIndex={1}
 			roomCount={3}
-			onManageRoomsClick={() => {}}
+			onManageLevelClick={() => {}}
 			onRoomIndexChange={() => {}}
 		/>
 	);

@@ -15,7 +15,7 @@ type InternalMetadataMenuProps = {
 	currentRoomIndex: number;
 	roomCount: number;
 	onRoomIndexChange: (newIndex: number) => void;
-	onManageRoomsClick: () => void;
+	onManageLevelClick: () => void;
 };
 
 function MetadataMenu({
@@ -26,7 +26,7 @@ function MetadataMenu({
 	currentRoomIndex,
 	roomCount,
 	onRoomIndexChange,
-	onManageRoomsClick,
+	onManageLevelClick,
 }: PublicMetadataMenuProps & InternalMetadataMenuProps) {
 	const [editing, setEditing] = useState(false);
 	const [editedName, setEditedName] = useState(levelName);
@@ -127,7 +127,7 @@ function MetadataMenu({
 				<PlainIconButton
 					icon={MdEdit}
 					label="manage rooms"
-					onClick={onManageRoomsClick}
+					onClick={onManageLevelClick}
 					disabled={disabled}
 				/>
 			</div>
