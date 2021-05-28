@@ -123,6 +123,7 @@ import { SpikeBall } from './SpikeBall';
 import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
 import { Stalactite } from './Stalactite';
+import { StalkingPiranhaPlant } from './StalkingPiranhaPlant';
 import { StarMan } from './StarMan';
 import { StretchBlock } from './StretchBlock';
 import { TerracottaBrick } from './TerracottaBrick';
@@ -270,6 +271,7 @@ const entityMap = {
 	Spiny,
 	SpringBoard,
 	Stalactite,
+	StalkingPiranhaPlant,
 	StarMan,
 	StretchBlock,
 	TerracottaBrick,

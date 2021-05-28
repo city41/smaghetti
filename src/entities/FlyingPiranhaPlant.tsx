@@ -40,8 +40,8 @@ const FlyingPiranhaPlant: Entity = {
 		],
 		romOffset: 0x1724f0,
 		tiles: [
-			[992, { romOffset: 0x1724f0, tileIndex: 992, flip: 'h' }],
-			[1008, { romOffset: 0x1724f0, tileIndex: 1008, flip: 'h' }],
+			[992, { tileIndex: 992, flip: 'h' }],
+			[1008, { tileIndex: 1008, flip: 'h' }],
 			[
 				{ romOffset: 0x18c914, tileIndex: 111 },
 				{ romOffset: 0x18c914, tileIndex: 111, flip: 'h' },
