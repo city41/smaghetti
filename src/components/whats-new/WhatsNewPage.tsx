@@ -52,7 +52,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-05-27">
 					<ul className="ml-8 list-disc">
 						<li>Homing Fireball</li>
-						<li>Stalking Piranha Plant</li>
+						<li>Ptooie Walking Piranha Plant</li>
 					</ul>
 					<p>
 						The fireball is an enemy from Yoshi&apos;s island. It is unused in

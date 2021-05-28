@@ -6,10 +6,10 @@ import { TileSpace } from './TileSpace';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-const StalkingPiranhaPlant: Entity = {
+const PtooieWalkingPiranhaPlant: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		title: 'Stalking Piranha Plant',
+		title: 'Ptooie Walking Piranha Plant',
 		description: 'need to fix the palettes, but works fine',
 	},
 
@@ -66,7 +66,7 @@ const StalkingPiranhaPlant: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="StalkingPiranhaPlant-bg bg-center bg-no-repeat"
+				className="PtooieWalkingPiranhaPlant-bg bg-center bg-no-repeat"
 				style={{ width: size, height: size, backgroundSize: '33% 100%' }}
 			/>
 		);
@@ -86,7 +86,10 @@ const StalkingPiranhaPlant: Entity = {
 		};
 
 		return (
-			<div className="relative StalkingPiranhaPlant-bg bg-cover" style={style}>
+			<div
+				className="relative PtooieWalkingPiranhaPlant-bg bg-cover"
+				style={style}
+			>
 				<div className="absolute left-0" style={spaceStyle}>
 					<TileSpace />
 				</div>
@@ -95,4 +98,4 @@ const StalkingPiranhaPlant: Entity = {
 	},
 };
 
-export { StalkingPiranhaPlant };
+export { PtooieWalkingPiranhaPlant };

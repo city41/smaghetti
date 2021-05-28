@@ -123,7 +123,7 @@ import { SpikeBall } from './SpikeBall';
 import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
 import { Stalactite } from './Stalactite';
-import { StalkingPiranhaPlant } from './StalkingPiranhaPlant';
+import { PtooieWalkingPiranhaPlant } from './PtooieWalkingPiranhaPlant';
 import { StarMan } from './StarMan';
 import { StretchBlock } from './StretchBlock';
 import { TerracottaBrick } from './TerracottaBrick';
@@ -256,6 +256,7 @@ const entityMap = {
 	PoolOfWater,
 	POWBlock,
 	PowerUpSlotMachine,
+	PtooieWalkingPiranhaPlant,
 	QuestionBlock,
 	QuestionMark,
 	RedKoopaTroopa,
@@ -271,7 +272,6 @@ const entityMap = {
 	Spiny,
 	SpringBoard,
 	Stalactite,
-	StalkingPiranhaPlant,
 	StarMan,
 	StretchBlock,
 	TerracottaBrick,
