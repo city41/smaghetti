@@ -2,7 +2,7 @@ let _bios: Uint8Array | null = null;
 let _rom: Uint8Array | null = null;
 let _emptySave: Uint8Array | null = null;
 let _saveState: Record<string, unknown> | null = null;
-let _exampleLevel: SerializedLevel | null = null;
+let _exampleLevel: LocalStorageSerializedLevel | null = null;
 
 function setBios(bios: Uint8Array) {
 	_bios = bios;
@@ -20,7 +20,7 @@ function setSaveState(saveState: Record<string, unknown>) {
 	_saveState = saveState;
 }
 
-function setExampleLevel(exampleLevel: SerializedLevel) {
+function setExampleLevel(exampleLevel: LocalStorageSerializedLevel) {
 	_exampleLevel = exampleLevel;
 }
 
@@ -40,7 +40,7 @@ function getSaveState(): Record<string, unknown> | null {
 	return _saveState;
 }
 
-function getExampleLevel(): SerializedLevel | null {
+function getExampleLevel(): LocalStorageSerializedLevel | null {
 	return _exampleLevel;
 }
 

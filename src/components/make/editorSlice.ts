@@ -40,14 +40,10 @@ import {
 	isWorkingEntityType,
 } from '../../entities/util';
 import { getExampleLevel } from '../FileLoader/files';
-
-type LocalStorageData = {
-	version: string;
-	metadata: {
-		name: string;
-	};
-	levelData: SerializedLevelData;
-};
+import {
+	convertLevelToLatestVersion,
+	CURRENT_VERSION,
+} from '../../level/versioning/convertLevelToLatestVersion';
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
 
@@ -90,8 +86,9 @@ type RoomState = {
 };
 
 type InternalEditorState = {
-	metadata: {
-		name: string;
+	name: string;
+	settings: {
+		timer: number;
 	};
 	rooms: RoomState[];
 	currentRoomIndex: number;
@@ -121,7 +118,13 @@ type InternalEditorState = {
 	isSelecting: boolean;
 	savedLevelId?: string;
 	saveLevelState: 'dormant' | 'saving' | 'error' | 'success';
-	loadLevelState: 'dormant' | 'loading' | 'error' | 'missing' | 'success';
+	loadLevelState:
+		| 'dormant'
+		| 'loading'
+		| 'error'
+		| 'missing'
+		| 'success'
+		| 'legacy';
 };
 
 const initialScale = playerScale;
@@ -280,8 +283,9 @@ const initialRoomState: RoomState = {
 };
 
 const defaultInitialState: InternalEditorState = {
-	metadata: {
-		name: 'new level',
+	name: 'new level',
+	settings: {
+		timer: 900,
 	},
 	paintedGroup: '',
 	saveLevelState: 'dormant',
@@ -883,7 +887,7 @@ const editorSlice = createSlice({
 	initialState,
 	reducers: {
 		setLevelName(state: InternalEditorState, action: PayloadAction<string>) {
-			state.metadata.name = action.payload.trim() || 'new level';
+			state.name = action.payload.trim() || 'new level';
 		},
 		setCurrentRoomIndex(
 			state: InternalEditorState,
@@ -1125,7 +1129,7 @@ const editorSlice = createSlice({
 				centerLevelInWindow(state);
 			}
 
-			state.metadata.name = defaultInitialState.metadata.name;
+			state.name = defaultInitialState.name;
 			state.savedLevelId = undefined;
 		},
 		resetOffset(state: InternalEditorState) {
@@ -1699,12 +1703,7 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 		}),
 	};
 
-	await doSave(
-		dispatch,
-		levelData,
-		editorState.savedLevelId,
-		editorState.metadata.name
-	);
+	await doSave(dispatch, levelData, editorState.savedLevelId, editorState.name);
 };
 
 const saveLevelCopy = (): LevelThunk => async (dispatch, getState) => {
@@ -1717,7 +1716,7 @@ const saveLevelCopy = (): LevelThunk => async (dispatch, getState) => {
 		}),
 	};
 
-	const levelName = (editorState.metadata.name ?? 'new level') + ' copy';
+	const levelName = (editorState.name ?? 'new level') + ' copy';
 	await doSave(dispatch, levelData, undefined, levelName);
 
 	dispatch(editorSlice.actions.setLevelName(levelName));
@@ -1750,24 +1749,19 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 
 		if (rawJson) {
 			try {
-				const localStorageData = JSON.parse(rawJson) as LocalStorageData;
+				const unknownLocalStorageData = JSON.parse(rawJson) as unknown;
+				const localStorageData = convertLevelToLatestVersion(
+					unknownLocalStorageData
+				);
 
-				if (
-					localStorageData &&
-					localStorageData.levelData &&
-					localStorageData.levelData.rooms &&
-					localStorageData.levelData.rooms[0] &&
-					localStorageData.levelData.rooms[0].actors
-				) {
+				if (localStorageData) {
 					dispatch(
-						editorSlice.actions.setLevelDataFromLoad(localStorageData.levelData)
+						editorSlice.actions.setLevelDataFromLoad(localStorageData.data)
 					);
-				}
 
-				if (localStorageData?.metadata?.name) {
-					dispatch(
-						editorSlice.actions.setLevelName(localStorageData.metadata.name)
-					);
+					dispatch(editorSlice.actions.setLevelName(localStorageData.name));
+				} else {
+					dispatch(editorSlice.actions.setLoadLevelState('legacy'));
 				}
 			} catch (e) {
 				// eslint-disable-next-line no-console
@@ -1799,19 +1793,6 @@ const loadBlankLevel = (): LevelThunk => (dispatch) => {
 	dispatch(editorSlice.actions.eraseLevel());
 };
 
-// 1.0.0: first localstorage implementation
-// 1.0.1: changed some tile serialization ids
-// 1.1.0: added metadata.name
-// 2.0.0: paletteEntries switched to just be EntityType strings
-// 3.0.0: rooms
-// 3.0.1: fix issue where room paletteEntries were not being restored
-// 3.1.0: added room settings
-// 3.1.1: room settings: spriteGraphicSet
-// 4.0.0: transports no longer separate, but rather settings on doors/pipes
-// 4.0.1: sprite graphic sets
-// 4.0.2: object sets
-// 5.0.0: layers
-const LOCALSTORAGE_VERSION = '5.0.0';
 const LOCALSTORAGE_KEY = 'smaghetti_editor';
 
 const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
@@ -1827,12 +1808,11 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 
 		const serializedLevelData = serialize(localStorageData);
 
-		const dataToWrite: LocalStorageData = {
-			version: LOCALSTORAGE_VERSION,
-			metadata: {
-				...editorState.metadata,
-			},
-			levelData: serializedLevelData,
+		const dataToWrite: LocalStorageSerializedLevel = {
+			name: editorState.name,
+			version: CURRENT_VERSION,
+			settings: editorState.settings,
+			data: serializedLevelData,
 		};
 
 		try {

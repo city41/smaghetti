@@ -16,6 +16,9 @@ const blankLevel: Level = {
 	id: '1',
 	created_at: '',
 	name: 'Storybook Level',
+	settings: {
+		timer: 0,
+	},
 	data: {
 		rooms: [
 			{

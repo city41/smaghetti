@@ -87,6 +87,9 @@ type LevelData = {
 
 type NewLevel = {
 	name: string;
+	settings: {
+		timer: number;
+	};
 	data: LevelData;
 	created_at: string;
 };
@@ -103,7 +106,12 @@ type BrokenLevel = {
 	broken: true;
 };
 
-type SerializedLevel = Omit<Level, 'data'> & { data: SerializedLevelData };
+type SerializedLevel = Omit<Level, 'data'> & {
+	data: SerializedLevelData;
+	version: string;
+};
+
+type LocalStorageSerializedLevel = Omit<SerializedLevel, 'id' | 'created_at'>;
 
 type User = { id: string; username: string };
 

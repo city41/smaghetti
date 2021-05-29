@@ -14,13 +14,16 @@ import { HowToUseDownloadModal } from '../../../profile/ProfilePage/LevelEntry/H
 function ConnectedDownloadButton(props: PublicDownloadButtonProps) {
 	const { rooms } = useSelector((state: AppState) => state.editor.present);
 
-	const { metadata } = useSelector((state: AppState) => state.editor.present);
+	const { settings, name } = useSelector(
+		(state: AppState) => state.editor.present
+	);
 
 	const [showDownloadHelp, setShowDownloadHelp] = useState(false);
 
 	function handleDownloadClick() {
 		const level: LevelToSave = {
-			name: metadata.name,
+			name,
+			settings,
 			data: {
 				rooms: rooms.map((r) => {
 					return {

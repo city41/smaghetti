@@ -22,14 +22,14 @@ const actions = bindActionCreators(
 );
 
 function ConnectedMetadataMenu(props: PublicMetadataMenuProps) {
-	const { metadata, currentRoomIndex, rooms } = useSelector(
+	const { name, currentRoomIndex, rooms } = useSelector(
 		(s: AppState) => s.editor.present
 	);
 
 	return (
 		<MetadataMenu
 			{...props}
-			levelName={metadata.name}
+			levelName={name}
 			currentRoomIndex={currentRoomIndex}
 			roomCount={rooms.length}
 			{...actions}

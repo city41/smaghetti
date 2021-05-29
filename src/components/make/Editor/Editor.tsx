@@ -26,7 +26,13 @@ import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
 type EditorProps = {
 	noScript?: boolean;
 	mode: 'editing' | 'resizing' | 'managing-rooms';
-	loadLevelState: 'dormant' | 'loading' | 'success' | 'missing' | 'error';
+	loadLevelState:
+		| 'dormant'
+		| 'loading'
+		| 'success'
+		| 'missing'
+		| 'error'
+		| 'legacy';
 };
 
 function toFreshEditor() {
@@ -168,14 +174,18 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 					</div>
 				</>
 			)}
-			{loadLevelState === 'missing' && (
+			{['missing', 'error', 'legacy'].includes(loadLevelState) && (
 				<>
 					<div className="fixed top-0 left-0 w-screen h-screen opacity-75 bg-gray-700 z-10" />
-					<div className="fixed top-1/3 left-1/3 w-1/3 grid place-items-center z-10 p-4 bg-red-200 text-black">
-						<h1 className="text-xl font-bold">Level not found</h1>
+					<div className="fixed top-1/3 left-1/3 w-1/3 grid place-items-center z-10 p-4 bg-red-200 text-black space-y-4">
+						<h1 className="text-xl font-bold">Failed to load the level</h1>
 						<p>
-							It may have been deleted or is owned by someone else. Copying
-							other people&apos;s levels is not supported yet.
+							It may have been deleted, too old, or is owned by someone else.
+							Copying other people&apos;s levels is not supported yet.
+						</p>
+						<p>
+							The level format is stabilizing, so not being able to load old
+							levels will stop being a problem soon
 						</p>
 						<a
 							className="block mt-4 text-blue-700 cursor-pointer"
@@ -185,25 +195,6 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 						>
 							start a fresh level instead
 						</a>
-					</div>
-				</>
-			)}
-			{loadLevelState === 'error' && (
-				<>
-					<div className="fixed top-0 left-0 w-screen h-screen opacity-75 bg-gray-700 z-10" />
-					<div className="fixed top-1/3 left-1/3 w-1/3 grid place-items-center z-10 p-4 bg-red-200 text-black">
-						<h1 className="text-xl font-bold">Error loading level</h1>
-						<p>
-							Something went wrong. Try refreshing the page or{' '}
-							<a
-								className="text-blue-700 cursor-pointer"
-								onClick={() => {
-									toFreshEditor();
-								}}
-							>
-								start a fresh level instead
-							</a>
-						</p>
 					</div>
 				</>
 			)}

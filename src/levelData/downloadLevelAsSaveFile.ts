@@ -2,7 +2,7 @@ import { getEmptySave } from '../components/FileLoader/files';
 import { createLevelData } from './createLevelData';
 import { injectLevelIntoSave } from './injectLevelIntoSave';
 
-type LevelToSave = Omit<NewLevel, 'created_at' | 'level_play_sessions'>;
+type LevelToSave = Omit<NewLevel, 'created_at'>;
 
 function sendFileToAnchorTag(data: Uint8Array, fileName: string) {
 	// stupid browser hack needed to download the file with a usable name

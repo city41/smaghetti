@@ -31,6 +31,7 @@ export async function getProfile(id: string): Promise<ProfileData> {
       published,
       data,
       created_at,
+      version,
       level_play_sessions (
         cleared,
         deaths

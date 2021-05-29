@@ -1,4 +1,5 @@
 import { client } from './client';
+import { CURRENT_VERSION } from '../level/versioning/convertLevelToLatestVersion';
 
 export async function saveLevel(
 	id: string | null,
@@ -11,6 +12,7 @@ export async function saveLevel(
 		name,
 		description,
 		data,
+		version: CURRENT_VERSION,
 	});
 
 	if (error) {

@@ -9,6 +9,7 @@ import { ROOM_TYPE_SETTINGS } from '../../../../levelData/constants';
 import { getExampleLevel } from '../../../FileLoader/files';
 import { deserialize } from '../../../../level/deserialize';
 import { LOCALSTORAGE_KEY } from '../../editorSlice';
+import { convertLevelToLatestVersion } from '../../../../level/versioning/convertLevelToLatestVersion';
 
 type PublicLevelChooserModalProps = {
 	isOpen: boolean;
@@ -70,8 +71,17 @@ function LevelChooserModal({
 		: null;
 
 	const localStorageData = localStorage[LOCALSTORAGE_KEY];
-	const localRoom = localStorageData
-		? deserialize(JSON.parse(localStorageData).levelData).levelData.rooms[0]
+	let convertedLocalStorage;
+	try {
+		convertedLocalStorage = localStorageData
+			? convertLevelToLatestVersion(JSON.parse(localStorageData))
+			: null;
+	} catch (e) {
+		convertedLocalStorage = null;
+	}
+
+	const localRoom = convertedLocalStorage
+		? deserialize(convertedLocalStorage.data).levelData.rooms[0]
 		: EMPTY_ROOM;
 
 	return (

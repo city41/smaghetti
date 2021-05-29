@@ -6,6 +6,7 @@ import { deleteLevel as deleteLevelMutation } from '../../remoteData/deleteLevel
 import type { ProfileData } from '../../remoteData/getProfile';
 import { client } from '../../remoteData/client';
 import { deserialize } from '../../level/deserialize';
+import { convertLevelToLatestVersion } from '../../level/versioning/convertLevelToLatestVersion';
 
 type DeleteState = 'deleting' | 'error' | 'success';
 
@@ -52,14 +53,23 @@ const profileSlice = createSlice({
 		setProfile(state: ProfileState, action: PayloadAction<ProfileData>) {
 			state.user = action.payload.user;
 			state.levels = action.payload.levels.map((l) => {
-				try {
+				const latestVersion = convertLevelToLatestVersion(l);
+
+				if (!latestVersion) {
 					return {
 						...l,
-						data: deserialize(l.data).levelData,
+						broken: true,
+					};
+				}
+
+				try {
+					return {
+						...latestVersion,
+						data: deserialize(latestVersion.data).levelData,
 					};
 				} catch {
 					return {
-						...l,
+						...latestVersion,
 						broken: true,
 					};
 				}
