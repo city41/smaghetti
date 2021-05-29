@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import clsx from 'clsx';
 import { Modal } from '../../Modal';
 import { IconButtonGroup } from '../../IconButton/IconButtonGroup';
 import { IconButton } from '../../IconButton';
@@ -6,6 +7,8 @@ import { RoomThumbnail } from '../../RoomThumbnail';
 import { RoomState } from '../../make/editorSlice';
 import { TILE_SIZE } from '../../../tiles/constants';
 import { Button } from '../../Button';
+
+import styles from './TransportDestinationModal.module.css';
 
 function DestinationHighlight({
 	x,
@@ -69,7 +72,7 @@ type InternalTransportDestinationModalProps = {
 // 	</IconButtonGroup>
 // </div>
 
-const SCALE = 0.5;
+const SCALE = 1; // 0.75;
 
 function TransportDestinationModal({
 	isOpen,
@@ -125,18 +128,22 @@ function TransportDestinationModal({
 
 	return (
 		<Modal
+			className={styles.modal}
 			isOpen={isOpen}
 			onRequestClose={onRequestClose}
 			onXClick={onRequestClose}
 			title="Warp Destination"
 		>
-			<div className="flex flex-col items-center space-y-4">
+			<div
+				className={clsx(styles.room, 'flex flex-col items-center space-y-4')}
+			>
 				<div className="flex flex-col items-center">
 					<div className="font-bold p-1 rounded-t-xl pl-2">Room</div>
 					<IconButtonGroup>{roomButtons}</IconButtonGroup>
 				</div>
 				<div
-					className="max-w-full max-h-32 overflow-auto grid place-items-center cursor-crosshair"
+					className="xmax-w-full max-h-64 overflow-auto grid place-items-center cursor-crosshair"
+					style={{ maxWidth: '85vw' }}
 					onMouseDown={handleThumbnailClick}
 				>
 					<RoomThumbnail

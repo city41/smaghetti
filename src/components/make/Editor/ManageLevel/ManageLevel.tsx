@@ -6,6 +6,7 @@ import { RoomThumbnail } from '../../../RoomThumbnail';
 
 import { PlainIconButton } from '../../../PlainIconButton';
 import { Button } from '../../../Button';
+import { TILE_SIZE } from '../../../../tiles/constants';
 
 type PublicManageLevelProps = {
 	className?: string;
@@ -111,7 +112,13 @@ function ManageLevel({
 								onClick={() => onDeleteRoom(i)}
 							/>
 						</h2>
-						<div className="relative">
+						<div
+							className="relative"
+							style={{
+								width: r.roomTileWidth * TILE_SIZE * scale,
+								height: r.roomTileHeight * TILE_SIZE * scale,
+							}}
+						>
 							<RoomThumbnail
 								className={clsx(
 									'absolute top-0 left-0 border border-black bg-blue-200'

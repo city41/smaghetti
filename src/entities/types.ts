@@ -2,7 +2,6 @@ import { ReactElement, ReactNode } from 'react';
 import { Resource } from '../resources/types';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
-import { RoomState } from '../components/make/editorSlice';
 
 type SpriteGraphicSet = number | number[];
 type SpriteGraphicSets = [
@@ -116,7 +115,7 @@ type Entity = {
 		settings: EditorEntitySettings,
 		onSettingsChange: (newSettings: EditorEntitySettings) => void,
 		entity?: EditorEntity,
-		room?: RoomState
+		room?: RoomData
 	) => ReactElement | null;
 };
 

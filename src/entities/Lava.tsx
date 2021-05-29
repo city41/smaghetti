@@ -4,11 +4,10 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import clsx from 'clsx';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { RoomState } from '../components/make/editorSlice';
 
 function isLavaAbove(
 	entity: EditorEntity | undefined,
-	room: RoomState | undefined
+	room: RoomData | undefined
 ): boolean {
 	if (!entity || !room) {
 		return false;

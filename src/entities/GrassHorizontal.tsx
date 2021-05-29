@@ -4,11 +4,10 @@ import type { Entity } from './types';
 import { encodeObjectSets, getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { RoomState } from '../components/make/editorSlice';
 
 function isGrassAbove(
 	entity: EditorEntity | undefined,
-	room: RoomState | undefined
+	room: RoomData | undefined
 ): boolean {
 	if (!entity || !room) {
 		return false;

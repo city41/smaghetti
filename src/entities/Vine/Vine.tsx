@@ -4,12 +4,11 @@ import { encodeObjectSets } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
-import { RoomState } from '../../components/make/editorSlice';
 import { TileSpace } from '../TileSpace';
 
 function getHeight(
 	entity: EditorEntity | undefined,
-	room: RoomState | undefined
+	room: RoomData | undefined
 ): number {
 	if (!entity || !room) {
 		return 1;
