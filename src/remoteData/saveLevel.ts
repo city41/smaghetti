@@ -9,7 +9,7 @@ export async function saveLevel(
 ): Promise<string> {
 	const { data: returnedId, error } = await client.rpc<string>('save_level', {
 		existing_id: id,
-		name,
+		name: (name && name.trim()) || 'untitled level',
 		description,
 		data,
 		version: CURRENT_VERSION,
