@@ -505,7 +505,10 @@ function createLevelData(level: LevelToLoadInGBA): Uint8Array {
 	const pointers: Tuple<number, 48> = new Array(4 * 6 * 2);
 	// empty bytes between pointer and name so that name starts at 0x40
 	const nullBytes = new Array(11).fill(0);
-	const name = getLevelName(level.name);
+
+	// TODO: use the actual level name. but changing the level name causes a new level
+	// to get added to the save, need to look into that
+	const name = getLevelName('smaghetti.com');
 
 	const pointerOffset =
 		header.length + pointers.length + nullBytes.length + name.length;
