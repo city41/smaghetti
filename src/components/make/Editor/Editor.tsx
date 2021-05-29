@@ -188,6 +188,9 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 							The level format is stabilizing, so not being able to load old
 							levels will stop being a problem soon
 						</p>
+						<p className="font-bold">
+							try refreshing the browser, might have just been a network error
+						</p>
 						<a
 							className="block mt-4 text-blue-700 cursor-pointer"
 							onClick={() => {
