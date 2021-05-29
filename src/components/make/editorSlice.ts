@@ -945,7 +945,7 @@ const editorSlice = createSlice({
 		},
 		setTimer(state: InternalEditorState, action: PayloadAction<number>) {
 			const newTimer = action.payload;
-			state.settings.timer = Math.min(Math.max(1, newTimer), 999);
+			state.settings.timer = Math.min(Math.max(0, newTimer), 999);
 		},
 		setCurrentRoomIndex(
 			state: InternalEditorState,

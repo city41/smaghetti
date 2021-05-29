@@ -70,7 +70,7 @@ function ManageLevel({
 					className="w-48"
 					type="number"
 					value={levelSettings.timer}
-					min={1}
+					min={0}
 					max={999}
 					onChange={(e) => onTimerChange(Number(e.target.value))}
 				/>
