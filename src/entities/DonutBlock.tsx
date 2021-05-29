@@ -65,7 +65,7 @@ const DonutBlock: Entity = {
 	},
 
 	render() {
-		return this.simpleRender!(TILE_SIZE);
+		return this.simpleRender(TILE_SIZE);
 	},
 };
 
