@@ -54,6 +54,7 @@ import { FlameChomp } from './FlameChomp';
 import { FloatingBlock } from './FloatingBlock';
 import { FlowerBush } from './FlowerBush';
 import { FluffyCloud } from './FluffyCloud';
+import { Flurry } from './Flurry';
 import { Flutter } from './Flutter';
 import { FlyingPiranhaPlant } from './FlyingPiranhaPlant';
 import { FortressBrick } from './FortressBrick';
@@ -204,6 +205,7 @@ const entityMap = {
 	FloatingBlock,
 	FlowerBush,
 	FluffyCloud,
+	Flurry,
 	Flutter,
 	FlyingPiranhaPlant,
 	FortressBrick,
