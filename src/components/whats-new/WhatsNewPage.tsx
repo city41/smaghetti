@@ -49,6 +49,11 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-05-29">
+					<ul className="ml-8 list-disc">
+						<li>Flame Chomp</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="Set level timer" date="2021-05-28">
 					<p>
 						You can now set your level&apos;s timer. In the upper right corner,

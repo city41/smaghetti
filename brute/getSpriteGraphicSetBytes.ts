@@ -99,7 +99,15 @@ function getGbaScreen(
 		ArrowSign.spriteGraphicSets = spriteGraphicSet;
 
 		// @ts-ignore
-		const levelData = createLevelData([getRoom(spriteGraphicSet)]);
+		const levelData = createLevelData({
+			name: 'getSpriteGraphicSetBytes',
+			data: {
+				settings: {
+					timer: 999,
+				},
+				rooms: [getRoom()],
+			},
+		});
 		const saveFileWithLevel = injectLevelIntoSave(emptySave, levelData);
 
 		// @ts-ignore
@@ -212,7 +220,7 @@ const STARTING_VALUE = 0x0;
 // this is the starting value after the first iteration
 // this is done to avoid dumping 0_0_0_0_0_0 repeatedly
 const SUBSEQUENT_STARTING_VALUE = 0x1;
-const ENDING_VALUE = 0x20;
+const ENDING_VALUE = 0xfe;
 
 function dumpAllWithId(
 	spriteBytes: number[],

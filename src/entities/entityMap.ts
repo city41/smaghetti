@@ -50,6 +50,7 @@ import { FireBro } from './FireBro';
 import { FireBarBase } from './FireBarBase';
 import { FireFlower } from './FireFlower';
 import { Fishbone } from './Fishbone';
+import { FlameChomp } from './FlameChomp';
 import { FloatingBlock } from './FloatingBlock';
 import { FlowerBush } from './FlowerBush';
 import { FluffyCloud } from './FluffyCloud';
@@ -199,6 +200,7 @@ const entityMap = {
 	FireBarBase,
 	FireFlower,
 	Fishbone,
+	FlameChomp,
 	FloatingBlock,
 	FlowerBush,
 	FluffyCloud,
