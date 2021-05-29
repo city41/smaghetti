@@ -133,6 +133,51 @@ type InternalEditorState = {
 
 const initialScale = playerScale;
 
+/**
+ * When a room gets deleted, this function patches up transports
+ * Any entities with a destination of the deleted room get removed
+ * any entities whose destination was above the deleted room, get the index bumped down
+ */
+type TransDest = {
+	room: number;
+	x: number;
+	y: number;
+};
+
+function fixTransportsForEntities(
+	entities: EditorEntity[],
+	deletedRoomIndex: number
+): EditorEntity[] {
+	return entities.reduce<EditorEntity[]>((building, e) => {
+		if (
+			!e.settings ||
+			!e.settings.destination ||
+			(e.settings.destination as TransDest).room !== deletedRoomIndex
+		) {
+			building = building.concat(e);
+
+			if (e.settings?.destination?.room > deletedRoomIndex) {
+				e.settings!.destination!.room -= 1;
+			}
+		}
+
+		return building;
+	}, []);
+}
+
+function fixTransports(rooms: RoomState[], deletedIndex: number) {
+	rooms.forEach((room) => {
+		room.actors.entities = fixTransportsForEntities(
+			room.actors.entities,
+			deletedIndex
+		);
+		room.stage.entities = fixTransportsForEntities(
+			room.stage.entities,
+			deletedIndex
+		);
+	});
+}
+
 function isWorkingEditorEntity(e: EditorEntity): boolean {
 	if (e.type === 'Player') {
 		return true;
@@ -1222,11 +1267,15 @@ const editorSlice = createSlice({
 		deleteRoom(state: InternalEditorState, action: PayloadAction<number>) {
 			if (state.rooms.length > 1) {
 				const deletedIndex = action.payload;
-				state.rooms = state.rooms.filter((_r, i) => i !== deletedIndex);
+				const deletedRoom = state.rooms[deletedIndex];
+				state.rooms = state.rooms.filter((r) => r !== deletedRoom);
 				state.currentRoomIndex = Math.min(
 					state.currentRoomIndex,
 					state.rooms.length - 1
 				);
+
+				fixTransports(state.rooms, deletedIndex);
+
 				setScaleAndOffsetForManageLevel(state);
 			}
 		},

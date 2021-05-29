@@ -69,7 +69,7 @@ function TransportSource({
 						<div>{label}</div>
 					) : hasDest ? (
 						<div>
-							R{destRoom} ({destX},{destY})
+							R{destRoom + 1} ({destX},{destY})
 						</div>
 					) : (
 						<div>no dest</div>
