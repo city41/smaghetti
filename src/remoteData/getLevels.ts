@@ -1,33 +1,17 @@
 import { client } from './client';
 
-type GetLevelsResult = {
-	popular: SerializedLevel[];
-	recent: SerializedLevel[];
-};
+async function getLevels(): Promise<SerializedLevel[]> {
+	const { data, error } = await client
+		.from<SerializedLevel>('levels')
+		.select('*')
+		.order('created_at', { ascending: false })
+		.limit(20);
 
-async function getLevels(): Promise<GetLevelsResult> {
-	const { data: popular, error: popularError } = await client.rpc(
-		'get_levels',
-		{ sort: 'popular' }
-	);
-
-	if (popularError) {
-		throw popularError;
+	if (error) {
+		throw error;
 	}
 
-	const { data: recent, error: recentError } = await client.rpc('get_levels', {
-		sort: 'recent',
-	});
-
-	if (recentError) {
-		throw recentError;
-	}
-
-	return {
-		popular: popular ?? [],
-		recent: recent ?? [],
-	};
+	return data ?? [];
 }
 
 export { getLevels };
-export type { GetLevelsResult };

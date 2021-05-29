@@ -13,9 +13,9 @@ import { HowToUseDownloadModal } from './HowToUseDownloadModal';
 type LevelEntryProps = {
 	className?: string;
 	level: Level | BrokenLevel;
-	onEdit: () => void;
-	onDelete: () => void;
-	onDownload: () => void;
+	onEdit?: () => void;
+	onDelete?: () => void;
+	onDownload?: () => void;
 };
 
 const THUMBNAIL_HEIGHT = PLAY_WINDOW_TILE_HEIGHT * 1.5 + 1;
@@ -112,7 +112,7 @@ function LevelEntry({
 						label="Edit level"
 						alternate
 						onClick={onEdit}
-						disabled={isBrokenLevel(level)}
+						disabled={!onEdit || isBrokenLevel(level)}
 					/>
 					<IconButton
 						anchor="left"
@@ -127,17 +127,19 @@ function LevelEntry({
 						label="Download level"
 						alternate
 						onClick={() => {
-							onDownload();
-							setShowDownloadMessage(true);
+							if (onDownload) {
+								onDownload();
+								setShowDownloadMessage(true);
+							}
 						}}
-						disabled={isBrokenLevel(level)}
+						disabled={!onDownload || isBrokenLevel(level)}
 					/>
 					<IconButton
 						anchor="left"
 						icon={MdDelete}
 						label="Delete level"
 						alternate
-						disabled={showDeleteConfirmation}
+						disabled={!onDelete || showDeleteConfirmation}
 						onClick={() => setShowDeleteConfirmation(true)}
 					/>
 				</IconButtonGroup>
