@@ -50,6 +50,7 @@ const asciiToNumberMap: Record<string, number> = {
 	'?': 0xe0,
 	'!': 0xe1,
 	'-': 0xe2,
+	' ': 0xe3,
 };
 
 function convertASCIIToNumber(c: string): number {
@@ -63,12 +64,25 @@ function convertASCIIToNumber(c: string): number {
 
 	// A-Z
 	if (charCode >= 'A'.charCodeAt(0) && charCode <= 'Z'.charCodeAt(0)) {
-		return charCode - 0x41;
+		// A is zero
+		return charCode - 'A'.charCodeAt(0);
+	}
+
+	// a-z
+	if (charCode >= 'a'.charCodeAt(0) && charCode <= 'z'.charCodeAt(0)) {
+		// a is 0x20
+		return charCode - ('a'.charCodeAt(0) - 0x20);
+	}
+
+	// 0-9
+	if (charCode >= '0'.charCodeAt(0) && charCode <= '9'.charCodeAt(0)) {
+		// 0 is 0x76
+		return charCode - ('0'.charCodeAt(0) - 0x76);
 	}
 
 	// TODO: the rest of the characters
 
-	return 0xff;
+	return asciiToNumberMap[' '];
 }
 
 export function convertLevelNameToASCII(levelName: Uint8Array): string {
@@ -78,9 +92,12 @@ export function convertLevelNameToASCII(levelName: Uint8Array): string {
 }
 
 export function convertASCIIToLevelName(ascii: string): number[] {
-	return ascii.split('').map((c) => {
-		return convertASCIIToNumber(c);
-	});
+	return ascii
+		.substr(0, 21)
+		.split('')
+		.map((c) => {
+			return convertASCIIToNumber(c);
+		});
 }
 
 export function extractName(

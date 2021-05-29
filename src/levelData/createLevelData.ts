@@ -505,7 +505,7 @@ function createLevelData(level: LevelToLoadInGBA): Uint8Array {
 	const pointers: Tuple<number, 48> = new Array(4 * 6 * 2);
 	// empty bytes between pointer and name so that name starts at 0x40
 	const nullBytes = new Array(11).fill(0);
-	const name = getLevelName('SMAGHETTI');
+	const name = getLevelName(level.name);
 
 	const pointerOffset =
 		header.length + pointers.length + nullBytes.length + name.length;
