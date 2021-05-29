@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as mkdirp from 'mkdirp';
 import { createLevelData } from '../src/levelData/createLevelData';
-import { ROOM_TYPE_SETTINGS } from '../src/levelData/constants';
+import { ROOM_BACKGROUND_SETTINGS } from '../src/levelData/constants';
 import { SINGLE_BRICK_SO_PLAYER_DOESNT_FALL } from '../src/components/make/editorSlice';
 import { injectLevelIntoSave } from '../src/levelData/injectLevelIntoSave';
 import cloneDeep from 'lodash/cloneDeep';
@@ -34,7 +34,7 @@ let emptyLevelBuffer: Buffer | null = null;
 function getRoom(objectSet: number, objectGraphicSet: number) {
 	return {
 		settings: {
-			...ROOM_TYPE_SETTINGS.underground,
+			...ROOM_BACKGROUND_SETTINGS.underground,
 			objectSet,
 			objectGraphicSet,
 			bgGraphic: 0,

@@ -6,67 +6,22 @@ import { PlainIconButton } from '../../../PlainIconButton';
 type PlayButtonProps = {
 	className?: string;
 	isPlaying: boolean;
+	disabled: boolean;
 	onClick?: () => void;
 };
 
-// const pulse = keyframes`
-//   0% {
-//     transform: scale(1);
-//   }
-//   50% {
-//     transform: scale(1.15);
-//   }
-//   100% {
-//     transform: scale(1);
-//   }
-// `;
-//
-// const Button = styled.button`
-// 	border-radius: 50%;
-//
-// 	background-color: transparent;
-//
-// 	width: 100%;
-// 	height: 100%;
-//
-// 	/* border: 4px solid white; */
-// 	border: none;
-//
-// 	/* box-shadow: 0px 5px 0px #555; */
-//
-// 	outline: none;
-//
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-//
-// 	cursor: pointer;
-//
-// 	& svg {
-// 		width: 24px;
-// 		height: 24px;
-// 		display: inline-block;
-// 		color: white;
-// 	}
-//
-// 	&:hover img {
-// 		animation: ${pulse} 0.5s infinite;
-// 	}
-//
-// 	&:active {
-// 		/* margin-top: 5px; */
-// 		transform: scale(1.1);
-// 		transform-origin: center center;
-// 		/* box-shadow: 0px 0px 0px #aaa; */
-// 	}
-// `;
-
-function PlayButton({ className, isPlaying, onClick }: PlayButtonProps) {
+function PlayButton({
+	className,
+	isPlaying,
+	disabled,
+	onClick,
+}: PlayButtonProps) {
 	const Icon = isPlaying ? FaHammer : FaPlay;
 	const title = isPlaying ? 'edit your level' : 'preview your level';
 
 	return (
 		<PlainIconButton
+			disabled={disabled}
 			className={className}
 			size="medium"
 			label={`${title} (p)`}

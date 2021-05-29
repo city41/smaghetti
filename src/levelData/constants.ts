@@ -17,15 +17,21 @@ export const ROOM_BLOCKPATH_POINTERS = [0xd, 0x19, 0x25, 0x31];
 
 export const ROOM_AUTOSCROLL_POINTERS = [0xf, 0x1b, 0x27, 0x33];
 
-export const ROOM_TYPE_SETTINGS: Record<string, RoomSettings> = {
+// setting a room's background is several settings that generally should be bundled
+// together. It doesn't make sense to combine the cave background with the bgExtraColorAndEffect
+// from fortress (which is columns further in the background) for example
+export const ROOM_BACKGROUND_SETTINGS: Record<
+	string,
+	RoomBackgroundSettings
+> = {
 	underground: {
-		music: 0xd,
+		// music: 0xd,
 		bgGraphic: 0x37,
 		bgColor: 0x1,
 		bgExtraColorAndEffect: 0,
 	},
 	fortress: {
-		music: 0xf,
+		// music: 0xf,
 		bgGraphic: 0x6,
 		bgColor: 0x98,
 		// this is what adds the second layer of columns with parallax

@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as mkdirp from 'mkdirp';
 import { createLevelData } from '../src/levelData/createLevelData';
-import { ROOM_TYPE_SETTINGS } from '../src/levelData/constants';
+import { ROOM_BACKGROUND_SETTINGS } from '../src/levelData/constants';
 import { injectLevelIntoSave } from '../src/levelData/injectLevelIntoSave';
 import cloneDeep from 'lodash/cloneDeep';
 import { deserialize } from '../src/saveStates/serializer';
@@ -39,7 +39,8 @@ const canvas = createCanvas(240, 160);
 function getRoom(): RoomData {
 	return {
 		settings: {
-			...ROOM_TYPE_SETTINGS.underground,
+			music: 0,
+			...ROOM_BACKGROUND_SETTINGS.underground,
 		},
 		paletteEntries: [],
 		actors: {

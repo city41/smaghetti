@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { FaTrash, FaHammer } from 'react-icons/fa';
 import { RoomState } from '../../editorSlice';
@@ -12,6 +12,8 @@ type PublicManageLevelProps = {
 };
 
 type InternalManageLevelProps = {
+	levelName: string;
+	levelSettings: LevelSettings;
 	rooms: Array<RoomState & { type: string }>;
 	currentRoomIndex: number;
 	onAddRoom: () => void;
@@ -21,9 +23,17 @@ type InternalManageLevelProps = {
 	scale: number;
 	roomTypes: string[];
 	onRoomTypeChange: (index: number, type: string) => void;
+	onTimerChange: (newTimer: number) => void;
+	onLevelNameChange: (newName: string) => void;
 };
 
+function SettingsKey({ children }: { children: ReactNode }) {
+	return <div className="font-bold text-gray-400 text-right">{children}</div>;
+}
+
 function ManageLevel({
+	levelName,
+	levelSettings,
 	className,
 	rooms,
 	onAddRoom,
@@ -33,6 +43,8 @@ function ManageLevel({
 	scale,
 	roomTypes,
 	onRoomTypeChange,
+	onLevelNameChange,
+	onTimerChange,
 }: PublicManageLevelProps & InternalManageLevelProps) {
 	return (
 		<div
@@ -41,6 +53,27 @@ function ManageLevel({
 				'space-y-6 p-6 bg-gray-400 border-2 border-white shadow-xl'
 			)}
 		>
+			<div
+				className="grid gap-x-4 gap-y-2 bg-gray-700 p-4"
+				style={{ gridTemplateColumns: 'max-content 1fr' }}
+			>
+				<SettingsKey>Level Name</SettingsKey>
+				<input
+					className="w-48"
+					type="text"
+					value={levelName}
+					onChange={(e) => onLevelNameChange(e.target.value)}
+				/>
+				<SettingsKey>Timer</SettingsKey>
+				<input
+					className="w-48"
+					type="number"
+					value={levelSettings.timer}
+					min={1}
+					max={999}
+					onChange={(e) => onTimerChange(Number(e.target.value))}
+				/>
+			</div>
 			<Button disabled={rooms.length === 4} onClick={onAddRoom}>
 				Add Room
 			</Button>

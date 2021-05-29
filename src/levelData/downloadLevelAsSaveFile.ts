@@ -2,8 +2,6 @@ import { getEmptySave } from '../components/FileLoader/files';
 import { createLevelData } from './createLevelData';
 import { injectLevelIntoSave } from './injectLevelIntoSave';
 
-type LevelToSave = Omit<NewLevel, 'created_at'>;
-
 function sendFileToAnchorTag(data: Uint8Array, fileName: string) {
 	// stupid browser hack needed to download the file with a usable name
 	const a = document.createElement('a');
@@ -25,18 +23,17 @@ function getSafeFileName(levelName: string): string {
 	return `${levelName}.sav`;
 }
 
-function downloadLevelAsSaveFile(level: LevelToSave) {
+function downloadLevelAsSaveFile(level: LevelToLoadInGBA) {
 	const emptySave = getEmptySave();
 
 	if (!emptySave) {
 		throw new Error('downloadLevelAsSaveFile: called before empty save is set');
 	}
 
-	const levelSaveData = createLevelData(level.data.rooms);
+	const levelSaveData = createLevelData(level);
 	const fullSaveData = injectLevelIntoSave(emptySave, levelSaveData);
 
 	sendFileToAnchorTag(fullSaveData, getSafeFileName(level.name));
 }
 
 export { downloadLevelAsSaveFile, sendFileToAnchorTag };
-export type { LevelToSave };

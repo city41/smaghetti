@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { MdEdit } from 'react-icons/md';
 import { PlainIconButton } from '../../../PlainIconButton';
+import { Button } from '../../../Button';
 
 type PublicMetadataMenuProps = {
 	className?: string;
@@ -10,83 +11,96 @@ type PublicMetadataMenuProps = {
 };
 
 type InternalMetadataMenuProps = {
+	isManagingLevel: boolean;
 	levelName: string;
-	onSetLevelName: (newName: string) => void;
 	currentRoomIndex: number;
 	roomCount: number;
 	onRoomIndexChange: (newIndex: number) => void;
 	onManageLevelClick: () => void;
 };
 
+function RoomButton({
+	index,
+	isCurrent,
+	disabled,
+	onClick,
+}: {
+	index: number;
+	isCurrent: boolean;
+	disabled: boolean;
+	onClick: () => void;
+}) {
+	return (
+		<button
+			disabled={disabled}
+			onClick={onClick}
+			className={clsx(
+				'flex flex-col items-center w-6 h-6 rounded-md font-bold text-md',
+				{
+					'bg-blue-500': isCurrent,
+					'text-gray-600': disabled,
+				}
+			)}
+		>
+			{index}
+		</button>
+	);
+}
+
 function MetadataMenu({
+	isManagingLevel,
 	className,
 	disabled,
 	levelName,
-	onSetLevelName,
 	currentRoomIndex,
 	roomCount,
 	onRoomIndexChange,
 	onManageLevelClick,
 }: PublicMetadataMenuProps & InternalMetadataMenuProps) {
-	const [editing, setEditing] = useState(false);
-	const [editedName, setEditedName] = useState(levelName);
-	const inputRef = useRef<HTMLInputElement | null>(null);
-
-	useEffect(() => {
-		setEditedName(levelName);
-	}, [levelName]);
-
-	useEffect(() => {
-		const i = inputRef.current;
-		if (editing && i) {
-			i.focus();
-			i.select();
-		}
-	}, [editing]);
-
 	useHotkeys(
 		'r',
 		() => {
-			if (!disabled) {
+			if (!disabled && !isManagingLevel) {
 				onRoomIndexChange((currentRoomIndex + 1) % roomCount);
 			}
 		},
-		[currentRoomIndex, roomCount, disabled]
+		[currentRoomIndex, roomCount, disabled, isManagingLevel]
 	);
 
 	let body;
-	if (editing) {
+	if (isManagingLevel) {
 		body = (
-			<>
-				<input
-					ref={inputRef}
-					className="w-32 text-black"
-					type="text"
-					value={editedName}
-					onChange={(e) => setEditedName(e.target.value)}
-					onKeyDown={(e) => {
-						if (e.key === 'Enter') {
-							// @ts-ignore
-							onSetLevelName(e.target.value);
-							setEditing(false);
-						} else if (e.key === 'Escape') {
-							setEditing(false);
-							setEditedName(levelName);
-						}
-					}}
-				/>
-			</>
+			<div className="grid place-items-center w-full">
+				<Button onClick={onManageLevelClick}>return to editing</Button>
+			</div>
 		);
 	} else {
-		body = <>{levelName} </>;
-	}
-
-	const roomOptions = [];
-	for (let i = 0; i < roomCount; ++i) {
-		roomOptions.push(
-			<option key={i} value={i}>
-				room {i + 1}
-			</option>
+		body = (
+			<>
+				<div className="flex flex-col space-y-2">
+					<div className="w-40 truncate">{levelName}</div>
+					<div className="flex flex-row space-x-2 items-center">
+						<div className="text-gray-500 text-xs">room</div>
+						{[0, 1, 2, 3].map((ri) => {
+							return (
+								<RoomButton
+									key={ri}
+									index={ri + 1}
+									isCurrent={ri === currentRoomIndex}
+									disabled={ri >= roomCount}
+									onClick={() => onRoomIndexChange(ri)}
+								/>
+							);
+						})}
+					</div>
+				</div>
+				<PlainIconButton
+					icon={MdEdit}
+					label="manage level"
+					onClick={onManageLevelClick}
+					disabled={disabled}
+				/>
+			</>
 		);
 	}
 
@@ -94,43 +108,10 @@ function MetadataMenu({
 		<div
 			className={clsx(
 				className,
-				'px-4 bg-gray-900 flex flex-row space-x-4 items-center justify-center pointer-events-auto'
+				'py-2 px-4 bg-gray-900 flex flex-row items-center justify-between pointer-events-auto'
 			)}
 		>
-			<label className="flex flex-col">
-				<div className="flex flex-row items-center">
-					<div>{body}</div>
-					{!editing && (
-						<PlainIconButton
-							icon={MdEdit}
-							label="edit level name"
-							onClick={() => setEditing(true)}
-							disabled={disabled}
-						/>
-					)}
-				</div>
-			</label>
-			<div className="flex flex-row space-x-2 items-center px-4">
-				<select
-					className="text-black p-1"
-					value={currentRoomIndex}
-					disabled={disabled}
-					onChange={(e) => {
-						onRoomIndexChange(Number(e.target.value));
-						// allow the user to jump right back into keyboard shortcuts,
-						// especially spacebar for panning. otherwise spacebar opens the select
-						e.target.blur();
-					}}
-				>
-					{roomOptions}
-				</select>
-				<PlainIconButton
-					icon={MdEdit}
-					label="manage rooms"
-					onClick={onManageLevelClick}
-					disabled={disabled}
-				/>
-			</div>
+			{body}
 		</div>
 	);
 }

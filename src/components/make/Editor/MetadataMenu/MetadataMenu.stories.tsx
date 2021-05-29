@@ -14,7 +14,20 @@ export const Basic = () => {
 	return (
 		<MetadataMenu
 			levelName="my level"
-			onSetLevelName={() => {}}
+			isManagingLevel={false}
+			currentRoomIndex={1}
+			roomCount={3}
+			onManageLevelClick={() => {}}
+			onRoomIndexChange={() => {}}
+		/>
+	);
+};
+
+export const IsManaging = () => {
+	return (
+		<MetadataMenu
+			levelName="my level"
+			isManagingLevel={true}
 			currentRoomIndex={1}
 			roomCount={3}
 			onManageLevelClick={() => {}}

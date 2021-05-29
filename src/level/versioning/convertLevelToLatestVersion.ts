@@ -1,4 +1,5 @@
 import { from_5_0_0_to_5_1_0 } from './from_5_0_0_to_5_1_0';
+import { from_5_1_0_to_5_1_1 } from './from_5_1_0_to_5_1_1';
 
 type Versioned = { version: string };
 type Converter = {
@@ -9,10 +10,12 @@ type Converter = {
 
 // 5.0.0 - first version with actor/stage
 // 5.1.0 - first consolidated server/local version, adds settings.timer
-const CURRENT_VERSION = '5.1.0';
+// 5.1.1 - duh, settings has to be down under data to save on the server...
+const CURRENT_VERSION = '5.1.1';
 
 const converters: Converter[] = [
 	{ from: '5.0.0', to: '5.1.0', fn: from_5_0_0_to_5_1_0 },
+	{ from: '5.1.0', to: '5.1.1', fn: from_5_1_0_to_5_1_1 },
 ];
 
 function convertLevelToLatestVersion(level: unknown): SerializedLevel | null {

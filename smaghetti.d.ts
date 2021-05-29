@@ -41,11 +41,14 @@ type EditorEntityMatrix = Array<EditorEntityRow | null>;
 // the string is the short id for the entity type, ie "Brick" -> "Br"
 type SerializedEditorEntityMatrix = Array<string | Array<string>>;
 
-type RoomSettings = {
-	music: number;
+type RoomBackgroundSettings = {
 	bgGraphic: number;
 	bgColor: number;
 	bgExtraColorAndEffect: number;
+};
+
+type RoomSettings = RoomBackgroundSettings & {
+	music: number;
 };
 
 type RoomLayer = {
@@ -81,20 +84,23 @@ type SerializedRoomData = Omit<RoomData, 'actors' | 'stage'> & {
 	stage: SerializedRoomLayer;
 };
 
+type LevelSettings = {
+	timer: number;
+};
+
 type LevelData = {
+	settings: LevelSettings;
 	rooms: RoomData[];
 };
 
 type NewLevel = {
 	name: string;
-	settings: {
-		timer: number;
-	};
 	data: LevelData;
 	created_at: string;
 };
 
 type SerializedLevelData = {
+	settings: LevelSettings;
 	rooms: SerializedRoomData[];
 };
 
@@ -112,6 +118,7 @@ type SerializedLevel = Omit<Level, 'data'> & {
 };
 
 type LocalStorageSerializedLevel = Omit<SerializedLevel, 'id' | 'created_at'>;
+type LevelToLoadInGBA = Omit<NewLevel, 'created_at'>;
 
 type User = { id: string; username: string };
 

@@ -21,6 +21,7 @@ versions should follow semantic versioning as much as possible
 3. add the converter to the array in convertLevelToLatestVersion.ts, making sure the versions in the froms and tos all line up.
 4. update smaghetti.d.ts to be the latest version for all types
 5. inside the from*.ts file, store the previous types from smaghetti.d.ts for documentation as well as a guide on how to do the conversion
+6. update exampleLevel.json to the latest version
 
 # legacy levels
 

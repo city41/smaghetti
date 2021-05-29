@@ -29,6 +29,7 @@ export const Basic = () => {
 			showGrid={true}
 			onEraseLevel={noop}
 			isPlaying={false}
+			disabled={false}
 			onPlayClick={() => {}}
 		/>
 	);

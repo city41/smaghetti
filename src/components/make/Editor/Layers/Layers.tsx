@@ -38,7 +38,7 @@ function LayerEntry({
 			className="grid items-center justify-items-center py-1"
 			style={{ gridTemplateColumns: '3rem 1fr 1fr' }}
 		>
-			<div className="text-gray-500 text-xs">{title}</div>
+			<div className="text-gray-400 text-xs">{title}</div>
 			<PlainIconButton
 				disabled={disabled}
 				className={clsx({ 'bg-red-500 rounded-sm': locked })}
@@ -61,7 +61,7 @@ function Layers({
 		<div
 			className={clsx(
 				className,
-				'w-24 h-full bg-gray-900 p-2 flex flex-col justify-around'
+				'w-24 h-full bg-gray-800 p-2 flex flex-col justify-around'
 			)}
 		>
 			<LayerEntry

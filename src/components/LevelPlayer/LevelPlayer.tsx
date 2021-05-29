@@ -11,7 +11,7 @@ type LevelPlayerProps = {
 	className?: string;
 	style?: CSSProperties;
 	isPlaying: boolean;
-	rooms: RoomData[];
+	level: LevelToLoadInGBA;
 	biosFile: Uint8Array;
 	romFile: Uint8Array;
 	emptySaveFile: Uint8Array;
@@ -25,7 +25,7 @@ type LevelPlayerProps = {
 
 function LevelPlayer({
 	isPlaying,
-	rooms,
+	level,
 	biosFile,
 	romFile,
 	emptySaveFile,
@@ -49,7 +49,7 @@ function LevelPlayer({
 				romFile={romFile}
 				emptySaveFile={emptySaveFile}
 				saveState={saveState}
-				levelData={createLevelData(rooms)}
+				levelData={createLevelData(level)}
 				isPlaying={isPlaying}
 			/>
 			<ControlsBanner />

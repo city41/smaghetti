@@ -47,27 +47,35 @@ type HexTreeState = {
 	byteSizes: ByteSizes;
 };
 
-const EMPTY_LEVEL = createLevelData([
-	{
+const EMPTY_LEVEL = createLevelData({
+	name: 'empty level',
+	data: {
 		settings: {
-			music: 0,
-			bgColor: 0,
-			bgGraphic: 0,
-			bgExtraColorAndEffect: 0,
+			timer: 900,
 		},
-		actors: {
-			entities: [],
-			matrix: [],
-		},
-		stage: {
-			entities: [],
-			matrix: [],
-		},
-		paletteEntries: [],
-		roomTileWidth: 0,
-		roomTileHeight: 0,
+		rooms: [
+			{
+				settings: {
+					music: 0,
+					bgColor: 0,
+					bgGraphic: 0,
+					bgExtraColorAndEffect: 0,
+				},
+				actors: {
+					entities: [],
+					matrix: [],
+				},
+				stage: {
+					entities: [],
+					matrix: [],
+				},
+				paletteEntries: [],
+				roomTileWidth: 0,
+				roomTileHeight: 0,
+			},
+		],
 	},
-]);
+});
 
 const defaultInitialState: HexTreeState = {
 	tree: null,
@@ -486,7 +494,13 @@ const loadFromLocalStorage = (): HexTreeThunkAction => (dispatch, getState) => {
 		try {
 			const parsed = JSON.parse(localStorageData);
 			const deserialized = deserialize(parsed.levelData);
-			levelData = createLevelData(deserialized.levelData.rooms);
+			levelData = createLevelData({
+				name: parsed.name,
+				data: {
+					settings: parsed.settings,
+					rooms: deserialized.levelData.rooms,
+				},
+			});
 		} catch (e) {
 			console.error('loadFromLocalStorage error', e);
 			levelData = EMPTY_LEVEL;

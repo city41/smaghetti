@@ -68,25 +68,42 @@ function getObjectSet(entities: EditorEntity[]): [number, number] {
 	return decodeObjectSet(resultingSet);
 }
 
+function getTimerBytes(timer: number): [number, number] {
+	const clamped = Math.max(Math.min(timer, 999), 1);
+	let timerS = clamped.toString();
+
+	while (timerS.length < 3) {
+		timerS = '0' + timerS;
+	}
+
+	const digits = timerS.toString().split('');
+
+	const hundreds = parseInt(digits[0]) & 0xf;
+	const tensOnes =
+		((parseInt(digits[1]) & 0xf) << 4) | (parseInt(digits[2]) & 0xf);
+
+	return [hundreds, tensOnes];
+}
+
 function getObjectHeader(
-	settings: RoomSettings,
+	levelSettings: LevelSettings,
+	roomSettings: RoomSettings,
 	entities: EditorEntity[]
 ): Tuple<number, 11> {
 	const [, objectGraphicSet] = getObjectSet(entities);
 
 	return [
-		0x09, // time, hundreds digit
-		0x00, // time, tens and ones
+		...getTimerBytes(levelSettings.timer),
 		0x00, // 16 bit value that is unknown, copied from classic 1-2
 		0x02, // ----
 		0x0c, // bottom nibble is length of level, copied from classic 1-2
-		settings.bgColor, // background color
+		roomSettings.bgColor, // background color
 		0xa1, // top nibble is scroll settings, bottom unknown, copied from 1-2
 		objectGraphicSet, // top 3 bits: level entry action, bottom 5: graphics set
 		0x08, // top nibble: graphics set, bottom: unknown
-		settings.bgExtraColorAndEffect ?? 0,
+		roomSettings.bgExtraColorAndEffect ?? 0,
 		// background graphics, copied from 1-2
-		settings.bgGraphic,
+		roomSettings.bgGraphic,
 	];
 }
 
@@ -403,7 +420,11 @@ function flattenCells(matrix: EditorEntityMatrix): EditorEntity[] {
 	}, []);
 }
 
-function getRoom(roomIndex: number, allRooms: RoomData[]): Room {
+function getRoom(
+	levelSettings: LevelSettings,
+	roomIndex: number,
+	allRooms: RoomData[]
+): Room {
 	const { settings, actors, stage, roomTileHeight } = allRooms[roomIndex];
 
 	const cellActorEntities = flattenCells(actors.matrix);
@@ -415,17 +436,17 @@ function getRoom(roomIndex: number, allRooms: RoomData[]): Room {
 		cellStageEntities
 	);
 
-	const objectHeader = getObjectHeader(settings, allEntities);
+	const objectHeader = getObjectHeader(levelSettings, settings, allEntities);
 	const actorObjects = getObjects(actors, roomTileHeight);
 	const stageObjects = getObjects(stage, roomTileHeight);
-	const levelSettings = getLevelSettings(settings, allEntities);
+	const levelSettingsData = getLevelSettings(settings, allEntities);
 	const transportData = getTransports(roomIndex, allEntities, allRooms);
 	const spriteHeader = [0x0];
 	const sprites = getSprites(allEntities, roomTileHeight);
 
 	return {
 		objects: objectHeader.concat(actorObjects, stageObjects, [0xff]),
-		levelSettings,
+		levelSettings: levelSettingsData,
 		transportData,
 		sprites: spriteHeader.concat(sprites, [0xff]),
 		blockPathMovementData: [0xff],
@@ -469,10 +490,12 @@ function getAllNonCellEntities(rooms: RoomData[]): EditorEntity[] {
 	}, []);
 }
 
-function createLevelData(roomDatas: RoomData[]): Uint8Array {
-	const rooms = roomDatas.map((_r, i, arr) => getRoom(i, arr));
+function createLevelData(level: LevelToLoadInGBA): Uint8Array {
+	const rooms = level.data.rooms.map((_r, i, arr) =>
+		getRoom(level.data.settings, i, arr)
+	);
 
-	const allNonCellEntities = getAllNonCellEntities(roomDatas);
+	const allNonCellEntities = getAllNonCellEntities(level.data.rooms);
 
 	const aceCoinCount = allNonCellEntities.filter((e) => e.type === 'AceCoin')
 		.length;

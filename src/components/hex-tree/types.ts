@@ -1,4 +1,4 @@
-import { LevelSettings } from '../../levelData/parseLevelSettingsFromLevelFile';
+import { ParsedLevelSettings } from '../../levelData/parseLevelSettingsFromLevelFile';
 
 type RoomIndex = 0 | 1 | 2 | 3;
 
@@ -49,7 +49,7 @@ type LevelTreeRoom = {
 		pendingRawBytes: number[];
 	};
 	levelSettings: {
-		settings: LevelSettings | null;
+		settings: ParsedLevelSettings | null;
 		rawBytes: number[];
 	};
 	transports: {

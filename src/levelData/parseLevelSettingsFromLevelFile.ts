@@ -32,7 +32,7 @@ function parseLevelSettingsFromLevelFile(
 	return parseLevelSettings(data, address);
 }
 
-type LevelSettings = ReturnType<typeof parseLevelSettings>;
+type ParsedLevelSettings = ReturnType<typeof parseLevelSettings>;
 
 export { parseLevelSettingsFromLevelFile, parseLevelSettings };
-export type { LevelSettings };
+export type { ParsedLevelSettings };

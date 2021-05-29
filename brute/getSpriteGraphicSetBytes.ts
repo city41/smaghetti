@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as mkdirp from 'mkdirp';
 import { createLevelData } from '../src/levelData/createLevelData';
-import { ROOM_TYPE_SETTINGS } from '../src/levelData/constants';
+import { ROOM_BACKGROUND_SETTINGS } from '../src/levelData/constants';
 import { injectLevelIntoSave } from '../src/levelData/injectLevelIntoSave';
 import cloneDeep from 'lodash/cloneDeep';
 import { deserialize } from '../src/saveStates/serializer';
@@ -60,10 +60,11 @@ const rom = fs.readFileSync(path.join(__dirname, './sma4.gba'));
 const canvas = createCanvas(240, 160);
 
 // TODO: this doesn't change anymore, doesn't need to be a function
-function getRoom() {
+function getRoom(): RoomData {
 	return {
 		settings: {
-			...ROOM_TYPE_SETTINGS.underground,
+			music: 0,
+			...ROOM_BACKGROUND_SETTINGS.underground,
 		},
 		paletteEntries: [],
 		actors: {

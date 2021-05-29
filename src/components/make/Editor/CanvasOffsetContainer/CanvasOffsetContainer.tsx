@@ -23,31 +23,6 @@ type CanvasOffsetContainerProps = {
 
 const MODAL_OPEN_CLASS = 'ReactModal__Body--open';
 
-// const Root = styled.div`
-// 	position: relative;
-// 	overflow: hidden;
-// 	height: 100%;
-//
-// 	&.pan {
-// 		cursor: grab;
-// 	}
-//
-// 	&.pan.panning {
-// 		cursor: grabbing;
-// 	}
-//
-// 	${checkerboard}
-// `;
-//
-// const SelectBox = styled.div`
-// 	position: absolute;
-//
-// 	pointer-events: none;
-//
-// 	border: 2px solid white;
-// 	background-color: rgba(255, 255, 255, 0.2);
-// `;
-//
 function CanvasOffsetContainer({
 	className,
 	offset,
@@ -217,7 +192,8 @@ function CanvasOffsetContainer({
 		if (
 			e.button !== 0 ||
 			(mouseMode !== 'pan' && mouseMode !== 'select') ||
-			document.body.classList.contains(MODAL_OPEN_CLASS)
+			document.body.classList.contains(MODAL_OPEN_CLASS) ||
+			(e.target as HTMLElement).tagName.toLowerCase() === 'input'
 		) {
 			return;
 		}

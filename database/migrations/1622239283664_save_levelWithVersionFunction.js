@@ -42,7 +42,7 @@ exports.up = (pgm) => {
     values
       (existing_id, auth.uid(), name, description, data, version)
     on conflict (id) do update set
-      (name, description, data) = (excluded.name, excluded.description, excluded.data)
+      (name, description, data, version) = (excluded.name, excluded.description, excluded.data, excluded.version)
     where levels.user_id = auth.uid()
     returning id into created_level_id;
     
@@ -58,7 +58,7 @@ exports.down = (pgm) => {
 
 	pgm.createFunction(
 		SAVE_LEVEL_FUNCTION_NAME,
-		SAVE_LEVEL_FUNCTION_PARAMS,
+		OLD_SAVE_LEVEL_FUNCTION_PARAMS,
 		{
 			replace: true,
 			returns: 'text',

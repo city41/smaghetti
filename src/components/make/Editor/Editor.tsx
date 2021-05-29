@@ -144,23 +144,24 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 						<div className="flex flex-row">
 							<Toolbox
 								className="flex-1"
+								disabled={isPlaying || mode === 'managing-rooms'}
 								isPlaying={isPlaying}
 								onPlayClick={() => setPlaying((p) => !p)}
 							/>
 						</div>
 						<div
 							className="grid"
-							style={{ gridTemplateColumns: 'max-content 1fr max-content' }}
+							style={{ gridTemplateColumns: '1fr max-content max-content' }}
 						>
-							<Layers disabled={isPlaying} />
-							<Palette disabled={isPlaying} />
+							<Palette disabled={isPlaying || mode === 'managing-rooms'} />
+							<Layers disabled={isPlaying || mode === 'managing-rooms'} />
 							<div className="grid grid-rows-3 items-stretch">
 								<MetadataMenu className="row-span-2" disabled={isPlaying} />
 								<PageMenu />
 							</div>
 						</div>
 					</div>
-					<div className="fixed right-0 top-36 pointer-events-auto z-10">
+					<div className="fixed right-0 top-40 pointer-events-auto z-10">
 						<EarlyPreviewStarburst />
 					</div>
 				</div>

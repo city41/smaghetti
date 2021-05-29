@@ -69,6 +69,7 @@ function serializeRoom(room: RoomData): SerializedRoomData {
 
 function serialize(levelData: LevelData): SerializedLevelData {
 	return {
+		settings: levelData.settings,
 		rooms: levelData.rooms.map(serializeRoom),
 	};
 }

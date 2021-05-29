@@ -9,13 +9,13 @@ type ConnectedEditorProps = Partial<EditorProps>;
 const ConnectedEditor: FunctionComponent<ConnectedEditorProps> = (props) => {
 	const {
 		storedForResizeMode,
-		storedForManageRoomsMode,
+		storedForManageLevelMode,
 		loadLevelState,
 	} = useSelector((state: AppState) => state.editor.present);
 
 	const mode = storedForResizeMode
 		? 'resizing'
-		: storedForManageRoomsMode
+		: storedForManageLevelMode
 		? 'managing-rooms'
 		: 'editing';
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { bindActionCreators } from 'redux';
-import isEqual from 'lodash/isEqual';
 
 import { AppState, dispatch } from '../../../../store';
 import {
@@ -9,12 +8,14 @@ import {
 	setCurrentRoomIndex,
 	toggleManageLevelMode,
 	roomSettingsChange,
+	setTimer,
+	setLevelName,
 } from '../../editorSlice';
 
 import { ManageLevel } from './ManageLevel';
 import type { PublicManageLevelProps } from './ManageLevel';
 import { useSelector } from 'react-redux';
-import { ROOM_TYPE_SETTINGS } from '../../../../levelData/constants';
+import { ROOM_BACKGROUND_SETTINGS } from '../../../../levelData/constants';
 import { IncompatibleEntitiesWarningModal } from './IncompatibleEntitiesWarningModal';
 
 const actions = bindActionCreators(
@@ -23,15 +24,23 @@ const actions = bindActionCreators(
 		onDeleteRoom: deleteRoom,
 		onRoomIndexChange: setCurrentRoomIndex,
 		onClose: toggleManageLevelMode,
+		onTimerChange: setTimer,
+		onLevelNameChange: setLevelName,
 	},
 	dispatch
 );
 
-const roomTypes = Object.keys(ROOM_TYPE_SETTINGS);
+const roomTypes = Object.keys(ROOM_BACKGROUND_SETTINGS);
 
+// TODO: since RoomBackgroundSettings are bundled and unlikely to be unbundled,
+// should just the string "underground", "fortress" etc be set in state?
 function getRoomType(settings: RoomSettings): string {
-	const entry = Object.entries(ROOM_TYPE_SETTINGS).find((rts) => {
-		return isEqual(settings, rts[1]);
+	const entry = Object.entries(ROOM_BACKGROUND_SETTINGS).find((rts) => {
+		return (
+			settings.bgColor === rts[1].bgColor &&
+			settings.bgGraphic === rts[1].bgGraphic &&
+			settings.bgExtraColorAndEffect === rts[1].bgExtraColorAndEffect
+		);
 	});
 
 	if (!entry) {
@@ -55,7 +64,7 @@ function ConnectedManageLevel(props: PublicManageLevelProps) {
 		type: string;
 	}>(null);
 
-	const { rooms, currentRoomIndex } = useSelector(
+	const { rooms, currentRoomIndex, name, settings } = useSelector(
 		(s: AppState) => s.editor.present
 	);
 
@@ -68,7 +77,10 @@ function ConnectedManageLevel(props: PublicManageLevelProps) {
 		dispatch(
 			roomSettingsChange({
 				index,
-				settings: ROOM_TYPE_SETTINGS[type as keyof typeof ROOM_TYPE_SETTINGS],
+				settings:
+					ROOM_BACKGROUND_SETTINGS[
+						type as keyof typeof ROOM_BACKGROUND_SETTINGS
+					],
 			})
 		);
 	}
@@ -103,6 +115,8 @@ function ConnectedManageLevel(props: PublicManageLevelProps) {
 			<ManageLevel
 				{...props}
 				{...actions}
+				levelName={name}
+				levelSettings={settings}
 				rooms={roomsWithType}
 				currentRoomIndex={currentRoomIndex}
 				scale={rooms[currentRoomIndex].scale}

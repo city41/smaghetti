@@ -31,6 +31,7 @@ const icons: Record<MouseMode, ElementType> = {
 
 type PublicToolboxProps = {
 	className?: string;
+	disabled: boolean;
 	isPlaying: boolean;
 	onPlayClick: () => void;
 };
@@ -68,6 +69,7 @@ const Toolbox = memo(function Toolbox({
 	showGrid,
 	onToggleGrid,
 	onEraseLevel,
+	disabled,
 	isPlaying,
 	onPlayClick,
 }: InternalToolboxProps & PublicToolboxProps) {
@@ -91,7 +93,7 @@ const Toolbox = memo(function Toolbox({
 				icon={icons[mm.mode]}
 				toggled={mm.mode === mouseMode}
 				disabled={
-					isPlaying ||
+					disabled ||
 					(mm.mode === 'fill' &&
 						currentPaletteEntry &&
 						entityMap[currentPaletteEntry].editorType !== 'cell')
@@ -110,15 +112,19 @@ const Toolbox = memo(function Toolbox({
 			)}
 		>
 			<div className="w-32 flex flex-row items-center space-x-2 bg-yellow-600 -my-2 py-2 -ml-2 px-2">
-				<PlayButton isPlaying={isPlaying} onClick={onPlayClick} />
-				<SaveButton disabled={isPlaying} />
-				<DownloadButton disabled={isPlaying} />
+				<PlayButton
+					disabled={disabled && !isPlaying}
+					isPlaying={isPlaying}
+					onClick={onPlayClick}
+				/>
+				<SaveButton disabled={disabled} />
+				<DownloadButton disabled={disabled} />
 			</div>
 
 			<div className="flex flex-row items-center space-x-2">{buttons}</div>
 
 			<Zoom
-				disabled={isPlaying}
+				disabled={disabled}
 				onScaleDecreased={onScaleDecreased}
 				onScaleIncreased={onScaleIncreased}
 				canIncreaseScale={canIncreaseScale}
@@ -130,7 +136,7 @@ const Toolbox = memo(function Toolbox({
 				size="large"
 				icon={MdGridOn}
 				toggled={showGrid}
-				disabled={isPlaying}
+				disabled={disabled}
 				onClick={() => onToggleGrid()}
 			/>
 
@@ -144,18 +150,18 @@ const Toolbox = memo(function Toolbox({
 					label={`undo (${isMac ? 'cmnd' : 'ctrl'}-z)`}
 					icon={ImUndo2}
 					onClick={() => onUndo()}
-					disabled={!canUndo || isPlaying}
+					disabled={!canUndo || disabled}
 				/>
 				<PlainIconButton
 					label={`redo (${isMac ? 'cmnd' : 'ctrl'}-shift-z)`}
 					icon={ImRedo2}
 					onClick={() => onRedo()}
-					disabled={!canRedo || isPlaying}
+					disabled={!canRedo || disabled}
 				/>
 			</div>
 
 			<PlainIconButton
-				disabled={isPlaying}
+				disabled={disabled}
 				label="erase entire level"
 				icon={FaBomb}
 				onClick={() => onEraseLevel()}

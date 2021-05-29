@@ -1,11 +1,11 @@
 import React from 'react';
-import { LevelSettings as LevelSettingsType } from '../../../../levelData/parseLevelSettingsFromLevelFile';
+import { ParsedLevelSettings } from '../../../../levelData/parseLevelSettingsFromLevelFile';
 import { ByteInputField } from './ByteInputField';
 
 type LevelSettingsProps = {
 	levelSettings: {
 		rawBytes: number[];
-		settings: LevelSettingsType | null;
+		settings: ParsedLevelSettings | null;
 	};
 	onPatch: (args: { offset: number; bytes: number[] }) => void;
 };

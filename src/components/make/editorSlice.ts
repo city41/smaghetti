@@ -33,7 +33,7 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import { TILE_SIZE } from '../../tiles/constants';
 import { entityMap, EntityType } from '../../entities/entityMap';
-import { ROOM_TYPE_SETTINGS } from '../../levelData/constants';
+import { ROOM_BACKGROUND_SETTINGS } from '../../levelData/constants';
 import {
 	determineValidGraphicAndObjectSetValues,
 	isGraphicAndObjectSetCompatible,
@@ -108,7 +108,11 @@ type InternalEditorState = {
 	 * and debatable if the slice should even know or care about these modes
 	 */
 	storedForResizeMode?: { scale: number; offset: Point } | null;
-	storedForManageRoomsMode?: { scale: number; offset: Point } | null;
+	storedForManageLevelMode?: {
+		scale: number;
+		offset: Point;
+		mouseMode: MouseMode;
+	} | null;
 
 	mouseMode: MouseMode;
 	pendingLevelResizeIncrement: Point;
@@ -238,7 +242,9 @@ const SINGLE_BRICK_SO_PLAYER_DOESNT_FALL: EditorEntityMatrix = (function () {
 
 const initialRoomState: RoomState = {
 	settings: {
-		...ROOM_TYPE_SETTINGS.underground,
+		// TODO: figure out how to handle music
+		music: 0xd, // this is the underground music
+		...ROOM_BACKGROUND_SETTINGS.underground,
 	},
 	actors: {
 		entities: [
@@ -303,6 +309,9 @@ const defaultInitialState: InternalEditorState = {
 const initialState = defaultInitialState;
 
 const EMPTY_SERIALIZED_LEVEL: SerializedLevelData = {
+	settings: {
+		timer: 900,
+	},
 	rooms: [
 		{
 			settings: { ...initialRoomState.settings },
@@ -887,7 +896,11 @@ const editorSlice = createSlice({
 	initialState,
 	reducers: {
 		setLevelName(state: InternalEditorState, action: PayloadAction<string>) {
-			state.name = action.payload.trim() || 'new level';
+			state.name = action.payload;
+		},
+		setTimer(state: InternalEditorState, action: PayloadAction<number>) {
+			const newTimer = action.payload;
+			state.settings.timer = Math.min(Math.max(1, newTimer), 999);
 		},
 		setCurrentRoomIndex(
 			state: InternalEditorState,
@@ -1183,18 +1196,21 @@ const editorSlice = createSlice({
 		toggleManageLevelMode(state: InternalEditorState) {
 			const currentRoom = getCurrentRoom(state);
 
-			if (state.storedForManageRoomsMode) {
-				scaleTo(state, state.storedForManageRoomsMode.scale);
-				currentRoom.scrollOffset = state.storedForManageRoomsMode.offset;
+			if (state.storedForManageLevelMode) {
+				scaleTo(state, state.storedForManageLevelMode.scale);
+				currentRoom.scrollOffset = state.storedForManageLevelMode.offset;
+				state.mouseMode = state.storedForManageLevelMode.mouseMode;
 
-				state.storedForManageRoomsMode = null;
+				state.storedForManageLevelMode = null;
 			} else {
-				state.storedForManageRoomsMode = {
+				state.storedForManageLevelMode = {
 					scale: currentRoom.scale,
 					offset: { ...currentRoom.scrollOffset },
+					mouseMode: state.mouseMode,
 				};
 
 				setScaleAndOffsetForManageLevel(state);
+				state.mouseMode = 'pan';
 			}
 		},
 		addRoom(state: InternalEditorState) {
@@ -1216,11 +1232,11 @@ const editorSlice = createSlice({
 		},
 		roomSettingsChange(
 			state: InternalEditorState,
-			action: PayloadAction<{ index: number; settings: RoomSettings }>
+			action: PayloadAction<{ index: number; settings: Partial<RoomSettings> }>
 		) {
 			const { index, settings } = action.payload;
 			const room = state.rooms[index];
-			room.settings = settings;
+			room.settings = { ...room.settings, ...settings };
 		},
 		setSaveLevelState(
 			state: InternalEditorState,
@@ -1249,6 +1265,7 @@ const editorSlice = createSlice({
 		) {
 			const { levelData, maxId } = deserialize(action.payload);
 
+			state.settings = levelData.settings;
 			state.rooms = levelData.rooms.map((r) => {
 				return {
 					settings: r.settings,
@@ -1697,6 +1714,7 @@ const saveLevel = (): LevelThunk => async (dispatch, getState) => {
 	const editorState = getState().editor.present;
 
 	const levelData: LevelData = {
+		settings: editorState.settings,
 		rooms: editorState.rooms.map((r) => {
 			const { validEntityTypes, ...restOfRoom } = r;
 			return restOfRoom;
@@ -1710,6 +1728,7 @@ const saveLevelCopy = (): LevelThunk => async (dispatch, getState) => {
 	const editorState = getState().editor.present;
 
 	const levelData: LevelData = {
+		settings: editorState.settings,
 		rooms: editorState.rooms.map((r) => {
 			const { validEntityTypes, ...restOfRoom } = r;
 			return restOfRoom;
@@ -1733,10 +1752,16 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 		if (!result) {
 			dispatch(editorSlice.actions.setLoadLevelState('missing'));
 		} else {
-			dispatch(editorSlice.actions.setLevelDataFromLoad(result.data));
-			dispatch(editorSlice.actions.setLevelName(result.name));
-			dispatch(editorSlice.actions.setSavedLevelId(result.id));
-			dispatch(editorSlice.actions.setLoadLevelState('success'));
+			const convertedLevel = convertLevelToLatestVersion(result);
+
+			if (!convertedLevel) {
+				dispatch(editorSlice.actions.setLoadLevelState('error'));
+			} else {
+				dispatch(editorSlice.actions.setLevelDataFromLoad(convertedLevel.data));
+				dispatch(editorSlice.actions.setLevelName(result.name));
+				dispatch(editorSlice.actions.setSavedLevelId(result.id));
+				dispatch(editorSlice.actions.setLoadLevelState('success'));
+			}
 		}
 	} catch (e) {
 		dispatch(editorSlice.actions.setLoadLevelState('error'));
@@ -1758,7 +1783,6 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 					dispatch(
 						editorSlice.actions.setLevelDataFromLoad(localStorageData.data)
 					);
-
 					dispatch(editorSlice.actions.setLevelName(localStorageData.name));
 				} else {
 					dispatch(editorSlice.actions.setLoadLevelState('legacy'));
@@ -1785,8 +1809,14 @@ const loadExampleLevel = (): LevelThunk => (dispatch) => {
 		);
 	}
 
-	dispatch(editorSlice.actions.setLevelName(exampleLevel.name));
-	dispatch(editorSlice.actions.setLevelDataFromLoad(exampleLevel.data));
+	const converted = convertLevelToLatestVersion(exampleLevel);
+
+	if (!converted) {
+		dispatch(editorSlice.actions.setLoadLevelState('error'));
+	} else {
+		dispatch(editorSlice.actions.setLevelName(exampleLevel.name));
+		dispatch(editorSlice.actions.setLevelDataFromLoad(converted.data));
+	}
 };
 
 const loadBlankLevel = (): LevelThunk => (dispatch) => {
@@ -1800,6 +1830,7 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 		const editorState = getState().editor.present;
 
 		const localStorageData: LevelData = {
+			settings: editorState.settings,
 			rooms: editorState.rooms.map((r) => {
 				const { validEntityTypes, ...restOfRoom } = r;
 				return restOfRoom;
@@ -1811,7 +1842,6 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 		const dataToWrite: LocalStorageSerializedLevel = {
 			name: editorState.name,
 			version: CURRENT_VERSION,
-			settings: editorState.settings,
 			data: serializedLevelData,
 		};
 
@@ -1832,6 +1862,7 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 
 const {
 	setLevelName,
+	setTimer,
 	setCurrentRoomIndex,
 	entityDropped,
 	mouseModeChanged,
@@ -1888,6 +1919,7 @@ function cleanUpReducer(state: InternalEditorState, action: Action) {
 const undoableReducer = undoable(cleanUpReducer, {
 	filter: excludeAction([
 		setLevelName.toString(),
+		setTimer.toString(),
 		setCurrentRoomIndex.toString(),
 		mouseModeChanged.toString(),
 		editorVisibleWindowChanged.toString(),
@@ -2048,6 +2080,7 @@ export {
 	undo,
 	redo,
 	setLevelName,
+	setTimer,
 	setCurrentRoomIndex,
 	entityDropped,
 	mouseModeChanged,

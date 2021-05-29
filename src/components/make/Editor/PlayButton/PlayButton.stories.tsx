@@ -15,6 +15,7 @@ export const Basic = () => {
 
 	return (
 		<PlayButton
+			disabled={false}
 			isPlaying={isPlaying}
 			onClick={() => setIsPlaying(!isPlaying)}
 		/>

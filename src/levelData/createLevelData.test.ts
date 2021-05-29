@@ -44,7 +44,17 @@ describe('createLevelData', () => {
 				roomTileHeight: 0,
 			};
 
-			const levelData = createLevelData([room]);
+			const level = {
+				name: 'createLevelData.test',
+				data: {
+					settings: {
+						timer: 900,
+					},
+					rooms: [room],
+				},
+			};
+
+			const levelData = createLevelData(level);
 
 			// skip the opening 0 byte
 			const spriteAddr = levelData[ROOM_SPRITE_POINTERS[0]] + 1;
@@ -77,27 +87,35 @@ describe('createLevelData', () => {
 				],
 			] as EditorEntityMatrix;
 
-			const levelData = createLevelData([
-				{
+			const levelData = createLevelData({
+				name: 'createLevelData.test',
+				data: {
 					settings: {
-						bgGraphic: 0,
-						music: 0,
-						bgColor: 0,
-						bgExtraColorAndEffect: 0,
+						timer: 900,
 					},
-					paletteEntries: [],
-					actors: {
-						entities: [],
-						matrix: [],
-					},
-					stage: {
-						entities: [],
-						matrix,
-					},
-					roomTileWidth: 2,
-					roomTileHeight: 2,
+					rooms: [
+						{
+							settings: {
+								bgGraphic: 0,
+								music: 0,
+								bgColor: 0,
+								bgExtraColorAndEffect: 0,
+							},
+							paletteEntries: [],
+							actors: {
+								entities: [],
+								matrix: [],
+							},
+							stage: {
+								entities: [],
+								matrix,
+							},
+							roomTileWidth: 2,
+							roomTileHeight: 2,
+						},
+					],
 				},
-			]);
+			});
 
 			const objectAddr =
 				levelData[ROOM_OBJECT_POINTERS[0]] + ROOM_OBJECT_HEADER_SIZE_IN_BYTES;
