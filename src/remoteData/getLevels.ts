@@ -5,7 +5,7 @@ async function getLevels(): Promise<SerializedLevel[]> {
 		.from<SerializedLevel>('levels')
 		.select('*')
 		.order('created_at', { ascending: false })
-		.limit(20);
+		.limit(40);
 
 	if (error) {
 		throw error;
