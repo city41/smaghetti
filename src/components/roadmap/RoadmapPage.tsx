@@ -31,13 +31,13 @@ const alphaChecklist: MilestoneChecklistItem[] = [
 		description:
 			'Layers (mostly to support complex terrain and background things)',
 	},
-	{ status: 'not-started', description: 'Movement vectors for platforms' },
 	{ status: 'not-started', description: 'Room settings' },
 	{ status: 'not-started', description: "Set a room's size" },
 	{ status: 'not-started', description: "Change player's starting location" },
 ];
 
 const betaChecklist: MilestoneChecklistItem[] = [
+	{ status: 'not-started', description: 'Movement vectors for platforms' },
 	{
 		status: 'not-started',
 		description: 'Most entities in SMA4 are available to build levels with',
