@@ -134,7 +134,7 @@ function Matrix({
 	return <>{rows}</>;
 }
 
-function RoomThumbnail({
+const RoomThumbnail = React.memo(function RoomThumbnail({
 	className,
 	upperLeftTile,
 	widthInTiles,
@@ -190,6 +190,6 @@ function RoomThumbnail({
 			{children}
 		</div>
 	);
-}
+});
 
 export { RoomThumbnail };
