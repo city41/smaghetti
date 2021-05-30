@@ -4,11 +4,11 @@ import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
 
-const BigBertha: Entity = {
+const BigBass: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		title: 'Big Bertha',
-		description: 'Docile, and has a baby cheep cheep in its mouth',
+		title: 'Big Bass',
+		description: 'swims back and forth and jumps at Mario',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -16,7 +16,7 @@ const BigBertha: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x63,
+	objectId: 0x2d,
 
 	resource: {
 		romOffset: 0x167674,
@@ -53,11 +53,11 @@ const BigBertha: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="relative BigBertha-bg bg-cover"
+				className="relative BigBass-bg bg-cover"
 				style={{ width: size, height: size }}
 			>
 				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
-					bertha
+					bass
 				</div>
 			</div>
 		);
@@ -73,14 +73,14 @@ const BigBertha: Entity = {
 		};
 
 		return (
-			<div className="relative BigBertha-bg" style={style}>
+			<div className="relative BigBass-bg" style={style}>
 				<div className="absolute top-0 left-0" style={spaceStyle}>
 					<TileSpace />
 					<div
 						className="absolute w-full text-center bg-black text-white"
 						style={labelStyle}
 					>
-						bertha
+						bass
 					</div>
 				</div>
 			</div>
@@ -88,4 +88,4 @@ const BigBertha: Entity = {
 	},
 };
 
-export { BigBertha };
+export { BigBass };
