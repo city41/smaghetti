@@ -43,7 +43,7 @@ function TransportDestination({
 	return (
 		<>
 			<TransportDestinationModal
-				isOpen={modalOpen}
+				isOpen={modalOpen && !!onDestinationChange}
 				onRequestClose={() => setModalOpen(false)}
 				destRoom={destRoom}
 				destX={destX}
@@ -65,7 +65,7 @@ function TransportDestination({
 						'w-full h-full flex flex-col items-center justify-center overflow-hidden bg-blue-800 border-blue-200 text-blue-100',
 						{
 							'cursor-pointer transform hover:scale-110':
-								mouseMode === 'select',
+								mouseMode === 'select' && !!onDestinationChange,
 						}
 					)}
 				>
