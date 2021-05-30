@@ -57,6 +57,7 @@ function WhatsNewPage() {
 						<li>Blooper</li>
 						<li>Flame Chomp</li>
 						<li>Flurry</li>
+						<li>Swooper</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="Set level timer" date="2021-05-28">

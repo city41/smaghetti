@@ -135,6 +135,7 @@ import { PtooiePottedPiranhaPlant } from './PtooiePottedPiranhaPlant';
 import { PtooieWalkingPiranhaPlant } from './PtooieWalkingPiranhaPlant';
 import { StarMan } from './StarMan';
 import { StretchBlock } from './StretchBlock';
+import { Swooper } from './Swooper';
 import { TerracottaBrick } from './TerracottaBrick';
 import { TexturedDoor } from './TexturedDoor';
 import { ThreeUpMoon } from './ThreeUpMoon';
@@ -292,6 +293,7 @@ const entityMap = {
 	Stalactite,
 	StarMan,
 	StretchBlock,
+	Swooper,
 	TerracottaBrick,
 	TexturedDoor,
 	ThreeUpMoon,
