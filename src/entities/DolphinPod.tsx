@@ -5,7 +5,6 @@ import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
 
 const DolphinPod: Entity = {
-	paletteCategory: 'enemy',
 	paletteInfo: {
 		title: 'Dolphin Pod',
 		description: "They don't hurt Mario, but riding them is challenging...",
