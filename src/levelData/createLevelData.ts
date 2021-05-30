@@ -200,7 +200,8 @@ function getObjects(layer: RoomLayer, roomTileHeight: number): number[] {
 
 		while (
 			row[x]?.type === startTile.type &&
-			isEqual(row[x]?.settings ?? {}, startTile.settings ?? {})
+			isEqual(row[x]?.settings ?? {}, startTile.settings ?? {}) &&
+			x - startTile.x < 26
 		) {
 			++x;
 		}
