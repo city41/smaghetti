@@ -144,6 +144,15 @@ type TransDest = {
 	y: number;
 };
 
+function resetState(state: InternalEditorState) {
+	Object.keys(state).forEach((key) => {
+		// @ts-ignore
+		state[key as keyof InternalEditorState] = cloneDeep(
+			initialState[key as keyof InternalEditorState]
+		);
+	});
+}
+
 function fixTransportsForEntities(
 	entities: EditorEntity[],
 	deletedRoomIndex: number
@@ -1178,17 +1187,7 @@ const editorSlice = createSlice({
 			centerLevelInWindow(state);
 		},
 		eraseLevel(state: InternalEditorState) {
-			state.rooms = [cloneDeep(defaultInitialState.rooms[0])];
-			state.currentRoomIndex = 0;
-
-			if (state.storedForResizeMode) {
-				const newScale = determineResizeScale(state);
-				scaleTo(state, newScale);
-				centerLevelInWindow(state);
-			}
-
-			state.name = defaultInitialState.name;
-			state.savedLevelId = undefined;
+			resetState(state);
 		},
 		resetOffset(state: InternalEditorState) {
 			getCurrentRoom(state).scrollOffset.x = 0;
@@ -1312,6 +1311,8 @@ const editorSlice = createSlice({
 			state: InternalEditorState,
 			action: PayloadAction<SerializedLevelData>
 		) {
+			resetState(state);
+
 			const { levelData, maxId } = deserialize(action.payload);
 
 			state.settings = levelData.settings;
