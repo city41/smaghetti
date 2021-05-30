@@ -4,6 +4,10 @@
 	@apply relative;
 }
 
+.erase {
+	cursor: url(./eraseCursor.png) 7 16, auto;
+}
+
 .root::after {
 	content: '';
 	@apply absolute top-0 left-0 w-full h-full;

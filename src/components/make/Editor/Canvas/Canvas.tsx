@@ -422,6 +422,7 @@ const Canvas = memo(function Canvas({
 					'relative shadow-lg bg-blue-200',
 					{
 						'cursor-crosshair': mouseMode === 'draw' || mouseMode === 'fill',
+						[styles.erase]: mouseMode === 'erase',
 					}
 				)}
 				ref={(div) => {
