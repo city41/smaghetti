@@ -5,6 +5,7 @@ import { ArrowLift } from './ArrowLift';
 import { ArrowSign } from './ArrowSign';
 import { BabyCheepCheep } from './BabyCheepCheep';
 import { BeachedCheepCheep } from './BeachedCheepCheep';
+import { BigBertha } from './BigBertha';
 import { BigBooBoss } from './BigBooBoss';
 import { Blooper } from './Blooper';
 import { Bobomb } from './Bobomb';
@@ -159,6 +160,7 @@ const entityMap = {
 	ArrowSign,
 	BabyCheepCheep,
 	BeachedCheepCheep,
+	BigBertha,
 	BigBooBoss,
 	Blooper,
 	Bobomb,
