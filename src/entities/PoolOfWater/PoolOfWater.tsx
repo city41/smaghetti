@@ -24,6 +24,20 @@ function isWaterAbove(
 	return cellAbove.type === 'PoolOfWater';
 }
 
+function isTallerThanOne(
+	entity: EditorEntity | undefined,
+	room: RoomData | undefined
+): boolean {
+	if (!entity || !room) {
+		return false;
+	}
+
+	const cellAbove = room.stage.matrix[entity.y - 1]?.[entity.x];
+	const cellBelow = room.stage.matrix[entity.y + 1]?.[entity.x];
+
+	return cellAbove?.type === 'PoolOfWater' || cellBelow?.type === 'PoolOfWater';
+}
+
 const PoolOfWater: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
@@ -86,12 +100,15 @@ const PoolOfWater: Entity = {
 
 	render(_showDetails, _settings, _osc, entity, room) {
 		const waterAbove = isWaterAbove(entity, room);
+		const tallerThanOne = isTallerThanOne(entity, room);
 		const style = {
 			width: TILE_SIZE,
 			height: TILE_SIZE,
 		};
 
-		if (waterAbove) {
+		// in game, if water is only one tile high then it lacks sparkles
+		// so this allows the editor to match that
+		if (waterAbove || !tallerThanOne) {
 			return <div style={{ ...style, backgroundColor: WATER_COLOR }} />;
 		} else {
 			return (
