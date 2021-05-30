@@ -57,6 +57,7 @@ function WhatsNewPage() {
 						<li>Blooper</li>
 						<li>Flame Chomp</li>
 						<li>Flurry</li>
+						<li>Porcu-Puffer</li>
 						<li>Swooper</li>
 					</ul>
 				</NewEntry>

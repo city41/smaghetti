@@ -113,6 +113,7 @@ import { PileDriverMiniGoomba } from './PileDriverMiniGoomba';
 import { Player } from './Player';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PoolOfWater } from './PoolOfWater';
+import { PorcuPuffer } from './PorcuPuffer';
 import { POWBlock } from './POWBlock';
 import { PowerUpSlotMachine } from './PowerUpSlotMachine';
 import { PSwitch } from './PSwitch';
@@ -272,6 +273,7 @@ const entityMap = {
 	Player,
 	PoisonMushroom,
 	PoolOfWater,
+	PorcuPuffer,
 	POWBlock,
 	PowerUpSlotMachine,
 	PtooiePottedPiranhaPlant,
