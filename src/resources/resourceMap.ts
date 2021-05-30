@@ -12,6 +12,8 @@ import { ClimbingVineHead } from './ClimbingVineHead';
 import { CoinCache } from './CoinCache';
 import { CoinSnake } from './CoinSnake';
 import { DoorLock } from './DoorLock';
+import { FlagPoleBall } from './FlagPoleBall';
+import { FlagPoleShaft } from './FlagPoleShaft';
 import { FlutterBody } from './FlutterBody';
 import { FlutterFlower } from './FlutterFlower';
 import { FlutterHead } from './FlutterHead';
@@ -66,6 +68,8 @@ const resourceMap = {
 	CoinCache,
 	CoinSnake,
 	DoorLock,
+	FlagPoleBall,
+	FlagPoleShaft,
 	FlutterBody,
 	FlutterFlower,
 	FlutterHead,
