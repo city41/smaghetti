@@ -98,7 +98,7 @@ function UnfinishedDisclaimer() {
 				>
 					Reddit
 				</a>
-				,{' '}
+				, or{' '}
 				<a
 					className="text-blue-700"
 					target="_blank"
@@ -106,15 +106,6 @@ function UnfinishedDisclaimer() {
 					href="https://github.com/city41/smaghetti/discussions"
 				>
 					GitHub
-				</a>
-				, or{' '}
-				<a
-					className="text-blue-700"
-					target="_blank"
-					rel="noreferrer"
-					href="https://twitter.com/mattegreer"
-				>
-					Twitter
 				</a>
 			</p>
 		</div>

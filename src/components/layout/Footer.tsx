@@ -22,10 +22,7 @@ function Footer({ className }: FooterProps) {
 				</div>
 				<div>
 					Made by{' '}
-					<a
-						className="text-link hover:underline"
-						href="https://twitter.com/mattegreer"
-					>
+					<a className="text-link hover:underline" href="https://mattgreer.dev">
 						Matt Greer
 					</a>
 					<span className="mx-2">&#124;</span>
