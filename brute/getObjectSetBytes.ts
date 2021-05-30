@@ -76,7 +76,16 @@ function getGbaScreen(
 		ArrowSign.objectSets = encodeObjectSets([[objectSet, objectGraphicSet]]);
 
 		// @ts-ignore
-		const levelData = createLevelData([getRoom()]);
+		const levelData = createLevelData({
+			name: 'getObjectSetBytes',
+			data: {
+				settings: {
+					timer: 999,
+				},
+				rooms: [getRoom()],
+			},
+		});
+
 		const saveFileWithLevel = injectLevelIntoSave(emptySave, levelData);
 
 		// @ts-ignore

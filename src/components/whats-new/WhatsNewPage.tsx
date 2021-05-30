@@ -55,6 +55,7 @@ function WhatsNewPage() {
 						<li>Big Bass</li>
 						<li>Big Bertha</li>
 						<li>Blooper</li>
+						<li>Bolts and Bolt Lifts</li>
 						<li>Flame Chomp</li>
 						<li>Flurry</li>
 						<li>Porcu-Puffer</li>

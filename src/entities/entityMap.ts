@@ -10,7 +10,9 @@ import { BigBertha } from './BigBertha';
 import { BigBooBoss } from './BigBooBoss';
 import { Blooper } from './Blooper';
 import { Bobomb } from './Bobomb';
+import { BoltLeft } from './BoltLeft';
 import { BoltLift } from './BoltLift';
+import { BoltRight } from './BoltRight';
 import { BonyBeetle } from './BonyBeetle';
 import { Boo } from './Boo';
 import { BoomBoom } from './BoomBoom';
@@ -169,7 +171,9 @@ const entityMap = {
 	BigBooBoss,
 	Blooper,
 	Bobomb,
+	BoltLeft,
 	BoltLift,
+	BoltRight,
 	BonyBeetle,
 	Boo,
 	BoomBoom,

@@ -2,6 +2,8 @@ import { BigBooArm } from './BigBooArm';
 import { BigBooBody } from './BigBooBody';
 import { BigBooFace } from './BigBooFace';
 import { BigBooTail } from './BigBooTail';
+import { BoltNut } from './BoltNut';
+import { BoltShaft } from './BoltShaft';
 import { BowserFireStatueBody } from './BowserFireStatueBody';
 import { BowserFireStatueHead } from './BowserFireStatueHead';
 import { ChargingChuckBody } from './ChargingChuckBody';
@@ -54,6 +56,8 @@ const resourceMap = {
 	BigBooBody,
 	BigBooFace,
 	BigBooTail,
+	BoltNut,
+	BoltShaft,
 	BowserFireStatueBody,
 	BowserFireStatueHead,
 	ChargingChuckBody,
