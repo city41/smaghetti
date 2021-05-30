@@ -39,7 +39,7 @@ const ConveyorBelt: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	settingsType: 'single',
-	defaultSettings: { width: 1, direction: 'right' },
+	defaultSettings: { width: 3, direction: 'right' },
 	dimensions: 'none',
 	param1: 'width',
 	objectId: 0x31,
@@ -91,7 +91,7 @@ const ConveyorBelt: Entity = {
 	},
 
 	render(showDetails, settings, onSettingsChange) {
-		const width = settings.width ?? 1;
+		const width = settings.width ?? this.defaultSettings!.width;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
 
