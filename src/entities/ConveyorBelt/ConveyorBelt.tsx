@@ -5,8 +5,11 @@ import type { Entity } from '../types';
 import { encodeObjectSets, getBankParam1 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
-import { ConveyorBeltEditDetails, Direction } from './ConveyorBeltEditDetails';
-import { TileSpace } from '../TileSpace';
+import { Resizer } from '../../components/Resizer';
+
+import styles from './ConveyorBelt.module.css';
+
+type Direction = 'left' | 'right';
 
 const directionToObjectId: Record<Direction, number> = {
 	left: 0x31,
@@ -90,7 +93,7 @@ const ConveyorBelt: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render(_showDetails, settings, onSettingsChange) {
 		const width = settings.width ?? this.defaultSettings!.width;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
@@ -102,52 +105,52 @@ const ConveyorBelt: Entity = {
 			height: TILE_SIZE,
 		};
 
-		const spaceStyle = {
-			width: TILE_SIZE,
-			height: TILE_SIZE,
-		};
+		const size = { x: width, y: 1 };
 
-		const body = (
-			<div className="relative ConveyorBelt-bg" style={style}>
+		return (
+			<div
+				className={clsx('relative ConveyorBelt-bg', {
+					[styles.resizing]: settings?.resizing,
+				})}
+				style={style}
+			>
 				<div
 					className={clsx('w-full h-full grid place-items-center border z-10', {
 						'border-blue-200': direction === 'right',
 						'border-yellow-200': direction === 'left',
 					})}
 				>
-					<DirectionIcon
-						className={clsx('w-1.5 h-1.5 text-white', {
-							'bg-blue-500': direction === 'right',
-							'bg-yellow-500': direction === 'left',
-						})}
-					/>
+					<button
+						onMouseDown={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
+							onSettingsChange({
+								direction: direction === 'left' ? 'right' : 'left',
+							});
+						}}
+					>
+						<DirectionIcon
+							className={clsx('w-1.5 h-1.5 text-white', {
+								'bg-blue-500': direction === 'right',
+								'bg-yellow-500': direction === 'left',
+							})}
+						/>
+					</button>
 				</div>
-				<div className="absolute top-0 left-0" style={spaceStyle}>
-					<TileSpace />
-				</div>
+				<Resizer
+					className="absolute bottom-0 right-0"
+					style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
+					size={size}
+					increment={TILE_SIZE}
+					axis="x"
+					onSizeChange={(newSizePoint) => {
+						onSettingsChange({ width: Math.max(1, newSizePoint.x) });
+					}}
+					onResizeStart={() => onSettingsChange({ resizing: true })}
+					onResizeEnd={() => onSettingsChange({ resizing: false })}
+				/>
 			</div>
 		);
-
-		if (showDetails) {
-			return (
-				<ConveyorBeltEditDetails
-					width={TILE_SIZE}
-					height={TILE_SIZE}
-					currentWidth={width}
-					currentDirection={direction}
-					onWidthChange={(newWidth) =>
-						onSettingsChange({ ...settings, width: newWidth })
-					}
-					onDirectionChange={(newDirection) =>
-						onSettingsChange({ ...settings, direction: newDirection })
-					}
-				>
-					{body}
-				</ConveyorBeltEditDetails>
-			);
-		} else {
-			return body;
-		}
 	},
 };
 

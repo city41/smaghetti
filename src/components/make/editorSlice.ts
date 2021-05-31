@@ -494,8 +494,8 @@ function clamp(value: number, min: number, max: number): number {
 
 function getEntityPixelBounds(entity: NewEditorEntity): Bounds {
 	const entityDef = entityMap[entity.type];
-	const tileWidth = entityDef.width ?? 1;
-	const tileHeight = entityDef.height ?? 1;
+	const tileWidth = entity?.settings?.width ?? entityDef.width ?? 1;
+	const tileHeight = entity?.settings?.height ?? entityDef.height ?? 1;
 
 	const width = tileWidth * TILE_SIZE; // Math.max(entitySize.width, TILE_SIZE);
 	const height = tileHeight * TILE_SIZE; // Math.max(entitySize.height, TILE_SIZE);
