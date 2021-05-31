@@ -49,6 +49,23 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Conveyor Belts config reworked" date="2021-05-31">
+					<p>
+						Conveyor belts now have a more intuitive and easier way to set them
+						up. Still rougher than I ultimately want, but a good first step.
+						Making Smaghetti really easy to use is a top priority.
+					</p>
+					<p>
+						<a
+							className="text-blue-300 underline"
+							href="https://www.youtube.com/watch?v=u6iu-oajE30"
+							rel="noreferrer"
+						>
+							Here is a quick video
+						</a>{' '}
+						showing the before and after.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-30">
 					<ul className="ml-8 list-disc">
 						<li>Flag Pole</li>
@@ -188,7 +205,7 @@ function WhatsNewPage() {
 						breakdown of which entities work and don&apos;t work together. For
 						example,{' '}
 						<a
-							className="text-blue-500"
+							className="text-blue-300 underline"
 							href="/compatibility/GrandGoomba"
 							target="_blank"
 							rel="noreferrer"
