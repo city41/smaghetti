@@ -150,13 +150,15 @@ const Toolbox = memo(function Toolbox({
 					label={`undo (${isMac ? 'cmnd' : 'ctrl'}-z)`}
 					icon={ImUndo2}
 					onClick={() => onUndo()}
-					disabled={!canUndo || disabled}
+					// still allow undo in manage mode
+					disabled={!canUndo || isPlaying}
 				/>
 				<PlainIconButton
 					label={`redo (${isMac ? 'cmnd' : 'ctrl'}-shift-z)`}
 					icon={ImRedo2}
 					onClick={() => onRedo()}
-					disabled={!canRedo || disabled}
+					// still allow redo in manage mode
+					disabled={!canRedo || isPlaying}
 				/>
 			</div>
 
