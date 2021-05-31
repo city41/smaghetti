@@ -11,7 +11,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
 
 const NumberBlock: Entity = {
-	paletteCategory: 'object',
+	paletteCategory: 'gizmo',
 	paletteInfo: {
 		title: 'Number Block',
 		description:
