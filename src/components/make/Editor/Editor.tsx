@@ -161,7 +161,11 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 							</div>
 						</div>
 					</div>
-					<div className="fixed right-0 top-40 pointer-events-auto z-10">
+					<div
+						className={clsx('fixed right-0 top-40 pointer-events-auto z-10', {
+							hidden: isPlaying,
+						})}
+					>
 						<EarlyPreviewStarburst />
 					</div>
 				</div>

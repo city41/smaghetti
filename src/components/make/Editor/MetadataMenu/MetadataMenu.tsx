@@ -38,7 +38,7 @@ function RoomButton({
 				'flex flex-col items-center w-6 h-6 rounded-md font-bold text-md',
 				{
 					'bg-blue-500': isCurrent,
-					'text-gray-600': disabled,
+					'text-gray-600 cursor-default': disabled,
 				}
 			)}
 		>
@@ -87,7 +87,7 @@ function MetadataMenu({
 									key={ri}
 									index={ri + 1}
 									isCurrent={ri === currentRoomIndex}
-									disabled={ri >= roomCount}
+									disabled={!!disabled || ri >= roomCount}
 									onClick={() => onRoomIndexChange(ri)}
 								/>
 							);

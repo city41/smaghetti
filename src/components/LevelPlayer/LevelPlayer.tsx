@@ -1,4 +1,5 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
+import ReactDOM from 'react-dom';
 import clsx from 'clsx';
 
 import styles from './LevelPlayer.module.css';
@@ -23,6 +24,10 @@ type LevelPlayerProps = {
 	showEarlyPreviewStarburst?: boolean;
 };
 
+function BodyPortal({ children }: { children: ReactNode }) {
+	return ReactDOM.createPortal(children, document.body);
+}
+
 function LevelPlayer({
 	isPlaying,
 	level,
@@ -44,14 +49,26 @@ function LevelPlayer({
 				}
 			)}
 		>
-			<GBAPlayer
-				biosFile={biosFile}
-				romFile={romFile}
-				emptySaveFile={emptySaveFile}
-				saveState={saveState}
-				levelData={createLevelData(level)}
-				isPlaying={isPlaying}
-			/>
+			<BodyPortal>
+				<div
+					className={clsx(
+						'fixed top-0 left-0 w-full h-full overflow-hidden grid place-items-center pointer-events-none',
+						{
+							'z-10': isPlaying,
+							hidden: !isPlaying,
+						}
+					)}
+				>
+					<GBAPlayer
+						biosFile={biosFile}
+						romFile={romFile}
+						emptySaveFile={emptySaveFile}
+						saveState={saveState}
+						levelData={createLevelData(level)}
+						isPlaying={isPlaying}
+					/>
+				</div>
+			</BodyPortal>
 			<ControlsBanner />
 		</div>
 	);
