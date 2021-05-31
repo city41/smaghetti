@@ -769,26 +769,23 @@ function findCellEntity(
 // Each ace coin is given a specific index, so the game can keep track of
 // which coins have been collected. Whenever a new ace coin is added or deleted,
 // the indices need to be updated
-// TODO: ace coins can also be payloads in bubbles, need to account for those
 function assignAceCoinIndices(rooms: RoomState[]) {
 	const allEntities = rooms.reduce<EditorEntity[]>((building, room) => {
 		return building.concat(room.actors.entities, room.stage.entities);
 	}, []);
 
 	const hasBubbleWithAceCoin = allEntities.some(
-		(ae) => ae.type === 'Bubble' && ae.settings?.payload === 'AceCoin'
+		(e) => e.type === 'Bubble' && e.settings?.payload === 'AceCoin'
 	);
 
 	let aceCoinIndex = hasBubbleWithAceCoin ? 1 : 0;
 
-	for (let i = 0; i < allEntities.length; ++i) {
-		const e = allEntities[i];
+	const aceCoins = allEntities.filter((e) => e.type === 'AceCoin');
 
-		if (e.type === 'AceCoin') {
-			e.settings = { aceCoinIndex };
-			aceCoinIndex += 1;
-		}
-	}
+	aceCoins.forEach((ac) => {
+		ac.settings = { aceCoinIndex };
+		aceCoinIndex += 1;
+	});
 }
 
 function updateValidEntityTypes(room: RoomState) {
