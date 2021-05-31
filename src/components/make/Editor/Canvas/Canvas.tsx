@@ -78,6 +78,9 @@ type MatrixRowProps = {
 	}) => void;
 };
 
+// the opacity to set a layer if it is locked
+const LOCKED_OPACITY = 0.25;
+
 const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 	cells,
 	locked,
@@ -98,7 +101,7 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 		}
 
 		if (locked) {
-			opacity = 0.15;
+			opacity = LOCKED_OPACITY;
 		}
 
 		const style = {
@@ -207,7 +210,7 @@ const Entities = memo(function Entities({
 				}
 
 				if (locked) {
-					opacity = 0.15;
+					opacity = LOCKED_OPACITY;
 				}
 
 				return (
