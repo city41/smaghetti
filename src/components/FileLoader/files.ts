@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash/cloneDeep';
+
 let _bios: Uint8Array | null = null;
 let _rom: Uint8Array | null = null;
 let _emptySave: Uint8Array | null = null;
@@ -41,7 +43,7 @@ function getSaveState(): Record<string, unknown> | null {
 }
 
 function getExampleLevel(): LocalStorageSerializedLevel | null {
-	return _exampleLevel;
+	return cloneDeep(_exampleLevel);
 }
 
 export {
