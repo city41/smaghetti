@@ -46,6 +46,7 @@ function Resizer({
 	const start = useRef<Point>({ x: 0, y: 0 });
 	const current = useRef<Point>({ x: 0, y: 0 });
 	const sizeRef = useRef<Point>(size);
+	const scaleRef = useRef<number>(scale);
 	const onResizeEndRef = useRef<() => void>(onResizeEnd);
 
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -67,13 +68,17 @@ function Resizer({
 		onResizeEndRef.current = onResizeEnd;
 	}, [onResizeEnd]);
 
+	useEffect(() => {
+		scaleRef.current = scale;
+	}, [scale]);
+
 	const onDocumentMouseMove = useCallback(function onDocumentMouseMove(
 		e: MouseEvent
 	) {
 		const x = e.pageX;
 		const y = e.pageY;
 
-		const diff = (e.pageX - start.current.x) / scale;
+		const diff = (e.pageX - start.current.x) / scaleRef.current;
 
 		const icon = ref.current!.querySelector('.resize-icon') as HTMLElement;
 		icon.style.setProperty('left', `${diff}px`);
