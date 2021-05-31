@@ -40,6 +40,7 @@ import {
 } from '../../levelData/parseLevelSettingsFromLevelFile';
 import { LOCALSTORAGE_KEY } from '../make/editorSlice';
 import { deserialize } from '../../level/deserialize';
+import { convertLevelToLatestVersion } from '../../level/versioning/convertLevelToLatestVersion';
 
 type HexTreeState = {
 	tree: LevelTree | null;
@@ -487,20 +488,25 @@ const loadEmptyLevel = (): HexTreeThunkAction => (dispatch, getState) => {
 };
 
 const loadFromLocalStorage = (): HexTreeThunkAction => (dispatch, getState) => {
-	const localStorageData = localStorage[LOCALSTORAGE_KEY];
+	const rawJson = localStorage[LOCALSTORAGE_KEY];
 
 	let levelData;
-	if (localStorageData) {
+	if (rawJson) {
 		try {
-			const parsed = JSON.parse(localStorageData);
-			const deserialized = deserialize(parsed.levelData);
-			levelData = createLevelData({
-				name: parsed.name,
-				data: {
-					settings: parsed.settings,
-					rooms: deserialized.levelData.rooms,
-				},
-			});
+			const unknownLocalStorageData = JSON.parse(rawJson) as unknown;
+			const localStorageData = convertLevelToLatestVersion(
+				unknownLocalStorageData
+			);
+
+			if (localStorageData) {
+				const deserialized = deserialize(localStorageData.data);
+				levelData = createLevelData({
+					name: localStorageData.name,
+					data: deserialized.levelData,
+				});
+			} else {
+				levelData = EMPTY_LEVEL;
+			}
 		} catch (e) {
 			console.error('loadFromLocalStorage error', e);
 			levelData = EMPTY_LEVEL;
