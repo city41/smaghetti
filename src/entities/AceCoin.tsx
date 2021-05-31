@@ -71,12 +71,18 @@ const AceCoin: Entity = {
 		const style = {
 			width: TILE_SIZE,
 			height: TILE_SIZE * 2,
-			paddingBottom: TILE_SIZE,
+		};
+
+		const spaceStyle = {
+			width: TILE_SIZE,
+			height: TILE_SIZE,
 		};
 
 		return (
-			<div className="AceCoin-bg bg-cover relative" style={style}>
-				<TileSpace />
+			<div className="relative AceCoin-bg bg-cover relative" style={style}>
+				<div className="absolute left-0 top-0" style={spaceStyle}>
+					<TileSpace />
+				</div>
 				{!isNaN(settings.aceCoinIndex) && (
 					<div
 						className={clsx(
@@ -86,6 +92,9 @@ const AceCoin: Entity = {
 					>
 						{settings.aceCoinIndex + 1}
 					</div>
+				)}
+				{settings.aceCoinIndex >= 5 && (
+					<div className="border border-red-500 w-full h-full" />
 				)}
 			</div>
 		);

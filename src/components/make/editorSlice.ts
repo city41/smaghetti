@@ -775,7 +775,11 @@ function assignAceCoinIndices(rooms: RoomState[]) {
 		return building.concat(room.actors.entities, room.stage.entities);
 	}, []);
 
-	let aceCoinIndex = 0;
+	const hasBubbleWithAceCoin = allEntities.some(
+		(ae) => ae.type === 'Bubble' && ae.settings?.payload === 'AceCoin'
+	);
+
+	let aceCoinIndex = hasBubbleWithAceCoin ? 1 : 0;
 
 	for (let i = 0; i < allEntities.length; ++i) {
 		const e = allEntities[i];
@@ -783,10 +787,6 @@ function assignAceCoinIndices(rooms: RoomState[]) {
 		if (e.type === 'AceCoin') {
 			e.settings = { aceCoinIndex };
 			aceCoinIndex += 1;
-
-			if (aceCoinIndex === 5) {
-				break;
-			}
 		}
 	}
 }
@@ -1711,6 +1711,11 @@ const editorSlice = createSlice({
 					...entity.settings,
 					...settings,
 				};
+
+				// possibly the bubble just added an ace coin
+				if (entity.type === 'Bubble') {
+					assignAceCoinIndices(state.rooms);
+				}
 			} else {
 				const cell =
 					findCellEntity(currentRoom.stage.matrix, id) ??
