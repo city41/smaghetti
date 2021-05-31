@@ -7,7 +7,7 @@ const HomingFireball: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		title: 'Homing Fireball',
-		description: "An enemy originally from Yoshi's Island, and unused in SMA4",
+		description: 'Hmmmm, what if you shoot fire at it?',
 	},
 
 	objectSets: ANY_OBJECT_SET,
