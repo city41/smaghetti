@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { store } from '../store';
+import { store } from '../../store';
 
-import { LevelsPage } from '../components/__levels/LevelsPage';
+import { LevelsPage } from '../../components/admin/levels/LevelsPage';
 
 export default function NextLevelsPage() {
 	return (

@@ -23,3 +23,5 @@ exports.down = (pgm) => {
 		}
 	);
 };
+
+exports.POLICY_NAME_PUBLIC_READ_LEVELS = POLICY_NAME_PUBLIC_READ_LEVELS;

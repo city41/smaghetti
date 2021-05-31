@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { getLevels } from '../../../remoteData';
-import { Root } from '../../layout/Root';
-import { LevelEntry } from '../../profile/ProfilePage/LevelEntry';
-import { convertLevelToLatestVersion } from '../../../level/versioning/convertLevelToLatestVersion';
-import { deserialize } from '../../../level/deserialize';
-import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
+import { getLevels } from '../../../../remoteData';
+import { Root } from '../../../layout/Root';
+import { LevelEntry } from '../../../profile/ProfilePage/LevelEntry';
+import { convertLevelToLatestVersion } from '../../../../level/versioning/convertLevelToLatestVersion';
+import { deserialize } from '../../../../level/deserialize';
+import { FileLoaderModal } from '../../../FileLoader/FileLoaderModal';
+import { deleteLevel } from '../../../../remoteData/deleteLevel';
 
 type InternalLevelsPageProps = {
 	allFilesReady: boolean;
@@ -42,6 +43,12 @@ function LevelsPage({ allFilesReady }: InternalLevelsPageProps) {
 								level={hydratedLevel}
 								onEdit={() => {
 									router.push(`/make/${hydratedLevel.id}`);
+								}}
+								onDelete={async () => {
+									await deleteLevel(hydratedLevel.id);
+									setLevels((l) => {
+										return l.filter((lev) => lev.id !== hydratedLevel.id);
+									});
 								}}
 							/>
 						);
