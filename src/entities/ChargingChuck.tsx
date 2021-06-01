@@ -18,7 +18,7 @@ const ChargingChuck: Entity = {
 	objectId: 0x9b,
 
 	toSpriteBinary(x, y) {
-		return [0, this.objectId, x, y];
+		return [0, this.objectId, x, y, 0];
 	},
 
 	simpleRender(size) {
