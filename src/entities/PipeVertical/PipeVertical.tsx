@@ -32,7 +32,7 @@ const directionIcons: Record<PipeDirection, IconType> = {
 	'up-down': FaArrowsAltV,
 };
 
-const directions = ['up', 'down']; //, 'up-down'];
+const directions = ['up', 'down', 'up-down'];
 
 const PipeVertical: Entity = {
 	paletteInfo: {
@@ -116,16 +116,17 @@ const PipeVertical: Entity = {
 			height: TILE_SIZE,
 		};
 
+		const bodyHeight = direction === 'up-down' ? height - 2 : height - 1;
 		const bodyStyle = {
 			width: 2 * TILE_SIZE,
-			height: (height - 1) * TILE_SIZE,
+			height: bodyHeight * TILE_SIZE,
 			backgroundSize: '100%',
 		};
 
 		const size = { x: 1, y: height };
 		const DirectionIcon = directionIcons[direction];
 
-		const lip = (
+		const upperLip = (
 			<div
 				className="PipeVerticalLip-bg flex flex-row items-center justify-around"
 				style={lipStyle}
@@ -158,6 +159,13 @@ const PipeVertical: Entity = {
 			</div>
 		);
 
+		const lowerLip = (
+			<div
+				className="PipeVerticalLip-bg flex flex-row items-center justify-around"
+				style={lipStyle}
+			/>
+		);
+
 		const body = (
 			<div className="PipeVerticalBody-bg bg-repeat-y" style={bodyStyle} />
 		);
@@ -171,13 +179,19 @@ const PipeVertical: Entity = {
 			>
 				{direction === 'up' ? (
 					<>
-						{lip}
+						{upperLip}
 						{body}
+					</>
+				) : direction === 'down' ? (
+					<>
+						{body}
+						{upperLip}
 					</>
 				) : (
 					<>
+						{upperLip}
 						{body}
-						{lip}
+						{lowerLip}
 					</>
 				)}
 				{entity && (
