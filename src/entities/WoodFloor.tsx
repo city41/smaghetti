@@ -95,7 +95,6 @@ const WoodFloor: Entity = {
 
 	render(_showDetails, _settings, _osc, entity, room) {
 		const woodAbove = isWoodFloorAbove(entity, room);
-		const oneWide = isOneWide(entity, room);
 
 		const style = {
 			width: TILE_SIZE,
@@ -109,10 +108,14 @@ const WoodFloor: Entity = {
 					'WoodFloor-bg': woodAbove,
 					'WoodFloorTop-bg': !woodAbove,
 				})}
-			>
-				{oneWide && <div className="border border-red-500 w-full h-full" />}
-			</div>
+			/>
 		);
+	},
+
+	getWarning(_settings, entity, room) {
+		if (isOneWide(entity, room)) {
+			return 'Must be at least 2 tiles wide';
+		}
 	},
 };
 

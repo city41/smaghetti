@@ -125,6 +125,17 @@ type Entity = {
 		entity?: EditorEntity,
 		room?: RoomData
 	) => ReactElement | null;
+
+	/**
+	 * Entities can implement this to emit warnings.
+	 * If they have a warning, they will get rendered with a warning
+	 * icon and a red border, clicking the icon shows the warning.
+	 */
+	getWarning?: (
+		settings: EditorEntitySettings,
+		entity: EditorEntity,
+		room: RoomData
+	) => string | void;
 };
 
 export type { Entity, SpriteGraphicSet, SpriteGraphicSets };

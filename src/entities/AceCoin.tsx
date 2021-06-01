@@ -93,11 +93,14 @@ const AceCoin: Entity = {
 						{settings.aceCoinIndex + 1}
 					</div>
 				)}
-				{settings.aceCoinIndex >= 5 && (
-					<div className="border border-red-500 w-full h-full" />
-				)}
 			</div>
 		);
+	},
+
+	getWarning(settings) {
+		if (settings.aceCoinIndex >= 5) {
+			return 'The ace coin in your bubble is one too many';
+		}
 	},
 };
 

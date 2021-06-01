@@ -99,11 +99,13 @@ const RopeRailing: Entity = {
 			height: TILE_SIZE,
 		};
 
-		return (
-			<div className="RopeRailing-bg bg-no-repeat" style={style}>
-				{oneWide && <div className="border border-red-500 w-full h-full" />}
-			</div>
-		);
+		return <div className="RopeRailing-bg bg-no-repeat" style={style} />;
+	},
+
+	getWarning(_settings, entity, room) {
+		if (isOneWide(entity, room)) {
+			return 'Must be at least 2 tiles wide';
+		}
 	},
 };
 
