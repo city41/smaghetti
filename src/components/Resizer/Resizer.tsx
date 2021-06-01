@@ -5,11 +5,11 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-import { FaArrowsAltH, FaArrowsAltV, FaArrowsAlt } from 'react-icons/fa';
+import { FaArrowsAltH, FaArrowsAltV } from 'react-icons/fa';
 import clsx from 'clsx';
 import { IconType } from 'react-icons';
 
-type Axis = 'x' | 'y' | 'xy';
+type Axis = 'x' | 'y';
 
 type PublicResizerProps = {
 	className?: string;
@@ -29,7 +29,12 @@ type InternalResizerProps = {
 const icons: Record<Axis, IconType> = {
 	x: FaArrowsAltH,
 	y: FaArrowsAltV,
-	xy: FaArrowsAlt,
+	// xy: FaArrowsAlt,
+};
+
+const CSSProperty: Record<Axis, string> = {
+	x: 'left',
+	y: 'top',
 };
 
 function Resizer({
@@ -47,6 +52,7 @@ function Resizer({
 	const current = useRef<Point>({ x: 0, y: 0 });
 	const sizeRef = useRef<Point>(size);
 	const scaleRef = useRef<number>(scale);
+	const axisRef = useRef<Axis>(axis);
 	const onResizeEndRef = useRef<() => void>(onResizeEnd);
 
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -55,7 +61,8 @@ function Resizer({
 	useEffect(() => {
 		if (ref.current) {
 			const icon = ref.current.querySelector('.resize-icon') as HTMLElement;
-			icon.style.setProperty('left', '0px');
+			icon.style.setProperty(CSSProperty.x, '0px');
+			icon.style.setProperty(CSSProperty.y, '0px');
 		}
 
 		if (sizeRef.current) {
@@ -72,27 +79,37 @@ function Resizer({
 		scaleRef.current = scale;
 	}, [scale]);
 
+	useEffect(() => {
+		axisRef.current = axis;
+	}, [axis]);
+
 	const onDocumentMouseMove = useCallback(function onDocumentMouseMove(
 		e: MouseEvent
 	) {
-		const x = e.pageX;
-		const y = e.pageY;
+		const inputs: Record<Axis, number> = { x: e.pageX, y: e.pageY };
 
-		const diff = (e.pageX - start.current.x) / scaleRef.current;
+		const diff =
+			(inputs[axisRef.current] - start.current[axisRef.current]) /
+			scaleRef.current;
 
 		const icon = ref.current!.querySelector('.resize-icon') as HTMLElement;
-		icon.style.setProperty('left', `${diff}px`);
+		icon.style.setProperty(CSSProperty[axisRef.current], `${diff}px`);
 
 		if (Math.abs(diff) >= increment) {
 			const floorCeil = diff < 0 ? Math.ceil : Math.floor;
 			const delta = floorCeil(diff / increment);
-			onSizeChange({ x: sizeRef.current.x + delta, y: sizeRef.current.y });
-			start.current.x = e.pageX;
-			start.current.y = e.pageY;
+
+			if (axisRef.current === 'x') {
+				onSizeChange({ x: sizeRef.current.x + delta, y: sizeRef.current.y });
+			} else {
+				onSizeChange({ y: sizeRef.current.y + delta, x: sizeRef.current.x });
+			}
+			start.current.x = inputs.x;
+			start.current.y = inputs.y;
 		}
 
-		current.current.x = x;
-		current.current.y = y;
+		current.current.x = inputs.x;
+		current.current.y = inputs.y;
 	},
 	[]);
 
@@ -105,7 +122,8 @@ function Resizer({
 			onResizeEndRef.current();
 
 			const icon = ref.current!.querySelector('.resize-icon') as HTMLElement;
-			icon.style.setProperty('left', '0px');
+			icon.style.setProperty(CSSProperty.x, '0px');
+			icon.style.setProperty(CSSProperty.y, '0px');
 		},
 
 		[]

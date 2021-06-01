@@ -7,7 +7,7 @@ import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { Resizer } from '../../components/Resizer';
 
-import styles from './ConveyorBelt.module.css';
+import styles from '../../components/Resizer/ResizingStyles.module.css';
 
 type Direction = 'left' | 'right';
 

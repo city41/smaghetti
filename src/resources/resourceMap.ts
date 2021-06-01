@@ -35,6 +35,8 @@ import { OneWayDoorHorizontalFlipper } from './OneWayDoorHorizontalFlipper';
 import { OneWayDoorVerticalFlipper } from './OneWayDoorVerticalFlipper';
 import { OrangeSpinyEgg } from './OrangeSpinyEgg';
 import { ParaWing } from './ParaWing';
+import { PipeVerticalBody } from './PipeVerticalBody';
+import { PipeVerticalLip } from './PipeVerticalLip';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PWing } from './PWing';
 import { RedCheepCheep } from './RedCheepCheep';
@@ -91,6 +93,8 @@ const resourceMap = {
 	OneWayDoorVerticalFlipper,
 	OrangeSpinyEgg,
 	ParaWing,
+	PipeVerticalBody,
+	PipeVerticalLip,
 	PoisonMushroom,
 	PWing,
 	RedCheepCheep,
