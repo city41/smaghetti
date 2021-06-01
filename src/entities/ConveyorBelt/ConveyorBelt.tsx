@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { ImArrowLeft, ImArrowRight } from 'react-icons/im';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import type { Entity } from '../types';
 import { encodeObjectSets, getBankParam1 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
@@ -98,7 +98,7 @@ const ConveyorBelt: Entity = {
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
 
-		const DirectionIcon = direction === 'left' ? ImArrowLeft : ImArrowRight;
+		const DirectionIcon = direction === 'left' ? FaArrowLeft : FaArrowRight;
 
 		const style = {
 			width: width * TILE_SIZE,

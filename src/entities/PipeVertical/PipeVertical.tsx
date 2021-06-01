@@ -1,5 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
+import { FaArrowUp, FaArrowDown, FaArrowsAltV } from 'react-icons/fa';
+import type { IconType } from 'react-icons';
 import type { Entity } from '../types';
 import { encodeObjectSets, getBankParam1 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
@@ -11,11 +13,25 @@ import styles from '../../components/Resizer/ResizingStyles.module.css';
 
 type PipeDirection = 'up' | 'down' | 'up-down';
 
-const directionToObjectId: Record<PipeDirection, number> = {
+const transportDirectionToObjectId: Record<PipeDirection, number> = {
 	up: 0x17,
 	down: 0x1a,
 	'up-down': 0x2c,
 };
+
+const nonTransportDirectionToObjectId: Record<PipeDirection, number> = {
+	up: 0x18,
+	down: 0x1b,
+	'up-down': 0x2c,
+};
+
+const directionIcons: Record<PipeDirection, IconType> = {
+	up: FaArrowUp,
+	down: FaArrowDown,
+	'up-down': FaArrowsAltV,
+};
+
+const directions = ['up', 'down']; //, 'up-down'];
 
 const PipeVertical: Entity = {
 	paletteInfo: {
@@ -32,7 +48,9 @@ const PipeVertical: Entity = {
 	dimensions: 'none',
 	param1: 'height',
 	objectId: 0x17,
-	alternateObjectIds: [0x17, 0x1a, 0x2c],
+	alternateObjectIds: Object.values(transportDirectionToObjectId).concat(
+		Object.values(nonTransportDirectionToObjectId)
+	),
 	emptyBank: 1,
 
 	toObjectBinary(x, y, _w, _h, settings) {
@@ -40,7 +58,7 @@ const PipeVertical: Entity = {
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as PipeDirection;
 
-		const objectId = directionToObjectId[direction];
+		const objectId = nonTransportDirectionToObjectId[direction];
 
 		return [getBankParam1(1, height - 1), y, x, objectId];
 	},
@@ -59,7 +77,9 @@ const PipeVertical: Entity = {
 	},
 
 	render(_showDetails, settings, onSettingsChange) {
-		const height = settings.height ?? this.defaultSettings!.height;
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const direction = (settings.direction ??
+			this.defaultSettings!.direction) as PipeDirection;
 
 		const style = {
 			width: 2 * TILE_SIZE,
@@ -78,6 +98,31 @@ const PipeVertical: Entity = {
 		};
 
 		const size = { x: 1, y: height };
+		const DirectionIcon = directionIcons[direction];
+
+		const lip = (
+			<div
+				className="PipeVerticalLip-bg flex flex-row items-center justify-center"
+				style={lipStyle}
+			>
+				<button
+					onMouseDown={(e) => {
+						e.preventDefault();
+						e.stopPropagation();
+
+						const curDirIndex = directions.indexOf(direction);
+						const nexDirIndex = (curDirIndex + 1) % directions.length;
+						onSettingsChange({ direction: directions[nexDirIndex] });
+					}}
+				>
+					<DirectionIcon className="w-1.5 h-1.5 text-white bg-blue-500" />
+				</button>
+			</div>
+		);
+
+		const body = (
+			<div className="PipeVerticalBody-bg bg-repeat-y" style={bodyStyle} />
+		);
 
 		return (
 			<div
@@ -86,8 +131,17 @@ const PipeVertical: Entity = {
 					[styles.resizing]: settings?.resizing,
 				})}
 			>
-				<div className="PipeVerticalLip-bg" style={lipStyle} />
-				<div className="PipeVerticalBody-bg bg-repeat-y" style={bodyStyle} />
+				{direction === 'up' ? (
+					<>
+						{lip}
+						{body}
+					</>
+				) : (
+					<>
+						{body}
+						{lip}
+					</>
+				)}
 				<Resizer
 					className="absolute bottom-0 right-0"
 					style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
