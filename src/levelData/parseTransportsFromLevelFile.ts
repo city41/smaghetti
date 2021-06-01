@@ -12,7 +12,7 @@ type LevelTransport = {
 	rawBytes: number[];
 };
 
-function extractTransport(
+function parseTransport(
 	levelData: Uint8Array | number[],
 	transportIndex: number
 ): LevelTransport {
@@ -47,11 +47,11 @@ function parseTransportsFromLevelFile(
 	const transports: LevelTransport[] = [];
 
 	for (let i = 0; i < numTransports; ++i) {
-		const transport = extractTransport(levelData, transportIndex + 2 + i * 10);
+		const transport = parseTransport(levelData, transportIndex + 2 + i * 10);
 		transports.push(transport);
 	}
 
 	return transports;
 }
-export { parseTransportsFromLevelFile };
+export { parseTransportsFromLevelFile, parseTransport };
 export type { LevelTransport };

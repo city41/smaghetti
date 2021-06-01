@@ -264,7 +264,18 @@ function Room({
 					onAdd({ roomIndex, type: 'transport', afterIndex: i, bytes });
 				}}
 			>
-				<LevelTransport levelTransport={t} />
+				<LevelTransport
+					levelTransport={t}
+					onPatch={({ offset, bytes }) => {
+						onPatch({
+							type: 'transport',
+							roomIndex,
+							transportIndex: i,
+							offset,
+							bytes,
+						});
+					}}
+				/>
 			</EntityContainer>
 		);
 	});

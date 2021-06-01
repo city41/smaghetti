@@ -155,7 +155,20 @@ type ObjectHeaderPatch = {
 	bytes: number[];
 };
 
-type Patch = LevelSettingsPatch | SpritePatch | ObjectPatch | ObjectHeaderPatch;
+type TransportPatch = {
+	type: 'transport';
+	roomIndex: RoomIndex;
+	transportIndex: number;
+	offset: number;
+	bytes: number[];
+};
+
+type Patch =
+	| LevelSettingsPatch
+	| SpritePatch
+	| ObjectPatch
+	| ObjectHeaderPatch
+	| TransportPatch;
 
 type Add = {
 	type: 'sprite' | 'object' | 'transport';
@@ -179,6 +192,7 @@ type ByteSizes = {
 export type {
 	ObjectPatch,
 	SpritePatch,
+	TransportPatch,
 	LevelSettingsPatch,
 	Patch,
 	Add,

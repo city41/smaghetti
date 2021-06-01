@@ -8,7 +8,7 @@ type EntityIconProps = {
 	entityType?: string;
 	style?: CSSProperties;
 	onClick?: () => void;
-	isKnown?: boolean;
+	isKnown?: 'yes' | 'no' | 'always';
 };
 
 type BaseIconProps = EntityIconProps & {
@@ -27,7 +27,8 @@ function BaseIcon({
 }: BaseIconProps) {
 	const bgClass = `${entityType}-bg`;
 
-	const KnownIcon = isKnown ? FaCheck : FaQuestion;
+	const KnownIcon =
+		isKnown === 'yes' ? FaCheck : isKnown === 'no' ? FaQuestion : null;
 
 	return (
 		<div
@@ -44,12 +45,14 @@ function BaseIcon({
 			onClick={onClick}
 		>
 			{!entityType && children}
-			<KnownIcon
-				className={clsx('absolute right-0 bottom-0 text-white w-1.5 h-1.5', {
-					'bg-green-500': isKnown,
-					'bg-red-500': !isKnown,
-				})}
-			/>
+			{KnownIcon && (
+				<KnownIcon
+					className={clsx('absolute right-0 bottom-0 text-white w-1.5 h-1.5', {
+						'bg-green-500': isKnown,
+						'bg-red-500': !isKnown,
+					})}
+				/>
+			)}
 		</div>
 	);
 }

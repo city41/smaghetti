@@ -10,6 +10,7 @@ import { Resizer } from '../../components/Resizer';
 import { objectSets } from './objectSets';
 
 import styles from '../../components/Resizer/ResizingStyles.module.css';
+import { TransportSource } from '../../components/Transport/TransportSource';
 
 type PipeDirection = 'up' | 'down' | 'up-down';
 
@@ -53,12 +54,35 @@ const PipeVertical: Entity = {
 	),
 	emptyBank: 1,
 
+	getTransports(room, x, y, settings) {
+		const dest = settings.destination;
+
+		if (dest) {
+			return [
+				{
+					destRoom: dest.room as number,
+					destX: dest.x as number,
+					destY: dest.y as number,
+					x,
+					y,
+					room,
+					exitType: 0,
+				},
+			];
+		}
+
+		return [];
+	},
+
 	toObjectBinary(x, y, _w, _h, settings) {
 		const height = settings.height ?? 1;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as PipeDirection;
 
-		const objectId = nonTransportDirectionToObjectId[direction];
+		const objectIdMap = settings.destination
+			? transportDirectionToObjectId
+			: nonTransportDirectionToObjectId;
+		const objectId = objectIdMap[direction];
 
 		return [getBankParam1(1, height - 1), y, x, objectId];
 	},
@@ -80,6 +104,7 @@ const PipeVertical: Entity = {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as PipeDirection;
+		const destination = settings.destination;
 
 		const style = {
 			width: 2 * TILE_SIZE,
@@ -102,9 +127,18 @@ const PipeVertical: Entity = {
 
 		const lip = (
 			<div
-				className="PipeVerticalLip-bg flex flex-row items-center justify-center"
+				className="PipeVerticalLip-bg flex flex-row items-center justify-around"
 				style={lipStyle}
 			>
+				<TransportSource
+					destRoom={destination?.room}
+					destX={destination?.x}
+					destY={destination?.y}
+					exitType={0}
+					onDestinationSet={(newDestination) => {
+						onSettingsChange({ destination: newDestination });
+					}}
+				/>
 				<button
 					onMouseDown={(e) => {
 						e.preventDefault();

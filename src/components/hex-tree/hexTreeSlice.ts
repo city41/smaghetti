@@ -10,7 +10,10 @@ import {
 	parseSprite,
 	parseSpritesFromLevelFile,
 } from '../../levelData/parseSpritesFromLevelFile';
-import { parseTransportsFromLevelFile } from '../../levelData/parseTransportsFromLevelFile';
+import {
+	parseTransport,
+	parseTransportsFromLevelFile,
+} from '../../levelData/parseTransportsFromLevelFile';
 import {
 	Add,
 	ByteSizes,
@@ -23,6 +26,7 @@ import {
 	Patch,
 	RoomIndex,
 	SpritePatch,
+	TransportPatch,
 } from './types';
 import {
 	ROOM_AUTOSCROLL_POINTERS,
@@ -297,6 +301,18 @@ const hexTreeSlice = createSlice({
 				);
 
 				room.objects.objects[objectIndex] = {
+					...newValues,
+					rawBytes,
+				};
+			}
+
+			if (type === 'transport') {
+				const { transportIndex } = action.payload as TransportPatch;
+				const rawBytes = room.transports.transports[transportIndex].rawBytes;
+				rawBytes.splice(offset, bytes.length, ...bytes);
+				const newValues = parseTransport(rawBytes, 0);
+
+				room.transports.transports[transportIndex] = {
 					...newValues,
 					rawBytes,
 				};

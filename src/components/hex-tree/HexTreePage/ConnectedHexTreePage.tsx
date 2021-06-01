@@ -28,18 +28,29 @@ function parsedRoomToBinary(room: LevelTreeRoom): BinaryRoom {
 		}
 	}, []);
 
-	const sprites = room.sprites.sprites.reduce<number[]>((building, obj) => {
-		if (obj.exclude) {
+	const sprites = room.sprites.sprites.reduce<number[]>((building, spr) => {
+		if (spr.exclude) {
 			return building;
 		} else {
-			return building.concat(obj.rawBytes);
+			return building.concat(spr.rawBytes);
 		}
 	}, []);
+
+	const transportData = room.transports.transports.reduce<number[]>(
+		(building, tr) => {
+			if (tr.exclude) {
+				return building;
+			} else {
+				return building.concat(tr.rawBytes);
+			}
+		},
+		[]
+	);
 
 	return {
 		objectData: room.objects.header.rawBytes.concat(objects, [0xff]),
 		levelSettingsData: room.levelSettings.rawBytes,
-		transportData: room.transports.rawBytes,
+		transportData,
 		spriteData: [0].concat(sprites, [0xff]),
 		blockPathData: room.blockPaths.rawBytes,
 		autoScrollData: room.autoScroll.rawBytes,
@@ -96,8 +107,7 @@ function parseTreeToData(parsed: LevelTree): Uint8Array {
 	// empty bytes between pointers and name
 	const nullBytes = new Array(11).fill(0);
 
-	// todo, actually bring the real name back in
-	const name = getLevelName('SMAGHETTI');
+	const name = getLevelName('hextree');
 
 	const roomDatas: BinaryRoom[] = [];
 
