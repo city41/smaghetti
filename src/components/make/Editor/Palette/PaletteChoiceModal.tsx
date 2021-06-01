@@ -98,7 +98,7 @@ function UnfinishedDisclaimer() {
 				>
 					Reddit
 				</a>
-				, or{' '}
+				,{' '}
 				<a
 					className="text-blue-700"
 					target="_blank"
@@ -107,6 +107,16 @@ function UnfinishedDisclaimer() {
 				>
 					GitHub
 				</a>
+				, or{' '}
+				<a
+					className="text-blue-700"
+					target="_blank"
+					rel="noreferrer"
+					href="mailto:matt.e.greer@gmail.com"
+				>
+					email me
+				</a>
+				.
 			</p>
 		</div>
 	);
