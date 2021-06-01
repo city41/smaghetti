@@ -20,6 +20,7 @@ type LevelTreeSprite = {
 	x: number;
 	y: number;
 	rawBytes: number[];
+	isKnown: boolean;
 	exclude?: boolean;
 };
 

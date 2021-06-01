@@ -38,6 +38,7 @@ type RoomProps = {
 };
 
 type EntityContainerProps = {
+	isKnown: boolean;
 	focused: boolean;
 	excluded: boolean;
 	rawBytes: number[];
@@ -51,6 +52,7 @@ type EntityContainerProps = {
 };
 
 function EntityContainer({
+	isKnown,
 	focused,
 	excluded,
 	rawBytes,
@@ -105,17 +107,17 @@ function EntityContainer({
 			<button onClick={() => setShowAdd((sa) => !sa)}>
 				<RiAddFill />
 			</button>
-			{onFourBytes && (
+			{onFourBytes && !isKnown && (
 				<button onClick={onFourBytes}>
 					<FaDiceFour />
 				</button>
 			)}
-			{onFiveBytes && (
+			{onFiveBytes && !isKnown && (
 				<button onClick={onFiveBytes}>
 					<FaDiceFive />
 				</button>
 			)}
-			{onSixBytes && (
+			{onSixBytes && !isKnown && (
 				<button onClick={onSixBytes}>
 					<FaDiceSix />
 				</button>
@@ -153,6 +155,7 @@ function Room({
 		return (
 			<EntityContainer
 				key={`${i}-${o.id}-${o.x}-${o.y}`}
+				isKnown={o.isKnown}
 				focused={focusedEntity === o}
 				excluded={!!o.exclude}
 				rawBytes={o.rawBytes}
@@ -199,6 +202,7 @@ function Room({
 		return (
 			<EntityContainer
 				key={`${i}-${s.id}-${s.x}-${s.y}`}
+				isKnown={s.isKnown}
 				focused={focusedEntity === s}
 				excluded={!!s.exclude}
 				rawBytes={s.rawBytes}
@@ -248,6 +252,7 @@ function Room({
 		return (
 			<EntityContainer
 				key={`${i}-${t.sx}-${t.sy}-${t.dx}-${t.dy}`}
+				isKnown={true}
 				focused={focusedEntity === t}
 				excluded={!!t.exclude}
 				rawBytes={t.rawBytes}

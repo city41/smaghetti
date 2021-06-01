@@ -75,6 +75,14 @@ type Entity = {
 	 * it should be put here. Mostly used by HexTree.
 	 */
 	objectId: number;
+
+	/**
+	 * If an entity has alternate ids, like OneWayDoor has different
+	 * ids depending on if it is vertical or horizontal, they can
+	 * be placed here. This helps hex-tree figure out entities
+	 */
+	alternateObjectIds?: number[];
+
 	/**
 	 * If an entity has payloads, the payloads should be described here.
 	 * Mostly used by HexTree

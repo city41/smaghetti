@@ -67,37 +67,34 @@ function getRawByteLength(
 		};
 	}
 
-	const knownFourByteIds =
-		bank === 0 ? knownFourByteBank0ObjectIds : knownFourByteBank1ObjectIds;
-
-	const allKnownFourByteIds = [
-		...(knownFourByteIds[objectSet] ?? []),
-		...fourByteIds,
-	];
-	const allKnownFiveByteIds = [
-		...(knownFiveByteBank1ObjectIds[objectSet] ?? []),
-		...fiveByteIds,
-	];
-
-	// if the bank/id combo is in the map, we truly know its size, else
+	// if the bank/id combo is in the map, we probably know its size, else
 	// we are just guessing based on bank. As reverse engineering progresses,
-	// the number of guesses should approach zero
+	// the number of guesses should hopefully approach zero
 	let rawByteLength = bank === 0 ? 4 : 5;
 
-	if (bank === 0 || allKnownFourByteIds.includes(id)) {
+	// allow overrides to take priority, used by hex-tree
+	if (fourByteIds.includes(id)) {
 		rawByteLength = 4;
-	}
-
-	if (bank !== 0 && allKnownFiveByteIds.includes(id)) {
+	} else if (fiveByteIds.includes(id)) {
+		rawByteLength = 5;
+	} else if (
+		bank === 0 &&
+		knownFourByteBank0ObjectIds[objectSet].includes(id)
+	) {
+		rawByteLength = 4;
+	} else if (
+		bank !== 0 &&
+		knownFourByteBank1ObjectIds[objectSet].includes(id)
+	) {
+		rawByteLength = 4;
+	} else if (
+		bank !== 0 &&
+		knownFiveByteBank1ObjectIds[objectSet].includes(id)
+	) {
 		rawByteLength = 5;
 	}
 
-	const isKnown =
-		(bank === 0 && knownFourByteBank0ObjectIds[objectSet].includes(id)) ||
-		(bank === 1 && knownFourByteBank1ObjectIds[objectSet].includes(id)) ||
-		(bank === 1 && knownFiveByteBank1ObjectIds[objectSet].includes(id));
-
-	return { isKnown, rawByteLength };
+	return { isKnown: false, rawByteLength };
 }
 
 function parseObject(

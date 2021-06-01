@@ -43,6 +43,7 @@ function LevelSprite({ sprite, scale }: LevelSpriteProps) {
 			className="cursor-pointer"
 			entityType={spriteType}
 			style={style}
+			isKnown={sprite.isKnown}
 		/>
 	);
 }
