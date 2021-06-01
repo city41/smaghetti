@@ -48,7 +48,7 @@ const PipeVertical: Entity = {
 	defaultSettings: { width: 2, height: 2, direction: 'up' },
 	dimensions: 'none',
 	param1: 'height',
-	objectId: 0x17,
+	objectId: 0x18,
 	alternateObjectIds: Object.values(transportDirectionToObjectId).concat(
 		Object.values(nonTransportDirectionToObjectId)
 	),
@@ -64,7 +64,7 @@ const PipeVertical: Entity = {
 					destX: dest.x as number,
 					destY: dest.y as number,
 					x,
-					y,
+					y: y - 1,
 					room,
 					exitType: 0,
 				},
@@ -100,7 +100,7 @@ const PipeVertical: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange) {
+	render(_showDetails, settings, onSettingsChange, entity) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as PipeDirection;
@@ -130,27 +130,31 @@ const PipeVertical: Entity = {
 				className="PipeVerticalLip-bg flex flex-row items-center justify-around"
 				style={lipStyle}
 			>
-				<TransportSource
-					destRoom={destination?.room}
-					destX={destination?.x}
-					destY={destination?.y}
-					exitType={0}
-					onDestinationSet={(newDestination) => {
-						onSettingsChange({ destination: newDestination });
-					}}
-				/>
-				<button
-					onMouseDown={(e) => {
-						e.preventDefault();
-						e.stopPropagation();
+				{!!entity && (
+					<>
+						<TransportSource
+							destRoom={destination?.room}
+							destX={destination?.x}
+							destY={destination?.y}
+							exitType={0}
+							onDestinationSet={(newDestination) => {
+								onSettingsChange({ destination: newDestination });
+							}}
+						/>
+						<button
+							onMouseDown={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
 
-						const curDirIndex = directions.indexOf(direction);
-						const nexDirIndex = (curDirIndex + 1) % directions.length;
-						onSettingsChange({ direction: directions[nexDirIndex] });
-					}}
-				>
-					<DirectionIcon className="w-1.5 h-1.5 text-white bg-blue-500" />
-				</button>
+								const curDirIndex = directions.indexOf(direction);
+								const nexDirIndex = (curDirIndex + 1) % directions.length;
+								onSettingsChange({ direction: directions[nexDirIndex] });
+							}}
+						>
+							<DirectionIcon className="w-1.5 h-1.5 text-white bg-blue-500" />
+						</button>
+					</>
+				)}
 			</div>
 		);
 
@@ -176,18 +180,20 @@ const PipeVertical: Entity = {
 						{lip}
 					</>
 				)}
-				<Resizer
-					className="absolute bottom-0 right-0"
-					style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
-					size={size}
-					increment={TILE_SIZE}
-					axis="y"
-					onSizeChange={(newSizePoint) => {
-						onSettingsChange({ height: Math.max(1, newSizePoint.y) });
-					}}
-					onResizeStart={() => onSettingsChange({ resizing: true })}
-					onResizeEnd={() => onSettingsChange({ resizing: false })}
-				/>
+				{entity && (
+					<Resizer
+						className="absolute bottom-0 right-0"
+						style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
+						size={size}
+						increment={TILE_SIZE}
+						axis="y"
+						onSizeChange={(newSizePoint) => {
+							onSettingsChange({ height: Math.max(1, newSizePoint.y) });
+						}}
+						onResizeStart={() => onSettingsChange({ resizing: true })}
+						onResizeEnd={() => onSettingsChange({ resizing: false })}
+					/>
+				)}
 			</div>
 		);
 	},

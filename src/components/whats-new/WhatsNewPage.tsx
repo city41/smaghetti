@@ -49,6 +49,23 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-05-30">
+					<ul className="ml-8 list-disc">
+						<li>Pipe - Vertical (unfinished)</li>
+						<li>Piranha Plant</li>
+					</ul>
+					<p>
+						Vertical pipes are close, but still some things to figure out. You
+						can try one out by grabbing it from the Unfinished tab in the
+						palette.
+					</p>
+					<p>
+						Technically piranha plants can work without pipes, but they look
+						broken. To stick it in a pipe, just drop it on top of the pipe with
+						its mouth just below the pipe&apos;s lip. Remember you can lock
+						either the stage or actor layers as needed to make this easier.
+					</p>
+				</NewEntry>
 				<NewEntry title="Conveyor Belts config reworked" date="2021-05-31">
 					<p>
 						Conveyor belts now have a more intuitive and easier way to set them

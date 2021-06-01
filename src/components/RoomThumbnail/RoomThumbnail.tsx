@@ -160,7 +160,11 @@ const RoomThumbnail = React.memo(function RoomThumbnail({
 	return (
 		<div
 			style={{ width: outerWidth, height: outerHeight }}
-			className={clsx(className, styles.root, 'overflow-hidden')}
+			className={clsx(
+				className,
+				styles.root,
+				'overflow-hidden pointer-events-none'
+			)}
 		>
 			<div
 				className="relative"

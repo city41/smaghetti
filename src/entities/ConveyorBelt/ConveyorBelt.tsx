@@ -93,7 +93,7 @@ const ConveyorBelt: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange) {
+	render(_showDetails, settings, onSettingsChange, entity) {
 		const width = settings.width ?? this.defaultSettings!.width;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
@@ -114,41 +114,48 @@ const ConveyorBelt: Entity = {
 				})}
 				style={style}
 			>
-				<div
-					className={clsx('w-full h-full grid place-items-center border z-10', {
-						'border-blue-200': direction === 'right',
-						'border-yellow-200': direction === 'left',
-					})}
-				>
-					<button
-						onMouseDown={(e) => {
-							e.preventDefault();
-							e.stopPropagation();
-							onSettingsChange({
-								direction: direction === 'left' ? 'right' : 'left',
-							});
-						}}
-					>
-						<DirectionIcon
-							className={clsx('w-1.5 h-1.5 text-white', {
-								'bg-blue-500': direction === 'right',
-								'bg-yellow-500': direction === 'left',
-							})}
+				{entity && (
+					<>
+						<div
+							className={clsx(
+								'w-full h-full grid place-items-center border z-10',
+								{
+									'border-blue-200': direction === 'right',
+									'border-yellow-200': direction === 'left',
+								}
+							)}
+						>
+							<button
+								onMouseDown={(e) => {
+									e.preventDefault();
+									e.stopPropagation();
+									onSettingsChange({
+										direction: direction === 'left' ? 'right' : 'left',
+									});
+								}}
+							>
+								<DirectionIcon
+									className={clsx('w-1.5 h-1.5 text-white', {
+										'bg-blue-500': direction === 'right',
+										'bg-yellow-500': direction === 'left',
+									})}
+								/>
+							</button>
+						</div>
+						<Resizer
+							className="absolute bottom-0 right-0"
+							style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
+							size={size}
+							increment={TILE_SIZE}
+							axis="x"
+							onSizeChange={(newSizePoint) => {
+								onSettingsChange({ width: Math.max(1, newSizePoint.x) });
+							}}
+							onResizeStart={() => onSettingsChange({ resizing: true })}
+							onResizeEnd={() => onSettingsChange({ resizing: false })}
 						/>
-					</button>
-				</div>
-				<Resizer
-					className="absolute bottom-0 right-0"
-					style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
-					size={size}
-					increment={TILE_SIZE}
-					axis="x"
-					onSizeChange={(newSizePoint) => {
-						onSettingsChange({ width: Math.max(1, newSizePoint.x) });
-					}}
-					onResizeStart={() => onSettingsChange({ resizing: true })}
-					onResizeEnd={() => onSettingsChange({ resizing: false })}
-				/>
+					</>
+				)}
 			</div>
 		);
 	},
