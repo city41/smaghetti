@@ -492,24 +492,10 @@ function clamp(value: number, min: number, max: number): number {
 	return Math.max(min, Math.min(value, max));
 }
 
-function getEntityPixelBounds(entity: NewEditorEntity): Bounds {
-	const entityDef = entityMap[entity.type];
-	const tileWidth = entity?.settings?.width ?? entityDef.width ?? 1;
-	const tileHeight = entity?.settings?.height ?? entityDef.height ?? 1;
-
-	const width = tileWidth * TILE_SIZE; // Math.max(entitySize.width, TILE_SIZE);
-	const height = tileHeight * TILE_SIZE; // Math.max(entitySize.height, TILE_SIZE);
-
-	return {
-		upperLeft: { x: entity.x, y: entity.y },
-		lowerRight: { x: entity.x + width, y: entity.y + height },
-	};
-}
-
 function getEntityTileBounds(entity: NewEditorEntity): Bounds {
 	const entityDef = entityMap[entity.type];
-	const tileWidth = entityDef.width ?? 1;
-	const tileHeight = entityDef.height ?? 1;
+	const tileWidth = entity.settings?.width ?? entityDef.width ?? 1;
+	const tileHeight = entity.settings?.height ?? entityDef.height ?? 1;
 
 	const minX = Math.floor(entity.x / TILE_SIZE);
 	const minY = Math.floor(entity.y / TILE_SIZE);
@@ -520,6 +506,21 @@ function getEntityTileBounds(entity: NewEditorEntity): Bounds {
 	return {
 		upperLeft: { x: minX, y: minY },
 		lowerRight: { x: maxX, y: maxY },
+	};
+}
+
+function getEntityPixelBounds(entity: NewEditorEntity): Bounds {
+	const tileBounds = getEntityTileBounds(entity);
+
+	return {
+		upperLeft: {
+			x: tileBounds.upperLeft.x * TILE_SIZE,
+			y: tileBounds.upperLeft.y * TILE_SIZE,
+		},
+		lowerRight: {
+			x: tileBounds.lowerRight.x * TILE_SIZE + TILE_SIZE,
+			y: tileBounds.lowerRight.y * TILE_SIZE + TILE_SIZE,
+		},
 	};
 }
 
