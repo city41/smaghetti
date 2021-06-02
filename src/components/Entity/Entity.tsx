@@ -36,14 +36,15 @@ function Entity({
 	const [showWarning, setShowWarning] = useState(false);
 	const entityDef = entityMap[entity.type];
 
-	const body = entityDef.render(
-		!!soleFocused && !dragging && !showWarning,
-		settings,
-		onEntitySettingsChange,
-		entity,
-		room,
-		rooms
-	);
+	const body =
+		entityDef?.render(
+			!!soleFocused && !dragging && !showWarning,
+			settings,
+			onEntitySettingsChange,
+			entity,
+			room,
+			rooms
+		) ?? null;
 
 	const warning =
 		room && rooms && entityDef.getWarning?.(settings, entity, room, rooms);

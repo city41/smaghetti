@@ -82,13 +82,9 @@ function Entities({
 			return null;
 		}
 
-		const body = entityMap[e.type].render(
-			false,
-			e.settings ?? {},
-			() => {},
-			e,
-			room
-		);
+		const body =
+			entityMap[e.type]?.render(false, e.settings ?? {}, () => {}, e, room) ??
+			null;
 
 		return (
 			<div
