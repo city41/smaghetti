@@ -1,16 +1,9 @@
 import type { Entity } from './types';
-import { TILE_SIZE } from '../tiles/constants';
-import React from 'react';
-import { TileSpace } from './TileSpace';
-import { TransportSource } from '../components/Transport/TransportSource';
-import { TransportEditDetails } from '../components/details/TransportEditDetails';
 import { encodeObjectSets } from './util';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-
-const DOOR_LOCK_OBJECT_ID = 0xce;
+import { getBaseDoorProperties } from './getBaseDoorProperties';
 
 const SimpleBlackDoor: Entity = {
-	paletteCategory: 'transport',
+	...getBaseDoorProperties('SimpleBlackDoor-bg', 0x5),
 	paletteInfo: {
 		title: 'Simple Black Door',
 	},
@@ -32,14 +25,6 @@ const SimpleBlackDoor: Entity = {
 		[2, 8],
 		[2, 9],
 	]),
-	// this is for the lock sprite, which truly is universal
-	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
-	layer: 'stage',
-	editorType: 'entity',
-	dimensions: 'none',
-	objectId: 0x5,
-	width: 1,
-	height: 2,
 
 	resource: {
 		palette: [
@@ -70,105 +55,6 @@ const SimpleBlackDoor: Entity = {
 				{ tileIndex: 474, flip: 'hv' },
 			],
 		],
-	},
-
-	getTransports(room, _rooms, x, y, settings) {
-		const dest = settings.destination;
-
-		if (dest) {
-			return [
-				{
-					destRoom: dest.room as number,
-					destX: dest.x as number,
-					destY: dest.y as number,
-					x,
-					y,
-					room,
-					exitCategory: 'door',
-					exitType: 'door',
-				},
-			];
-		}
-
-		return [];
-	},
-
-	toObjectBinary(x, y) {
-		return [0x40, y, x, this.objectId];
-	},
-
-	toSpriteBinary(x, y, _w, _h, settings) {
-		if (settings.locked) {
-			return [0, DOOR_LOCK_OBJECT_ID, x, y];
-		} else {
-			return [];
-		}
-	},
-
-	simpleRender(size) {
-		const style = {
-			width: size,
-			height: size,
-			backgroundSize: '50% 100%',
-		};
-
-		return (
-			<div
-				className="SimpleBlackDoor-bg bg-center bg-no-repeat"
-				style={style}
-			/>
-		);
-	},
-
-	render(showDetails, settings, onSettingsChange) {
-		const style = {
-			width: TILE_SIZE,
-			height: TILE_SIZE * 2,
-		};
-
-		const body = (
-			<div
-				className="relative SimpleBlackDoor-bg bg-cover bg-no-repeat"
-				style={style}
-			>
-				<TileSpace />
-				{settings.locked && (
-					<div
-						className="DoorLock-bg absolute left-0 top-3"
-						style={{ width: TILE_SIZE / 2, height: TILE_SIZE }}
-					/>
-				)}
-				{settings.destination && (
-					<TransportSource
-						className="absolute top-0 left-0"
-						destRoom={settings.destination.room}
-						destX={settings.destination.x}
-						destY={settings.destination.y}
-						exitCategory="door"
-					/>
-				)}
-			</div>
-		);
-
-		if (showDetails) {
-			return (
-				<TransportEditDetails
-					width={TILE_SIZE}
-					height={TILE_SIZE * 2}
-					onDestinationSet={(newDestination) => {
-						onSettingsChange({ ...settings, destination: newDestination });
-					}}
-					locked={!!settings.locked}
-					onLockChange={(locked) => {
-						onSettingsChange({ ...settings, locked });
-					}}
-				>
-					{body}
-				</TransportEditDetails>
-			);
-		} else {
-			return body;
-		}
 	},
 };
 

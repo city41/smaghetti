@@ -6,6 +6,7 @@ import { DestinationSetProps } from '../Transport/TransportDestinationModal/Tran
 type TransportEditDetailsProps = {
 	width: number;
 	height: number;
+	destination?: DestinationSetProps | null;
 	locked: boolean;
 	onDestinationSet: (destination: DestinationSetProps | null) => void;
 	onLockChange: (locked: boolean) => void;
@@ -17,6 +18,7 @@ const PADDING = 1;
 function TransportEditDetails({
 	width,
 	height,
+	destination,
 	locked,
 	onDestinationSet,
 	onLockChange,
@@ -61,6 +63,9 @@ function TransportEditDetails({
 			</div>
 			<TransportDestinationModal
 				isOpen={showDestModal}
+				destX={destination?.x}
+				destY={destination?.y}
+				destRoom={destination?.room}
 				onRequestClose={() => {
 					setShowDestModal(false);
 				}}
