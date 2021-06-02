@@ -144,7 +144,7 @@ function PaletteChoiceModal({
 			onXClick={onCancel}
 		>
 			<div className={styles.root}>
-				<div className={styles.tabContainer}>
+				<div className="flex flex-col">
 					<div className={clsx(tabStyles.tabs, '-mt-3')}>
 						{tabs.map((t, i) => (
 							<li

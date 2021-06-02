@@ -1,9 +1,9 @@
 .tabs {
-	@apply flex flex-wrap flex-row items-center content-between h-8 text-sm z-10;
+	@apply flex flex-wrap flex-row items-center content-between text-sm z-10;
 }
 
 .tabs li {
-	@apply h-full cursor-pointer font-bold whitespace-nowrap grid place-items-center px-4;
+	@apply h-full cursor-pointer font-bold whitespace-nowrap grid place-items-center px-4 py-2 bg-gray-700;
 }
 
 .tabs .currentTab {
