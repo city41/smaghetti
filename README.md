@@ -11,7 +11,7 @@ It's available here: https://smaghetti.com
 
 ## Status
 
-Very early. The editor itself was from a previous project and is pretty mature. But there is still a lot of work to do reverse engineering the game and adding missing features.
+At the time of writing, Smaghetti has extracted out 156 entities from the game for use in creating levels. A lot of progress has been made, but a lot more work still lies ahead. For a high level view, check the [roadmap](https://smaghetti.com/roadmap)
 
 ## Editor quick start
 
@@ -41,6 +41,8 @@ Please see the [wiki](https://github.com/city41/smaghetti/wiki) to see what has 
 
 TODO: write up a doc showing good ways to reverse engineer
 
+Also please check the [issues](https://github.com/city41/smaghetti/issues) as many issues pertain to reverse engineering. I try to keep issues up to date.
+
 ### HexTree tool
 
 This tool is growing to be pretty powerful. It really lets you explore and manipulate a level. I need to document a bit how it works, but just playing with it should enable one to figure out most of its features.
@@ -66,3 +68,8 @@ Since Smaghetti is so young, there are a ton of bugs. Feel free to file them her
 ## Subreddit
 
 General discussion subreddit here: https://reddit.com/r/smaghetti
+
+
+## Code of Conduct
+
+Smaghetti's code of conduct can be read [here](https://github.com/city41/smaghetti/blob/main/CODE_OF_CONDUCT.md). In short: be inclusive, be nice, don't ask for or share any copyrighted items including ROMs and e-reader levels.
