@@ -8,6 +8,8 @@ const Hoopster: Entity = {
 	paletteInfo: {
 		title: 'Hoopster',
 		description: 'Needs a vine to crawl on',
+		warning:
+			'Will not spawn if not at the very beginning of the level. Not sure why yet.',
 	},
 
 	objectSets: ANY_OBJECT_SET,
