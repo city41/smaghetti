@@ -215,6 +215,32 @@ function filterNonWorkingFromMatrix(m: EditorEntityMatrix): EditorEntityMatrix {
 	});
 }
 
+function filterIncompatibleFromEntities(
+	es: EditorEntity[],
+	validEntityTypes: EntityType[]
+): EditorEntity[] {
+	return es.filter((e) => validEntityTypes.includes(e.type));
+}
+
+function filterIncompatibleFromMatrix(
+	m: EditorEntityMatrix,
+	validEntityTypes: EntityType[]
+): EditorEntityMatrix {
+	return m.map((row) => {
+		if (!row) {
+			return row;
+		}
+
+		return row.map((cell) => {
+			if (!cell || validEntityTypes.includes(cell.type)) {
+				return cell;
+			}
+
+			return null;
+		});
+	});
+}
+
 function getCurrentRoom(state: InternalEditorState): RoomState {
 	return state.rooms[state.currentRoomIndex];
 }
@@ -852,6 +878,26 @@ function updateValidEntityTypes(room: RoomState) {
 
 	room.paletteEntries = room.paletteEntries.filter((pe) =>
 		room.validEntityTypes.includes(pe)
+	);
+
+	// possibly entities in the room are invalid, this can happen if a change
+	// to the editor happened that introduced a new incompatibility that didn't exist
+	// before. Need to filter those out
+	room.actors.matrix = filterIncompatibleFromMatrix(
+		room.actors.matrix,
+		room.validEntityTypes
+	);
+	room.actors.entities = filterIncompatibleFromEntities(
+		room.actors.entities,
+		room.validEntityTypes
+	);
+	room.stage.matrix = filterIncompatibleFromMatrix(
+		room.stage.matrix,
+		room.validEntityTypes
+	);
+	room.stage.entities = filterIncompatibleFromEntities(
+		room.stage.entities,
+		room.validEntityTypes
 	);
 }
 

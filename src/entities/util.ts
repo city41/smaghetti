@@ -88,10 +88,17 @@ export function determineValidGraphicAndObjectSetValues(
 					if (isEqual(currentValidSpriteGraphicSets[i], [-1])) {
 						currentValidSpriteGraphicSets[i] = [...asArray];
 					} else {
-						currentValidSpriteGraphicSets[i] = intersection(
+						const intersectionResult = intersection(
 							currentValidSpriteGraphicSets[i],
 							asArray
 						);
+
+						// the intersection can end up zero if entities that used to be
+						// compatible no longer are. In that case, the current entity will
+						// get filtered out as now incompatible
+						if (intersectionResult.length > 0) {
+							currentValidSpriteGraphicSets[i] = intersectionResult;
+						}
 					}
 				}
 			}
@@ -101,10 +108,17 @@ export function determineValidGraphicAndObjectSetValues(
 			if (isEqual(currentValidObjectSets, [-1])) {
 				currentValidObjectSets = [...def.objectSets];
 			} else {
-				currentValidObjectSets = intersection(
+				const intersectionResult = intersection(
 					currentValidObjectSets,
 					def.objectSets
 				);
+
+				// the intersection can end up zero if entities that used to be
+				// compatible no longer are. In that case, the current entity will
+				// get filtered out as now incompatible
+				if (intersectionResult.length > 0) {
+					currentValidObjectSets = intersectionResult;
+				}
 			}
 		}
 
