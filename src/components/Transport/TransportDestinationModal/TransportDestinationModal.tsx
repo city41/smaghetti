@@ -44,34 +44,14 @@ type PublicTransportDestinationModalProps = {
 	destRoom?: number;
 	destX?: number;
 	destY?: number;
-	onDestinationSet?: (props: DestinationSetProps) => void;
+	onDestinationSet?: (props: DestinationSetProps | null) => void;
 };
 
 type InternalTransportDestinationModalProps = {
 	rooms: RoomState[];
 };
 
-// <div className="flex flex-row items-center space-x-2">
-// 	<div>Exit Type</div>
-// 	<IconButtonGroup>
-// 		<IconButton icon={GiPerson} label="Appear" />
-// 		<IconButton icon={GiWarpPipe} label="Up from pipe" />
-// 		<IconButton
-// 			icon={() => <GiWarpPipe className="transform rotate-90" />}
-// 			label="Right from pipe"
-// 		/>
-// 		<IconButton
-// 			icon={() => <GiWarpPipe className="transform rotate-180" />}
-// 			label="Down from pipe"
-// 		/>
-// 		<IconButton
-// 			icon={() => <GiWarpPipe className="transform -rotate-90" />}
-// 			label="Left from pipe"
-// 		/>
-// 	</IconButtonGroup>
-// </div>
-
-const SCALE = 1; // 0.75;
+const SCALE = 1;
 
 function TransportDestinationModal({
 	isOpen,
@@ -159,18 +139,32 @@ function TransportDestinationModal({
 					</RoomThumbnail>
 				</div>
 				<Button
-					disabled={cantOkay}
+					variant="destructive"
+					className="absolute bottom-4 left-4"
+					disabled={destX === undefined || destX < 0}
 					onClick={() => {
-						onDestinationSet?.({
-							room: curDestRoomIndex,
-							x: curDestX,
-							y: curDestY,
-						});
+						onDestinationSet?.(null);
 						onRequestClose();
 					}}
 				>
-					Okay
+					Clear Warp
 				</Button>
+				<div className="flex flex-row items-center space-x-2">
+					<Button
+						disabled={cantOkay}
+						onClick={() => {
+							onDestinationSet?.({
+								room: curDestRoomIndex,
+								x: curDestX,
+								y: curDestY,
+							});
+							onRequestClose();
+						}}
+					>
+						Okay
+					</Button>
+					<Button onClick={onRequestClose}>Cancel</Button>
+				</div>
 			</div>
 		</Modal>
 	);

@@ -16,7 +16,7 @@ type TransportDestinationProps = {
 	destX: number;
 	destY: number;
 	destRoom: number;
-	onDestinationChange?: (props: DestinationSetProps) => void;
+	onDestinationChange?: (props: DestinationSetProps | null) => void;
 };
 
 const exitCategoryIconMap: Record<EditorTransport['exitCategory'], IconType> = {

@@ -20,7 +20,7 @@ type TransportSourceProps = {
 	exitCategory: EditorTransport['exitCategory'];
 	label?: string;
 	focused?: boolean;
-	onDestinationSet?: (props: DestinationSetProps) => void;
+	onDestinationSet?: (props: DestinationSetProps | null) => void;
 };
 
 const exitCategoryIconMap: Record<EditorTransport['exitCategory'], IconType> = {
@@ -53,6 +53,9 @@ function TransportSource({
 	return (
 		<>
 			<TransportDestinationModal
+				destX={destX}
+				destY={destY}
+				destRoom={destRoom}
 				isOpen={showDestModal && !!onDestinationSet}
 				onRequestClose={() => {
 					setShowDestModal(false);

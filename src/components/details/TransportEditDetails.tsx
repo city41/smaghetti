@@ -7,7 +7,7 @@ type TransportEditDetailsProps = {
 	width: number;
 	height: number;
 	locked: boolean;
-	onDestinationSet: (destination: DestinationSetProps) => void;
+	onDestinationSet: (destination: DestinationSetProps | null) => void;
 	onLockChange: (locked: boolean) => void;
 	children: ReactNode;
 };

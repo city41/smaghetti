@@ -16,6 +16,7 @@ import {
 	getEntityTileBounds,
 	pointIsInside,
 } from '../../components/make/editorSlice';
+import { TileSpace } from '../TileSpace';
 
 type PipeDirection = 'up' | 'down' | 'up-down';
 
@@ -233,6 +234,7 @@ const PipeVertical: Entity = {
 					[styles.resizing]: settings?.resizing,
 				})}
 			>
+				{!!entity && <TileSpace className="absolute w-full h-full" />}
 				{direction === 'up' ? (
 					<>
 						{upperLip}

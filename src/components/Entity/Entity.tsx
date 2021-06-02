@@ -4,7 +4,6 @@ import { AiFillWarning } from 'react-icons/ai';
 import { entityMap } from '../../entities/entityMap';
 
 import focusedStyles from '../../styles/focused.module.css';
-import { TILE_SIZE } from '../../tiles/constants';
 
 type EntityProps = {
 	className?: string;
@@ -38,7 +37,7 @@ function Entity({
 	const entityDef = entityMap[entity.type];
 
 	const body = entityDef.render(
-		!!soleFocused && !dragging,
+		!!soleFocused && !dragging && !showWarning,
 		settings,
 		onEntitySettingsChange,
 		entity,
@@ -53,7 +52,6 @@ function Entity({
 		<div
 			className={clsx(className, {
 				[focusedStyles.focused]: focused,
-				relative: !!warning,
 			})}
 			style={style}
 		>
@@ -72,14 +70,18 @@ function Entity({
 			)}
 			{showWarning && warning && (
 				<div
-					className="absolute top-1 left-1 w z-10 p-0.5 bg-red-500 text-white flex flex-col"
-					style={{ fontSize: 2.5, width: TILE_SIZE }}
+					className="absolute top-1 left-1 w-full z-10 p-0.5 bg-red-600 text-white flex flex-col"
+					style={{ fontSize: 2.5 }}
 				>
 					<div>{warning}</div>
 					<a
-						onClick={() => setShowWarning(false)}
+						onMouseDown={(e) => {
+							e.stopPropagation();
+							e.preventDefault();
+							setShowWarning(false);
+						}}
 						style={{ fontSize: 3 }}
-						className="text-blue-700 cursor-pointer w-full text-center block mt-0.5"
+						className="text-blue-700 w-full text-center block mt-0.5"
 					>
 						ok
 					</a>
