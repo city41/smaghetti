@@ -49,6 +49,13 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Vertical Pipes" date="2021-06-02">
+					<p>
+						Vertical pipes are now ready to use. Find them in the warp section
+						in the palette. They are still a bit raw and will get better as I
+						work on them more.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-30">
 					<ul className="ml-8 list-disc">
 						<li>Pipe - Vertical (unfinished)</li>

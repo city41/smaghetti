@@ -91,9 +91,9 @@ function getExitType(
 }
 
 const PipeVertical: Entity = {
+	paletteCategory: 'transport',
 	paletteInfo: {
 		title: 'Pipe - Vertical',
-		warning: 'Should be fully working soonish, current focus',
 	},
 
 	objectSets: encodeObjectSets(objectSets),
