@@ -4,13 +4,13 @@ import { AiFillWarning } from 'react-icons/ai';
 import { entityMap } from '../../entities/entityMap';
 
 import focusedStyles from '../../styles/focused.module.css';
-import { RoomState } from '../make/editorSlice';
 import { TILE_SIZE } from '../../tiles/constants';
 
 type EntityProps = {
 	className?: string;
 	entity: EditorEntity;
-	room?: RoomState;
+	room?: RoomData;
+	rooms?: RoomData[];
 	scale?: number;
 	id?: number;
 	style?: CSSProperties;
@@ -22,19 +22,18 @@ type EntityProps = {
 	ref?: RefObject<HTMLDivElement> | Ref<HTMLDivElement> | null;
 };
 
-function Entity(props: EntityProps) {
-	const {
-		className,
-		style,
-		entity,
-		room,
-		settings = {},
-		focused,
-		soleFocused,
-		dragging,
-		onEntitySettingsChange,
-	} = props;
-
+function Entity({
+	className,
+	style,
+	entity,
+	room,
+	rooms,
+	settings = {},
+	focused,
+	soleFocused,
+	dragging,
+	onEntitySettingsChange,
+}: EntityProps) {
 	const [showWarning, setShowWarning] = useState(false);
 	const entityDef = entityMap[entity.type];
 
@@ -43,10 +42,12 @@ function Entity(props: EntityProps) {
 		settings,
 		onEntitySettingsChange,
 		entity,
-		room
+		room,
+		rooms
 	);
 
-	const warning = room && entityDef.getWarning?.(settings, entity, room);
+	const warning =
+		room && rooms && entityDef.getWarning?.(settings, entity, room, rooms);
 
 	return (
 		<div
@@ -64,7 +65,7 @@ function Entity(props: EntityProps) {
 						e.preventDefault();
 						setShowWarning((w) => !w);
 					}}
-					className="w-1 h-1 bg-white text-red-700 bottom-0 right-0 absolute cursor-pointer"
+					className="w-1 h-1 bg-white text-red-700 bottom-0 left-0 absolute cursor-pointer"
 				>
 					<AiFillWarning className="w-full h-full" />
 				</button>

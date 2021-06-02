@@ -17,6 +17,19 @@ type Room = {
 
 const MAX_Y = 0x1b;
 
+const exitCategoryToByte: Record<EditorTransport['exitCategory'], number> = {
+	door: 0,
+	pipe: 1,
+};
+
+const exitTypeToByte: Record<EditorTransport['exitType'], number> = {
+	door: 0,
+	'up-from-pipe': 1,
+	'down-from-pipe': 2,
+	'horizontal-travel-right-pipe': 3,
+	'horizontal-travel-left-pipe': 4,
+};
+
 function getHeader(aceCoinCount: number): Tuple<number, 5> {
 	if (aceCoinCount > 5) {
 		throw new Error(
@@ -359,6 +372,7 @@ function getTransports(
 		return building.concat(
 			entityDef.getTransports(
 				roomIndex,
+				allRooms,
 				Math.floor(e.x / TILE_SIZE),
 				Math.floor(e.y / TILE_SIZE),
 				e.settings ?? {}
@@ -398,8 +412,8 @@ function getTransports(
 			dx,
 			16, // cy
 			7, // cx
-			0, // exit type byte one??
-			0, // exit type byte two??
+			exitCategoryToByte[t.exitCategory],
+			exitTypeToByte[t.exitType],
 		]);
 	}, transportsHeader);
 }

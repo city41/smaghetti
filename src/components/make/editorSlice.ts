@@ -2172,4 +2172,6 @@ export {
 	eraseLevel,
 	LOCALSTORAGE_KEY,
 	SINGLE_BRICK_SO_PLAYER_DOESNT_FALL,
+	getEntityTileBounds,
+	pointIsInside,
 };

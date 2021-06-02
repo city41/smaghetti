@@ -44,7 +44,6 @@ type PublicTransportDestinationModalProps = {
 	destRoom?: number;
 	destX?: number;
 	destY?: number;
-	exitType: number;
 	onDestinationSet?: (props: DestinationSetProps) => void;
 };
 

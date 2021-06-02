@@ -1,4 +1,4 @@
-import React, { ComponentType, CSSProperties, useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import clsx from 'clsx';
 import { FaDoorClosed } from 'react-icons/fa';
 import { GiWarpPipe } from 'react-icons/gi';
@@ -9,6 +9,7 @@ import focusedStyles from '../../styles/focused.module.css';
 import { TILE_SIZE } from '../../tiles/constants';
 import { TransportDestinationModal } from './TransportDestinationModal';
 import { DestinationSetProps } from './TransportDestinationModal/TransportDestinationModal';
+import { IconType } from 'react-icons';
 
 type TransportSourceProps = {
 	className?: string;
@@ -16,15 +17,15 @@ type TransportSourceProps = {
 	destRoom?: number;
 	destX?: number;
 	destY?: number;
-	exitType: number;
+	exitCategory: EditorTransport['exitCategory'];
 	label?: string;
 	focused?: boolean;
 	onDestinationSet?: (props: DestinationSetProps) => void;
 };
 
-const exitTypeIconMap: Record<number, ComponentType<{ className: string }>> = {
-	0: FaDoorClosed,
-	1: GiWarpPipe,
+const exitCategoryIconMap: Record<EditorTransport['exitCategory'], IconType> = {
+	door: FaDoorClosed,
+	pipe: GiWarpPipe,
 };
 
 function TransportSource({
@@ -33,7 +34,7 @@ function TransportSource({
 	destRoom = -1,
 	destX = -1,
 	destY = -1,
-	exitType,
+	exitCategory,
 	label,
 	focused,
 	onDestinationSet,
@@ -45,7 +46,7 @@ function TransportSource({
 		'--size': `${TILE_SIZE - 6}px`,
 	} as CSSProperties;
 
-	const Icon = exitTypeIconMap[exitType] ?? FaDoorClosed;
+	const Icon = exitCategoryIconMap[exitCategory];
 
 	const hasDest = destRoom > -1 && destX > -1 && destY > -1;
 
@@ -56,7 +57,6 @@ function TransportSource({
 				onRequestClose={() => {
 					setShowDestModal(false);
 				}}
-				exitType={0}
 				onDestinationSet={onDestinationSet}
 			/>
 			<button

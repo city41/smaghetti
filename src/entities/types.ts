@@ -111,6 +111,7 @@ type Entity = {
 
 	getTransports?: (
 		room: number,
+		rooms: RoomData[],
 		x: number,
 		y: number,
 		settings: EditorEntitySettings
@@ -123,7 +124,8 @@ type Entity = {
 		settings: EditorEntitySettings,
 		onSettingsChange: (newSettings: EditorEntitySettings) => void,
 		entity?: EditorEntity,
-		room?: RoomData
+		room?: RoomData,
+		allRooms?: RoomData[]
 	) => ReactElement | null;
 
 	/**
@@ -134,8 +136,9 @@ type Entity = {
 	getWarning?: (
 		settings: EditorEntitySettings,
 		entity: EditorEntity,
-		room: RoomData
-	) => string | void;
+		room: RoomData,
+		allRooms: RoomData[]
+	) => string | null | void;
 };
 
 export type { Entity, SpriteGraphicSet, SpriteGraphicSets };

@@ -59,7 +59,7 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 
 			if (entityDef.getTransports) {
 				return buildingRoom.concat(
-					entityDef.getTransports(roomIndex, e.x, e.y, e.settings ?? {})
+					entityDef.getTransports(roomIndex, rooms, e.x, e.y, e.settings ?? {})
 				);
 			} else {
 				return buildingRoom;

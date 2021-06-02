@@ -32,7 +32,13 @@ type EditorTransport = {
 	destX: number;
 	destY: number;
 	destRoom: number;
-	exitType: number;
+	exitCategory: 'door' | 'pipe';
+	exitType:
+		| 'door'
+		| 'up-from-pipe'
+		| 'down-from-pipe'
+		| 'horizontal-travel-left-pipe'
+		| 'horizontal-travel-right-pipe';
 };
 
 type EditorEntityRow = Array<EditorEntity | null>;

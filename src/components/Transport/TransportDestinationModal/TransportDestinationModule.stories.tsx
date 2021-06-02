@@ -59,7 +59,6 @@ export const Basic = () => {
 			isOpen
 			onRequestClose={() => {}}
 			rooms={[EMPTY_ROOM]}
-			exitType={0}
 		/>
 	);
 };
@@ -70,7 +69,6 @@ export const LevelThatScrolls = () => {
 			isOpen
 			onRequestClose={() => {}}
 			rooms={[BIG_ROOM]}
-			exitType={0}
 		/>
 	);
 };

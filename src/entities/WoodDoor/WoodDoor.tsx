@@ -7,6 +7,11 @@ import { TransportEditDetails } from '../../components/details/TransportEditDeta
 import { encodeObjectSets } from '../util';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
+import { DestinationSetProps } from '../../components/Transport/TransportDestinationModal/TransportDestinationModal';
+import {
+	getEntityTileBounds,
+	pointIsInside,
+} from '../../components/make/editorSlice';
 
 const DOOR_LOCK_OBJECT_ID = 0xce;
 
@@ -55,7 +60,7 @@ const WoodDoor: Entity = {
 		],
 	},
 
-	getTransports(room, x, y, settings) {
+	getTransports(room, _rooms, x, y, settings) {
 		const dest = settings.destination;
 
 		if (dest) {
@@ -67,7 +72,8 @@ const WoodDoor: Entity = {
 					x,
 					y,
 					room,
-					exitType: 0,
+					exitCategory: 'door',
+					exitType: 'door',
 				},
 			];
 		}
@@ -118,7 +124,7 @@ const WoodDoor: Entity = {
 						destRoom={settings.destination.room}
 						destX={settings.destination.x}
 						destY={settings.destination.y}
-						exitType={0}
+						exitCategory="door"
 					/>
 				)}
 			</div>
@@ -142,6 +148,22 @@ const WoodDoor: Entity = {
 			);
 		} else {
 			return body;
+		}
+	},
+
+	getWarning(settings, _entity, _room, rooms) {
+		if (settings.destination) {
+			const destination = settings.destination as DestinationSetProps;
+			const destRoom = rooms[destination.room];
+
+			// the dest should be on top of a pipe
+			const destEntity = destRoom.stage.entities.find((e) => {
+				return pointIsInside(destination, getEntityTileBounds(e));
+			});
+
+			if (destEntity?.type === 'PipeVertical') {
+				return 'Doors can not warp to pipes';
+			}
 		}
 	},
 };

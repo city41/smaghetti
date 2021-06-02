@@ -54,7 +54,7 @@ const TexturedDoor: Entity = {
 		],
 	},
 
-	getTransports(room, x, y, settings) {
+	getTransports(room, _rooms, x, y, settings) {
 		const dest = settings.destination;
 
 		if (dest) {
@@ -66,7 +66,8 @@ const TexturedDoor: Entity = {
 					x,
 					y,
 					room,
-					exitType: 0,
+					exitCategory: 'door',
+					exitType: 'door',
 				},
 			];
 		}
@@ -122,7 +123,7 @@ const TexturedDoor: Entity = {
 						destRoom={settings.destination.room}
 						destX={settings.destination.x}
 						destY={settings.destination.y}
-						exitType={0}
+						exitCategory="door"
 					/>
 				)}
 			</div>

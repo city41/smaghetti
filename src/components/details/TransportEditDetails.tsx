@@ -64,7 +64,6 @@ function TransportEditDetails({
 				onRequestClose={() => {
 					setShowDestModal(false);
 				}}
-				exitType={0}
 				onDestinationSet={onDestinationSet}
 			/>
 		</>
