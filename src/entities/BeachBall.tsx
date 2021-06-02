@@ -5,14 +5,15 @@ import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { TileSpace } from './TileSpace';
 
 const BeachBall: Entity = {
+	paletteCategory: 'gizmo',
 	paletteInfo: {
 		title: 'Beach Ball',
 		description: 'Works like the logs in Mario 64',
-		warning: 'smaghetti needs a few changes before this can really work',
 	},
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	rotationGraphicSet: 2,
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',

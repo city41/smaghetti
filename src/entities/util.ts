@@ -59,6 +59,7 @@ export function decodeObjectSet(set: number): [number, number] {
 
 export type ObjectAndGraphicSets = {
 	spriteGraphicSets: number[][];
+	rotationGraphicSet: number | undefined;
 	objectSets: number[];
 };
 
@@ -75,6 +76,7 @@ export function determineValidGraphicAndObjectSetValues(
 	];
 
 	let currentValidObjectSets = [-1];
+	let currentValidRotationGraphicSet: number | undefined = undefined;
 
 	entityDefs.forEach((def) => {
 		if (def.spriteGraphicSets) {
@@ -105,10 +107,15 @@ export function determineValidGraphicAndObjectSetValues(
 				);
 			}
 		}
+
+		if (typeof def.rotationGraphicSet === 'number') {
+			currentValidRotationGraphicSet = def.rotationGraphicSet;
+		}
 	});
 
 	return {
 		spriteGraphicSets: currentValidSpriteGraphicSets,
+		rotationGraphicSet: currentValidRotationGraphicSet,
 		objectSets: currentValidObjectSets,
 	};
 }
@@ -145,7 +152,17 @@ export function isGraphicAndObjectSetCompatible(
 		intersection(entityDef.objectSets, currentObjectAndGraphicSets.objectSets)
 			.length > 0;
 
-	return spriteGraphicSetCompatible && objectSetCompatible;
+	const rotationGraphicSetCompatible =
+		entityDef.rotationGraphicSet === undefined ||
+		currentObjectAndGraphicSets.rotationGraphicSet === undefined ||
+		entityDef.rotationGraphicSet ===
+			currentObjectAndGraphicSets.rotationGraphicSet;
+
+	return (
+		spriteGraphicSetCompatible &&
+		objectSetCompatible &&
+		rotationGraphicSetCompatible
+	);
 }
 
 export function isWorkingEntityType(type: EntityType): boolean {

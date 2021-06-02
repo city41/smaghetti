@@ -8,16 +8,14 @@ const SeeSawPlatform: Entity = {
 	// SeeSaw requires the sixth to last byte of level settings to be 1, not zero/
 	// can't make it 1 as that would break arrow lift and several others.
 	// TODO: that byte, and probably others, needs to become a factor in compatibility
-	paletteCategory: 'unfinished',
+	paletteCategory: 'gizmo',
 	paletteInfo: {
 		title: 'See Saw Platform',
-		description: '',
-		warning:
-			'There is a byte in level settings that needs to be 1 for this entity to work. But setting it to 1 breaks other entities. Need to figure out what those bytes mean.',
 	},
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	rotationGraphicSet: 1,
 	width: 1,
 	height: 1,
 	objectId: 0xb3,

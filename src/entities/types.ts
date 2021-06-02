@@ -35,6 +35,13 @@ type Entity = {
 	 */
 	spriteGraphicSets: SpriteGraphicSets;
 
+	/**
+	 * Entities that rotate (beach ball, arrow lift, etc) need to load a specific rotation graphic set.
+	 * This is where they specify it, and compatibility will check to make sure all entities
+	 * in a room either don't care or want the same value
+	 */
+	rotationGraphicSet?: number;
+
 	layer: 'actor' | 'stage';
 	editorType: 'entity' | 'cell';
 	/**

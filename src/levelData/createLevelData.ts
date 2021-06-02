@@ -121,6 +121,22 @@ function getObjectHeader(
 }
 
 /**
+ * given the provided entities, finds the rotation byte that satisfies them all.
+ * NOTE: this function assumes all entities are compatible with each other rotation-wise
+ */
+function getRotationByte(entities: EditorEntity[]): number {
+	const rotationEntity = entities.find(
+		(e) => typeof entityMap[e.type].rotationGraphicSet === 'number'
+	);
+
+	if (rotationEntity) {
+		return entityMap[rotationEntity.type].rotationGraphicSet as number;
+	} else {
+		return 0;
+	}
+}
+
+/**
  * given the provided entities, returns the six bytes that can satisfy all
  * of their graphic set needs. The assumption is the passed in entities are all
  * compatible with each other
@@ -188,7 +204,7 @@ function getLevelSettings(
 		0,
 		0x0,
 		0,
-		0, // needs to be zero for arrow lift and others
+		getRotationByte(entities),
 		0,
 		0,
 		0,
