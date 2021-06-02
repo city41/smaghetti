@@ -4,6 +4,7 @@ import { ArrowFloor } from './ArrowFloor';
 import { ArrowLift } from './ArrowLift';
 import { ArrowSign } from './ArrowSign';
 import { BabyCheepCheep } from './BabyCheepCheep';
+import { BeachBall } from './BeachBall';
 import { BeachedCheepCheep } from './BeachedCheepCheep';
 import { BigBass } from './BigBass';
 import { BigBertha } from './BigBertha';
@@ -58,7 +59,6 @@ import { FireFlower } from './FireFlower';
 import { Fishbone } from './Fishbone';
 import { FlagPole } from './FlagPole';
 import { FlameChomp } from './FlameChomp';
-import { FloatingBlock } from './FloatingBlock';
 import { FlowerBush } from './FlowerBush';
 import { FluffyCloud } from './FluffyCloud';
 import { Flurry } from './Flurry';
@@ -168,6 +168,7 @@ const entityMap = {
 	ArrowLift,
 	ArrowSign,
 	BabyCheepCheep,
+	BeachBall,
 	BeachedCheepCheep,
 	BigBass,
 	BigBertha,
@@ -221,7 +222,6 @@ const entityMap = {
 	Fishbone,
 	FlagPole,
 	FlameChomp,
-	FloatingBlock,
 	FlowerBush,
 	FluffyCloud,
 	Flurry,

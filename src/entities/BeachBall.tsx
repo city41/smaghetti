@@ -4,11 +4,11 @@ import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { TileSpace } from './TileSpace';
 
-const FloatingBlock: Entity = {
-	paletteCategory: 'gizmo',
+const BeachBall: Entity = {
 	paletteInfo: {
-		title: 'Floating Block',
+		title: 'Beach Ball',
 		description: 'Works like the logs in Mario 64',
+		warning: 'smaghetti needs a few changes before this can really work',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -39,10 +39,10 @@ const FloatingBlock: Entity = {
 			0x732c,
 		],
 		tiles: [
-			[256, 257, 258, 259],
-			[288, 289, 290, 291],
-			[320, 321, 322, 323],
-			[352, 353, 354, 355],
+			[384, 385, 386, 387],
+			[416, 417, 418, 419],
+			[448, 449, 450, 451],
+			[480, 481, 482, 483],
 		],
 	},
 
@@ -53,7 +53,7 @@ const FloatingBlock: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="FloatingBlock-bg bg-cover"
+				className="BeachBall-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -64,7 +64,7 @@ const FloatingBlock: Entity = {
 		const spaceStyle = { width: TILE_SIZE, height: TILE_SIZE };
 
 		return (
-			<div className="relative FloatingBlock-bg bg-cover" style={style}>
+			<div className="relative BeachBall-bg bg-cover" style={style}>
 				<div className="absolute top-0 left-0" style={spaceStyle}>
 					<TileSpace />
 				</div>
@@ -73,4 +73,4 @@ const FloatingBlock: Entity = {
 	},
 };
 
-export { FloatingBlock };
+export { BeachBall };
