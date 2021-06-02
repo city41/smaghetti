@@ -125,18 +125,20 @@ function TransportDestinationModal({
 					style={{ maxWidth: '85vw' }}
 					onMouseDown={handleThumbnailClick}
 				>
-					<RoomThumbnail
-						className="relative bg-blue-300 border-2 border-white"
-						upperLeftTile={{ x: 0, y: 0 }}
-						widthInTiles={curDestRoom.roomTileWidth}
-						heightInTiles={curDestRoom.roomTileHeight}
-						scale={SCALE}
-						room={curDestRoom}
-					>
-						{curDestX > -1 && curDestY > -1 && (
-							<DestinationHighlight x={curDestX} y={curDestY} scale={SCALE} />
-						)}
-					</RoomThumbnail>
+					{curDestRoom && (
+						<RoomThumbnail
+							className="relative bg-blue-300 border-2 border-white"
+							upperLeftTile={{ x: 0, y: 0 }}
+							widthInTiles={curDestRoom.roomTileWidth}
+							heightInTiles={curDestRoom.roomTileHeight}
+							scale={SCALE}
+							room={curDestRoom}
+						>
+							{curDestX > -1 && curDestY > -1 && (
+								<DestinationHighlight x={curDestX} y={curDestY} scale={SCALE} />
+							)}
+						</RoomThumbnail>
+					)}
 				</div>
 				<Button
 					variant="destructive"
