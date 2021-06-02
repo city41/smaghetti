@@ -185,27 +185,27 @@ const RoomThumbnail = React.memo(function RoomThumbnail({
 				)}
 				<Matrix
 					room={room}
-					matrix={room.actors.matrix}
+					matrix={room.stage.matrix}
 					upperLeftTile={upperLeftTile}
 					heightInTiles={heightInTiles}
 					widthInTiles={widthInTiles}
 				/>
 				<Matrix
 					room={room}
-					matrix={room.stage.matrix}
-					upperLeftTile={upperLeftTile}
-					heightInTiles={heightInTiles}
-					widthInTiles={widthInTiles}
-				/>
-				<Entities
-					entities={room.actors.entities}
-					room={room}
+					matrix={room.actors.matrix}
 					upperLeftTile={upperLeftTile}
 					heightInTiles={heightInTiles}
 					widthInTiles={widthInTiles}
 				/>
 				<Entities
 					entities={room.stage.entities}
+					room={room}
+					upperLeftTile={upperLeftTile}
+					heightInTiles={heightInTiles}
+					widthInTiles={widthInTiles}
+				/>
+				<Entities
+					entities={room.actors.entities}
 					room={room}
 					upperLeftTile={upperLeftTile}
 					heightInTiles={heightInTiles}
