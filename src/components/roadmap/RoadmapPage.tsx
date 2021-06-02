@@ -58,13 +58,8 @@ const finalChecklist: MilestoneChecklistItem[] = [
 	{ status: 'not-started', description: 'Credits page' },
 	{
 		status: 'not-started',
-		description: "Fork other people's levels and share levels with friends",
-	},
-	{
-		status: 'not-started',
 		description: 'All known bugs fixed and editor is very stable',
 	},
-	{ status: 'not-started', description: 'Offline local version' },
 	{ status: 'not-started', description: 'Save many levels to one save file' },
 ];
 
