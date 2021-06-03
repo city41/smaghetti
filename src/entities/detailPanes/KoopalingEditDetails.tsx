@@ -4,8 +4,6 @@ import { NumberPicker } from './NumberPicker';
 type KoopalingEditDetailsProps = {
 	currentStompCount: number;
 	currentFireballCount: number;
-	width: number;
-	height: number;
 	onSettingsChange: (
 		param: { fireballCount: number } | { stompCount: number }
 	) => void;
@@ -17,16 +15,12 @@ const PADDING = 1;
 function KoopalingEditDetails({
 	currentStompCount,
 	currentFireballCount,
-	width,
-	height,
 	onSettingsChange,
 	children,
 }: KoopalingEditDetailsProps) {
 	const style = {
 		top: -PADDING,
 		left: -PADDING,
-		width: width + 2 * PADDING,
-		minHeight: height + 2 * PADDING,
 		padding: PADDING,
 		fontSize: 2,
 	};

@@ -114,8 +114,6 @@ const Lemmy: Entity = {
 				<KoopalingEditDetails
 					currentStompCount={stompCount}
 					currentFireballCount={fireballCount}
-					width={TILE_SIZE * 1.5}
-					height={TILE_SIZE * 2}
 					onSettingsChange={onSettingsChange}
 				>
 					{body}
