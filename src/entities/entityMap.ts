@@ -103,6 +103,7 @@ import { MagicBrick } from './MagicBrick';
 import { MetalBrick } from './MetalBrick';
 import { MetalDonutFloor } from './MetalDonutFloor';
 import { MetalMushroom } from './MetalMushroom';
+import { Morton } from './Morton';
 import { Muncher } from './Muncher';
 import { Mushroom } from './Mushroom';
 import { MusicBlock } from './MusicBlock';
@@ -269,6 +270,7 @@ const entityMap = {
 	MetalBrick,
 	MetalDonutFloor,
 	MetalMushroom,
+	Morton,
 	Muncher,
 	Mushroom,
 	MusicBlock,

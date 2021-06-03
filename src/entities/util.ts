@@ -59,8 +59,9 @@ export function decodeObjectSet(set: number): [number, number] {
 
 export type ObjectAndGraphicSets = {
 	spriteGraphicSets: number[][];
-	rotationGraphicSet: number | undefined;
 	objectSets: number[];
+	rotationGraphicSet: number | undefined;
+	koopalingId: number | undefined;
 };
 
 export function determineValidGraphicAndObjectSetValues(
@@ -77,6 +78,7 @@ export function determineValidGraphicAndObjectSetValues(
 
 	let currentValidObjectSets = [-1];
 	let currentValidRotationGraphicSet: number | undefined = undefined;
+	let currentKoopalingId: number | undefined = undefined;
 
 	entityDefs.forEach((def) => {
 		if (def.spriteGraphicSets) {
@@ -125,12 +127,17 @@ export function determineValidGraphicAndObjectSetValues(
 		if (typeof def.rotationGraphicSet === 'number') {
 			currentValidRotationGraphicSet = def.rotationGraphicSet;
 		}
+
+		if (typeof def.koopalingId === 'number') {
+			currentKoopalingId = def.koopalingId;
+		}
 	});
 
 	return {
 		spriteGraphicSets: currentValidSpriteGraphicSets,
-		rotationGraphicSet: currentValidRotationGraphicSet,
 		objectSets: currentValidObjectSets,
+		rotationGraphicSet: currentValidRotationGraphicSet,
+		koopalingId: currentKoopalingId,
 	};
 }
 
@@ -172,10 +179,16 @@ export function isGraphicAndObjectSetCompatible(
 		entityDef.rotationGraphicSet ===
 			currentObjectAndGraphicSets.rotationGraphicSet;
 
+	const koopalingIdCompatible =
+		entityDef.koopalingId === undefined ||
+		currentObjectAndGraphicSets.koopalingId === undefined ||
+		entityDef.koopalingId === currentObjectAndGraphicSets.koopalingId;
+
 	return (
 		spriteGraphicSetCompatible &&
 		objectSetCompatible &&
-		rotationGraphicSetCompatible
+		rotationGraphicSetCompatible &&
+		koopalingIdCompatible
 	);
 }
 

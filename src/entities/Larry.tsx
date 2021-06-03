@@ -6,8 +6,6 @@ import { ANY_OBJECT_SET } from './constants';
 import { KoopalingViewDetails } from './detailPanes/KoopalingViewDetails';
 import { KoopalingEditDetails } from './detailPanes/KoopalingEditDetails';
 
-const KOOPALING_ID = 1;
-
 const Larry: Entity = {
 	paletteCategory: 'boss',
 	paletteInfo: {
@@ -21,7 +19,8 @@ const Larry: Entity = {
 	dimensions: 'none',
 	settingsType: 'single',
 	defaultSettings: { stompCount: 3, fireballCount: 10 },
-	objectId: 0x72,
+	objectId: 0x14,
+	koopalingId: 1,
 
 	resource: {
 		romOffset: 0x1724f0,
@@ -57,9 +56,9 @@ const Larry: Entity = {
 		const stompCount = (settings.stompCount ??
 			this.defaultSettings!.stompCount) as number;
 
-		const stompParam = (KOOPALING_ID << 4) | (stompCount & 0xf);
+		const stompParam = (this.koopalingId! << 4) | (stompCount & 0xf);
 
-		return [1, 0x14, x, y, stompParam, fireballCount & 0xff];
+		return [1, this.objectId, x, y, stompParam, fireballCount & 0xff];
 	},
 
 	simpleRender(size) {

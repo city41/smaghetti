@@ -42,6 +42,14 @@ type Entity = {
 	 */
 	rotationGraphicSet?: number;
 
+	/**
+	 * The koopaling bosses are not compatible with each other, even when it seems like they should be.
+	 * For example, Larry and Morton seem fully compatible, but if you add both to a level, you will
+	 * either get two Larrys or two Mortons, depending on which gets loaded first. So to help not disappoint
+	 * users, this id forces koopalings to not be compatible with each other
+	 */
+	koopalingId?: number;
+
 	layer: 'actor' | 'stage';
 	editorType: 'entity' | 'cell';
 	/**

@@ -6,21 +6,21 @@ import { ANY_OBJECT_SET } from './constants';
 import { KoopalingViewDetails } from './detailPanes/KoopalingViewDetails';
 import { KoopalingEditDetails } from './detailPanes/KoopalingEditDetails';
 
-const Ludwig: Entity = {
+const Morton: Entity = {
 	paletteCategory: 'boss',
 	paletteInfo: {
-		title: 'Ludwig',
+		title: 'Morton',
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [-1, -1, 2, -1, -1, 5],
+	spriteGraphicSets: [-1, -1, 2, -1, -1, 2],
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
 	settingsType: 'single',
 	defaultSettings: { stompCount: 3, fireballCount: 10 },
 	objectId: 0x14,
-	koopalingId: 7,
+	koopalingId: 2,
 
 	resource: {
 		romOffset: 0x1724f0,
@@ -28,25 +28,25 @@ const Ludwig: Entity = {
 			0x7f96,
 			0x0,
 			0x7fff,
-			0x2220,
-			0x36c4,
-			0x476a,
-			0x4a52,
-			0x5ef7,
-			0x739c,
-			0x57d2,
-			0x11f9,
-			0x227d,
-			0x371f,
-			0x7bd9,
-			0x7755,
-			0x66d1,
+			0x4210,
+			0x5294,
+			0x6739,
+			0x329d,
+			0x431e,
+			0x53bf,
+			0x77bd,
+			0x1154,
+			0x21f9,
+			0x2a7d,
+			0x37f,
+			0x27f,
+			0x11f,
 		],
 		tiles: [
-			[192, 193, 194],
-			[208, 209, 210],
-			[195, 196, 197],
-			[211, 212, 213],
+			[32, 33, 34],
+			[48, 49, 50],
+			[35, 36, 37],
+			[51, 52, 53],
 		],
 	},
 
@@ -66,7 +66,7 @@ const Ludwig: Entity = {
 
 		return (
 			<div
-				className="relative Ludwig-bg bg-center bg-no-repeat"
+				className="relative Morton-bg bg-center bg-no-repeat"
 				style={style}
 			/>
 		);
@@ -86,8 +86,8 @@ const Ludwig: Entity = {
 		const wandStyle = {
 			width: TILE_SIZE,
 			height: TILE_SIZE,
-			top: 8,
-			left: -11,
+			top: 9,
+			left: -7,
 		};
 
 		const spaceStyle = {
@@ -98,7 +98,7 @@ const Ludwig: Entity = {
 		};
 
 		const body = (
-			<div className="relative Ludwig-bg bg-cover" style={style}>
+			<div className="relative Morton-bg bg-cover" style={style}>
 				<div className="absolute KoopalingWand-bg" style={wandStyle} />
 				<div className="absolute" style={spaceStyle}>
 					<TileSpace />
@@ -128,4 +128,4 @@ const Ludwig: Entity = {
 	},
 };
 
-export { Ludwig };
+export { Morton };
