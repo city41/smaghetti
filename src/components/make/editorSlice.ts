@@ -364,7 +364,8 @@ const initialRoomState: RoomState = {
 		'CardSlotMachine',
 		'PSwitch',
 	],
-	validEntityTypes: Object.keys(entityMap) as EntityType[],
+	validEntityTypes: ((entityMap && Object.keys(entityMap)) ||
+		[]) as EntityType[],
 	currentPaletteEntry: 'Brick',
 };
 
