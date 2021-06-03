@@ -12,6 +12,7 @@ import { objectSets } from './objectSets';
 const MusicBlock: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Music Block',
 	},
 

@@ -11,6 +11,7 @@ import { objectSets } from './objectSets';
 const FallAwaySpike: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-damaging',
 		title: 'Fall Away Spike',
 		description: 'Deadly from below, but also fall if you stand on top of them',
 	},

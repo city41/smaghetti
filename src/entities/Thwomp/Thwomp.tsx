@@ -17,6 +17,7 @@ const pursuitToObjectId: Record<Pursuit, number> = {
 const Thwomp: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-fortress',
 		title: 'Thwomp',
 	},
 

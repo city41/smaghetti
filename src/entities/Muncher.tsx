@@ -7,6 +7,7 @@ import { encodeObjectSets } from './util';
 const Muncher: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-damaging',
 		title: 'Muncher',
 	},
 

@@ -7,6 +7,7 @@ import { TileSpace } from './TileSpace';
 const PorcuPuffer: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-water',
 		title: 'Porcu-Puffer',
 	},
 

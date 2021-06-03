@@ -7,8 +7,9 @@ import { KoopalingViewDetails } from './detailPanes/KoopalingViewDetails';
 import { KoopalingEditDetails } from './detailPanes/KoopalingEditDetails';
 
 const Ludwig: Entity = {
-	paletteCategory: 'boss',
+	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-boss',
 		title: 'Ludwig',
 	},
 

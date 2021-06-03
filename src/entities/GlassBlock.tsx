@@ -7,6 +7,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 const GlassBlock: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Glass Block',
 	},
 

@@ -27,6 +27,7 @@ function isWaterAbove(
 const ChoppyWater: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-water',
 		title: 'Choppy Water',
 	},
 

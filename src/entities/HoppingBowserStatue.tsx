@@ -7,6 +7,7 @@ import { ANY_OBJECT_SET } from './constants';
 const HoppingBowserStatue: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-fortress',
 		title: 'Hopping Bowser Statue',
 	},
 

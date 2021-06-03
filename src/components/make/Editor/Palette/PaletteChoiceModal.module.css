@@ -5,7 +5,7 @@
 .root {
 	display: grid;
 	grid-template-columns: 1fr 200px;
-	min-height: 300px;
+	min-height: 400px;
 	max-height: 60vh;
 	width: 1100px;
 	max-width: 90vw;
@@ -13,14 +13,8 @@
 
 .currentEntries {
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: flex-start;
-
-	padding-top: 24px;
-
-	height: 300px;
-	/*width: 600px;*/
+	flex-direction: column;
+	height: 400px;
 	overflow-y: auto;
 }
 

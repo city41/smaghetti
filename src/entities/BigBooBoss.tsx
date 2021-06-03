@@ -5,8 +5,9 @@ import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
 
 const BigBooBoss: Entity = {
-	paletteCategory: 'boss',
+	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-boss',
 		title: 'Big Boo Boss',
 		description:
 			'Throw magic blocks at him to hurt him. Beating him completes the level.',

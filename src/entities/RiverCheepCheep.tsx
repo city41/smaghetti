@@ -8,6 +8,7 @@ const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 const RiverCheepCheep: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-water',
 		title: 'River Cheep Cheep',
 		description:
 			'Aggressively swims back and forth near the surface of the water. Jumps out at Mario if he is above.',

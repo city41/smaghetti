@@ -6,6 +6,7 @@ import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
 const Blooper: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-water',
 		title: 'Blooper',
 		description: 'behaves best in water',
 	},

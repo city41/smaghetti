@@ -6,6 +6,7 @@ import { ANY_OBJECT_SET } from './constants';
 const BabyCheepCheep: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-water',
 		title: 'Baby Cheep Cheep',
 		description:
 			"Normally they come out of big bertha's mouth. But you can spawn them separately too!",

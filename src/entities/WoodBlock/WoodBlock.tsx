@@ -12,6 +12,7 @@ import { objectSets } from './objectSets';
 const WoodBlock: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Wood Block',
 	},
 

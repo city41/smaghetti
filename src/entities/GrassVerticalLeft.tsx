@@ -7,6 +7,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 const GrassVerticalLeft: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Grass - Vertical Left',
 	},
 

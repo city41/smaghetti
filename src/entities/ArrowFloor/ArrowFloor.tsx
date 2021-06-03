@@ -11,6 +11,7 @@ import { objectSets } from './objectSets';
 const ArrowFloor: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Arrow Floor',
 		description: 'The arrows are just decoration',
 	},

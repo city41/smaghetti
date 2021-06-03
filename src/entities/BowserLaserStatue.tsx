@@ -8,6 +8,7 @@ import { encodeObjectSets } from './util';
 const BowserLaserStatue: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-statues',
 		title: 'Bowser Laser Statue',
 		warning: "They can't shoot lasers just yet...",
 	},

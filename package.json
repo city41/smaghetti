@@ -16,7 +16,8 @@
     "migrations-down": "node-pg-migrate down -m database/migrations",
     "run-ts-node": "yarn ts-node --compiler-options '{ \"module\": \"commonjs\", \"jsx\": \"react\" }'",
     "dump-graphic-set-bytes": "brute/getSpriteGraphicSetBytes_parallel.sh",
-    "dump-object-set-bytes": "brute/getObjectSetBytes_parallel.sh"
+    "dump-object-set-bytes": "brute/getObjectSetBytes_parallel.sh",
+    "run-prettier": "yarn prettier --config .prettierrc --write src/**/*.ts*"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",

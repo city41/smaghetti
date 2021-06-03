@@ -13,6 +13,30 @@ type SpriteGraphicSets = [
 	SpriteGraphicSet
 ];
 
+type PaletteCategory =
+	| 'enemy'
+	| 'terrain'
+	| 'object'
+	| 'gizmo'
+	| 'power-up'
+	| 'transport'
+	| 'decoration'
+	| 'unfinished';
+
+type PaletteSubcategory =
+	| 'terrain-basic'
+	| 'terrain-water'
+	| 'terrain-damaging'
+	| 'terrain-statues'
+	| 'enemy-common'
+	| 'enemy-piranha'
+	| 'enemy-fortress'
+	| 'enemy-desert'
+	| 'enemy-water'
+	| 'enemy-bro'
+	| 'enemy-giant'
+	| 'enemy-boss';
+
 type Entity = {
 	/**
 	 * which object set/object graphic set pairs are this entity compatible with?
@@ -56,20 +80,13 @@ type Entity = {
 	 * When placing this entity in the palette choice modal, which category should it go under.
 	 * If this is absent, the entity will be placed in "unfinished"
 	 */
-	paletteCategory?:
-		| 'enemy'
-		| 'terrain'
-		| 'object'
-		| 'gizmo'
-		| 'power-up'
-		| 'boss'
-		| 'transport'
-		| 'decoration'
-		| 'unfinished';
+	paletteCategory?: PaletteCategory;
+
 	paletteInfo: {
 		title: string;
 		description?: ReactNode;
 		warning?: ReactNode;
+		subCategory?: PaletteSubcategory;
 	};
 
 	dimensions: 'none' | 'x' | 'y' | 'xy';
@@ -156,4 +173,10 @@ type Entity = {
 	) => string | null | void;
 };
 
-export type { Entity, SpriteGraphicSet, SpriteGraphicSets };
+export type {
+	Entity,
+	SpriteGraphicSet,
+	SpriteGraphicSets,
+	PaletteCategory,
+	PaletteSubcategory,
+};

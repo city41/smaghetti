@@ -7,6 +7,7 @@ import { encodeObjectSets } from './util';
 const InvisibleBlock: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Invisible Block',
 		description: 'A block you can stand on, but is invisible.',
 	},

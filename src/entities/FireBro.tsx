@@ -7,6 +7,7 @@ import { ANY_OBJECT_SET } from './constants';
 const FireBro: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-bro',
 		title: 'Fire Bro',
 	},
 

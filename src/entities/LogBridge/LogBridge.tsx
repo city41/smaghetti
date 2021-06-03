@@ -9,6 +9,7 @@ import { objectSets } from './objectSets';
 const LogBridge: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Log Bridge',
 	},
 

@@ -33,6 +33,7 @@ function getHeight(
 const Vine: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Vine',
 		description: 'These grow downward until they hit something',
 	},

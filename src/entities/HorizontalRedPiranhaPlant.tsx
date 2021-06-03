@@ -13,6 +13,7 @@ const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
  */
 const HorizontalRedPiranhaPlant: Entity = {
 	paletteInfo: {
+		subCategory: 'enemy-piranha',
 		title: 'Horizontal Red Piranha Plant',
 		warning:
 			"These will probably just be payloads that pipes can have, as they don't make sense by themselves",

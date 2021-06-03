@@ -6,6 +6,7 @@ import { TileSpace } from './TileSpace';
 
 const AmazingFlyinHammerBro: Entity = {
 	paletteInfo: {
+		subCategory: 'enemy-bro',
 		title: "Amazing Flyin' Hammer Bro",
 		description: 'Normally plopped on top of a Winged Platform',
 		warning: "So far can't get it to ride the Winged Platform :(",

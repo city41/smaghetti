@@ -25,6 +25,7 @@ function isLavaAbove(
 const Lava: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-damaging',
 		title: 'Lava',
 	},
 

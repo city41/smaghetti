@@ -9,6 +9,7 @@ import { objectSets } from './objectSets';
 const SpikeBall: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-damaging',
 		title: 'Spike Ball',
 	},
 

@@ -10,6 +10,7 @@ import { ANY_OBJECT_SET } from './constants';
 const DryBones: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-fortress',
 		title: 'Dry Bones',
 	},
 

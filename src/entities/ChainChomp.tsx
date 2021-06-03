@@ -6,6 +6,7 @@ import { ANY_OBJECT_SET } from './constants';
 const ChainChomp: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-common',
 		title: 'Chain Chomp',
 	},
 

@@ -6,6 +6,7 @@ import React from 'react';
 const DonutBlock: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-damaging',
 		title: 'Donut Block',
 		description: "After they fall, they don't respawn in this game",
 	},

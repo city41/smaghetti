@@ -41,6 +41,7 @@ function isTallerThanOne(
 const PoolOfWater: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-water',
 		title: 'Pool of Water',
 	},
 

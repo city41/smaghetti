@@ -9,6 +9,7 @@ const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 const PtooiePottedPiranhaPlant: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-piranha',
 		title: 'Ptooie Potted Piranha Plant',
 		description:
 			'Normally potted in a pipe, but can work on ground too. Need to fix the palettes, but works fine.',

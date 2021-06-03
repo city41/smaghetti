@@ -7,6 +7,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 const MetalDonutFloor: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Metal Donut Floor',
 		description: "These don't fall away",
 	},

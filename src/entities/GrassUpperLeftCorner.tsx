@@ -7,6 +7,7 @@ import { encodeObjectSets } from './util';
 const GrassUpperLeftCorner: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Grass - Upper Left Corner',
 	},
 

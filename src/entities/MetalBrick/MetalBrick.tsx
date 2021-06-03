@@ -12,6 +12,7 @@ import { objectSets } from './objectSets';
 const MetalBrick: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Metal Brick',
 		description: "A brick that even Super Mario can't break",
 	},

@@ -6,8 +6,9 @@ import { ANY_OBJECT_SET } from './constants';
 
 const fireballGraphicSets = [4, 5, 6, 7, 8, 9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf];
 const ClassicBowser: Entity = {
-	paletteCategory: 'boss',
+	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-boss',
 		title: 'Classic Bowser',
 		description: 'SMB1 style Bowser',
 	},

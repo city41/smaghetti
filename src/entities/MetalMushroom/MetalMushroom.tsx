@@ -6,7 +6,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
 
 const MetalMushroom: Entity = {
-	paletteCategory: 'terrain',
+	paletteCategory: 'gizmo',
 	paletteInfo: {
 		title: 'Metal Mushroom',
 		description: 'Pick up and build structures or throw them at enemies',

@@ -39,6 +39,7 @@ function isOneWide(
 const WoodFloor: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'WoodFloor',
 		description: 'Must have a width of at least two',
 	},

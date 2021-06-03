@@ -9,6 +9,7 @@ const graphicSets = [0xb, 0xc, 0xd, 0xe, 0xf];
 const GiantGreenKoopa: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-giant',
 		title: 'Giant Green Koopa',
 	},
 

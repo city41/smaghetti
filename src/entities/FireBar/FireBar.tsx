@@ -14,8 +14,9 @@ import type {
 } from './FireBarDetails';
 
 const FireBar: Entity = {
-	paletteCategory: 'terrain',
+	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-fortress',
 		title: 'Fire Bar',
 		description: 'round and round we go',
 	},

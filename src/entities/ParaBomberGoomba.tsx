@@ -8,6 +8,7 @@ const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 const ParaBomberGoomba: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-common',
 		title: 'Para Bomber Goomba',
 		description: 'Flies high and drops mini goombas',
 	},

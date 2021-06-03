@@ -7,6 +7,7 @@ import { TileSpace } from './TileSpace';
 const BigBertha: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-water',
 		title: 'Big Bertha',
 		description: 'Docile, and has a baby cheep cheep in its mouth',
 	},

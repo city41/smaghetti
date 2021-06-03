@@ -9,6 +9,7 @@ const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 const PiranhaPlant: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-piranha',
 		title: 'Piranha Plant',
 		description:
 			'Technically can be placed anywhere, only really make sense in pipes though',

@@ -6,6 +6,7 @@ import { ANY_OBJECT_SET } from './constants';
 const BonyBeetle: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-fortress',
 		title: 'Bony Beetle',
 	},
 

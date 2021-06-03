@@ -25,6 +25,7 @@ function isGrassAbove(
 const GrassHorizontal: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Grass - Horizontal',
 	},
 

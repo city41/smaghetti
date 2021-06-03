@@ -26,6 +26,7 @@ function isWaterfallAbove(
 const Waterfall: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-water',
 		title: 'Waterfall',
 		description: 'Pushes Mario down when he swims in it',
 	},

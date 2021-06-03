@@ -7,6 +7,7 @@ The first version is 5.0.0, which is a legacy holdover from the localstorage ver
 # When to convert
 
 After loading a level from:
+
 - localstorage (editor, LevelChooserModal)
 - server (editor, profile)
 
@@ -17,10 +18,10 @@ basically anytime a level is loaded from anywhere, it should run through convert
 versions should follow semantic versioning as much as possible
 
 1. increment CURRENT_VERSION in convertLevelToLatestVersion.ts and add a comment explaining the bump
-2. create a from_<previous-current-version>_to_<new-current-version>.ts file that does the conversion
+2. create a from*<previous-current-version>\_to*<new-current-version>.ts file that does the conversion
 3. add the converter to the array in convertLevelToLatestVersion.ts, making sure the versions in the froms and tos all line up.
 4. update smaghetti.d.ts to be the latest version for all types
-5. inside the from*.ts file, store the previous types from smaghetti.d.ts for documentation as well as a guide on how to do the conversion
+5. inside the from\*.ts file, store the previous types from smaghetti.d.ts for documentation as well as a guide on how to do the conversion
 6. update exampleLevel.json to the latest version
 
 # legacy levels

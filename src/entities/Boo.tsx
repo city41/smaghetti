@@ -6,6 +6,7 @@ import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
 const Boo: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-fortress',
 		title: 'Boo',
 	},
 

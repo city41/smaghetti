@@ -1,6 +1,6 @@
-import React, { ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
-import isEqual from 'lodash/isEqual';
+import groupBy from 'lodash/groupBy';
 
 import { Modal } from '../../../Modal';
 import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
@@ -8,11 +8,14 @@ import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
 import styles from './PaletteChoiceModal.module.css';
 import tabStyles from '../../../../styles/tabs.module.css';
 import { entityMap, EntityType } from '../../../../entities/entityMap';
-import { Entity } from '../../../../entities/types';
+import {
+	Entity,
+	PaletteCategory,
+	PaletteSubcategory,
+} from '../../../../entities/types';
 
 type PaletteChoiceModalProps = {
 	isOpen: boolean;
-	currentPaletteEntries: EntityType[];
 	validEntityTypes: EntityType[];
 	onEntryAdded: (addedEntry: EntityType) => void;
 	onEntryRemoved: (removedEntry: EntityType) => void;
@@ -21,12 +24,12 @@ type PaletteChoiceModalProps = {
 
 type PaletteChoiceModalEntry = {
 	entry: EntityType;
-	info: { title: string; description?: ReactNode; warning?: ReactNode };
+	info: Entity['paletteInfo'];
 };
 
 type TabType = {
 	title: string;
-	category: Required<Entity>['paletteCategory'];
+	category: PaletteCategory;
 };
 
 const tabs: TabType[] = [
@@ -35,22 +38,34 @@ const tabs: TabType[] = [
 	{ title: 'Objects', category: 'object' },
 	{ title: 'Gizmos', category: 'gizmo' },
 	{ title: 'Power Ups', category: 'power-up' },
-	{ title: 'Bosses', category: 'boss' },
 	{ title: 'Warps', category: 'transport' },
 	{ title: 'Decorations', category: 'decoration' },
 	{ title: 'Unfinished', category: 'unfinished' },
 ];
 
-const entries: PaletteChoiceModalEntry[][] = tabs.map((t) => {
-	return Object.entries(entityMap)
-		.filter((e) => (e[1].paletteCategory ?? 'unfinished') === t.category)
-		.map((e) => {
-			return {
-				entry: e[0] as EntityType,
-				info: e[1].paletteInfo,
-			};
-		});
-});
+type AllEntriesType = Record<
+	PaletteCategory | 'unfinished',
+	Partial<Record<PaletteSubcategory | 'misc', PaletteChoiceModalEntry[]>>
+>;
+
+const allEntries: AllEntriesType = tabs.reduce<AllEntriesType>(
+	(building, t) => {
+		const tabEntries = Object.entries(entityMap)
+			.filter((e) => (e[1].paletteCategory ?? 'unfinished') === t.category)
+			.map((e) => {
+				return {
+					entry: e[0] as EntityType,
+					info: e[1].paletteInfo,
+				};
+			});
+
+		const groups = groupBy(tabEntries, (te) => te.info.subCategory ?? 'misc');
+
+		building[t.category] = groups;
+		return building;
+	},
+	{} as AllEntriesType
+);
 
 function isCompatible(
 	type: EntityType,
@@ -59,7 +74,45 @@ function isCompatible(
 	return validEntityTypes.includes(type);
 }
 
-function getSortComparator(validEntityTypes: EntityType[]) {
+const paletteSubCategoriesOrder: Array<PaletteSubcategory | 'misc'> = [
+	'terrain-basic',
+	'terrain-water',
+	'terrain-damaging',
+	'terrain-statues',
+	'enemy-common',
+	'enemy-piranha',
+	'enemy-fortress',
+	'enemy-desert',
+	'enemy-water',
+	'enemy-bro',
+	'enemy-giant',
+	'enemy-boss',
+	'misc',
+];
+
+const paletteSubCategoryLabel: Record<PaletteSubcategory | 'misc', string> = {
+	'terrain-basic': 'basic',
+	'terrain-water': 'water',
+	'terrain-damaging': 'damaging',
+	'terrain-statues': 'statues',
+	'enemy-common': 'common',
+	'enemy-piranha': 'piranha family',
+	'enemy-fortress': 'fortress',
+	'enemy-desert': 'desert',
+	'enemy-water': 'water',
+	'enemy-bro': 'bros',
+	'enemy-giant': 'giants',
+	'enemy-boss': 'bosses',
+	misc: 'the rest...',
+};
+
+function subcategoryComparator(a: PaletteSubcategory, b: PaletteSubcategory) {
+	return (
+		paletteSubCategoriesOrder.indexOf(a) - paletteSubCategoriesOrder.indexOf(b)
+	);
+}
+
+function getCompatSortComparator(validEntityTypes: EntityType[]) {
 	return (a: PaletteChoiceModalEntry, b: PaletteChoiceModalEntry) => {
 		const aCompat = isCompatible(a.entry, validEntityTypes);
 		const bCompat = isCompatible(b.entry, validEntityTypes);
@@ -124,16 +177,17 @@ function UnfinishedDisclaimer() {
 
 function PaletteChoiceModal({
 	isOpen,
-	currentPaletteEntries,
 	validEntityTypes,
 	onEntryAdded,
 	onCancel,
 }: PaletteChoiceModalProps) {
 	const [currentTabIndex, setCurrentTabIndex] = useState(0);
-	const [currentEntryIndex, setCurrentEntryIndex] = useState(0);
+	const [
+		currentEntry,
+		setCurrentEntry,
+	] = useState<PaletteChoiceModalEntry | null>(null);
 
-	const currentEntries = entries[currentTabIndex] || [];
-	const currentEntry = currentEntries[currentEntryIndex];
+	const currentEntries = allEntries[tabs[currentTabIndex].category] || {};
 
 	return (
 		<Modal
@@ -155,7 +209,7 @@ function PaletteChoiceModal({
 								})}
 								onClick={() => {
 									setCurrentTabIndex(i);
-									setCurrentEntryIndex(0);
+									setCurrentEntry(null);
 								}}
 							>
 								{t.title}
@@ -166,38 +220,47 @@ function PaletteChoiceModal({
 						<UnfinishedDisclaimer />
 					)}
 					<div className={styles.currentEntries}>
-						{currentEntries
-							.sort(getSortComparator(validEntityTypes))
-							.map((ce, i) => {
-								// TODO: player should not be an entity
-								if (ce.entry === 'Player') {
-									return null;
-								}
-
+						{(Object.keys(currentEntries) as PaletteSubcategory[])
+							.sort(subcategoryComparator)
+							.map((groupKey) => {
 								return (
-									<PaletteEntryCmp
-										key={ce.entry}
-										className={clsx({
-											faded: currentPaletteEntries.some((e) => isEqual(ce, e)),
-										})}
-										isCurrent={currentEntryIndex === i}
-										entry={ce.entry}
-										onClick={() => setCurrentEntryIndex(i)}
-										buttonsOnHover
-										showAdd
-										showRemove={false}
-										incompatible={!isCompatible(ce.entry, validEntityTypes)}
-										onAddClick={() => {
-											onEntryAdded(ce.entry);
-										}}
-									/>
+									<div key={groupKey}>
+										{Object.keys(currentEntries).length > 1 && (
+											<h3>{paletteSubCategoryLabel[groupKey]}</h3>
+										)}
+										<div className="flex flex-row flex-wrap">
+											{
+												// @ts-ignore
+												currentEntries[groupKey]
+													.sort(getCompatSortComparator(validEntityTypes))
+													.map((e) => {
+														if (e.entry === 'Player') {
+															return null;
+														}
+
+														return (
+															<PaletteEntryCmp
+																key={e.entry}
+																isCurrent={currentEntry === e}
+																entry={e.entry}
+																onClick={() => setCurrentEntry(e)}
+																buttonsOnHover
+																showAdd
+																showRemove={false}
+																incompatible={
+																	!isCompatible(e.entry, validEntityTypes)
+																}
+																onAddClick={() => {
+																	onEntryAdded(e.entry);
+																}}
+															/>
+														);
+													})
+											}
+										</div>
+									</div>
 								);
 							})}
-						{currentEntries.length === 0 && (
-							<div className={styles.noEntries}>
-								No {tabs[currentTabIndex].title.toLowerCase()} yet!
-							</div>
-						)}
 					</div>
 				</div>
 

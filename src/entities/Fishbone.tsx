@@ -7,6 +7,7 @@ import { ANY_OBJECT_SET } from './constants';
 const Fishbone: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-fortress',
 		title: 'Fishbone',
 	},
 

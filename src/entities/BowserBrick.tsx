@@ -7,6 +7,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 const BowserBrick: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Bowser Brick',
 		description:
 			'I named this Bowser brick because this is the only kind of brick he will smash through when he dive bombs',

@@ -7,6 +7,7 @@ import { TileSpace } from './TileSpace';
 const BigBass: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-water',
 		title: 'Big Bass',
 		description: 'swims back and forth and jumps at Mario',
 	},

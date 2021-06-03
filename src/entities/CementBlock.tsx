@@ -7,6 +7,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 const CementBlock: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Cement Block',
 		description: "I guess it's cement?",
 	},

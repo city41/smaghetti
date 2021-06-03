@@ -7,6 +7,7 @@ import { encodeObjectSets, getBankParam1 } from './util';
 const Stalactite: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-damaging',
 		title: 'Stalactite',
 	},
 

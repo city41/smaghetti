@@ -7,6 +7,7 @@ import { ANY_OBJECT_SET } from './constants';
 const BowserFireStatue: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-statues',
 		title: 'Bowser Fire Statue',
 	},
 

@@ -8,6 +8,7 @@ import { objectSets } from './objectSets';
 const WoodWalkway: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Wood Walkway',
 	},
 

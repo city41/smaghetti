@@ -8,6 +8,7 @@ import { objectSets } from './objectSets';
 const IndestructibleBrick: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Indestructible Brick',
 		description: 'Kinda looks like chocolate',
 	},

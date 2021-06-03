@@ -101,7 +101,6 @@ function Palette({
 			<div className="overflow-x-auto flex flex-row flex-1 pb-1">{entries}</div>
 			<PaletteChoiceModal
 				isOpen={modalOpen && !disabled}
-				currentPaletteEntries={paletteEntries}
 				validEntityTypes={validEntityTypes}
 				onEntryAdded={(addedEntry) => {
 					onPaletteEntryAdded(addedEntry);

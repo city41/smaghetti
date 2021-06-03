@@ -12,6 +12,7 @@ import { objectSets } from './objectSets';
 const Brick: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-basic',
 		title: 'Brick',
 	},
 

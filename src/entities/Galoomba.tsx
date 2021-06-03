@@ -6,6 +6,7 @@ import { ANY_OBJECT_SET } from './constants';
 const Galoomba: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-common',
 		title: 'Galoomba',
 		description: 'The Goombas of SMW',
 	},
