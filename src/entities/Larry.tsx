@@ -8,14 +8,14 @@ import { KoopalingEditDetails } from './detailPanes/KoopalingEditDetails';
 
 const KOOPALING_ID = 1;
 
-const Ludwig: Entity = {
+const Larry: Entity = {
 	paletteCategory: 'boss',
 	paletteInfo: {
-		title: 'Ludwig',
+		title: 'Larry',
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [-1, -1, 2, -1, -1, 5],
+	spriteGraphicSets: [-1, -1, 2, -1, -1, 2],
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
@@ -44,10 +44,10 @@ const Ludwig: Entity = {
 			0x66d1,
 		],
 		tiles: [
-			[192, 193, 194],
-			[208, 209, 210],
-			[195, 196, 197],
-			[211, 212, 213],
+			[15, 1, 2],
+			[16, 17, 18],
+			[3, 4, 5],
+			[19, 20, 21],
 		],
 	},
 
@@ -66,10 +66,7 @@ const Ludwig: Entity = {
 		const style = { width: size, height: size, backgroundSize: '75% 100%' };
 
 		return (
-			<div
-				className="relative Ludwig-bg bg-center bg-no-repeat"
-				style={style}
-			/>
+			<div className="relative Larry-bg bg-center bg-no-repeat" style={style} />
 		);
 	},
 
@@ -87,8 +84,8 @@ const Ludwig: Entity = {
 		const wandStyle = {
 			width: TILE_SIZE,
 			height: TILE_SIZE,
-			top: 8,
-			left: -11,
+			top: 9,
+			left: -7,
 		};
 
 		const spaceStyle = {
@@ -99,7 +96,7 @@ const Ludwig: Entity = {
 		};
 
 		const body = (
-			<div className="relative Ludwig-bg bg-cover" style={style}>
+			<div className="relative Larry-bg bg-cover" style={style}>
 				<div className="absolute KoopalingWand-bg" style={wandStyle} />
 				<div className="absolute" style={spaceStyle}>
 					<TileSpace />
@@ -129,4 +126,4 @@ const Ludwig: Entity = {
 	},
 };
 
-export { Ludwig };
+export { Larry };
