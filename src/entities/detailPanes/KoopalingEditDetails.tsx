@@ -40,7 +40,7 @@ function KoopalingEditDetails({
 					<NumberPicker
 						value={currentFireballCount}
 						min={0}
-						max={254}
+						max={255}
 						onValueChange={(nfb) => onSettingsChange({ fireballCount: nfb })}
 					/>
 					{currentFireballCount === 0 && (
