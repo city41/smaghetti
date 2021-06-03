@@ -9,7 +9,6 @@ const SimpleBlackDoor: Entity = {
 	},
 
 	objectSets: encodeObjectSets([
-		[2, 0],
 		[2, 10],
 		[2, 11],
 		[2, 12],
@@ -55,6 +54,10 @@ const SimpleBlackDoor: Entity = {
 				{ tileIndex: 474, flip: 'hv' },
 			],
 		],
+	},
+
+	toObjectBinary(x, y) {
+		return [0x40, y, x, this.objectId];
 	},
 };
 
