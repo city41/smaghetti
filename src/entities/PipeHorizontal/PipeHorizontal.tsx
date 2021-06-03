@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { FaArrowUp, FaArrowDown, FaArrowsAltV } from 'react-icons/fa';
+import { FaArrowRight, FaArrowLeft, FaArrowsAltH } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
 import type { Entity } from '../types';
 import { encodeObjectSets, getBankParam1 } from '../util';
@@ -18,27 +18,27 @@ import {
 } from '../../components/make/editorSlice';
 import { TileSpace } from '../TileSpace';
 
-type PipeDirection = 'up' | 'down' | 'up-down';
+type PipeDirection = 'right' | 'left' | 'right-left';
 
 const transportDirectionToObjectId: Record<PipeDirection, number> = {
-	up: 0x17,
-	down: 0x1a,
-	'up-down': 0x2c,
+	right: 0x1e,
+	left: 0x1c,
+	'right-left': 0x2c,
 };
 
 const nonTransportDirectionToObjectId: Record<PipeDirection, number> = {
-	up: 0x18,
-	down: 0x1b,
-	'up-down': 0x0,
+	right: 0x1f,
+	left: 0x1d,
+	'right-left': 0x0,
 };
 
 const directionIcons: Record<PipeDirection, IconType> = {
-	up: FaArrowUp,
-	down: FaArrowDown,
-	'up-down': FaArrowsAltV,
+	right: FaArrowRight,
+	left: FaArrowLeft,
+	'right-left': FaArrowsAltH,
 };
 
-const directions = ['up', 'down']; //, 'up-down'];
+const directions = ['right', 'left']; //, 'right-left'];
 
 // TODO: this and getWarning() are very similar
 // TODO: horizontal exits
@@ -90,10 +90,9 @@ function getExitType(
 	return 'up-from-pipe';
 }
 
-const PipeVertical: Entity = {
-	paletteCategory: 'transport',
+const PipeHorizontal: Entity = {
 	paletteInfo: {
-		title: 'Pipe - Vertical',
+		title: 'Pipe - Horizontal',
 	},
 
 	objectSets: encodeObjectSets(objectSets),
@@ -101,10 +100,10 @@ const PipeVertical: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	settingsType: 'single',
-	defaultSettings: { width: 2, height: 2, direction: 'up' },
+	defaultSettings: { width: 2, height: 2, direction: 'left' },
 	dimensions: 'none',
-	param1: 'height',
-	objectId: 0x18,
+	param1: 'width',
+	objectId: 0x1e,
 	alternateObjectIds: Object.values(transportDirectionToObjectId).concat(
 		Object.values(nonTransportDirectionToObjectId)
 	),
@@ -113,14 +112,18 @@ const PipeVertical: Entity = {
 	getTransports(room, rooms, x, y, settings) {
 		const dest = settings.destination as DestinationSetProps;
 
-		if (dest) {
+		// right facing pipes cannot have transports
+		// TODO: totally confirm this, but so far it seems likely
+		const direction = settings.direction as PipeDirection;
+
+		if (dest && direction !== 'right') {
 			return [
 				{
 					destRoom: dest.room,
 					destX: dest.x,
 					destY: dest.y,
 					x,
-					y: y - 1,
+					y,
 					room,
 					exitCategory: 'pipe',
 					exitType: getExitType(dest, rooms),
@@ -132,7 +135,7 @@ const PipeVertical: Entity = {
 	},
 
 	toObjectBinary(x, y, _w, _h, settings) {
-		const height = settings.height ?? 1;
+		const width = settings.width ?? 1;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as PipeDirection;
 
@@ -141,56 +144,61 @@ const PipeVertical: Entity = {
 			: nonTransportDirectionToObjectId;
 		const objectId = objectIdMap[direction];
 
-		return [getBankParam1(1, height - 1), y, x, objectId];
+		return [getBankParam1(1, width - 1), y, x, objectId];
 	},
 
 	simpleRender(size) {
 		const style = { width: size, height: size };
-		const lipStyle = { width: size, height: size / 2 };
-		const bodyStyle = { width: size, height: size / 2, backgroundSize: '100%' };
+		const lipStyle = { width: size / 2, height: size };
+		const bodyStyle = {
+			width: size / 2,
+			height: size,
+			backgroundSize: '100% 100%',
+		};
 
 		return (
-			<div className="flex flex-col" style={style}>
-				<div className="PipeVerticalLip-bg bg-cover" style={lipStyle} />
-				<div className="PipeVerticalBody-bg bg-repeat-y" style={bodyStyle} />
+			<div className="flex flex-row" style={style}>
+				<div className="PipeHorizontalLip-bg bg-cover" style={lipStyle} />
+				<div className="PipeHorizontalBody-bg bg-repeat-x" style={bodyStyle} />
 			</div>
 		);
 	},
 
 	render(_showDetails, settings, onSettingsChange, entity) {
-		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const width = (settings.width ?? this.defaultSettings!.width) as number;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as PipeDirection;
 		const destination = settings.destination;
 
 		const style = {
-			width: 2 * TILE_SIZE,
-			height: height * TILE_SIZE,
+			height: 2 * TILE_SIZE,
+			width: width * TILE_SIZE,
 		};
 
 		const lipStyle = {
-			width: 2 * TILE_SIZE,
-			height: TILE_SIZE,
+			height: 2 * TILE_SIZE,
+			width: TILE_SIZE,
 		};
 
-		const bodyHeight = direction === 'up-down' ? height - 2 : height - 1;
+		const bodyWidth = direction === 'right-left' ? width - 2 : width - 1;
 		const bodyStyle = {
-			width: 2 * TILE_SIZE,
-			height: bodyHeight * TILE_SIZE,
-			backgroundSize: '100%',
+			height: 2 * TILE_SIZE,
+			width: bodyWidth * TILE_SIZE,
+			backgroundSize: '100% 100%',
 		};
 
-		const size = { x: 1, y: height };
+		const size = { x: width, y: 1 };
 		const DirectionIcon = directionIcons[direction];
 
-		const upperLip = (
+		const leftLip = (
 			<div
-				className="PipeVerticalLip-bg flex flex-row items-center justify-around"
+				className="PipeHorizontalLip-bg flex flex-col items-center justify-around"
 				style={lipStyle}
 			>
 				{!!entity && (
 					<>
 						<TransportSource
+							className={clsx({ invisible: direction === 'right' })}
 							destRoom={destination?.room}
 							destX={destination?.x}
 							destY={destination?.y}
@@ -216,35 +224,35 @@ const PipeVertical: Entity = {
 			</div>
 		);
 
-		const lowerLip = <div className="PipeVerticalLip-bg" style={lipStyle} />;
+		const rightLip = <div className="PipeHorizontalLip-bg" style={lipStyle} />;
 
 		const body = (
-			<div className="PipeVerticalBody-bg bg-repeat-y" style={bodyStyle} />
+			<div className="PipeHorizontalBody-bg bg-repeat-y" style={bodyStyle} />
 		);
 
 		return (
 			<div
 				style={style}
-				className={clsx('relative flex flex-col', {
+				className={clsx('relative flex flex-row', {
 					[styles.resizing]: settings?.resizing,
 				})}
 			>
 				{!!entity && <TileSpace className="absolute w-full h-full" />}
-				{direction === 'up' ? (
+				{direction === 'right' ? (
 					<>
-						{upperLip}
 						{body}
+						{leftLip}
 					</>
-				) : direction === 'down' ? (
+				) : direction === 'left' ? (
 					<>
+						{leftLip}
 						{body}
-						{upperLip}
 					</>
 				) : (
 					<>
-						{upperLip}
+						{leftLip}
 						{body}
-						{lowerLip}
+						{rightLip}
 					</>
 				)}
 				{entity && (
@@ -253,9 +261,9 @@ const PipeVertical: Entity = {
 						style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
 						size={size}
 						increment={TILE_SIZE}
-						axis="y"
+						axis="x"
 						onSizeChange={(newSizePoint) => {
-							onSettingsChange({ height: Math.max(1, newSizePoint.y) });
+							onSettingsChange({ width: Math.max(1, newSizePoint.x) });
 						}}
 						onResizeStart={() => onSettingsChange({ resizing: true })}
 						onResizeEnd={() => onSettingsChange({ resizing: false })}
@@ -315,4 +323,4 @@ const PipeVertical: Entity = {
 	},
 };
 
-export { PipeVertical };
+export { PipeHorizontal };

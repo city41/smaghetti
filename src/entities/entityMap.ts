@@ -112,6 +112,7 @@ import { ParaBeetle } from './ParaBeetle';
 import { ParaBomberGoomba } from './ParaBomberGoomba';
 import { ParaGoomba } from './ParaGoomba';
 import { PileDriverMiniGoomba } from './PileDriverMiniGoomba';
+import { PipeHorizontal } from './PipeHorizontal';
 import { PipeVertical } from './PipeVertical';
 import { PiranhaPlant } from './PiranhaPlant';
 import { Player } from './Player';
@@ -277,6 +278,7 @@ const entityMap = {
 	ParaBomberGoomba,
 	ParaGoomba,
 	PileDriverMiniGoomba,
+	PipeHorizontal,
 	PipeVertical,
 	PiranhaPlant,
 	Player,
