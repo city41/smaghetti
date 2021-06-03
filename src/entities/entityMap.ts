@@ -156,6 +156,7 @@ import { TriangularBlock } from './TriangularBlock';
 import { Vine } from './Vine';
 import { WaterCheepCheep } from './WaterCheepCheep';
 import { Waterfall } from './Waterfall';
+import { Wendy } from './Wendy';
 import { WingedPlatform } from './WingedPlatform';
 import { WoodBlock } from './WoodBlock';
 import { WoodDoor } from './WoodDoor';
@@ -323,6 +324,7 @@ const entityMap = {
 	Vine,
 	WaterCheepCheep,
 	Waterfall,
+	Wendy,
 	WingedPlatform,
 	WoodBlock,
 	WoodDoor,
