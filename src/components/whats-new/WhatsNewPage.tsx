@@ -19,6 +19,13 @@ function dateToHumanString(input: string): string {
 	return `${day} ${month} ${year}`;
 }
 
+function toId(s: string): string {
+	return s
+		.toLowerCase()
+		.replace(/\s/g, '-')
+		.replace(/[^a-zA-Z0-9-]/g, '');
+}
+
 function NewEntry({
 	title,
 	date,
@@ -28,14 +35,21 @@ function NewEntry({
 	date: string;
 	children: ReactNode;
 }) {
+	const id = toId(`${title} ${date}`);
+
 	return (
 		<div className="mt-16 pb-16 px-4 sm:px-0 border-b border-dotted border-gray-500 last:border-0">
-			<h3 className="text-gray-400 font-bold mb-4 text-xl flex flex-row justify-between items-baseline">
-				<span className="flex-1">{title}</span>
-				<time className="text-sm" dateTime={date}>
-					{dateToHumanString(date)}
-				</time>
-			</h3>
+			<a href={`#${id}`}>
+				<h3
+					id={id}
+					className="group relative text-gray-400 font-bold mb-4 text-xl flex flex-row justify-between items-baseline"
+				>
+					<span className="flex-1">{title}</span>
+					<time className="text-sm" dateTime={date}>
+						{dateToHumanString(date)}
+					</time>
+				</h3>
+			</a>
 			<div className="space-y-4 text-gray-50">{children}</div>
 		</div>
 	);
@@ -52,12 +66,12 @@ function WhatsNewPage() {
 				<NewEntry title="Ludwig configuration" date="2021-06-03">
 					<p>
 						You can now configure how many fireballs it takes to kill Ludwig, as
-						well as how many stops it takes.
+						well as how many stomps it takes.
 					</p>
 					<p>
 						Thanks to NintyAlex for figuring this out. He also figured out more
-						info on Bowser as well as other Koopalings, which will get added to
-						Smaghetti eventually.
+						info on Bowser, Boom Boom, as well as other Koopalings, which will
+						get added to Smaghetti eventually.
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-02">
