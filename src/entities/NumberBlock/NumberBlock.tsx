@@ -6,7 +6,7 @@ import { encodeObjectSets, getBankParam1 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { EntityType } from '../entityMap';
 import { ResourceType } from '../../resources/resourceMap';
-import { PayloadEditDetails } from '../../components/details/PayloadEditDetails';
+import { PayloadEditDetails } from '../detailPanes/PayloadEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
 

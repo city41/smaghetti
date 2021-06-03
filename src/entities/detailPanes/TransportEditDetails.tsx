@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from 'react';
 import { FaDoorOpen, FaLock, FaUnlock } from 'react-icons/fa';
-import { TransportDestinationModal } from '../Transport/TransportDestinationModal';
-import { DestinationSetProps } from '../Transport/TransportDestinationModal/TransportDestinationModal';
+import { TransportDestinationModal } from '../../components/Transport/TransportDestinationModal';
+import { DestinationSetProps } from '../../components/Transport/TransportDestinationModal/TransportDestinationModal';
 
 type TransportEditDetailsProps = {
 	width: number;

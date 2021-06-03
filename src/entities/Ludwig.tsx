@@ -46,7 +46,7 @@ const Ludwig: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return [1, 0x14, x, y, 0x73, 0xa];
+		return [1, 0x14, x, y, 0x71, 0xa];
 	},
 
 	simpleRender(size) {

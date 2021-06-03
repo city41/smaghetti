@@ -4,7 +4,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { TileSpace } from './TileSpace';
-import { AngleEditDetails } from '../components/details/AngleEditDetails';
+import { AngleEditDetails } from './detailPanes/AngleEditDetails';
 
 const angleToDirection: Record<number, string> = {
 	0: 'proceed-right',

@@ -4,9 +4,9 @@ import { TileSpace } from './TileSpace';
 import React from 'react';
 import { ANY_OBJECT_SET } from './constants';
 import { ResourceType } from '../resources/resourceMap';
-import { PayloadViewDetails } from '../components/details/PayloadViewDetails';
+import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
 import { EntityType } from './entityMap';
-import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
+import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 

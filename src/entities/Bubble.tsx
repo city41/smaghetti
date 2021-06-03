@@ -2,10 +2,10 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
-import { PayloadViewDetails } from '../components/details/PayloadViewDetails';
+import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
-import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
+import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { ANY_OBJECT_SET } from './constants';
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];

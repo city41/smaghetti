@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
-import { AngleEditDetails } from '../../components/details/AngleEditDetails';
+import { AngleEditDetails } from '../detailPanes/AngleEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
 import { encodeObjectSets } from '../util';

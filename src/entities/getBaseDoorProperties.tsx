@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { TransportSource } from '../components/Transport/TransportSource';
-import { TransportEditDetails } from '../components/details/TransportEditDetails';
+import { TransportEditDetails } from './detailPanes/TransportEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { DestinationSetProps } from '../components/Transport/TransportDestinationModal/TransportDestinationModal';
 import {

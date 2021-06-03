@@ -5,7 +5,7 @@ import React from 'react';
 import {
 	CardinalDirection,
 	CardinalDirectionEditDetails,
-} from '../../components/details/CardinalDirectionEditDetails';
+} from '../detailPanes/CardinalDirectionEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
 import { encodeObjectSets } from '../util';

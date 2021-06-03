@@ -1,8 +1,8 @@
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
-import { PayloadViewDetails } from '../components/details/PayloadViewDetails';
+import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
+import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
 import { ResourceType } from '../resources/resourceMap';
 import { EntityType } from './entityMap';
 import { ANY_OBJECT_SET } from './constants';

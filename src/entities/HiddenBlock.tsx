@@ -1,10 +1,10 @@
 import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
-import { PayloadViewDetails } from '../components/details/PayloadViewDetails';
+import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
-import { PayloadEditDetails } from '../components/details/PayloadEditDetails';
+import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { encodeObjectSets } from './util';
 import { objectSets } from './QuestionBlock/objectSets';

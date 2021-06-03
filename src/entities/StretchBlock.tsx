@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
-import { OrientationEditDetails } from '../components/details/OrientationEditDetails';
+import { OrientationEditDetails } from './detailPanes/OrientationEditDetails';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const orientationToObjectId = {
