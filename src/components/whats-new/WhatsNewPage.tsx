@@ -68,6 +68,7 @@ function WhatsNewPage() {
 						<li>Iggy</li>
 						<li>Larry</li>
 						<li>Morton</li>
+						<li>Roy</li>
 						<li>Wendy</li>
 					</ul>
 				</NewEntry>
