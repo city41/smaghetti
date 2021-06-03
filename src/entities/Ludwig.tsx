@@ -3,6 +3,8 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
+import { KoopalingViewDetails } from './detailPanes/KoopalingViewDetails';
+import { KoopalingEditDetails } from './detailPanes/KoopalingEditDetails';
 
 const Ludwig: Entity = {
 	paletteCategory: 'boss',
@@ -15,6 +17,8 @@ const Ludwig: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
+	settingsType: 'single',
+	defaultSettings: { stompCount: 3, fireballCount: 10 },
 	objectId: 0x72,
 
 	resource: {
@@ -45,8 +49,15 @@ const Ludwig: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
-		return [1, 0x14, x, y, 0x71, 0xa];
+	toSpriteBinary(x, y, _w, _h, settings) {
+		const fireballCount = (settings.fireballCount ??
+			this.defaultSettings!.fireballCount) as number;
+		const stompCount = (settings.stompCount ??
+			this.defaultSettings!.stompCount) as number;
+
+		const stompParam = (0x7 << 4) | (stompCount & 0xf);
+
+		return [1, 0x14, x, y, stompParam, fireballCount & 0xff];
 	},
 
 	simpleRender(size) {
@@ -60,7 +71,12 @@ const Ludwig: Entity = {
 		);
 	},
 
-	render() {
+	render(showDetails, settings, onSettingsChange) {
+		const stompCount = (settings.stompCount ??
+			this.defaultSettings!.stompCount) as number;
+		const fireballCount = (settings.fireballCount ??
+			this.defaultSettings!.fireballCount) as number;
+
 		const style = {
 			width: TILE_SIZE * 1.5,
 			height: TILE_SIZE * 2,
@@ -80,14 +96,34 @@ const Ludwig: Entity = {
 			left: 0,
 		};
 
-		return (
+		const body = (
 			<div className="relative Ludwig-bg bg-cover" style={style}>
 				<div className="absolute KoopalingWand-bg" style={wandStyle} />
 				<div className="absolute" style={spaceStyle}>
 					<TileSpace />
 				</div>
+				<KoopalingViewDetails
+					stompCount={stompCount}
+					fireballCount={fireballCount}
+				/>
 			</div>
 		);
+
+		if (showDetails) {
+			return (
+				<KoopalingEditDetails
+					currentStompCount={stompCount}
+					currentFireballCount={fireballCount}
+					width={TILE_SIZE * 1.5}
+					height={TILE_SIZE * 2}
+					onSettingsChange={onSettingsChange}
+				>
+					{body}
+				</KoopalingEditDetails>
+			);
+		} else {
+			return body;
+		}
 	},
 };
 
