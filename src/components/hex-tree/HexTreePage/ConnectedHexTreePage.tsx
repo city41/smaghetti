@@ -36,11 +36,13 @@ function parsedRoomToBinary(room: LevelTreeRoom): BinaryRoom {
 		}
 	}, []);
 
+	let transportCount = 0;
 	const transportData = room.transports.transports.reduce<number[]>(
 		(building, tr) => {
 			if (tr.exclude) {
 				return building;
 			} else {
+				++transportCount;
 				return building.concat(tr.rawBytes);
 			}
 		},
@@ -50,7 +52,7 @@ function parsedRoomToBinary(room: LevelTreeRoom): BinaryRoom {
 	return {
 		objectData: room.objects.header.rawBytes.concat(objects, [0xff]),
 		levelSettingsData: room.levelSettings.rawBytes,
-		transportData,
+		transportData: [transportCount, 0].concat(transportData),
 		spriteData: [0].concat(sprites, [0xff]),
 		blockPathData: room.blockPaths.rawBytes,
 		autoScrollData: room.autoScroll.rawBytes,
