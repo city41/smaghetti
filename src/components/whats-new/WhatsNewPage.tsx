@@ -67,10 +67,12 @@ function WhatsNewPage() {
 					<ul className="ml-8 list-disc">
 						<li>Iggy</li>
 						<li>Larry</li>
+						<li>Lemmy</li>
 						<li>Morton</li>
 						<li>Roy</li>
 						<li>Wendy</li>
 					</ul>
+					<p>All Koopalings!</p>
 				</NewEntry>
 				<NewEntry title="Ludwig configuration" date="2021-06-03">
 					<p>

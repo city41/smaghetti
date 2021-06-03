@@ -97,6 +97,7 @@ import { LakituCloud } from './LakituCloud';
 import { Larry } from './Larry';
 import { Lava } from './Lava';
 import { Leaf } from './Leaf';
+import { Lemmy } from './Lemmy';
 import { LilSparky } from './LilSparky';
 import { LogBridge } from './LogBridge';
 import { Ludwig } from './Ludwig';
@@ -267,6 +268,7 @@ const entityMap = {
 	FallAwaySpike,
 	Lava,
 	Leaf,
+	Lemmy,
 	LilSparky,
 	LogBridge,
 	Ludwig,
