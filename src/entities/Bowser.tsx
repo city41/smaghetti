@@ -9,7 +9,7 @@ const Bowser: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-boss',
-		title: ' Bowser',
+		title: 'Bowser',
 		description:
 			'SMB3 style Bowser. Be sure to user bowser bricks as the flooring, they are the only kind he can smash through.',
 	},

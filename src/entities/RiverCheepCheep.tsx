@@ -9,7 +9,7 @@ const RiverCheepCheep: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-water',
-		title: 'River Cheep Cheep',
+		title: 'Cheep Cheep - River',
 		description:
 			'Aggressively swims back and forth near the surface of the water. Jumps out at Mario if he is above.',
 	},

@@ -10,7 +10,7 @@ const RedParaTroopa: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-common',
-		title: 'Red Para Troopa',
+		title: 'Koopa Troopa - Red Para Troopa',
 	},
 
 	objectSets: ANY_OBJECT_SET,

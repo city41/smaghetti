@@ -11,7 +11,7 @@ const GreenParaTroopa: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-common',
-		title: 'Green Para Troopa',
+		title: 'Koopa Troopa - Green Para Troopa',
 	},
 
 	objectSets: ANY_OBJECT_SET,

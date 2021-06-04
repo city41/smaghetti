@@ -125,7 +125,7 @@ function getCompatSortComparator(validEntityTypes: EntityType[]) {
 			return 1;
 		}
 
-		return a.entry.localeCompare(b.entry);
+		return a.info.title.localeCompare(b.info.title);
 	};
 }
 

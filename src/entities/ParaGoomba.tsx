@@ -9,7 +9,7 @@ const ParaGoomba: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-common',
-		title: 'Para Goomba',
+		title: 'Goomba - Para',
 	},
 
 	objectSets: ANY_OBJECT_SET,

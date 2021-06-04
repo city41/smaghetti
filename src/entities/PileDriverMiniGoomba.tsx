@@ -6,7 +6,8 @@ import { ANY_OBJECT_SET } from './constants';
 const PileDriverMiniGoomba: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		title: 'Pile Driver Mini Goomba',
+		subCategory: 'enemy-common',
+		title: 'Goomba - Pile Driver Mini',
 	},
 
 	objectSets: ANY_OBJECT_SET,

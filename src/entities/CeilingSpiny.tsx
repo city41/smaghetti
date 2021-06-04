@@ -9,7 +9,7 @@ const CeilingSpiny: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-common',
-		title: 'Ceiling Spiny',
+		title: 'Spiny - Ceiling',
 		description: 'Drops down and attacks when Mario is below',
 	},
 

@@ -9,7 +9,7 @@ const BeachedCheepCheep: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-water',
-		title: 'Beached Cheep Cheep',
+		title: 'Cheep Cheep - Beached',
 		description: 'Flops around on the land',
 	},
 

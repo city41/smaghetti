@@ -9,7 +9,7 @@ const ParaBomberGoomba: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-common',
-		title: 'Para Bomber Goomba',
+		title: 'Goomba - Para Bomber',
 		description: 'Flies high and drops mini goombas',
 	},
 

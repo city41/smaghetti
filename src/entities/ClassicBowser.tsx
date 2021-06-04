@@ -9,7 +9,7 @@ const ClassicBowser: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-boss',
-		title: 'Classic Bowser',
+		title: 'Bowser - Classic',
 		description: 'SMB1 style Bowser',
 	},
 

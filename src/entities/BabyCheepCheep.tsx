@@ -7,7 +7,7 @@ const BabyCheepCheep: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-water',
-		title: 'Baby Cheep Cheep',
+		title: 'Cheep Cheep - Baby',
 		description:
 			"Normally they come out of big bertha's mouth. But you can spawn them separately too!",
 	},

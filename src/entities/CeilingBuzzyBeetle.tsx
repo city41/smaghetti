@@ -9,7 +9,7 @@ const CeilingBuzzyBeetle: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-common',
-		title: 'Ceiling Buzzy Beetle',
+		title: 'Buzzy Beetle - Ceiling',
 		description: 'Drops down and attacks when Mario is below',
 	},
 
