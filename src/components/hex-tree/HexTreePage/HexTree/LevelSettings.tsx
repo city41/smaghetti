@@ -1,6 +1,7 @@
 import React from 'react';
 import { ParsedLevelSettings } from '../../../../levelData/parseLevelSettingsFromLevelFile';
 import { ByteInputField } from './ByteInputField';
+import { toHexString } from '../util';
 
 type LevelSettingsProps = {
 	levelSettings: {
@@ -56,6 +57,18 @@ function LevelSettings({ levelSettings, onPatch }: LevelSettingsProps) {
 			<div className="grid grid-cols-11 grid-rows-2 p-1">
 				{keys}
 				{values}
+			</div>
+			<div className="m-1 p-1 bg-gray-500 text-white">
+				<div>
+					{' '}
+					graphic sets:{' '}
+					{levelSettings.rawBytes.slice(16, 22).map(toHexString).join(' ')}
+				</div>
+				<div>
+					{' '}
+					remaining (mostly unknown) :{' '}
+					{levelSettings.rawBytes.slice(22).map(toHexString).join(' ')}
+				</div>
 			</div>
 		</div>
 	);
