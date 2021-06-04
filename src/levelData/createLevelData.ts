@@ -28,7 +28,7 @@ const exitTypeToCategoryByte: Record<EditorTransport['exitType'], number> = {
 const exitTypeToByte: Record<EditorTransport['exitType'], number> = {
 	door: 0,
 	'up-from-pipe': 1,
-	'down-from-pipe': 0,
+	'down-from-pipe': 2,
 	'horizontal-travel-right-pipe': 3,
 	'horizontal-travel-left-pipe': 4,
 };
@@ -435,6 +435,9 @@ function getTransports(
 			sx, // sx
 			t.destRoom,
 			0, // 0
+			// these patches to the dest are done here to account for differences depending on the
+			// exit type, but allowing the editor to always have warps be placed at the upperleft corner
+			// of a pipe, regardless of its orientation
 			t.exitType === 'down-from-pipe' ? encodedDY - 1 : encodedDY, // dy
 			dx,
 			16, // cy
