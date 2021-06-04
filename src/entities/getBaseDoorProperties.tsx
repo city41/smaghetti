@@ -166,6 +166,16 @@ function getBaseDoorProperties(bgClass: string, objectId: number) {
 				if (destEntity?.type === 'PipeVertical') {
 					return 'Doors can not warp to pipes';
 				}
+
+				if (
+					['SimpleBlackDoor', 'TexturedDoor', 'WoodDoor'].includes(
+						destEntity?.type ?? ''
+					)
+				) {
+					if (destEntity!.y / TILE_SIZE !== destination.y) {
+						return 'The exit should be at the top of the door';
+					}
+				}
 			}
 		},
 	} as const;
