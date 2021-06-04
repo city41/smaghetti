@@ -371,7 +371,15 @@ function getSprites(
 		const y = MAX_Y - yDiff;
 
 		return building.concat(
-			entityDef.toSpriteBinary(x, y, 1, 1, entity.settings ?? {})
+			entityDef.toSpriteBinary(
+				x,
+				y,
+				1,
+				1,
+				entity.settings ?? {},
+				entity,
+				entities
+			)
 		);
 	}, []);
 }

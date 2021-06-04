@@ -138,7 +138,9 @@ type Entity = {
 		y: number,
 		w: number,
 		h: number,
-		settings: EditorEntitySettings
+		settings: EditorEntitySettings,
+		entity?: EditorEntity,
+		otherEntitiesInRoom?: EditorEntity[]
 	) => number[];
 
 	getTransports?: (

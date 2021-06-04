@@ -4,12 +4,31 @@ import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
 
+function isRidingWingedPlatform(
+	entity: EditorEntity | undefined,
+	entities: EditorEntity[] | undefined
+): boolean {
+	if (!entity || !entities) {
+		return false;
+	}
+
+	const platform = entities.find((e) => {
+		return (
+			e.x === entity.x &&
+			e.y === entity.y + TILE_SIZE &&
+			e.type === 'WingedPlatform'
+		);
+	});
+
+	return !!platform;
+}
+
 const AmazingFlyinHammerBro: Entity = {
+	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-bro',
 		title: "Amazing Flyin' Hammer Bro",
 		description: 'Normally plopped on top of a Winged Platform',
-		warning: "So far can't get it to ride the Winged Platform :(",
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -18,6 +37,10 @@ const AmazingFlyinHammerBro: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xd9,
+	alternateObjectIds: [
+		0x2, // riding a winged platform
+		0xd9, // not riding a platform
+	],
 
 	resource: {
 		romOffset: 0x18fa98,
@@ -51,8 +74,9 @@ const AmazingFlyinHammerBro: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
-		return [0, this.objectId, x, y];
+	toSpriteBinary(x, y, _w, _h, _settings, entity, otherEntities) {
+		const objectId = isRidingWingedPlatform(entity, otherEntities) ? 0x2 : 0xd9;
+		return [0, objectId, x, y];
 	},
 
 	simpleRender(size) {
