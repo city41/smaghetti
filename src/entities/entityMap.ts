@@ -64,6 +64,7 @@ import { FluffyCloud } from './FluffyCloud';
 import { Flurry } from './Flurry';
 import { Flutter } from './Flutter';
 import { FlyingPiranhaPlant } from './FlyingPiranhaPlant';
+import { FortressAxe } from './FortressAxe';
 import { FortressBrick } from './FortressBrick';
 import { FullerFlowerBush } from './FullerFlowerBush';
 import { UpFortressSpike } from './UpFortressSpike';
@@ -237,6 +238,7 @@ const entityMap = {
 	Flurry,
 	Flutter,
 	FlyingPiranhaPlant,
+	FortressAxe,
 	FortressBrick,
 	FullerFlowerBush,
 	UpFortressSpike,
