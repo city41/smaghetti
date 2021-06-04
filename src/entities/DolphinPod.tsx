@@ -5,11 +5,11 @@ import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
 
 const DolphinPod: Entity = {
+	paletteCategory: 'enemy',
 	paletteInfo: {
+		subCategory: 'enemy-water',
 		title: 'Dolphin Pod',
-		description: "They don't hurt Mario, but riding them is challenging...",
-		warning:
-			"These are strange and don't always work as expected. More research is needed.",
+		description: 'These need some water to play in',
 	},
 
 	objectSets: ANY_OBJECT_SET,

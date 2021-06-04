@@ -51,7 +51,11 @@ type AllEntriesType = Record<
 const allEntries: AllEntriesType = tabs.reduce<AllEntriesType>(
 	(building, t) => {
 		const tabEntries = Object.entries(entityMap)
-			.filter((e) => (e[1].paletteCategory ?? 'unfinished') === t.category)
+			.filter(
+				(e) =>
+					(e[1].paletteCategory ?? 'unfinished') === t.category &&
+					e[0] !== 'Player'
+			)
 			.map((e) => {
 				return {
 					entry: e[0] as EntityType,
@@ -229,38 +233,36 @@ function PaletteChoiceModal({
 											<h3>{paletteSubCategoryLabel[groupKey]}</h3>
 										)}
 										<div className="flex flex-row flex-wrap">
-											{
-												// @ts-ignore
-												currentEntries[groupKey]
-													.sort(getCompatSortComparator(validEntityTypes))
-													.map((e) => {
-														if (e.entry === 'Player') {
-															return null;
-														}
-
-														return (
-															<PaletteEntryCmp
-																key={e.entry}
-																isCurrent={currentEntry === e}
-																entry={e.entry}
-																onClick={() => setCurrentEntry(e)}
-																buttonsOnHover
-																showAdd
-																showRemove={false}
-																incompatible={
-																	!isCompatible(e.entry, validEntityTypes)
-																}
-																onAddClick={() => {
-																	onEntryAdded(e.entry);
-																}}
-															/>
-														);
-													})
-											}
+											{currentEntries[groupKey]
+												?.sort(getCompatSortComparator(validEntityTypes))
+												.map((e) => {
+													return (
+														<PaletteEntryCmp
+															key={e.entry}
+															isCurrent={currentEntry === e}
+															entry={e.entry}
+															onClick={() => setCurrentEntry(e)}
+															buttonsOnHover
+															showAdd
+															showRemove={false}
+															incompatible={
+																!isCompatible(e.entry, validEntityTypes)
+															}
+															onAddClick={() => {
+																onEntryAdded(e.entry);
+															}}
+														/>
+													);
+												})}
 										</div>
 									</div>
 								);
 							})}
+						{Object.keys(currentEntries).length === 0 && (
+							<div className="h-full grid place-items-center">
+								nothing here!
+							</div>
+						)}
 					</div>
 				</div>
 
