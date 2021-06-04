@@ -1,5 +1,10 @@
 import { IGNORED_OFFSETS } from './ignoredCompressionOffsets';
 
+/**
+ * based on code written for NLZ-GBA, which is a tile viewer tool created by Nintenlord.
+ * https://www.romhacking.net/utilities/529/
+ */
+
 type TilePage = {
 	address: number;
 	tiles: Array<number[]>;

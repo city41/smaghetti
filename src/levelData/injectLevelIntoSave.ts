@@ -408,7 +408,7 @@ function findSameInfoRecord(saveFile: SaveFile, info: ELevelInfo): number {
 
 /**
  * injects a binary ereader level (a *.level file) into
- * a save file. Ported over from sma4savtool.cpp.
+ * a save file. Ported over from sma4savtool.cpp which was written by purplebridge001.
  *
  * NOTE: the level param is named "inputData" to match sma4savtool.cpp#addLevel,
  * which makes it easier to port the function over
