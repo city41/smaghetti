@@ -3,7 +3,7 @@ import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { encodeObjectSets } from '../util';
-// import { objectSets } from './objectSets';
+import { objectSets } from './objectSets';
 
 const PSwitch: Entity = {
 	paletteCategory: 'gizmo',
@@ -12,7 +12,7 @@ const PSwitch: Entity = {
 		description: 'Coins to bricks, bricks to coins, and other secrets...',
 	},
 
-	objectSets: encodeObjectSets([[0xa, 10]]),
+	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'actor',
 	editorType: 'cell',
@@ -47,7 +47,7 @@ const PSwitch: Entity = {
 	},
 
 	toObjectBinary(x, y) {
-		return [0x44, y, x, 6];
+		return [0, y, x, this.objectId];
 	},
 
 	simpleRender(size) {
