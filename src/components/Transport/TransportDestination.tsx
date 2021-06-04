@@ -7,34 +7,28 @@ import styles from './transportStyles.module.css';
 import { TransportDestinationModal } from './TransportDestinationModal';
 import { DestinationSetProps } from './TransportDestinationModal/TransportDestinationModal';
 import { MouseMode } from '../make/editorSlice';
-import { IconType } from 'react-icons';
 
 type TransportDestinationProps = {
 	style?: CSSProperties;
 	mouseMode: MouseMode;
-	exitCategory: EditorTransport['exitCategory'];
+	exitType: EditorTransport['exitType'];
 	destX: number;
 	destY: number;
 	destRoom: number;
 	onDestinationChange?: (props: DestinationSetProps | null) => void;
 };
 
-const exitCategoryIconMap: Record<EditorTransport['exitCategory'], IconType> = {
-	door: FaDoorOpen,
-	pipe: GiWarpPipe,
-};
-
 function TransportDestination({
 	style,
 	mouseMode,
-	exitCategory,
+	exitType,
 	destX,
 	destY,
 	destRoom,
 	onDestinationChange,
 }: TransportDestinationProps) {
 	const [modalOpen, setModalOpen] = useState(false);
-	const Icon = exitCategoryIconMap[exitCategory];
+	const Icon = exitType === 'door' ? FaDoorOpen : GiWarpPipe;
 
 	const finalStyle = {
 		...style,

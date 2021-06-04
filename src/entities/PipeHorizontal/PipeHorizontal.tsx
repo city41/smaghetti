@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { FaArrowRight, FaArrowLeft, FaArrowsAltH } from 'react-icons/fa';
+import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
 import type { Entity } from '../types';
 import { encodeObjectSets, getBankParam1 } from '../util';
@@ -11,86 +11,31 @@ import { objectSets } from './objectSets';
 
 import styles from '../../components/Resizer/ResizingStyles.module.css';
 import { TransportSource } from '../../components/Transport/TransportSource';
-import { DestinationSetProps } from '../../components/Transport/TransportDestinationModal/TransportDestinationModal';
-import {
-	getEntityTileBounds,
-	pointIsInside,
-} from '../../components/make/editorSlice';
 import { TileSpace } from '../TileSpace';
+import { getBasePipeProperties } from '../getBasePipeProperties';
 
-type PipeDirection = 'right' | 'left' | 'right-left';
+type PipeDirection = 'right' | 'left';
 
 const transportDirectionToObjectId: Record<PipeDirection, number> = {
 	right: 0x1e,
 	left: 0x1c,
-	'right-left': 0x2c,
 };
 
 const nonTransportDirectionToObjectId: Record<PipeDirection, number> = {
 	right: 0x1f,
 	left: 0x1d,
-	'right-left': 0x0,
 };
 
 const directionIcons: Record<PipeDirection, IconType> = {
 	right: FaArrowRight,
 	left: FaArrowLeft,
-	'right-left': FaArrowsAltH,
 };
 
-const directions = ['right', 'left']; //, 'right-left'];
-
-// TODO: this and getWarning() are very similar
-// TODO: horizontal exits
-function getExitType(
-	destination: DestinationSetProps,
-	rooms: RoomData[]
-): EditorTransport['exitType'] {
-	const destRoom = rooms[destination.room];
-
-	// there should be a pipe at the destination
-	const destPipe = destRoom.stage.entities.find((e) => {
-		return pointIsInside(destination, getEntityTileBounds(e));
-	});
-
-	if (!destPipe) {
-		// in a bad state, we can't know how to exit the pipe, the user
-		// got a warning in the editor about this, so take a stab that
-		// up from pipe works
-		return 'up-from-pipe';
-	}
-
-	// if this is an up or up-down pipe, are we at the top left corner?
-	if (
-		destPipe.type === 'PipeVertical' &&
-		(destPipe.settings?.direction === 'up' ||
-			destPipe.settings?.direction === 'up-down') &&
-		// TODO: stop using pixel coords for entities
-		destPipe.x / TILE_SIZE === destination.x &&
-		destPipe.y / TILE_SIZE === destination.y
-	) {
-		return 'up-from-pipe';
-	}
-
-	// if this is a down or up-down pipe, are we at its lower left corner?
-	if (
-		destPipe.type === 'PipeVertical' &&
-		(destPipe.settings?.direction === 'down' ||
-			destPipe.settings?.direction === 'up-down') &&
-		// TODO: stop using pixel coords for entities
-		destPipe.x / TILE_SIZE === destination.x &&
-		destPipe.y / TILE_SIZE + (destPipe.settings?.height ?? 1) - 1 ===
-			destination.y
-	) {
-		return 'down-from-pipe';
-	}
-
-	// uh oh, the pipes are not properly configured. The user gets a warning
-	// in the editor when this happens, so we'll just hope up works
-	return 'up-from-pipe';
-}
+const directions = ['right', 'left'];
 
 const PipeHorizontal: Entity = {
+	...getBasePipeProperties('PipeHorizontal'),
+	paletteCategory: 'transport',
 	paletteInfo: {
 		title: 'Pipe - Horizontal',
 	},
@@ -108,31 +53,6 @@ const PipeHorizontal: Entity = {
 		Object.values(nonTransportDirectionToObjectId)
 	),
 	emptyBank: 1,
-
-	getTransports(room, rooms, x, y, settings) {
-		const dest = settings.destination as DestinationSetProps;
-
-		// right facing pipes cannot have transports
-		// TODO: totally confirm this, but so far it seems likely
-		const direction = settings.direction as PipeDirection;
-
-		if (dest && direction !== 'right') {
-			return [
-				{
-					destRoom: dest.room,
-					destX: dest.x,
-					destY: dest.y,
-					x,
-					y,
-					room,
-					exitCategory: 'pipe',
-					exitType: getExitType(dest, rooms),
-				},
-			];
-		}
-
-		return [];
-	},
 
 	toObjectBinary(x, y, _w, _h, settings) {
 		const width = settings.width ?? 1;
@@ -180,7 +100,7 @@ const PipeHorizontal: Entity = {
 			width: TILE_SIZE,
 		};
 
-		const bodyWidth = direction === 'right-left' ? width - 2 : width - 1;
+		const bodyWidth = width - 1;
 		const bodyStyle = {
 			height: 2 * TILE_SIZE,
 			width: bodyWidth * TILE_SIZE,
@@ -224,8 +144,6 @@ const PipeHorizontal: Entity = {
 			</div>
 		);
 
-		const rightLip = <div className="PipeHorizontalLip-bg" style={lipStyle} />;
-
 		const body = (
 			<div className="PipeHorizontalBody-bg bg-repeat-y" style={bodyStyle} />
 		);
@@ -243,16 +161,10 @@ const PipeHorizontal: Entity = {
 						{body}
 						{leftLip}
 					</>
-				) : direction === 'left' ? (
-					<>
-						{leftLip}
-						{body}
-					</>
 				) : (
 					<>
 						{leftLip}
 						{body}
-						{rightLip}
 					</>
 				)}
 				{entity && (
@@ -271,55 +183,6 @@ const PipeHorizontal: Entity = {
 				)}
 			</div>
 		);
-	},
-
-	// TODO: this and getExitType() are very similar
-	// TODO: horizontal exits
-	getWarning(settings, _entity, _room, rooms) {
-		if (settings.destination) {
-			const WARNING = 'Warp must be placed at exit end of a destination pipe';
-
-			const destination = settings.destination as DestinationSetProps;
-			const destRoom = rooms[destination.room];
-
-			// the dest should be on top of a pipe
-			const destPipe = destRoom.stage.entities.find((e) => {
-				return pointIsInside(destination, getEntityTileBounds(e));
-			});
-
-			if (!destPipe) {
-				return WARNING;
-			}
-
-			// if this is an up or up-down pipe, are we at the top left corner?
-			if (
-				destPipe.type === 'PipeVertical' &&
-				(destPipe.settings?.direction === 'up' ||
-					destPipe.settings?.direction === 'up-down') &&
-				// TODO: stop using pixel coords for entities
-				destPipe.x / TILE_SIZE === destination.x &&
-				destPipe.y / TILE_SIZE === destination.y
-			) {
-				// no warning needed, dest is good
-				return;
-			}
-
-			// if this is a down or up-down pipe, are we at its lower left corner?
-			if (
-				destPipe.type === 'PipeVertical' &&
-				(destPipe.settings?.direction === 'down' ||
-					destPipe.settings?.direction === 'up-down') &&
-				// TODO: stop using pixel coords for entities
-				destPipe.x / TILE_SIZE === destination.x &&
-				destPipe.y / TILE_SIZE + (destPipe.settings?.height ?? 1) - 1 ===
-					destination.y
-			) {
-				// no warning needed, dest is good
-				return;
-			}
-
-			return WARNING;
-		}
 	},
 };
 

@@ -20,7 +20,7 @@ const levelTransportSlices = {
 	dx: [5, 1],
 	cy: [6, 1],
 	cx: [7, 1],
-	'?1': [8, 1],
+	ec: [8, 1],
 	et: [9, 1],
 };
 

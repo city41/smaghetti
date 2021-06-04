@@ -538,7 +538,7 @@ const Canvas = memo(function Canvas({
 						destX={td.destX}
 						destY={td.destY}
 						destRoom={td.destRoom}
-						exitCategory={td.exitCategory}
+						exitType={td.exitType}
 					/>
 				))}
 			</div>

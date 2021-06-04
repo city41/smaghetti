@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { FaArrowUp, FaArrowDown, FaArrowsAltV } from 'react-icons/fa';
+import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
 import type { Entity } from '../types';
 import { encodeObjectSets, getBankParam1 } from '../util';
@@ -11,86 +11,30 @@ import { objectSets } from './objectSets';
 
 import styles from '../../components/Resizer/ResizingStyles.module.css';
 import { TransportSource } from '../../components/Transport/TransportSource';
-import { DestinationSetProps } from '../../components/Transport/TransportDestinationModal/TransportDestinationModal';
-import {
-	getEntityTileBounds,
-	pointIsInside,
-} from '../../components/make/editorSlice';
 import { TileSpace } from '../TileSpace';
+import { getBasePipeProperties } from '../getBasePipeProperties';
 
-type PipeDirection = 'up' | 'down' | 'up-down';
+type PipeDirection = 'up' | 'down';
 
 const transportDirectionToObjectId: Record<PipeDirection, number> = {
 	up: 0x17,
 	down: 0x1a,
-	'up-down': 0x2c,
 };
 
 const nonTransportDirectionToObjectId: Record<PipeDirection, number> = {
 	up: 0x18,
 	down: 0x1b,
-	'up-down': 0x0,
 };
 
 const directionIcons: Record<PipeDirection, IconType> = {
 	up: FaArrowUp,
 	down: FaArrowDown,
-	'up-down': FaArrowsAltV,
 };
 
-const directions = ['up', 'down']; //, 'up-down'];
-
-// TODO: this and getWarning() are very similar
-// TODO: horizontal exits
-function getExitType(
-	destination: DestinationSetProps,
-	rooms: RoomData[]
-): EditorTransport['exitType'] {
-	const destRoom = rooms[destination.room];
-
-	// there should be a pipe at the destination
-	const destPipe = destRoom.stage.entities.find((e) => {
-		return pointIsInside(destination, getEntityTileBounds(e));
-	});
-
-	if (!destPipe) {
-		// in a bad state, we can't know how to exit the pipe, the user
-		// got a warning in the editor about this, so take a stab that
-		// up from pipe works
-		return 'up-from-pipe';
-	}
-
-	// if this is an up or up-down pipe, are we at the top left corner?
-	if (
-		destPipe.type === 'PipeVertical' &&
-		(destPipe.settings?.direction === 'up' ||
-			destPipe.settings?.direction === 'up-down') &&
-		// TODO: stop using pixel coords for entities
-		destPipe.x / TILE_SIZE === destination.x &&
-		destPipe.y / TILE_SIZE === destination.y
-	) {
-		return 'up-from-pipe';
-	}
-
-	// if this is a down or up-down pipe, are we at its lower left corner?
-	if (
-		destPipe.type === 'PipeVertical' &&
-		(destPipe.settings?.direction === 'down' ||
-			destPipe.settings?.direction === 'up-down') &&
-		// TODO: stop using pixel coords for entities
-		destPipe.x / TILE_SIZE === destination.x &&
-		destPipe.y / TILE_SIZE + (destPipe.settings?.height ?? 1) - 1 ===
-			destination.y
-	) {
-		return 'down-from-pipe';
-	}
-
-	// uh oh, the pipes are not properly configured. The user gets a warning
-	// in the editor when this happens, so we'll just hope up works
-	return 'up-from-pipe';
-}
+const directions = ['up', 'down'];
 
 const PipeVertical: Entity = {
+	...getBasePipeProperties('PipeVertical'),
 	paletteCategory: 'transport',
 	paletteInfo: {
 		title: 'Pipe - Vertical',
@@ -109,27 +53,6 @@ const PipeVertical: Entity = {
 		Object.values(nonTransportDirectionToObjectId)
 	),
 	emptyBank: 1,
-
-	getTransports(room, rooms, x, y, settings) {
-		const dest = settings.destination as DestinationSetProps;
-
-		if (dest) {
-			return [
-				{
-					destRoom: dest.room,
-					destX: dest.x,
-					destY: dest.y,
-					x,
-					y: y - 1,
-					room,
-					exitCategory: 'pipe',
-					exitType: getExitType(dest, rooms),
-				},
-			];
-		}
-
-		return [];
-	},
 
 	toObjectBinary(x, y, _w, _h, settings) {
 		const height = settings.height ?? 1;
@@ -173,7 +96,7 @@ const PipeVertical: Entity = {
 			height: TILE_SIZE,
 		};
 
-		const bodyHeight = direction === 'up-down' ? height - 2 : height - 1;
+		const bodyHeight = height - 1;
 		const bodyStyle = {
 			width: 2 * TILE_SIZE,
 			height: bodyHeight * TILE_SIZE,
@@ -216,8 +139,6 @@ const PipeVertical: Entity = {
 			</div>
 		);
 
-		const lowerLip = <div className="PipeVerticalLip-bg" style={lipStyle} />;
-
 		const body = (
 			<div className="PipeVerticalBody-bg bg-repeat-y" style={bodyStyle} />
 		);
@@ -235,16 +156,10 @@ const PipeVertical: Entity = {
 						{upperLip}
 						{body}
 					</>
-				) : direction === 'down' ? (
-					<>
-						{body}
-						{upperLip}
-					</>
 				) : (
 					<>
-						{upperLip}
 						{body}
-						{lowerLip}
+						{upperLip}
 					</>
 				)}
 				{entity && (
@@ -263,55 +178,6 @@ const PipeVertical: Entity = {
 				)}
 			</div>
 		);
-	},
-
-	// TODO: this and getExitType() are very similar
-	// TODO: horizontal exits
-	getWarning(settings, _entity, _room, rooms) {
-		if (settings.destination) {
-			const WARNING = 'Warp must be placed at exit end of a destination pipe';
-
-			const destination = settings.destination as DestinationSetProps;
-			const destRoom = rooms[destination.room];
-
-			// the dest should be on top of a pipe
-			const destPipe = destRoom.stage.entities.find((e) => {
-				return pointIsInside(destination, getEntityTileBounds(e));
-			});
-
-			if (!destPipe) {
-				return WARNING;
-			}
-
-			// if this is an up or up-down pipe, are we at the top left corner?
-			if (
-				destPipe.type === 'PipeVertical' &&
-				(destPipe.settings?.direction === 'up' ||
-					destPipe.settings?.direction === 'up-down') &&
-				// TODO: stop using pixel coords for entities
-				destPipe.x / TILE_SIZE === destination.x &&
-				destPipe.y / TILE_SIZE === destination.y
-			) {
-				// no warning needed, dest is good
-				return;
-			}
-
-			// if this is a down or up-down pipe, are we at its lower left corner?
-			if (
-				destPipe.type === 'PipeVertical' &&
-				(destPipe.settings?.direction === 'down' ||
-					destPipe.settings?.direction === 'up-down') &&
-				// TODO: stop using pixel coords for entities
-				destPipe.x / TILE_SIZE === destination.x &&
-				destPipe.y / TILE_SIZE + (destPipe.settings?.height ?? 1) - 1 ===
-					destination.y
-			) {
-				// no warning needed, dest is good
-				return;
-			}
-
-			return WARNING;
-		}
 	},
 };
 

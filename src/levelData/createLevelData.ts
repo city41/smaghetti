@@ -17,15 +17,18 @@ type Room = {
 
 const MAX_Y = 0x1b;
 
-const exitCategoryToByte: Record<EditorTransport['exitCategory'], number> = {
+const exitTypeToCategoryByte: Record<EditorTransport['exitType'], number> = {
 	door: 0,
-	pipe: 1,
+	'horizontal-travel-right-pipe': 1,
+	'horizontal-travel-left-pipe': 1,
+	'up-from-pipe': 1,
+	'down-from-pipe': 2,
 };
 
 const exitTypeToByte: Record<EditorTransport['exitType'], number> = {
 	door: 0,
 	'up-from-pipe': 1,
-	'down-from-pipe': 2,
+	'down-from-pipe': 0,
 	'horizontal-travel-right-pipe': 3,
 	'horizontal-travel-left-pipe': 4,
 };
@@ -424,11 +427,11 @@ function getTransports(
 			sx, // sx
 			t.destRoom,
 			0, // 0
-			encodedDY, // dy
+			t.exitType === 'down-from-pipe' ? encodedDY - 1 : encodedDY, // dy
 			dx,
 			16, // cy
 			7, // cx
-			exitCategoryToByte[t.exitCategory],
+			exitTypeToCategoryByte[t.exitType],
 			exitTypeToByte[t.exitType],
 		]);
 	}, transportsHeader);

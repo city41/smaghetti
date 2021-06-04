@@ -32,7 +32,6 @@ type EditorTransport = {
 	destX: number;
 	destY: number;
 	destRoom: number;
-	exitCategory: 'door' | 'pipe';
 	exitType:
 		| 'door'
 		| 'up-from-pipe'

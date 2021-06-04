@@ -11,19 +11,21 @@ import { TransportDestinationModal } from './TransportDestinationModal';
 import { DestinationSetProps } from './TransportDestinationModal/TransportDestinationModal';
 import { IconType } from 'react-icons';
 
+type ExitCategory = 'door' | 'pipe';
+
 type TransportSourceProps = {
 	className?: string;
 	style?: CSSProperties;
 	destRoom?: number;
 	destX?: number;
 	destY?: number;
-	exitCategory: EditorTransport['exitCategory'];
+	exitCategory: ExitCategory;
 	label?: string;
 	focused?: boolean;
 	onDestinationSet?: (props: DestinationSetProps | null) => void;
 };
 
-const exitCategoryIconMap: Record<EditorTransport['exitCategory'], IconType> = {
+const exitCategoryIconMap: Record<ExitCategory, IconType> = {
 	door: FaDoorClosed,
 	pipe: GiWarpPipe,
 };
