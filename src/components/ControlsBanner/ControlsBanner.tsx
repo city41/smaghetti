@@ -42,7 +42,7 @@ function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 				<div>or</div>
 				<FaKeyboard className="text-xl" />
 				<a
-					className="text-blue-300 underline"
+					className="text-blue-300 underline cursor-pointer"
 					onClick={() => setShowHelp((h) => !h)}
 				>
 					help

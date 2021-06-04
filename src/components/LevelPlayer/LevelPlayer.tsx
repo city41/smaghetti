@@ -67,9 +67,11 @@ function LevelPlayer({
 						levelData={createLevelData(level)}
 						isPlaying={isPlaying}
 					/>
+					<div className="fixed left-0 bottom-0 w-full grid place-items-center pointer-events-auto">
+						<ControlsBanner />
+					</div>
 				</div>
 			</BodyPortal>
-			<ControlsBanner />
 		</div>
 	);
 }
