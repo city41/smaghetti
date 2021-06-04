@@ -18,7 +18,7 @@ const alphaChecklist: MilestoneChecklistItem[] = [
 		description: 'Many entities in SMA4 are available to build levels with',
 	},
 	{
-		status: 'in-progress',
+		status: 'completed',
 		description: 'Pipes and pipe warps',
 	},
 	{
