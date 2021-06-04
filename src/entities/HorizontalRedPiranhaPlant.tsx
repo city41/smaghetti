@@ -6,17 +6,11 @@ import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-/**
- * TODO: needs a detail pane to pick direction.
- * But possibly will combine all red piranna plant
- * sprites into a single entity
- */
 const HorizontalRedPiranhaPlant: Entity = {
+	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-piranha',
-		title: 'Horizontal Red Piranha Plant',
-		warning:
-			"These will probably just be payloads that pipes can have, as they don't make sense by themselves",
+		title: 'Piranha Plant - Horizontal Red',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -76,14 +70,23 @@ const HorizontalRedPiranhaPlant: Entity = {
 			height: TILE_SIZE,
 			backgroundSize: '100%',
 			paddingRight: TILE_SIZE / 2,
+			marginTop: TILE_SIZE / 2,
+			marginLeft: TILE_SIZE * 1.5,
+		};
+
+		const spaceStyle = {
+			top: -TILE_SIZE / 2,
+			left: -TILE_SIZE * 1.5,
+			width: TILE_SIZE,
+			height: TILE_SIZE,
 		};
 
 		return (
 			<div
-				className="HorizontalRedPiranhaPlant-bg bg-center bg-no-repeat"
+				className="relative HorizontalRedPiranhaPlant-bg bg-center bg-no-repeat"
 				style={style}
 			>
-				<TileSpace />
+				<TileSpace className="absolute" style={spaceStyle} />
 			</div>
 		);
 	},
