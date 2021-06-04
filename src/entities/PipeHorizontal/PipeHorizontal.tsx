@@ -118,7 +118,6 @@ const PipeHorizontal: Entity = {
 				{!!entity && (
 					<>
 						<TransportSource
-							className={clsx({ invisible: direction === 'right' })}
 							destRoom={destination?.room}
 							destX={destination?.x}
 							destY={destination?.y}
