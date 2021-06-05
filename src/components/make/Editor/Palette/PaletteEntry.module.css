@@ -3,7 +3,7 @@
 }
 
 .button {
-	@apply invisible absolute z-10 outline-none border-none text-white rounded-lg p-0 w-full text-xs h-4 -bottom-2;
+	@apply absolute z-10 outline-none border-none text-white rounded-lg p-0 w-full text-xs h-4 -bottom-2;
 }
 
 .svg {
@@ -12,5 +12,5 @@
 }
 
 .buttonsOnHover:hover .button {
-	@apply visible opacity-100;
+	@apply visible;
 }

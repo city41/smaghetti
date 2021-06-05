@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
+import { IoMdAddCircle, IoMdRemoveCircle } from 'react-icons/io';
 
 import styles from './PaletteEntry.module.css';
 import { entityMap, EntityType } from '../../../../entities/entityMap';
@@ -36,7 +37,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 
 	return (
 		<div
-			className={clsx(className, styles.root, {
+			className={clsx(className, styles.root, 'group', {
 				[styles.buttonsOnHover]: buttonsOnHover && !disabled,
 				'border-2 border-transparent': !isCurrent,
 				'border-2 border-gray-700 bg-yellow-400': isCurrent && !disabled,
@@ -47,7 +48,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 		>
 			<div
 				className={clsx('w-full h-full grid place-items-center p-1', {
-					'opacity-20 hover:opacity-100': incompatible,
+					'opacity-20 hover:opacity-100': incompatible && !isCurrent,
 				})}
 			>
 				{item}
@@ -55,23 +56,30 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 
 			{showAdd && !incompatible && (
 				<button
-					className={clsx(styles.button, 'bg-green-600 text-white')}
+					className="absolute -top-2 -right-2 w-5 h-5 hidden group-hover:block"
 					onClick={onAddClick}
 				>
-					add
+					<IoMdAddCircle className="text-green-500 bg-white rounded-full w-full h-full" />
 				</button>
 			)}
 			{showRemove && !incompatible && (
 				<button
-					className={clsx(styles.button, 'bg-red-600 text-white')}
+					className="absolute -top-2 -right-2 w-5 h-5 hidden group-hover:block"
 					onClick={onRemoveClick}
 				>
-					remove
+					<IoMdRemoveCircle className="text-red-500 bg-white rounded-full w-full h-full" />
 				</button>
 			)}
 			{incompatible && (
 				<div
-					className={clsx(styles.button, 'bg-red-600 text-white text-center')}
+					className={clsx(
+						styles.button,
+						'bg-red-600 text-white text-center group-hover:block',
+						{
+							hidden: !isCurrent,
+							block: isCurrent,
+						}
+					)}
 				>
 					<div>can&apos;t add</div>
 				</div>
