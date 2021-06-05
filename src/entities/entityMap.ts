@@ -114,6 +114,7 @@ import { Morton } from './Morton';
 import { Muncher } from './Muncher';
 import { Mushroom } from './Mushroom';
 import { MusicBlock } from './MusicBlock';
+import { MusicBlockThreeWay } from './MusicBlockThreeWay';
 import { NumberBlock } from './NumberBlock';
 import { OneUpMushroom } from './OneUpMushroom';
 import { OneWayDoor } from './OneWayDoor';
@@ -293,6 +294,7 @@ const entityMap = {
 	Muncher,
 	Mushroom,
 	MusicBlock,
+	MusicBlockThreeWay,
 	NumberBlock,
 	OneUpMushroom,
 	OneWayDoor,

@@ -44,9 +44,9 @@ function getHeader(aceCoinCount: number): Tuple<number, 5> {
 	return [
 		0, // whether it has an ecoin
 		aceCoinCount, // number of ace coins
-		0, // eLevel class
+		0x17, // eLevel class
 		0, // eLevel number
-		0, // eLevel icon
+		0xc, // eLevel icon
 	];
 }
 

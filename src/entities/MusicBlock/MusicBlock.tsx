@@ -13,7 +13,7 @@ const MusicBlock: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-basic',
-		title: 'Music Block',
+		title: 'Note Block',
 	},
 
 	// TODO: other object sets appear to also work with slightly different color palettes
