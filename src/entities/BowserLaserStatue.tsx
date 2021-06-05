@@ -2,19 +2,19 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import React from 'react';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { encodeObjectSets } from './util';
+
+const LASER_OBJECT_ID = 0xa4;
 
 const BowserLaserStatue: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-statues',
 		title: 'Bowser Laser Statue',
-		warning: "They can't shoot lasers just yet...",
 	},
 
 	objectSets: encodeObjectSets([[2, 2]]),
-	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	spriteGraphicSets: [-1, -1, -1, -1, 2, -1],
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
@@ -51,6 +51,10 @@ const BowserLaserStatue: Entity = {
 
 	toObjectBinary(x, y) {
 		return [0, y, x, this.objectId];
+	},
+
+	toSpriteBinary(x, y) {
+		return [1, LASER_OBJECT_ID, x, y];
 	},
 
 	simpleRender(size) {

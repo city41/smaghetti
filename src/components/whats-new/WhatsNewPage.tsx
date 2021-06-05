@@ -63,6 +63,13 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Bowser Laser Statue" date="2021-06-04">
+					<p>Now shoots lasers.</p>
+					<p>
+						So far this is not optional, debating whether to make this a config
+						or not...
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-04">
 					<ul className="ml-8 list-disc">
 						<li>Amazing Flyin&apos; Hammer Bro</li>
