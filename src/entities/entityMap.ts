@@ -37,10 +37,11 @@ import { CeilingSpiny } from './CeilingSpiny';
 import { CementBlock } from './CementBlock';
 import { ChainChomp } from './ChainChomp';
 import { ChargingChuck } from './ChargingChuck';
+import { Chest } from './Chest';
 import { ChoppyWater } from './ChoppyWater';
+import { ClappingChuck } from './ClappingChuck';
 import { ClassicBowser } from './ClassicBowser';
 import { Clock } from './Clock';
-import { Chest } from './Chest';
 import { Coin } from './Coin';
 import { CoinChallenge } from './CoinChallenge';
 import { ConveyorBelt } from './ConveyorBelt';
@@ -53,8 +54,8 @@ import { EndOfLevelBackdrop } from './EndOfLevelBackdrop';
 import { FallAwayPlatform } from './FallAwayPlatform';
 import { FallAwaySpike } from './FallAwaySpike';
 import { FireBar } from './FireBar';
-import { FireBro } from './FireBro';
 import { FireBarBase } from './FireBarBase';
+import { FireBro } from './FireBro';
 import { FireFlower } from './FireFlower';
 import { Fishbone } from './Fishbone';
 import { FlagPole } from './FlagPole';
@@ -67,14 +68,13 @@ import { FlyingPiranhaPlant } from './FlyingPiranhaPlant';
 import { FortressAxe } from './FortressAxe';
 import { FortressBrick } from './FortressBrick';
 import { FullerFlowerBush } from './FullerFlowerBush';
-import { UpFortressSpike } from './UpFortressSpike';
 import { Galoomba } from './Galoomba';
-import { GrandGoomba } from './GrandGoomba';
 import { GiantGreenKoopa } from './GiantGreenKoopa';
 import { GiantGreenParaKoopa } from './GiantGreenParaKoopa';
 import { GiantRedKoopa } from './GiantRedKoopa';
 import { GlassBlock } from './GlassBlock';
 import { Goomba } from './Goomba';
+import { GrandGoomba } from './GrandGoomba';
 import { GrassHorizontal } from './GrassHorizontal';
 import { GrassUpperLeftCorner } from './GrassUpperLeftCorner';
 import { GrassUpperRightCorner } from './GrassUpperRightCorner';
@@ -116,6 +116,8 @@ import { MusicBlock } from './MusicBlock';
 import { NumberBlock } from './NumberBlock';
 import { OneUpMushroom } from './OneUpMushroom';
 import { OneWayDoor } from './OneWayDoor';
+import { POWBlock } from './POWBlock';
+import { PSwitch } from './PSwitch';
 import { ParaBeetle } from './ParaBeetle';
 import { ParaBomberGoomba } from './ParaBomberGoomba';
 import { ParaGoomba } from './ParaGoomba';
@@ -127,9 +129,9 @@ import { Player } from './Player';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PoolOfWater } from './PoolOfWater';
 import { PorcuPuffer } from './PorcuPuffer';
-import { POWBlock } from './POWBlock';
 import { PowerUpSlotMachine } from './PowerUpSlotMachine';
-import { PSwitch } from './PSwitch';
+import { PtooiePottedPiranhaPlant } from './PtooiePottedPiranhaPlant';
+import { PtooieWalkingPiranhaPlant } from './PtooieWalkingPiranhaPlant';
 import { QuestionBlock } from './QuestionBlock';
 import { QuestionMark } from './QuestionMark';
 import { RedKoopaTroopa } from './RedKoopaTroopa';
@@ -147,8 +149,6 @@ import { SpikeBall } from './SpikeBall';
 import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
 import { Stalactite } from './Stalactite';
-import { PtooiePottedPiranhaPlant } from './PtooiePottedPiranhaPlant';
-import { PtooieWalkingPiranhaPlant } from './PtooieWalkingPiranhaPlant';
 import { StarMan } from './StarMan';
 import { StretchBlock } from './StretchBlock';
 import { Swooper } from './Swooper';
@@ -160,6 +160,7 @@ import { Thwomp } from './Thwomp';
 import { TiltPlatform } from './TiltPlatform';
 import { Tornado } from './Tornado';
 import { TriangularBlock } from './TriangularBlock';
+import { UpFortressSpike } from './UpFortressSpike';
 import { Vine } from './Vine';
 import { WaterCheepCheep } from './WaterCheepCheep';
 import { Waterfall } from './Waterfall';
@@ -214,10 +215,11 @@ const entityMap = {
 	CementBlock,
 	ChainChomp,
 	ChargingChuck,
-	ClassicBowser,
-	Clock,
 	Chest,
 	ChoppyWater,
+	ClappingChuck,
+	ClassicBowser,
+	Clock,
 	Coin,
 	CoinChallenge,
 	ConveyorBelt,
@@ -228,9 +230,10 @@ const entityMap = {
 	DryBones,
 	EndOfLevelBackdrop,
 	FallAwayPlatform,
+	FallAwaySpike,
 	FireBar,
-	FireBro,
 	FireBarBase,
+	FireBro,
 	FireFlower,
 	Fishbone,
 	FlagPole,
@@ -243,19 +246,18 @@ const entityMap = {
 	FortressAxe,
 	FortressBrick,
 	FullerFlowerBush,
-	UpFortressSpike,
 	Galoomba,
+	GiantGreenKoopa,
+	GiantGreenParaKoopa,
+	GiantRedKoopa,
+	GlassBlock,
+	Goomba,
 	GrandGoomba,
 	GrassHorizontal,
 	GrassUpperLeftCorner,
 	GrassUpperRightCorner,
 	GrassVerticalLeft,
 	GrassVerticalRight,
-	GiantGreenKoopa,
-	GiantGreenParaKoopa,
-	GiantRedKoopa,
-	GlassBlock,
-	Goomba,
 	GreenKoopaTroopa,
 	GreenParaTroopa,
 	HammerBro,
@@ -275,7 +277,6 @@ const entityMap = {
 	Lakitu,
 	LakituCloud,
 	Larry,
-	FallAwaySpike,
 	Lava,
 	Leaf,
 	Lemmy,
@@ -293,6 +294,7 @@ const entityMap = {
 	NumberBlock,
 	OneUpMushroom,
 	OneWayDoor,
+	POWBlock,
 	PSwitch,
 	ParaBeetle,
 	ParaBomberGoomba,
@@ -305,7 +307,6 @@ const entityMap = {
 	PoisonMushroom,
 	PoolOfWater,
 	PorcuPuffer,
-	POWBlock,
 	PowerUpSlotMachine,
 	PtooiePottedPiranhaPlant,
 	PtooieWalkingPiranhaPlant,
@@ -337,6 +338,7 @@ const entityMap = {
 	TiltPlatform,
 	Tornado,
 	TriangularBlock,
+	UpFortressSpike,
 	Vine,
 	WaterCheepCheep,
 	Waterfall,

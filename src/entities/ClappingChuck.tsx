@@ -4,10 +4,10 @@ import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
 
-const ChargingChuck: Entity = {
+const ClappingChuck: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		title: 'Charging Chuck',
+		title: 'Clapping Chuck',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -18,7 +18,8 @@ const ChargingChuck: Entity = {
 	objectId: 0x9b,
 
 	toSpriteBinary(x, y) {
-		return [0, this.objectId, x, y, 0];
+		// last byte: 0 = charging, 1 = clapping
+		return [0, this.objectId, x, y, 1];
 	},
 
 	simpleRender(size) {
@@ -41,7 +42,7 @@ const ChargingChuck: Entity = {
 					style={headStyle}
 				/>
 				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
-					charge
+					clap
 				</div>
 			</div>
 		);
@@ -87,14 +88,14 @@ const ChargingChuck: Entity = {
 					<TileSpace />
 				</div>
 				<div
-					className="absolute left-1 xw-full text-center bg-black text-white"
+					className="absolute left-1 text-center bg-black text-white"
 					style={labelStyle}
 				>
-					charge
+					clap
 				</div>
 			</div>
 		);
 	},
 };
 
-export { ChargingChuck };
+export { ClappingChuck };
