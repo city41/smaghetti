@@ -1423,6 +1423,10 @@ const editorSlice = createSlice({
 				startingPoint: Point;
 			}>
 		) {
+			if (state.mouseMode !== 'select') {
+				return;
+			}
+
 			const currentRoom = getCurrentRoom(state);
 			const { bounds, startingPoint } = action.payload;
 
