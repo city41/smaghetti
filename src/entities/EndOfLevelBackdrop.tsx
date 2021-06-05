@@ -64,6 +64,7 @@ const EndOfLevelBackdrop: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	dimensions: 'none',
 	objectId: 0x29,
+	emptyBank: 0,
 
 	resource: {
 		romOffset: 0x16ea40,
