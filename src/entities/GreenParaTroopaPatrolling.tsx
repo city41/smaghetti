@@ -7,12 +7,12 @@ import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 // TODO: 0x80 is a green para troop that flies back and forth
-const GreenParaTroopa: Entity = {
+const GreenParaTroopaPatrolling: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-common',
-		title: 'Koopa Troopa - Green Para Troopa, hopping',
-		description: 'Hops along the ground',
+		title: 'Koopa Troopa - Green Para Troopa, Patrolling',
+		description: 'Flies back and forth',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -20,7 +20,7 @@ const GreenParaTroopa: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x6e,
+	objectId: 0x80,
 
 	resource: {
 		palette: [
@@ -74,11 +74,11 @@ const GreenParaTroopa: Entity = {
 
 		return (
 			<div
-				className="relative GreenParaTroopa-bg bg-center bg-no-repeat"
+				className="relative GreenParaTroopaPatrolling-bg bg-center bg-no-repeat"
 				style={style}
 			>
 				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
-					hop
+					patrol
 				</div>
 			</div>
 		);
@@ -100,7 +100,7 @@ const GreenParaTroopa: Entity = {
 
 		return (
 			<div
-				className="relative GreenParaTroopa-bg bg-cover bg-no-repeat"
+				className="relative GreenParaTroopaPatrolling-bg bg-cover bg-no-repeat"
 				style={style}
 			>
 				<TileSpace />
@@ -108,11 +108,11 @@ const GreenParaTroopa: Entity = {
 					className="absolute left-0 w-full text-center bg-black text-white"
 					style={labelStyle}
 				>
-					hop
+					patrol
 				</div>
 			</div>
 		);
 	},
 };
 
-export { GreenParaTroopa };
+export { GreenParaTroopaPatrolling };

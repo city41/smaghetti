@@ -68,6 +68,7 @@ function WhatsNewPage() {
 						<li>Amazing Flyin&apos; Hammer Bro</li>
 						<li>Clapping Chuck</li>
 						<li>Dolphin Pod</li>
+						<li>Green Para Troopa - Patrolling</li>
 						<li>Ice Block - Coin</li>
 						<li>Ice Block - Muncher</li>
 						<li>Ice Block - Small</li>
