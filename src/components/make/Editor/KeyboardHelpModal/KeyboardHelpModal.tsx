@@ -86,6 +86,11 @@ const KeyboardHelpModal: FunctionComponent<KeyboardHelpModalProps> = ({
 				<dd>Choose palette item</dd>
 				<Spacer />
 				<dt>
+					<KeyboardKey>l</KeyboardKey>
+				</dt>
+				<dd>toggle locked layers</dd>
+				<Spacer />
+				<dt>
 					<KeyboardKey>{isMac ? 'cmnd' : 'ctrl'}</KeyboardKey>
 					<span className="px-2">+</span>
 					<KeyboardKey>z</KeyboardKey>

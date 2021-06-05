@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { RiLockFill, RiLockUnlockFill } from 'react-icons/ri';
+import { useHotkeys } from 'react-hotkeys-hook';
 import { PlainIconButton } from '../../../PlainIconButton';
 
 type InternalLayersProps = {
@@ -57,6 +58,32 @@ function Layers({
 	stage,
 	onToggleLayerLock,
 }: InternalLayersProps & PublicLayersProps) {
+	useHotkeys(
+		'l',
+		() => {
+			const a = actors.locked ? 'al' : 'a';
+			const s = stage.locked ? 'sl' : 's';
+
+			switch (`${a}-${s}`) {
+				case 'a-s':
+					onToggleLayerLock('actors');
+					break;
+				case 'al-s':
+					onToggleLayerLock('actors');
+					onToggleLayerLock('stage');
+					break;
+				case 'a-sl':
+					onToggleLayerLock('stage');
+					break;
+				case 'al-sl':
+					onToggleLayerLock('actors');
+					onToggleLayerLock('stage');
+					break;
+			}
+		},
+		[actors, stage]
+	);
+
 	return (
 		<div
 			className={clsx(
