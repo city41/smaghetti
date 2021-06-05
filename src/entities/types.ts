@@ -98,8 +98,8 @@ type Entity = {
 	 * For entities that have parameters, mostly objects, this metadata
 	 * indicates what the parameters are for. Mostly used by HexTree.
 	 */
-	param1?: 'height' | 'width' | 'other';
-	param2?: 'height' | 'width' | 'other';
+	param1?: 'height' | 'width' | 'other' | 'ignored';
+	param2?: 'height' | 'width' | 'other' | 'ignored';
 	emptyBank?: number;
 	payloadBank?: number;
 	/**

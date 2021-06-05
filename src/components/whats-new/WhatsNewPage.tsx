@@ -71,6 +71,7 @@ function WhatsNewPage() {
 						<li>Ice Block - Muncher</li>
 						<li>Ice Block - Small</li>
 						<li>Piranha Plant - Horizontal Red</li>
+						<li>Wood Platform</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="Horizontal Pipe" date="2021-06-04">
