@@ -116,7 +116,12 @@ function HexTreePage({
 				style={{ gridTemplateRows: 'min-content max-content min-content 1fr' }}
 			>
 				<div className="bg-gray-900 text-white shadow-lg w-full space-x-2 p-2">
-					<input type="file" accept=".level" onChange={handleLevelFile} />
+					<input
+						type="file"
+						style={{ color: 'white !important' }}
+						accept=".level"
+						onChange={handleLevelFile}
+					/>
 					<Button onClick={onStartEmpty}>start empty</Button>
 					<Button onClick={onStartFromLocalStorage}>
 						start from localstorage
