@@ -71,7 +71,7 @@ function WhatsNewPage() {
 				</NewEntry>
 				<NewEntry title="Keyboard shortcut for layers" date="2021-06-05">
 					<p>
-						Press &apos;l&apos; to toggle which layers are locked. Each time you
+						Press the L key to toggle which layers are locked. Each time you
 						press &apos;l&apos; it works through locking actors, locking stage,
 						locking none.
 					</p>
