@@ -137,6 +137,7 @@ import { PowerUpSlotMachine } from './PowerUpSlotMachine';
 import { PtooiePottedPiranhaPlant } from './PtooiePottedPiranhaPlant';
 import { PtooieWalkingPiranhaPlant } from './PtooieWalkingPiranhaPlant';
 import { QuestionBlock } from './QuestionBlock';
+import { QuestionBlockGiant } from './QuestionBlockGiant';
 import { QuestionMark } from './QuestionMark';
 import { RedKoopaTroopa } from './RedKoopaTroopa';
 import { RedParaTroopa } from './RedParaTroopa';
@@ -319,6 +320,7 @@ const entityMap = {
 	PtooiePottedPiranhaPlant,
 	PtooieWalkingPiranhaPlant,
 	QuestionBlock,
+	QuestionBlockGiant,
 	QuestionMark,
 	RedKoopaTroopa,
 	RedParaTroopa,
