@@ -133,6 +133,7 @@ import { PiranhaPlant } from './PiranhaPlant';
 import { Player } from './Player';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PoolOfWater } from './PoolOfWater';
+import { Porcupo } from './Porcupo';
 import { PorcuPuffer } from './PorcuPuffer';
 import { PowerUpSlotMachine } from './PowerUpSlotMachine';
 import { PtooiePottedPiranhaPlant } from './PtooiePottedPiranhaPlant';
@@ -319,6 +320,7 @@ const entityMap = {
 	Player,
 	PoisonMushroom,
 	PoolOfWater,
+	Porcupo,
 	PorcuPuffer,
 	PowerUpSlotMachine,
 	PtooiePottedPiranhaPlant,
