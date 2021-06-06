@@ -11,9 +11,9 @@ import { objectSets } from './objectSets';
 const ArrowFloor: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-basic',
 		title: 'Arrow Floor',
-		description: 'The arrows are just decoration',
+		description:
+			'Increases acceleration so Mario gets to top speed really fast',
 	},
 
 	objectSets: encodeObjectSets(objectSets),
