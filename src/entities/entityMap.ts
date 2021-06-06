@@ -10,6 +10,7 @@ import { BigBass } from './BigBass';
 import { BigBertha } from './BigBertha';
 import { BigBooBoss } from './BigBooBoss';
 import { Blooper } from './Blooper';
+import { BlooperNanny } from './BlooperNanny';
 import { Bobomb } from './Bobomb';
 import { BoltLeft } from './BoltLeft';
 import { BoltLift } from './BoltLift';
@@ -191,6 +192,7 @@ const entityMap = {
 	BigBertha,
 	BigBooBoss,
 	Blooper,
+	BlooperNanny,
 	Bobomb,
 	BoltLeft,
 	BoltLift,
