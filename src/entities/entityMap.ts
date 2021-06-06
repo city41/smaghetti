@@ -15,6 +15,7 @@ import { Bobomb } from './Bobomb';
 import { BoltLeft } from './BoltLeft';
 import { BoltLift } from './BoltLift';
 import { BoltRight } from './BoltRight';
+import { Bomb } from './Bomb';
 import { BonyBeetle } from './BonyBeetle';
 import { Boo } from './Boo';
 import { BoomBoom } from './BoomBoom';
@@ -198,6 +199,7 @@ const entityMap = {
 	BoltLeft,
 	BoltLift,
 	BoltRight,
+	Bomb,
 	BonyBeetle,
 	Boo,
 	BoomBoom,
