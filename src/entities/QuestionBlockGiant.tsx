@@ -3,6 +3,10 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
+import { EntityType } from './entityMap';
+import { ResourceType } from '../resources/resourceMap';
+import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
+import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
 
 const QuestionBlockGiant: Entity = {
 	// paletteCategory: 'object',
@@ -15,7 +19,17 @@ const QuestionBlockGiant: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
+	payloadToObjectId: {
+		OneUpMushroom: 0x94,
+		Mushroom: 0x95,
+		FireFlower: 0x96,
+		Leaf: 0x97,
+		TanookiSuit: 0x98,
+		FrogSuit: 0x99,
+	},
 	objectId: 0x94,
+	settingsType: 'single',
+	defaultSettings: { payload: 'Mushroom' },
 
 	resource: {
 		romOffset: 0x1724f0,
@@ -45,8 +59,14 @@ const QuestionBlockGiant: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
-		return [0, this.objectId, x, y];
+	toSpriteBinary(x, y, _w, _h, settings) {
+		const payloadToObjectId = this.payloadToObjectId!;
+		const payload = settings.payload ?? this.defaultSettings!.payload;
+		const objectId =
+			payloadToObjectId![payload as keyof typeof payloadToObjectId] ??
+			this.objectId;
+
+		return [0, objectId, x, y];
 	},
 
 	simpleRender(size) {
@@ -58,15 +78,35 @@ const QuestionBlockGiant: Entity = {
 		);
 	},
 
-	render() {
+	render(showDetails, settings, onSettingsChange) {
 		const style = { width: TILE_SIZE * 2, height: TILE_SIZE * 2 };
 		const spaceStyle = { width: TILE_SIZE, height: TILE_SIZE };
 
-		return (
+		const body = (
 			<div style={style} className="relative QuestionBlockGiant-bg bg-cover">
 				<TileSpace style={spaceStyle} className="absolute top-0 left-0" />
+				<PayloadViewDetails payload={settings.payload} />
 			</div>
 		);
+
+		if (showDetails) {
+			const payloads = Object.keys(this.payloadToObjectId!) as Array<
+				EntityType | ResourceType
+			>;
+
+			return (
+				<PayloadEditDetails
+					width={TILE_SIZE * 2}
+					height={TILE_SIZE * 2}
+					onPayloadChange={(payload) => onSettingsChange({ payload })}
+					payloads={payloads}
+				>
+					{body}
+				</PayloadEditDetails>
+			);
+		} else {
+			return body;
+		}
 	},
 };
 
