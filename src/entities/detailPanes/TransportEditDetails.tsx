@@ -7,9 +7,10 @@ type TransportEditDetailsProps = {
 	width: number;
 	height: number;
 	destination?: DestinationSetProps | null;
-	locked: boolean;
+	locked?: boolean;
 	onDestinationSet: (destination: DestinationSetProps | null) => void;
-	onLockChange: (locked: boolean) => void;
+	onLockChange?: (locked: boolean) => void;
+	hideLock?: boolean;
 	children: ReactNode;
 };
 
@@ -22,6 +23,7 @@ function TransportEditDetails({
 	locked,
 	onDestinationSet,
 	onLockChange,
+	hideLock,
 	children,
 }: TransportEditDetailsProps) {
 	const [showDestModal, setShowDestModal] = useState(false);
@@ -50,15 +52,19 @@ function TransportEditDetails({
 					>
 						<FaDoorOpen className="w-1 h-1 hover:bg-gray-500" />
 					</button>
-					<button
-						onMouseDown={(e) => {
-							e.stopPropagation();
-							e.preventDefault();
-							onLockChange(!locked);
-						}}
-					>
-						<LockIcon className="w-1 h-1 hover:bg-gray-500" />
-					</button>
+					{!hideLock && (
+						<button
+							onMouseDown={(e) => {
+								if (onLockChange) {
+									e.stopPropagation();
+									e.preventDefault();
+									onLockChange(!locked);
+								}
+							}}
+						>
+							<LockIcon className="w-1 h-1 hover:bg-gray-500" />
+						</button>
+					)}
 				</div>
 			</div>
 			<TransportDestinationModal

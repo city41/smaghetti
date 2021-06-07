@@ -69,6 +69,7 @@ function WhatsNewPage() {
 						<li>Bumpty</li>
 						<li>Bumpty - Aggressive</li>
 						<li>Jelectro</li>
+						<li>P-Switch Door</li>
 						<li>Porcupo</li>
 						<li>Rip Van Fish</li>
 						<li>Rotating Checkered Block - Large</li>
