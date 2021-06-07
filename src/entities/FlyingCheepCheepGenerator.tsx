@@ -5,12 +5,13 @@ import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-const BeachedCheepCheep: Entity = {
-	paletteCategory: 'enemy',
+const FlyingCheepCheepGenerator: Entity = {
+	// paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-water',
-		title: 'Cheep Cheep - Beached',
-		description: 'Flops around on the land',
+		title: 'Cheep Cheep - Flying Generator',
+		warning:
+			'Once added to a level, the entire level has flying cheep cheeps throughout. There is probably a second sprite to turn them off?',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -18,7 +19,7 @@ const BeachedCheepCheep: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x2c,
+	objectId: 0x60,
 
 	toSpriteBinary(x, y) {
 		return [1, this.objectId, x, y];
@@ -31,7 +32,7 @@ const BeachedCheepCheep: Entity = {
 				style={{ width: size, height: size }}
 			>
 				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
-					beached
+					fly-gen
 				</div>
 			</div>
 		);
@@ -55,11 +56,11 @@ const BeachedCheepCheep: Entity = {
 					className="absolute left-0 w-full text-center bg-black text-white"
 					style={labelStyle}
 				>
-					beached
+					fly-gen
 				</div>
 			</div>
 		);
 	},
 };
 
-export { BeachedCheepCheep };
+export { FlyingCheepCheepGenerator };
