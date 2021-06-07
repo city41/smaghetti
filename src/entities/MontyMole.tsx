@@ -5,7 +5,7 @@ import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
 
 const MontyMole: Entity = {
-	// paletteCategory: 'enemy',
+	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-common',
 		title: 'Monty Mole',
@@ -55,7 +55,7 @@ const MontyMole: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="MontyMole-bg bg-cover"
+				className="MontyMoleJumpingOut-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
