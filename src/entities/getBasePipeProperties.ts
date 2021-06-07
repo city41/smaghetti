@@ -23,9 +23,10 @@ function getPipeExitType(
 
 	// if this is an up or up-down pipe, are we at the top left corner?
 	if (
-		destPipe.type === 'PipeVertical' &&
-		(destPipe.settings?.direction === 'up' ||
-			destPipe.settings?.direction === 'up-down') &&
+		((destPipe.type === 'PipeVertical' &&
+			(destPipe.settings?.direction === 'up' ||
+				destPipe.settings?.direction === 'up-down')) ||
+			destPipe.type === 'PipeAirshipVertical') &&
 		// TODO: stop using pixel coords for entities
 		destPipe.x / TILE_SIZE === destination.x &&
 		destPipe.y / TILE_SIZE === destination.y
@@ -89,7 +90,7 @@ export function getBasePipeProperties(type: EntityType) {
 
 			let sourceY = y;
 
-			if (type === 'PipeVertical') {
+			if (type === 'PipeVertical' || type === 'PipeAirshipVertical') {
 				if (settings.direction === 'up') {
 					sourceY = y - 1;
 				} else {
