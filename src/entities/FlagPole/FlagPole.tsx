@@ -4,8 +4,9 @@ import { TILE_SIZE } from '../../tiles/constants';
 import { encodeObjectSets, getBankParam1 } from '../util';
 import { objectSets } from './objectSets';
 import { TileSpace } from '../TileSpace';
+import { Resizer } from '../../components/Resizer';
 
-const HEIGHT_PARAM = 8;
+const MIN_HEIGHT = 3;
 
 const FlagPole: Entity = {
 	paletteCategory: 'object',
@@ -14,7 +15,6 @@ const FlagPole: Entity = {
 		description: "These are just for fun, they don't finish the level",
 	},
 	width: 1,
-	height: HEIGHT_PARAM + 3,
 
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: [-1, -1, -1, -1, -1, 0x13],
@@ -22,6 +22,8 @@ const FlagPole: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x1c,
+	settingsType: 'single',
+	defaultSettings: { height: MIN_HEIGHT },
 
 	resource: {
 		romOffset: 0x18c914,
@@ -53,8 +55,9 @@ const FlagPole: Entity = {
 		return [1, this.objectId, x, y + 1];
 	},
 
-	toObjectBinary(x, y) {
-		return [getBankParam1(1, HEIGHT_PARAM), y, x, 0x7f];
+	toObjectBinary(x, y, _w, _h, settings) {
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		return [getBankParam1(1, Math.max(height, MIN_HEIGHT) - 3), y, x, 0x7f];
 	},
 
 	simpleRender(size) {
@@ -87,10 +90,12 @@ const FlagPole: Entity = {
 		);
 	},
 
-	render() {
+	render(_showDetails, settings, onSettingsChange, entity) {
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
+
 		const style = {
 			width: TILE_SIZE,
-			height: TILE_SIZE * (HEIGHT_PARAM + 3),
+			height: TILE_SIZE * height,
 		};
 
 		const ballStyle = {
@@ -108,13 +113,15 @@ const FlagPole: Entity = {
 
 		const shaftStyle = {
 			width: TILE_SIZE,
-			height: TILE_SIZE * (HEIGHT_PARAM + 1),
+			height: TILE_SIZE * (height - 2),
 		};
 
 		const baseStyle = {
 			width: TILE_SIZE,
 			height: TILE_SIZE,
 		};
+
+		const size = { x: 1, y: height };
 
 		return (
 			<div style={style} className="relative flex flex-col">
@@ -125,6 +132,22 @@ const FlagPole: Entity = {
 				<div className="absolute FlagPole-bg" style={flagStyle} />
 				<div className="FlagPoleShaft-bg bg-repeat-y" style={shaftStyle} />
 				<div className="IndestructibleBrick-bg bg-cover" style={baseStyle} />
+				{entity && (
+					<Resizer
+						className="absolute bottom-0 right-0"
+						style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
+						size={size}
+						increment={TILE_SIZE}
+						axis="y"
+						onSizeChange={(newSizePoint) => {
+							onSettingsChange({
+								height: Math.max(MIN_HEIGHT, newSizePoint.y),
+							});
+						}}
+						onResizeStart={() => onSettingsChange({ resizing: true })}
+						onResizeEnd={() => onSettingsChange({ resizing: false })}
+					/>
+				)}
 			</div>
 		);
 	},
