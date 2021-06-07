@@ -7,6 +7,7 @@ const TILE_SIZE = 16;
 // ie Mu: "Muncher" instead of Muncher: "Mu"
 const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	ArrowFloor: 'Af',
+	BlueCoin: 'B$',
 	BoltLeft: 'Bl',
 	BowserBrick: 'Bbr',
 	BuriedVegetable: 'Bu',

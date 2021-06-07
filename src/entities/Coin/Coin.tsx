@@ -16,7 +16,7 @@ const Coin: Entity = {
 	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'xy',
-	objectId: 0x16,
+	objectId: 0x12,
 	emptyBank: 1,
 	param1: 'width',
 	param2: 'height',

@@ -10,8 +10,10 @@ import { injectLevelIntoSave } from '../src/levelData/injectLevelIntoSave';
 import cloneDeep from 'lodash/cloneDeep';
 import { deserialize } from '../src/saveStates/serializer';
 import {
+	INITIAL_PLAYER_Y_TILE,
 	INITIAL_ROOM_TILE_HEIGHT,
 	INITIAL_ROOM_TILE_WIDTH,
+	PLAY_WINDOW_TILE_WIDTH,
 } from '../src/components/make/constants';
 import { ArrowSign } from '../src/entities/ArrowSign';
 import { toHexString } from '../src/components/hex-tree/HexTreePage/util';
@@ -22,6 +24,32 @@ type KnownGood = {
 	objectSet: number;
 	objectGraphicSet: number;
 };
+
+const BRICKS_ALONG_BOTTOM: EditorEntityMatrix = (function () {
+	let idCounter = 1;
+	const rows = [];
+	for (let y = 0; y < INITIAL_PLAYER_Y_TILE + 1; ++y) {
+		rows.push(null);
+	}
+
+	const playerRow = [];
+	for (let x = 0; x < PLAY_WINDOW_TILE_WIDTH; ++x) {
+		playerRow.push({
+			id: idCounter++,
+			type: x === 2 ? 'PSwitch' : 'IndestructibleBrick',
+			x,
+			y: INITIAL_PLAYER_Y_TILE + 1,
+		} as const);
+	}
+
+	rows.push(playerRow);
+
+	while (rows.length < INITIAL_ROOM_TILE_HEIGHT) {
+		rows.push(null);
+	}
+
+	return rows;
+})();
 
 let emptyLevelBuffer: Buffer | null = null;
 
@@ -56,7 +84,7 @@ function getRoom(): RoomData {
 		},
 		stage: {
 			entities: [],
-			matrix: [],
+			matrix: BRICKS_ALONG_BOTTOM,
 		},
 		roomTileWidth: INITIAL_ROOM_TILE_WIDTH,
 		roomTileHeight: INITIAL_ROOM_TILE_HEIGHT,
