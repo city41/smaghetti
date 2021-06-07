@@ -7,6 +7,8 @@ import { TileSpace } from '../TileSpace';
 import { Resizer } from '../../components/Resizer';
 
 const MIN_HEIGHT = 3;
+// six bits of space for height, plus 3, with one more buffer for safety
+const MAX_HEIGHT = 65;
 
 const FlagPole: Entity = {
 	paletteCategory: 'object',
@@ -57,7 +59,12 @@ const FlagPole: Entity = {
 
 	toObjectBinary(x, y, _w, _h, settings) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
-		return [getBankParam1(1, Math.max(height, MIN_HEIGHT) - 3), y, x, 0x7f];
+		return [
+			getBankParam1(1, Math.min(Math.max(height, MIN_HEIGHT), MAX_HEIGHT) - 3),
+			y,
+			x,
+			0x7f,
+		];
 	},
 
 	simpleRender(size) {
@@ -141,7 +148,10 @@ const FlagPole: Entity = {
 						axis="y"
 						onSizeChange={(newSizePoint) => {
 							onSettingsChange({
-								height: Math.max(MIN_HEIGHT, newSizePoint.y),
+								height: Math.min(
+									Math.max(MIN_HEIGHT, newSizePoint.y),
+									MAX_HEIGHT
+								),
 							});
 						}}
 						onResizeStart={() => onSettingsChange({ resizing: true })}
