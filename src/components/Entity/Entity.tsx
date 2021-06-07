@@ -21,6 +21,21 @@ type EntityProps = {
 	ref?: RefObject<HTMLDivElement> | Ref<HTMLDivElement> | null;
 };
 
+function getTwoColumnWarning(
+	entity: EditorEntity,
+	room: RoomData
+): string | void {
+	const allSpriteEntities = room.actors.entities
+		.concat(room.stage.entities)
+		.filter((e) => !!entityMap[e.type].toSpriteBinary);
+
+	const allInSameColumn = allSpriteEntities.filter((e) => e.x === entity.x);
+
+	if (allInSameColumn.length > 2) {
+		return 'Over the limit of two sprite entities per column';
+	}
+}
+
 function Entity({
 	className,
 	style,
@@ -47,7 +62,10 @@ function Entity({
 		) ?? null;
 
 	const warning =
-		room && rooms && entityDef.getWarning?.(settings, entity, room, rooms);
+		room &&
+		rooms &&
+		(entityDef.getWarning?.(settings, entity, room, rooms) ||
+			getTwoColumnWarning(entity, room));
 
 	return (
 		<div
