@@ -1,7 +1,7 @@
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
+import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 
 const Boo: Entity = {
 	paletteCategory: 'enemy',
@@ -11,7 +11,7 @@ const Boo: Entity = {
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [[6, 8], -1, -1, -1, -1, ANY_BELOW_16],
+	spriteGraphicSets: [[6, 8], -1, -1, -1, -1, ANY_BELOW_0x16],
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',

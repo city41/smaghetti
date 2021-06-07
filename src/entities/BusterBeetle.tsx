@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
-import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
+import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 
 const BusterBeetle: Entity = {
 	paletteCategory: 'enemy',
@@ -12,7 +12,7 @@ const BusterBeetle: Entity = {
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [3, -1, -1, -1, -1, ANY_BELOW_16],
+	spriteGraphicSets: [3, -1, -1, -1, -1, ANY_BELOW_0x16],
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',

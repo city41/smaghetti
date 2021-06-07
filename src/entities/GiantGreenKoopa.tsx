@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
-import { ANY_BELOW_16, ANY_OBJECT_SET } from './constants';
+import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 
 const graphicSets = [0xb, 0xc, 0xd, 0xe, 0xf];
 
@@ -14,7 +14,7 @@ const GiantGreenKoopa: Entity = {
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [graphicSets, -1, -1, -1, -1, ANY_BELOW_16],
+	spriteGraphicSets: [graphicSets, -1, -1, -1, -1, ANY_BELOW_0x16],
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
