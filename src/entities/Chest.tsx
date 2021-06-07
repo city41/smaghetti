@@ -7,8 +7,6 @@ import { ResourceType } from '../resources/resourceMap';
 import { EntityType } from './entityMap';
 import { ANY_OBJECT_SET } from './constants';
 
-const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-
 const Chest: Entity = {
 	paletteCategory: 'object',
 	paletteInfo: {
@@ -17,14 +15,7 @@ const Chest: Entity = {
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [
-		graphicSets,
-		graphicSets,
-		graphicSets,
-		graphicSets,
-		-1,
-		graphicSets,
-	],
+	spriteGraphicSets: [-1, -1, -1, -1, 0, -1],
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',

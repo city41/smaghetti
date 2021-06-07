@@ -183,6 +183,7 @@ function getLevelSettings(
 	entities: EditorEntity[]
 ): Tuple<number, 32> {
 	const [objectSet] = getObjectSet(entities);
+	const spriteGraphicSet = buildSpriteGraphicSetBytes(entities);
 
 	return [
 		0xbf, // screen y boundary, least sig byte
@@ -201,7 +202,7 @@ function getLevelSettings(
 		0, // object set, most sig byte
 		settings.music, // music, least sig byte
 		0, // music, most sig byte
-		...buildSpriteGraphicSetBytes(entities),
+		...spriteGraphicSet,
 		// the rest of the bytes are largely unknown and copied from classic 1-2
 		0x0,
 		0,
