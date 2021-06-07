@@ -143,6 +143,7 @@ import { QuestionBlockGiant } from './QuestionBlockGiant';
 import { QuestionMark } from './QuestionMark';
 import { RedKoopaTroopa } from './RedKoopaTroopa';
 import { RedParaTroopa } from './RedParaTroopa';
+import { RipVanFish } from './RipVanFish';
 import { RiverCheepCheep } from './RiverCheepCheep';
 import { RopeRailing } from './RopeRailing';
 import { RotatingCheckeredBlockLarge } from './RotatingCheckeredBlockLarge';
@@ -330,6 +331,7 @@ const entityMap = {
 	QuestionMark,
 	RedKoopaTroopa,
 	RedParaTroopa,
+	RipVanFish,
 	RiverCheepCheep,
 	RopeRailing,
 	RotatingCheckeredBlockLarge,

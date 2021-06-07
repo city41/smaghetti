@@ -67,6 +67,7 @@ function WhatsNewPage() {
 					<ul className="ml-8 list-disc">
 						<li>Bomb</li>
 						<li>Porcupo</li>
+						<li>Rip Van Fish</li>
 						<li>Rotating Checkered Block - Large</li>
 						<li>Rotating Checkered Block - Small</li>
 					</ul>
