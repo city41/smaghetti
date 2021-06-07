@@ -28,6 +28,8 @@ import { BowserFireStatue } from './BowserFireStatue';
 import { BowserLaserStatue } from './BowserLaserStatue';
 import { Brick } from './Brick';
 import { Bubble } from './Bubble';
+import { Bumpty } from './Bumpty';
+import { BumptyAggressive } from './BumptyAggressive';
 import { BuriedVegetable } from './BuriedVegetable';
 import { BusterBeetle } from './BusterBeetle';
 import { BuzzyBeetle } from './BuzzyBeetle';
@@ -218,6 +220,8 @@ const entityMap = {
 	BowserLaserStatue,
 	Brick,
 	Bubble,
+	Bumpty,
+	BumptyAggressive,
 	BuriedVegetable,
 	BusterBeetle,
 	BuzzyBeetle,

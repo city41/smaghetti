@@ -3,11 +3,11 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 
-const Flurry: Entity = {
+const Bumpty: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-winter',
-		title: 'Flurry',
+		title: 'Bumpty',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -15,7 +15,7 @@ const Flurry: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0xed,
+	objectId: 0xf2,
 
 	resource: {
 		romOffset: 0x18c914,
@@ -38,8 +38,8 @@ const Flurry: Entity = {
 			0x63ff,
 		],
 		tiles: [
-			[592, 593],
-			[624, 625],
+			[540, 541],
+			[572, 573],
 		],
 	},
 
@@ -50,7 +50,7 @@ const Flurry: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="Flurry-bg bg-cover"
+				className="Bumpty-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -61,4 +61,4 @@ const Flurry: Entity = {
 	},
 };
 
-export { Flurry };
+export { Bumpty };

@@ -34,6 +34,7 @@ type PaletteSubcategory =
 	| 'enemy-fortress'
 	| 'enemy-desert'
 	| 'enemy-water'
+	| 'enemy-winter'
 	| 'enemy-bro'
 	| 'enemy-giant'
 	| 'enemy-boss';

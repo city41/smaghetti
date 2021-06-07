@@ -3,11 +3,11 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 
-const Flurry: Entity = {
+const BumptyAggressive: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-winter',
-		title: 'Flurry',
+		title: 'Bumpty - Aggressive',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -15,7 +15,7 @@ const Flurry: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0xed,
+	objectId: 0xf3,
 
 	resource: {
 		romOffset: 0x18c914,
@@ -38,8 +38,8 @@ const Flurry: Entity = {
 			0x63ff,
 		],
 		tiles: [
-			[592, 593],
-			[624, 625],
+			[540, 541],
+			[572, 573],
 		],
 	},
 
@@ -50,15 +50,35 @@ const Flurry: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="Flurry-bg bg-cover"
+				className="relative Bumpty-bg bg-cover"
 				style={{ width: size, height: size }}
-			/>
+			>
+				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
+					aggro
+				</div>
+			</div>
 		);
 	},
 
 	render() {
-		return this.simpleRender(TILE_SIZE);
+		const style = { width: TILE_SIZE, height: TILE_SIZE };
+
+		const labelStyle = {
+			fontSize: 2,
+			bottom: 0,
+		};
+
+		return (
+			<div style={style} className="relative Bumpty-bg bg-cover">
+				<div
+					className="absolute left-0 w-full text-center bg-black text-white"
+					style={labelStyle}
+				>
+					aggro
+				</div>
+			</div>
+		);
 	},
 };
 
-export { Flurry };
+export { BumptyAggressive };
