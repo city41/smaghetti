@@ -1,7 +1,6 @@
 import React from 'react';
 import { ParsedLevelSettings } from '../../../../levelData/parseLevelSettingsFromLevelFile';
 import { ByteInputField } from './ByteInputField';
-import { toHexString } from '../util';
 
 type LevelSettingsProps = {
 	levelSettings: {
@@ -25,6 +24,13 @@ const levelSettingsSlices = {
 	music: [14, 2],
 };
 
+const otherSettingSlices = {
+	graphicSets: [16, 6],
+	unknown1: [22, 4],
+	rotationSet: [26, 1],
+	unknown2: [27, 5],
+};
+
 function LevelSettings({ levelSettings, onPatch }: LevelSettingsProps) {
 	const data = levelSettings.rawBytes;
 
@@ -45,6 +51,28 @@ function LevelSettings({ levelSettings, onPatch }: LevelSettingsProps) {
 			<ByteInputField
 				key={i}
 				value={fieldData}
+				fullInput
+				onChange={(newBytes) => {
+					onPatch({ offset: slice[0], bytes: newBytes });
+				}}
+			/>
+		);
+	});
+
+	const otherKeys = Object.keys(otherSettingSlices).map((k) => (
+		<div key={k} className="text-xs text-gray-400">
+			{k}
+		</div>
+	));
+	const otherValues = Object.keys(otherSettingSlices).map((k, i) => {
+		const slice = otherSettingSlices[k as keyof typeof otherSettingSlices];
+		const fieldData = data.slice(slice[0], slice[0] + slice[1]);
+
+		return (
+			<ByteInputField
+				key={i}
+				value={fieldData}
+				fullInput
 				onChange={(newBytes) => {
 					onPatch({ offset: slice[0], bytes: newBytes });
 				}}
@@ -58,17 +86,9 @@ function LevelSettings({ levelSettings, onPatch }: LevelSettingsProps) {
 				{keys}
 				{values}
 			</div>
-			<div className="m-1 p-1 bg-gray-500 text-white">
-				<div>
-					{' '}
-					graphic sets:{' '}
-					{levelSettings.rawBytes.slice(16, 22).map(toHexString).join(' ')}
-				</div>
-				<div>
-					{' '}
-					remaining (mostly unknown) :{' '}
-					{levelSettings.rawBytes.slice(22).map(toHexString).join(' ')}
-				</div>
+			<div className="grid grid-cols-4 grid-rows-2 p-1">
+				{otherKeys}
+				{otherValues}
 			</div>
 		</div>
 	);

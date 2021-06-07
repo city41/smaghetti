@@ -8,6 +8,7 @@ type ByteInputFieldProps = {
 	className?: string;
 	value: number[];
 	onChange: (newValue: number[]) => void;
+	fullInput?: boolean;
 };
 
 function bytesToHexString(data: number[]) {
@@ -18,7 +19,12 @@ function byteStringToBytes(bs: string): number[] {
 	return bs.split(' ').map((bss) => parseInt(bss.trim(), 16));
 }
 
-function ByteInputField({ className, value, onChange }: ByteInputFieldProps) {
+function ByteInputField({
+	className,
+	value,
+	onChange,
+	fullInput,
+}: ByteInputFieldProps) {
 	const [bytesString, setBytesString] = useState(bytesToHexString(value));
 
 	useEffect(() => {
@@ -28,7 +34,7 @@ function ByteInputField({ className, value, onChange }: ByteInputFieldProps) {
 	return (
 		<div className={clsx(className, 'text-sm flex flex-row items-center')}>
 			<input
-				className="w-16"
+				className={clsx({ 'w-12': !fullInput, 'w-full': fullInput })}
 				type="text"
 				value={bytesString}
 				onChange={(e) => {
