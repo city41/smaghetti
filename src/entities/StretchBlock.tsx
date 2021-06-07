@@ -74,6 +74,7 @@ const StretchBlock: Entity = {
 		return <div className="StretchBlock-bg" style={style} />;
 	},
 
+	// TODO: this is such a mess...
 	render(showDetails, settings, onSettingsChange) {
 		const singleBlockStyle = {
 			width: TILE_SIZE,
@@ -115,7 +116,7 @@ const StretchBlock: Entity = {
 									height={TILE_SIZE}
 									includeBoth
 									onOrientationChange={(newOrientation) =>
-										onSettingsChange({ direction: newOrientation })
+										onSettingsChange({ orientation: newOrientation })
 									}
 								>
 									<div className="StretchBlock-bg" style={singleBlockStyle} />
@@ -173,7 +174,7 @@ const StretchBlock: Entity = {
 									height={TILE_SIZE}
 									includeBoth
 									onOrientationChange={(newOrientation) =>
-										onSettingsChange({ direction: newOrientation })
+										onSettingsChange({ orientation: newOrientation })
 									}
 								>
 									<div className="StretchBlock-bg" style={singleBlockStyle} />
@@ -237,7 +238,7 @@ const StretchBlock: Entity = {
 									height={TILE_SIZE}
 									includeBoth
 									onOrientationChange={(newOrientation) =>
-										onSettingsChange({ direction: newOrientation })
+										onSettingsChange({ orientation: newOrientation })
 									}
 								>
 									<div className="StretchBlock-bg" style={singleBlockStyle} />
