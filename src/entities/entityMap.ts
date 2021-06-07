@@ -96,6 +96,7 @@ import { HomingFireball } from './HomingFireball';
 import { Hoopster } from './Hoopster';
 import { HoppingBowserStatue } from './HoppingBowserStatue';
 import { HorizontalRedPiranhaPlant } from './HorizontalRedPiranhaPlant';
+import { HotFoot } from './HotFoot';
 import { HotHead } from './HotHead';
 import { IceBlockCoin } from './IceBlockCoin';
 import { IceBlockMuncher } from './IceBlockMuncher';
@@ -290,6 +291,7 @@ const entityMap = {
 	Hoopster,
 	HoppingBowserStatue,
 	HorizontalRedPiranhaPlant,
+	HotFoot,
 	HotHead,
 	IceBlockCoin,
 	IceBlockMuncher,
