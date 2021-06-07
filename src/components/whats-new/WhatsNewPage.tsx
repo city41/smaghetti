@@ -71,6 +71,7 @@ function WhatsNewPage() {
 						<li>Airship Pipe</li>
 						<li>Coral Donut Block</li>
 						<li>Monty Mole</li>
+						<li>Underwater Floor</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-06">

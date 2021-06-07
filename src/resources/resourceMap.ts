@@ -57,6 +57,14 @@ import { TiltPlatformBall } from './TiltPlatformBall';
 import { TiltPlatformPivot } from './TiltPlatformPivot';
 import { TwoNumberBlock } from './TwoNumberBlock';
 import { UndergroundBackground } from './UndergroundBackground';
+import { UnderwaterFloorBottom } from './UnderwaterFloorBottom';
+import { UnderwaterFloorLeft } from './UnderwaterFloorLeft';
+import { UnderwaterFloorLowerLeft } from './UnderwaterFloorLowerLeft';
+import { UnderwaterFloorLowerRight } from './UnderwaterFloorLowerRight';
+import { UnderwaterFloorRight } from './UnderwaterFloorRight';
+import { UnderwaterFloorTop } from './UnderwaterFloorTop';
+import { UnderwaterFloorUpperLeft } from './UnderwaterFloorUpperLeft';
+import { UnderwaterFloorUpperRight } from './UnderwaterFloorUpperRight';
 import { WaterfallTop } from './WaterfallTop';
 import { WingedPlatformBlock } from './WingedPlatformBlock';
 import { WingedPlatformWing } from './WingedPlatformWing';
@@ -124,6 +132,14 @@ const resourceMap = {
 	TiltPlatformPivot,
 	TwoNumberBlock,
 	UndergroundBackground,
+	UnderwaterFloorBottom,
+	UnderwaterFloorLeft,
+	UnderwaterFloorLowerLeft,
+	UnderwaterFloorLowerRight,
+	UnderwaterFloorRight,
+	UnderwaterFloorTop,
+	UnderwaterFloorUpperLeft,
+	UnderwaterFloorUpperRight,
 	WaterfallTop,
 	WingedPlatformBlock,
 	WingedPlatformWing,

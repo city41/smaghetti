@@ -180,6 +180,7 @@ import { Thwomp } from './Thwomp';
 import { TiltPlatform } from './TiltPlatform';
 import { Tornado } from './Tornado';
 import { TriangularBlock } from './TriangularBlock';
+import { UnderwaterFloor } from './UnderwaterFloor';
 import { UpFortressSpike } from './UpFortressSpike';
 import { Vine } from './Vine';
 import { WaterCheepCheep } from './WaterCheepCheep';
@@ -378,6 +379,7 @@ const entityMap = {
 	TiltPlatform,
 	Tornado,
 	TriangularBlock,
+	UnderwaterFloor,
 	UpFortressSpike,
 	Vine,
 	WaterCheepCheep,
