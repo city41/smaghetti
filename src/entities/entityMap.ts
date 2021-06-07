@@ -79,6 +79,7 @@ import { GiantGreenParaKoopa } from './GiantGreenParaKoopa';
 import { GiantRedKoopa } from './GiantRedKoopa';
 import { GlassBlock } from './GlassBlock';
 import { Goomba } from './Goomba';
+import { GoombaGenerator } from './GoombaGenerator';
 import { GrandGoomba } from './GrandGoomba';
 import { GrassHorizontal } from './GrassHorizontal';
 import { GrassUpperLeftCorner } from './GrassUpperLeftCorner';
@@ -271,6 +272,7 @@ const entityMap = {
 	GiantRedKoopa,
 	GlassBlock,
 	Goomba,
+	GoombaGenerator,
 	GrandGoomba,
 	GrassHorizontal,
 	GrassUpperLeftCorner,
