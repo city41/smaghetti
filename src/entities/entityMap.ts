@@ -49,6 +49,7 @@ import { Clock } from './Clock';
 import { Coin } from './Coin';
 import { CoinChallenge } from './CoinChallenge';
 import { ConveyorBelt } from './ConveyorBelt';
+import { CoralDonutBlock } from './CoralDonutBlock';
 import { DiggableSand } from './DiggableSand';
 import { DolphinPod } from './DolphinPod';
 import { DonutBlock } from './DonutBlock';
@@ -246,6 +247,7 @@ const entityMap = {
 	Coin,
 	CoinChallenge,
 	ConveyorBelt,
+	CoralDonutBlock,
 	DiggableSand,
 	DolphinPod,
 	DonutBlock,

@@ -69,6 +69,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-06-07">
 					<ul className="ml-8 list-disc">
 						<li>Airship Pipe</li>
+						<li>Coral Donut Block</li>
 						<li>Monty Mole</li>
 					</ul>
 				</NewEntry>
