@@ -441,8 +441,8 @@ function getTransports(
 			// of a pipe, regardless of its orientation
 			t.exitType === 'down-from-pipe' ? encodedDY - 1 : encodedDY, // dy
 			dx,
-			16, // cy
-			7, // cx
+			encodedDY, // cy
+			dx, // cx
 			exitTypeToCategoryByte[t.exitType],
 			exitTypeToByte[t.exitType],
 		]);
