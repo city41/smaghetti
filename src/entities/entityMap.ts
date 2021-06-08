@@ -100,6 +100,7 @@ import { Hoopster } from './Hoopster';
 import { HoppingBowserStatue } from './HoppingBowserStatue';
 import { HorizontalRedPiranhaPlant } from './HorizontalRedPiranhaPlant';
 import { HotFoot } from './HotFoot';
+import { HotFootShy } from './HotFootShy';
 import { HotHead } from './HotHead';
 import { IceBlockCoin } from './IceBlockCoin';
 import { IceBlockMuncher } from './IceBlockMuncher';
@@ -305,6 +306,7 @@ const entityMap = {
 	HoppingBowserStatue,
 	HorizontalRedPiranhaPlant,
 	HotFoot,
+	HotFootShy,
 	HotHead,
 	IceBlockCoin,
 	IceBlockMuncher,

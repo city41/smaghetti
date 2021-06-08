@@ -3,11 +3,13 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 
-const HotFoot: Entity = {
+const HotFootShy: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-fortress',
-		title: 'Hot Foot',
+		title: 'Hot Foot - Shy',
+		description:
+			"Like regular Hot Foot, but won't pursue if Mario is looking (similar to Boos)",
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -15,27 +17,27 @@ const HotFoot: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x45,
+	objectId: 0x30,
 
 	resource: {
 		romOffset: 0x167674,
 		palette: [
 			0x7f96,
 			0x7fff,
-			0x0,
-			0x65a3,
-			0x7a8b,
-			0x7f6e,
-			0x7fd6,
-			0x1594,
-			0x2e39,
-			0x42bd,
-			0x11,
-			0x16,
-			0x1a,
-			0xdbe,
-			0x123f,
-			0x2bf,
+			0x18c6,
+			0x11f1,
+			0x1a75,
+			0x22f9,
+			0x318c,
+			0x4631,
+			0x56b5,
+			0x2b5c,
+			0xda,
+			0x219e,
+			0x363f,
+			0x7eb7,
+			0x6e11,
+			0x596d,
 		],
 		tiles: [[131], [146]],
 	},
@@ -47,7 +49,7 @@ const HotFoot: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="HotFoot-bg bg-center bg-no-repeat"
+				className="HotFootShy-bg bg-center bg-no-repeat"
 				style={{ width: size, height: size, backgroundSize: '50% 100%' }}
 			/>
 		);
@@ -58,4 +60,4 @@ const HotFoot: Entity = {
 	},
 };
 
-export { HotFoot };
+export { HotFootShy };
