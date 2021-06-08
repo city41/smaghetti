@@ -28,7 +28,7 @@ const ParaGaloombaBobombGenerator: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="GaloombaWithParachute-bg bg-center bg-no-repeat"
+				className="relative GaloombaWithParachute-bg bg-center bg-no-repeat"
 				style={{
 					width: size,
 					height: size,
