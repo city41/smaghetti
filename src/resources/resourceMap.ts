@@ -51,6 +51,8 @@ import { RegularVegetable } from './RegularVegetable';
 import { SeeSawPivotPoint } from './SeeSawPivotPoint';
 import { Shoe } from './Shoe';
 import { SmallVegetable } from './SmallVegetable';
+import { StretchBooPlatformLeft } from './StretchBooPlatformLeft';
+import { StretchBooPlatformRight } from './StretchBooPlatformRight';
 import { TanookiSuit } from './TanookiSuit';
 import { ThreeNumberBlock } from './ThreeNumberBlock';
 import { TiltPlatformBall } from './TiltPlatformBall';
@@ -126,6 +128,8 @@ const resourceMap = {
 	SeeSawPivotPoint,
 	Shoe,
 	SmallVegetable,
+	StretchBooPlatformLeft,
+	StretchBooPlatformRight,
 	TanookiSuit,
 	ThreeNumberBlock,
 	TiltPlatformBall,

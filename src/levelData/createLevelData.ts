@@ -351,10 +351,7 @@ function getObjects(layer: RoomLayer, roomTileHeight: number): number[] {
 	return objects.concat(entityObjectData);
 }
 
-function getSprites(
-	entities: EditorEntity[],
-	levelHeightInTiles: number
-): number[] {
+function getSprites(entities: EditorEntity[], room: RoomData): number[] {
 	const sortedEntities = [...entities].sort((a, b) => {
 		return a.x - b.x;
 	});
@@ -368,19 +365,11 @@ function getSprites(
 
 		const x = Math.floor(entity.x / TILE_SIZE);
 		const entityTileY = Math.floor(entity.y / TILE_SIZE);
-		const yDiff = levelHeightInTiles - (entityTileY + 1);
+		const yDiff = room.roomTileHeight - (entityTileY + 1);
 		const y = MAX_Y - yDiff;
 
 		return building.concat(
-			entityDef.toSpriteBinary(
-				x,
-				y,
-				1,
-				1,
-				entity.settings ?? {},
-				entity,
-				entities
-			)
+			entityDef.toSpriteBinary(x, y, 1, 1, entity.settings ?? {}, entity, room)
 		);
 	}, []);
 }
@@ -471,7 +460,8 @@ function getRoom(
 	roomIndex: number,
 	allRooms: RoomData[]
 ): Room {
-	const { settings, actors, stage, roomTileHeight } = allRooms[roomIndex];
+	const currentRoom = allRooms[roomIndex];
+	const { settings, actors, stage, roomTileHeight } = currentRoom;
 
 	const cellActorEntities = flattenCells(actors.matrix);
 	const cellStageEntities = flattenCells(stage.matrix);
@@ -488,7 +478,7 @@ function getRoom(
 	const levelSettingsData = getLevelSettings(settings, allEntities);
 	const transportData = getTransports(roomIndex, allEntities, allRooms);
 	const spriteHeader = [0x0];
-	const sprites = getSprites(allEntities, roomTileHeight);
+	const sprites = getSprites(allEntities, currentRoom);
 
 	return {
 		objects: objectHeader.concat(actorObjects, stageObjects, [0xff]),

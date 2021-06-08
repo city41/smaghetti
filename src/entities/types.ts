@@ -142,7 +142,7 @@ type Entity = {
 		h: number,
 		settings: EditorEntitySettings,
 		entity?: EditorEntity,
-		otherEntitiesInRoom?: EditorEntity[]
+		room?: RoomData
 	) => number[];
 
 	getTransports?: (

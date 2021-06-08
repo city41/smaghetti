@@ -6,13 +6,13 @@ import { TileSpace } from './TileSpace';
 
 function isRidingWingedPlatform(
 	entity: EditorEntity | undefined,
-	entities: EditorEntity[] | undefined
+	room: RoomData | undefined
 ): boolean {
-	if (!entity || !entities) {
+	if (!entity || !room) {
 		return false;
 	}
 
-	const platform = entities.find((e) => {
+	const platform = room.actors.entities.find((e) => {
 		return (
 			e.x === entity.x &&
 			e.y === entity.y + TILE_SIZE &&
@@ -74,8 +74,8 @@ const AmazingFlyinHammerBro: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, _settings, entity, otherEntities) {
-		const objectId = isRidingWingedPlatform(entity, otherEntities) ? 0x2 : 0xd9;
+	toSpriteBinary(x, y, _w, _h, _settings, entity, room) {
+		const objectId = isRidingWingedPlatform(entity, room) ? 0x2 : 0xd9;
 		return [0, objectId, x, y];
 	},
 

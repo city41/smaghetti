@@ -63,6 +63,12 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-06-08">
+					<ul className="ml-8 list-disc">
+						<li>Stretch Boo</li>
+						<li>Stretch Boo platform</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="Fixed warp bug" date="2021-06-07">
 					<p>
 						After warping to a different room, did you notice missing graphics
