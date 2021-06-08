@@ -24,7 +24,7 @@ const Bubble: Entity = {
 		graphicSets,
 		graphicSets,
 		graphicSets,
-		-1,
+		[0],
 		graphicSets,
 	],
 	layer: 'actor',
