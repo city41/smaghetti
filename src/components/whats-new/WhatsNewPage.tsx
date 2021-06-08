@@ -63,6 +63,46 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Fixed warp bug" date="2021-06-07">
+					<p>
+						After warping to a different room, did you notice missing graphics
+						and things seemed glitchy?
+					</p>
+					<p>
+						I believe I tracked down the problem and levels are working a lot
+						better now after you warp.
+					</p>
+					<p>
+						If you hit any strange bugs in the future, feel free to reach out on{' '}
+						<a
+							className="text-blue-300"
+							target="_blank"
+							rel="noreferrer"
+							href="https://reddit.com/r/smaghetti"
+						>
+							Reddit
+						</a>
+						,{' '}
+						<a
+							className="text-blue-300"
+							target="_blank"
+							rel="noreferrer"
+							href="https://github.com/city41/smaghetti/issues"
+						>
+							GitHub
+						</a>
+						, or{' '}
+						<a
+							className="text-blue-300"
+							target="_blank"
+							rel="noreferrer"
+							href="mailto:matt.e.greer@gmail.com"
+						>
+							email me
+						</a>
+						.
+					</p>
+				</NewEntry>
 				<NewEntry title="Flag Pole resizable" date="2021-06-07">
 					<p>You can now pick how big to make a flag pole just like pipes</p>
 				</NewEntry>
