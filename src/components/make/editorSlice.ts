@@ -900,6 +900,17 @@ function updateValidEntityTypes(room: RoomState) {
 		room.stage.entities,
 		room.validEntityTypes
 	);
+
+	room.paletteEntries = room.paletteEntries.filter((pe) =>
+		room.validEntityTypes.includes(pe)
+	);
+
+	if (
+		room.currentPaletteEntry &&
+		!room.validEntityTypes.includes(room.currentPaletteEntry)
+	) {
+		room.currentPaletteEntry = room.paletteEntries[0];
+	}
 }
 
 function eraseAt(layer: EditorRoomLayer, tilePoint: Point) {
