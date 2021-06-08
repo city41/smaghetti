@@ -152,11 +152,21 @@ function CompatibilityPage({
 						)}
 					</div>
 					{incompatibleTypes.length > 0 && (
-						<p className="-mx-2 p-2 bg-green-700 my-8 text-center">
-							Compatibility may improve as we learn more about how the game
-							works, especially with unfinished entities (they have a red
-							background)
-						</p>
+						<div className="-mx-2 p-2 bg-green-700 my-8 text-center space-y-4">
+							<p>
+								Compatibility may improve as we learn more about how the game
+								works, especially with unfinished entities (they have a red
+								background)
+							</p>
+							<p>
+								<span className="inline-block font-bold text-md bg-green-900 p-1 mr-1">
+									TIP:
+								</span>{' '}
+								compatibility is calculated per room. If you can&apos;t add the
+								entity you want to the current room, you might be able to add it
+								to a different room.
+							</p>
+						</div>
 					)}
 				</div>
 			</Root>
