@@ -3,14 +3,10 @@ import clsx from 'clsx';
 import { LevelTreeSprite } from '../../types';
 import { LevelSprite as RenderLevelSprite } from '../RenderLevel/LevelSprite';
 import { ByteInputField } from './ByteInputField';
-import { FaDiceFive, FaDiceFour, FaDiceSix } from 'react-icons/fa';
 
 type LevelSpriteProps = {
 	className?: string;
 	levelSprite: LevelTreeSprite;
-	madeFourBytes?: boolean;
-	madeFiveBytes?: boolean;
-	madeSixBytes?: boolean;
 	onPatch: (arg: { offset: number; bytes: number[] }) => void;
 };
 
@@ -23,15 +19,9 @@ const levelSpriteSlices = {
 	param2: [5, 1],
 };
 
-function LevelSprite({
-	className,
-	levelSprite,
-	madeFourBytes,
-	madeFiveBytes,
-	madeSixBytes,
-	onPatch,
-}: LevelSpriteProps) {
+function LevelSprite({ className, levelSprite, onPatch }: LevelSpriteProps) {
 	const data = levelSprite.rawBytes;
+	const bank = data[0];
 
 	const keys = Object.keys(levelSpriteSlices).reduce<ReactElement[]>(
 		(building, k, i) => {
@@ -71,7 +61,12 @@ function LevelSprite({
 	);
 
 	return (
-		<div className={clsx(className, 'ml-8 bg-gray-600 p-2 m-2 flex flex-col')}>
+		<div
+			className={clsx(className, 'ml-8 p-2 m-2 flex flex-col', {
+				'bg-gray-600': bank === 0 || bank === 1,
+				'bg-red-500': bank !== 0 && bank !== 1,
+			})}
+		>
 			<div className="flex flex-row items-center space-x-2">
 				<RenderLevelSprite sprite={levelSprite} scale={1} />
 				<div
@@ -81,21 +76,11 @@ function LevelSprite({
 							'grid-cols-4': data.length === 4,
 							'grid-cols-5': data.length === 5,
 							'grid-cols-6': data.length === 6,
-							relative: madeFourBytes || madeFiveBytes || madeSixBytes,
 						}
 					)}
 				>
 					{keys}
 					{values}
-					{madeFourBytes && (
-						<FaDiceFour className="absolute top-0 right-0 text-blue-500" />
-					)}
-					{madeFiveBytes && (
-						<FaDiceFive className="absolute top-0 right-0 text-blue-500" />
-					)}
-					{madeSixBytes && (
-						<FaDiceSix className="absolute top-0 right-0 text-blue-500" />
-					)}
 				</div>
 			</div>
 		</div>

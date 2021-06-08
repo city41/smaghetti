@@ -22,9 +22,8 @@ type HexTreeProps = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onEntityFocus: (entity: any) => void;
 	onAdd: (add: Add) => void;
-	onFourBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
-	onFiveBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
-	onSixBytes: (arg: { type: 'sprite' | 'object'; id: number }) => void;
+	onFourBytes: (arg: { type: 'object'; id: number }) => void;
+	onFiveBytes: (arg: { type: 'object'; id: number }) => void;
 	byteSizes: ByteSizes;
 };
 
@@ -37,7 +36,6 @@ function HexTree({
 	onEntityFocus,
 	onFourBytes,
 	onFiveBytes,
-	onSixBytes,
 	byteSizes,
 }: HexTreeProps) {
 	const roomButtons = [];
@@ -85,7 +83,6 @@ function HexTree({
 					onEntityFocus={onEntityFocus}
 					onFourBytes={onFourBytes}
 					onFiveBytes={onFiveBytes}
-					onSixBytes={onSixBytes}
 					byteSizes={byteSizes}
 				/>
 			</Fragment>

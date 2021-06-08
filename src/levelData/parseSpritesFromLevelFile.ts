@@ -1,5 +1,5 @@
 import { ROOM_SPRITE_POINTERS } from '../levelData/constants';
-import { knownBank0SpriteIds, knownBank1SpriteIds } from './knownIds';
+import { spriteLengths } from './spriteLengths';
 import { entityMap } from '../entities/entityMap';
 
 type LevelSprite = {
@@ -10,16 +10,9 @@ type LevelSprite = {
 	rawBytes: number[];
 	param1?: number;
 	param2?: number;
-	isKnown: boolean;
 };
 
-function getRawByteLength(
-	bank: number,
-	id: number,
-	fourByteIds: number[],
-	fiveByteIds: number[],
-	sixByteIds: number[]
-): { rawByteLength: number; isKnown: boolean } {
+function getRawByteLength(bank: number, id: number): number {
 	const matchingEntity = Object.entries(entityMap).find((entry) => {
 		const e = entry[1];
 		return (
@@ -29,56 +22,35 @@ function getRawByteLength(
 		);
 	});
 
-	if (matchingEntity) {
-		return {
-			isKnown: true,
-			rawByteLength: matchingEntity[1].toSpriteBinary!(0, 0, 1, 1, {}).length,
-		};
+	// bank1,id5 causes matchingEntity to choose BowserLaserStatue,
+	// which is an odd case since it is an object that also emits a sprite
+	// (the laser itself)
+	// so a crappy hack to avoid that bad pick
+	// TODO: once get decent at reverse engineering, should have a very solid
+	// way to do all this *cross fingers*
+	if (matchingEntity && !(bank === 1 && id === 5)) {
+		return matchingEntity[1].toSpriteBinary!(0, 0, 1, 1, {}).length;
 	}
 
-	const knownMap = bank === 0 ? knownBank0SpriteIds : knownBank1SpriteIds;
+	const fullId = id ^ (bank << 8);
 
-	let rawByteLength = 4;
-
-	// the passed in byte arrays are overrides coming from hex-tree
-	// they get priority. From there the least number of bytes that can
-	// satisfy get priority. But note that if we got down here, we don't
-	// set isKnown to true because these are still guesses
-
-	if (fourByteIds.includes(id)) {
-		rawByteLength = 4;
-	} else if (fiveByteIds.includes(id)) {
-		rawByteLength = 5;
-	} else if (sixByteIds.includes(id)) {
-		rawByteLength = 6;
-	} else if (knownMap[4].includes(id)) {
-		rawByteLength = 4;
-	} else if (knownMap[5].includes(id)) {
-		rawByteLength = 5;
-	} else if (knownMap[6].includes(id)) {
-		rawByteLength = 6;
+	if (fullId < spriteLengths.length) {
+		return spriteLengths[fullId];
+	} else if (fullId === 0x1ab) {
+		return 5;
+	} else {
+		return 4;
 	}
-
-	return { rawByteLength, isKnown: false };
 }
 
 function parseSprite(
 	levelData: Uint8Array | number[],
-	spriteIndex: number,
-	fourByteIds: number[],
-	fiveByteIds: number[],
-	sixByteIds: number[]
+	spriteIndex: number
 ): LevelSprite {
 	const bank = levelData[spriteIndex];
 	const id = levelData[spriteIndex + 1];
 
-	const { rawByteLength, isKnown } = getRawByteLength(
-		bank,
-		id,
-		fourByteIds,
-		fiveByteIds,
-		sixByteIds
-	);
+	const rawByteLength = getRawByteLength(bank, id);
 
 	const rawBytes = Array.from(
 		levelData.slice(spriteIndex, spriteIndex + rawByteLength)
@@ -92,27 +64,17 @@ function parseSprite(
 		param1: rawBytes[4],
 		param2: rawBytes[5],
 		rawBytes,
-		isKnown,
 	};
 }
 
 function parseSprites(
 	data: Uint8Array | number[],
-	index: number,
-	fourByteIds: number[],
-	fiveByteIds: number[],
-	sixByteIds: number[]
+	index: number
 ): LevelSprite[] {
 	const sprites = [];
 
 	while (data[index] !== 0xff && index < data.length) {
-		const sprite = parseSprite(
-			data,
-			index,
-			fourByteIds,
-			fiveByteIds,
-			sixByteIds
-		);
+		const sprite = parseSprite(data, index);
 		sprites.push(sprite);
 		index += sprite.rawBytes.length;
 	}
@@ -122,10 +84,7 @@ function parseSprites(
 
 function parseSpritesFromLevelFile(
 	levelData: Uint8Array,
-	roomIndex: 0 | 1 | 2 | 3 = 0,
-	fourByteIds: number[],
-	fiveByteIds: number[],
-	sixByteIds: number[]
+	roomIndex: 0 | 1 | 2 | 3 = 0
 ): LevelSprite[] {
 	const view = new DataView(levelData.buffer);
 
@@ -136,13 +95,7 @@ function parseSpritesFromLevelFile(
 	// byte to kick things off that needs to be skipped
 	spriteIndex += 1;
 
-	return parseSprites(
-		levelData,
-		spriteIndex,
-		fourByteIds,
-		fiveByteIds,
-		sixByteIds
-	);
+	return parseSprites(levelData, spriteIndex);
 }
 export { parseSpritesFromLevelFile, parseSprites, parseSprite };
 export type { LevelSprite };

@@ -20,7 +20,6 @@ type LevelTreeSprite = {
 	x: number;
 	y: number;
 	rawBytes: number[];
-	isKnown: boolean;
 	exclude?: boolean;
 };
 
@@ -181,11 +180,6 @@ type ByteSizes = {
 	object: {
 		four: number[];
 		five: number[];
-	};
-	sprite: {
-		four: number[];
-		five: number[];
-		six: number[];
 	};
 };
 

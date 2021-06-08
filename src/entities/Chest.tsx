@@ -69,15 +69,12 @@ const Chest: Entity = {
 
 	toSpriteBinary(x, y, _w, _h, settings) {
 		const payloadToObjectId = this.payloadToObjectId!;
+		const payload = (settings.payload ??
+			this.defaultSettings!.payload) as keyof typeof payloadToObjectId;
 
-		if (settings.payload in payloadToObjectId) {
-			const payloadId =
-				payloadToObjectId[settings.payload as keyof typeof payloadToObjectId];
+		const payloadId = payloadToObjectId[payload];
 
-			return [1, this.objectId, x, y, payloadId!];
-		} else {
-			return [1, this.objectId, x, y];
-		}
+		return [1, this.objectId, x, y, payloadId!];
 	},
 
 	simpleRender(size) {
@@ -110,7 +107,6 @@ const Chest: Entity = {
 					height={TILE_SIZE}
 					onPayloadChange={(payload) => onSettingsChange({ payload })}
 					payloads={payloads}
-					canClear
 				>
 					{body}
 				</PayloadEditDetails>

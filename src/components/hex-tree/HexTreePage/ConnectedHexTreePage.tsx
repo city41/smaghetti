@@ -13,7 +13,6 @@ import {
 	add,
 	toFourBytes,
 	toFiveBytes,
-	toSixBytes,
 } from '../hexTreeSlice';
 import { BinaryRoom, LevelTree, LevelTreeRoom } from '../types';
 import { POINTER_AREA_SIZE_IN_BYTES } from '../../../levelData/constants';
@@ -263,7 +262,6 @@ const actions = bindActionCreators(
 		onAdd: add,
 		onFourBytes: toFourBytes,
 		onFiveBytes: toFiveBytes,
-		onSixBytes: toSixBytes,
 	},
 	dispatch
 );
