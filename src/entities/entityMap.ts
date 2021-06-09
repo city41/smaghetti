@@ -114,6 +114,7 @@ import { Lakitu } from './Lakitu';
 import { LakituCloud } from './LakituCloud';
 import { Larry } from './Larry';
 import { Lava } from './Lava';
+import { LavaLotus } from './LavaLotus';
 import { Leaf } from './Leaf';
 import { Lemmy } from './Lemmy';
 import { LilSparky } from './LilSparky';
@@ -320,6 +321,7 @@ const entityMap = {
 	LakituCloud,
 	Larry,
 	Lava,
+	LavaLotus,
 	Leaf,
 	Lemmy,
 	LilSparky,
