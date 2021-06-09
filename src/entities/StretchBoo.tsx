@@ -112,16 +112,24 @@ const StretchBoo: Entity = {
 	},
 
 	render(_showDetails, _settings, _onSettingsChange, entity, room) {
-		const orientation = getOrientation(entity, room) ?? 'up';
+		const orientation = getOrientation(entity, room);
+
+		let marginTop = 0;
+
+		if (orientation === 'up') {
+			marginTop = 5;
+		} else if (orientation === 'down') {
+			marginTop = -5;
+		}
 
 		const style = {
 			width: TILE_SIZE,
 			height: TILE_SIZE,
-			marginTop: orientation === 'up' ? 5 : -5,
+			marginTop,
 		};
 
 		const spaceStyle = {
-			top: -5,
+			top: orientation === null ? 0 : -5,
 			width: TILE_SIZE,
 			height: TILE_SIZE,
 		};
