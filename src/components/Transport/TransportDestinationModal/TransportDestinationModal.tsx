@@ -97,12 +97,22 @@ function TransportDestinationModal({
 		const bounds = e.currentTarget.getBoundingClientRect();
 		const { scrollLeft, scrollTop } = e.currentTarget;
 
-		setCurDestX(
-			Math.floor((e.clientX - bounds.left + scrollLeft) / (TILE_SIZE * SCALE))
+		const destX = Math.floor(
+			(e.clientX - bounds.left + scrollLeft) / (TILE_SIZE * SCALE)
 		);
-		setCurDestY(
-			Math.floor((e.clientY - bounds.top + scrollTop) / (TILE_SIZE * SCALE))
+		const destY = Math.floor(
+			(e.clientY - bounds.top + scrollTop) / (TILE_SIZE * SCALE)
 		);
+
+		if (
+			destX >= 0 &&
+			destX < curDestRoom.roomTileWidth &&
+			destY >= 0 &&
+			destY < curDestRoom.roomTileHeight
+		) {
+			setCurDestX(destX);
+			setCurDestY(destY);
+		}
 	}
 
 	return (
