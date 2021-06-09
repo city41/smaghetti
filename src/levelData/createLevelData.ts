@@ -4,7 +4,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { entityMap } from '../entities/entityMap';
 import isEqual from 'lodash/isEqual';
 import intersection from 'lodash/intersection';
-import { decodeObjectSet } from '../entities/util';
+import { decodeObjectSet, encodeObjectSets } from '../entities/util';
 
 type Room = {
 	objects: number[];
@@ -79,7 +79,10 @@ function getObjectSet(entities: EditorEntity[]): [number, number] {
 		return intersection(building, entityDef.objectSets);
 	}, []);
 
-	const resultingSet = intersected[0] ?? 0;
+	// nothing in the intersection? then default to 1,1
+	// not a huge deal, this means this room has no objects at all, so
+	// it's unlikely to be a room of much use
+	const resultingSet = intersected[0] ?? encodeObjectSets([[1, 1]])[0];
 
 	return decodeObjectSet(resultingSet);
 }
