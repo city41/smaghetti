@@ -193,14 +193,14 @@ function getLevelSettings(
 		0x01, // screen y boundary, most sig byte
 		0, // fixed screen center y, least sig byte
 		0, // fixed screen center y, most sig byte
-		0x18, // player y screen center
-		0, // player y screen center
+		0x18, // player y screen center, least sig byte
+		0, // player y screen center, most sig byte
 		0x38, // camera min
 		0, // camera max
-		0x19, // player y
-		0x2, // player x
-		0x12, // screen y
-		0, // screen x
+		0x19, // player starting y
+		0x2, // player starting x
+		0x12, // screen starting y
+		0, // screen starting x
 		objectSet, // object set, least sig byte
 		0, // object set, most sig byte
 		settings.music, // music, least sig byte
