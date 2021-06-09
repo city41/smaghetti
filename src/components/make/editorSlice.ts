@@ -1245,9 +1245,12 @@ const editorSlice = createSlice({
 		eraseLevel(state: InternalEditorState) {
 			resetState(state);
 		},
-		resetOffset(state: InternalEditorState) {
-			getCurrentRoom(state).scrollOffset.x = 0;
-			getCurrentRoom(state).scrollOffset.y = calcYForScrollToBottom();
+		resetViewport(state: InternalEditorState) {
+			const currentRoom = getCurrentRoom(state);
+
+			currentRoom.scrollOffset.x = 0;
+			currentRoom.scrollOffset.y = calcYForScrollToBottom();
+			currentRoom.scale = initialScale;
 		},
 		editorVisibleWindowChanged(
 			state: InternalEditorState,
@@ -2000,7 +2003,7 @@ const {
 	toggleLayerLock,
 	pushPan,
 	popPan,
-	resetOffset,
+	resetViewport,
 	addPaletteEntry,
 	removePaletteEntry,
 	setCurrentPaletteEntryByIndex,
@@ -2038,6 +2041,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		setCurrentRoomIndex.toString(),
 		mouseModeChanged.toString(),
 		editorVisibleWindowChanged.toString(),
+		resetViewport.toString(),
 		scaleIncreased.toString(),
 		scaleDecreased.toString(),
 		toggleResizeMode.toString(),
@@ -2046,12 +2050,13 @@ const undoableReducer = undoable(cleanUpReducer, {
 		pan.toString(),
 		toggleGrid.toString(),
 		toggleLayerLock.toString(),
-		resetOffset.toString(),
+		resetViewport.toString(),
 		addPaletteEntry.toString(),
 		removePaletteEntry.toString(),
 		setCurrentPaletteEntryByIndex.toString(),
 		clearFocusedEntity.toString(),
 		selectDrag.toString(),
+		editorVisibleWindowChanged.toString(),
 		'editor/savingLevel',
 		'editor/saveLevel',
 		'editor/saveLevelCopy',
@@ -2218,7 +2223,7 @@ export {
 	toggleLayerLock,
 	pushPan,
 	popPan,
-	resetOffset,
+	resetViewport,
 	addPaletteEntry,
 	removePaletteEntry,
 	setCurrentPaletteEntryByIndex,

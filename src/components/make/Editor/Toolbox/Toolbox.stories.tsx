@@ -17,6 +17,7 @@ export const Basic = () => {
 		<Toolbox
 			mouseMode="draw"
 			onMouseModeChanged={noop}
+			onResetViewport={noop}
 			onScaleDecreased={noop}
 			onScaleIncreased={noop}
 			canIncreaseScale={false}

@@ -3,12 +3,14 @@ import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 import { TiZoomIn, TiZoomOut } from 'react-icons/ti';
+import { MdTerrain } from 'react-icons/md';
 
 import { PlainIconButton } from '../../../PlainIconButton';
 
 type ZoomProps = {
 	className?: string;
 	disabled?: boolean;
+	onResetViewport: () => void;
 	onScaleIncreased: () => void;
 	onScaleDecreased: () => void;
 	canIncreaseScale: boolean;
@@ -18,6 +20,7 @@ type ZoomProps = {
 const Zoom: FunctionComponent<ZoomProps> = ({
 	className,
 	disabled,
+	onResetViewport,
 	onScaleIncreased,
 	onScaleDecreased,
 	canIncreaseScale,
@@ -43,21 +46,29 @@ const Zoom: FunctionComponent<ZoomProps> = ({
 	);
 
 	return (
-		<div className={clsx(className, 'flex flex-row items-center space-x-1')}>
+		<div
+			className={clsx(className, 'flex flex-row items-center space-x-1')}
+			style={{ fontSize: 32 }}
+		>
 			<PlainIconButton
 				size="large"
 				label="zoom out (-)"
 				icon={TiZoomOut}
-				style={{ fontSize: 32 }}
-				onClick={() => onScaleDecreased()}
+				onClick={onScaleDecreased}
 				disabled={!canDecreaseScale || disabled}
 			/>
 			<PlainIconButton
 				size="large"
 				label="zoom in (+)"
 				icon={TiZoomIn}
-				style={{ fontSize: 32 }}
-				onClick={() => onScaleIncreased()}
+				onClick={onScaleIncreased}
+				disabled={!canIncreaseScale || disabled}
+			/>
+			<PlainIconButton
+				size="large"
+				label="reset viewport"
+				icon={MdTerrain}
+				onClick={onResetViewport}
 				disabled={!canIncreaseScale || disabled}
 			/>
 		</div>

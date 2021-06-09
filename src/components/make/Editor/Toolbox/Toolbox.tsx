@@ -40,6 +40,7 @@ type InternalToolboxProps = {
 	currentPaletteEntry?: EntityType;
 	mouseMode: MouseMode;
 	onMouseModeChanged: (mouseMode: MouseMode) => void;
+	onResetViewport: () => void;
 	onScaleDecreased: () => void;
 	onScaleIncreased: () => void;
 	canIncreaseScale: boolean;
@@ -58,6 +59,7 @@ const Toolbox = memo(function Toolbox({
 	currentPaletteEntry,
 	mouseMode,
 	onMouseModeChanged,
+	onResetViewport,
 	onScaleDecreased,
 	onScaleIncreased,
 	canIncreaseScale,
@@ -125,6 +127,7 @@ const Toolbox = memo(function Toolbox({
 
 			<Zoom
 				disabled={disabled}
+				onResetViewport={onResetViewport}
 				onScaleDecreased={onScaleDecreased}
 				onScaleIncreased={onScaleIncreased}
 				canIncreaseScale={canIncreaseScale}
