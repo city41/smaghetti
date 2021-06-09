@@ -1,4 +1,11 @@
-import React, { useState } from 'react';
+import React, {
+	useState,
+	useEffect,
+	forwardRef,
+	useRef,
+	RefObject,
+	Ref,
+} from 'react';
 import clsx from 'clsx';
 import { Modal } from '../../Modal';
 import { IconButtonGroup } from '../../IconButton/IconButtonGroup';
@@ -10,15 +17,17 @@ import { Button } from '../../Button';
 
 import styles from './TransportDestinationModal.module.css';
 
-function DestinationHighlight({
-	x,
-	y,
-	scale,
-}: {
+type DestinationHighlightProps = {
 	x: number;
 	y: number;
 	scale: number;
-}) {
+	ref?: RefObject<HTMLDivElement> | Ref<HTMLDivElement> | null;
+};
+
+const DestinationHighlight = forwardRef<
+	HTMLDivElement,
+	DestinationHighlightProps
+>(function DestinationHighlight({ x, y, scale }, ref) {
 	const BORDER_WIDTH = 3;
 
 	const style = {
@@ -29,8 +38,8 @@ function DestinationHighlight({
 		borderWidth: BORDER_WIDTH,
 	};
 
-	return <div className="absolute border-white" style={style} />;
-}
+	return <div ref={ref} className="absolute border-white" style={style} />;
+});
 
 type DestinationSetProps = {
 	room: number;
@@ -63,6 +72,7 @@ function TransportDestinationModal({
 	onDestinationSet,
 }: PublicTransportDestinationModalProps &
 	InternalTransportDestinationModalProps) {
+	const highlightRef = useRef<HTMLDivElement>(null);
 	const [curDestRoomIndex, setCurDestRoomIndex] = useState(
 		Math.max(destRoom, 0)
 	);
@@ -73,6 +83,19 @@ function TransportDestinationModal({
 	const curDestRoom = rooms[curDestRoomIndex];
 
 	const roomButtons = [];
+
+	useEffect(() => {
+		if (isOpen) {
+			setTimeout(() => {
+				highlightRef.current?.scrollIntoView();
+			}, 10);
+		}
+	}, [isOpen]);
+
+	useEffect(() => {
+		setCurDestX(destX ?? -1);
+		setCurDestY(destY ?? -1);
+	}, [destX, destY]);
 
 	for (let i = 0; i < 4; ++i) {
 		roomButtons.push(
@@ -145,7 +168,12 @@ function TransportDestinationModal({
 							room={curDestRoom}
 						>
 							{curDestX > -1 && curDestY > -1 && (
-								<DestinationHighlight x={curDestX} y={curDestY} scale={SCALE} />
+								<DestinationHighlight
+									ref={highlightRef}
+									x={curDestX}
+									y={curDestY}
+									scale={SCALE}
+								/>
 							)}
 						</RoomThumbnail>
 					)}
