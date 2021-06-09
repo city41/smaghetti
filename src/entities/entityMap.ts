@@ -43,6 +43,7 @@ import { CeilingSpiny } from './CeilingSpiny';
 import { CementBlock } from './CementBlock';
 import { ChainChomp } from './ChainChomp';
 import { ChargingChuck } from './ChargingChuck';
+import { CheckeredFloor } from './CheckeredTerrain/CheckeredFloor';
 import { Chest } from './Chest';
 import { ChoppyWater } from './ChoppyWater';
 import { ClappingChuck } from './ClappingChuck';
@@ -250,6 +251,7 @@ const entityMap = {
 	CementBlock,
 	ChainChomp,
 	ChargingChuck,
+	CheckeredFloor,
 	Chest,
 	ChoppyWater,
 	ClappingChuck,

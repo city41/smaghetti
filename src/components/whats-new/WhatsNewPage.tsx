@@ -63,6 +63,16 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-06-09">
+					<ul className="ml-8 list-disc">
+						<li>Checkered Floor</li>
+					</ul>
+					<p>
+						This is the first entity in the &quot;checkered terrain
+						series&quot;, once all are added, you&apos;ll be able to construct
+						entire rooms in a checkered motif
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-08">
 					<ul className="ml-8 list-disc">
 						<li>Hot Foot</li>
