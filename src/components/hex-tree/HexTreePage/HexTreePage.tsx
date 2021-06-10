@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPlay } from 'react-icons/fa';
 import { VscDebugRestart } from 'react-icons/vsc';
 
@@ -20,6 +20,7 @@ import tabStyles from '../../../styles/tabs.module.css';
 import { RenderLevel } from './RenderLevel';
 import { HexEditor } from './HexEditor';
 import { PlainIconButton } from '../../PlainIconButton';
+import cloneDeep from 'lodash/cloneDeep';
 
 type HexTreePageProps = {
 	allFilesReady: boolean;
@@ -56,6 +57,7 @@ function HexTreePage({
 }: HexTreePageProps) {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [focusedEntity, setFocusedEntity] = useState<any>(null);
+	const [immediateMode, setImmediateMode] = useState(false);
 	const [editState, setEditState] = useState<'editing' | 'running'>('editing');
 	const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
@@ -76,6 +78,17 @@ function HexTreePage({
 	}
 
 	let tabBody = null;
+
+	useEffect(() => {
+		if (immediateMode) {
+			setTimeout(() => {
+				window._gba.setRom(getRom()!.buffer);
+				window._gba.defrost(cloneDeep(getSaveState()!));
+				window._gba.setSavedata(getEmptySave()!.buffer);
+				window._gba.runStable();
+			}, 10);
+		}
+	}, [immediateMode, data]);
 
 	switch (tabs[currentTabIndex]) {
 		case 'Outline':
@@ -138,7 +151,7 @@ function HexTreePage({
 								emptySaveFile={getEmptySave()!}
 								saveState={getSaveState()!}
 								levelData={data}
-								isPlaying={editState === 'running'}
+								isPlaying={editState === 'running' || immediateMode}
 								scale={1.5}
 							/>
 							<PlainIconButton
@@ -146,7 +159,27 @@ function HexTreePage({
 								label={editState === 'editing' ? 'paused' : 'running'}
 								icon={editState === 'editing' ? FaPlay : VscDebugRestart}
 								onClick={handleRunningEditToggle}
+								disabled={immediateMode}
 							/>
+							<div className="absolute left-0 -bottom-2 xw-32 h-8 flex flex-row items-center space-x-2">
+								<input
+									id="immediate-mode-input"
+									type="checkbox"
+									checked={immediateMode}
+									onChange={() => setImmediateMode((im) => !im)}
+								/>
+								<div className="flex flex-col">
+									<label
+										htmlFor="immediate-mode-input"
+										className="cursor-pointer"
+									>
+										immediate mode
+									</label>
+									<div className="text-xs text-gray-400">
+										emulator resets whenever level changes
+									</div>
+								</div>
+							</div>
 						</div>
 						<RenderLevel
 							rooms={tree?.rooms ?? []}
