@@ -436,6 +436,7 @@ const Canvas = memo(function Canvas({
 					{
 						'cursor-crosshair': mouseMode === 'draw' || mouseMode === 'fill',
 						[styles.erase]: mouseMode === 'erase',
+						[styles.hideTileSpace]: !showGrid,
 					}
 				)}
 				ref={(div) => {

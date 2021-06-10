@@ -4,6 +4,10 @@
 	@apply relative;
 }
 
+.hideTileSpace :global(.TileSpace) {
+	display: none !important;
+}
+
 .erase {
 	cursor: url(./eraseCursor.png) 7 16, auto;
 }
