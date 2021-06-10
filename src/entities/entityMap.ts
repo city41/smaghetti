@@ -178,6 +178,7 @@ import { Stalactite } from './Stalactite';
 import { StarMan } from './StarMan';
 import { StretchBlock } from './StretchBlock';
 import { StretchBoo } from './StretchBoo';
+import { StretchBooUpsideDown } from './StretchBooUpsideDown';
 import { StretchBooPlatform } from './StretchBooPlatform';
 import { Swooper } from './Swooper';
 import { TerracottaBrick } from './TerracottaBrick';
@@ -386,6 +387,7 @@ const entityMap = {
 	StarMan,
 	StretchBlock,
 	StretchBoo,
+	StretchBooUpsideDown,
 	StretchBooPlatform,
 	Swooper,
 	TerracottaBrick,

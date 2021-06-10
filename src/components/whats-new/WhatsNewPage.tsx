@@ -63,6 +63,23 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Stretch Boo split into two entities" date="2021-06-10">
+					<p>
+						Originally Stretch Boo was one entity and Smaghetti would choose to
+						make it upside down or upright depending on how you placed it in
+						your level. This is convenient, but it is also limiting. It would
+						mean you couldn&apos;t position a Stretch Boo how you wanted it in
+						some situations.
+					</p>
+					<p>
+						So now Stretch Boo comes in upright and upside down variants and you
+						need to choose the right one for the situation.
+					</p>
+					<p>
+						This is the same reason spiny and buzzy beetle come in separate
+						ceiling versions.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-09">
 					<ul className="ml-8 list-disc">
 						<li>Checkered Floor</li>

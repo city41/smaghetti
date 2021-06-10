@@ -15,15 +15,15 @@ function isAttached(
 	const tx = entity.x / TILE_SIZE;
 	const ty = entity.y / TILE_SIZE;
 
-	const below = room.stage.matrix[ty + 1]?.[tx];
+	const above = room.stage.matrix[ty - 1]?.[tx];
 
-	if (below?.type === 'StretchBooPlatform') {
-		const belowLeft = room.stage.matrix[ty + 1]?.[tx - 1];
-		const belowRight = room.stage.matrix[ty + 1]?.[tx + 1];
+	if (above?.type === 'StretchBooPlatform') {
+		const aboveLeft = room.stage.matrix[ty - 1]?.[tx - 1];
+		const aboveRight = room.stage.matrix[ty - 1]?.[tx + 1];
 
 		if (
-			belowLeft?.type === 'StretchBooPlatform' &&
-			belowRight?.type === 'StretchBooPlatform'
+			aboveLeft?.type === 'StretchBooPlatform' &&
+			aboveRight?.type === 'StretchBooPlatform'
 		) {
 			return true;
 		}
@@ -32,11 +32,11 @@ function isAttached(
 	return false;
 }
 
-const StretchBoo: Entity = {
+const StretchBooUpsideDown: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-fortress',
-		title: 'Stretch Boo - Upright',
+		title: 'Stretch Boo - Upside Down',
 		description: 'Only works properly on Stretch Boo platforms',
 	},
 
@@ -45,7 +45,7 @@ const StretchBoo: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x31,
+	objectId: 0x32,
 
 	resource: {
 		romOffset: 0x167674,
@@ -80,7 +80,7 @@ const StretchBoo: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="StretchBoo-bg bg-cover"
+				className="StretchBoo-bg bg-cover transform rotate-180"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -92,7 +92,7 @@ const StretchBoo: Entity = {
 		const style = {
 			width: TILE_SIZE,
 			height: TILE_SIZE,
-			marginTop: attached ? 5 : 0,
+			marginTop: attached ? -5 : 0,
 		};
 
 		const spaceStyle = {
@@ -102,7 +102,10 @@ const StretchBoo: Entity = {
 		};
 
 		return (
-			<div className="relative StretchBoo-bg bg-cover" style={style}>
+			<div
+				className="relative StretchBoo-bg bg-cover transform rotate-180"
+				style={style}
+			>
 				<TileSpace style={spaceStyle} className="absolute left-0" />
 			</div>
 		);
@@ -121,4 +124,4 @@ const StretchBoo: Entity = {
 	},
 };
 
-export { StretchBoo };
+export { StretchBooUpsideDown };
