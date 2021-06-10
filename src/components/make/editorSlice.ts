@@ -33,7 +33,10 @@ import cloneDeep from 'lodash/cloneDeep';
 
 import { TILE_SIZE } from '../../tiles/constants';
 import { entityMap, EntityType } from '../../entities/entityMap';
-import { ROOM_BACKGROUND_SETTINGS } from '../../levelData/constants';
+import {
+	MUSIC_VALUES,
+	ROOM_BACKGROUND_SETTINGS,
+} from '../../levelData/constants';
 import {
 	determineValidGraphicAndObjectSetValues,
 	isGraphicAndObjectSetCompatible,
@@ -322,8 +325,7 @@ const SINGLE_BRICK_SO_PLAYER_DOESNT_FALL: EditorEntityMatrix = (function () {
 
 const initialRoomState: RoomState = {
 	settings: {
-		// TODO: figure out how to handle music
-		music: 0xd, // this is the underground music
+		music: MUSIC_VALUES.Underground,
 		...ROOM_BACKGROUND_SETTINGS.underground,
 	},
 	actors: {

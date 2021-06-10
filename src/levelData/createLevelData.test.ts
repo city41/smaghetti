@@ -1,5 +1,8 @@
 import { createLevelData } from './createLevelData';
 import {
+	BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES,
+	BACKGROUND_GRAPHIC_VALUES,
+	MUSIC_VALUES,
 	ROOM_OBJECT_HEADER_SIZE_IN_BYTES,
 	ROOM_OBJECT_POINTERS,
 	ROOM_SPRITE_POINTERS,
@@ -26,10 +29,10 @@ describe('createLevelData', () => {
 
 			const room: RoomData = {
 				settings: {
-					music: 0,
+					music: MUSIC_VALUES.Underground,
 					bgColor: 0,
-					bgGraphic: 0,
-					bgExtraColorAndEffect: 0,
+					bgGraphic: BACKGROUND_GRAPHIC_VALUES.underground,
+					bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 				},
 				paletteEntries: [],
 				actors: {
@@ -96,10 +99,11 @@ describe('createLevelData', () => {
 					rooms: [
 						{
 							settings: {
-								bgGraphic: 0,
-								music: 0,
+								bgGraphic: BACKGROUND_GRAPHIC_VALUES.underground,
+								music: MUSIC_VALUES.Underground,
 								bgColor: 0,
-								bgExtraColorAndEffect: 0,
+								bgExtraColorAndEffect:
+									BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 							},
 							paletteEntries: [],
 							actors: {

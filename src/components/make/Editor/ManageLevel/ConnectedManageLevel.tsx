@@ -26,6 +26,7 @@ const actions = bindActionCreators(
 		onClose: toggleManageLevelMode,
 		onTimerChange: setTimer,
 		onLevelNameChange: setLevelName,
+		onRoomSettingsChange: roomSettingsChange,
 	},
 	dispatch
 );

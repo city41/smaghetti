@@ -2,6 +2,11 @@ import React from 'react';
 import { Meta } from '@storybook/react';
 
 import { LevelEntry } from './LevelEntry';
+import {
+	BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES,
+	BACKGROUND_GRAPHIC_VALUES,
+	MUSIC_VALUES,
+} from '../../../../levelData/constants';
 
 const meta: Meta = {
 	title: 'LevelEntry',
@@ -23,10 +28,10 @@ const blankLevel: Level = {
 		rooms: [
 			{
 				settings: {
-					music: 0,
+					music: MUSIC_VALUES.Underground,
 					bgColor: 0,
-					bgGraphic: 0,
-					bgExtraColorAndEffect: 0,
+					bgGraphic: BACKGROUND_GRAPHIC_VALUES.underground,
+					bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 				},
 				paletteEntries: [],
 				actors: {

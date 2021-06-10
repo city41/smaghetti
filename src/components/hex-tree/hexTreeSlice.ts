@@ -29,6 +29,9 @@ import {
 	TransportPatch,
 } from './types';
 import {
+	BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES,
+	BACKGROUND_GRAPHIC_VALUES,
+	MUSIC_VALUES,
 	ROOM_AUTOSCROLL_POINTERS,
 	ROOM_BLOCKPATH_POINTERS,
 	ROOM_LEVELSETTING_POINTERS,
@@ -61,10 +64,10 @@ const EMPTY_LEVEL = createLevelData({
 		rooms: [
 			{
 				settings: {
-					music: 0,
+					music: MUSIC_VALUES.Underground,
 					bgColor: 0,
-					bgGraphic: 0,
-					bgExtraColorAndEffect: 0,
+					bgGraphic: BACKGROUND_GRAPHIC_VALUES.underground,
+					bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 				},
 				actors: {
 					entities: [],

@@ -63,6 +63,17 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Choose your music" date="2021-06-10">
+					<p>
+						You can now choose what music a room plays. It&apos;s in the same
+						spot as choosing the background graphic.
+					</p>
+					<p>
+						Why can you choose any song? Like credits, game over, etc? Because
+						the game lets you do it :) So if you want strange music in your
+						levels, go for it.
+					</p>
+				</NewEntry>
 				<NewEntry title="Stretch Boo split into two entities" date="2021-06-10">
 					<p>
 						Originally Stretch Boo was one entity and Smaghetti would choose to

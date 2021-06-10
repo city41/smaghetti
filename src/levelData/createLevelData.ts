@@ -121,7 +121,6 @@ function getObjectHeader(
 		objectGraphicSet, // top 3 bits: level entry action, bottom 5: graphics set
 		0x08, // top nibble: graphics set, bottom: unknown
 		roomSettings.bgExtraColorAndEffect ?? 0,
-		// background graphics, copied from 1-2
 		roomSettings.bgGraphic,
 	];
 }

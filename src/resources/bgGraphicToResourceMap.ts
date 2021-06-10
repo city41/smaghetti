@@ -1,6 +1,8 @@
+import { BACKGROUND_GRAPHIC_VALUES } from '../levelData/constants';
+
 const bgGraphicToResourceMap: Record<number, string> = {
-	0x37: 'UndergroundBackground-bg',
-	0x6: 'FortressBackground-bg',
+	[BACKGROUND_GRAPHIC_VALUES.underground]: 'UndergroundBackground-bg',
+	[BACKGROUND_GRAPHIC_VALUES.fortress]: 'FortressBackground-bg',
 };
 
 export { bgGraphicToResourceMap };

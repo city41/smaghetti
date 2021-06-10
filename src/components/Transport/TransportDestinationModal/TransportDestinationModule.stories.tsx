@@ -3,6 +3,11 @@ import { Meta } from '@storybook/react';
 
 import { TransportDestinationModal } from './TransportDestinationModal';
 import { RoomState } from '../../make/editorSlice';
+import {
+	BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES,
+	BACKGROUND_GRAPHIC_VALUES,
+	MUSIC_VALUES,
+} from '../../../levelData/constants';
 
 const meta: Meta = {
 	title: 'TransportDestinationModal',
@@ -13,10 +18,10 @@ export default meta;
 
 const EMPTY_ROOM: RoomState = {
 	settings: {
-		music: 0,
+		music: MUSIC_VALUES.Underground,
 		bgColor: 0,
-		bgGraphic: 0,
-		bgExtraColorAndEffect: 0,
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES.underground,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 	actors: {
 		entities: [],

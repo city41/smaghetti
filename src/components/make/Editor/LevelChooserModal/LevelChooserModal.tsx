@@ -5,7 +5,10 @@ import {
 	PLAY_WINDOW_TILE_HEIGHT,
 	PLAY_WINDOW_TILE_WIDTH,
 } from '../../constants';
-import { ROOM_BACKGROUND_SETTINGS } from '../../../../levelData/constants';
+import {
+	MUSIC_VALUES,
+	ROOM_BACKGROUND_SETTINGS,
+} from '../../../../levelData/constants';
 import { getExampleLevel } from '../../../FileLoader/files';
 import { deserialize } from '../../../../level/deserialize';
 import { LOCALSTORAGE_KEY } from '../../editorSlice';
@@ -24,7 +27,7 @@ type InternalLevelChooserModalProps = {
 const EMPTY_ROOM: RoomData = {
 	settings: {
 		...ROOM_BACKGROUND_SETTINGS.underground,
-		music: 0xd, // this is underground music value
+		music: MUSIC_VALUES.Underground,
 	},
 	actors: {
 		entities: [],

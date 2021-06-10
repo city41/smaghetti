@@ -46,11 +46,43 @@ type EditorEntityMatrix = Array<EditorEntityRow | null>;
 // the string is the short id for the entity type, ie "Brick" -> "Br"
 type SerializedEditorEntityMatrix = Array<string | Array<string>>;
 
+type BackgroundGraphic = 'underground' | 'fortress';
+type BackgroundExtraColorAndEffect = 'none' | 'fortress-parallax';
+
 type RoomBackgroundSettings = {
 	bgGraphic: number;
 	bgColor: number;
 	bgExtraColorAndEffect: number;
 };
+
+type MusicTrack =
+	| 'Plains'
+	| 'Underground/Bonus'
+	| 'Underwater'
+	| 'Fortress'
+	| 'Boss Battle'
+	| 'Airship'
+	| 'Hammer bros'
+	| 'Mushroom House'
+	| 'Athletic'
+	| 'Castle room'
+	| 'Sky'
+	| 'Underground'
+	| 'Classic Plains'
+	| 'Classic Underground'
+	| 'Classic Underwater'
+	| 'Classic Castle'
+	| 'Ghost House'
+	| 'Game Select Menu'
+	| 'Bonus Room'
+	| 'Credits'
+	| 'e-Reader Connect Screen'
+	| 'Game Over'
+	| 'SMW P-Switch Music'
+	| 'Music Box'
+	| 'Level Finished'
+	| 'World 5 Map'
+	| 'World 8 Map';
 
 type RoomSettings = RoomBackgroundSettings & {
 	music: number;
