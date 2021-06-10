@@ -103,7 +103,7 @@ const paletteSubCategoryLabel: Record<PaletteSubcategory | 'misc', string> = {
 	'terrain-statues': 'statues',
 	'terrain-winter': 'winter',
 	'enemy-common': 'common',
-	'enemy-piranha': 'piranha family',
+	'enemy-piranha': 'piranhas',
 	'enemy-fortress': 'fortress',
 	'enemy-desert': 'desert',
 	'enemy-water': 'water',
