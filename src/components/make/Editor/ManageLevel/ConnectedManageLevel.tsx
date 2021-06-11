@@ -120,7 +120,6 @@ function ConnectedManageLevel(props: PublicManageLevelProps) {
 				levelSettings={settings}
 				rooms={roomsWithType}
 				currentRoomIndex={currentRoomIndex}
-				scale={rooms[currentRoomIndex].scale}
 				roomTypes={roomTypes}
 				onRoomTypeChange={handleRoomTypeChange}
 			/>

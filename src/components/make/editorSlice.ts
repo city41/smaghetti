@@ -648,7 +648,7 @@ function snapEntityCoordToGrid(inputX: number): number {
  * to completely not show up in the browser window
  */
 function ensureLevelIsInView(state: InternalEditorState) {
-	if (typeof window === 'undefined') {
+	if (typeof window === 'undefined' || state.storedForManageLevelMode) {
 		return;
 	}
 
@@ -739,34 +739,12 @@ function determineResizeScale(state: InternalEditorState): number {
 
 function setScaleAndOffsetForManageLevel(state: InternalEditorState) {
 	const currentRoom = getCurrentRoom(state);
-
-	const widthInTiles = Math.max(...state.rooms.map((r) => r.roomTileWidth)) + 5;
-	let heightInTiles = state.rooms.reduce<number>((building, room) => {
-		return building + room.roomTileHeight;
-	}, 0);
-
-	// add 4 tiles between each room to account for the padding
-	heightInTiles += 4 * (state.rooms.length - 1);
-
-	// add tiles to account for the level settings header
-	// TODO: damn this is dumb code
-	heightInTiles += 60;
-
-	const widthInPx = widthInTiles * TILE_SIZE;
-	const heightInPx = heightInTiles * TILE_SIZE;
-
-	const widthScale = (window.innerWidth * 0.75) / widthInPx;
-	const heightScale = (window.innerHeight * 0.75) / heightInPx;
-
-	const scale = Math.min(widthScale, heightScale);
-	currentRoom.scale = scale;
-
-	const scaledWidthPx = widthInPx * scale;
-	const scaledHeightPx = heightInPx * scale;
+	currentRoom.scale = 1;
 
 	currentRoom.scrollOffset = {
-		x: -(window.innerWidth / 2 - scaledWidthPx / 2) / scale,
-		y: -(window.innerHeight / 2 - scaledHeightPx / 2) / scale,
+		// stick it about in the upper left corner-ish, accounting for the upper toolbar area
+		x: -100,
+		y: -200,
 	};
 }
 
@@ -1325,7 +1303,6 @@ const editorSlice = createSlice({
 		addRoom(state: InternalEditorState) {
 			if (state.rooms.length < 4) {
 				state.rooms.push(cloneDeep(initialRoomState));
-				setScaleAndOffsetForManageLevel(state);
 			}
 		},
 		deleteRoom(state: InternalEditorState, action: PayloadAction<number>) {

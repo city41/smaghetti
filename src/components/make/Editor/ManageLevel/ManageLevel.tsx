@@ -23,7 +23,6 @@ type InternalManageLevelProps = {
 	onDeleteRoom: (roomIndex: number) => void;
 	onRoomIndexChange: (newIndex: number) => void;
 	onClose: () => void;
-	scale: number;
 	roomTypes: string[];
 	onRoomTypeChange: (index: number, type: string) => void;
 	onTimerChange: (newTimer: number) => void;
@@ -33,6 +32,8 @@ type InternalManageLevelProps = {
 		settings: Partial<RoomSettings>;
 	}) => void;
 };
+
+const SCALE = 0.5;
 
 function SettingsKey({
 	className,
@@ -55,7 +56,6 @@ function ManageLevel({
 	onDeleteRoom,
 	onRoomIndexChange,
 	onClose,
-	scale,
 	roomTypes,
 	onRoomTypeChange,
 	onLevelNameChange,
@@ -183,15 +183,15 @@ function ManageLevel({
 								<div
 									className="relative"
 									style={{
-										width: r.roomTileWidth * TILE_SIZE * scale,
-										height: r.roomTileHeight * TILE_SIZE * scale,
+										width: r.roomTileWidth * TILE_SIZE * SCALE,
+										height: r.roomTileHeight * TILE_SIZE * SCALE,
 									}}
 								>
 									<RoomThumbnail
 										className={clsx(
 											'absolute top-0 left-0 border border-black bg-blue-200'
 										)}
-										scale={scale}
+										scale={SCALE}
 										heightInTiles={r.roomTileHeight}
 										widthInTiles={r.roomTileWidth}
 										upperLeftTile={{ x: 0, y: 0 }}
