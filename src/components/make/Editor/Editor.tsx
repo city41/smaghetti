@@ -25,6 +25,7 @@ import { LoadingBar } from '../../LoadingBar';
 import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
 
 type EditorProps = {
+	areFilesReady?: boolean;
 	noScript?: boolean;
 	mode: 'editing' | 'resizing' | 'managing-rooms';
 	loadLevelState:
@@ -40,13 +41,22 @@ function toFreshEditor() {
 	window.location.replace('/make');
 }
 
-function Editor({ noScript, mode, loadLevelState }: EditorProps) {
-	const [isChoosingLevel, setIsChoosingLevel] = useState(true);
+function Editor({
+	noScript,
+	mode,
+	loadLevelState,
+	areFilesReady,
+}: EditorProps) {
+	const [isChoosingLevel, setIsChoosingLevel] = useState(false);
 	const [isPlaying, setPlaying] = useState(false);
 	const [showKeyboardHelpModal, setShowKeyboardHelpModal] = useState(false);
 	const dispatch = useDispatch();
 
 	const firstRender = useFirstRender();
+
+	useEffect(() => {
+		setIsChoosingLevel(!!areFilesReady);
+	}, [areFilesReady]);
 
 	useEffect(() => {
 		dispatch(loadBlankLevel());
