@@ -37,6 +37,7 @@ type PaletteSubcategory =
 	| 'enemy-winter'
 	| 'enemy-bro'
 	| 'enemy-giant'
+	| 'enemy-generator'
 	| 'enemy-boss';
 
 type Entity = {

@@ -92,6 +92,7 @@ const paletteSubCategoriesOrder: Array<PaletteSubcategory | 'misc'> = [
 	'enemy-winter',
 	'enemy-bro',
 	'enemy-giant',
+	'enemy-generator',
 	'enemy-boss',
 	'misc',
 ];
@@ -111,6 +112,7 @@ const paletteSubCategoryLabel: Record<PaletteSubcategory | 'misc', string> = {
 	'enemy-bro': 'bros',
 	'enemy-giant': 'giants',
 	'enemy-boss': 'bosses',
+	'enemy-generator': 'generators',
 	misc: 'the rest...',
 };
 

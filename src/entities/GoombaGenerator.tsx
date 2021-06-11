@@ -15,12 +15,12 @@ const directionToObjectId: Record<Direction, number> = {
 };
 
 const GoombaGenerator: Entity = {
-	// paletteCategory: 'enemy',
+	paletteCategory: 'enemy',
 	paletteInfo: {
-		subCategory: 'enemy-common',
+		subCategory: 'enemy-generator',
 		title: 'Goomba Generator',
-		description: 'Usually they come out of a pipe',
-		warning: "for some reason going right doesn't work yet",
+		description:
+			'Usually they come out of a pipe. They turn off once Mario moves past the generator.',
 	},
 
 	objectSets: ANY_OBJECT_SET,
