@@ -23,6 +23,7 @@ type Version_5_1_0 = {
 	name: string;
 	settings: LevelSettings;
 	created_at: string;
+	updated_at?: string;
 	data: SerializedLevelData;
 	id: string;
 };

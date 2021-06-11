@@ -3,35 +3,68 @@ import {
 	LevelChooserModal,
 	PublicLevelChooserModalProps,
 } from './LevelChooserModal';
-import { loadExampleLevel, loadBlankLevel } from '../../editorSlice';
-import { dispatch } from '../../../../store';
+import {
+	loadExampleLevel,
+	loadBlankLevel,
+	loadLevel,
+	loadFromLocalStorage,
+} from '../../editorSlice';
+import { AppState, dispatch } from '../../../../store';
+import { client } from '../../../../remoteData/client';
+import { useSelector } from 'react-redux';
+import { deleteLevel, loadProfile } from '../../../profile/profileSlice';
 
 function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
-	const [isOpen, setIsOpen] = useState(props.isOpen);
+	const [localUser, setLocalUser] = useState(client.auth.user());
+
+	const { loadState, levels } = useSelector((state: AppState) => state.profile);
 
 	useEffect(() => {
-		if (props.isOpen) {
-			setIsOpen(true);
+		client.auth.onAuthStateChange(() => {
+			setLocalUser(client.auth.user());
+		});
+	}, []);
+
+	useEffect(() => {
+		if (localUser && props.isOpen) {
+			dispatch(loadProfile());
 		}
-	}, [props.isOpen]);
+	}, [localUser, dispatch, props.isOpen]);
 
 	function handleExampleLevelChosen() {
 		dispatch(loadExampleLevel());
-		setIsOpen(false);
+		props.onRequestClose();
+	}
+
+	function handleLocalStorageLevelChosen() {
+		dispatch(loadFromLocalStorage());
+		props.onRequestClose();
 	}
 
 	function handleBlankLevelChosen() {
 		dispatch(loadBlankLevel());
-		setIsOpen(false);
+		props.onRequestClose();
+	}
+
+	function handleLevelChosen(level: Level) {
+		dispatch(loadLevel(level.id));
+		props.onRequestClose();
+	}
+
+	function handleDeleteLevel(level: Level | BrokenLevel) {
+		dispatch(deleteLevel(level));
 	}
 
 	return (
 		<LevelChooserModal
 			{...props}
-			isOpen={isOpen}
 			onExampleLevelChosen={handleExampleLevelChosen}
 			onBlankLevelChosen={handleBlankLevelChosen}
-			onLocalStorageLevelChosen={() => setIsOpen(false)}
+			onLocalStorageLevelChosen={handleLocalStorageLevelChosen}
+			onLevelChosen={handleLevelChosen}
+			onDeleteLevel={handleDeleteLevel}
+			loadingLevelsState={localUser ? loadState : 'none'}
+			savedLevels={levels}
 		/>
 	);
 }

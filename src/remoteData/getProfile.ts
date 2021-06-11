@@ -31,16 +31,11 @@ export async function getProfile(id: string): Promise<ProfileData> {
       published,
       data,
       created_at,
-      version,
-      level_play_sessions (
-        cleared,
-        deaths
-      )
+      updated_at,
+      version
     `
 		)
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore TODO, figure out the types between client and supabase
-		.eq('user_id', userData.id);
+		.order('updated_at', { ascending: false });
 
 	if (levelsError) {
 		throw levelsError;

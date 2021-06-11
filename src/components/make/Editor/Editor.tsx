@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
 
-import { loadFromLocalStorage, saveToLocalStorage } from '../editorSlice';
+import { loadBlankLevel, saveToLocalStorage } from '../editorSlice';
 
 import { Palette } from './Palette';
 import { Layers } from './Layers';
@@ -17,6 +17,7 @@ import { KeyboardHelpModal } from './KeyboardHelpModal';
 import { Warning } from '../../Warning';
 import { MetadataMenu } from './MetadataMenu';
 import { PageMenu } from '../../PageMenu';
+import { LevelChooserModal } from './LevelChooserModal';
 import { useFirstRender } from '../../../hooks/useFirstRender';
 
 import styles from './Editor.module.css';
@@ -40,6 +41,7 @@ function toFreshEditor() {
 }
 
 function Editor({ noScript, mode, loadLevelState }: EditorProps) {
+	const [isChoosingLevel, setIsChoosingLevel] = useState(true);
 	const [isPlaying, setPlaying] = useState(false);
 	const [showKeyboardHelpModal, setShowKeyboardHelpModal] = useState(false);
 	const dispatch = useDispatch();
@@ -47,7 +49,7 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 	const firstRender = useFirstRender();
 
 	useEffect(() => {
-		dispatch(loadFromLocalStorage());
+		dispatch(loadBlankLevel());
 	}, []);
 
 	useEffect(() => {
@@ -107,6 +109,10 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 
 	return (
 		<>
+			<LevelChooserModal
+				isOpen={isChoosingLevel}
+				onRequestClose={() => setIsChoosingLevel(false)}
+			/>
 			<KeyboardHelpModal
 				isOpen={showKeyboardHelpModal}
 				onRequestClose={() => setShowKeyboardHelpModal(false)}
@@ -157,7 +163,7 @@ function Editor({ noScript, mode, loadLevelState }: EditorProps) {
 							<Layers disabled={isPlaying || mode === 'managing-rooms'} />
 							<div className="grid grid-rows-3 items-stretch">
 								<MetadataMenu className="row-span-2" disabled={isPlaying} />
-								<PageMenu />
+								<PageMenu onLevelsClicked={() => setIsChoosingLevel(true)} />
 							</div>
 						</div>
 					</div>

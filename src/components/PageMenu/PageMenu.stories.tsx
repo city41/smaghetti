@@ -16,6 +16,7 @@ export const Basic = () => {
 			isLoggedIn={false}
 			onSignInClicked={() => {}}
 			onJoinClicked={() => {}}
+			onLevelsClicked={() => {}}
 		/>
 	);
 };

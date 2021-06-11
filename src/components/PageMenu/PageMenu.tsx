@@ -7,6 +7,7 @@ import styles from './PageMenu.module.css';
 type PublicPageMenuProps = {
 	className?: string;
 	children?: ReactNode;
+	onLevelsClicked: () => void;
 };
 
 type InternalPageMenuProps = {
@@ -18,22 +19,18 @@ type InternalPageMenuProps = {
 function PageMenu({
 	className,
 	isLoggedIn,
+	onLevelsClicked,
 	onSignInClicked,
 	onJoinClicked,
 	children,
 }: PublicPageMenuProps & InternalPageMenuProps) {
-	const hasChildren = React.Children.count(children) > 0;
-
 	const menu = isLoggedIn ? (
 		<>
-			<Link href="/profile" passHref>
-				<a className={clsx({ [styles.preDivider]: hasChildren })}>profile</a>
-			</Link>
+			<a onClick={onLevelsClicked}>your levels</a>
 		</>
 	) : (
 		<>
 			<a
-				className={clsx({ [styles.preDivider]: hasChildren })}
 				onClick={(e) => {
 					e.preventDefault();
 					e.stopPropagation();

@@ -6,14 +6,12 @@ import { IfNotTooSmall } from '../../IfNotTooSmall';
 import { TooSmall } from './TooSmall';
 import { NoscriptWarning } from './NoscriptWarning';
 import { Head } from '../../layout/Head';
-import { LevelChooserModal } from '../Editor/LevelChooserModal';
 
 type MakePageProps = {
 	allFilesReady: boolean;
-	showLevelChooser: boolean;
 };
 
-function MakePage({ allFilesReady, showLevelChooser }: MakePageProps) {
+function MakePage({ allFilesReady }: MakePageProps) {
 	const [afterFirstRender, setAfterFirstRender] = useState(false);
 	const head = <Head title="Level Editor" metaDescription="" />;
 
@@ -39,7 +37,6 @@ function MakePage({ allFilesReady, showLevelChooser }: MakePageProps) {
 						<>
 							<NoscriptWarning />
 							<FileLoaderModal isOpen={!allFilesReady} />
-							<LevelChooserModal isOpen={allFilesReady && showLevelChooser} />
 							<Editor />
 						</>
 					);

@@ -20,6 +20,7 @@ export function from_5_1_0_to_5_1_1(level: Versioned): Version_5_1_1 | null {
 			id: level.id,
 			name: level.name,
 			created_at: level.created_at,
+			updated_at: level.updated_at ?? '',
 			data: {
 				settings: level.settings ?? DEFAULT_SETTINGS,
 				rooms: level.data.rooms,

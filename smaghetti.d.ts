@@ -134,6 +134,7 @@ type NewLevel = {
 	name: string;
 	data: LevelData;
 	created_at: string;
+	updated_at?: string;
 };
 
 type SerializedLevelData = {
@@ -146,6 +147,7 @@ type BrokenLevel = {
 	id: string;
 	name: string;
 	created_at: string;
+	updated_at?: string;
 	broken: true;
 };
 
@@ -154,8 +156,11 @@ type SerializedLevel = Omit<Level, 'data'> & {
 	version: string;
 };
 
-type LocalStorageSerializedLevel = Omit<SerializedLevel, 'id' | 'created_at'>;
-type LevelToLoadInGBA = Omit<NewLevel, 'created_at'>;
+type LocalStorageSerializedLevel = Omit<
+	SerializedLevel,
+	'id' | 'created_at' | 'updated_at'
+>;
+type LevelToLoadInGBA = Omit<NewLevel, 'created_at' | 'updated_at'>;
 
 type User = { id: string; username: string };
 

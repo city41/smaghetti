@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import clsx from 'clsx';
 import { Modal } from '../../../Modal';
 import { RoomThumbnail } from '../../../RoomThumbnail';
 import {
@@ -13,16 +14,26 @@ import { getExampleLevel } from '../../../FileLoader/files';
 import { deserialize } from '../../../../level/deserialize';
 import { LOCALSTORAGE_KEY } from '../../editorSlice';
 import { convertLevelToLatestVersion } from '../../../../level/versioning/convertLevelToLatestVersion';
+import { SavedLevels } from './SavedLevels';
+
+import styles from './LevelChooserModal.module.css';
 
 type PublicLevelChooserModalProps = {
 	isOpen: boolean;
+	onRequestClose: () => void;
 };
 
 type InternalLevelChooserModalProps = {
 	onLocalStorageLevelChosen: () => void;
 	onExampleLevelChosen: () => void;
 	onBlankLevelChosen: () => void;
+	loadingLevelsState: 'none' | 'dormant' | 'loading' | 'error' | 'success';
+	savedLevels: Array<Level | BrokenLevel>;
+	onLevelChosen: (level: Level) => void;
+	onDeleteLevel: (level: Level | BrokenLevel) => void;
 };
+
+const THUMBNAIL_SCALE = 0.5;
 
 const EMPTY_ROOM: RoomData = {
 	settings: {
@@ -69,6 +80,11 @@ function LevelChooserModal({
 	onLocalStorageLevelChosen,
 	onExampleLevelChosen,
 	onBlankLevelChosen,
+	loadingLevelsState,
+	savedLevels,
+	onLevelChosen,
+	onDeleteLevel,
+	onRequestClose,
 }: PublicLevelChooserModalProps & InternalLevelChooserModalProps) {
 	const serializedExampleLevel = getExampleLevel();
 
@@ -91,48 +107,79 @@ function LevelChooserModal({
 		: EMPTY_ROOM;
 
 	return (
-		<Modal title="Choose a starting point" isOpen={isOpen}>
-			<div className="grid grid-cols-2 items-center justify-items-center pb-2">
-				<LevelButton
-					caption={
-						localStorageData ? 'Last level you worked on' : 'Empty level'
-					}
-					onClick={onLocalStorageLevelChosen}
+		<Modal
+			className={styles.modal}
+			title="Choose what to work on"
+			isOpen={isOpen}
+			onXClick={onRequestClose}
+		>
+			<div style={{ maxHeight: '80vh' }} className="overflow-y-auto pr-4 -mr-4">
+				<div
+					className={clsx(
+						'grid grid-cols-2 gap-x-3 items-center justify-items-center pb-2',
+						{
+							'grid-cols-2': !localStorageData,
+							'grid-cols-3': !!localStorageData,
+						}
+					)}
 				>
-					<RoomThumbnail
-						upperLeftTile={{
-							x: 0,
-							y: localRoom.roomTileHeight - PLAY_WINDOW_TILE_HEIGHT,
-						}}
-						widthInTiles={PLAY_WINDOW_TILE_WIDTH * 1.5}
-						heightInTiles={PLAY_WINDOW_TILE_HEIGHT}
-						scale={0.65}
-						room={localRoom}
-					/>
-				</LevelButton>
-				<LevelButton caption="Example Level" onClick={onExampleLevelChosen}>
-					{exampleRoom && (
+					<LevelButton caption="Start empty" onClick={onBlankLevelChosen}>
 						<RoomThumbnail
 							upperLeftTile={{
 								x: 0,
-								y: exampleRoom.roomTileHeight - PLAY_WINDOW_TILE_HEIGHT,
+								y: localRoom.roomTileHeight - PLAY_WINDOW_TILE_HEIGHT,
 							}}
 							widthInTiles={PLAY_WINDOW_TILE_WIDTH * 1.5}
 							heightInTiles={PLAY_WINDOW_TILE_HEIGHT}
-							scale={0.65}
-							room={exampleRoom}
+							scale={THUMBNAIL_SCALE}
+							room={EMPTY_ROOM}
 						/>
+					</LevelButton>
+					{localStorageData && (
+						<LevelButton
+							caption="Last session"
+							onClick={onLocalStorageLevelChosen}
+						>
+							<RoomThumbnail
+								upperLeftTile={{
+									x: 0,
+									y: localRoom.roomTileHeight - PLAY_WINDOW_TILE_HEIGHT,
+								}}
+								widthInTiles={PLAY_WINDOW_TILE_WIDTH * 1.5}
+								heightInTiles={PLAY_WINDOW_TILE_HEIGHT}
+								scale={THUMBNAIL_SCALE}
+								room={localRoom}
+							/>
+						</LevelButton>
 					)}
-				</LevelButton>
+					<LevelButton caption="Example Level" onClick={onExampleLevelChosen}>
+						{exampleRoom && (
+							<RoomThumbnail
+								upperLeftTile={{
+									x: 0,
+									y: exampleRoom.roomTileHeight - PLAY_WINDOW_TILE_HEIGHT,
+								}}
+								widthInTiles={PLAY_WINDOW_TILE_WIDTH * 1.5}
+								heightInTiles={PLAY_WINDOW_TILE_HEIGHT}
+								scale={THUMBNAIL_SCALE}
+								room={exampleRoom}
+							/>
+						)}
+					</LevelButton>
+				</div>
+				{loadingLevelsState !== 'none' && (
+					<>
+						<hr className="mt-6 mb-8" />
+						<SavedLevels
+							loadingState={loadingLevelsState}
+							levels={savedLevels}
+							thumbnailScale={THUMBNAIL_SCALE}
+							onLevelChosen={onLevelChosen}
+							onDeleteLevel={onDeleteLevel}
+						/>
+					</>
+				)}
 			</div>
-			{localStorageData && (
-				<a
-					className="text-blue-300 block w-full text-center hover:underline cursor-pointer"
-					onClick={onBlankLevelChosen}
-				>
-					or start fresh
-				</a>
-			)}
 		</Modal>
 	);
 }

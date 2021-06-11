@@ -1,24 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { MakePage } from './MakePage';
-import { AppState, dispatch } from '../../../store';
-import { loadLevel } from '../editorSlice';
+import { AppState } from '../../../store';
 
-type ConnectedMakePageProps = {
-	id?: string;
-};
-
-function ConnectedMakePage({ id }: ConnectedMakePageProps) {
+function ConnectedMakePage() {
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
 
-	useEffect(() => {
-		if (id) {
-			dispatch(loadLevel(id));
-		}
-	}, [id]);
-
-	return <MakePage allFilesReady={allFilesReady} showLevelChooser={!id} />;
+	return <MakePage allFilesReady={allFilesReady} />;
 }
 
 export { ConnectedMakePage };

@@ -20,6 +20,7 @@ export default meta;
 const blankLevel: Level = {
 	id: '1',
 	created_at: '',
+	updated_at: '',
 	name: 'Storybook Level',
 	data: {
 		settings: {
@@ -52,6 +53,7 @@ const blankLevel: Level = {
 const brokenLevel: BrokenLevel = {
 	id: '1',
 	created_at: '',
+	updated_at: '',
 	name: 'Storybook Level',
 	broken: true,
 };
