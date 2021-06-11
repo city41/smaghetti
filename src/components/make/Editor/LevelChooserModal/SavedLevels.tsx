@@ -86,10 +86,7 @@ function LevelRow({
 	const thumbnail = isBrokenLevel(level) ? (
 		<BrokenThumbnail scale={scale} />
 	) : (
-		<button
-			className="relative border-2 border-white group"
-			onClick={onLevelChosen}
-		>
+		<button className="relative border-2 border-white" onClick={onLevelChosen}>
 			<div className="absolute top-0 left-0 w-full h-full block group-hover:hidden bg-white opacity-25" />
 			<RoomThumbnail
 				upperLeftTile={{
@@ -105,17 +102,27 @@ function LevelRow({
 	);
 
 	return (
-		<>
+		<div
+			className="grid items-center group hover:bg-blue-500 -mx-4 px-4"
+			style={{
+				gridTemplateColumns: 'min-content 1fr max-content',
+			}}
+		>
 			{thumbnail}
 			<div
-				className={clsx('w-56', {
-					'font-bold': !isBrokenLevel(level),
+				className={clsx('w-56 h-full flex flex-row items-center pl-4', {
+					'font-bold hover:underline cursor-pointer': !isBrokenLevel(level),
 				})}
+				onClick={() => {
+					if (!isBrokenLevel(level)) {
+						onLevelChosen();
+					}
+				}}
 			>
 				{level.name}
 			</div>
 			<DeleteLevel onDeleteLevel={onDeleteLevel} />
-		</>
+		</div>
 	);
 }
 
@@ -143,12 +150,7 @@ function SavedLevels({
 		case 'success':
 			if (levels.length > 0) {
 				body = (
-					<div
-						className="grid overflow-y-auto gap-y-4 gap-x-4 items-center mb-2"
-						style={{
-							gridTemplateColumns: 'min-content 1fr max-content',
-						}}
-					>
+					<div className="mb-2 space-y-6">
 						{levels.map((l) => {
 							return (
 								<LevelRow
