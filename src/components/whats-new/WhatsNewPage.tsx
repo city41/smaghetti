@@ -1,5 +1,8 @@
 import React, { ReactNode } from 'react';
+import clsx from 'clsx';
 import { Root } from '../layout/Root';
+
+import typographyStyles from '../../styles/typography.module.css';
 
 function dateToHumanString(input: string): string {
 	const date = new Date(input);
@@ -50,7 +53,11 @@ function NewEntry({
 					</time>
 				</h3>
 			</a>
-			<div className="space-y-4 text-gray-50">{children}</div>
+			<div
+				className={clsx(typographyStyles.typography, 'space-y-4 text-gray-50')}
+			>
+				{children}
+			</div>
 		</div>
 	);
 }
@@ -64,7 +71,7 @@ function WhatsNewPage() {
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
 				<NewEntry title="New Entities" date="2021-06-11">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Goomba Generator</li>
 					</ul>
 					<p>
@@ -101,7 +108,7 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-09">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Checkered Floor</li>
 					</ul>
 					<p>
@@ -111,7 +118,7 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-08">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Hot Foot</li>
 						<li>Hot Foot - Shy</li>
 						<li>Lava Lotus</li>
@@ -131,7 +138,6 @@ function WhatsNewPage() {
 					<p>
 						If you hit any strange bugs in the future, feel free to reach out on{' '}
 						<a
-							className="text-blue-300"
 							target="_blank"
 							rel="noreferrer"
 							href="https://reddit.com/r/smaghetti"
@@ -140,7 +146,6 @@ function WhatsNewPage() {
 						</a>
 						,{' '}
 						<a
-							className="text-blue-300"
 							target="_blank"
 							rel="noreferrer"
 							href="https://github.com/city41/smaghetti/issues"
@@ -149,7 +154,6 @@ function WhatsNewPage() {
 						</a>
 						, or{' '}
 						<a
-							className="text-blue-300"
 							target="_blank"
 							rel="noreferrer"
 							href="mailto:matt.e.greer@gmail.com"
@@ -163,7 +167,7 @@ function WhatsNewPage() {
 					<p>You can now pick how big to make a flag pole just like pipes</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-07">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Airship Pipe</li>
 						<li>Blue Coin</li>
 						<li>Coral Donut Block</li>
@@ -172,7 +176,7 @@ function WhatsNewPage() {
 					</ul>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-06">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Bomb</li>
 						<li>Bumpty</li>
 						<li>Bumpty - Aggressive</li>
@@ -185,7 +189,7 @@ function WhatsNewPage() {
 					</ul>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-05">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Blooper Nanny</li>
 						<li>Galoomba - Parachute</li>
 					</ul>
@@ -198,7 +202,7 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-05">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Note Block - Three Way</li>
 					</ul>
 				</NewEntry>
@@ -210,7 +214,7 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-04">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Amazing Flyin&apos; Hammer Bro</li>
 						<li>Clapping Chuck</li>
 						<li>Dolphin Pod</li>
@@ -227,7 +231,7 @@ function WhatsNewPage() {
 					<p>Horizontal pipe is now ready for use</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-03">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Iggy</li>
 						<li>Larry</li>
 						<li>Lemmy</li>
@@ -249,7 +253,7 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-02">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Beach Ball</li>
 						<li>See Saw Platform</li>
 					</ul>
@@ -265,7 +269,7 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-30">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Pipe - Vertical (unfinished)</li>
 						<li>Piranha Plant</li>
 					</ul>
@@ -289,7 +293,6 @@ function WhatsNewPage() {
 					</p>
 					<p>
 						<a
-							className="text-blue-300 underline"
 							href="https://www.youtube.com/watch?v=u6iu-oajE30"
 							rel="noreferrer"
 						>
@@ -299,13 +302,13 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-30">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Flag Pole</li>
 						<li>Rope Railing</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-29">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Amazing Flyin&apos; Hammer Bro (unfinished)</li>
 						<li>Big Bass</li>
 						<li>Big Bertha</li>
@@ -325,7 +328,7 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-27">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Homing Fireball</li>
 						<li>Hoopster</li>
 						<li>Ptooie Potted Piranha Plant</li>
@@ -337,7 +340,7 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-27">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Wood Floor</li>
 						<li>Pool of Water renamed to Choppy Water</li>
 						<li>new Pool of Water which is still/sparkly water</li>
@@ -348,7 +351,7 @@ function WhatsNewPage() {
 					<p>Thwomp&apos;s pursuit direction can now be configured</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-26">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Flying Piranha Plant</li>
 						<li>Grass - Horizontal</li>
 						<li>Grass - Upper Left Corner</li>
@@ -364,7 +367,7 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-25">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Pool of Water</li>
 						<li>Vine</li>
 						<li>Waterfall</li>
@@ -378,7 +381,7 @@ function WhatsNewPage() {
 				</NewEntry>
 				<NewEntry title="Fire Bar Details Pane" date="2021-05-24">
 					<p>Fire Bar can now be fully configured.</p>
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Rotate clockwise or counter-clockwise</li>
 						<li>Pivot point at the end or in the center</li>
 						<li>Number of fireballs</li>
@@ -389,7 +392,7 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-22">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Hopping Bowser Statue</li>
 					</ul>
 				</NewEntry>
@@ -407,7 +410,7 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-16">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Ceiling Buzzy Beetle</li>
 						<li>Ceiling Spiny</li>
 					</ul>
@@ -424,7 +427,7 @@ function WhatsNewPage() {
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entity" date="2021-05-14">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Fluffy Cloud</li>
 					</ul>
 				</NewEntry>
@@ -437,7 +440,6 @@ function WhatsNewPage() {
 						breakdown of which entities work and don&apos;t work together. For
 						example,{' '}
 						<a
-							className="text-blue-300 underline"
 							href="/compatibility/GrandGoomba"
 							target="_blank"
 							rel="noreferrer"
@@ -456,7 +458,7 @@ function WhatsNewPage() {
 						With object sets now in place, these new entities have now been
 						added:
 					</p>
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Cactus</li>
 						<li>Cement Block</li>
 						<li>Flower Bush</li>
@@ -464,7 +466,7 @@ function WhatsNewPage() {
 					</ul>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-05-7">
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Beached Cheep Cheep</li>
 						<li>Fishbone</li>
 						<li>Galoomba</li>
@@ -490,7 +492,7 @@ function WhatsNewPage() {
 						Both of these are unused entities that Nintendo left in the game,
 						now usable for the first time in SMA4!
 					</p>
-					<ul className="ml-8 list-disc">
+					<ul>
 						<li>Floating Block</li>
 						<li>Arrow Lift</li>
 					</ul>

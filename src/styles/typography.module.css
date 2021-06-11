@@ -19,7 +19,7 @@
 }
 
 .typography ul {
-	@apply list-disc space-y-4 my-4;
+	@apply list-disc space-y-2 my-4 ml-5;
 }
 
 .typography code {
