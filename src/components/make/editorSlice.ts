@@ -748,6 +748,10 @@ function setScaleAndOffsetForManageLevel(state: InternalEditorState) {
 	// add 4 tiles between each room to account for the padding
 	heightInTiles += 4 * (state.rooms.length - 1);
 
+	// add tiles to account for the level settings header
+	// TODO: damn this is dumb code
+	heightInTiles += 60;
+
 	const widthInPx = widthInTiles * TILE_SIZE;
 	const heightInPx = heightInTiles * TILE_SIZE;
 
