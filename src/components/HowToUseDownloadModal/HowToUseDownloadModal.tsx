@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Modal } from '../../../../Modal';
+import { Modal } from '../Modal';
 
-import typographyStyles from '../../../../../styles/typography.module.css';
-import selectAFileScreenshotPng from '../../../../LevelPlayer/selectAFileScreenshot.png';
-import marioToPlayEReaderLevelPng from '../../../../LevelPlayer/marioToPlayEReaderLevel.png';
+import typographyStyles from '../../styles/typography.module.css';
+import selectAFileScreenshotPng from './selectAFileScreenshot.png';
+import marioToPlayEReaderLevelPng from './marioToPlayEReaderLevel.png';
 
 type HowToUseDownloadModalProps = {
 	isOpen: boolean;

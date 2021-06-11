@@ -6,7 +6,7 @@ import { AppState } from '../../../../store';
 import { DownloadButton } from './DownloadButton';
 import type { PublicDownloadButtonProps } from './DownloadButton';
 import { downloadLevelAsSaveFile } from '../../../../levelData/downloadLevelAsSaveFile';
-import { HowToUseDownloadModal } from '../../../profile/ProfilePage/LevelEntry/HowToUseDownloadModal';
+import { HowToUseDownloadModal } from '../../../HowToUseDownloadModal';
 
 function ConnectedDownloadButton(props: PublicDownloadButtonProps) {
 	const { rooms } = useSelector((state: AppState) => state.editor.present);

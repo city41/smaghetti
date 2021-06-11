@@ -2,12 +2,12 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import { store } from '../store';
-import { ProfilePage } from '../components/profile/ProfilePage';
+import { SettingsPage } from '../components/profile/SettingsPage';
 
 export default function NextProfilePage() {
 	return (
 		<Provider store={store}>
-			<ProfilePage />
+			<SettingsPage />
 		</Provider>
 	);
 }
