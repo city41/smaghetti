@@ -151,7 +151,7 @@ function getTiles(rom: Uint8Array, offset: number): Array<number[]> {
 
 	const tiles: Array<number[]> = [];
 
-	for (let i = 0; i < uncompressedData.length - 0x20; i += 0x20) {
+	for (let i = 0; i < uncompressedData.length; i += 0x20) {
 		tiles.push(uncompressedData.slice(i, i + 0x20));
 	}
 
@@ -164,7 +164,7 @@ function extractCompressedTilesFromRom(rom: Uint8Array): TilePage[] {
 	return compressionOffsets.reduce<TilePage[]>((building, address) => {
 		const tiles = getTiles(rom, address);
 
-		if (tiles.length === 0) {
+		if (tiles.length < 2) {
 			return building;
 		}
 
