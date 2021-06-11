@@ -63,6 +63,15 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-06-11">
+					<ul className="ml-8 list-disc">
+						<li>Goomba Generator</li>
+					</ul>
+					<p>
+						Hanging out in its own subcategory in the palette because this game
+						has a lot of generators, many more to come.
+					</p>
+				</NewEntry>
 				<NewEntry title="Choose your music" date="2021-06-10">
 					<p>
 						You can now choose what music a room plays. It&apos;s in the same
