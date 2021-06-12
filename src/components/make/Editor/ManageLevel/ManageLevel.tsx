@@ -189,7 +189,7 @@ function ManageLevel({
 								>
 									<RoomThumbnail
 										className={clsx(
-											'absolute top-0 left-0 border border-black bg-blue-200'
+											'absolute top-0 left-0 border border-black bg-white'
 										)}
 										scale={SCALE}
 										heightInTiles={r.roomTileHeight}
