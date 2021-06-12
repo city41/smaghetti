@@ -14,6 +14,15 @@ function Fortress() {
 	return <div className="FortressBackground-bg w-full h-full" />;
 }
 
+function GhostHouse() {
+	return (
+		<div
+			className="GhostHouseBackground-bg w-full h-full"
+			style={{ backgroundPositionY: 'bottom' }}
+		/>
+	);
+}
+
 function Plains() {
 	return (
 		<div
@@ -47,6 +56,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.fortress]: <Fortress />,
 	[BACKGROUND_GRAPHIC_VALUES.plains]: <Plains />,
 	[BACKGROUND_GRAPHIC_VALUES.desert]: <Desert />,
+	[BACKGROUND_GRAPHIC_VALUES['ghost-house']]: <GhostHouse />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

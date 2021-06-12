@@ -22,6 +22,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	fortress: 0x6,
 	plains: 0x5,
 	desert: 0xd,
+	'ghost-house': 0x2c,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -88,6 +89,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	desert: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.desert,
 		bgColor: 0x99,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'ghost-house': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['ghost-house'],
+		bgColor: 0x1,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 };

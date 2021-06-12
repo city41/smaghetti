@@ -23,6 +23,7 @@ import { FlutterHead } from './FlutterHead';
 import { FlutterWing } from './FlutterWing';
 import { FortressBackground } from './FortressBackground';
 import { FrogSuit } from './FrogSuit';
+import { GhostHouseBackground } from './GhostHouseBackground';
 import { GiantVegetable } from './GiantVegetable';
 import { GreenCheepCheep } from './GreenCheepCheep';
 import { GreenSpinyEgg } from './GreenSpinyEgg';
@@ -102,6 +103,7 @@ const resourceMap = {
 	FlutterWing,
 	FortressBackground,
 	FrogSuit,
+	GhostHouseBackground,
 	GrassHorizontalDirt,
 	GiantVegetable,
 	GreenCheepCheep,
