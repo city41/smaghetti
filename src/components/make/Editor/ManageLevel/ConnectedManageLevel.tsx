@@ -31,7 +31,7 @@ const actions = bindActionCreators(
 	dispatch
 );
 
-const roomTypes = Object.keys(ROOM_BACKGROUND_SETTINGS);
+const roomTypes = Object.keys(ROOM_BACKGROUND_SETTINGS).sort();
 
 // TODO: since RoomBackgroundSettings are bundled and unlikely to be unbundled,
 // should just the string "underground", "fortress" etc be set in state?
