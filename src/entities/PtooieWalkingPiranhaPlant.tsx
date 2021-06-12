@@ -11,7 +11,6 @@ const PtooieWalkingPiranhaPlant: Entity = {
 	paletteInfo: {
 		subCategory: 'enemy-piranha',
 		title: 'Ptooie Walking Piranha Plant',
-		description: 'need to fix the palettes, but works fine',
 	},
 
 	objectSets: ANY_OBJECT_SET,

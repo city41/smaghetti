@@ -11,8 +11,7 @@ const PtooiePottedPiranhaPlant: Entity = {
 	paletteInfo: {
 		subCategory: 'enemy-piranha',
 		title: 'Ptooie Potted Piranha Plant',
-		description:
-			'Normally potted in a pipe, but can work on ground too. Need to fix the palettes, but works fine.',
+		description: 'Normally potted in a pipe, but can work on ground too.',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -114,7 +113,7 @@ const PtooiePottedPiranhaPlant: Entity = {
 		return (
 			<div
 				className="PtooiePottedPiranhaPlant-bg bg-center bg-no-repeat"
-				style={{ width: size, height: size, backgroundSize: '33% 100%' }}
+				style={{ width: size, height: size, backgroundSize: '28.5% 100%' }}
 			/>
 		);
 	},
