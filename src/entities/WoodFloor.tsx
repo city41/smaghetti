@@ -22,7 +22,21 @@ function isWoodFloorAbove(
 	return cellAbove.type === 'WoodFloor';
 }
 
-function isOneWide(
+/**
+ * For woodfloor, it's not about being one wide
+ * but rather about the top platform part being
+ * at least two wide
+ *
+ * example: this is illegal
+ *  WW
+ * WWWW
+ * WWWW
+ *
+ * this scenario satisfies "not one wide" for
+ * all tiles, but the upper left/right corner blocks
+ * will end up having a top platform that is one wide
+ */
+function isInvalidTopPlatform(
 	entity: EditorEntity | undefined,
 	room: RoomData | undefined
 ): boolean {
@@ -30,10 +44,24 @@ function isOneWide(
 		return false;
 	}
 
+	const cellToTop = room.stage.matrix[entity.y - 1]?.[entity.x];
+
+	// if there is floor directly above, then this tile is fine
+	if (cellToTop?.type === 'WoodFloor') {
+		return false;
+	}
+
 	const cellToLeft = room.stage.matrix[entity.y]?.[entity.x - 1];
 	const cellToRight = room.stage.matrix[entity.y]?.[entity.x + 1];
+	const cellToUpLeft = room.stage.matrix[entity.y - 1]?.[entity.x - 1];
+	const cellToUpRight = room.stage.matrix[entity.y - 1]?.[entity.x + 1];
 
-	return cellToLeft?.type !== 'WoodFloor' && cellToRight?.type !== 'WoodFloor';
+	const okToLeft =
+		cellToLeft?.type === 'WoodFloor' && cellToUpLeft?.type !== 'WoodFloor';
+	const okToRight =
+		cellToRight?.type === 'WoodFloor' && cellToUpRight?.type !== 'WoodFloor';
+
+	return !okToLeft && !okToRight;
 }
 
 const WoodFloor: Entity = {
@@ -116,8 +144,8 @@ const WoodFloor: Entity = {
 	},
 
 	getWarning(_settings, entity, room) {
-		if (isOneWide(entity, room)) {
-			return 'Must be at least 2 tiles wide';
+		if (isInvalidTopPlatform(entity, room)) {
+			return 'The top platform area must be at least 2 tiles wide';
 		}
 	},
 };
