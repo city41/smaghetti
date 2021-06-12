@@ -10,7 +10,7 @@ const CoinCache: DerivedResource = {
 		const coinResource = Coin.resource as StaticResource;
 
 		const extractedTileData = extractResourceTileData(rom, coinResource);
-		const coinCanvas = tileToCanvas(extractedTileData, coinResource.palette);
+		const coinCanvas = tileToCanvas(extractedTileData, coinResource.palettes);
 
 		const coinCacheCanvas = document.createElement(
 			'canvas'

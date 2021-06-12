@@ -13,7 +13,7 @@ const OneWayDoorVerticalFlipper: DerivedResource = {
 		);
 		const horizontalCanvas = tileToCanvas(
 			extractedTileData,
-			OneWayDoorHorizontalFlipper.palette
+			OneWayDoorHorizontalFlipper.palettes
 		);
 
 		const verticalCanvas = document.createElement(

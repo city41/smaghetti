@@ -17,32 +17,6 @@ const BumptyAggressive: Entity = {
 	dimensions: 'none',
 	objectId: 0xf3,
 
-	resource: {
-		romOffset: 0x18c914,
-		palette: [
-			0x739c,
-			0x7fff,
-			0x0,
-			0x11,
-			0x295e,
-			0x7610,
-			0x7eb4,
-			0x53bd,
-			0x6bde,
-			0x4920,
-			0x6e2c,
-			0x7fb4,
-			0x29bd,
-			0x467f,
-			0x4f9f,
-			0x63ff,
-		],
-		tiles: [
-			[540, 541],
-			[572, 573],
-		],
-	},
-
 	toSpriteBinary(x, y) {
 		return [0, this.objectId, x, y];
 	},

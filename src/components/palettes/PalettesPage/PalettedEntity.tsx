@@ -17,7 +17,7 @@ function drawEntity(
 	entity: ExtractedEntityTileData,
 	palette: Tuple<number, 16>
 ) {
-	renderTiles(canvas, entity, palette, { firstColorOpaque: true });
+	renderTiles(canvas, entity, [palette], { firstColorOpaque: true });
 }
 
 function PalettedEntity({ className, palette, entity }: PalettedEntityProps) {

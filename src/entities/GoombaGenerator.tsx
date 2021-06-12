@@ -33,32 +33,6 @@ const GoombaGenerator: Entity = {
 	settingsType: 'single',
 	defaultSettings: { direction: 'right' },
 
-	resource: {
-		romOffset: 0x134104,
-		palette: [
-			0x7f96,
-			0x7fff,
-			0x18c6,
-			0x101a,
-			0x10bf,
-			0x125f,
-			0x25fd,
-			0x369e,
-			0x475f,
-			0x139f,
-			0x177,
-			0x21c,
-			0x29f,
-			0x47bf,
-			0x137f,
-			0x25f,
-		],
-		tiles: [
-			[394, 395],
-			[426, 427],
-		],
-	},
-
 	toSpriteBinary(x, y, _w, _h, settings) {
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;

@@ -68,7 +68,7 @@ const EndOfLevelBackdrop: Entity = {
 
 	resource: {
 		romOffset: 0x16ea40,
-		palette: [0x7f96, 0x7fff, 0x0],
+		palettes: [[0x7f96, 0x7fff, 0x0]],
 		tiles: [[555], [539]],
 	},
 

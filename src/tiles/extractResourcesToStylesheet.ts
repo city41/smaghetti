@@ -119,7 +119,7 @@ function flip(
 function renderTiles(
 	canvas: HTMLCanvasElement,
 	tileData: ExtractedEntityTileData,
-	palette: number[],
+	palettes: number[][],
 	options?: { firstColorOpaque: boolean }
 ): void {
 	canvas.height = tileData.length * 8;
@@ -130,7 +130,11 @@ function renderTiles(
 		for (let x = 0; x < tileData[y].length; ++x) {
 			const spec = tileData[y][x];
 
-			let tileCanvas = drawTile(spec.data, palette, options);
+			let tileCanvas = drawTile(
+				spec.data,
+				palettes[spec.palette ?? 0],
+				options
+			);
 			tileCanvas = flip(tileCanvas, spec.flip);
 
 			context.drawImage(tileCanvas, x * 8, y * 8, 8, 8);
@@ -140,11 +144,11 @@ function renderTiles(
 
 function tileToCanvas(
 	tileData: Array<Array<TileExtractionSpecWithData>>,
-	palette: number[],
+	palettes: number[][],
 	firstColorOpaque?: boolean
 ): HTMLCanvasElement {
 	const canvas = document.createElement('canvas');
-	renderTiles(canvas, tileData, palette, {
+	renderTiles(canvas, tileData, palettes, {
 		firstColorOpaque: !!firstColorOpaque,
 	});
 
@@ -219,7 +223,7 @@ function extractResourceToDataUrl(
 	const tileData = extractResourceTileData(rom, resource);
 	const canvas = tileToCanvas(
 		tileData,
-		resource.palette ?? DEFAULT_PALETTE,
+		resource.palettes ?? [DEFAULT_PALETTE],
 		resource.firstColorOpaque
 	);
 

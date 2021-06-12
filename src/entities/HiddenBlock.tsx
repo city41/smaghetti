@@ -32,7 +32,7 @@ const HiddenBlock: Entity = {
 	},
 
 	resource: {
-		palette: [],
+		palettes: [],
 		romOffset: 0x16ea40,
 		tiles: [
 			// HACK: since this block is hidden, it doesn't actually
