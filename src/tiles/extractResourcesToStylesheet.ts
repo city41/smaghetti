@@ -7,7 +7,7 @@ import { ResourceType } from '../resources/resourceMap';
 import { isStaticResource } from '../resources/util';
 
 type TileExtractionSpecWithData = TileExtractionSpec & { data: number[] };
-type ExtractedEntityTileData = Array<Array<TileExtractionSpecWithData>>;
+type ExtractedEntityTileData = Array<Array<TileExtractionSpecWithData | null>>;
 
 const memoDecompress = memoize(decompress, (_rom, offset) => offset);
 
@@ -130,20 +130,22 @@ function renderTiles(
 		for (let x = 0; x < tileData[y].length; ++x) {
 			const spec = tileData[y][x];
 
-			let tileCanvas = drawTile(
-				spec.data,
-				palettes[spec.palette ?? 0],
-				options
-			);
-			tileCanvas = flip(tileCanvas, spec.flip);
+			if (spec !== null) {
+				let tileCanvas = drawTile(
+					spec.data,
+					palettes[spec.palette ?? 0],
+					options
+				);
+				tileCanvas = flip(tileCanvas, spec.flip);
 
-			context.drawImage(tileCanvas, x * 8, y * 8, 8, 8);
+				context.drawImage(tileCanvas, x * 8, y * 8, 8, 8);
+			}
 		}
 	}
 }
 
 function tileToCanvas(
-	tileData: Array<Array<TileExtractionSpecWithData>>,
+	tileData: Array<Array<TileExtractionSpecWithData | null>>,
 	palettes: number[][],
 	firstColorOpaque?: boolean
 ): HTMLCanvasElement {
@@ -159,59 +161,63 @@ function extractResourceTileData(
 	rom: Uint8Array,
 	resource: StaticResource
 ): ExtractedEntityTileData {
-	const tileData: Array<Array<TileExtractionSpecWithData>> = resource.tiles.map(
-		(tileIndexRow) => {
-			return tileIndexRow.map((t) => {
-				const tileIndex = typeof t === 'number' ? t : t.tileIndex;
-				const romOffset =
-					typeof t === 'number'
-						? resource.romOffset
-						: t.romOffset ?? resource.romOffset;
+	const tileData: Array<
+		Array<TileExtractionSpecWithData | null>
+	> = resource.tiles.map((tileIndexRow) => {
+		return tileIndexRow.map((t) => {
+			if (t === null) {
+				return null;
+			}
 
-				if (typeof romOffset !== 'number') {
-					throw new Error('extractResourceToDataUrl: romOffset not specified');
+			const tileIndex = typeof t === 'number' ? t : t.tileIndex;
+			const romOffset =
+				typeof t === 'number'
+					? resource.romOffset
+					: t.romOffset ?? resource.romOffset;
+
+			if (typeof romOffset !== 'number') {
+				throw new Error('extractResourceToDataUrl: romOffset not specified');
+			}
+
+			let data;
+
+			if (typeof t === 'number' || !t.uncompressed) {
+				const offsetData = memoDecompress(rom, romOffset);
+
+				if (!offsetData) {
+					throw new Error(
+						`extractResource: romOffset does not yield tile data: ${romOffset}`
+					);
 				}
 
-				let data;
-
-				if (typeof t === 'number' || !t.uncompressed) {
-					const offsetData = memoDecompress(rom, romOffset);
-
-					if (!offsetData) {
-						throw new Error(
-							`extractResource: romOffset does not yield tile data: ${romOffset}`
-						);
-					}
-
-					data = offsetData.slice(
+				data = offsetData.slice(
+					tileIndex * BYTES_PER_TILE,
+					(tileIndex + 1) * BYTES_PER_TILE
+				);
+			} else {
+				const offsetData = rom.subarray(romOffset + (t.shift ?? 0));
+				data = Array.from(
+					offsetData.slice(
 						tileIndex * BYTES_PER_TILE,
 						(tileIndex + 1) * BYTES_PER_TILE
-					);
-				} else {
-					const offsetData = rom.subarray(romOffset + (t.shift ?? 0));
-					data = Array.from(
-						offsetData.slice(
-							tileIndex * BYTES_PER_TILE,
-							(tileIndex + 1) * BYTES_PER_TILE
-						)
-					);
-				}
+					)
+				);
+			}
 
-				if (typeof t === 'number') {
-					return {
-						romOffset,
-						tileIndex: t,
-						data,
-					};
-				} else {
-					return {
-						...t,
-						data,
-					};
-				}
-			});
-		}
-	);
+			if (typeof t === 'number') {
+				return {
+					romOffset,
+					tileIndex: t,
+					data,
+				};
+			} else {
+				return {
+					...t,
+					data,
+				};
+			}
+		});
+	});
 
 	return tileData;
 }
@@ -269,6 +275,7 @@ async function extractResourcesToStylesheet(
 
 export {
 	extractResourcesToStylesheet,
+	gba16ToRgb,
 	rgbToGBA16,
 	drawTile,
 	renderTiles,

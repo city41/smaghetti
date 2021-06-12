@@ -2,6 +2,7 @@ type TileExtractionSpec = {
 	romOffset?: number;
 	palette?: number;
 	tileIndex: number;
+	paletteIndex?: number;
 	flip?: 'h' | 'v' | 'hv';
 	uncompressed?: boolean;
 	shift?: number;
@@ -11,7 +12,7 @@ type StaticResource = {
 	romOffset?: number;
 	palettes: number[][];
 	firstColorOpaque?: boolean;
-	tiles: Array<Array<number | TileExtractionSpec>>;
+	tiles: Array<Array<number | TileExtractionSpec | null>>;
 };
 
 type DerivedResource = {

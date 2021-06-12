@@ -12,13 +12,6 @@
 	cursor: url(./eraseCursor.png) 7 16, auto;
 }
 
-.root::after {
-	content: '';
-	@apply absolute top-0 left-0 w-full h-full;
-	background-color: rgba(205, 205, 205, 0.75);
-	z-index: -1;
-}
-
 .grid {
 	@apply absolute top-0 left-0 w-full h-full;
 

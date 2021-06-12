@@ -20,6 +20,7 @@ export const ROOM_AUTOSCROLL_POINTERS = [0xf, 0x1b, 0x27, 0x33];
 export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	underground: 0x37,
 	fortress: 0x6,
+	plains: 0x5,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -68,16 +69,19 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	RoomBackgroundSettings
 > = {
 	underground: {
-		// music: 0xd,
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.underground,
 		bgColor: 0x1,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 	fortress: {
-		// music: 0xf,
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.fortress,
 		bgColor: 0x98,
 		bgExtraColorAndEffect:
 			BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES['fortress-parallax'],
+	},
+	plains: {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES.plains,
+		bgColor: 0x84,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 };

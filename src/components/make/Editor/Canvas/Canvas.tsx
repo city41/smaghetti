@@ -21,7 +21,7 @@ import { snap } from '../../../../util/snap';
 import { entityMap, EntityType } from '../../../../entities/entityMap';
 
 import styles from './Canvas.module.css';
-import { bgGraphicToResourceMap } from '../../../../resources/bgGraphicToResourceMap';
+import { LevelBackground } from '../../../LevelBackground';
 
 type OnPaintedArg = {
 	points: Point[];
@@ -428,17 +428,11 @@ const Canvas = memo(function Canvas({
 		// TODO: why is border on its own div? probably due to scaling?
 		<div className="border-2 border-black" style={borderStyle}>
 			<div
-				className={clsx(
-					className,
-					styles.root,
-					bgGraphicToResourceMap[rooms[currentRoomIndex].settings.bgGraphic],
-					'relative shadow-lg bg-blue-200',
-					{
-						'cursor-crosshair': mouseMode === 'draw' || mouseMode === 'fill',
-						[styles.erase]: mouseMode === 'erase',
-						[styles.hideTileSpace]: !showGrid,
-					}
-				)}
+				className={clsx(className, styles.root, 'relative shadow-lg bg-white', {
+					'cursor-crosshair': mouseMode === 'draw' || mouseMode === 'fill',
+					[styles.erase]: mouseMode === 'erase',
+					[styles.hideTileSpace]: !showGrid,
+				})}
 				ref={(div) => {
 					setDivRef(div);
 				}}
@@ -488,6 +482,10 @@ const Canvas = memo(function Canvas({
 					setMouseDown(false);
 				}}
 			>
+				<LevelBackground
+					className="absolute top-0 left-0 w-full h-full opacity-30"
+					bgNumber={rooms[currentRoomIndex].settings.bgGraphic}
+				/>
 				{currentPaletteEntry && (
 					<div
 						ref={entityGhostRef}

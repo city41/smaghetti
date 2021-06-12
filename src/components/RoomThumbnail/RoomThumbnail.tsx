@@ -2,10 +2,10 @@ import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { TILE_SIZE } from '../../tiles/constants';
 
-import { bgGraphicToResourceMap } from '../../resources/bgGraphicToResourceMap';
 import { entityMap } from '../../entities/entityMap';
 
 import styles from './RoomThumbnail.module.css';
+import { LevelBackground } from '../LevelBackground';
 
 type RoomThumbnailProps = {
 	className?: string;
@@ -172,11 +172,9 @@ const RoomThumbnail = React.memo(function RoomThumbnail({
 				}}
 			>
 				{typeof room.settings.bgGraphic === 'number' && (
-					<div
-						className={clsx(
-							'absolute top-0 left-0 w-full h-full opacity-50',
-							bgGraphicToResourceMap[room.settings.bgGraphic]
-						)}
+					<LevelBackground
+						className="absolute top-0 left-0 w-full h-full opacity-50"
+						bgNumber={room.settings.bgGraphic}
 					/>
 				)}
 				<Matrix

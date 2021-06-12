@@ -44,6 +44,7 @@ import { PipeHorizontalBody } from './PipeHorizontalBody';
 import { PipeHorizontalLip } from './PipeHorizontalLip';
 import { PipeVerticalBody } from './PipeVerticalBody';
 import { PipeVerticalLip } from './PipeVerticalLip';
+import { PlainsBackground } from './PlainsBackground';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PWing } from './PWing';
 import { RedCheepCheep } from './RedCheepCheep';
@@ -121,6 +122,7 @@ const resourceMap = {
 	PipeHorizontalLip,
 	PipeVerticalBody,
 	PipeVerticalLip,
+	PlainsBackground,
 	PoisonMushroom,
 	PWing,
 	RedCheepCheep,
