@@ -27,32 +27,23 @@ function areSameColorLossy(a: RGBColor, b: RGBColor): boolean {
 
 function convertToIndexed(
 	rgbTileData: Uint8ClampedArray,
-	gbaPalettes: GBAPalette[]
-): { indexedTileData: number[]; matchingPalette: GBAPalette } {
-	for (let p = 0; p < gbaPalettes.length; ++p) {
-		const indexed: number[] = [];
-		const currentGbaPalette = gbaPalettes[p];
-		const rgbPalette = gbaPaletteToRgb(currentGbaPalette);
+	gbaPalette: GBAPalette
+): number[] | null {
+	const indexed: number[] = [];
+	const rgbPalette = gbaPaletteToRgb(gbaPalette);
 
-		for (let i = 0; i < rgbTileData.length; i += 4) {
-			const color: RGBColor = Array.from(
-				rgbTileData.slice(i, i + 3)
-			) as RGBColor;
-			const index = rgbPalette.findIndex((p) => areSameColorLossy(color, p));
+	for (let i = 0; i < rgbTileData.length; i += 4) {
+		const color: RGBColor = Array.from(rgbTileData.slice(i, i + 3)) as RGBColor;
+		const index = rgbPalette.findIndex((p) => areSameColorLossy(color, p));
 
-			if (index < 0) {
-				break;
-			}
-
-			indexed.push(index);
+		if (index < 0) {
+			return null;
 		}
 
-		if (indexed.length === rgbTileData.length / 4) {
-			return { indexedTileData: indexed, matchingPalette: currentGbaPalette };
-		}
+		indexed.push(index);
 	}
 
-	throw new Error('convertToIndexed: no provided palettes matched');
+	return indexed;
 }
 
 function findTile(
@@ -127,23 +118,25 @@ function getTile(
 
 	const imageData = flipContext.getImageData(0, 0, TILE_SIZE, TILE_SIZE);
 
-	const { indexedTileData, matchingPalette } = convertToIndexed(
-		imageData.data,
-		palettes
-	);
+	for (let p = 0; p < palettes.length; ++p) {
+		const curPalette = palettes[p];
+		const indexedTileData = convertToIndexed(imageData.data, curPalette);
 
-	const gbaTileData = squishIntoNibbles(indexedTileData);
+		if (indexedTileData) {
+			const gbaTileData = squishIntoNibbles(indexedTileData);
 
-	const result = findTile(gbaTileData, tilePages);
+			const result = findTile(gbaTileData, tilePages);
 
-	if (result) {
-		return {
-			tileExtraction: { ...result, flip },
-			matchingPalette,
-		};
-	} else {
-		return null;
+			if (result) {
+				return {
+					tileExtraction: { ...result, flip },
+					matchingPalette: curPalette,
+				};
+			}
+		}
 	}
+
+	return null;
 }
 
 function buildResource(

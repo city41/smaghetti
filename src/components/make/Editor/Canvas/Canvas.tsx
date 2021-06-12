@@ -483,7 +483,7 @@ const Canvas = memo(function Canvas({
 				}}
 			>
 				<LevelBackground
-					className="absolute top-0 left-0 w-full h-full opacity-30"
+					className="absolute top-0 left-0 w-full h-full opacity-40"
 					bgNumber={rooms[currentRoomIndex].settings.bgGraphic}
 				/>
 				{currentPaletteEntry && (

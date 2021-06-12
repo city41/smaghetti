@@ -46,7 +46,7 @@ type EditorEntityMatrix = Array<EditorEntityRow | null>;
 // the string is the short id for the entity type, ie "Brick" -> "Br"
 type SerializedEditorEntityMatrix = Array<string | Array<string>>;
 
-type BackgroundGraphic = 'underground' | 'fortress' | 'plains';
+type BackgroundGraphic = 'underground' | 'fortress' | 'plains' | 'desert';
 type BackgroundExtraColorAndEffect = 'none' | 'fortress-parallax';
 
 type RoomBackgroundSettings = {

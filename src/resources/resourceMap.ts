@@ -13,6 +13,7 @@ import { ChargingChuckHead } from './ChargingChuckHead';
 import { ClimbingVineHead } from './ClimbingVineHead';
 import { CoinCache } from './CoinCache';
 import { CoinSnake } from './CoinSnake';
+import { DesertBackground } from './DesertBackground';
 import { DoorLock } from './DoorLock';
 import { FlagPoleBall } from './FlagPoleBall';
 import { FlagPoleShaft } from './FlagPoleShaft';
@@ -91,6 +92,7 @@ const resourceMap = {
 	ClimbingVineHead,
 	CoinCache,
 	CoinSnake,
+	DesertBackground,
 	DoorLock,
 	FlagPoleBall,
 	FlagPoleShaft,

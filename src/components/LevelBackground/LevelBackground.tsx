@@ -28,10 +28,25 @@ function Plains() {
 	);
 }
 
+function Desert() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#f7dea5' }}
+		>
+			<div
+				className="DesertBackground-bg w-full bg-repeat-x"
+				style={{ height: 56 }}
+			/>
+		</div>
+	);
+}
+
 const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.underground]: <Underground />,
 	[BACKGROUND_GRAPHIC_VALUES.fortress]: <Fortress />,
 	[BACKGROUND_GRAPHIC_VALUES.plains]: <Plains />,
+	[BACKGROUND_GRAPHIC_VALUES.desert]: <Desert />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {
