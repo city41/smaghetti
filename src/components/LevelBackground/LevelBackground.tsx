@@ -18,6 +18,10 @@ function BonusRoom() {
 	return <div className="BonusRoomBackground-bg w-full h-full" />;
 }
 
+function TetrisRoom() {
+	return <div className="TetrisRoomBackground-bg w-full h-full" />;
+}
+
 function GhostHouse() {
 	return (
 		<div
@@ -62,6 +66,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.desert]: <Desert />,
 	[BACKGROUND_GRAPHIC_VALUES['ghost-house']]: <GhostHouse />,
 	[BACKGROUND_GRAPHIC_VALUES['bonus-room']]: <BonusRoom />,
+	[BACKGROUND_GRAPHIC_VALUES['tetris-room']]: <TetrisRoom />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

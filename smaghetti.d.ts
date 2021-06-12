@@ -52,6 +52,7 @@ type BackgroundGraphic =
 	| 'plains'
 	| 'desert'
 	| 'ghost-house'
+	| 'tetris-room'
 	| 'bonus-room';
 
 type BackgroundExtraColorAndEffect = 'none' | 'fortress-parallax';

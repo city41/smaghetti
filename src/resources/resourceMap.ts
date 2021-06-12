@@ -58,6 +58,7 @@ import { SmallVegetable } from './SmallVegetable';
 import { StretchBooPlatformLeft } from './StretchBooPlatformLeft';
 import { StretchBooPlatformRight } from './StretchBooPlatformRight';
 import { TanookiSuit } from './TanookiSuit';
+import { TetrisRoomBackground } from './TetrisRoomBackground';
 import { ThreeNumberBlock } from './ThreeNumberBlock';
 import { TiltPlatformBall } from './TiltPlatformBall';
 import { TiltPlatformPivot } from './TiltPlatformPivot';
@@ -139,6 +140,7 @@ const resourceMap = {
 	StretchBooPlatformLeft,
 	StretchBooPlatformRight,
 	TanookiSuit,
+	TetrisRoomBackground,
 	ThreeNumberBlock,
 	TiltPlatformBall,
 	TiltPlatformPivot,
