@@ -76,11 +76,12 @@ function WhatsNewPage() {
 						<li>Desert</li>
 						<li>Ghost House</li>
 						<li>Plains</li>
+						<li>Tall Hills*</li>
 						<li>Tetris Room*</li>
 					</ul>
 
 					<p>Mario can finally get some fresh air</p>
-					<p>Tetris Room is an unused asset in the game</p>
+					<p>Tall Hills and Tetris Room are unused assets in the game</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-11">
 					<ul>

@@ -57,6 +57,7 @@ import { Shoe } from './Shoe';
 import { SmallVegetable } from './SmallVegetable';
 import { StretchBooPlatformLeft } from './StretchBooPlatformLeft';
 import { StretchBooPlatformRight } from './StretchBooPlatformRight';
+import { TallHillsBackground } from './TallHillsBackground';
 import { TanookiSuit } from './TanookiSuit';
 import { TetrisRoomBackground } from './TetrisRoomBackground';
 import { ThreeNumberBlock } from './ThreeNumberBlock';
@@ -139,6 +140,7 @@ const resourceMap = {
 	SmallVegetable,
 	StretchBooPlatformLeft,
 	StretchBooPlatformRight,
+	TallHillsBackground,
 	TanookiSuit,
 	TetrisRoomBackground,
 	ThreeNumberBlock,

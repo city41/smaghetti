@@ -52,6 +52,7 @@ type BackgroundGraphic =
 	| 'plains'
 	| 'desert'
 	| 'ghost-house'
+	| 'tall-hills'
 	| 'tetris-room'
 	| 'bonus-room';
 

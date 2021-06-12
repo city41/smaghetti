@@ -59,6 +59,20 @@ function Desert() {
 	);
 }
 
+function TallHills() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#8cb5ff' }}
+		>
+			<div
+				className="TallHillsBackground-bg w-full bg-repeat-x"
+				style={{ height: 256 }}
+			/>
+		</div>
+	);
+}
+
 const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.underground]: <Underground />,
 	[BACKGROUND_GRAPHIC_VALUES.fortress]: <Fortress />,
@@ -67,6 +81,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['ghost-house']]: <GhostHouse />,
 	[BACKGROUND_GRAPHIC_VALUES['bonus-room']]: <BonusRoom />,
 	[BACKGROUND_GRAPHIC_VALUES['tetris-room']]: <TetrisRoom />,
+	[BACKGROUND_GRAPHIC_VALUES['tall-hills']]: <TallHills />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {
