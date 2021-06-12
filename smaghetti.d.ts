@@ -51,7 +51,9 @@ type BackgroundGraphic =
 	| 'fortress'
 	| 'plains'
 	| 'desert'
-	| 'ghost-house';
+	| 'ghost-house'
+	| 'bonus-room';
+
 type BackgroundExtraColorAndEffect = 'none' | 'fortress-parallax';
 
 type RoomBackgroundSettings = {
