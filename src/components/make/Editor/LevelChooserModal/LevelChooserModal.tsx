@@ -6,13 +6,9 @@ import {
 	PLAY_WINDOW_TILE_HEIGHT,
 	PLAY_WINDOW_TILE_WIDTH,
 } from '../../constants';
-import {
-	MUSIC_VALUES,
-	ROOM_BACKGROUND_SETTINGS,
-} from '../../../../levelData/constants';
 import { getExampleLevel } from '../../../FileLoader/files';
 import { deserialize } from '../../../../level/deserialize';
-import { LOCALSTORAGE_KEY } from '../../editorSlice';
+import { initialRoomState, LOCALSTORAGE_KEY } from '../../editorSlice';
 import { convertLevelToLatestVersion } from '../../../../level/versioning/convertLevelToLatestVersion';
 import { SavedLevels } from './SavedLevels';
 
@@ -35,23 +31,7 @@ type InternalLevelChooserModalProps = {
 
 const THUMBNAIL_SCALE = 0.5;
 
-const EMPTY_ROOM: RoomData = {
-	settings: {
-		...ROOM_BACKGROUND_SETTINGS.underground,
-		music: MUSIC_VALUES.Underground,
-	},
-	actors: {
-		entities: [],
-		matrix: [],
-	},
-	stage: {
-		entities: [],
-		matrix: [],
-	},
-	roomTileHeight: PLAY_WINDOW_TILE_HEIGHT,
-	roomTileWidth: PLAY_WINDOW_TILE_WIDTH * 2,
-	paletteEntries: [],
-};
+const EMPTY_ROOM = initialRoomState;
 
 function LevelButton({
 	caption,

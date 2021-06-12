@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as mkdirp from 'mkdirp';
 import { createLevelData } from '../src/levelData/createLevelData';
 import { ROOM_BACKGROUND_SETTINGS } from '../src/levelData/constants';
-import { SINGLE_BRICK_SO_PLAYER_DOESNT_FALL } from '../src/components/make/editorSlice';
+import { FLOOR_SO_PLAYER_DOESNT_FALL } from '../src/components/make/editorSlice';
 import { injectLevelIntoSave } from '../src/levelData/injectLevelIntoSave';
 import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
@@ -52,7 +52,7 @@ function getRoom(objectSet: number, objectGraphicSet: number) {
 		matrixLayer: {
 			width: INITIAL_ROOM_TILE_WIDTH,
 			height: INITIAL_ROOM_TILE_HEIGHT,
-			data: SINGLE_BRICK_SO_PLAYER_DOESNT_FALL,
+			data: FLOOR_SO_PLAYER_DOESNT_FALL,
 		},
 	};
 }

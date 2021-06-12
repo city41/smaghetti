@@ -296,23 +296,21 @@ function calcYForScrollToBottom() {
 
 let idCounter = 10;
 
-const SINGLE_BRICK_SO_PLAYER_DOESNT_FALL: EditorEntityMatrix = (function () {
+const FLOOR_SO_PLAYER_DOESNT_FALL: EditorEntityMatrix = (function () {
 	const rows = [];
 	for (let y = 0; y < INITIAL_PLAYER_Y_TILE + 1; ++y) {
 		rows.push(null);
 	}
 
 	const playerRow = [];
-	for (let x = 0; x < INITIAL_PLAYER_X_TILE; ++x) {
-		playerRow.push(null);
+	for (let x = 0; x < INITIAL_PLAYER_X_TILE + 1; ++x) {
+		playerRow.push({
+			id: idCounter++,
+			type: 'WoodFloor',
+			x,
+			y: INITIAL_PLAYER_Y_TILE + 1,
+		} as const);
 	}
-
-	playerRow.push({
-		id: idCounter++,
-		type: 'IndestructibleBrick',
-		x: INITIAL_PLAYER_X_TILE,
-		y: INITIAL_PLAYER_Y_TILE + 1,
-	} as const);
 
 	rows.push(playerRow);
 
@@ -325,8 +323,8 @@ const SINGLE_BRICK_SO_PLAYER_DOESNT_FALL: EditorEntityMatrix = (function () {
 
 const initialRoomState: RoomState = {
 	settings: {
-		music: MUSIC_VALUES.Underground,
-		...ROOM_BACKGROUND_SETTINGS.underground,
+		music: MUSIC_VALUES.Plains,
+		...ROOM_BACKGROUND_SETTINGS.plains,
 	},
 	actors: {
 		entities: [
@@ -342,7 +340,7 @@ const initialRoomState: RoomState = {
 	},
 	stage: {
 		entities: [],
-		matrix: cloneDeep(SINGLE_BRICK_SO_PLAYER_DOESNT_FALL),
+		matrix: cloneDeep(FLOOR_SO_PLAYER_DOESNT_FALL),
 		locked: false,
 	},
 	roomTileWidth: INITIAL_ROOM_TILE_WIDTH,
@@ -359,6 +357,7 @@ const initialRoomState: RoomState = {
 	paletteEntries: [
 		'Brick',
 		'Coin',
+		'WoodFloor',
 		'Goomba',
 		'QuestionBlock',
 		'GreenKoopaTroopa',
@@ -2221,7 +2220,8 @@ export {
 	saveToLocalStorage,
 	eraseLevel,
 	LOCALSTORAGE_KEY,
-	SINGLE_BRICK_SO_PLAYER_DOESNT_FALL,
+	FLOOR_SO_PLAYER_DOESNT_FALL,
 	getEntityTileBounds,
 	pointIsInside,
+	initialRoomState,
 };
