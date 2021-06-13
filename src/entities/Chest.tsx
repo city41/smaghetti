@@ -117,6 +117,22 @@ const Chest: Entity = {
 			return body;
 		}
 	},
+
+	getWarning(
+		_settings: EditorEntitySettings,
+		_entity: EditorEntity,
+		room: RoomData
+	) {
+		const chests = room.actors.entities.filter((e) => e.type === 'Chest');
+		const firstChestPayload = chests[0].settings!.payload as EntityType;
+
+		if (
+			chests.length > 1 &&
+			!chests.every((cc) => cc.settings!.payload === firstChestPayload)
+		) {
+			return 'All chests in the same room should have the same item';
+		}
+	},
 };
 
 export { Chest };
