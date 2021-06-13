@@ -85,7 +85,7 @@ function deserializeRoom(
 	room: SerializedRoomData,
 	idCounter: number
 ): { idCounter: number; room: RoomData } {
-	const actorEntitiesResult = normalizeIds(room.actors, 1);
+	const actorEntitiesResult = normalizeIds(room.actors, idCounter);
 	const actorMatrixResult = deserializeMatrix(
 		room.actors,
 		actorEntitiesResult.idCounter
@@ -119,7 +119,7 @@ function deserializeRoom(
 function deserialize(
 	levelData: SerializedLevelData
 ): { levelData: LevelData; maxId: number } {
-	let idCounter = 0;
+	let idCounter = 1;
 
 	const deserializedLevelData: LevelData = {
 		...levelData,
