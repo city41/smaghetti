@@ -5,9 +5,9 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { ResizableRect } from '../components/ResizableRect';
 
 const RECT_CLASSES = [
-	['WoodFloorTop-bg', 'WoodFloorTop-bg', 'WoodFloorTop-bg'],
-	['WoodFloor-bg', 'WoodFloor-bg', 'WoodFloor-bg'],
-	['WoodFloor-bg', 'WoodFloor-bg', 'WoodFloor-bg'],
+	['WoodFloorUpperLeft-bg', 'WoodFloorTop-bg', 'WoodFloorUpperRight-bg'],
+	['WoodFloorLeft-bg', 'WoodFloor-bg', 'WoodFloorRight-bg'],
+	['WoodFloorLeft-bg', 'WoodFloor-bg', 'WoodFloorRight-bg'],
 ];
 
 const WoodFloor: Entity = {
