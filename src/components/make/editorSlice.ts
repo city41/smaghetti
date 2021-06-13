@@ -303,14 +303,16 @@ const FLOOR_SO_PLAYER_DOESNT_FALL: EditorEntityMatrix = (function () {
 	}
 
 	const playerRow = [];
-	for (let x = 0; x < INITIAL_PLAYER_X_TILE + 1; ++x) {
-		playerRow.push({
-			id: idCounter++,
-			type: 'WoodFloor',
-			x,
-			y: INITIAL_PLAYER_Y_TILE + 1,
-		} as const);
+	for (let x = 0; x < INITIAL_PLAYER_X_TILE; ++x) {
+		playerRow.push(null);
 	}
+
+	playerRow.push({
+		id: idCounter++,
+		type: 'WoodBlock',
+		x: INITIAL_PLAYER_X_TILE,
+		y: INITIAL_PLAYER_Y_TILE + 1,
+	} as const);
 
 	rows.push(playerRow);
 
@@ -357,11 +359,11 @@ const initialRoomState: RoomState = {
 	paletteEntries: [
 		'Brick',
 		'Coin',
-		'WoodFloor',
+		'WoodBlock',
 		'Goomba',
 		'QuestionBlock',
 		'GreenKoopaTroopa',
-		'Chest',
+		'PipeVertical',
 		'CardSlotMachine',
 		'PSwitch',
 	],
