@@ -70,6 +70,31 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Wood Floor, Underwater Floor changes!"
+					date="2021-06-13"
+				>
+					<div className="bg-red-200 text-red-900 font-bold p-2">
+						If your level uses wood or underwater floor, please read
+					</div>
+					<p>
+						Underwater floor and wood floor were not implemented well. It was
+						possible to use them in such a way your level would get corrupted.
+						So I redid how they work. They now behave more like pipes and
+						conveyor belts in that you have to size them with a drag handle.
+					</p>
+					<p>
+						If your level had underwater or wood floor in it, they will be
+						removed the next time you load the level. You will need to re-add
+						them using the new approach. Sorry about that, but breaking changes
+						like this are inevitable during early preview.
+					</p>
+					<div className="bg-green-200 text-green-900 p-2">
+						But some good news, this new approach paves the way for the big
+						&quot;boxes&quot; you see in levels like SMB3 1-1 and some other
+						entities that Smaghetti wasn&apos;t yet able to have. Stay tuned.
+					</div>
+				</NewEntry>
 				<NewEntry title="New Room Backgrounds" date="2021-06-12">
 					<ul>
 						<li>Bonus Room</li>

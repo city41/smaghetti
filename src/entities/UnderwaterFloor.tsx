@@ -1,151 +1,22 @@
 import React from 'react';
-import clsx from 'clsx';
 import type { Entity } from './types';
 import { encodeObjectSets, getBankParam1 } from './util';
-import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ResizableRect } from '../components/ResizableRect';
 
-function isCorner(
-	dx: number,
-	dy: number,
-	entity: EditorEntity | undefined,
-	room: RoomData | undefined
-): boolean {
-	if (!entity || !room) {
-		return false;
-	}
-
-	const yCell = room.stage.matrix[entity.y + dy]?.[entity.x];
-	const xCell = room.stage.matrix[entity.y]?.[entity.x + dx];
-
-	return yCell?.type !== 'UnderwaterFloor' && xCell?.type !== 'UnderwaterFloor';
-}
-
-function isUpperLeft(
-	entity: EditorEntity | undefined,
-	room: RoomData | undefined
-): boolean {
-	return isCorner(-1, -1, entity, room);
-}
-
-function isUpperRight(
-	entity: EditorEntity | undefined,
-	room: RoomData | undefined
-): boolean {
-	return isCorner(1, -1, entity, room);
-}
-
-function isLowerLeft(
-	entity: EditorEntity | undefined,
-	room: RoomData | undefined
-): boolean {
-	if (!entity || !room) {
-		return false;
-	}
-
-	const toLeft = room.stage.matrix[entity.y]?.[entity.x - 1];
-
-	if (toLeft?.type === 'UnderwaterFloor') {
-		return false;
-	}
-
-	let height = 0;
-	let y = entity.y;
-
-	while (room.stage.matrix[y]?.[entity.x]?.type === 'UnderwaterFloor') {
-		height += 1;
-		y -= 1;
-	}
-
-	return height >= 2;
-}
-
-function isLowerRight(
-	entity: EditorEntity | undefined,
-	room: RoomData | undefined
-): boolean {
-	if (!entity || !room) {
-		return false;
-	}
-
-	const toRight = room.stage.matrix[entity.y]?.[entity.x + 1];
-
-	if (toRight?.type === 'UnderwaterFloor') {
-		return false;
-	}
-
-	let height = 0;
-	let y = entity.y;
-
-	while (room.stage.matrix[y]?.[entity.x]?.type === 'UnderwaterFloor') {
-		height += 1;
-		y -= 1;
-	}
-
-	return height >= 2;
-}
-
-function isLeft(entity: EditorEntity | undefined, room: RoomData | undefined) {
-	if (!entity || !room) {
-		return false;
-	}
-
-	if (isLowerLeft(entity, room) || isUpperLeft(entity, room)) {
-		return false;
-	}
-
-	const toLeft = room.stage.matrix[entity.y]?.[entity.x - 1];
-	return toLeft?.type !== 'UnderwaterFloor';
-}
-
-function isRight(entity: EditorEntity | undefined, room: RoomData | undefined) {
-	if (!entity || !room) {
-		return false;
-	}
-
-	if (isLowerRight(entity, room) || isUpperRight(entity, room)) {
-		return false;
-	}
-
-	const toRight = room.stage.matrix[entity.y]?.[entity.x + 1];
-	return toRight?.type !== 'UnderwaterFloor';
-}
-
-function isTop(entity: EditorEntity | undefined, room: RoomData | undefined) {
-	if (!entity || !room) {
-		return false;
-	}
-
-	if (isUpperLeft(entity, room) || isUpperRight(entity, room)) {
-		return false;
-	}
-
-	const toTop = room.stage.matrix[entity.y - 1]?.[entity.x];
-	return toTop?.type !== 'UnderwaterFloor';
-}
-
-function isBottom(
-	entity: EditorEntity | undefined,
-	room: RoomData | undefined
-) {
-	if (!entity || !room) {
-		return false;
-	}
-
-	if (isLowerLeft(entity, room) || isLowerRight(entity, room)) {
-		return false;
-	}
-
-	let height = 0;
-	let y = entity.y;
-
-	while (room.stage.matrix[y]?.[entity.x]?.type === 'UnderwaterFloor') {
-		height += 1;
-		y -= 1;
-	}
-
-	return height >= 2;
-}
+const RECT_CLASSES = [
+	[
+		'UnderwaterFloorUpperLeft-bg',
+		'UnderwaterFloorTop-bg',
+		'UnderwaterFloorUpperRight-bg',
+	],
+	['UnderwaterFloorLeft-bg', 'UnderwaterFloor-bg', 'UnderwaterFloorRight-bg'],
+	[
+		'UnderwaterFloorLowerLeft-bg',
+		'UnderwaterFloorBottom-bg',
+		'UnderwaterFloorLowerRight-bg',
+	],
+];
 
 const UnderwaterFloor: Entity = {
 	paletteCategory: 'terrain',
@@ -153,8 +24,6 @@ const UnderwaterFloor: Entity = {
 		subCategory: 'terrain-water',
 		title: 'Underwater Floor',
 		description: 'Intended for underwater levels, but can be used anywhere',
-		warning:
-			'Creating strange shapes with underwater floor can cause your level to get all messed up. I will change how this one works altogether, stay tuned...',
 	},
 
 	objectSets: encodeObjectSets([
@@ -167,14 +36,15 @@ const UnderwaterFloor: Entity = {
 	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
-	editorType: 'cell',
-	dimensions: 'xy',
+	editorType: 'entity',
+	dimensions: 'none',
 	param1: 'height',
 	param2: 'width',
 	objectId: 0x31,
 	emptyBank: 1,
+	settingsType: 'single',
+	defaultSettings: { width: 2, height: 2 },
 
-	// TODO: this only exists for hex-tree. hex-tree really should use render()
 	resource: {
 		romOffset: 0x16ad5c,
 		palettes: [
@@ -203,7 +73,10 @@ const UnderwaterFloor: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w, h) {
+	toObjectBinary(x, y, _w, _h, settings): number[] {
+		const h = (settings.height ?? this.defaultSettings!.height) - 1;
+		const w = (settings.width ?? this.defaultSettings!.width) - 1;
+
 		return [getBankParam1(1, h), y, x, this.objectId, w];
 	},
 
@@ -234,52 +107,19 @@ const UnderwaterFloor: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _osc, entity, room) {
-		if (!entity) {
-			return this.simpleRender(TILE_SIZE);
-		}
-
-		const upperLeft = isUpperLeft(entity, room);
-		const upperRight = isUpperRight(entity, room);
-		const lowerLeft = isLowerLeft(entity, room);
-		const lowerRight = isLowerRight(entity, room);
-		const left = isLeft(entity, room);
-		const right = isRight(entity, room);
-		const top = isTop(entity, room);
-		const bottom = isBottom(entity, room);
-
-		const style = {
-			width: TILE_SIZE,
-			height: TILE_SIZE,
-		};
+	render(_showDetails, settings, onSettingsChange, entity) {
+		const height = settings.height ?? this.defaultSettings!.height;
+		const width = settings.width ?? this.defaultSettings!.width;
 
 		return (
-			<div
-				style={style}
-				className={clsx({
-					'UnderwaterFloorUpperLeft-bg': upperLeft,
-					'UnderwaterFloorUpperRight-bg': upperRight,
-					'UnderwaterFloorLowerLeft-bg': lowerLeft,
-					'UnderwaterFloorLowerRight-bg': lowerRight,
-					'UnderwaterFloorLeft-bg': left,
-					'UnderwaterFloorRight-bg': right,
-					'UnderwaterFloorTop-bg': top,
-					'UnderwaterFloorBottom-bg': bottom,
-				})}
+			<ResizableRect
+				width={width}
+				height={height}
+				classes={RECT_CLASSES}
+				hideResizer={!entity}
+				onSizeChange={(width, height) => onSettingsChange({ width, height })}
 			/>
 		);
-	},
-
-	getWarning(_settings, entity, room) {
-		const leftCell = room.stage.matrix[entity.y]?.[entity.x - 1];
-		const rightCell = room.stage.matrix[entity.y]?.[entity.x + 1];
-
-		if (
-			leftCell?.type !== 'UnderwaterFloor' &&
-			rightCell?.type !== 'UnderwaterFloor'
-		) {
-			return 'Needs to be at least 2 tiles wide';
-		}
 	},
 };
 
