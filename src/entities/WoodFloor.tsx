@@ -70,6 +70,8 @@ const WoodFloor: Entity = {
 		subCategory: 'terrain-basic',
 		title: 'WoodFloor',
 		description: 'Must have a width of at least two',
+		warning:
+			'Creating strange shapes with wood floor can cause your level to get all messed up. I will change how this one works altogether, stay tuned...',
 	},
 
 	objectSets: encodeObjectSets([[1, 1]]),
