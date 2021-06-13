@@ -5,12 +5,11 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-import { FaArrowsAltH, FaArrowsAltV, FaArrowsAlt } from 'react-icons/fa';
+import { FaArrowsAltH, FaArrowsAltV } from 'react-icons/fa';
 import clsx from 'clsx';
 import { IconType } from 'react-icons';
 
-type Axis = 'x' | 'y' | 'xy';
-type Direction = 'x' | 'y';
+type Axis = 'x' | 'y';
 
 type PublicResizerProps = {
 	className?: string;
@@ -30,10 +29,10 @@ type InternalResizerProps = {
 const icons: Record<Axis, IconType> = {
 	x: FaArrowsAltH,
 	y: FaArrowsAltV,
-	xy: FaArrowsAlt,
+	// xy: FaArrowsAlt,
 };
 
-const CSSProperty: Record<Direction, string> = {
+const CSSProperty: Record<Axis, string> = {
 	x: 'left',
 	y: 'top',
 };
@@ -87,46 +86,24 @@ function Resizer({
 	const onDocumentMouseMove = useCallback(function onDocumentMouseMove(
 		e: MouseEvent
 	) {
-		const inputs: Record<Direction, number> = { x: e.pageX, y: e.pageY };
+		const inputs: Record<Axis, number> = { x: e.pageX, y: e.pageY };
 
-		const xDiff = (inputs.x - start.current.x) / scaleRef.current;
-		const yDiff = (inputs.y - start.current.y) / scaleRef.current;
+		const diff =
+			(inputs[axisRef.current] - start.current[axisRef.current]) /
+			scaleRef.current;
 
 		const icon = ref.current!.querySelector('.resize-icon') as HTMLElement;
+		icon.style.setProperty(CSSProperty[axisRef.current], `${diff}px`);
 
-		switch (axisRef.current) {
-			case 'x':
-				icon.style.setProperty(CSSProperty.x, `${xDiff}px`);
-				break;
-			case 'y':
-				icon.style.setProperty(CSSProperty.y, `${yDiff}px`);
-				break;
-			case 'xy':
-				icon.style.setProperty(CSSProperty.x, `${xDiff}px`);
-				icon.style.setProperty(CSSProperty.y, `${yDiff}px`);
-				break;
-		}
+		if (Math.abs(diff) >= increment) {
+			const floorCeil = diff < 0 ? Math.ceil : Math.floor;
+			const delta = floorCeil(diff / increment);
 
-		const xFloorCeil = xDiff < 0 ? Math.ceil : Math.floor;
-		const xDelta = xFloorCeil(xDiff / increment);
-		const yFloorCeil = yDiff < 0 ? Math.ceil : Math.floor;
-		const yDelta = yFloorCeil(yDiff / increment);
-
-		if (axisRef.current === 'x' && xDelta !== 0) {
-			onSizeChange({ x: sizeRef.current.x + xDelta, y: sizeRef.current.y });
-			start.current.x = inputs.x;
-		}
-
-		if (axisRef.current === 'y' && yDelta !== 0) {
-			onSizeChange({ x: sizeRef.current.x, y: sizeRef.current.y + yDelta });
-			start.current.y = inputs.y;
-		}
-
-		if (axisRef.current === 'xy' && (xDelta !== 0 || yDelta !== 0)) {
-			onSizeChange({
-				x: sizeRef.current.x + xDelta,
-				y: sizeRef.current.y + yDelta,
-			});
+			if (axisRef.current === 'x') {
+				onSizeChange({ x: sizeRef.current.x + delta, y: sizeRef.current.y });
+			} else {
+				onSizeChange({ y: sizeRef.current.y + delta, x: sizeRef.current.x });
+			}
 			start.current.x = inputs.x;
 			start.current.y = inputs.y;
 		}

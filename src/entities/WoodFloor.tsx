@@ -1,29 +1,85 @@
 import type { Entity } from './types';
 import { encodeObjectSets, getBankParam1 } from './util';
+import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
+import clsx from 'clsx';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { ResizableRect } from '../components/ResizableRect';
 
-const RECT_CLASSES = [
-	['WoodFloorTop-bg', 'WoodFloorTop-bg', 'WoodFloorTop-bg'],
-	['WoodFloor-bg', 'WoodFloor-bg', 'WoodFloor-bg'],
-	['WoodFloor-bg', 'WoodFloor-bg', 'WoodFloor-bg'],
-];
+function isWoodFloorAbove(
+	entity: EditorEntity | undefined,
+	room: RoomData | undefined
+): boolean {
+	if (!entity || !room) {
+		return false;
+	}
+
+	const cellAbove = room.stage.matrix[entity.y - 1]?.[entity.x];
+
+	if (!cellAbove) {
+		return false;
+	}
+
+	return cellAbove.type === 'WoodFloor';
+}
+
+/**
+ * For woodfloor, it's not about being one wide
+ * but rather about the top platform part being
+ * at least two wide
+ *
+ * example: this is illegal
+ *  WW
+ * WWWW
+ * WWWW
+ *
+ * this scenario satisfies "not one wide" for
+ * all tiles, but the upper left/right corner blocks
+ * will end up having a top platform that is one wide
+ */
+function isInvalidTopPlatform(
+	entity: EditorEntity | undefined,
+	room: RoomData | undefined
+): boolean {
+	if (!entity || !room) {
+		return false;
+	}
+
+	const cellToTop = room.stage.matrix[entity.y - 1]?.[entity.x];
+
+	// if there is floor directly above, then this tile is fine
+	if (cellToTop?.type === 'WoodFloor') {
+		return false;
+	}
+
+	const cellToLeft = room.stage.matrix[entity.y]?.[entity.x - 1];
+	const cellToRight = room.stage.matrix[entity.y]?.[entity.x + 1];
+	const cellToUpLeft = room.stage.matrix[entity.y - 1]?.[entity.x - 1];
+	const cellToUpRight = room.stage.matrix[entity.y - 1]?.[entity.x + 1];
+
+	const okToLeft =
+		cellToLeft?.type === 'WoodFloor' && cellToUpLeft?.type !== 'WoodFloor';
+	const okToRight =
+		cellToRight?.type === 'WoodFloor' && cellToUpRight?.type !== 'WoodFloor';
+
+	return !okToLeft && !okToRight;
+}
 
 const WoodFloor: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-basic',
 		title: 'WoodFloor',
+		description: 'Must have a width of at least two',
+		warning:
+			'Creating strange shapes with wood floor can cause your level to get all messed up. I will change how this one works altogether, stay tuned...',
 	},
 
 	objectSets: encodeObjectSets([[1, 1]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
-	editorType: 'entity',
+	editorType: 'cell',
 	settingsType: 'single',
-	defaultSettings: { width: 2, height: 1 },
-	dimensions: 'none',
+	dimensions: 'xy',
 	objectId: 0xb,
 	param1: 'height',
 	param2: 'width',
@@ -57,10 +113,7 @@ const WoodFloor: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, _w, _h, settings): number[] {
-		const h = (settings.height ?? this.defaultSettings!.height) - 1;
-		const w = (settings.width ?? this.defaultSettings!.width) - 1;
-
+	toObjectBinary(x, y, w, h): number[] {
 		return [getBankParam1(1, h), y, x, this.objectId, w];
 	},
 
@@ -73,19 +126,29 @@ const WoodFloor: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
-		const height = settings.height ?? this.defaultSettings!.height;
-		const width = settings.width ?? this.defaultSettings!.width;
+	render(_showDetails, _settings, _osc, entity, room) {
+		const woodAbove = isWoodFloorAbove(entity, room);
+
+		const style = {
+			width: TILE_SIZE,
+			height: TILE_SIZE,
+		};
 
 		return (
-			<ResizableRect
-				width={width}
-				height={height}
-				classes={RECT_CLASSES}
-				hideResizer={!entity}
-				onSizeChange={(width, height) => onSettingsChange({ width, height })}
+			<div
+				style={style}
+				className={clsx('bg-cover', {
+					'WoodFloor-bg': woodAbove,
+					'WoodFloorTop-bg': !woodAbove,
+				})}
 			/>
 		);
+	},
+
+	getWarning(_settings, entity, room) {
+		if (isInvalidTopPlatform(entity, room)) {
+			return 'The top platform area must be at least 2 tiles wide';
+		}
 	},
 };
 
