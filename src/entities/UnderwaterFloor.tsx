@@ -153,6 +153,8 @@ const UnderwaterFloor: Entity = {
 		subCategory: 'terrain-water',
 		title: 'Underwater Floor',
 		description: 'Intended for underwater levels, but can be used anywhere',
+		warning:
+			'Creating strange shapes with underwater floor can cause your level to get all messed up. I will change how this one works altogether, stay tuned...',
 	},
 
 	objectSets: encodeObjectSets([
