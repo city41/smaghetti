@@ -104,6 +104,24 @@ const CoinChallenge: Entity = {
 			return body;
 		}
 	},
+
+	getWarning(
+		_settings: EditorEntitySettings,
+		_entity: EditorEntity,
+		room: RoomData
+	) {
+		const coinChallenges = room.actors.entities.filter(
+			(e) => e.type === 'CoinChallenge'
+		);
+		const firstChallengeCount = coinChallenges[0].settings!.count as number;
+
+		if (
+			coinChallenges.length > 1 &&
+			!coinChallenges.every((cc) => cc.settings!.count === firstChallengeCount)
+		) {
+			return 'Coin challenges should all have the same value in the same room';
+		}
+	},
 };
 
 export { CoinChallenge };
