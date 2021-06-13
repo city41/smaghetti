@@ -115,8 +115,8 @@ function ResizableRect({
 					axis="xy"
 					onSizeChange={(newSizePoint) => {
 						onSizeChange(
-							Math.max(2, newSizePoint.x),
-							Math.max(1, newSizePoint.y)
+							Math.min(26, Math.max(2, newSizePoint.x)),
+							Math.min(26, Math.max(1, newSizePoint.y))
 						);
 					}}
 					onResizeStart={() => setResizing(true)}
