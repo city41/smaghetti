@@ -8,7 +8,10 @@ import {
 	extractCompressedTilesFromRom,
 	TilePage,
 } from '../src/tiles/extractCompressedTilesFromRom';
-import { gba16ToRgb } from '../src/tiles/extractResourcesToStylesheet';
+import {
+	gba16ToRgb,
+	rgbToGBA16,
+} from '../src/tiles/extractResourcesToStylesheet';
 import isEqual from 'lodash/isEqual';
 import { toHexString } from '../src/components/hex-tree/HexTreePage/util';
 
@@ -188,7 +191,10 @@ function buildResource(
 	};
 }
 
-function parsePalettes(allPallettes: number[]): GBAPalette[] {
+function parsePalettes(
+	allPallettes: number[],
+	zeroColor?: number
+): GBAPalette[] {
 	const palettes: GBAPalette[] = [];
 
 	for (let i = 0; i < allPallettes.length; i += 32) {
@@ -197,16 +203,35 @@ function parsePalettes(allPallettes: number[]): GBAPalette[] {
 			.map(toHexString)
 			.join('');
 		const gbaPalette = parseMGBAPaletteString(paletteStr);
+
+		if (typeof zeroColor === 'number') {
+			gbaPalette[0] = zeroColor;
+		}
+
 		palettes.push(gbaPalette);
 	}
 
 	return palettes;
 }
 
+function getZeroColor(zeroColorStr: string | undefined): number | undefined {
+	if (!zeroColorStr) {
+		return undefined;
+	}
+
+	const channels = zeroColorStr.split(',');
+	return rgbToGBA16(
+		Number(channels[0]),
+		Number(channels[1]),
+		Number(channels[2])
+	);
+}
+
 function main() {
 	const romPath = process.argv[2];
 	const pngPath = process.argv[3];
 	const palettePath = process.argv[4];
+	const zeroColorStr = process.argv[5];
 
 	if (!romPath || !pngPath || !palettePath) {
 		console.error(
@@ -219,7 +244,10 @@ function main() {
 		path.resolve(process.cwd(), palettePath)
 	);
 
-	const palettes = parsePalettes(Array.from(paletteBuffer));
+	const zeroColor = getZeroColor(zeroColorStr);
+	console.log('zeroColor', zeroColor);
+
+	const palettes = parsePalettes(Array.from(paletteBuffer), zeroColor);
 
 	const pngBuffer = fs.readFileSync(path.resolve(process.cwd(), pngPath));
 	const img = new Image();

@@ -4,6 +4,7 @@ import { AngrySun } from './AngrySun';
 import { ArrowFloor } from './ArrowFloor';
 import { ArrowLift } from './ArrowLift';
 import { ArrowSign } from './ArrowSign';
+import { BackgroundHillsStripedMedium } from './BackgroundHillsStripedMedium';
 import { BabyCheepCheep } from './BabyCheepCheep';
 import { BeachBall } from './BeachBall';
 import { BeachedCheepCheep } from './BeachedCheepCheep';
@@ -215,6 +216,7 @@ const entityMap = {
 	ArrowFloor,
 	ArrowLift,
 	ArrowSign,
+	BackgroundHillsStripedMedium,
 	BabyCheepCheep,
 	BeachBall,
 	BeachedCheepCheep,
