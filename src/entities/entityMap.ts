@@ -166,6 +166,7 @@ import { RopeRailing } from './RopeRailing';
 import { RotatingCheckeredBlockLarge } from './RotatingCheckeredBlockLarge';
 import { RotatingCheckeredBlockSmall } from './RotatingCheckeredBlockSmall';
 import { Roy } from './Roy';
+import { ScrollStopHorizontal } from './ScrollStopHorizontal';
 import { SeeSawPlatform } from './SeeSawPlatform';
 import { ShoeGoomba } from './ShoeGoomba';
 import { SilverPSwitch } from './SilverPSwitch';
@@ -376,6 +377,7 @@ const entityMap = {
 	RotatingCheckeredBlockLarge,
 	RotatingCheckeredBlockSmall,
 	Roy,
+	ScrollStopHorizontal,
 	SeeSawPlatform,
 	ShoeGoomba,
 	SilverPSwitch,

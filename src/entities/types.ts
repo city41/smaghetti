@@ -21,6 +21,7 @@ type PaletteCategory =
 	| 'power-up'
 	| 'transport'
 	| 'decoration'
+	| 'meta'
 	| 'unfinished';
 
 type PaletteSubcategory =

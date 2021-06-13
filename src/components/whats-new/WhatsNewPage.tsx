@@ -73,6 +73,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-06-13">
 					<ul>
 						<li>Colorful Metal Box</li>
+						<li>Scroll Stop - Horizontal</li>
 					</ul>
 				</NewEntry>
 				<NewEntry
