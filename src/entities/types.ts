@@ -29,6 +29,7 @@ type PaletteSubcategory =
 	| 'terrain-damaging'
 	| 'terrain-statues'
 	| 'terrain-winter'
+	| 'terrain-large'
 	| 'enemy-common'
 	| 'enemy-piranha'
 	| 'enemy-fortress'

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ReactNode } from 'react';
 import clsx from 'clsx';
 import { TILE_SIZE } from '../../tiles/constants';
 import { Resizer } from '../Resizer';
@@ -10,7 +10,10 @@ type ResizableRectProps = {
 	width: number;
 	height: number;
 	hideResizer?: boolean;
+	minW: number;
+	minH: number;
 	onSizeChange: (newWidth: number, newHeight: number) => void;
+	children?: ReactNode;
 };
 
 function getClassName(
@@ -69,8 +72,11 @@ function ResizableRect({
 	classes,
 	width,
 	height,
+	minW,
+	minH,
 	hideResizer,
 	onSizeChange,
+	children,
 }: ResizableRectProps) {
 	const [resizing, setResizing] = useState(false);
 
@@ -108,21 +114,22 @@ function ResizableRect({
 			{cells}
 			{!hideResizer && (
 				<Resizer
-					className="absolute bottom-0 right-0"
+					className="absolute bottom-0 right-0 z-10"
 					style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
 					size={size}
 					increment={TILE_SIZE}
 					axis="xy"
 					onSizeChange={(newSizePoint) => {
 						onSizeChange(
-							Math.max(2, newSizePoint.x),
-							Math.max(1, newSizePoint.y)
+							Math.max(minW, newSizePoint.x),
+							Math.max(minH, newSizePoint.y)
 						);
 					}}
 					onResizeStart={() => setResizing(true)}
 					onResizeEnd={() => setResizing(false)}
 				/>
 			)}
+			{children}
 		</div>
 	);
 }

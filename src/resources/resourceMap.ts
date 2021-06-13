@@ -14,6 +14,14 @@ import { ChargingChuckHead } from './ChargingChuckHead';
 import { ClimbingVineHead } from './ClimbingVineHead';
 import { CoinCache } from './CoinCache';
 import { CoinSnake } from './CoinSnake';
+import { ColorfulMetalBoxBottom } from './ColorfulMetalBoxBottom';
+import { ColorfulMetalBoxLeft } from './ColorfulMetalBoxLeft';
+import { ColorfulMetalBoxLowerLeft } from './ColorfulMetalBoxLowerLeft';
+import { ColorfulMetalBoxLowerRight } from './ColorfulMetalBoxLowerRight';
+import { ColorfulMetalBoxRight } from './ColorfulMetalBoxRight';
+import { ColorfulMetalBoxTop } from './ColorfulMetalBoxTop';
+import { ColorfulMetalBoxUpperLeft } from './ColorfulMetalBoxUpperLeft';
+import { ColorfulMetalBoxUpperRight } from './ColorfulMetalBoxUpperRight';
 import { DesertBackground } from './DesertBackground';
 import { DoorLock } from './DoorLock';
 import { FlagPoleBall } from './FlagPoleBall';
@@ -101,6 +109,14 @@ const resourceMap = {
 	ClimbingVineHead,
 	CoinCache,
 	CoinSnake,
+	ColorfulMetalBoxBottom,
+	ColorfulMetalBoxLeft,
+	ColorfulMetalBoxLowerLeft,
+	ColorfulMetalBoxLowerRight,
+	ColorfulMetalBoxRight,
+	ColorfulMetalBoxTop,
+	ColorfulMetalBoxUpperLeft,
+	ColorfulMetalBoxUpperRight,
 	DesertBackground,
 	DoorLock,
 	FlagPoleBall,
