@@ -101,12 +101,12 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'bonus-room': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['bonus-room'],
-		bgColor: 0x86,
+		bgColor: 0x4,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 	'tetris-room': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['tetris-room'],
-		bgColor: 0x86,
+		bgColor: 0x4,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 	'tall-hills': {
