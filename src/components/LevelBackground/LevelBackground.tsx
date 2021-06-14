@@ -87,6 +87,24 @@ function Winter() {
 	);
 }
 
+function Underwater() {
+	return (
+		<div
+			className="relative w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#0052c6' }}
+		>
+			<div
+				className="UnderwaterBackground-bg w-full bg-repeat-x"
+				style={{ height: 64 }}
+			/>
+			<div
+				className="absolute top-0 left-0 w-full h-full opacity-40"
+				style={{ backgroundColor: 'blue' }}
+			/>
+		</div>
+	);
+}
+
 const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.underground]: <Underground />,
 	[BACKGROUND_GRAPHIC_VALUES.fortress]: <Fortress />,
@@ -97,6 +115,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['bonus-room']]: <BonusRoom />,
 	[BACKGROUND_GRAPHIC_VALUES['tetris-room']]: <TetrisRoom />,
 	[BACKGROUND_GRAPHIC_VALUES['tall-hills']]: <TallHills />,
+	[BACKGROUND_GRAPHIC_VALUES.underwater]: <Underwater />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

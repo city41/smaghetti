@@ -55,9 +55,13 @@ type BackgroundGraphic =
 	| 'tall-hills'
 	| 'tetris-room'
 	| 'winter'
+	| 'underwater'
 	| 'bonus-room';
 
-type BackgroundExtraColorAndEffect = 'none' | 'fortress-parallax';
+type BackgroundExtraColorAndEffect =
+	| 'none'
+	| 'fortress-parallax'
+	| 'underwater-ripple-purple';
 
 type RoomBackgroundSettings = {
 	bgGraphic: number;

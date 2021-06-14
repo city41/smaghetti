@@ -76,6 +76,7 @@ import { TiltPlatformBall } from './TiltPlatformBall';
 import { TiltPlatformPivot } from './TiltPlatformPivot';
 import { TwoNumberBlock } from './TwoNumberBlock';
 import { UndergroundBackground } from './UndergroundBackground';
+import { UnderwaterBackground } from './UnderwaterBackground';
 import { UnderwaterFloorBottom } from './UnderwaterFloorBottom';
 import { UnderwaterFloorLeft } from './UnderwaterFloorLeft';
 import { UnderwaterFloorLowerLeft } from './UnderwaterFloorLowerLeft';
@@ -175,6 +176,7 @@ const resourceMap = {
 	TiltPlatformPivot,
 	TwoNumberBlock,
 	UndergroundBackground,
+	UnderwaterBackground,
 	UnderwaterFloorBottom,
 	UnderwaterFloorLeft,
 	UnderwaterFloorLowerLeft,
