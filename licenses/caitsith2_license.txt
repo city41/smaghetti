@@ -1,0 +1,3 @@
+All of caitsith2's code is licensed under the GPL, v2.
+
+His code can be found in /level2bmp, along with a copy of the license
