@@ -31,9 +31,9 @@ const alphaChecklist: MilestoneChecklistItem[] = [
 		description:
 			'Layers (mostly to support complex terrain and background things)',
 	},
-	{ status: 'in-progress', description: 'Room settings' },
-	{ status: 'not-started', description: "Set a room's size" },
-	{ status: 'not-started', description: "Change player's starting location" },
+	{ status: 'completed', description: 'Room settings' },
+	{ status: 'in-progress', description: "Set a room's size" },
+	{ status: 'in-progress', description: "Change player's starting location" },
 ];
 
 const betaChecklist: MilestoneChecklistItem[] = [
