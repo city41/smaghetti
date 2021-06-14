@@ -140,6 +140,7 @@ import { MusicBlockThreeWay } from './MusicBlockThreeWay';
 import { NumberBlock } from './NumberBlock';
 import { OneUpMushroom } from './OneUpMushroom';
 import { OneWayDoor } from './OneWayDoor';
+import { PalmTree } from './PalmTree';
 import { POWBlock } from './POWBlock';
 import { PSwitch } from './PSwitch';
 import { PSwitchDoor } from './PSwitchDoor';
@@ -356,6 +357,7 @@ const entityMap = {
 	NumberBlock,
 	OneUpMushroom,
 	OneWayDoor,
+	PalmTree,
 	POWBlock,
 	PSwitch,
 	PSwitchDoor,

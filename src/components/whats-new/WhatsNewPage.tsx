@@ -76,6 +76,7 @@ function WhatsNewPage() {
 						<li>Grass Slope - 30° Up Right</li>
 						<li>Grass Staircase - Up Left</li>
 						<li>Grass Staircase - Up Right</li>
+						<li>Palm Tree</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="New Room Backgrounds" date="2021-06-13">
