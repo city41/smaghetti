@@ -31,7 +31,7 @@ function downloadLevelAsSaveFile(level: LevelToLoadInGBA) {
 	}
 
 	const levelSaveData = createLevelData(level);
-	const fullSaveData = injectLevelIntoSave(emptySave, levelSaveData);
+	const fullSaveData = injectLevelIntoSave(emptySave, levelSaveData, true);
 
 	sendFileToAnchorTag(fullSaveData, getSafeFileName(level.name));
 }

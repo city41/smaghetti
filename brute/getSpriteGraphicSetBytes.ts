@@ -111,7 +111,7 @@ function getGbaScreen(
 				rooms: [getRoom()],
 			},
 		});
-		const saveFileWithLevel = injectLevelIntoSave(emptySave, levelData);
+		const saveFileWithLevel = injectLevelIntoSave(emptySave, levelData, true);
 
 		// @ts-ignore
 		const gba: any = new GameBoyAdvance();

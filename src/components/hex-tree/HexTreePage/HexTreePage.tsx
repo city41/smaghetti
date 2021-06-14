@@ -72,7 +72,7 @@ function HexTreePage({
 
 	function handleDownloadSave() {
 		if (data.length) {
-			const saveFile = injectLevelIntoSave(getEmptySave()!, data);
+			const saveFile = injectLevelIntoSave(getEmptySave()!, data, true);
 			sendFileToAnchorTag(saveFile, 'hex-tree.sav');
 		}
 	}
