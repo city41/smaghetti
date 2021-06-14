@@ -38,7 +38,6 @@ const roomTypes = Object.keys(ROOM_BACKGROUND_SETTINGS).sort();
 function getRoomType(settings: RoomSettings): string {
 	const entry = Object.entries(ROOM_BACKGROUND_SETTINGS).find((rts) => {
 		return (
-			settings.bgColor === rts[1].bgColor &&
 			settings.bgGraphic === rts[1].bgGraphic &&
 			settings.bgExtraColorAndEffect === rts[1].bgExtraColorAndEffect
 		);
