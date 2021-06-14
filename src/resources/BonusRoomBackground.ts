@@ -24,61 +24,33 @@ const BonusRoomBackground: StaticResource = {
 	],
 	tiles: [
 		[
+			868,
+			869,
 			{
-				romOffset: 1584308,
-				tileIndex: 868,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 869,
-			},
-			{
-				romOffset: 1584308,
 				tileIndex: 842,
 				flip: 'h',
 			},
+			872,
+			873,
 			{
-				romOffset: 1584308,
-				tileIndex: 872,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 873,
-			},
-			{
-				romOffset: 1584308,
 				tileIndex: 845,
 				flip: 'h',
 			},
-			{
-				romOffset: 1584308,
-				tileIndex: 870,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 871,
-			},
+			870,
+			871,
 		],
 		[
-			{
-				romOffset: 1584308,
-				tileIndex: 876,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 877,
-			},
+			876,
+			877,
 			{
 				romOffset: 1253344,
 				tileIndex: 262,
 			},
 			{
-				romOffset: 1584308,
 				tileIndex: 835,
 				flip: 'h',
 			},
 			{
-				romOffset: 1584308,
 				tileIndex: 834,
 				flip: 'h',
 			},
@@ -86,18 +58,11 @@ const BonusRoomBackground: StaticResource = {
 				romOffset: 1486172,
 				tileIndex: 509,
 			},
-			{
-				romOffset: 1584308,
-				tileIndex: 878,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 879,
-			},
+			878,
+			879,
 		],
 		[
 			{
-				romOffset: 1584308,
 				tileIndex: 859,
 				flip: 'h',
 			},
@@ -105,203 +70,56 @@ const BonusRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 262,
 			},
-			{
-				romOffset: 1584308,
-				tileIndex: 846,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 847,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 864,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 865,
-			},
+			846,
+			847,
+			864,
+			865,
 			{
 				romOffset: 1486172,
 				tileIndex: 509,
 			},
 			{
-				romOffset: 1584308,
 				tileIndex: 838,
 				flip: 'h',
 			},
 		],
+		[874, 875, 862, 863, 880, 881, 866, 867],
+		[844, 845, 860, 840, 841, 861, 842, 843],
 		[
-			{
-				romOffset: 1584308,
-				tileIndex: 874,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 875,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 862,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 863,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 880,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 881,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 866,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 867,
-			},
-		],
-		[
-			{
-				romOffset: 1584308,
-				tileIndex: 844,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 845,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 860,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 840,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 841,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 861,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 842,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 843,
-			},
-		],
-		[
-			{
-				romOffset: 1584308,
-				tileIndex: 838,
-			},
+			838,
 			{
 				romOffset: 1486172,
 				tileIndex: 509,
 			},
-			{
-				romOffset: 1584308,
-				tileIndex: 839,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 856,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 857,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 858,
-			},
+			839,
+			856,
+			857,
+			858,
 			{
 				romOffset: 1253344,
 				tileIndex: 262,
 			},
-			{
-				romOffset: 1584308,
-				tileIndex: 859,
-			},
+			859,
 		],
 		[
-			{
-				romOffset: 1584308,
-				tileIndex: 832,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 833,
-			},
+			832,
+			833,
 			{
 				romOffset: 1486172,
 				tileIndex: 509,
 			},
-			{
-				romOffset: 1584308,
-				tileIndex: 834,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 835,
-			},
+			834,
+			835,
 			{
 				romOffset: 1253344,
 				tileIndex: 262,
 			},
-			{
-				romOffset: 1584308,
-				tileIndex: 836,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 837,
-			},
+			836,
+			837,
 		],
-		[
-			{
-				romOffset: 1584308,
-				tileIndex: 848,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 849,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 850,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 851,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 852,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 853,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 854,
-			},
-			{
-				romOffset: 1584308,
-				tileIndex: 855,
-			},
-		],
+		[848, 849, 850, 851, 852, 853, 854, 855],
 	],
+	romOffset: 1584308,
 };
 
 export { BonusRoomBackground };
