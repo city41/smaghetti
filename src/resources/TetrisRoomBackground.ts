@@ -23,77 +23,57 @@ const TetrisRoomBackground: StaticResource = {
 		],
 	],
 	tiles: [
+		[3, 4, 4, 4, 4, 4, 4, 5, 0, 1, 1, 2, 6, 7, 7, 8],
 		[
+			19,
 			{
-				romOffset: 2406440,
-				tileIndex: 3,
+				romOffset: 1486172,
+				tileIndex: 509,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 4,
+				romOffset: 1486172,
+				tileIndex: 509,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 4,
+				romOffset: 1486172,
+				tileIndex: 509,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 4,
+				romOffset: 1486172,
+				tileIndex: 509,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 4,
+				romOffset: 1486172,
+				tileIndex: 509,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 4,
+				romOffset: 1486172,
+				tileIndex: 509,
+			},
+			21,
+			16,
+			{
+				romOffset: 1253344,
+				tileIndex: 254,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 4,
+				romOffset: 1253344,
+				tileIndex: 254,
+			},
+			18,
+			22,
+			{
+				romOffset: 1253344,
+				tileIndex: 72,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 5,
+				romOffset: 1253344,
+				tileIndex: 72,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 0,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 1,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 1,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 2,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 6,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 7,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 7,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 8,
-			},
+			24,
 		],
 		[
-			{
-				romOffset: 2406440,
-				tileIndex: 19,
-			},
+			19,
 			{
 				romOffset: 1486172,
 				tileIndex: 509,
@@ -118,14 +98,8 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1486172,
 				tileIndex: 509,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 21,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 16,
-			},
+			21,
+			16,
 			{
 				romOffset: 1253344,
 				tileIndex: 254,
@@ -134,14 +108,8 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 254,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 18,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 22,
-			},
+			18,
+			22,
 			{
 				romOffset: 1253344,
 				tileIndex: 72,
@@ -150,20 +118,14 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 72,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
+			24,
 		],
 		[
-			{
-				romOffset: 2406440,
-				tileIndex: 19,
-			},
-			{
-				romOffset: 1486172,
-				tileIndex: 509,
-			},
+			35,
+			36,
+			36,
+			36,
+			12,
 			{
 				romOffset: 1486172,
 				tileIndex: 509,
@@ -172,42 +134,12 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1486172,
 				tileIndex: 509,
 			},
-			{
-				romOffset: 1486172,
-				tileIndex: 509,
-			},
-			{
-				romOffset: 1486172,
-				tileIndex: 509,
-			},
-			{
-				romOffset: 1486172,
-				tileIndex: 509,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 21,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 16,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 254,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 254,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 18,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 22,
-			},
+			21,
+			32,
+			33,
+			33,
+			34,
+			22,
 			{
 				romOffset: 1253344,
 				tileIndex: 72,
@@ -216,32 +148,14 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 72,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
+			24,
 		],
 		[
-			{
-				romOffset: 2406440,
-				tileIndex: 35,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 36,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 36,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 36,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 12,
-			},
+			0,
+			1,
+			1,
+			2,
+			19,
 			{
 				romOffset: 1486172,
 				tileIndex: 509,
@@ -250,30 +164,12 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1486172,
 				tileIndex: 509,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 21,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 32,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 33,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 33,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 34,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 22,
-			},
+			21,
+			6,
+			7,
+			7,
+			7,
+			30,
 			{
 				romOffset: 1253344,
 				tileIndex: 72,
@@ -282,32 +178,20 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 72,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
+			24,
 		],
 		[
+			16,
 			{
-				romOffset: 2406440,
-				tileIndex: 0,
+				romOffset: 1253344,
+				tileIndex: 254,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 1,
+				romOffset: 1253344,
+				tileIndex: 254,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 1,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 2,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 19,
-			},
+			18,
+			19,
 			{
 				romOffset: 1486172,
 				tileIndex: 509,
@@ -316,29 +200,15 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1486172,
 				tileIndex: 509,
 			},
+			21,
+			22,
 			{
-				romOffset: 2406440,
-				tileIndex: 21,
+				romOffset: 1253344,
+				tileIndex: 72,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 6,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 7,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 7,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 7,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 30,
+				romOffset: 1253344,
+				tileIndex: 72,
 			},
 			{
 				romOffset: 1253344,
@@ -349,15 +219,17 @@ const TetrisRoomBackground: StaticResource = {
 				tileIndex: 72,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 24,
+				romOffset: 1253344,
+				tileIndex: 72,
 			},
+			{
+				romOffset: 1253344,
+				tileIndex: 72,
+			},
+			24,
 		],
 		[
-			{
-				romOffset: 2406440,
-				tileIndex: 16,
-			},
+			16,
 			{
 				romOffset: 1253344,
 				tileIndex: 254,
@@ -366,14 +238,8 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 254,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 18,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 19,
-			},
+			18,
+			19,
 			{
 				romOffset: 1486172,
 				tileIndex: 509,
@@ -382,14 +248,8 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1486172,
 				tileIndex: 509,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 21,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 22,
-			},
+			21,
+			22,
 			{
 				romOffset: 1253344,
 				tileIndex: 72,
@@ -414,16 +274,10 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 72,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
+			24,
 		],
 		[
-			{
-				romOffset: 2406440,
-				tileIndex: 16,
-			},
+			16,
 			{
 				romOffset: 1253344,
 				tileIndex: 254,
@@ -432,14 +286,8 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 254,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 18,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 19,
-			},
+			18,
+			19,
 			{
 				romOffset: 1486172,
 				tileIndex: 509,
@@ -448,14 +296,12 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1486172,
 				tileIndex: 509,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 21,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 22,
-			},
+			21,
+			38,
+			39,
+			39,
+			39,
+			14,
 			{
 				romOffset: 1253344,
 				tileIndex: 72,
@@ -464,32 +310,10 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 72,
 			},
-			{
-				romOffset: 1253344,
-				tileIndex: 72,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 72,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 72,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 72,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
+			24,
 		],
 		[
-			{
-				romOffset: 2406440,
-				tileIndex: 16,
-			},
+			16,
 			{
 				romOffset: 1253344,
 				tileIndex: 254,
@@ -498,14 +322,8 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 254,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 18,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 19,
-			},
+			18,
+			19,
 			{
 				romOffset: 1486172,
 				tileIndex: 509,
@@ -514,30 +332,12 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1486172,
 				tileIndex: 509,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 21,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 38,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 39,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 39,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 39,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 14,
-			},
+			27,
+			4,
+			4,
+			4,
+			5,
+			22,
 			{
 				romOffset: 1253344,
 				tileIndex: 72,
@@ -546,16 +346,10 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 72,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
+			24,
 		],
 		[
-			{
-				romOffset: 2406440,
-				tileIndex: 16,
-			},
+			16,
 			{
 				romOffset: 1253344,
 				tileIndex: 254,
@@ -564,13 +358,15 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 254,
 			},
+			18,
+			19,
 			{
-				romOffset: 2406440,
-				tileIndex: 18,
+				romOffset: 1486172,
+				tileIndex: 509,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 19,
+				romOffset: 1486172,
+				tileIndex: 509,
 			},
 			{
 				romOffset: 1486172,
@@ -581,29 +377,15 @@ const TetrisRoomBackground: StaticResource = {
 				tileIndex: 509,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 27,
+				romOffset: 1486172,
+				tileIndex: 509,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 4,
+				romOffset: 1486172,
+				tileIndex: 509,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 4,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 4,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 5,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 22,
-			},
+			21,
+			22,
 			{
 				romOffset: 1253344,
 				tileIndex: 72,
@@ -612,16 +394,10 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 72,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
+			24,
 		],
 		[
-			{
-				romOffset: 2406440,
-				tileIndex: 16,
-			},
+			16,
 			{
 				romOffset: 1253344,
 				tileIndex: 254,
@@ -630,14 +406,8 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 254,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 18,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 19,
-			},
+			18,
+			19,
 			{
 				romOffset: 1486172,
 				tileIndex: 509,
@@ -662,14 +432,8 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1486172,
 				tileIndex: 509,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 21,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 22,
-			},
+			21,
+			22,
 			{
 				romOffset: 1253344,
 				tileIndex: 72,
@@ -678,16 +442,10 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 72,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
+			24,
 		],
 		[
-			{
-				romOffset: 2406440,
-				tileIndex: 16,
-			},
+			16,
 			{
 				romOffset: 1253344,
 				tileIndex: 254,
@@ -696,46 +454,16 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 254,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 18,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 19,
-			},
-			{
-				romOffset: 1486172,
-				tileIndex: 509,
-			},
-			{
-				romOffset: 1486172,
-				tileIndex: 509,
-			},
-			{
-				romOffset: 1486172,
-				tileIndex: 509,
-			},
-			{
-				romOffset: 1486172,
-				tileIndex: 509,
-			},
-			{
-				romOffset: 1486172,
-				tileIndex: 509,
-			},
-			{
-				romOffset: 1486172,
-				tileIndex: 509,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 21,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 22,
-			},
+			18,
+			35,
+			36,
+			36,
+			36,
+			36,
+			36,
+			36,
+			37,
+			22,
 			{
 				romOffset: 1253344,
 				tileIndex: 72,
@@ -744,16 +472,10 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 72,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
+			24,
 		],
 		[
-			{
-				romOffset: 2406440,
-				tileIndex: 16,
-			},
+			16,
 			{
 				romOffset: 1253344,
 				tileIndex: 254,
@@ -762,46 +484,16 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 254,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 18,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 35,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 36,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 36,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 36,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 36,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 36,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 36,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 37,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 22,
-			},
+			25,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			1,
+			2,
+			22,
 			{
 				romOffset: 1253344,
 				tileIndex: 72,
@@ -810,15 +502,17 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 72,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
+			24,
 		],
 		[
+			16,
 			{
-				romOffset: 2406440,
-				tileIndex: 16,
+				romOffset: 1253344,
+				tileIndex: 254,
+			},
+			{
+				romOffset: 1253344,
+				tileIndex: 254,
 			},
 			{
 				romOffset: 1253344,
@@ -829,45 +523,31 @@ const TetrisRoomBackground: StaticResource = {
 				tileIndex: 254,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 25,
+				romOffset: 1253344,
+				tileIndex: 254,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 1,
+				romOffset: 1253344,
+				tileIndex: 254,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 1,
+				romOffset: 1253344,
+				tileIndex: 254,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 1,
+				romOffset: 1253344,
+				tileIndex: 254,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 1,
+				romOffset: 1253344,
+				tileIndex: 254,
 			},
 			{
-				romOffset: 2406440,
-				tileIndex: 1,
+				romOffset: 1253344,
+				tileIndex: 254,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 1,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 1,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 2,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 22,
-			},
+			18,
+			22,
 			{
 				romOffset: 1253344,
 				tileIndex: 72,
@@ -876,16 +556,10 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 72,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
+			24,
 		],
 		[
-			{
-				romOffset: 2406440,
-				tileIndex: 16,
-			},
+			16,
 			{
 				romOffset: 1253344,
 				tileIndex: 254,
@@ -926,14 +600,8 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 254,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 18,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 22,
-			},
+			18,
+			22,
 			{
 				romOffset: 1253344,
 				tileIndex: 72,
@@ -942,144 +610,11 @@ const TetrisRoomBackground: StaticResource = {
 				romOffset: 1253344,
 				tileIndex: 72,
 			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
+			24,
 		],
-		[
-			{
-				romOffset: 2406440,
-				tileIndex: 16,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 254,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 254,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 254,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 254,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 254,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 254,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 254,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 254,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 254,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 254,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 18,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 22,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 72,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 72,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 24,
-			},
-		],
-		[
-			{
-				romOffset: 2406440,
-				tileIndex: 32,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 33,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 33,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 33,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 33,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 33,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 33,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 33,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 33,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 33,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 33,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 34,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 38,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 39,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 39,
-			},
-			{
-				romOffset: 2406440,
-				tileIndex: 40,
-			},
-		],
+		[32, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 34, 38, 39, 39, 40],
 	],
+	romOffset: 2406440,
 };
 
 export { TetrisRoomBackground };
