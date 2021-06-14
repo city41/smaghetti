@@ -38,6 +38,7 @@ import { GiantVegetable } from './GiantVegetable';
 import { GreenCheepCheep } from './GreenCheepCheep';
 import { GreenSpinyEgg } from './GreenSpinyEgg';
 import { GrassHorizontalDirt } from './GrassHorizontalDirt';
+import { GrassSlope30DegUpRight } from './GrassSlope30DegUpRight';
 import { GrassStaircaseUpLeft } from './GrassStaircaseUpLeft';
 import { GrassStaircaseUpRight } from './GrassStaircaseUpRight';
 import { HoppingBowserStatueBody } from './HoppingBowserStatueBody';
@@ -135,6 +136,7 @@ const resourceMap = {
 	FrogSuit,
 	GhostHouseBackground,
 	GrassHorizontalDirt,
+	GrassSlope30DegUpRight,
 	GrassStaircaseUpLeft,
 	GrassStaircaseUpRight,
 	GiantVegetable,

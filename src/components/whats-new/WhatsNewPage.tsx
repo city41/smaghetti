@@ -72,6 +72,8 @@ function WhatsNewPage() {
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
 				<NewEntry title="New Entities" date="2022-06-14">
 					<ul>
+						<li>Grass Slope - 30° Up Left</li>
+						<li>Grass Slope - 30° Up Right</li>
 						<li>Grass Staircase - Up Left</li>
 						<li>Grass Staircase - Up Right</li>
 					</ul>
