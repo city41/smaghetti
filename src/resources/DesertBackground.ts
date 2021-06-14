@@ -55,129 +55,97 @@ const DesertBackground: StaticResource = {
 				tileIndex: 73,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 640,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 641,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 642,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 643,
 				palette: 1,
 			},
+			644,
 			{
-				romOffset: 1599368,
-				tileIndex: 644,
-			},
-			{
-				romOffset: 1599368,
 				tileIndex: 645,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 646,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 647,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 648,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 641,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 642,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 643,
 				palette: 1,
 			},
+			644,
 			{
-				romOffset: 1599368,
-				tileIndex: 644,
-			},
-			{
-				romOffset: 1599368,
 				tileIndex: 645,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 646,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 647,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 648,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 641,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 642,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 643,
 				palette: 1,
 			},
+			644,
 			{
-				romOffset: 1599368,
-				tileIndex: 644,
-			},
-			{
-				romOffset: 1599368,
 				tileIndex: 645,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 646,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 647,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 648,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 649,
 				palette: 1,
 			},
@@ -196,660 +164,194 @@ const DesertBackground: StaticResource = {
 		],
 		[
 			{
-				romOffset: 1599368,
 				tileIndex: 656,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 657,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 658,
 				palette: 1,
 			},
+			659,
+			660,
+			661,
+			662,
+			663,
+			664,
+			665,
+			666,
+			667,
+			660,
+			661,
+			662,
+			663,
+			664,
+			665,
+			666,
+			667,
+			660,
+			661,
+			662,
+			663,
+			664,
+			665,
+			666,
+			667,
 			{
-				romOffset: 1599368,
-				tileIndex: 659,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 660,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 661,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 662,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 663,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 664,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 665,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 666,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 667,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 660,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 661,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 662,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 663,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 664,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 665,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 666,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 667,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 660,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 661,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 662,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 663,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 664,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 665,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 666,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 667,
-			},
-			{
-				romOffset: 1599368,
 				tileIndex: 668,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 669,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 670,
 				palette: 1,
 			},
 			{
-				romOffset: 1599368,
 				tileIndex: 671,
 				palette: 1,
 			},
 		],
 		[
-			{
-				romOffset: 1599368,
-				tileIndex: 672,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 673,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 674,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 675,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 676,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 677,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 678,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 679,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 672,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 673,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 674,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 675,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 676,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 677,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 678,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 679,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 672,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 673,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 674,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 675,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 676,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 677,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 678,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 679,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 672,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 673,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 674,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 675,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 676,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 677,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 678,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 679,
-			},
+			672,
+			673,
+			674,
+			675,
+			676,
+			677,
+			678,
+			679,
+			672,
+			673,
+			674,
+			675,
+			676,
+			677,
+			678,
+			679,
+			672,
+			673,
+			674,
+			675,
+			676,
+			677,
+			678,
+			679,
+			672,
+			673,
+			674,
+			675,
+			676,
+			677,
+			678,
+			679,
 		],
 		[
-			{
-				romOffset: 1599368,
-				tileIndex: 688,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 689,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 690,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 691,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 692,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 693,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 694,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 695,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 688,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 689,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 690,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 691,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 692,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 693,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 694,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 695,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 688,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 689,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 690,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 691,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 692,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 693,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 694,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 695,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 688,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 689,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 690,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 691,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 692,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 693,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 694,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 695,
-			},
+			688,
+			689,
+			690,
+			691,
+			692,
+			693,
+			694,
+			695,
+			688,
+			689,
+			690,
+			691,
+			692,
+			693,
+			694,
+			695,
+			688,
+			689,
+			690,
+			691,
+			692,
+			693,
+			694,
+			695,
+			688,
+			689,
+			690,
+			691,
+			692,
+			693,
+			694,
+			695,
 		],
 		[
-			{
-				romOffset: 1599368,
-				tileIndex: 650,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 651,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 652,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 653,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 650,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 651,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 652,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 653,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 650,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 651,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 652,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 653,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 650,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 651,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 652,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 653,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 650,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 651,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 650,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 651,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 650,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 651,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 650,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 651,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 650,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 651,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 650,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 651,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 650,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 651,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 650,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 651,
-			},
+			650,
+			651,
+			652,
+			653,
+			650,
+			651,
+			652,
+			653,
+			650,
+			651,
+			652,
+			653,
+			650,
+			651,
+			652,
+			653,
+			650,
+			651,
+			650,
+			651,
+			650,
+			651,
+			650,
+			651,
+			650,
+			651,
+			650,
+			651,
+			650,
+			651,
+			650,
+			651,
 		],
 		[
-			{
-				romOffset: 1599368,
-				tileIndex: 714,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 715,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 712,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 713,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 714,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 715,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 712,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 713,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 714,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 715,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 712,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 713,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 714,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 715,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 712,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 713,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 714,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 715,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 714,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 715,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 714,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 715,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 714,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 715,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 714,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 715,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 714,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 715,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 714,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 715,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 714,
-			},
-			{
-				romOffset: 1599368,
-				tileIndex: 715,
-			},
+			714,
+			715,
+			712,
+			713,
+			714,
+			715,
+			712,
+			713,
+			714,
+			715,
+			712,
+			713,
+			714,
+			715,
+			712,
+			713,
+			714,
+			715,
+			714,
+			715,
+			714,
+			715,
+			714,
+			715,
+			714,
+			715,
+			714,
+			715,
+			714,
+			715,
+			714,
+			715,
 		],
 		[
 			{
@@ -982,6 +484,7 @@ const DesertBackground: StaticResource = {
 			},
 		],
 	],
+	romOffset: 1599368,
 };
 
 export { DesertBackground };
