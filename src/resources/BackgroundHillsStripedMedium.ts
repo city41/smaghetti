@@ -5,24 +5,6 @@ const BackgroundHillsStripedMedium: StaticResource = {
 	palettes: [
 		[
 			31,
-			0,
-			32767,
-			24035,
-			31400,
-			5278,
-			607,
-			9055,
-			8973,
-			0,
-			0,
-			0,
-			25535,
-			0,
-			0,
-			0,
-		],
-		[
-			31,
 			32767,
 			0,
 			26019,
@@ -39,413 +21,106 @@ const BackgroundHillsStripedMedium: StaticResource = {
 			8767,
 			22515,
 		],
+		[
+			31,
+			0,
+			32767,
+			24035,
+			31400,
+			5278,
+			607,
+			9055,
+			8973,
+			0,
+			0,
+			0,
+			25535,
+			0,
+			0,
+			0,
+		],
 	],
 	tiles: [
 		[
 			{
 				romOffset: 1253344,
 				tileIndex: 255,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 255,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 616,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 617,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 618,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 619,
 				palette: 1,
 			},
 			{
 				romOffset: 1253344,
 				tileIndex: 255,
+				palette: 1,
+			},
+			616,
+			617,
+			618,
+			619,
+			{
+				romOffset: 1253344,
+				tileIndex: 255,
+				palette: 1,
 			},
 			{
 				romOffset: 1253344,
 				tileIndex: 255,
+				palette: 1,
 			},
 			{
 				romOffset: 1253344,
 				tileIndex: 255,
+				palette: 1,
 			},
 			{
 				romOffset: 1253344,
 				tileIndex: 255,
+				palette: 1,
 			},
 		],
 		[
 			{
 				romOffset: 1253344,
 				tileIndex: 255,
-			},
-			{
-				romOffset: 1253344,
-				tileIndex: 255,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 620,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 578,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 621,
 				palette: 1,
 			},
 			{
 				romOffset: 1253344,
 				tileIndex: 255,
+				palette: 1,
+			},
+			620,
+			584,
+			578,
+			621,
+			{
+				romOffset: 1253344,
+				tileIndex: 255,
+				palette: 1,
 			},
 			{
 				romOffset: 1253344,
 				tileIndex: 255,
+				palette: 1,
 			},
 			{
 				romOffset: 1253344,
 				tileIndex: 255,
+				palette: 1,
 			},
 			{
 				romOffset: 1253344,
 				tileIndex: 255,
-			},
-		],
-		[
-			{
-				romOffset: 1455976,
-				tileIndex: 616,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 617,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 540,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 541,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 589,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 587,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 616,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 617,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 618,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 619,
 				palette: 1,
 			},
 		],
-		[
-			{
-				romOffset: 1455976,
-				tileIndex: 620,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 578,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 543,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 589,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 587,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 620,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 578,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 621,
-				palette: 1,
-			},
-		],
-		[
-			{
-				romOffset: 1455976,
-				tileIndex: 586,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 538,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 539,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 576,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 577,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 590,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 589,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 587,
-				palette: 1,
-			},
-		],
-		[
-			{
-				romOffset: 1455976,
-				tileIndex: 586,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 542,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 578,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 579,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 590,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 589,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 587,
-				palette: 1,
-			},
-		],
-		[
-			{
-				romOffset: 1455976,
-				tileIndex: 586,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 590,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 589,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 591,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 590,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 589,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 587,
-				palette: 1,
-			},
-		],
-		[
-			{
-				romOffset: 1455976,
-				tileIndex: 586,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 590,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 589,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 591,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 590,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 584,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 589,
-				palette: 1,
-			},
-			{
-				romOffset: 1455976,
-				tileIndex: 587,
-				palette: 1,
-			},
-		],
+		[616, 617, 540, 541, 589, 587, 616, 617, 618, 619],
+		[620, 584, 578, 543, 589, 587, 620, 584, 578, 621],
+		[586, 584, 538, 539, 576, 577, 590, 584, 589, 587],
+		[586, 584, 542, 584, 578, 579, 590, 584, 589, 587],
+		[586, 584, 590, 584, 589, 591, 590, 584, 589, 587],
+		[586, 584, 590, 584, 589, 591, 590, 584, 589, 587],
 	],
+	romOffset: 1455976,
 };
 
 export { BackgroundHillsStripedMedium };
