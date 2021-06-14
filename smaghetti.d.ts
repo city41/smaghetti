@@ -54,6 +54,7 @@ type BackgroundGraphic =
 	| 'ghost-house'
 	| 'tall-hills'
 	| 'tetris-room'
+	| 'winter'
 	| 'bonus-room';
 
 type BackgroundExtraColorAndEffect = 'none' | 'fortress-parallax';

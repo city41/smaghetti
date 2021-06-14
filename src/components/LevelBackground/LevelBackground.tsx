@@ -73,11 +73,26 @@ function TallHills() {
 	);
 }
 
+function Winter() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#84adff' }}
+		>
+			<div
+				className="WinterBackground-bg w-full bg-repeat-x"
+				style={{ height: 168 }}
+			/>
+		</div>
+	);
+}
+
 const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.underground]: <Underground />,
 	[BACKGROUND_GRAPHIC_VALUES.fortress]: <Fortress />,
 	[BACKGROUND_GRAPHIC_VALUES.plains]: <Plains />,
 	[BACKGROUND_GRAPHIC_VALUES.desert]: <Desert />,
+	[BACKGROUND_GRAPHIC_VALUES.winter]: <Winter />,
 	[BACKGROUND_GRAPHIC_VALUES['ghost-house']]: <GhostHouse />,
 	[BACKGROUND_GRAPHIC_VALUES['bonus-room']]: <BonusRoom />,
 	[BACKGROUND_GRAPHIC_VALUES['tetris-room']]: <TetrisRoom />,

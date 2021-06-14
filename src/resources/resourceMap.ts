@@ -85,6 +85,7 @@ import { UnderwaterFloorUpperRight } from './UnderwaterFloorUpperRight';
 import { WaterfallTop } from './WaterfallTop';
 import { WingedPlatformBlock } from './WingedPlatformBlock';
 import { WingedPlatformWing } from './WingedPlatformWing';
+import { WinterBackground } from './WinterBackground';
 import { WoodFloorLeft } from './WoodFloorLeft';
 import { WoodFloorRight } from './WoodFloorRight';
 import { WoodFloorTop } from './WoodFloorTop';
@@ -181,6 +182,7 @@ const resourceMap = {
 	WaterfallTop,
 	WingedPlatformBlock,
 	WingedPlatformWing,
+	WinterBackground,
 	WoodFloorLeft,
 	WoodFloorRight,
 	WoodFloorTop,
