@@ -41,7 +41,8 @@ function GBAPlayer({
 			if (status === 'ready-to-inject') {
 				const saveFileWithInjectedLevel = injectLevelIntoSave(
 					emptySaveFile,
-					levelData
+					levelData,
+					true
 				);
 				window._gba.injectSaveFile(saveFileWithInjectedLevel.buffer);
 			}

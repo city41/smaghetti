@@ -82,7 +82,9 @@ function convertASCIIToNumber(c: string): number {
 
 	// TODO: the rest of the characters
 
-	return asciiToNumberMap[' '];
+	// unknown character? show a question mark, which should clue the user
+	// the character they chose is currently unsupported
+	return asciiToNumberMap['?'];
 }
 
 export function convertLevelNameToASCII(levelName: Uint8Array): string {
@@ -117,7 +119,7 @@ export function extractName(
 
 	// ended up with no name, inject a generic one
 	if (name.length === 0 || (name.length === 1 && name[0] === 0xff)) {
-		name = asciiToEReader('generic level');
+		name = asciiToEReader('unnamed level').concat(0xff);
 	}
 
 	return Uint8Array.from(name);

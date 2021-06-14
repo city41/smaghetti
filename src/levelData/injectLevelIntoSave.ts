@@ -415,10 +415,12 @@ function findSameInfoRecord(saveFile: SaveFile, info: ELevelInfo): number {
  *
  * @param saveData {Uint8Array} the save file to inject the level into
  * @param inputData {Uint8Array} the level
+ * @param [overwriteFirstRecord] {boolean} if true, the first record is overwritten instead of trying to find an empty slot
  */
 function injectLevelIntoSave(
 	saveData: Uint8Array,
-	inputData: Uint8Array
+	inputData: Uint8Array,
+	overwriteFirstRecord?: boolean
 ): Uint8Array {
 	const saveFile = parseSaveFile(saveData);
 	const eCoinID = inputData[0];
@@ -455,7 +457,9 @@ function injectLevelIntoSave(
 	};
 
 	let overwrite = true;
-	let recordID = findSameInfoRecord(saveFile, level.info);
+	let recordID = overwriteFirstRecord
+		? 1
+		: findSameInfoRecord(saveFile, level.info);
 	let dataID = -1;
 
 	if (recordID === 0) {

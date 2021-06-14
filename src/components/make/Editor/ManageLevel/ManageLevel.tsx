@@ -94,12 +94,23 @@ function ManageLevel({
 					style={{ gridTemplateColumns: 'max-content 1fr' }}
 				>
 					<SettingsKey className="text-right">Level Name</SettingsKey>
-					<input
-						className="w-48"
-						type="text"
-						value={levelName}
-						onChange={(e) => onLevelNameChange(e.target.value)}
-					/>
+					<div className="flex flex-row space-x-2 items-center">
+						<input
+							className="w-48"
+							type="text"
+							value={levelName}
+							onChange={(e) => onLevelNameChange(e.target.value)}
+						/>
+						{levelName.length > 21 && (
+							<div className="text-gray-400 text-xs p-0.5">
+								only{' '}
+								<span className="font-bold underline">
+									{levelName.substr(0, 21)}
+								</span>{' '}
+								will show up in the game
+							</div>
+						)}
+					</div>
 					<SettingsKey className="text-right">Timer</SettingsKey>
 					<input
 						className="w-48"
