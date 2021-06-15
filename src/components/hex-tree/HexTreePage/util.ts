@@ -43,7 +43,11 @@ export function getEntityDefFromId(
 				return false;
 			}
 
-			return ed.objectId === obj.id && obj.bank === ed.emptyBank;
+			return (
+				(ed.objectId === obj.id ||
+					(ed.alternateObjectIds ?? []).includes(obj.id)) &&
+				obj.bank === ed.emptyBank
+			);
 		}) ?? null
 	);
 }

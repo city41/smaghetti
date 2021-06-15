@@ -29,22 +29,28 @@ function LevelSprite({ sprite, scale }: LevelSpriteProps) {
 	const width = tileWidth * TILE_SIZE * scale;
 	const height = tileHeight * TILE_SIZE * scale;
 
-	const style = {
-		width,
-		height,
-		backgroundSize: 'cover',
-		// TODO: sprites should be positioning themselves so they can account for
-		// the fact that y is based on their bottom, not top. For now, a lil
-		// hack with negative margin...
-		marginTop: -((height - TILE_SIZE) * scale),
-	};
-	return (
-		<SpriteIcon
-			className="cursor-pointer"
-			entityType={spriteType}
-			style={style}
-		/>
-	);
+	const body = spriteDef?.render(false, {}, () => {});
+
+	if (body) {
+		return body;
+	} else {
+		const style = {
+			width,
+			height,
+			backgroundSize: 'cover',
+			// TODO: sprites should be positioning themselves so they can account for
+			// the fact that y is based on their bottom, not top. For now, a lil
+			// hack with negative margin...
+			marginTop: -((height - TILE_SIZE) * scale),
+		};
+		return (
+			<SpriteIcon
+				className="cursor-pointer"
+				entityType={spriteType}
+				style={style}
+			/>
+		);
+	}
 }
 
 export { LevelSprite };
