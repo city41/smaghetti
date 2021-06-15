@@ -22,47 +22,6 @@ const GreenParaTroopaPatrolling: Entity = {
 	dimensions: 'none',
 	objectId: 0x80,
 
-	resource: {
-		palettes: [
-			[
-				0x7f96,
-				0x7fff,
-				0x18c6,
-				0x26b,
-				0x1b10,
-				0x13b4,
-				0x25fd,
-				0x369e,
-				0x475f,
-				0x1abf,
-				0x1c,
-				0x253f,
-				0x463f,
-				0x7ad1,
-				0x6e2c,
-				0x59a6,
-			],
-		],
-		tiles: [
-			[
-				{ romOffset: 0x2282e4, tileIndex: 322 },
-				{ romOffset: 0x1724f0, tileIndex: 967 },
-			],
-			[
-				{ romOffset: 0x2282e4, tileIndex: 354 },
-				{ romOffset: 0x1724f0, tileIndex: 983 },
-			],
-			[
-				{ romOffset: 0x2282e4, tileIndex: 386 },
-				{ romOffset: 0x2282e4, tileIndex: 387 },
-			],
-			[
-				{ romOffset: 0x2282e4, tileIndex: 418 },
-				{ romOffset: 0x2282e4, tileIndex: 419 },
-			],
-		],
-	},
-
 	toSpriteBinary(x, y) {
 		return [0, this.objectId, x, y];
 	},
@@ -74,11 +33,19 @@ const GreenParaTroopaPatrolling: Entity = {
 			backgroundSize: '50% 100%',
 		};
 
+		const wingStyle = {
+			width: size / 4,
+			height: size / 2,
+			top: 1,
+			left: size / 2,
+		};
+
 		return (
 			<div
-				className="relative GreenParaTroopaPatrolling-bg bg-center bg-no-repeat"
+				className="relative GreenKoopaTroopa-bg bg-center bg-no-repeat"
 				style={style}
 			>
+				<div className="absolute KoopaWing-bg bg-cover" style={wingStyle} />
 				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
 					patrol
 				</div>
@@ -95,6 +62,13 @@ const GreenParaTroopaPatrolling: Entity = {
 			backgroundPositionY: 2,
 		};
 
+		const wingStyle = {
+			width: TILE_SIZE / 2,
+			height: TILE_SIZE,
+			top: 2,
+			left: TILE_SIZE / 2,
+		};
+
 		const labelStyle = {
 			fontSize: 2,
 			bottom: 0,
@@ -102,9 +76,10 @@ const GreenParaTroopaPatrolling: Entity = {
 
 		return (
 			<div
-				className="relative GreenParaTroopaPatrolling-bg bg-cover bg-no-repeat"
+				className="relative GreenKoopaTroopa-bg bg-cover bg-no-repeat"
 				style={style}
 			>
+				<div className="absolute KoopaWing-bg bg-cover" style={wingStyle} />
 				<TileSpace />
 				<div
 					className="absolute left-0 w-full text-center bg-black text-white"

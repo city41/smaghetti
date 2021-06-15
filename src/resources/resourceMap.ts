@@ -47,6 +47,7 @@ import { HorizontalDolphin } from './HorizontalDolphin';
 import { HotHeadEyes } from './HotHeadEyes';
 import { KoopalingWand } from './KoopalingWand';
 import { KoopaShell } from './KoopaShell';
+import { KoopaWing } from './KoopaWing';
 import { MontyMoleJumpingOut } from './MontyMoleJumpingOut';
 import { OneNumberBlock } from './OneNumberBlock';
 import { OneWayDoorHorizontalFlipper } from './OneWayDoorHorizontalFlipper';
@@ -148,6 +149,7 @@ const resourceMap = {
 	HorizontalDolphin,
 	KoopalingWand,
 	KoopaShell,
+	KoopaWing,
 	MontyMoleJumpingOut,
 	OneNumberBlock,
 	OneWayDoorHorizontalFlipper,
