@@ -70,6 +70,16 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Set Room Width" date="2022-06-15">
+					<p>
+						You can now set how wide a room is. Find it in the &quot;manage
+						rooms&quot; mode, same place as background and music settings.
+					</p>
+					<p>
+						Level height and positioning Mario are coming, but they are proving
+						harder to figure out.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2022-06-14">
 					<ul>
 						<li>Background Hills - Striped, Small</li>

@@ -9,6 +9,12 @@ import { Button } from '../../../Button';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { Modal } from '../../../Modal';
 import { MUSIC_VALUES } from '../../../../levelData/constants';
+import { ROOM_WIDTH_INCREMENT } from '../../constants';
+
+type Warning = {
+	title: string;
+	body: string[];
+};
 
 type PublicManageLevelProps = {
 	className?: string;
@@ -31,9 +37,30 @@ type InternalManageLevelProps = {
 		index: number;
 		settings: Partial<RoomSettings>;
 	}) => void;
+	onRoomSizeChange: (payload: {
+		index: number;
+		width?: number;
+		height?: number;
+	}) => void;
 };
 
 const SCALE = 0.5;
+
+const MUSIC_WARNING: Warning = {
+	title: 'Smaghetti has no sound!',
+	body: [
+		'When you test your level in Smaghetti, there is no sound yet. That will get fixed eventually.',
+		'But if you download your level and try in an emulator or on a Game Boy, the music you chose will play',
+	],
+};
+
+const WIDTH_WARNING: Warning = {
+	title: 'Room Width',
+	body: [
+		'SMA4 does room width in chunks of 16 tiles, which is one tile wider than the screen.',
+		'For example, if you set this to 2, your room will be 32 tiles wide.',
+	],
+};
 
 function SettingsKey({
 	className,
@@ -61,28 +88,26 @@ function ManageLevel({
 	onLevelNameChange,
 	onTimerChange,
 	onRoomSettingsChange,
+	onRoomSizeChange,
 }: PublicManageLevelProps & InternalManageLevelProps) {
-	const [showMusicWarning, setShowMusicWarning] = useState(false);
+	const [warning, setWarning] = useState<Warning | null>(null);
 
 	return (
 		<>
-			<Modal
-				title="Smaghetti has no sound!"
-				isOpen={showMusicWarning}
-				onRequestClose={() => setShowMusicWarning(false)}
-				onOkClick={() => setShowMusicWarning(false)}
-			>
-				<div className="space-y-4">
-					<p>
-						When you test your level in Smaghetti, there is no sound yet. That
-						will get fixed eventually.
-					</p>
-					<p>
-						But if you download your level and try in an emulator or on a Game
-						Boy, the music you chose will play
-					</p>
-				</div>
-			</Modal>
+			{!!warning && (
+				<Modal
+					title={warning?.title}
+					isOpen={!!warning}
+					onRequestClose={() => setWarning(null)}
+					onOkClick={() => setWarning(null)}
+				>
+					<div className="space-y-4">
+						{warning?.body.map((p, i) => (
+							<p key={i}>{p}</p>
+						))}
+					</div>
+				</Modal>
+			)}
 			<div
 				className={clsx(
 					className,
@@ -183,12 +208,12 @@ function ManageLevel({
 												</option>
 											))}
 										</select>
-										<a
-											className="relative inline-block text-blue-300 hover:cursor-pointer"
-											onClick={() => setShowMusicWarning((smw) => !smw)}
+										<button
+											className="inline-block text-blue-300 px-1 hover:bg-gray-600"
+											onClick={() => setWarning(MUSIC_WARNING)}
 										>
 											hey!
-										</a>
+										</button>
 									</div>
 								</div>
 								<div
@@ -208,6 +233,29 @@ function ManageLevel({
 										upperLeftTile={{ x: 0, y: 0 }}
 										room={r}
 									/>
+								</div>
+							</div>
+							<div className="flex flex-row items-center px-2 py-3 space-x-8 bg-gray-700">
+								<div className="flex flex-row space-x-2">
+									<SettingsKey>Width</SettingsKey>
+									<input
+										className="w-16"
+										type="number"
+										value={Math.ceil(r.roomTileWidth / 16)}
+										min={1}
+										max={16}
+										onChange={(e) => {
+											const value = Number(e.target.value);
+											const newWidth = value * ROOM_WIDTH_INCREMENT;
+											onRoomSizeChange({ index: i, width: newWidth });
+										}}
+									/>
+									<button
+										className="inline-block text-blue-300 px-1 hover:bg-gray-600"
+										onClick={() => setWarning(WIDTH_WARNING)}
+									>
+										?
+									</button>
 								</div>
 							</div>
 						</div>

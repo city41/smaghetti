@@ -105,7 +105,6 @@ type RoomSettings = RoomBackgroundSettings & {
 type RoomLayer = {
 	entities: EditorEntity[];
 	matrix: EditorEntityMatrix;
-	// giantMatrix: EditorEntityMatrix;
 };
 
 type RoomData = {

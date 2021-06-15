@@ -1329,6 +1329,21 @@ const editorSlice = createSlice({
 			const room = state.rooms[index];
 			room.settings = { ...room.settings, ...settings };
 		},
+		roomSizeChange(
+			state: InternalEditorState,
+			action: PayloadAction<{ index: number; width?: number; height?: number }>
+		) {
+			const { index, width, height } = action.payload;
+			const room = state.rooms[index];
+
+			if (width) {
+				room.roomTileWidth = width;
+			}
+
+			if (height) {
+				room.roomTileHeight = height;
+			}
+		},
 		setSaveLevelState(
 			state: InternalEditorState,
 			action: PayloadAction<InternalEditorState['saveLevelState']>
@@ -1983,6 +1998,7 @@ const {
 	addRoom,
 	deleteRoom,
 	roomSettingsChange,
+	roomSizeChange,
 	toggleGrid,
 	toggleLayerLock,
 	pushPan,
@@ -2203,6 +2219,7 @@ export {
 	addRoom,
 	deleteRoom,
 	roomSettingsChange,
+	roomSizeChange,
 	toggleGrid,
 	toggleLayerLock,
 	pushPan,

@@ -5,6 +5,7 @@ import { entityMap } from '../entities/entityMap';
 import isEqual from 'lodash/isEqual';
 import intersection from 'lodash/intersection';
 import { decodeObjectSet, encodeObjectSets } from '../entities/util';
+import { ROOM_WIDTH_INCREMENT } from '../components/make/constants';
 
 type Room = {
 	objects: number[];
@@ -106,22 +107,25 @@ function getTimerBytes(timer: number): [number, number] {
 
 function getObjectHeader(
 	levelSettings: LevelSettings,
-	roomSettings: RoomSettings,
+	room: RoomData,
 	entities: EditorEntity[]
 ): Tuple<number, 11> {
 	const [, objectGraphicSet] = getObjectSet(entities);
+
+	// like most things in sma4, they store it as "minus 1"
+	const width = Math.ceil(room.roomTileWidth / ROOM_WIDTH_INCREMENT) - 1;
 
 	return [
 		...getTimerBytes(levelSettings.timer),
 		0x00, // 16 bit value that is unknown, copied from classic 1-2
 		0x02, // ----
-		0x0c, // bottom nibble is length of level, copied from classic 1-2
-		roomSettings.bgColor, // background color
+		width & 0xf, // bottom nibble is length of level, top is unknown
+		room.settings.bgColor, // background color
 		0xa1, // top nibble is scroll settings, bottom unknown, copied from 1-2
 		objectGraphicSet, // top 3 bits: level entry action, bottom 5: graphics set
 		0x08, // top nibble: graphics set, bottom: unknown
-		roomSettings.bgExtraColorAndEffect ?? 0,
-		roomSettings.bgGraphic,
+		room.settings.bgExtraColorAndEffect ?? 0,
+		room.settings.bgGraphic,
 	];
 }
 
@@ -474,7 +478,7 @@ function getRoom(
 		cellStageEntities
 	);
 
-	const objectHeader = getObjectHeader(levelSettings, settings, allEntities);
+	const objectHeader = getObjectHeader(levelSettings, currentRoom, allEntities);
 	const actorObjects = getObjects(actors, roomTileHeight);
 	const stageObjects = getObjects(stage, roomTileHeight);
 	const levelSettingsData = getLevelSettings(settings, allEntities);
