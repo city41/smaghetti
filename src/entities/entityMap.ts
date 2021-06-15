@@ -172,6 +172,7 @@ import { RiverCheepCheep } from './RiverCheepCheep';
 import { RopeRailing } from './RopeRailing';
 import { RotatingCheckeredBlockLarge } from './RotatingCheckeredBlockLarge';
 import { RotatingCheckeredBlockSmall } from './RotatingCheckeredBlockSmall';
+import { RotoDisc } from './RotoDisc';
 import { Roy } from './Roy';
 import { ScrollStopHorizontal } from './ScrollStopHorizontal';
 import { SeeSawPlatform } from './SeeSawPlatform';
@@ -390,6 +391,7 @@ const entityMap = {
 	RopeRailing,
 	RotatingCheckeredBlockLarge,
 	RotatingCheckeredBlockSmall,
+	RotoDisc,
 	Roy,
 	ScrollStopHorizontal,
 	SeeSawPlatform,

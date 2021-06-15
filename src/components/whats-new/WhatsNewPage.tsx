@@ -78,7 +78,13 @@ function WhatsNewPage() {
 						<li>Grass Staircase - Up Left</li>
 						<li>Grass Staircase - Up Right</li>
 						<li>Palm Tree</li>
+						<li>Roto Disc</li>
 					</ul>
+
+					<p>
+						There are more Roto Disc variants, so far only one the simple one
+						has been brought in.
+					</p>
 				</NewEntry>
 				<NewEntry title="New Room Backgrounds" date="2021-06-13">
 					<ul>

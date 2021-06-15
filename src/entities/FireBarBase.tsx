@@ -9,7 +9,7 @@ const FireBarBase: Entity = {
 	paletteInfo: {
 		title: 'Fire Bar Base',
 		description:
-			'These can be the base of a fire bar, or just used on their own',
+			'These can be the base of a fire bar or roto disc, or just used on their own',
 	},
 
 	objectSets: encodeObjectSets([[2, 2]]),
