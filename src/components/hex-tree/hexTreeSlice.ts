@@ -39,7 +39,10 @@ import {
 	ROOM_SPRITE_POINTERS,
 	ROOM_TRANSPORT_POINTERS,
 } from '../../levelData/constants';
-import { convertLevelNameToASCII } from '../../levelData/util';
+import {
+	convertCharacterToASCII,
+	convertLevelNameToASCII,
+} from '../../levelData/util';
 import { createLevelData } from '../../levelData/createLevelData';
 import {
 	parseLevelSettings,
@@ -53,6 +56,7 @@ type HexTreeState = {
 	tree: LevelTree | null;
 	originalData: number[] | null;
 	byteSizes: ByteSizes;
+	originalLevelName: string | null;
 };
 
 const EMPTY_LEVEL = createLevelData({
@@ -88,6 +92,7 @@ const EMPTY_LEVEL = createLevelData({
 const defaultInitialState: HexTreeState = {
 	tree: null,
 	originalData: null,
+	originalLevelName: null,
 	byteSizes: {
 		object: {
 			four: [],
@@ -95,6 +100,25 @@ const defaultInitialState: HexTreeState = {
 		},
 	},
 };
+
+function getLevelName(data: number[]): string {
+	const start = data[0] === 0 ? 0x40 : 0x180;
+
+	const chars: string[] = [];
+
+	let address = start;
+	while (
+		address < data.length &&
+		data[address] !== 0xff &&
+		address < start + 21
+	) {
+		const char = convertCharacterToASCII(data[address]);
+		chars.push(char);
+		address += 1;
+	}
+
+	return chars.join('');
+}
 
 const initialState = defaultInitialState;
 
@@ -104,6 +128,7 @@ const hexTreeSlice = createSlice({
 	reducers: {
 		setOriginalData(state: HexTreeState, action: PayloadAction<number[]>) {
 			state.originalData = action.payload;
+			state.originalLevelName = getLevelName(action.payload);
 		},
 		setTree(state: HexTreeState, action: PayloadAction<LevelTree>) {
 			state.tree = action.payload;

@@ -268,7 +268,7 @@ const actions = bindActionCreators(
 
 function ConnectedHexTreePage() {
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
-	const { tree, originalData, byteSizes } = useSelector(
+	const { tree, originalData, originalLevelName, byteSizes } = useSelector(
 		(state: AppState) => state.hexTree
 	);
 
@@ -277,6 +277,7 @@ function ConnectedHexTreePage() {
 	return (
 		<HexTreePage
 			allFilesReady={allFilesReady}
+			levelName={originalLevelName}
 			tree={tree}
 			data={data}
 			originalData={new Uint8Array(originalData ?? [])}

@@ -24,6 +24,7 @@ import cloneDeep from 'lodash/cloneDeep';
 
 type HexTreePageProps = {
 	allFilesReady: boolean;
+	levelName: string | null;
 	onLevelChosen: (file: File) => void;
 	onStartEmpty: () => void;
 	onStartFromLocalStorage: () => void;
@@ -42,6 +43,7 @@ const tabs = ['Outline', 'Hex (current)', 'Hex (original)'];
 
 function HexTreePage({
 	allFilesReady,
+	levelName,
 	onLevelChosen,
 	onStartEmpty,
 	onStartFromLocalStorage,
@@ -125,7 +127,7 @@ function HexTreePage({
 				className="h-screen overflow-hidden grid"
 				style={{ gridTemplateRows: 'min-content max-content min-content 1fr' }}
 			>
-				<div className="bg-gray-900 text-white shadow-lg w-full space-x-2 p-2">
+				<div className="bg-gray-900 text-white shadow-lg w-full flex flex-row items-center space-x-2 p-2">
 					<input
 						type="file"
 						style={{ color: 'white !important' }}
@@ -137,6 +139,7 @@ function HexTreePage({
 						start from localstorage
 					</Button>
 					<Button onClick={handleDownloadSave}>Download</Button>
+					<div className="flex-1 text-white text-right pr-2">{levelName}</div>
 				</div>
 				{allFilesReady && data.length > 0 && (
 					<div
