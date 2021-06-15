@@ -54,6 +54,7 @@ type BackgroundGraphic =
 	| 'ghost-house'
 	| 'tall-hills'
 	| 'tetris-room'
+	| 'metal-brick'
 	| 'winter'
 	| 'underwater'
 	| 'bonus-room';
