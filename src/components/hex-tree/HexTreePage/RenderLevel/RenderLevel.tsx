@@ -53,7 +53,7 @@ function EntityContainer({
 			ref={ref}
 			className={clsx('cursor-pointer', {
 				'border-2 border-white': focused,
-				'opacity-25': excluded,
+				'opacity-10': excluded,
 			})}
 			style={style}
 			onClick={onFocus}
@@ -107,6 +107,9 @@ function RenderLevel({
 		);
 	}
 
+	let objectExcludeAfter = false;
+	let spriteExcludeAfter = false;
+
 	const body = currentRoom.exclude ? null : (
 		<>
 			{showObjects
@@ -114,13 +117,13 @@ function RenderLevel({
 						const left = o.x * TILE_SIZE * scale;
 						const top = o.y * TILE_SIZE * scale;
 
-						return (
+						const el = (
 							<EntityContainer
 								key={`object-${i}`}
 								style={{ position: 'absolute', left, top }}
 								focused={focusedEntity === o}
 								onFocus={() => onEntityFocus(o)}
-								excluded={o.exclude}
+								excluded={o.exclude || objectExcludeAfter}
 							>
 								<LevelObject
 									object={o}
@@ -129,6 +132,9 @@ function RenderLevel({
 								/>
 							</EntityContainer>
 						);
+
+						objectExcludeAfter = objectExcludeAfter || !!o.excludedAfter;
+						return el;
 				  })
 				: null}
 			{showSprites
@@ -136,17 +142,20 @@ function RenderLevel({
 						const left = s.x * TILE_SIZE * scale;
 						const top = s.y * TILE_SIZE * scale;
 
-						return (
+						const el = (
 							<EntityContainer
 								key={`sprite-${i}`}
 								style={{ position: 'absolute', left, top }}
 								focused={focusedEntity === s}
 								onFocus={() => onEntityFocus(s)}
-								excluded={s.exclude}
+								excluded={s.exclude || spriteExcludeAfter}
 							>
 								<LevelSprite sprite={s} scale={scale} />
 							</EntityContainer>
 						);
+
+						spriteExcludeAfter = spriteExcludeAfter || !!s.excludedAfter;
+						return el;
 				  })
 				: null}
 			{showTransports

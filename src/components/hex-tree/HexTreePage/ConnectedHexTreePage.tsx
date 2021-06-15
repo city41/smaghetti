@@ -9,6 +9,7 @@ import {
 	loadEmptyLevel,
 	loadFromLocalStorage,
 	toggleExclude,
+	toggleExcludeAfter,
 	patch,
 	add,
 	toFourBytes,
@@ -19,7 +20,14 @@ import { POINTER_AREA_SIZE_IN_BYTES } from '../../../levelData/constants';
 import { getLevelName, setPointer } from '../../../levelData/createLevelData';
 
 function parsedRoomToBinary(room: LevelTreeRoom): BinaryRoom {
+	let objectExcludedAfter = false;
 	const objects = room.objects.objects.reduce<number[]>((building, obj) => {
+		if (objectExcludedAfter) {
+			return building;
+		}
+
+		objectExcludedAfter = objectExcludedAfter || !!obj.excludedAfter;
+
 		if (obj.exclude) {
 			return building;
 		} else {
@@ -27,7 +35,14 @@ function parsedRoomToBinary(room: LevelTreeRoom): BinaryRoom {
 		}
 	}, []);
 
+	let spriteExcludedAfter = false;
 	const sprites = room.sprites.sprites.reduce<number[]>((building, spr) => {
+		if (spriteExcludedAfter) {
+			return building;
+		}
+
+		spriteExcludedAfter = spriteExcludedAfter || !!spr.excludedAfter;
+
 		if (spr.exclude) {
 			return building;
 		} else {
@@ -258,6 +273,7 @@ const actions = bindActionCreators(
 		onStartEmpty: loadEmptyLevel,
 		onStartFromLocalStorage: loadFromLocalStorage,
 		onExcludeChange: toggleExclude,
+		onExcludeAfter: toggleExcludeAfter,
 		onPatch: patch,
 		onAdd: add,
 		onFourBytes: toFourBytes,

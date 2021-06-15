@@ -17,6 +17,7 @@ import {
 import {
 	Add,
 	ByteSizes,
+	ExcludeAfter,
 	Exclusion,
 	LevelHeader,
 	LevelRooms,
@@ -280,6 +281,23 @@ const hexTreeSlice = createSlice({
 				};
 			}
 		},
+		toggleExcludeAfter(
+			state: HexTreeState,
+			action: PayloadAction<ExcludeAfter>
+		) {
+			if (!state.tree) {
+				return;
+			}
+
+			const { roomIndex, type, index } = action.payload;
+
+			const room = state.tree.rooms[roomIndex];
+
+			const entities =
+				type === 'object' ? room.objects.objects : room.sprites.sprites;
+
+			entities[index].excludedAfter = !entities[index].excludedAfter;
+		},
 		toggleExclude(state: HexTreeState, action: PayloadAction<Exclusion>) {
 			if (!state.tree) {
 				return;
@@ -498,6 +516,7 @@ const loadFromLocalStorage = (): HexTreeThunkAction => (dispatch, getState) => {
 const reducer = hexTreeSlice.reducer;
 const {
 	toggleExclude,
+	toggleExcludeAfter,
 	patch,
 	add,
 	toFourBytes,
@@ -510,6 +529,7 @@ export {
 	loadEmptyLevel,
 	loadFromLocalStorage,
 	toggleExclude,
+	toggleExcludeAfter,
 	patch,
 	add,
 	toFourBytes,

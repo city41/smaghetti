@@ -2,12 +2,13 @@ import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { RiFocus3Line, RiAddFill } from 'react-icons/ri';
 import { BiHide, BiShow } from 'react-icons/bi';
-import { HiClipboardCopy } from 'react-icons/hi';
+import { HiClipboardCopy, HiStop, HiOutlineStop } from 'react-icons/hi';
 import { FaDiceFive, FaDiceFour } from 'react-icons/fa';
 
 import {
 	Add,
 	ByteSizes,
+	ExcludeAfter,
 	Exclusion,
 	LevelTreeRoom,
 	Patch,
@@ -25,6 +26,7 @@ type RoomProps = {
 	roomIndex: RoomIndex;
 	room: LevelTreeRoom;
 	onExcludeChange: (exclusion: Exclusion) => void;
+	onExcludeAfter: (arg: ExcludeAfter) => void;
 	onPatch: (patch: Patch) => void;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	focusedEntity: any;
@@ -40,9 +42,12 @@ type EntityContainerProps = {
 	isKnown: boolean;
 	focused: boolean;
 	excluded: boolean;
+	excludedAfter: boolean;
+	inExcludedAfterGroup: boolean;
 	rawBytes: number[];
 	onFocus: () => void;
 	onExcludeChange: () => void;
+	onExcludeAfter: () => void;
 	onAdd: (bytes: number[]) => void;
 	onFourBytes?: () => void;
 	onFiveBytes?: () => void;
@@ -53,10 +58,13 @@ function EntityContainer({
 	isKnown,
 	focused,
 	excluded,
+	excludedAfter,
+	inExcludedAfterGroup,
 	rawBytes,
 	onFocus,
 	onAdd,
 	onExcludeChange,
+	onExcludeAfter,
 	onFourBytes,
 	onFiveBytes,
 	children,
@@ -89,11 +97,15 @@ function EntityContainer({
 			ref={ref}
 			className={clsx('flex flex-row space-x-2 items-center bg-gray-500', {
 				'bg-yellow-100 text-gray-900': focused,
+				'opacity-25': inExcludedAfterGroup,
 			})}
 		>
 			<div>{children}</div>
 			<button onClick={onExcludeChange}>
 				{excluded ? <BiHide /> : <BiShow />}
+			</button>
+			<button onClick={onExcludeAfter}>
+				{excludedAfter ? <HiStop /> : <HiOutlineStop />}
 			</button>
 			<button onClick={onFocus}>
 				<RiFocus3Line />
@@ -136,23 +148,32 @@ function Room({
 	focusedEntity,
 	byteSizes,
 	onExcludeChange,
+	onExcludeAfter,
 	onPatch,
 	onAdd,
 	onEntityFocus,
 	onFourBytes,
 	onFiveBytes,
 }: RoomProps) {
+	let objectExcludeAfter = false;
+	let spriteExcludeAfter = false;
+
 	const objects = room.objects.objects.map((o, i) => {
-		return (
+		const el = (
 			<EntityContainer
 				key={`${i}-${o.id}-${o.x}-${o.y}`}
 				isKnown={o.isKnown}
 				focused={focusedEntity === o}
 				excluded={!!o.exclude}
+				excludedAfter={!!o.excludedAfter}
+				inExcludedAfterGroup={objectExcludeAfter}
 				rawBytes={o.rawBytes}
 				onFocus={() => onEntityFocus(o)}
 				onExcludeChange={() => {
 					onExcludeChange({ roomIndex, type: 'object', entity: o });
+				}}
+				onExcludeAfter={() => {
+					onExcludeAfter({ roomIndex, type: 'object', index: i });
 				}}
 				onAdd={(bytes) => {
 					onAdd({ roomIndex, type: 'object', afterIndex: i, bytes });
@@ -187,19 +208,27 @@ function Room({
 				/>
 			</EntityContainer>
 		);
+
+		objectExcludeAfter = objectExcludeAfter || !!o.excludedAfter;
+		return el;
 	});
 
 	const sprites = room.sprites.sprites.map((s, i) => {
-		return (
+		const el = (
 			<EntityContainer
 				key={`${i}-${s.id}-${s.x}-${s.y}`}
 				isKnown={true}
 				focused={focusedEntity === s}
 				excluded={!!s.exclude}
+				excludedAfter={!!s.excludedAfter}
+				inExcludedAfterGroup={spriteExcludeAfter}
 				rawBytes={s.rawBytes}
 				onFocus={() => onEntityFocus(s)}
 				onExcludeChange={() => {
 					onExcludeChange({ roomIndex, type: 'sprite', entity: s });
+				}}
+				onExcludeAfter={() => {
+					onExcludeAfter({ roomIndex, type: 'sprite', index: i });
 				}}
 				onAdd={(bytes) => {
 					onAdd({ roomIndex, type: 'sprite', afterIndex: i, bytes });
@@ -219,6 +248,9 @@ function Room({
 				/>
 			</EntityContainer>
 		);
+
+		spriteExcludeAfter = spriteExcludeAfter && !!s.excludedAfter;
+		return el;
 	});
 
 	const transports = room.transports.transports.map((t, i) => {
@@ -228,11 +260,14 @@ function Room({
 				isKnown={true}
 				focused={focusedEntity === t}
 				excluded={!!t.exclude}
+				excludedAfter={false}
+				inExcludedAfterGroup={false}
 				rawBytes={t.rawBytes}
 				onFocus={() => onEntityFocus(t)}
 				onExcludeChange={() => {
 					onExcludeChange({ roomIndex, type: 'transport', entity: t });
 				}}
+				onExcludeAfter={() => {}}
 				onAdd={(bytes) => {
 					onAdd({ roomIndex, type: 'transport', afterIndex: i, bytes });
 				}}

@@ -14,7 +14,14 @@ import { Button } from '../../Button';
 import { HexTree } from './HexTree';
 import { injectLevelIntoSave } from '../../../levelData/injectLevelIntoSave';
 import { sendFileToAnchorTag } from '../../../levelData/downloadLevelAsSaveFile';
-import { Add, ByteSizes, Exclusion, LevelTree, Patch } from '../types';
+import {
+	Add,
+	ByteSizes,
+	ExcludeAfter,
+	Exclusion,
+	LevelTree,
+	Patch,
+} from '../types';
 import clsx from 'clsx';
 import tabStyles from '../../../styles/tabs.module.css';
 import { RenderLevel } from './RenderLevel';
@@ -29,6 +36,7 @@ type HexTreePageProps = {
 	onStartEmpty: () => void;
 	onStartFromLocalStorage: () => void;
 	onExcludeChange: (exclusion: Exclusion) => void;
+	onExcludeAfter: (arg: ExcludeAfter) => void;
 	onPatch: (patch: Patch) => void;
 	onAdd: (add: Add) => void;
 	tree: LevelTree | null;
@@ -48,6 +56,7 @@ function HexTreePage({
 	onStartEmpty,
 	onStartFromLocalStorage,
 	onExcludeChange,
+	onExcludeAfter,
 	onPatch,
 	onAdd,
 	tree,
@@ -100,6 +109,7 @@ function HexTreePage({
 						<HexTree
 							tree={tree}
 							onExcludeChange={onExcludeChange}
+							onExcludeAfter={onExcludeAfter}
 							focusedEntity={focusedEntity}
 							onEntityFocus={(e) => setFocusedEntity(e)}
 							onPatch={onPatch}

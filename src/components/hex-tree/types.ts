@@ -12,6 +12,7 @@ type LevelTreeObject = {
 	rawBytes: number[];
 	isKnown: boolean;
 	exclude?: boolean;
+	excludedAfter?: boolean;
 };
 
 type LevelTreeSprite = {
@@ -21,6 +22,7 @@ type LevelTreeSprite = {
 	y: number;
 	rawBytes: number[];
 	exclude?: boolean;
+	excludedAfter?: boolean;
 };
 
 type LevelTreeTransport = {
@@ -124,6 +126,12 @@ type Exclusion =
 	| TransportExclusion
 	| RoomExclusion;
 
+type ExcludeAfter = {
+	roomIndex: number;
+	type: 'object' | 'sprite';
+	index: number;
+};
+
 type LevelSettingsPatch = {
 	type: 'level-settings';
 	roomIndex: RoomIndex;
@@ -195,6 +203,7 @@ export type {
 	TransportExclusion,
 	RoomExclusion,
 	Exclusion,
+	ExcludeAfter,
 	RoomIndex,
 	LevelTree,
 	LevelRooms,

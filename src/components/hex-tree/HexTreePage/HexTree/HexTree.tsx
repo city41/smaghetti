@@ -5,6 +5,7 @@ import { BiHide, BiShow } from 'react-icons/bi';
 import {
 	Add,
 	ByteSizes,
+	ExcludeAfter,
 	Exclusion,
 	LevelTree,
 	Patch,
@@ -16,6 +17,7 @@ import { PlainIconButton } from '../../../PlainIconButton';
 type HexTreeProps = {
 	tree: LevelTree;
 	onExcludeChange: (exclusion: Exclusion) => void;
+	onExcludeAfter: (arg: ExcludeAfter) => void;
 	onPatch: (patch: Patch) => void;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	focusedEntity: any;
@@ -30,6 +32,7 @@ type HexTreeProps = {
 function HexTree({
 	tree,
 	onExcludeChange,
+	onExcludeAfter,
 	onPatch,
 	onAdd,
 	focusedEntity,
@@ -78,6 +81,7 @@ function HexTree({
 					room={r}
 					focusedEntity={focusedEntity}
 					onExcludeChange={onExcludeChange}
+					onExcludeAfter={onExcludeAfter}
 					onPatch={onPatch}
 					onAdd={onAdd}
 					onEntityFocus={onEntityFocus}
