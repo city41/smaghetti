@@ -53,7 +53,7 @@ function getRawByteLength(
 		const e = entry[1];
 		return (
 			!!e.toObjectBinary &&
-			e.objectId === id &&
+			(e.objectId === id || (e.alternateObjectIds ?? []).includes(id)) &&
 			e.emptyBank === bank &&
 			e.objectSets.some((os) => decodeObjectSet(os)[0] === objectSet)
 		);
