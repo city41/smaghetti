@@ -83,7 +83,11 @@ function LevelObject({ object, scale, objectSet }: LevelObjectProps) {
 				getPayloadType(entityDefViaPayload.payloadToObjectId!, object.id)) ||
 			null;
 
-		return entityDef.render(false, { payload }, () => {});
+		return entityDef.render(
+			false,
+			{ payload, width: widthInTiles, height: heightInTiles },
+			() => {}
+		);
 	} else {
 		return (
 			<ObjectIcon
