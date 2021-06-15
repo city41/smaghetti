@@ -34,6 +34,7 @@ type HexTreePageProps = {
 	levelName: string | null;
 	onLevelChosen: (file: File) => void;
 	onStartEmpty: () => void;
+	onReset: () => void;
 	onStartFromLocalStorage: () => void;
 	onExcludeChange: (exclusion: Exclusion) => void;
 	onExcludeAfter: (arg: ExcludeAfter) => void;
@@ -54,6 +55,7 @@ function HexTreePage({
 	levelName,
 	onLevelChosen,
 	onStartEmpty,
+	onReset,
 	onStartFromLocalStorage,
 	onExcludeChange,
 	onExcludeAfter,
@@ -148,6 +150,7 @@ function HexTreePage({
 					<Button onClick={onStartFromLocalStorage}>
 						start from localstorage
 					</Button>
+					<Button onClick={onReset}>reset</Button>
 					<Button onClick={handleDownloadSave}>Download</Button>
 					<div className="flex-1 text-white text-right pr-2">{levelName}</div>
 				</div>

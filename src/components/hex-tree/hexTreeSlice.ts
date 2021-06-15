@@ -468,6 +468,21 @@ const loadLevel = (levelFile: File): HexTreeThunkAction => async (
 	reader.readAsArrayBuffer(levelFile);
 };
 
+const resetLevel = (): HexTreeThunkAction => (dispatch, getState) => {
+	const originalData = getState().hexTree.originalData;
+
+	if (originalData) {
+		dispatch(
+			hexTreeSlice.actions.setTree(
+				parseDataToTree(
+					new Uint8Array(originalData),
+					getState().hexTree.byteSizes
+				)
+			)
+		);
+	}
+};
+
 const loadEmptyLevel = (): HexTreeThunkAction => (dispatch, getState) => {
 	dispatch(hexTreeSlice.actions.setOriginalData(Array.from(EMPTY_LEVEL)));
 	dispatch(
@@ -525,6 +540,7 @@ const {
 
 export {
 	reducer,
+	resetLevel,
 	loadLevel,
 	loadEmptyLevel,
 	loadFromLocalStorage,

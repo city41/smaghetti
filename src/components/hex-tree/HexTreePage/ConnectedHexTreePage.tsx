@@ -8,6 +8,7 @@ import {
 	loadLevel,
 	loadEmptyLevel,
 	loadFromLocalStorage,
+	resetLevel,
 	toggleExclude,
 	toggleExcludeAfter,
 	patch,
@@ -271,6 +272,7 @@ const actions = bindActionCreators(
 	{
 		onLevelChosen: loadLevel,
 		onStartEmpty: loadEmptyLevel,
+		onReset: resetLevel,
 		onStartFromLocalStorage: loadFromLocalStorage,
 		onExcludeChange: toggleExclude,
 		onExcludeAfter: toggleExcludeAfter,
