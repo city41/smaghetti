@@ -1,4 +1,5 @@
 import { BackgroundHillsStripedMedium } from './BackgroundHillsStripedMedium';
+import { BackgroundHillsStripedSmall } from './BackgroundHillsStripedSmall';
 import { BigBooArm } from './BigBooArm';
 import { BigBooBody } from './BigBooBody';
 import { BigBooFace } from './BigBooFace';
@@ -101,6 +102,7 @@ import { WoodPlatformRight } from './WoodPlatformRight';
 
 const resourceMap = {
 	BackgroundHillsStripedMedium,
+	BackgroundHillsStripedSmall,
 	BigBooArm,
 	BigBooBody,
 	BigBooFace,
