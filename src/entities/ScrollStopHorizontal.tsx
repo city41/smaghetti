@@ -27,7 +27,7 @@ const ScrollStopHorizontal: Entity = {
 	objectId: 0xc7,
 	alternateObjectIds: Object.values(directionToObjectId),
 	settingsType: 'single',
-	defaultSettings: { direction: 'right' },
+	defaultSettings: { direction: 'left' },
 
 	toSpriteBinary(x, y, _w, _h, settings) {
 		const direction = (settings.direction ??
@@ -46,7 +46,7 @@ const ScrollStopHorizontal: Entity = {
 				className="relative bg-red-500 text-white flex flex-col items-center justify-around rounded-lg p-0.5"
 			>
 				<div>scroll stop</div>
-				<FaArrowRight className="w-1/2 h-1/2" />
+				<FaArrowLeft className="w-1/2 h-1/2" />
 			</div>
 		);
 	},
