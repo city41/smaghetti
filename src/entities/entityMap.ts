@@ -56,6 +56,7 @@ import { CoinChallenge } from './CoinChallenge';
 import { ColorfulMetalBox } from './ColorfulMetalBox';
 import { ConveyorBelt } from './ConveyorBelt';
 import { CoralDonutBlock } from './CoralDonutBlock';
+import { DeleteBlock } from './DeleteBlock';
 import { DiggableSand } from './DiggableSand';
 import { DolphinPod } from './DolphinPod';
 import { DonutBlock } from './DonutBlock';
@@ -275,6 +276,7 @@ const entityMap = {
 	ColorfulMetalBox,
 	ConveyorBelt,
 	CoralDonutBlock,
+	DeleteBlock,
 	DiggableSand,
 	DolphinPod,
 	DonutBlock,
