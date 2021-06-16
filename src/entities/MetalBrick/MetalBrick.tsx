@@ -13,8 +13,9 @@ const MetalBrick: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-basic',
-		title: 'Metal Brick',
-		description: "A brick that even Super Mario can't break",
+		title: 'Gray Brick',
+		description:
+			"A brick that Super Mario can't break, but Tanooki statue Mario can.",
 	},
 
 	objectSets: encodeObjectSets(objectSets),

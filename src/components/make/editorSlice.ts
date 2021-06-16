@@ -1739,9 +1739,13 @@ async function doSave(
 			dispatch(editorSlice.actions.setSavedLevelId(createdLevelId));
 			dispatch(editorSlice.actions.setSaveLevelState('success'));
 		} catch (e) {
+			// eslint-disable-next-line no-console
+			console.error('error saving level', e);
 			dispatch(editorSlice.actions.setSaveLevelState('error'));
 		}
 	} catch (e) {
+		// eslint-disable-next-line no-console
+		console.error('error saving level', e);
 		dispatch(editorSlice.actions.setSaveLevelState('error'));
 	} finally {
 		setTimeout(() => {

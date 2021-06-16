@@ -191,6 +191,7 @@ import { StretchBoo } from './StretchBoo';
 import { StretchBooUpsideDown } from './StretchBooUpsideDown';
 import { StretchBooPlatform } from './StretchBooPlatform';
 import { Swooper } from './Swooper';
+import { TanookiBlock } from './TanookiBlock';
 import { TerracottaBrick } from './TerracottaBrick';
 import { TexturedDoor } from './TexturedDoor';
 import { ThreeUpMoon } from './ThreeUpMoon';
@@ -410,6 +411,7 @@ const entityMap = {
 	StretchBooUpsideDown,
 	StretchBooPlatform,
 	Swooper,
+	TanookiBlock,
 	TerracottaBrick,
 	TexturedDoor,
 	ThreeUpMoon,
