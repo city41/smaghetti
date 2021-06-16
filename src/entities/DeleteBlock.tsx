@@ -11,7 +11,10 @@ const DeleteBlock: Entity = {
 		warning: 'This is not intended for use in Smaghetti',
 	},
 
-	objectSets: encodeObjectSets([[1, 1]]),
+	objectSets: encodeObjectSets([
+		[1, 1],
+		[2, 2],
+	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'cell',

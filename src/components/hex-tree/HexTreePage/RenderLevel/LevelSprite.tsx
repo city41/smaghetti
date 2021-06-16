@@ -14,11 +14,20 @@ type LevelSpriteProps = {
 };
 
 function LevelSprite({ sprite, scale }: LevelSpriteProps) {
-	// TODO: stop using these maps and go straight to the entity defs, just like objects
-	const spriteType =
-		sprite.bank === 0
-			? bank0SpriteIdToEntityType[sprite.id]
-			: bank1SpriteIdToEntityType[sprite.id];
+	const matchingEntity = Object.entries(entityMap).find((entry) => {
+		const e = entry[1];
+		return (
+			!!e.toSpriteBinary &&
+			(e.objectId === sprite.id || e.alternateObjectIds?.includes(sprite.id)) &&
+			e.toSpriteBinary(0, 0, 1, 1, {})[0] === sprite.bank
+		);
+	});
+
+	const spriteType = (matchingEntity
+		? matchingEntity[0]
+		: sprite.bank === 0
+		? bank0SpriteIdToEntityType[sprite.id]
+		: bank1SpriteIdToEntityType[sprite.id]) as EntityType;
 
 	const spriteDef = entityMap[spriteType];
 

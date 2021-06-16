@@ -10,6 +10,8 @@ import {
 } from './knownIds';
 import { entityMap } from '../entities/entityMap';
 import { decodeObjectSet } from '../entities/util';
+import { ANY_OBJECT_SET } from '../entities/constants';
+import isEqual from 'lodash/isEqual';
 
 type LevelObject = {
 	bank: number;
@@ -55,12 +57,12 @@ function getRawByteLength(
 			!!e.toObjectBinary &&
 			(e.objectId === id || (e.alternateObjectIds ?? []).includes(id)) &&
 			e.emptyBank === bank &&
-			e.objectSets.some((os) => decodeObjectSet(os)[0] === objectSet)
+			(isEqual(e.objectSets, ANY_OBJECT_SET) ||
+				e.objectSets.some((os) => decodeObjectSet(os)[0] === objectSet))
 		);
 	});
 
 	if (matchingEntity) {
-		// console.log('matchingEntity', matchingEntity[0]);
 		return {
 			isKnown: true,
 			rawByteLength: matchingEntity[1].toObjectBinary!(0, 0, 1, 1, {}).length,

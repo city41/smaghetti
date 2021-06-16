@@ -2,6 +2,8 @@ import { LevelTreeObject, LevelTreeRoom } from '../types';
 import { Entity } from '../../../entities/types';
 import { entityMap, EntityType } from '../../../entities/entityMap';
 import { decodeObjectSet } from '../../../entities/util';
+import { ANY_OBJECT_SET } from '../../../entities/constants';
+import isEqual from 'lodash/isEqual';
 
 const entityDefs = Object.values(entityMap);
 
@@ -38,6 +40,7 @@ export function getEntityDefFromId(
 		entityDefs.find((ed) => {
 			if (
 				ed.objectSets &&
+				!isEqual(ed.objectSets, ANY_OBJECT_SET) &&
 				!ed.objectSets.some((os) => decodeObjectSet(os)[0] === objectSet)
 			) {
 				return false;
