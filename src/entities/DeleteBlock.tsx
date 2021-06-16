@@ -21,6 +21,8 @@ const DeleteBlock: Entity = {
 	objectId: 0x70,
 	emptyBank: 1,
 
+	// delete blocks have no visual component, this palette plus these tiles
+	// yields a fully black square
 	resource: {
 		palettes: [
 			[
@@ -42,10 +44,10 @@ const DeleteBlock: Entity = {
 				0x6fff,
 			],
 		],
-		romOffset: 0x163768,
+		romOffset: 0x167674,
 		tiles: [
-			[434, 434],
-			[434, 434],
+			[613, 613],
+			[613, 613],
 		],
 	},
 
