@@ -95,7 +95,7 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	desert: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.desert,
-		bgColor: 0x99,
+		bgColor: 0xf,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 	'ghost-house': {
