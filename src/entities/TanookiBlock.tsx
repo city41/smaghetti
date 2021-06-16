@@ -17,7 +17,7 @@ const TanookiBlock: Entity = {
 	layer: 'stage',
 	editorType: 'cell',
 	dimensions: 'x',
-	param1: 'height',
+	param1: 'width',
 	objectId: 0x68,
 	emptyBank: 1,
 
