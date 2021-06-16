@@ -9,7 +9,6 @@ import { Palette } from './Palette';
 import { Layers } from './Layers';
 import { Canvas } from './Canvas';
 import { CanvasOffsetContainer } from './CanvasOffsetContainer';
-import { LevelResizer } from './LevelResizer';
 import { ManageLevel } from './ManageLevel';
 import { LevelPlayer } from './LevelPlayer';
 import { Toolbox } from './Toolbox';
@@ -27,7 +26,7 @@ import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
 type EditorProps = {
 	areFilesReady?: boolean;
 	noScript?: boolean;
-	mode: 'editing' | 'resizing' | 'managing-rooms';
+	mode: 'editing' | 'managing-rooms';
 	loadLevelState:
 		| 'dormant'
 		| 'loading'
@@ -145,7 +144,6 @@ function Editor({
 						/>
 						<CanvasOffsetContainer>
 							{mode !== 'managing-rooms' && <Canvas />}
-							{mode === 'resizing' && <LevelResizer />}
 							{mode === 'managing-rooms' && <ManageLevel />}
 						</CanvasOffsetContainer>
 					</div>

@@ -9,9 +9,12 @@ import { Button } from '../../../Button';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { Modal } from '../../../Modal';
 import { MUSIC_VALUES } from '../../../../levelData/constants';
-import { ROOM_WIDTH_INCREMENT } from '../../constants';
+import {
+	INITIAL_ROOM_TILE_HEIGHT,
+	ROOM_WIDTH_INCREMENT,
+} from '../../constants';
 
-type Warning = {
+type Help = {
 	title: string;
 	body: string[];
 };
@@ -46,21 +49,42 @@ type InternalManageLevelProps = {
 
 const SCALE = 0.5;
 
-const MUSIC_WARNING: Warning = {
-	title: 'Smaghetti has no sound!',
-	body: [
-		'When you test your level in Smaghetti, there is no sound yet. That will get fixed eventually.',
-		'But if you download your level and try in an emulator or on a Game Boy, the music you chose will play',
-	],
-};
+function HelpButton({
+	className,
+	children,
+}: {
+	className?: string;
+	children: ReactNode;
+}) {
+	const [showHelp, setShowHelp] = useState(false);
 
-const WIDTH_WARNING: Warning = {
-	title: 'Room Width',
-	body: [
-		'SMA4 does room width in chunks of 16 tiles, which is one tile wider than the screen.',
-		'For example, if you set this to 2, your room will be 32 tiles wide.',
-	],
-};
+	return (
+		<button
+			className={clsx(
+				className,
+				'relative text-blue-300 px-1 hover:bg-gray-600'
+			)}
+			onClick={() => setShowHelp(true)}
+		>
+			?
+			{showHelp && (
+				<div className="absolute bg-gray-600 text-white text-left text-xs p-3 w-40 z-10">
+					{children}{' '}
+					<a
+						className="inline-block ml-2 text-blue-300 hover:underline"
+						onMouseDown={(e) => {
+							e.stopPropagation();
+							e.preventDefault();
+							setShowHelp(false);
+						}}
+					>
+						okay
+					</a>
+				</div>
+			)}
+		</button>
+	);
+}
 
 function SettingsKey({
 	className,
@@ -70,7 +94,9 @@ function SettingsKey({
 	children: ReactNode;
 }) {
 	return (
-		<div className={clsx(className, 'font-bold text-gray-400')}>{children}</div>
+		<div className={clsx(className, 'text-right font-bold text-gray-400')}>
+			{children}
+		</div>
 	);
 }
 
@@ -90,19 +116,19 @@ function ManageLevel({
 	onRoomSettingsChange,
 	onRoomSizeChange,
 }: PublicManageLevelProps & InternalManageLevelProps) {
-	const [warning, setWarning] = useState<Warning | null>(null);
+	const [help, setHelp] = useState<Help | null>(null);
 
 	return (
 		<>
-			{!!warning && (
+			{!!help && (
 				<Modal
-					title={warning?.title}
-					isOpen={!!warning}
-					onRequestClose={() => setWarning(null)}
-					onOkClick={() => setWarning(null)}
+					title={help?.title}
+					isOpen={!!help}
+					onRequestClose={() => setHelp(null)}
+					onOkClick={() => setHelp(null)}
 				>
 					<div className="space-y-4">
-						{warning?.body.map((p, i) => (
+						{help?.body.map((p, i) => (
 							<p key={i}>{p}</p>
 						))}
 					</div>
@@ -118,7 +144,7 @@ function ManageLevel({
 					className="grid gap-x-4 gap-y-2 bg-gray-700 p-4"
 					style={{ gridTemplateColumns: 'max-content 1fr' }}
 				>
-					<SettingsKey className="text-right">Level Name</SettingsKey>
+					<SettingsKey>Level Name</SettingsKey>
 					<div className="flex flex-row space-x-2 items-center">
 						<input
 							className="w-48"
@@ -136,7 +162,7 @@ function ManageLevel({
 							</div>
 						)}
 					</div>
-					<SettingsKey className="text-right">Timer</SettingsKey>
+					<SettingsKey>Timer</SettingsKey>
 					<input
 						className="w-48"
 						type="number"
@@ -172,9 +198,9 @@ function ManageLevel({
 									onClick={() => onDeleteRoom(i)}
 								/>
 							</h2>
-							<div className="flex flex-col items-stretch h-full">
-								<div className="flex flex-row items-center px-2 py-3 space-x-8 bg-gray-700">
-									<div className="flex flex-row space-x-2">
+							<div className="flex flex-col items-stretch h-full bg-gray-700">
+								<div className="grid grid-rows-2 grid-flow-col items-center p-4 gap-x-16 gap-y-2 w-full max-w-lg">
+									<div className="grid grid-cols-2 gap-x-4">
 										<SettingsKey>Background</SettingsKey>
 										<select
 											className="text-black"
@@ -188,8 +214,15 @@ function ManageLevel({
 											))}
 										</select>
 									</div>
-									<div className="flex flex-row space-x-2">
-										<SettingsKey>Music</SettingsKey>
+									<div className="grid grid-cols-2 gap-x-4">
+										<SettingsKey>
+											<HelpButton>
+												Smaghetti has no sound (yet), but you can play your
+												level on a Game Boy or emulator to hear the music
+											</HelpButton>
+											Music
+										</SettingsKey>
+
 										<select
 											className="text-black"
 											value={r.settings.music}
@@ -208,12 +241,63 @@ function ManageLevel({
 												</option>
 											))}
 										</select>
-										<button
-											className="inline-block text-blue-300 px-1 hover:bg-gray-600"
-											onClick={() => setWarning(MUSIC_WARNING)}
-										>
-											hey!
-										</button>
+									</div>
+									<div className="grid grid-cols-2 gap-x-4">
+										<SettingsKey>
+											<HelpButton>
+												Width is in chunks of 16 tiles, one tile wider than the
+												screen
+											</HelpButton>
+											Width
+										</SettingsKey>
+										<input
+											className="w-16"
+											type="number"
+											value={Math.ceil(r.roomTileWidth / 16)}
+											min={1}
+											max={16}
+											onChange={(e) => {
+												const value = Number(e.target.value);
+												const newWidth = value * ROOM_WIDTH_INCREMENT;
+												onRoomSizeChange({ index: i, width: newWidth });
+											}}
+										/>
+									</div>
+									<div className="relative grid grid-cols-2 gap-x-4">
+										<SettingsKey>
+											<HelpButton>
+												Height is in single tiles, and currently experimental
+											</HelpButton>
+											Height
+										</SettingsKey>
+										<input
+											className="w-16"
+											type="number"
+											value={r.roomTileHeight}
+											onChange={(e) => {
+												const newHeight = Number(e.target.value);
+												onRoomSizeChange({ index: i, height: newHeight });
+											}}
+										/>
+										{r.roomTileHeight !== INITIAL_ROOM_TILE_HEIGHT && (
+											<div className="absolute -right-36 -top-8 w-32 text-red-300 bg-gray-900 p-1 text-xs z-10">
+												warning: changing height is still experimental, you
+												might see strange things{' '}
+												<button
+													className="text-blue-300"
+													onMouseDown={(e) => {
+														e.preventDefault();
+														e.stopPropagation();
+														onRoomSizeChange({
+															index: i,
+															height: INITIAL_ROOM_TILE_HEIGHT,
+														});
+													}}
+												>
+													reset height
+												</button>
+											</div>
+										)}
 									</div>
 								</div>
 								<div
@@ -233,29 +317,6 @@ function ManageLevel({
 										upperLeftTile={{ x: 0, y: 0 }}
 										room={r}
 									/>
-								</div>
-							</div>
-							<div className="flex flex-row items-center px-2 py-3 space-x-8 bg-gray-700">
-								<div className="flex flex-row space-x-2">
-									<SettingsKey>Width</SettingsKey>
-									<input
-										className="w-16"
-										type="number"
-										value={Math.ceil(r.roomTileWidth / 16)}
-										min={1}
-										max={16}
-										onChange={(e) => {
-											const value = Number(e.target.value);
-											const newWidth = value * ROOM_WIDTH_INCREMENT;
-											onRoomSizeChange({ index: i, width: newWidth });
-										}}
-									/>
-									<button
-										className="inline-block text-blue-300 px-1 hover:bg-gray-600"
-										onClick={() => setWarning(WIDTH_WARNING)}
-									>
-										?
-									</button>
 								</div>
 							</div>
 						</div>

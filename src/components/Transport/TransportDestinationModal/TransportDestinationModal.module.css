@@ -1,5 +1,6 @@
 .modal {
 	width: auto;
+	min-width: 500px;
 }
 
 .root {

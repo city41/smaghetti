@@ -11,7 +11,6 @@ import {
 	redo,
 	toggleGrid,
 	eraseLevel,
-	toggleResizeMode,
 	resetViewport,
 } from '../../editorSlice';
 import { Toolbox, PublicToolboxProps } from './Toolbox';
@@ -26,7 +25,6 @@ const actions = bindActionCreators(
 		onUndo: undo,
 		onRedo: redo,
 		onToggleGrid: toggleGrid,
-		onToggleResizeMode: toggleResizeMode,
 	},
 	dispatch
 );

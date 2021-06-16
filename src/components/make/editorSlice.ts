@@ -14,14 +14,15 @@ import undoable, {
 import produce from 'immer';
 import { AppState } from '../../store';
 import {
-	MIN_LEVEL_TILE_WIDTH,
-	MAX_LEVEL_TILE_WIDTH,
-	MIN_LEVEL_TILE_HEIGHT,
-	MAX_LEVEL_TILE_HEIGHT,
 	INITIAL_ROOM_TILE_HEIGHT,
 	INITIAL_ROOM_TILE_WIDTH,
 	INITIAL_PLAYER_Y_TILE,
 	INITIAL_PLAYER_X_TILE,
+	ROOM_WIDTH_INCREMENT,
+	MIN_ROOM_TILE_WIDTH,
+	MAX_ROOM_TILE_WIDTH,
+	MIN_ROOM_TILE_HEIGHT,
+	MAX_ROOM_TILE_HEIGHT,
 } from './constants';
 import { getPlayerScaleFromWindow } from '../../util/getPlayerScaleFromWindow';
 import { saveLevel as saveLevelMutation } from '../../remoteData/saveLevel';
@@ -30,6 +31,7 @@ import { serialize } from '../../level/serialize';
 import { deserialize } from '../../level/deserialize';
 import isEqual from 'lodash/isEqual';
 import cloneDeep from 'lodash/cloneDeep';
+import clamp from 'lodash/clamp';
 
 import { TILE_SIZE } from '../../tiles/constants';
 import { entityMap, EntityType } from '../../entities/entityMap';
@@ -60,6 +62,7 @@ const nonDeletableEntityTypes = ['Player'];
 
 const playerScale = getPlayerScaleFromWindow();
 const scales: number[] = [
+	playerScale / 10,
 	playerScale / 6,
 	playerScale / 4,
 	playerScale / 3,
@@ -110,7 +113,6 @@ type InternalEditorState = {
 	 * TODO: this is cumbersome and does not scale. There has to be a (much) better way,
 	 * and debatable if the slice should even know or care about these modes
 	 */
-	storedForResizeMode?: { scale: number; offset: Point } | null;
 	storedForManageLevelMode?: {
 		scale: number;
 		offset: Point;
@@ -518,10 +520,6 @@ function floodFill(
 	return floodBounds;
 }
 
-function clamp(value: number, min: number, max: number): number {
-	return Math.max(min, Math.min(value, max));
-}
-
 function getEntityTileBounds(entity: NewEditorEntity): Bounds {
 	const entityDef = entityMap[entity.type];
 	const tileWidth = entity.settings?.width ?? entityDef.width ?? 1;
@@ -718,26 +716,6 @@ function scaleTo(state: InternalEditorState, newScale: number) {
 	currentRoom.canDecreaseScale = newScaleIndex !== -1 && newScaleIndex > 0;
 }
 
-/**
- * when in resize mode, the minimum amount to have around the edges of
- * the canvas when sized to fit the window
- */
-const EDGE_BUFFER_SIZE = 200;
-
-function determineResizeScale(state: InternalEditorState): number {
-	// this is actual pixels, ie when the level is scaled to 1
-	const levelWidthInPixels = getCurrentRoom(state).roomTileWidth * TILE_SIZE;
-	const levelHeightInPixels = getCurrentRoom(state).roomTileHeight * TILE_SIZE;
-
-	const maxWidthInPixels = window.innerWidth - EDGE_BUFFER_SIZE * 2;
-	const maxHeightInPixels = window.innerHeight - EDGE_BUFFER_SIZE * 2;
-
-	const horizontalScale = maxWidthInPixels / levelWidthInPixels;
-	const verticalScale = maxHeightInPixels / levelHeightInPixels;
-
-	return Math.min(horizontalScale, verticalScale);
-}
-
 function setScaleAndOffsetForManageLevel(state: InternalEditorState) {
 	const currentRoom = getCurrentRoom(state);
 	currentRoom.scale = 1;
@@ -747,21 +725,6 @@ function setScaleAndOffsetForManageLevel(state: InternalEditorState) {
 		x: -100,
 		y: -200,
 	};
-}
-
-function centerLevelInWindow(state: InternalEditorState) {
-	const currentRoom = getCurrentRoom(state);
-	// this is onscreen pixels, as in how many pixels the level is taking up at the current scale on the window
-	const levelWidthInPixels =
-		currentRoom.roomTileWidth * TILE_SIZE * currentRoom.scale;
-	const levelHeightInPixels =
-		currentRoom.roomTileHeight * TILE_SIZE * currentRoom.scale;
-
-	const upperPixels = (window.innerHeight - levelHeightInPixels) / 2;
-	const leftPixels = (window.innerWidth - levelWidthInPixels) / 2;
-
-	currentRoom.scrollOffset.x = -leftPixels / currentRoom.scale;
-	currentRoom.scrollOffset.y = -upperPixels / currentRoom.scale;
 }
 
 function findCellEntity(
@@ -1193,40 +1156,6 @@ const editorSlice = createSlice({
 				state.focused = {};
 			}
 		},
-		resizeLevel(state: InternalEditorState, action: PayloadAction<Point>) {
-			const currentRoom = getCurrentRoom(state);
-
-			state.pendingLevelResizeIncrement.x +=
-				action.payload.x / (TILE_SIZE * currentRoom.scale);
-
-			const tileDiffX = Math.floor(state.pendingLevelResizeIncrement.x);
-			state.pendingLevelResizeIncrement.x -= tileDiffX;
-
-			currentRoom.roomTileWidth = clamp(
-				currentRoom.roomTileWidth + tileDiffX,
-				MIN_LEVEL_TILE_WIDTH,
-				MAX_LEVEL_TILE_WIDTH
-			);
-
-			// HEIGHT
-
-			state.pendingLevelResizeIncrement.y +=
-				action.payload.y / (TILE_SIZE * currentRoom.scale);
-
-			const tileDiffY = Math.floor(state.pendingLevelResizeIncrement.y);
-			state.pendingLevelResizeIncrement.y -= tileDiffY;
-
-			currentRoom.roomTileHeight = clamp(
-				currentRoom.roomTileHeight + tileDiffY,
-				MIN_LEVEL_TILE_HEIGHT,
-				MAX_LEVEL_TILE_HEIGHT
-			);
-		},
-		resizeLevelComplete(state: InternalEditorState) {
-			const newScale = determineResizeScale(state);
-			scaleTo(state, newScale);
-			centerLevelInWindow(state);
-		},
 		eraseLevel(state: InternalEditorState) {
 			resetState(state);
 		},
@@ -1260,25 +1189,6 @@ const editorSlice = createSlice({
 
 			if (newScaleIndex !== currentScaleIndex) {
 				scaleTo(state, scales[newScaleIndex]);
-			}
-		},
-		toggleResizeMode(state: InternalEditorState) {
-			const currentRoom = getCurrentRoom(state);
-
-			if (state.storedForResizeMode) {
-				scaleTo(state, state.storedForResizeMode.scale);
-				currentRoom.scrollOffset = state.storedForResizeMode.offset;
-
-				state.storedForResizeMode = null;
-			} else {
-				state.storedForResizeMode = {
-					scale: currentRoom.scale,
-					offset: { ...currentRoom.scrollOffset },
-				};
-
-				const newScale = determineResizeScale(state);
-				scaleTo(state, newScale);
-				centerLevelInWindow(state);
 			}
 		},
 		toggleManageLevelMode(state: InternalEditorState) {
@@ -1337,11 +1247,27 @@ const editorSlice = createSlice({
 			const room = state.rooms[index];
 
 			if (width) {
-				room.roomTileWidth = width;
+				const fixedWidth =
+					Math.floor(width / ROOM_WIDTH_INCREMENT) * ROOM_WIDTH_INCREMENT;
+				room.roomTileWidth = clamp(
+					fixedWidth,
+					MIN_ROOM_TILE_WIDTH,
+					MAX_ROOM_TILE_WIDTH
+				);
 			}
 
 			if (height) {
-				room.roomTileHeight = height;
+				room.roomTileHeight = clamp(
+					height,
+					MIN_ROOM_TILE_HEIGHT,
+					MAX_ROOM_TILE_HEIGHT
+				);
+
+				const player = room.actors.entities.find((e) => e.type === 'Player');
+
+				if (player) {
+					player.y = (room.roomTileHeight - 2) * TILE_SIZE;
+				}
 			}
 		},
 		setSaveLevelState(
@@ -1407,9 +1333,6 @@ const editorSlice = createSlice({
 			});
 
 			state.rooms.forEach((r) => {
-				const player = r.actors.entities.find((e) => e.type === 'Player')!;
-				player.x = TILE_SIZE * INITIAL_PLAYER_X_TILE;
-				player.y = TILE_SIZE * INITIAL_PLAYER_Y_TILE;
 				updateValidEntityTypes(r);
 			});
 
@@ -1988,12 +1911,9 @@ const {
 	pan,
 	selectDrag,
 	dragComplete,
-	resizeLevel,
-	resizeLevelComplete,
 	editorVisibleWindowChanged,
 	scaleIncreased,
 	scaleDecreased,
-	toggleResizeMode,
 	toggleManageLevelMode,
 	addRoom,
 	deleteRoom,
@@ -2044,9 +1964,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		resetViewport.toString(),
 		scaleIncreased.toString(),
 		scaleDecreased.toString(),
-		toggleResizeMode.toString(),
 		toggleManageLevelMode().toString(),
-		resizeLevelComplete.toString(),
 		pan.toString(),
 		toggleGrid.toString(),
 		toggleLayerLock.toString(),
@@ -2074,10 +1992,6 @@ const undoableReducer = undoable(cleanUpReducer, {
 	]),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	groupBy(action: PayloadAction<any>, currentState: InternalEditorState) {
-		if (action.type === resizeLevel.toString()) {
-			return 'resize-level';
-		}
-
 		if (action.type === painted.toString()) {
 			if (action.payload.newGroup) {
 				return getPaintedGroup(
@@ -2209,12 +2123,9 @@ export {
 	pan,
 	selectDrag,
 	dragComplete,
-	resizeLevel,
-	resizeLevelComplete,
 	editorVisibleWindowChanged,
 	scaleIncreased,
 	scaleDecreased,
-	toggleResizeMode,
 	toggleManageLevelMode,
 	addRoom,
 	deleteRoom,

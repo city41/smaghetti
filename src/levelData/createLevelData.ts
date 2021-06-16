@@ -5,7 +5,10 @@ import { entityMap } from '../entities/entityMap';
 import isEqual from 'lodash/isEqual';
 import intersection from 'lodash/intersection';
 import { decodeObjectSet, encodeObjectSets } from '../entities/util';
-import { ROOM_WIDTH_INCREMENT } from '../components/make/constants';
+import {
+	INITIAL_ROOM_TILE_HEIGHT,
+	ROOM_WIDTH_INCREMENT,
+} from '../components/make/constants';
 
 type Room = {
 	objects: number[];
@@ -15,8 +18,6 @@ type Room = {
 	blockPathMovementData: number[];
 	autoScrollMovementData: number[];
 };
-
-const MAX_Y = 0x1b;
 
 const exitTypeToCategoryByte: Record<EditorTransport['exitType'], number> = {
 	door: 0,
@@ -185,28 +186,39 @@ function buildSpriteGraphicSetBytes(
 }
 
 function getLevelSettings(
-	settings: RoomSettings,
+	room: RoomData,
 	entities: EditorEntity[]
 ): Tuple<number, 32> {
 	const [objectSet] = getObjectSet(entities);
 	const spriteGraphicSet = buildSpriteGraphicSetBytes(entities);
+	const playerY = room.roomTileHeight - 2;
+
+	// if they stuck with the default height, then stick with classic 1-2 settings
+	let mostSigHeightInPixels = 1;
+	let leastSigHeightInPixels = 0xbf;
+
+	if (room.roomTileHeight !== INITIAL_ROOM_TILE_HEIGHT) {
+		const heightInPixels = room.roomTileHeight * TILE_SIZE + 15;
+		mostSigHeightInPixels = heightInPixels >> 8;
+		leastSigHeightInPixels = heightInPixels & 0xff;
+	}
 
 	return [
-		0xbf, // screen y boundary, least sig byte
-		0x01, // screen y boundary, most sig byte
+		leastSigHeightInPixels, // screen y boundary, least sig byte
+		mostSigHeightInPixels, // screen y boundary, most sig byte
 		0, // fixed screen center y, least sig byte
 		0, // fixed screen center y, most sig byte
-		0x18, // player y screen center, least sig byte
+		0x18, //0x18, // player y screen center, least sig byte
 		0, // player y screen center, most sig byte
 		0x38, // camera min
 		0, // camera max
-		0x19, // player starting y
+		playerY, // player starting y
 		0x2, // player starting x
-		0x12, // screen starting y
+		playerY - 7, // screen starting y
 		0, // screen starting x
 		objectSet, // object set, least sig byte
 		0, // object set, most sig byte
-		settings.music, // music, least sig byte
+		room.settings.music, // music, least sig byte
 		0, // music, most sig byte
 		...spriteGraphicSet,
 		// the rest of the bytes are largely unknown and copied from classic 1-2
@@ -315,13 +327,10 @@ function getObjects(layer: RoomLayer, roomTileHeight: number): number[] {
 			const length = endXTile.x - tile.x;
 			const height = bestY - tile.y;
 
-			const yDiff = roomTileHeight - (y + 1);
-			const encodedY = MAX_Y - yDiff;
-
 			objects.push(
 				...objectDef.toObjectBinary(
 					x,
-					encodedY,
+					y + 1,
 					length,
 					height,
 					tile.settings ?? {}
@@ -339,14 +348,10 @@ function getObjects(layer: RoomLayer, roomTileHeight: number): number[] {
 			return building;
 		}
 
-		const y = e.y / TILE_SIZE;
-		const yDiff = roomTileHeight - (y + 1);
-		const encodedY = MAX_Y - yDiff;
-
 		return building.concat(
 			entityDef.toObjectBinary(
 				e.x / TILE_SIZE,
-				encodedY,
+				e.y / TILE_SIZE + 1,
 				1,
 				1,
 				e.settings ?? {}
@@ -370,12 +375,18 @@ function getSprites(entities: EditorEntity[], room: RoomData): number[] {
 		}
 
 		const x = Math.floor(entity.x / TILE_SIZE);
-		const entityTileY = Math.floor(entity.y / TILE_SIZE);
-		const yDiff = room.roomTileHeight - (entityTileY + 1);
-		const y = MAX_Y - yDiff;
+		const y = Math.floor(entity.y / TILE_SIZE);
 
 		return building.concat(
-			entityDef.toSpriteBinary(x, y, 1, 1, entity.settings ?? {}, entity, room)
+			entityDef.toSpriteBinary(
+				x,
+				y + 1,
+				1,
+				1,
+				entity.settings ?? {},
+				entity,
+				room
+			)
 		);
 	}, []);
 }
@@ -414,29 +425,23 @@ function getTransports(
 		}
 
 		const sx = t.x;
-
-		const sy = t.y;
-		const syDiff = allRooms[t.room].roomTileHeight - (sy + 1);
-		const encodedSY = MAX_Y - syDiff;
+		const sy = t.y + 1;
 
 		const dx = t.destX;
-
-		const dy = t.destY;
-		const dyDiff = allRooms[t.destRoom].roomTileHeight - (dy + 1);
-		const encodedDY = MAX_Y - dyDiff;
+		const dy = t.destY + 1;
 
 		// sx sy dr 0 dx dy cx cy 2 0 (exit type, two strange bytes)
 		return building.concat([
-			encodedSY, // sy
+			sy, // sy
 			sx, // sx
 			t.destRoom,
 			0, // 0
 			// these patches to the dest are done here to account for differences depending on the
 			// exit type, but allowing the editor to always have warps be placed at the upperleft corner
 			// of a pipe, regardless of its orientation
-			t.exitType === 'down-from-pipe' ? encodedDY - 1 : encodedDY, // dy
+			t.exitType === 'down-from-pipe' ? dy - 1 : dy, // dy
 			dx,
-			encodedDY, // cy
+			dy, // cy
 			dx, // cx
 			exitTypeToCategoryByte[t.exitType],
 			exitTypeToByte[t.exitType],
@@ -467,7 +472,7 @@ function getRoom(
 	allRooms: RoomData[]
 ): Room {
 	const currentRoom = allRooms[roomIndex];
-	const { settings, actors, stage, roomTileHeight } = currentRoom;
+	const { actors, stage, roomTileHeight } = currentRoom;
 
 	const cellActorEntities = flattenCells(actors.matrix);
 	const cellStageEntities = flattenCells(stage.matrix);
@@ -481,7 +486,7 @@ function getRoom(
 	const objectHeader = getObjectHeader(levelSettings, currentRoom, allEntities);
 	const actorObjects = getObjects(actors, roomTileHeight);
 	const stageObjects = getObjects(stage, roomTileHeight);
-	const levelSettingsData = getLevelSettings(settings, allEntities);
+	const levelSettingsData = getLevelSettings(currentRoom, allEntities);
 	const transportData = getTransports(roomIndex, allEntities, allRooms);
 	const spriteHeader = [0x0];
 	const sprites = getSprites(allEntities, currentRoom);
