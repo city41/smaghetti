@@ -54,6 +54,7 @@ import { Clock } from './Clock';
 import { CloudPlatformAero } from './CloudPlatformAero';
 import { CloudPlatformThin } from './CloudPlatformThin';
 import { Coin } from './Coin';
+import { Coin2 } from './Coin/Coin2';
 import { CoinChallenge } from './CoinChallenge';
 import { ColorfulMetalBox } from './ColorfulMetalBox';
 import { ConveyorBelt } from './ConveyorBelt';
@@ -281,6 +282,7 @@ const entityMap = {
 	CloudPlatformAero,
 	CloudPlatformThin,
 	Coin,
+	Coin2,
 	CoinChallenge,
 	ColorfulMetalBox,
 	ConveyorBelt,
