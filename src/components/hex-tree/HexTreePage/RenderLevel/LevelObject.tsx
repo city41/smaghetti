@@ -77,17 +77,39 @@ function LevelObject({ object, scale, objectSet }: LevelObjectProps) {
 		backgroundSize: TILE_SIZE,
 	};
 
-	if (entityDef && entityDef.editorType === 'entity') {
-		const payload =
-			(entityDefViaPayload &&
-				getPayloadType(entityDefViaPayload.payloadToObjectId!, object.id)) ||
-			null;
+	if (entityDef) {
+		if (entityDef.editorType === 'entity') {
+			const payload =
+				(entityDefViaPayload &&
+					getPayloadType(entityDefViaPayload.payloadToObjectId!, object.id)) ||
+				null;
 
-		return entityDef.render(
-			false,
-			{ payload, width: widthInTiles, height: heightInTiles },
-			() => {}
-		);
+			return entityDef.render(
+				false,
+				{ payload, width: widthInTiles, height: heightInTiles },
+				() => {}
+			);
+		} else {
+			const cells = [];
+
+			for (let y = 0; y < heightInTiles; ++y) {
+				for (let x = 0; x < widthInTiles; ++x) {
+					cells.push(entityDef.render(false, {}, () => {}));
+				}
+			}
+
+			return (
+				<div
+					className="grid"
+					style={{
+						gridTemplateColumns: `repeat(${widthInTiles}, ${TILE_SIZE}px)`,
+						gridTemplateRows: `repeat(${heightInTiles}, ${TILE_SIZE}px)`,
+					}}
+				>
+					{cells}
+				</div>
+			);
+		}
 	} else {
 		return (
 			<ObjectIcon
