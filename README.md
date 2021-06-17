@@ -11,7 +11,7 @@ It's available here: https://smaghetti.com
 
 ## Status
 
-At the time of writing, Smaghetti has extracted out 156 entities from the game for use in creating levels. A lot of progress has been made, but a lot more work still lies ahead. For a high level view, check the [roadmap](https://smaghetti.com/roadmap)
+At the time of writing, Smaghetti has extracted out 223 entities from the game for use in creating levels. A lot of progress has been made, but a lot more work still lies ahead. For a high level view, check the [roadmap](https://smaghetti.com/roadmap)
 
 ## Editor quick start
 
@@ -19,13 +19,7 @@ The editor is at https://smaghetti.com/make
 
 It is very user friendly and takes loose inspiration from Nintendo's Mario Maker. 
 
-Proper documentation and tutorial videos will come later, but for now some features that are less obvious:
-
-* keyboard shortcuts, all the toolbar buttons show their shortcut in their tooltip. Also you can focus certain entities in the palete on the left side using numbers 1 through 9. ctrl/cmnd-z undoes, and ctrl/cmnd-shift-z redoes.
-* Hold the space bar then click and drag on the canvas to pan it around
-* Press + and - to zoom in and out
-* drag and select entities, then move them.
-* select a single entity to edit details about it. Only some entities support this, try the question block.
+Proper documentation and tutorial videos will come later, but for now just start playing with it, most people have been able to figure it out. If you get stuck, start a discussion here in the repo. I always welcome feedback to make things better.
 
 ## License
 
@@ -37,21 +31,13 @@ A lot more work needs to be done, help is awesome! Here are ways to help
 
 ## Reverse engineering
 
-Please see the [wiki](https://github.com/city41/smaghetti/wiki) to see what has been reverse engineered so far. Anything not found in the wiki and/or [here in the codebase](https://github.com/city41/smaghetti/tree/main/src/entities) has not been figured out yet. If you can figure a new sprite id, object parameter, whatever out, it would be great!
-
-TODO: write up a doc showing good ways to reverse engineer
-
-Also please check the [issues](https://github.com/city41/smaghetti/issues) as many issues pertain to reverse engineering. I try to keep issues up to date.
+The [discussions](https://github.com/city41/smaghetti.com/discussions) are now where most reverse engineering talk is taking place. There is also the [wiki](https://github.com/city41/smaghetti/wiki) and [issues](https://github.com/city41/smaghetti/issues).
 
 ### HexTree tool
 
 This tool is growing to be pretty powerful. It really lets you explore and manipulate a level. I need to document a bit how it works, but just playing with it should enable one to figure out most of its features.
 
 ![screenshot](https://github.com/city41/smaghetti/blob/main/hexTreeScreenshot.png?raw=true)
-
-NOTE: as of the time of this writing, this tool is only effective on underground levels (Classic 1-2 is a good one). You can also build a level in Smaghetti's editor, then in this tool choose "start from localstorage" to load your level into the tool.
-
-Getting this tool more effective on other level types (ie plains, castle, etc) is a work in progress.
 
 It is here: https://smaghetti.com/tools/hex-tree
 
