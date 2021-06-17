@@ -51,6 +51,7 @@ import { ChoppyWater } from './ChoppyWater';
 import { ClappingChuck } from './ClappingChuck';
 import { ClassicBowser } from './ClassicBowser';
 import { Clock } from './Clock';
+import { CloudPlatformAero } from './CloudPlatformAero';
 import { Coin } from './Coin';
 import { CoinChallenge } from './CoinChallenge';
 import { ColorfulMetalBox } from './ColorfulMetalBox';
@@ -275,6 +276,7 @@ const entityMap = {
 	ClappingChuck,
 	ClassicBowser,
 	Clock,
+	CloudPlatformAero,
 	Coin,
 	CoinChallenge,
 	ColorfulMetalBox,

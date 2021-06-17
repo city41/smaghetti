@@ -83,9 +83,10 @@ function isCompatible(
 
 const paletteSubCategoriesOrder: Array<PaletteSubcategory | 'misc'> = [
 	'terrain-basic',
-	'terrain-water',
 	'terrain-damaging',
+	'terrain-water',
 	'terrain-winter',
+	'terrain-sky',
 	'terrain-statues',
 	'terrain-large',
 	'enemy-common',
@@ -107,6 +108,7 @@ const paletteSubCategoryLabel: Record<PaletteSubcategory | 'misc', string> = {
 	'terrain-damaging': 'damaging',
 	'terrain-statues': 'statues',
 	'terrain-winter': 'winter',
+	'terrain-sky': 'sky',
 	'terrain-large': 'big things',
 	'enemy-common': 'common',
 	'enemy-piranha': 'piranhas',

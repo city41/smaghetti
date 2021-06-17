@@ -27,6 +27,7 @@ type PaletteCategory =
 type PaletteSubcategory =
 	| 'terrain-basic'
 	| 'terrain-water'
+	| 'terrain-sky'
 	| 'terrain-damaging'
 	| 'terrain-statues'
 	| 'terrain-winter'
