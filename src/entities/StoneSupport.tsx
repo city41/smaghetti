@@ -54,7 +54,9 @@ const StoneSupport: Entity = {
 	editorType: 'cell',
 	dimensions: 'y',
 	objectId: 0x6d,
-	emptyBank: 0,
+	alternateObjectIds: [0x62],
+	emptyBank: 1,
+	param1: 'height',
 
 	resource: {
 		palettes: [
