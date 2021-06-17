@@ -3,7 +3,6 @@ import type { Entity } from './types';
 import { encodeObjectSets } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-// import { objectSets } from './objectSets';
 import { TileSpace } from './TileSpace';
 
 function getHeight(
@@ -35,7 +34,7 @@ const WoodSupport: Entity = {
 	paletteInfo: {
 		subCategory: 'terrain-basic',
 		title: 'Wood Support',
-		description: 'Holds up the wood platforms. Purely decorational.',
+		description: 'Holds up the wood platforms. Purely decoration.',
 	},
 
 	objectSets: encodeObjectSets([
