@@ -22,6 +22,8 @@ const TriangularBlock: Entity = {
 	},
 
 	objectId: 0x50,
+	alternateObjectIds: Object.values(angleToObjectId),
+	emptyBank: 0,
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
