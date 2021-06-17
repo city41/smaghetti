@@ -207,6 +207,7 @@ import { TriangularBlock } from './TriangularBlock';
 import { UnderwaterFloor } from './UnderwaterFloor';
 import { UpFortressSpike } from './UpFortressSpike';
 import { Vine } from './Vine';
+import { WarpArea } from './WarpArea';
 import { Water } from './Water';
 import { WaterCheepCheep } from './WaterCheepCheep';
 import { Waterfall } from './Waterfall';
@@ -433,6 +434,7 @@ const entityMap = {
 	UnderwaterFloor,
 	UpFortressSpike,
 	Vine,
+	WarpArea,
 	Water,
 	WaterCheepCheep,
 	Waterfall,

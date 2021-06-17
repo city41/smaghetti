@@ -75,6 +75,7 @@ function WhatsNewPage() {
 						<li>Cloud Platform - Aero</li>
 						<li>Cloud Platform - Thin</li>
 						<li>Stone Support</li>
+						<li>Warp Area</li>
 						<li>Wiggler</li>
 					</ul>
 				</NewEntry>
