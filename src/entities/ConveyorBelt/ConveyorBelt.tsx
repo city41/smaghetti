@@ -46,6 +46,7 @@ const ConveyorBelt: Entity = {
 	dimensions: 'none',
 	param1: 'width',
 	objectId: 0x31,
+	alternateObjectIds: Object.values(directionToObjectId),
 	emptyBank: 1,
 
 	resource: {
