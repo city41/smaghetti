@@ -39,7 +39,7 @@ const BRICKS_ALONG_BOTTOM: EditorEntityMatrix = (function () {
 	for (let x = 0; x < PLAY_WINDOW_TILE_WIDTH; ++x) {
 		playerRow.push({
 			id: idCounter++,
-			type: x === 2 ? 'PSwitch' : 'IndestructibleBrick',
+			type: 'IndestructibleBrick',
 			x,
 			y: INITIAL_PLAYER_Y_TILE + 1,
 		} as const);
