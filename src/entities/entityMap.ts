@@ -208,6 +208,7 @@ import { Water } from './Water';
 import { WaterCheepCheep } from './WaterCheepCheep';
 import { Waterfall } from './Waterfall';
 import { Wendy } from './Wendy';
+import { Wiggler } from './Wiggler';
 import { WingedPlatform } from './WingedPlatform';
 import { WoodBlock } from './WoodBlock';
 import { WoodDoor } from './WoodDoor';
@@ -430,6 +431,7 @@ const entityMap = {
 	WaterCheepCheep,
 	Waterfall,
 	Wendy,
+	Wiggler,
 	WingedPlatform,
 	WoodBlock,
 	WoodDoor,

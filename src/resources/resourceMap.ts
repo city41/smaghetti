@@ -98,6 +98,7 @@ import { UnderwaterFloorTop } from './UnderwaterFloorTop';
 import { UnderwaterFloorUpperLeft } from './UnderwaterFloorUpperLeft';
 import { UnderwaterFloorUpperRight } from './UnderwaterFloorUpperRight';
 import { WaterfallTop } from './WaterfallTop';
+import { WigglerFlower } from './WigglerFlower';
 import { WingedPlatformBlock } from './WingedPlatformBlock';
 import { WingedPlatformWing } from './WingedPlatformWing';
 import { WinterBackground } from './WinterBackground';
@@ -210,6 +211,7 @@ const resourceMap = {
 	UnderwaterFloorUpperLeft,
 	UnderwaterFloorUpperRight,
 	WaterfallTop,
+	WigglerFlower,
 	WingedPlatformBlock,
 	WingedPlatformWing,
 	WinterBackground,
