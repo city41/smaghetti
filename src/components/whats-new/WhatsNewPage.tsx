@@ -73,6 +73,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-06-17">
 					<ul>
 						<li>Cloud Platform - Aero</li>
+						<li>Cloud Platform - Thin</li>
 						<li>Stone Support</li>
 						<li>Wiggler</li>
 					</ul>
