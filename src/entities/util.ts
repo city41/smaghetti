@@ -5,8 +5,8 @@ import intersection from 'lodash/intersection';
 import { Entity } from './types';
 import { isStaticResource } from '../resources/util';
 
-export function getBankParam1(bank: 0 | 1, length: number): number {
-	return (bank << 6) | length;
+export function getBankParam1(bank: 0 | 1, param: number): number {
+	return (bank << 6) | param;
 }
 
 function getEntityTileWidth(entityDef: Entity): number {

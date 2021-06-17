@@ -235,7 +235,7 @@ function getLevelSettings(
 	];
 }
 
-function getObjects(layer: RoomLayer, roomTileHeight: number): number[] {
+function getObjects(layer: RoomLayer, room: RoomData): number[] {
 	const clone = cloneDeep(layer.matrix);
 	const objects: number[] = [];
 
@@ -300,7 +300,7 @@ function getObjects(layer: RoomLayer, roomTileHeight: number): number[] {
 		}
 	}
 
-	for (let y = 0; y < roomTileHeight; ++y) {
+	for (let y = 0; y < room.roomTileHeight; ++y) {
 		const row = clone[y];
 
 		if (!row) {
@@ -333,7 +333,9 @@ function getObjects(layer: RoomLayer, roomTileHeight: number): number[] {
 					y + 1,
 					length,
 					height,
-					tile.settings ?? {}
+					tile.settings ?? {},
+					tile,
+					room
 				)
 			);
 
@@ -354,7 +356,9 @@ function getObjects(layer: RoomLayer, roomTileHeight: number): number[] {
 				e.y / TILE_SIZE + 1,
 				1,
 				1,
-				e.settings ?? {}
+				e.settings ?? {},
+				e,
+				room
 			)
 		);
 	}, []);
@@ -472,7 +476,7 @@ function getRoom(
 	allRooms: RoomData[]
 ): Room {
 	const currentRoom = allRooms[roomIndex];
-	const { actors, stage, roomTileHeight } = currentRoom;
+	const { actors, stage } = currentRoom;
 
 	const cellActorEntities = flattenCells(actors.matrix);
 	const cellStageEntities = flattenCells(stage.matrix);
@@ -484,8 +488,8 @@ function getRoom(
 	);
 
 	const objectHeader = getObjectHeader(levelSettings, currentRoom, allEntities);
-	const actorObjects = getObjects(actors, roomTileHeight);
-	const stageObjects = getObjects(stage, roomTileHeight);
+	const actorObjects = getObjects(actors, currentRoom);
+	const stageObjects = getObjects(stage, currentRoom);
 	const levelSettingsData = getLevelSettings(currentRoom, allEntities);
 	const transportData = getTransports(roomIndex, allEntities, allRooms);
 	const spriteHeader = [0x0];

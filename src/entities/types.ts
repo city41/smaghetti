@@ -135,7 +135,9 @@ type Entity = {
 		y: number,
 		w: number,
 		h: number,
-		settings: EditorEntitySettings
+		settings: EditorEntitySettings,
+		entity?: EditorEntity,
+		room?: RoomData
 	) => number[];
 
 	toSpriteBinary?: (
