@@ -24,6 +24,7 @@ import { ColorfulMetalBoxRight } from './ColorfulMetalBoxRight';
 import { ColorfulMetalBoxTop } from './ColorfulMetalBoxTop';
 import { ColorfulMetalBoxUpperLeft } from './ColorfulMetalBoxUpperLeft';
 import { ColorfulMetalBoxUpperRight } from './ColorfulMetalBoxUpperRight';
+import { CrystalUndergroundBackground } from './CrystalUndergroundBackground';
 import { DesertBackground } from './DesertBackground';
 import { DoorLock } from './DoorLock';
 import { FlagPoleBall } from './FlagPoleBall';
@@ -137,6 +138,7 @@ const resourceMap = {
 	ColorfulMetalBoxTop,
 	ColorfulMetalBoxUpperLeft,
 	ColorfulMetalBoxUpperRight,
+	CrystalUndergroundBackground,
 	DesertBackground,
 	DoorLock,
 	FlagPoleBall,

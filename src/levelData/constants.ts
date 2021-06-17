@@ -59,6 +59,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'metal-brick': 0x20,
 	winter: 0x8,
 	underwater: 0x25,
+	'crystal-underground': 0x14,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -133,5 +134,10 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 		bgColor: 0x9c,
 		bgExtraColorAndEffect:
 			BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES['underwater-ripple-purple'],
+	},
+	'crystal-underground': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['crystal-underground'],
+		bgColor: 0x2,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 };

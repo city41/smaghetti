@@ -26,6 +26,10 @@ function MetalBrick() {
 	return <div className="MetalBrickBackground-bg w-full h-full" />;
 }
 
+function CrystalUnderground() {
+	return <div className="CrystalUndergroundBackground-bg w-full h-full" />;
+}
+
 function GhostHouse() {
 	return (
 		<div
@@ -121,6 +125,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['tall-hills']]: <TallHills />,
 	[BACKGROUND_GRAPHIC_VALUES['metal-brick']]: <MetalBrick />,
 	[BACKGROUND_GRAPHIC_VALUES.underwater]: <Underwater />,
+	[BACKGROUND_GRAPHIC_VALUES['crystal-underground']]: <CrystalUnderground />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {
