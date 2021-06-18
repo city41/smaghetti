@@ -83,6 +83,7 @@ export const resourceShaMap: Record<string, string> = {
   "GrassVerticalRight": "b15cd9c357e7e33374a67a1d3dfc6f49af750f35",
   "GreenKoopaTroopa": "03d2833c5d27db42521939ad724295e529df6d36",
   "HammerBro": "0e7c51e3a2bf28400d70be65a98b9e3b3c7a46c6",
+  "Herbert": "6724cc7f667ebdbfada0847e2620bb04d943c6b1",
   "HiddenBlock": "03fe87a7b95d84edac8e16c729380d4690c41740",
   "HomingFireball": "4a96321824b7e757d5df027874776cc4f3c8814d",
   "Hoopster": "fc8f35f4f18451ce655ea148955f4711818d522b",

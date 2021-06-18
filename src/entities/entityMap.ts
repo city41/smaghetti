@@ -106,6 +106,7 @@ import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
 import { GreenParaTroopaPatrolling } from './GreenParaTroopaPatrolling';
 import { HammerBro } from './HammerBro';
+import { Herbert } from './Herbert';
 import { HiddenBlock } from './HiddenBlock';
 import { HomingFireball } from './HomingFireball';
 import { Hoopster } from './Hoopster';
@@ -336,6 +337,7 @@ const entityMap = {
 	GreenParaTroopa,
 	GreenParaTroopaPatrolling,
 	HammerBro,
+	Herbert,
 	HiddenBlock,
 	HomingFireball,
 	Hoopster,
