@@ -58,6 +58,7 @@ type BackgroundGraphic =
 	| 'winter'
 	| 'underwater'
 	| 'crystal-underground'
+	| 'hills-at-night'
 	| 'bonus-room';
 
 type BackgroundExtraColorAndEffect =

@@ -73,6 +73,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Backgrounds" date="2021-06-17">
 					<ul>
 						<li>Crystal Underground</li>
+						<li>Hills at Night</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-17">

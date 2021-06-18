@@ -60,6 +60,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	winter: 0x8,
 	underwater: 0x25,
 	'crystal-underground': 0x14,
+	'hills-at-night': 0x1d,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -137,6 +138,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'crystal-underground': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['crystal-underground'],
+		bgColor: 0x2,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'hills-at-night': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['hills-at-night'],
 		bgColor: 0x2,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},

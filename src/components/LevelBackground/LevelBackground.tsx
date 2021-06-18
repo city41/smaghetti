@@ -113,6 +113,20 @@ function Underwater() {
 	);
 }
 
+function HillsAtNight() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: 'black' }}
+		>
+			<div
+				className="HillsAtNightBackground-bg w-full bg-repeat-x"
+				style={{ height: 192 }}
+			/>
+		</div>
+	);
+}
+
 const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.underground]: <Underground />,
 	[BACKGROUND_GRAPHIC_VALUES.fortress]: <Fortress />,
@@ -126,6 +140,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['metal-brick']]: <MetalBrick />,
 	[BACKGROUND_GRAPHIC_VALUES.underwater]: <Underwater />,
 	[BACKGROUND_GRAPHIC_VALUES['crystal-underground']]: <CrystalUnderground />,
+	[BACKGROUND_GRAPHIC_VALUES['hills-at-night']]: <HillsAtNight />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {
