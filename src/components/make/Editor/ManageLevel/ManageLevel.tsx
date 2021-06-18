@@ -9,7 +9,10 @@ import { Button } from '../../../Button';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { Modal } from '../../../Modal';
 import { MUSIC_VALUES } from '../../../../levelData/constants';
-import { ROOM_WIDTH_INCREMENT } from '../../constants';
+import {
+	INITIAL_ROOM_TILE_HEIGHT,
+	ROOM_WIDTH_INCREMENT,
+} from '../../constants';
 
 type Help = {
 	title: string;
@@ -274,6 +277,21 @@ function ManageLevel({
 												onRoomSizeChange({ index: i, height: newHeight });
 											}}
 										/>
+										{r.roomTileHeight > INITIAL_ROOM_TILE_HEIGHT && (
+											<div
+												className="absolute -bottom-2 text-xs w-32 z-10 bg-gray-700 p-1"
+												style={{ right: -140 }}
+											>
+												<a
+													className="text-blue-300 hover:underline"
+													target="_blank"
+													href="https://www.youtube.com/watch?v=RLU6TSxuKQM"
+													rel="noreferrer noopener"
+												>
+													quick tip on making taller rooms
+												</a>
+											</div>
+										)}
 									</div>
 								</div>
 								<div
