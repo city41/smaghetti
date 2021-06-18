@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import clsx from 'clsx';
-import { drawTile } from '../../../tiles/extractResourcesToStylesheet';
+import {
+	documentCanvasGenerator,
+	drawTile,
+} from '../../../tiles/extractResourcesToStylesheet';
 
 type TileImageProps = {
 	className?: string;
@@ -14,7 +17,7 @@ function TileImage({ className, index, tile, focused }: TileImageProps) {
 
 	useEffect(() => {
 		if (canvasRef.current) {
-			const tileCanvas = drawTile(tile);
+			const tileCanvas = drawTile(tile, documentCanvasGenerator);
 
 			canvasRef.current?.getContext('2d')!.clearRect(0, 0, 8, 8);
 			canvasRef.current.getContext('2d')!.drawImage(tileCanvas, 0, 0);

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import useClipboard from 'react-use-clipboard';
 import {
+	documentCanvasGenerator,
 	ExtractedEntityTileData,
 	renderTiles,
 } from '../../../tiles/extractResourcesToStylesheet';
@@ -17,7 +18,9 @@ function drawEntity(
 	entity: ExtractedEntityTileData,
 	palette: Tuple<number, 16>
 ) {
-	renderTiles(canvas, entity, [palette], { firstColorOpaque: true });
+	renderTiles(canvas, entity, [palette], documentCanvasGenerator, {
+		firstColorOpaque: true,
+	});
 }
 
 function PalettedEntity({ className, palette, entity }: PalettedEntityProps) {

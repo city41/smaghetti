@@ -73,7 +73,9 @@ function settleState(state: FileLoaderState) {
 	}
 
 	state.allFilesReady =
-		state.otherFilesState === 'success' && state.romFileState === 'success';
+		state.otherFilesState === 'success' &&
+		state.romFileState === 'success' &&
+		state.overallExtractionState === 'complete';
 }
 
 const fileLoaderSlice = createSlice({
@@ -110,13 +112,12 @@ const fileLoaderSlice = createSlice({
 			state.exampleLevelState = action.payload;
 			settleState(state);
 		},
-
-		// reducers related to graphic extraction
 		overallExtractionState(
 			state: FileLoaderState,
 			action: PayloadAction<ExtractionState>
 		) {
 			state.overallExtractionState = action.payload;
+			settleState(state);
 		},
 		resourceExtractionState(
 			state: FileLoaderState,

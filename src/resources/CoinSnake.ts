@@ -6,18 +6,17 @@ import {
 import { DerivedResource, StaticResource } from './types';
 
 const CoinSnake: DerivedResource = {
-	extract(rom: Uint8Array): string {
+	extract(rom, canvasGenerator): string {
 		const coinResource = Coin.resource as StaticResource;
 
 		const extractedTileData = extractResourceTileData(rom, coinResource);
-		const coinCanvas = tileToCanvas(extractedTileData, coinResource.palettes);
+		const coinCanvas = tileToCanvas(
+			extractedTileData,
+			coinResource.palettes,
+			canvasGenerator
+		);
 
-		const coinSnakeCanvas = document.createElement(
-			'canvas'
-		) as HTMLCanvasElement;
-		coinSnakeCanvas.width = 48;
-		coinSnakeCanvas.height = 48;
-
+		const coinSnakeCanvas = canvasGenerator(48, 48);
 		const context = coinSnakeCanvas.getContext('2d')!;
 
 		context.drawImage(coinCanvas, 16, 0);

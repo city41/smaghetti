@@ -1,3 +1,5 @@
+import { CanvasGenerator } from '../tiles/extractResourcesToStylesheet';
+
 type TileExtractionSpec = {
 	romOffset?: number;
 	palette?: number;
@@ -16,7 +18,7 @@ type StaticResource = {
 };
 
 type DerivedResource = {
-	extract: (rom: Uint8Array) => string;
+	extract: (rom: Uint8Array, canvasGenerator: CanvasGenerator) => string;
 };
 
 type Resource = StaticResource | DerivedResource;

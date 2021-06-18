@@ -5,9 +5,24 @@ import { StaticResource, TileExtractionSpec } from '../resources/types';
 import { EntityType } from '../entities/entityMap';
 import { ResourceType } from '../resources/resourceMap';
 import { isStaticResource } from '../resources/util';
+import * as localForage from 'localforage';
+import { resourceShaMap } from './resourceShaMap';
 
 type TileExtractionSpecWithData = TileExtractionSpec & { data: number[] };
 type ExtractedEntityTileData = Array<Array<TileExtractionSpecWithData | null>>;
+
+type CanvasGenerator = (width: number, height: number) => HTMLCanvasElement;
+
+function documentCanvasGenerator(
+	width: number,
+	height: number
+): HTMLCanvasElement {
+	const canvas = document.createElement('canvas') as HTMLCanvasElement;
+	canvas.width = width;
+	canvas.height = height;
+
+	return canvas;
+}
 
 const memoDecompress = memoize(decompress, (_rom, offset) => offset);
 
@@ -48,12 +63,11 @@ const DEFAULT_PALETTE: number[] = (function () {
 
 function drawTile(
 	tileData: number[],
+	canvasGenerator: CanvasGenerator,
 	palette: Tuple<number, 16> = DEFAULT_PALETTE,
 	options: { firstColorOpaque: boolean } = { firstColorOpaque: false }
 ): HTMLCanvasElement {
-	const canvas = document.createElement('canvas');
-	canvas.width = 8;
-	canvas.height = 8;
+	const canvas = canvasGenerator(8, 8);
 	const context = canvas.getContext('2d')!;
 
 	const imageData = context.getImageData(0, 0, 8, 8);
@@ -85,15 +99,14 @@ function drawTile(
 
 function flip(
 	src: HTMLCanvasElement,
-	flip: TileExtractionSpec['flip']
+	flip: TileExtractionSpec['flip'],
+	canvasGenerator: CanvasGenerator
 ): HTMLCanvasElement {
 	if (!flip) {
 		return src;
 	}
 
-	const canvas = document.createElement('canvas');
-	canvas.width = src.width;
-	canvas.height = src.height;
+	const canvas = canvasGenerator(src.width, src.height);
 	const context = canvas.getContext('2d')!;
 
 	switch (flip) {
@@ -120,10 +133,9 @@ function renderTiles(
 	canvas: HTMLCanvasElement,
 	tileData: ExtractedEntityTileData,
 	palettes: number[][],
+	canvasGenerator: CanvasGenerator,
 	options?: { firstColorOpaque: boolean }
 ): void {
-	canvas.height = tileData.length * 8;
-	canvas.width = tileData[0].length * 8;
 	const context = canvas.getContext('2d')!;
 
 	for (let y = 0; y < tileData.length; ++y) {
@@ -133,10 +145,11 @@ function renderTiles(
 			if (spec !== null) {
 				let tileCanvas = drawTile(
 					spec.data,
+					canvasGenerator,
 					palettes[spec.palette ?? 0],
 					options
 				);
-				tileCanvas = flip(tileCanvas, spec.flip);
+				tileCanvas = flip(tileCanvas, spec.flip, canvasGenerator);
 
 				context.drawImage(tileCanvas, x * 8, y * 8, 8, 8);
 			}
@@ -147,10 +160,11 @@ function renderTiles(
 function tileToCanvas(
 	tileData: Array<Array<TileExtractionSpecWithData | null>>,
 	palettes: number[][],
+	canvasGenerator: CanvasGenerator,
 	firstColorOpaque?: boolean
 ): HTMLCanvasElement {
-	const canvas = document.createElement('canvas');
-	renderTiles(canvas, tileData, palettes, {
+	const canvas = canvasGenerator(tileData[0].length * 8, tileData.length * 8);
+	renderTiles(canvas, tileData, palettes, canvasGenerator, {
 		firstColorOpaque: !!firstColorOpaque,
 	});
 
@@ -224,17 +238,24 @@ function extractResourceTileData(
 
 function extractResourceToDataUrl(
 	rom: Uint8Array,
-	resource: StaticResource
+	resource: StaticResource,
+	canvasGenerator: CanvasGenerator
 ): string {
 	const tileData = extractResourceTileData(rom, resource);
 	const canvas = tileToCanvas(
 		tileData,
 		resource.palettes ?? [DEFAULT_PALETTE],
+		canvasGenerator,
 		resource.firstColorOpaque
 	);
 
 	return canvas.toDataURL();
 }
+
+type LocalItem = {
+	sha: string;
+	dataUrl: string;
+};
 
 async function extractResourcesToStylesheet(
 	rom: Uint8Array,
@@ -254,11 +275,27 @@ async function extractResourcesToStylesheet(
 			);
 		}
 
+		const storageKey = `cache-${resourceName}`;
+		const localItem = await localForage.getItem<LocalItem>(storageKey);
+		const currentSha = resourceShaMap[resourceName];
+
 		let dataUrl;
-		if (isStaticResource(resource)) {
-			dataUrl = await extractResourceToDataUrl(rom, resource);
+
+		if (
+			process.env.NODE_ENV === 'production' &&
+			localItem?.sha === currentSha
+		) {
+			dataUrl = localItem!.dataUrl;
+		} else if (isStaticResource(resource)) {
+			dataUrl = await extractResourceToDataUrl(
+				rom,
+				resource,
+				documentCanvasGenerator
+			);
+			localForage.setItem<LocalItem>(storageKey, { sha: currentSha!, dataUrl });
 		} else {
-			dataUrl = resource.extract(rom);
+			dataUrl = resource.extract(rom, documentCanvasGenerator);
+			localForage.setItem<LocalItem>(storageKey, { sha: currentSha!, dataUrl });
 		}
 
 		css = `${css}\n.${resourceName}-bg { background-image: url(${dataUrl}); }`;
@@ -275,11 +312,13 @@ async function extractResourcesToStylesheet(
 
 export {
 	extractResourcesToStylesheet,
+	extractResourceToDataUrl,
 	gba16ToRgb,
 	rgbToGBA16,
 	drawTile,
 	renderTiles,
 	extractResourceTileData,
 	tileToCanvas,
+	documentCanvasGenerator,
 };
-export type { ExtractedEntityTileData };
+export type { CanvasGenerator, ExtractedEntityTileData };

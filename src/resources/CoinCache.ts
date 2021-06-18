@@ -6,18 +6,17 @@ import {
 import { DerivedResource, StaticResource } from './types';
 
 const CoinCache: DerivedResource = {
-	extract(rom: Uint8Array): string {
+	extract(rom, canvasGenerator): string {
 		const coinResource = Coin.resource as StaticResource;
 
 		const extractedTileData = extractResourceTileData(rom, coinResource);
-		const coinCanvas = tileToCanvas(extractedTileData, coinResource.palettes);
+		const coinCanvas = tileToCanvas(
+			extractedTileData,
+			coinResource.palettes,
+			canvasGenerator
+		);
 
-		const coinCacheCanvas = document.createElement(
-			'canvas'
-		) as HTMLCanvasElement;
-		coinCacheCanvas.width = 16;
-		coinCacheCanvas.height = 16;
-
+		const coinCacheCanvas = canvasGenerator(16, 16);
 		const context = coinCacheCanvas.getContext('2d')!;
 
 		context.drawImage(coinCanvas, -4, 1);

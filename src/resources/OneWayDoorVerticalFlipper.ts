@@ -6,23 +6,23 @@ import {
 import { DerivedResource } from './types';
 
 const OneWayDoorVerticalFlipper: DerivedResource = {
-	extract(rom: Uint8Array): string {
+	extract(rom, canvasGenerator): string {
 		const extractedTileData = extractResourceTileData(
 			rom,
 			OneWayDoorHorizontalFlipper
 		);
 		const horizontalCanvas = tileToCanvas(
 			extractedTileData,
-			OneWayDoorHorizontalFlipper.palettes
+			OneWayDoorHorizontalFlipper.palettes,
+			canvasGenerator
 		);
 
-		const verticalCanvas = document.createElement(
-			'canvas'
-		) as HTMLCanvasElement;
-		verticalCanvas.width = horizontalCanvas.height;
-		verticalCanvas.height = horizontalCanvas.width;
-
+		const verticalCanvas = canvasGenerator(
+			horizontalCanvas.height,
+			horizontalCanvas.width
+		);
 		const context = verticalCanvas.getContext('2d')!;
+
 		context.translate(verticalCanvas.width / 2, verticalCanvas.height / 2);
 		context.rotate((90 * Math.PI) / 180);
 		context.drawImage(
