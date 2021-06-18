@@ -145,6 +145,7 @@ export const resourceShaMap: Record<string, string> = {
   "RotatingCheckeredBlockSmall": "b20ad29f9306176718877636066aa264aaca9c14",
   "RotoDisc": "f8390144b8200f2f2b3455a434354cec7e3eee4a",
   "Roy": "493df380d859aa79a03da19f75b95aca8b0c2bfd",
+  "Seaweed": "df9a711055057561f14551d6773d254902c99104",
   "SeeSawPlatform": "45367710cf46f6a87858195dbd4a38857664c000",
   "ShoeGoomba": "daf33667661c968f1b28a66bb8cc8146ec7b92da",
   "SilverPSwitch": "a34db807e12e46c4f446a267b4fde0eff91eb64b",

@@ -70,6 +70,11 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-06-18">
+					<ul>
+						<li>Seaweed</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="Set Room Height" date="2022-06-18">
 					<p>
 						You can now set how tall a room is. Find it in the &quot;manage

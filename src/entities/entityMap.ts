@@ -178,6 +178,7 @@ import { RotatingCheckeredBlockSmall } from './RotatingCheckeredBlockSmall';
 import { RotoDisc } from './RotoDisc';
 import { Roy } from './Roy';
 import { ScrollStopHorizontal } from './ScrollStopHorizontal';
+import { Seaweed } from './Seaweed';
 import { SeeSawPlatform } from './SeeSawPlatform';
 import { ShoeGoomba } from './ShoeGoomba';
 import { SilverPSwitch } from './SilverPSwitch';
@@ -406,6 +407,7 @@ const entityMap = {
 	RotoDisc,
 	Roy,
 	ScrollStopHorizontal,
+	Seaweed,
 	SeeSawPlatform,
 	ShoeGoomba,
 	SilverPSwitch,

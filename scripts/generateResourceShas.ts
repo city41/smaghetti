@@ -81,7 +81,9 @@ async function main() {
 	const outPath = process.argv[3];
 
 	if (!romPath || !outPath) {
-		console.error('usage: node generateResourceShas <path-to-sma4-rom>');
+		console.error(
+			'usage: node generateResourceShas <path-to-sma4-rom> <out-path>'
+		);
 		process.exit(1);
 	}
 
