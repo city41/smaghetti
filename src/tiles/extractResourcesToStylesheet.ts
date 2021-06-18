@@ -281,10 +281,7 @@ async function extractResourcesToStylesheet(
 
 		let dataUrl;
 
-		if (
-			process.env.NODE_ENV === 'production' &&
-			localItem?.sha === currentSha
-		) {
+		if (localItem?.sha === currentSha) {
 			dataUrl = localItem!.dataUrl;
 		} else if (isStaticResource(resource)) {
 			dataUrl = await extractResourceToDataUrl(
