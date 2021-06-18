@@ -157,6 +157,7 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 			if (focused[c.id]) {
 				const style = {
 					position: 'absolute',
+					zIndex: 999999,
 					left: x * TILE_SIZE + dragOffset.x,
 					top: dragOffset.y,
 					opacity: dragOffset && c && focused[c.id] ? 0.3 : 1,
@@ -266,6 +267,7 @@ const Entities = memo(function Entities({
 							key={`dragging-${e.type}-${e.id}`}
 							style={{
 								position: 'absolute',
+								zIndex: 99999,
 								top: e.y + dragOffset.y,
 								left: e.x + dragOffset.x,
 							}}
