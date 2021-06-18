@@ -1546,6 +1546,8 @@ const editorSlice = createSlice({
 				const actorSpotsToClear: Point[] = [];
 				const stageSpotsToClear: Point[] = [];
 				const movedEntities: EditorEntity[] = [];
+				const movedStageCells: EditorEntity[] = [];
+				const movedActorCells: EditorEntity[] = [];
 
 				Object.keys(state.focused).forEach((fid) => {
 					const actorEntity = currentRoom.actors.entities.find(
@@ -1589,14 +1591,7 @@ const editorSlice = createSlice({
 
 					if (stageCell) {
 						currentRoom.stage.matrix[stageCell.y]![stageCell.x] = null;
-						currentRoom.stage.matrix[stageCell.y + tileYOffset] =
-							currentRoom.stage.matrix[stageCell.y + tileYOffset] || [];
-						currentRoom.stage.matrix[stageCell.y + tileYOffset]![
-							stageCell.x + tileXOffset
-						] = stageCell;
-
-						stageCell.x += tileXOffset;
-						stageCell.y += tileYOffset;
+						movedStageCells.push(stageCell);
 					}
 
 					const actorCell = findCellEntity(
@@ -1606,14 +1601,7 @@ const editorSlice = createSlice({
 
 					if (actorCell) {
 						currentRoom.actors.matrix[actorCell.y]![actorCell.x] = null;
-						currentRoom.actors.matrix[actorCell.y + tileYOffset] =
-							currentRoom.actors.matrix[actorCell.y + tileYOffset] || [];
-						currentRoom.actors.matrix[actorCell.y + tileYOffset]![
-							actorCell.x + tileXOffset
-						] = actorCell;
-
-						actorCell.x += tileXOffset;
-						actorCell.y += tileYOffset;
+						movedActorCells.push(actorCell);
 					}
 				});
 
@@ -1645,6 +1633,28 @@ const editorSlice = createSlice({
 					});
 
 					return !spotToClear;
+				});
+
+				movedActorCells.forEach((actorCell) => {
+					currentRoom.actors.matrix[actorCell.y + tileYOffset] =
+						currentRoom.actors.matrix[actorCell.y + tileYOffset] || [];
+					currentRoom.actors.matrix[actorCell.y + tileYOffset]![
+						actorCell.x + tileXOffset
+					] = actorCell;
+
+					actorCell.x += tileXOffset;
+					actorCell.y += tileYOffset;
+				});
+
+				movedStageCells.forEach((stageCell) => {
+					currentRoom.stage.matrix[stageCell.y + tileYOffset] =
+						currentRoom.stage.matrix[stageCell.y + tileYOffset] || [];
+					currentRoom.stage.matrix[stageCell.y + tileYOffset]![
+						stageCell.x + tileXOffset
+					] = stageCell;
+
+					stageCell.x += tileXOffset;
+					stageCell.y += tileYOffset;
 				});
 			}
 
