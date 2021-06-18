@@ -20,4 +20,6 @@ export const MIN_ROOM_TILE_WIDTH = ROOM_WIDTH_INCREMENT;
 export const MAX_ROOM_TILE_WIDTH = ROOM_WIDTH_INCREMENT * 16;
 
 export const MIN_ROOM_TILE_HEIGHT = PLAY_WINDOW_TILE_HEIGHT;
-export const MAX_ROOM_TILE_HEIGHT = PLAY_WINDOW_TILE_HEIGHT * 8;
+
+// 64 and up causes the map to wrap, and corrupts the level
+export const MAX_ROOM_TILE_HEIGHT = 63;

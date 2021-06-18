@@ -9,10 +9,7 @@ import { Button } from '../../../Button';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { Modal } from '../../../Modal';
 import { MUSIC_VALUES } from '../../../../levelData/constants';
-import {
-	INITIAL_ROOM_TILE_HEIGHT,
-	ROOM_WIDTH_INCREMENT,
-} from '../../constants';
+import { ROOM_WIDTH_INCREMENT } from '../../constants';
 
 type Help = {
 	title: string;
@@ -265,9 +262,7 @@ function ManageLevel({
 									</div>
 									<div className="relative grid grid-cols-2 gap-x-4">
 										<SettingsKey>
-											<HelpButton>
-												Height is in single tiles, and currently experimental
-											</HelpButton>
+											<HelpButton>Height is in single tiles</HelpButton>
 											Height
 										</SettingsKey>
 										<input
@@ -279,25 +274,6 @@ function ManageLevel({
 												onRoomSizeChange({ index: i, height: newHeight });
 											}}
 										/>
-										{r.roomTileHeight !== INITIAL_ROOM_TILE_HEIGHT && (
-											<div className="absolute -right-36 -top-8 w-32 text-red-300 bg-gray-900 p-1 text-xs z-10">
-												warning: changing height is still experimental, you
-												might see strange things{' '}
-												<button
-													className="text-blue-300"
-													onMouseDown={(e) => {
-														e.preventDefault();
-														e.stopPropagation();
-														onRoomSizeChange({
-															index: i,
-															height: INITIAL_ROOM_TILE_HEIGHT,
-														});
-													}}
-												>
-													reset height
-												</button>
-											</div>
-										)}
 									</div>
 								</div>
 								<div

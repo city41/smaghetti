@@ -70,6 +70,19 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Set Room Height" date="2022-06-18">
+					<p>
+						You can now set how tall a room is. Find it in the &quot;manage
+						rooms&quot; mode, same place as background and music settings.
+					</p>
+					<p>
+						Still need to figure out how to position Mario. Also be careful with
+						really large rooms, you can make a level that is too big to fit in a
+						save file. Eventually Smaghetti will warn when you do that, but for
+						now, just be careful if you make really big rooms with lots of stuff
+						in them.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-06-17">
 					<ul>
 						<li>Crystal Underground</li>
