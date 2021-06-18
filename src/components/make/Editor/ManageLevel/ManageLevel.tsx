@@ -178,7 +178,7 @@ function ManageLevel({
 				{rooms.map((r, i) => {
 					return (
 						<div key={i}>
-							<h2 className="bg-gray-600 text-white px-2 py-1 flex flex-row space-x-2">
+							<h2 className="bg-gray-600 text-white px-2 py-1 flex flex-row space-x-2 max-w-xl">
 								<div>Room {i + 1}</div>
 								<div className="flex-1" />
 								<PlainIconButton
