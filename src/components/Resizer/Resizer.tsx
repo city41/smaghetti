@@ -157,7 +157,7 @@ function Resizer({
 		<div
 			ref={ref}
 			style={style}
-			className={clsx(className, 'w-1.5 h-1.5')}
+			className={clsx(className, 'w-1.5 h-1.5 z-10')}
 			onMouseDown={(e) => {
 				if (ref.current && !listeningToDoc) {
 					e.stopPropagation();
