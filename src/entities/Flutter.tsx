@@ -57,61 +57,55 @@ const Flutter: Entity = {
 		};
 
 		const leftWingStyle = {
-			width: size / 1.5,
+			width: size * 0.5,
 			height: size * 0.75,
-			left: -size / 6,
-			top: size / 8,
+			left: 0,
+			top: size * 0.02,
 			transform: 'scale(-1, 1)',
 		};
 
 		const rightWingStyle = {
-			width: size / 1.5,
+			width: size * 0.5,
 			height: size * 0.75,
-			top: size * 0.125,
-			right: -size * 0.25,
+			top: -size * 0.04,
+			right: -size * 0.05,
 		};
 
 		const headStyle = {
-			width: size / 1.5,
-			height: size / 2,
-			top: size / 4,
-			left: size * 0.25,
+			width: size * 0.45,
+			height: size * 0.45,
+			top: size * 0.17,
+			left: size * 0.15,
 		};
 
 		const bodyStyle = {
-			width: size / 1.5,
-			height: size / 2,
-			bottom: 0,
-			right: 0,
+			width: size * 0.5,
+			height: size * 0.5,
+			bottom: size * 0.15,
+			right: size * 0.13,
 		};
 
 		const flowerStyle = {
-			width: size / 3,
-			height: size / 4,
-			top: size / 8,
-			left: size / 2,
+			width: size * 0.25,
+			height: size * 0.25,
+			top: -size * 0.1,
+			left: size * 0.32,
 		};
 
 		return (
 			<div className="relative" style={style}>
 				<div
-					className="absolute FlutterWing-bg bg-no-repeat"
+					className="absolute FlutterWing-bg bg-cover"
 					style={leftWingStyle}
 				/>
 				<div
-					className="absolute FlutterWing-bg bg-no-repeat"
+					className="absolute FlutterWing-bg bg-cover"
 					style={rightWingStyle}
 				/>
+				<div className="absolute FlutterBody-bg bg-cover" style={bodyStyle} />
+				<div className="absolute FlutterHead-bg bg-cover" style={headStyle} />
 				<div
-					className="absolute FlutterBody-bg bg-no-repeat"
-					style={bodyStyle}
-				/>
-				<div
-					className="absolute FlutterHead-bg bg-no-repeat"
-					style={headStyle}
-				/>
-				<div
-					className="absolute FlutterFlower-bg bg-no-repeat"
+					className="absolute FlutterFlower-bg bg-cover"
 					style={flowerStyle}
 				/>
 			</div>
