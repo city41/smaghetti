@@ -11,6 +11,8 @@ const BoomBoom: Entity = {
 	paletteInfo: {
 		subCategory: 'enemy-boss',
 		title: 'Boom Boom',
+		warning:
+			"Sometimes BoomBoom doesn't spawn or spawns in a different place than where you placed him. Not sure why yet...",
 	},
 
 	objectSets: ANY_OBJECT_SET,
