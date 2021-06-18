@@ -4,6 +4,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { TileSpace } from './TileSpace';
+import { Resizer } from '../components/Resizer';
 
 const FluffyCloud: Entity = {
 	paletteCategory: 'decoration',
@@ -19,10 +20,11 @@ const FluffyCloud: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
+	settingsType: 'single',
+	defaultSettings: { width: 3 },
 	param1: 'width',
 	objectId: 0xb,
 	emptyBank: 1,
-	width: 3,
 	height: 2,
 
 	resource: {
@@ -59,10 +61,10 @@ const FluffyCloud: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y) {
-		// TODO: param1 is actually cloud width, but need a details pane
-		// and custom resources to support it in the editor
-		return [getBankParam1(1, 2), y, x, this.objectId];
+	toObjectBinary(x, y, _w, _h, settings) {
+		const width = (settings.width ?? this.defaultSettings!.width) as number;
+
+		return [getBankParam1(1, width - 1), y, x, this.objectId];
 	},
 
 	simpleRender(size) {
@@ -72,16 +74,61 @@ const FluffyCloud: Entity = {
 		);
 	},
 
-	render() {
+	render(_showDetails, settings, onSettingsChange) {
+		const width = (settings.width ?? this.defaultSettings!.width) as number;
+
 		const style = {
-			width: TILE_SIZE * 3,
+			width: TILE_SIZE * width,
 			height: TILE_SIZE * 2,
-			backgroundPositionX: 'center',
-			backgroundPositionY: 1,
+			paddingLeft: TILE_SIZE * 0.5,
+			paddingRight: TILE_SIZE * 0.5,
+			paddingBottom: TILE_SIZE * 0.5,
 		};
+
+		const sideStyle = {
+			width: TILE_SIZE * 0.5,
+			height: TILE_SIZE * 1.5,
+		};
+
+		const centerStyle = {
+			width: TILE_SIZE,
+			height: TILE_SIZE * 1.5,
+			backgroundPositionX: -TILE_SIZE * 0.5,
+		};
+
+		const rightSideStyle = {
+			...sideStyle,
+			backgroundPositionX: -TILE_SIZE * 1.5,
+		};
+
+		const size = { x: width, y: 1 };
+
+		const centers = [];
+
+		for (let c = 0; c < width - 2; ++c) {
+			centers.push(
+				<div style={centerStyle} className="FluffyCloud-bg bg-no-repeat" />
+			);
+		}
+
 		return (
-			<div style={style} className="FluffyCloud-bg bg-no-repeat">
-				<TileSpace />
+			<div style={style} className="relative flex flex-row">
+				<TileSpace className="absolute top-0 left-0 w-full h-full" />
+				<Resizer
+					className="absolute bottom-0 right-0"
+					style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
+					size={size}
+					increment={TILE_SIZE}
+					axis="x"
+					onSizeChange={(newSizePoint) => {
+						onSettingsChange({ width: Math.max(1, newSizePoint.x) });
+					}}
+					onResizeStart={() => onSettingsChange({ resizing: true })}
+					onResizeEnd={() => onSettingsChange({ resizing: false })}
+				/>
+				<div style={sideStyle} className="FluffyCloud-bg bg-no-repeat" />
+				{centers}
+				<div style={rightSideStyle} className="FluffyCloud-bg bg-no-repeat" />
 			</div>
 		);
 	},
