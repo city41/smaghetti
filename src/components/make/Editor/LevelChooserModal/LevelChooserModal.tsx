@@ -23,6 +23,7 @@ type InternalLevelChooserModalProps = {
 	onLocalStorageLevelChosen: () => void;
 	onExampleLevelChosen: () => void;
 	onBlankLevelChosen: () => void;
+	isLoggedIn: boolean;
 	loadingLevelsState: 'none' | 'dormant' | 'loading' | 'error' | 'success';
 	savedLevels: Array<Level | BrokenLevel>;
 	onLevelChosen: (level: Level) => void;
@@ -60,6 +61,7 @@ function LevelChooserModal({
 	onLocalStorageLevelChosen,
 	onExampleLevelChosen,
 	onBlankLevelChosen,
+	isLoggedIn,
 	loadingLevelsState,
 	savedLevels,
 	onLevelChosen,
@@ -93,7 +95,10 @@ function LevelChooserModal({
 			isOpen={isOpen}
 			onXClick={onRequestClose}
 		>
-			<div style={{ maxHeight: '80vh' }} className="overflow-y-auto pr-4 -mr-4">
+			<div
+				style={{ height: isLoggedIn ? '60vh' : 'auto' }}
+				className="overflow-y-auto pr-4 -mr-4"
+			>
 				<div
 					className={clsx(
 						'grid grid-cols-2 gap-x-3 items-center justify-items-center pb-2',

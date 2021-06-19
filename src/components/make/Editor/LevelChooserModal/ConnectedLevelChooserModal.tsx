@@ -65,6 +65,7 @@ function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 			onDeleteLevel={handleDeleteLevel}
 			loadingLevelsState={localUser ? loadState : 'none'}
 			savedLevels={levels}
+			isLoggedIn={!!localUser}
 		/>
 	);
 }
