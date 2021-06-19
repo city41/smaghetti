@@ -438,6 +438,39 @@ const Canvas = memo(function Canvas({
 	const entityGhostDisplay =
 		mouseMode === 'draw' && currentPaletteEntry ? 'block' : 'none';
 
+	const player = actors.entities.find((e) => e.type === 'Player');
+	let playerGhost = null;
+
+	if (player) {
+		const playerTileX = player.x / TILE_SIZE;
+		const playerTileY = player.y / TILE_SIZE;
+		const ogX = 2;
+		const ogY = rooms[currentRoomIndex].roomTileHeight - 2;
+
+		if (playerTileX !== ogX || playerTileY !== ogY) {
+			playerGhost = (
+				<Entity
+					style={{
+						pointerEvents: 'none',
+						position: 'absolute',
+						top: ogY * TILE_SIZE,
+						left: ogX * TILE_SIZE,
+						zIndex: 99999,
+						opacity: 0.5,
+						mixBlendMode: 'luminosity',
+					}}
+					id={player.id}
+					entity={player}
+					settings={player.settings}
+					focused={false}
+					soleFocused={false}
+					dragging={false}
+					onEntitySettingsChange={() => {}}
+				/>
+			);
+		}
+	}
+
 	return (
 		// TODO: why is border on its own div? probably due to scaling?
 		<div className="border-2 border-black" style={borderStyle}>
@@ -554,6 +587,7 @@ const Canvas = memo(function Canvas({
 						exitType={td.exitType}
 					/>
 				))}
+				{playerGhost}
 			</div>
 		</div>
 	);
