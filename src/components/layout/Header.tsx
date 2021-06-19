@@ -53,14 +53,7 @@ function Header({ className, highlightEditor }: HeaderProps) {
 						</div>
 					</div>
 					<div className={clsx({ relative: highlightEditor })}>
-						<MenuLink
-							href="/make"
-							className={clsx({
-								'sm:border-b-2 sm:border-white': highlightEditor,
-							})}
-						>
-							editor
-						</MenuLink>
+						<MenuLink href="/make">editor</MenuLink>
 						{highlightEditor && <HighlightEditor />}
 					</div>
 					<MenuLink href="/whats-new">what&apos;s new</MenuLink>
