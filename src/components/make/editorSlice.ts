@@ -1411,9 +1411,9 @@ const editorSlice = createSlice({
 				: currentRoom.actors.entities.find((e) => {
 						// temp hack: don't allow dragging the player until player location
 						// is taken into account when creating the gba level
-						if (e.type === 'Player') {
-							return false;
-						}
+						// if (e.type === 'Player') {
+						// 	return false;
+						// }
 
 						const pixelBounds = getEntityPixelBounds(e);
 
@@ -1425,9 +1425,9 @@ const editorSlice = createSlice({
 				: currentRoom.stage.entities.find((e) => {
 						// temp hack: don't allow dragging the player until player location
 						// is taken into account when creating the gba level
-						if (e.type === 'Player') {
-							return false;
-						}
+						// if (e.type === 'Player') {
+						// 	return false;
+						// }
 
 						const pixelBounds = getEntityPixelBounds(e);
 
@@ -1483,10 +1483,7 @@ const editorSlice = createSlice({
 
 				if (isEditable(currentRoom.actors)) {
 					currentRoom.actors.entities.forEach((e) => {
-						if (
-							overlap(getEntityPixelBounds(e), scaledBounds) &&
-							!nonDeletableEntityTypes.includes(e.type)
-						) {
+						if (overlap(getEntityPixelBounds(e), scaledBounds)) {
 							state.focused[e.id] = true;
 						}
 					});
@@ -1510,10 +1507,7 @@ const editorSlice = createSlice({
 
 				if (isEditable(currentRoom.stage)) {
 					currentRoom.stage.entities.forEach((e) => {
-						if (
-							overlap(getEntityPixelBounds(e), scaledBounds) &&
-							!nonDeletableEntityTypes.includes(e.type)
-						) {
+						if (overlap(getEntityPixelBounds(e), scaledBounds)) {
 							state.focused[e.id] = true;
 						}
 					});

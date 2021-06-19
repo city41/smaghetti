@@ -191,7 +191,9 @@ function getLevelSettings(
 ): Tuple<number, 32> {
 	const [objectSet] = getObjectSet(entities);
 	const spriteGraphicSet = buildSpriteGraphicSetBytes(entities);
-	const playerY = room.roomTileHeight - 2;
+	const player = entities.find((e) => e.type === 'Player');
+	const playerY = player ? player.y / TILE_SIZE : room.roomTileHeight - 2;
+	const playerX = player ? player.x / TILE_SIZE : 2;
 
 	// if they stuck with the default height, then stick with classic 1-2 settings
 	let mostSigHeightInPixels = 1;
@@ -208,14 +210,14 @@ function getLevelSettings(
 		mostSigHeightInPixels, // screen y boundary, most sig byte
 		0, // fixed screen center y, least sig byte
 		0, // fixed screen center y, most sig byte
-		0x18, //0x18, // player y screen center, least sig byte
+		0x18, // player y screen center, least sig byte
 		0, // player y screen center, most sig byte
 		0x38, // camera min
 		0, // camera max
 		playerY, // player starting y
-		0x2, // player starting x
-		playerY - 7, // screen starting y
-		0, // screen starting x
+		playerX, // player starting x
+		Math.max(0, playerY - 7), // screen starting y
+		Math.max(0, playerX - 5), // screen starting x
 		objectSet, // object set, least sig byte
 		0, // object set, most sig byte
 		room.settings.music, // music, least sig byte
