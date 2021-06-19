@@ -30,6 +30,10 @@ function CrystalUnderground() {
 	return <div className="CrystalUndergroundBackground-bg w-full h-full" />;
 }
 
+function NightSky() {
+	return <div className="NightSkyBackground-bg bg-black w-full h-full" />;
+}
+
 function GhostHouse() {
 	return (
 		<div
@@ -141,6 +145,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.underwater]: <Underwater />,
 	[BACKGROUND_GRAPHIC_VALUES['crystal-underground']]: <CrystalUnderground />,
 	[BACKGROUND_GRAPHIC_VALUES['hills-at-night']]: <HillsAtNight />,
+	[BACKGROUND_GRAPHIC_VALUES['night-sky']]: <NightSky />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

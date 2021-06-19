@@ -248,6 +248,7 @@ export const resourceShaMap: Record<string, string> = {
   "KoopaWing": "d4bbf1a8cff2e04b03eac18f2cf2bec1caf4686e",
   "MetalBrickBackground": "ab589b4ac3426d9029ef0297ca191a4099fa623c",
   "MontyMoleJumpingOut": "17a79f48d1bc328d75fbd955181dbd5bc00846b9",
+  "NightSkyBackground": "37912f886c1dfe5a3d0085b99b2e24f788e0a0b9",
   "OneNumberBlock": "71e59cec5dad14b2e17af93096836414480ba662",
   "OneWayDoorHorizontalFlipper": "07168537ebd2bb867cf90e6af21b312f2dd9ecd7",
   "OneWayDoorVerticalFlipper": "2ae0dc7b216352843ae359eb0aa27baa6720c765",

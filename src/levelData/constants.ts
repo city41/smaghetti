@@ -61,6 +61,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	underwater: 0x25,
 	'crystal-underground': 0x14,
 	'hills-at-night': 0x1d,
+	'night-sky': 0x2a,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -97,7 +98,7 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	desert: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.desert,
-		bgColor: 0xf,
+		bgColor: 0x84,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 	'ghost-house': {
@@ -144,6 +145,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	'hills-at-night': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['hills-at-night'],
 		bgColor: 0x2,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'night-sky': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['night-sky'],
+		bgColor: 0x3,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 };
