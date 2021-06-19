@@ -159,6 +159,7 @@ export const resourceShaMap: Record<string, string> = {
   "SnowPlateau": "f94980d856f5aae22c29ef0f1d9043213afb0842",
   "Spike": "53e40db181813ed794e6c481a21200e6b06125a8",
   "SpikeBall": "9d961cad2460639f293a646a140c7bfd0d06ce76",
+  "SpikeTop": "92121836c1a8d024e8950dc8343a1a726f3de341",
   "Spiny": "b21dd9011491a654fc6b551d2a5b5a4712654172",
   "SpringBoard": "ad64b27c2ec1dfe5628d746e4e91ade2d40f3b62",
   "Stalactite": "fd8d097de842abd0b083316ca80feb4196fe9c07",

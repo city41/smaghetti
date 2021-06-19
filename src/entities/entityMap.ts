@@ -192,6 +192,7 @@ import { SledgeBro } from './SledgeBro';
 import { SnowPlateau } from './SnowPlateau';
 import { Spike } from './Spike';
 import { SpikeBall } from './SpikeBall';
+import { SpikeTop } from './SpikeTop';
 import { Spiny } from './Spiny';
 import { SpringBoard } from './SpringBoard';
 import { Stalactite } from './Stalactite';
@@ -428,6 +429,7 @@ const entityMap = {
 	SnowPlateau,
 	Spike,
 	SpikeBall,
+	SpikeTop,
 	Spiny,
 	SpringBoard,
 	Stalactite,
