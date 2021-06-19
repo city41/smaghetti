@@ -34,6 +34,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	GrassUpperRightCorner: 'Gurc',
 	GrassVerticalLeft: 'Gvl',
 	GrassVerticalRight: 'Gvr',
+	Herbert: 'Herb',
 	HiddenBlock: 'Hb',
 	IceBlockCoin: 'Ibc',
 	IceBlockMuncher: 'Ibm',
