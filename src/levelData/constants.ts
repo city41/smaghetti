@@ -149,7 +149,7 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'night-sky': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['night-sky'],
-		bgColor: 0x3,
+		bgColor: 0x2,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 };
