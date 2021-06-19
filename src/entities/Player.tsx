@@ -94,7 +94,7 @@ const Player: Entity = {
 		const ey = entity.y / TILE_SIZE;
 
 		if (ex !== 2 || ey !== room.roomTileHeight - 2) {
-			return 'Warning: moving Mario is still experi- mental';
+			return 'Warning: moving Mario is still experimental';
 		}
 	},
 };

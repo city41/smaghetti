@@ -89,7 +89,7 @@ function Entity({
 			)}
 			{showWarning && warning && (
 				<div
-					className="absolute top-1 left-1 w-full z-10 p-0.5 bg-red-600 text-white flex flex-col"
+					className="absolute top-1 left-1 w-full z-10 p-0.5 bg-red-600 text-white flex flex-col break-words"
 					style={{ fontSize: 2.5 }}
 				>
 					<div>{warning}</div>
