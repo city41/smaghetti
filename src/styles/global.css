@@ -21,3 +21,16 @@ body {
 input {
 	@apply text-black !important;
 }
+
+.thinScrollbar::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+.thinScrollbar::-webkit-scrollbar-track {
+	background-color: #aaaaaa77;
+}
+
+.thinScrollbar::-webkit-scrollbar-thumb {
+	background-color: #aaa;
+}

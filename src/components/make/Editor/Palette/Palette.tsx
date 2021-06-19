@@ -98,7 +98,9 @@ function Palette({
 				<FaPlus className="w-6 h-6" />
 				<div className="text-xs">add</div>
 			</button>
-			<div className="overflow-x-auto flex flex-row flex-1 pb-1">{entries}</div>
+			<div className="thinScrollbar overflow-x-auto h-full flex flex-row items-center flex-1 pb-1 ml-1">
+				{entries}
+			</div>
 			<PaletteChoiceModal
 				isOpen={modalOpen && !disabled}
 				validEntityTypes={validEntityTypes}

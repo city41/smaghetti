@@ -97,7 +97,7 @@ function LevelChooserModal({
 		>
 			<div
 				style={{ height: isLoggedIn ? '60vh' : 'auto' }}
-				className="overflow-y-auto pr-4 -mr-4"
+				className="thinScrollbar overflow-y-auto pr-4 -mr-4"
 			>
 				<div
 					className={clsx(
