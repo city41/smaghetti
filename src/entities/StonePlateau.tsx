@@ -4,19 +4,14 @@ import { encodeObjectSets, getBankParam1 } from './util';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { Plateau } from '../components/Plateau';
 
-const GrassPlateau: Entity = {
+const StonePlateau: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-large',
-		title: 'Grass Plateau',
+		title: 'Stone Plateau',
+		warning: 'Often renders corrupted, more research needed',
 	},
 
-	objectSets: encodeObjectSets([
-		[4, 11],
-		[4, 4],
-		[12, 11],
-		[12, 4],
-	]),
+	objectSets: encodeObjectSets([[8, 6]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
@@ -24,7 +19,7 @@ const GrassPlateau: Entity = {
 	defaultSettings: { width: 3 },
 	dimensions: 'none',
 	param1: 'width',
-	objectId: 0x5,
+	objectId: 0x30,
 	emptyBank: 1,
 
 	resource: {
@@ -33,26 +28,81 @@ const GrassPlateau: Entity = {
 				31744,
 				32767,
 				0,
-				26019,
-				31371,
-				32622,
-				32726,
-				5524,
-				11833,
-				17085,
-				10793,
-				15021,
-				18225,
-				22452,
-				8663,
-				14971,
+				14798,
+				19026,
+				25368,
+				30653,
+				29484,
+				32722,
+				32763,
+				5586,
+				8791,
+				11004,
+				14270,
+				0,
+				0,
 			],
 		],
 		tiles: [
-			[160, 161, 162, 163, 164, 165],
-			[176, 177, 178, 179, 180, 181],
-			[166, 167, 168, 167, 168, 169],
-			[182, 183, 167, 183, 167, 185],
+			[
+				{
+					romOffset: 1550484,
+					tileIndex: 564,
+				},
+				{
+					romOffset: 1550484,
+					tileIndex: 565,
+				},
+				{
+					romOffset: 1550484,
+					tileIndex: 566,
+				},
+				{
+					romOffset: 1550484,
+					tileIndex: 565,
+				},
+				{
+					romOffset: 1550484,
+					tileIndex: 566,
+				},
+				{
+					romOffset: 1550484,
+					tileIndex: 567,
+				},
+			],
+			[
+				{
+					romOffset: 1550484,
+					tileIndex: 602,
+				},
+				253,
+				254,
+				253,
+				253,
+				255,
+			],
+			[
+				{
+					romOffset: 1550484,
+					tileIndex: 602,
+				},
+				238,
+				237,
+				238,
+				237,
+				239,
+			],
+			[
+				{
+					romOffset: 1550484,
+					tileIndex: 603,
+				},
+				254,
+				253,
+				254,
+				253,
+				255,
+			],
 		],
 		romOffset: 1584308,
 	},
@@ -65,7 +115,7 @@ const GrassPlateau: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="GrassPlateau-bg bg-center bg-no-repeat"
+				className="StonePlateau-bg bg-center bg-no-repeat"
 				style={{
 					width: size,
 					height: size,
@@ -78,7 +128,7 @@ const GrassPlateau: Entity = {
 	render(_showDetails, settings, onSettingsChange, entity, room) {
 		return (
 			<Plateau
-				bgClassName="GrassPlateau-bg"
+				bgClassName="StonePlateau-bg"
 				settings={settings}
 				entity={entity}
 				room={room}
@@ -88,4 +138,4 @@ const GrassPlateau: Entity = {
 	},
 };
 
-export { GrassPlateau };
+export { StonePlateau };

@@ -195,6 +195,7 @@ import { SpringBoard } from './SpringBoard';
 import { Stalactite } from './Stalactite';
 import { StarMan } from './StarMan';
 import { StoneFloor } from './StoneFloor';
+import { StonePlateau } from './StonePlateau';
 import { StoneSupport } from './StoneSupport';
 import { StretchBlock } from './StretchBlock';
 import { StretchBoo } from './StretchBoo';
@@ -428,6 +429,7 @@ const entityMap = {
 	Stalactite,
 	StarMan,
 	StoneFloor,
+	StonePlateau,
 	StoneSupport,
 	StretchBlock,
 	StretchBoo,

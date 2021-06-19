@@ -162,6 +162,7 @@ export const resourceShaMap: Record<string, string> = {
   "Stalactite": "fd8d097de842abd0b083316ca80feb4196fe9c07",
   "StarMan": "e90fb96e0faf195811c623c38caef842878f337e",
   "StoneFloor": "40b34125209f7629caff635b6e4a9973795e2da5",
+  "StonePlateau": "fd3087129aeaecc4c3e56fc5d1b4b64bd2235554",
   "StoneSupport": "b624ab75b8ef534ebee3e245bada1799173bd75b",
   "StretchBlock": "cc0514dfacbf41f1427bfadfc8e854519f9db60c",
   "StretchBoo": "ff92f3cfbaac4af0c2d3c67e527c1f15b522555d",
