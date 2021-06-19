@@ -47,6 +47,7 @@ const betaChecklist: MilestoneChecklistItem[] = [
 	{ status: 'not-started', description: 'All entities are fully configurable' },
 	{ status: 'not-started', description: 'Level file format is finalized' },
 	{ status: 'not-started', description: 'Autoscroll rooms' },
+	{ status: 'not-started', description: 'Object priorities' },
 ];
 
 const finalChecklist: MilestoneChecklistItem[] = [
