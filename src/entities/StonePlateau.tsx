@@ -5,7 +5,6 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { Plateau } from '../components/Plateau';
 
 const StonePlateau: Entity = {
-	paletteCategory: 'terrain',
 	paletteInfo: {
 		title: 'Stone Plateau',
 		warning: 'Often renders corrupted, more research needed',
