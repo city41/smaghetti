@@ -154,6 +154,7 @@ export const resourceShaMap: Record<string, string> = {
   "SilverPSwitch": "a34db807e12e46c4f446a267b4fde0eff91eb64b",
   "SimpleBlackDoor": "e8233d69ae3365d7d44452f617c8833bc6b2e4d6",
   "SledgeBro": "05ca13cc070259f82d1c33427f133b0f6dc0e44e",
+  "SnowPlateau": "f94980d856f5aae22c29ef0f1d9043213afb0842",
   "Spike": "53e40db181813ed794e6c481a21200e6b06125a8",
   "SpikeBall": "9d961cad2460639f293a646a140c7bfd0d06ce76",
   "Spiny": "b21dd9011491a654fc6b551d2a5b5a4712654172",

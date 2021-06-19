@@ -76,9 +76,7 @@ function isCompatible(
 	type: EntityType,
 	validEntityTypes: EntityType[]
 ): boolean {
-	return (
-		process.env.NODE_ENV !== 'production' || validEntityTypes.includes(type)
-	);
+	return validEntityTypes.includes(type);
 }
 
 const paletteSubCategoriesOrder: Array<PaletteSubcategory | 'misc'> = [

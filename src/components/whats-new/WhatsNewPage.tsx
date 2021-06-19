@@ -75,6 +75,7 @@ function WhatsNewPage() {
 						<li>Grass Plateau</li>
 						<li>Pipe - Horizontal Mini</li>
 						<li>Seaweed</li>
+						<li>Snow Plateau</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="Set Room Height" date="2022-06-18">
