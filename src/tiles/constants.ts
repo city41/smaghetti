@@ -22,6 +22,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	DiggableSand: 'Ds',
 	DonutBlock: 'Db',
 	DownFortressSpike: 'DFs',
+	EyeBallBlock: 'eye',
 	FallAwaySpike: 'Fas',
 	FireBarBase: 'Fbb',
 	FlowerBush: 'Flw',

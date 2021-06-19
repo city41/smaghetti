@@ -52,6 +52,7 @@ export const resourceShaMap: Record<string, string> = {
   "DownFortressSpike": "5b7abdb3d58f69daeab9744827e5265f8107d32f",
   "DryBones": "0282499d59b44152281ad7c1fb67018eab94d9bd",
   "EndOfLevelBackdrop": "f169d5550bf346d8ac0c8899aa0b5609d5887a07",
+  "EyeBallBlock": "29bc00e180962082c46a9bf8c98ce8fb0d98469c",
   "FallAwayPlatform": "a2145124ada342a33e9e99240a66bd893fbe562f",
   "FallAwaySpike": "8448c09f053fc9faf9bc48ec40073d381b2f6fe7",
   "FireBar": "6895b04383a4bfdc33fd80624418f0d4b309a80f",
