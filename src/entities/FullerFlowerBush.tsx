@@ -7,7 +7,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 const FullerFlowerBush: Entity = {
 	paletteCategory: 'decoration',
 	paletteInfo: {
-		title: 'Fuller Flower Bush',
+		title: 'Flower Bush - Fuller',
 	},
 
 	objectSets: encodeObjectSets([
