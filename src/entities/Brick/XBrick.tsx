@@ -7,6 +7,7 @@ import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
 const XBrick: Entity = {
 	paletteInfo: {
 		title: 'Brick - Horizontal only',
+		description: 'An alternate brick object used in several e-ereader levels',
 		warning: 'Not intended for use in Smaghetti',
 	},
 
