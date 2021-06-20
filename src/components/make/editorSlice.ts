@@ -281,19 +281,16 @@ function unfocusMatrix(
 /**
  * Figure out what the y scroll should be such that the player and start
  * are placed in the lower left corner of the browser window.
- *
- * NOTE: this only works correctly when the level is still INITIAL_LEVEL_TILE_HEIGHT
- * tall.
  */
-function calcYForScrollToBottom() {
+function calcYForScrollToBottom(roomTileHeight: number, scale: number) {
 	if (typeof window === 'undefined') {
 		return 0;
 	}
 
-	const levelHeight = INITIAL_ROOM_TILE_HEIGHT * TILE_SIZE * initialScale;
+	const levelHeight = roomTileHeight * TILE_SIZE * scale;
 	const windowHeight = window.innerHeight;
 
-	return (levelHeight - windowHeight) / initialScale;
+	return (levelHeight - windowHeight) / scale;
 }
 
 let idCounter = 10;
@@ -357,7 +354,10 @@ const initialRoomState: RoomState = {
 		width: 0,
 		height: 0,
 	},
-	scrollOffset: { x: 0, y: calcYForScrollToBottom() },
+	scrollOffset: {
+		x: 0,
+		y: calcYForScrollToBottom(INITIAL_ROOM_TILE_HEIGHT, initialScale),
+	},
 	paletteEntries: [
 		'Brick',
 		'Coin',
@@ -1163,7 +1163,10 @@ const editorSlice = createSlice({
 			const currentRoom = getCurrentRoom(state);
 
 			currentRoom.scrollOffset.x = 0;
-			currentRoom.scrollOffset.y = calcYForScrollToBottom();
+			currentRoom.scrollOffset.y = calcYForScrollToBottom(
+				currentRoom.roomTileHeight,
+				initialScale
+			);
 			currentRoom.scale = initialScale;
 		},
 		editorVisibleWindowChanged(
@@ -1325,7 +1328,10 @@ const editorSlice = createSlice({
 						width: 0,
 						height: 0,
 					},
-					scrollOffset: { x: 0, y: calcYForScrollToBottom() },
+					scrollOffset: {
+						x: 0,
+						y: calcYForScrollToBottom(r.roomTileHeight, initialScale),
+					},
 					paletteEntries: r.paletteEntries,
 					validEntityTypes: [],
 					currentPaletteEntry: r.paletteEntries[0],
