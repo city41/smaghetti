@@ -6,7 +6,7 @@ import {
 import {
 	loadExampleLevel,
 	loadBlankLevel,
-	loadLevel,
+	setLevel,
 	loadFromLocalStorage,
 } from '../../editorSlice';
 import { AppState, dispatch } from '../../../../store';
@@ -47,7 +47,7 @@ function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 	}
 
 	function handleLevelChosen(level: Level) {
-		dispatch(loadLevel(level.id));
+		dispatch(setLevel(level));
 		props.onRequestClose();
 	}
 

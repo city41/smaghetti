@@ -1905,6 +1905,11 @@ const loadBlankLevel = (): LevelThunk => (dispatch) => {
 	dispatch(editorSlice.actions.eraseLevel());
 };
 
+const setLevel = (level: Level): LevelThunk => (dispatch) => {
+	dispatch(editorSlice.actions.setLevelName(level.name));
+	dispatch(editorSlice.actions.setLevelDataFromLoad(level.data));
+};
+
 const LOCALSTORAGE_KEY = 'smaghetti_editor';
 
 const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
@@ -2028,6 +2033,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		'editor/loadFromLocalStorage',
 		'editor/loadExampleLevel',
 		'editor/loadBlankLevel',
+		'editor/setLevel',
 		'editor/saveToLocalStorage',
 		'@@INIT',
 		'preloader/resourceLoaded',
@@ -2189,6 +2195,7 @@ export {
 	loadFromLocalStorage,
 	loadExampleLevel,
 	loadBlankLevel,
+	setLevel,
 	saveToLocalStorage,
 	eraseLevel,
 	LOCALSTORAGE_KEY,
