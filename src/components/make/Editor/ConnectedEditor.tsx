@@ -11,6 +11,9 @@ const ConnectedEditor: FunctionComponent<ConnectedEditorProps> = (props) => {
 		(state: AppState) => state.editor.present
 	);
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
+	const { name, creatorName } = useSelector(
+		(state: AppState) => state.editor.present
+	);
 
 	const mode = storedForManageLevelMode ? 'managing-rooms' : 'editing';
 
@@ -20,6 +23,8 @@ const ConnectedEditor: FunctionComponent<ConnectedEditorProps> = (props) => {
 			loadLevelState={loadLevelState}
 			{...props}
 			areFilesReady={allFilesReady}
+			levelName={name}
+			creatorName={creatorName}
 		/>
 	);
 };

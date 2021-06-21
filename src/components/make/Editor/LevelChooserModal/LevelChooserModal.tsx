@@ -28,6 +28,7 @@ type InternalLevelChooserModalProps = {
 	savedLevels: Array<Level | BrokenLevel>;
 	onLevelChosen: (level: Level) => void;
 	onDeleteLevel: (level: Level | BrokenLevel) => void;
+	onTogglePublishLevel: (level: Level) => void;
 };
 
 const THUMBNAIL_SCALE = 0.5;
@@ -66,6 +67,7 @@ function LevelChooserModal({
 	savedLevels,
 	onLevelChosen,
 	onDeleteLevel,
+	onTogglePublishLevel,
 	onRequestClose,
 }: PublicLevelChooserModalProps & InternalLevelChooserModalProps) {
 	const serializedExampleLevel = getExampleLevel();
@@ -152,6 +154,31 @@ function LevelChooserModal({
 						)}
 					</LevelButton>
 				</div>
+				{isLoggedIn && (
+					<div className="mt-4 bg-green-200 text-green-900 p-2 text-sm">
+						Publishing a level lists it on the{' '}
+						<a
+							className="text-blue-500"
+							target="_blank"
+							rel="noreferrer"
+							href="/levels"
+						>
+							levels page
+						</a>
+						. Anyone can load your published levels into the editor to try them,
+						but they can not save them (not even a copy). Published levels need
+						to abide by the{' '}
+						<a
+							className="text-blue-500"
+							target="_blank"
+							rel="noreferrer"
+							href="/tos"
+						>
+							terms of service
+						</a>
+						.
+					</div>
+				)}
 				{loadingLevelsState !== 'none' && (
 					<>
 						<hr className="mt-6 mb-8" />
@@ -161,6 +188,7 @@ function LevelChooserModal({
 							thumbnailScale={THUMBNAIL_SCALE}
 							onLevelChosen={onLevelChosen}
 							onDeleteLevel={onDeleteLevel}
+							onTogglePublishLevel={onTogglePublishLevel}
 						/>
 					</>
 				)}

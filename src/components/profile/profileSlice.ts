@@ -7,12 +7,16 @@ import type { ProfileData } from '../../remoteData/getProfile';
 import { client } from '../../remoteData/client';
 import { deserialize } from '../../level/deserialize';
 import { convertLevelToLatestVersion } from '../../level/versioning/convertLevelToLatestVersion';
+import { setLevelPublished } from '../../remoteData/setLevelPublished';
+import { isBrokenLevel } from '../make/Editor/LevelChooserModal/util';
 
 type DeleteState = 'deleting' | 'error' | 'success';
+type TogglePublishState = 'toggling' | 'error' | 'success';
 
 type ProfileState = {
 	loadState: 'dormant' | 'loading' | 'error' | 'success';
 	deleteState: Record<string, DeleteState>;
+	publishState: Record<string, TogglePublishState>;
 	user: User | null;
 	levels: Array<Level | BrokenLevel>;
 };
@@ -20,6 +24,7 @@ type ProfileState = {
 const initialState: ProfileState = {
 	loadState: 'dormant',
 	deleteState: {},
+	publishState: {},
 	user: null,
 	levels: [],
 };
@@ -44,11 +49,31 @@ const profileSlice = createSlice({
 				[id]: deleteState,
 			};
 		},
+		setPublishState: (
+			state: ProfileState,
+			action: PayloadAction<{ id: string; state: TogglePublishState }>
+		) => {
+			const { id, state: publishState } = action.payload;
+			state.publishState = {
+				...state.publishState,
+				[id]: publishState,
+			};
+		},
 		clearDeleteState(state: ProfileState, action: PayloadAction<string>) {
 			delete state.deleteState[action.payload];
 		},
+		clearPublishState(state: ProfileState, action: PayloadAction<string>) {
+			delete state.publishState[action.payload];
+		},
 		removeLevel(state: ProfileState, action: PayloadAction<string>) {
 			state.levels = state.levels.filter((l) => l.id !== action.payload);
+		},
+		togglePublished(state: ProfileState, action: PayloadAction<string>) {
+			const level = state.levels.find((l) => l.id === action.payload);
+
+			if (level && !isBrokenLevel(level)) {
+				level.published = !level.published;
+			}
 		},
 		setProfile(state: ProfileState, action: PayloadAction<ProfileData>) {
 			state.user = action.payload.user;
@@ -121,7 +146,27 @@ const deleteLevel = (level: Level | BrokenLevel): ProfileSliceThunk => async (
 	}
 };
 
+const togglePublishLevel = (level: Level): ProfileSliceThunk => async (
+	dispatch
+) => {
+	try {
+		await setLevelPublished(level.id, !level.published);
+		dispatch(
+			profileSlice.actions.setPublishState({ id: level.id, state: 'success' })
+		);
+		dispatch(profileSlice.actions.togglePublished(level.id));
+	} catch (e) {
+		dispatch(
+			profileSlice.actions.setPublishState({ id: level.id, state: 'error' })
+		);
+	} finally {
+		setTimeout(() => {
+			dispatch(profileSlice.actions.clearPublishState(level.id));
+		}, 2000);
+	}
+};
+
 const reducer = profileSlice.reducer;
 
-export { reducer, loadProfile, deleteLevel };
+export { reducer, loadProfile, deleteLevel, togglePublishLevel };
 export type { ProfileState };

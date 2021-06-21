@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { MakePage } from './MakePage';
+import { MakePage, PublicMakePageProps } from './MakePage';
 import { AppState } from '../../../store';
 
-function ConnectedMakePage() {
+function ConnectedMakePage(props: PublicMakePageProps) {
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
 
-	return <MakePage allFilesReady={allFilesReady} />;
+	return <MakePage allFilesReady={allFilesReady} {...props} />;
 }
 
 export { ConnectedMakePage };

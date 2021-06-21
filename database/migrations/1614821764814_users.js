@@ -70,3 +70,4 @@ exports.down = (pgm) => {
 };
 
 exports.USER_TABLE = USER_TABLE;
+exports.POLICY_NAME_READ_USERS = POLICY_NAME_READ_USERS;

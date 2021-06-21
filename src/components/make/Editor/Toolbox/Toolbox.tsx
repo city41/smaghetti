@@ -32,6 +32,7 @@ const icons: Record<MouseMode, ElementType> = {
 type PublicToolboxProps = {
 	className?: string;
 	disabled: boolean;
+	disableSaving: boolean;
 	isPlaying: boolean;
 	onPlayClick: () => void;
 };
@@ -72,6 +73,7 @@ const Toolbox = memo(function Toolbox({
 	onToggleGrid,
 	onEraseLevel,
 	disabled,
+	disableSaving,
 	isPlaying,
 	onPlayClick,
 }: InternalToolboxProps & PublicToolboxProps) {
@@ -119,7 +121,7 @@ const Toolbox = memo(function Toolbox({
 					isPlaying={isPlaying}
 					onClick={onPlayClick}
 				/>
-				<SaveButton disabled={disabled} />
+				<SaveButton disabled={disabled} disabledExplicitly={disableSaving} />
 				<DownloadButton disabled={disabled} />
 			</div>
 

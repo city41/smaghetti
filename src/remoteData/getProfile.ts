@@ -35,6 +35,8 @@ export async function getProfile(id: string): Promise<ProfileData> {
       version
     `
 		)
+		// @ts-ignore supabase and types are ... hmm...
+		.eq('user_id', id)
 		.order('updated_at', { ascending: false });
 
 	if (levelsError) {

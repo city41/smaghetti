@@ -70,6 +70,15 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Community Levels Page" date="2021-06-21">
+					<p>You can now publish your levels to let other people try them.</p>
+					<p>
+						Published levels will show up on the <a href="/levels">levels</a>{' '}
+						page. People can load your published levels into the editor and play
+						with them, but they can&apost save them, not even a copy. I might
+						loosen that restriction later, what do you prefer?
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-19">
 					<ul>
 						<li>Spike Top</li>

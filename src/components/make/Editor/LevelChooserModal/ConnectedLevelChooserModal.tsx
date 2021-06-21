@@ -12,7 +12,11 @@ import {
 import { AppState, dispatch } from '../../../../store';
 import { client } from '../../../../remoteData/client';
 import { useSelector } from 'react-redux';
-import { deleteLevel, loadProfile } from '../../../profile/profileSlice';
+import {
+	deleteLevel,
+	loadProfile,
+	togglePublishLevel,
+} from '../../../profile/profileSlice';
 
 function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 	const [localUser, setLocalUser] = useState(client.auth.user());
@@ -55,6 +59,10 @@ function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 		dispatch(deleteLevel(level));
 	}
 
+	function handleTogglePublishLevel(level: Level) {
+		dispatch(togglePublishLevel(level));
+	}
+
 	return (
 		<LevelChooserModal
 			{...props}
@@ -63,6 +71,7 @@ function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 			onLocalStorageLevelChosen={handleLocalStorageLevelChosen}
 			onLevelChosen={handleLevelChosen}
 			onDeleteLevel={handleDeleteLevel}
+			onTogglePublishLevel={handleTogglePublishLevel}
 			loadingLevelsState={localUser ? loadState : 'none'}
 			savedLevels={levels}
 			isLoggedIn={!!localUser}

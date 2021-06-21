@@ -5,7 +5,7 @@ export async function getLevel(
 ): Promise<SerializedLevel | undefined> {
 	const { data, error } = await client
 		.from<SerializedLevel>('levels')
-		.select('*')
+		.select('*, user:user_id (username)')
 		.eq('id', id);
 
 	if (error) {

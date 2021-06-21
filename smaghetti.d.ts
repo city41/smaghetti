@@ -152,6 +152,10 @@ type NewLevel = {
 	data: LevelData;
 	created_at: string;
 	updated_at?: string;
+	published?: boolean;
+	user?: {
+		username: string;
+	};
 };
 
 type SerializedLevelData = {

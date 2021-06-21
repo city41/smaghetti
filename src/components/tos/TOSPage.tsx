@@ -16,10 +16,9 @@ function TOSPage() {
 				>
 					Terms of Service
 				</h1>
-				<h2>Introduction</h2>
 				<p>
-					Here are the rules you must follow, otherwise you may be banned. In
-					short, don&apos;t be a jerk
+					Here are the rules you must follow, otherwise you may be banned or
+					find your levels unpublished. In short, just don&apos;t be a jerk.
 				</p>
 				<ul>
 					<li>No hateful, derogatory or discriminatory speech of any kind</li>
@@ -31,11 +30,11 @@ function TOSPage() {
 					<li>
 						Don&apos;t steal other people&apos;s levels and/or try to claim them
 						as your own, whether those levels came from Smaghetti or other games
-						entirely.
+						entirely
 					</li>
 					<li>
-						Do not share any copyrighted data such as the SMA4 ROM with anyone.
-						You must own the game and use your own copy.
+						Do not share any copyrighted data such as the SMA4 ROM or e-reader
+						files with anyone. You must own the game and use your own copy
 					</li>
 				</ul>
 			</div>

@@ -7,11 +7,18 @@ import { TooSmall } from './TooSmall';
 import { NoscriptWarning } from './NoscriptWarning';
 import { Head } from '../../layout/Head';
 
-type MakePageProps = {
+type InternalMakePageProps = {
 	allFilesReady: boolean;
 };
 
-function MakePage({ allFilesReady }: MakePageProps) {
+type PublicMakePageProps = {
+	publishedLevelToLoad?: string;
+};
+
+function MakePage({
+	allFilesReady,
+	publishedLevelToLoad,
+}: InternalMakePageProps & PublicMakePageProps) {
 	const [afterFirstRender, setAfterFirstRender] = useState(false);
 	const head = <Head title="Level Editor" metaDescription="" />;
 
@@ -37,7 +44,7 @@ function MakePage({ allFilesReady }: MakePageProps) {
 						<>
 							<NoscriptWarning />
 							<FileLoaderModal isOpen={!allFilesReady} />
-							<Editor />
+							<Editor publishedLevelToLoad={publishedLevelToLoad} />
 						</>
 					);
 				}}
@@ -47,3 +54,4 @@ function MakePage({ allFilesReady }: MakePageProps) {
 }
 
 export { MakePage };
+export type { PublicMakePageProps };

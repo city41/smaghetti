@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
+import { useRouter } from 'next/router';
 
-import { loadBlankLevel, saveToLocalStorage } from '../editorSlice';
+import { loadLevel, loadBlankLevel, saveToLocalStorage } from '../editorSlice';
 
 import { Palette } from './Palette';
 import { Layers } from './Layers';
@@ -24,6 +25,7 @@ import { LoadingBar } from '../../LoadingBar';
 import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
 
 type EditorProps = {
+	publishedLevelToLoad?: string;
 	areFilesReady?: boolean;
 	noScript?: boolean;
 	mode: 'editing' | 'managing-rooms';
@@ -34,6 +36,8 @@ type EditorProps = {
 		| 'missing'
 		| 'error'
 		| 'legacy';
+	levelName?: string;
+	creatorName?: string;
 };
 
 function toFreshEditor() {
@@ -45,7 +49,11 @@ function Editor({
 	mode,
 	loadLevelState,
 	areFilesReady,
+	publishedLevelToLoad,
+	levelName,
+	creatorName,
 }: EditorProps) {
+	const router = useRouter();
 	const [isChoosingLevel, setIsChoosingLevel] = useState(false);
 	const [isPlaying, setPlaying] = useState(false);
 	const [showKeyboardHelpModal, setShowKeyboardHelpModal] = useState(false);
@@ -54,16 +62,22 @@ function Editor({
 	const firstRender = useFirstRender();
 
 	useEffect(() => {
-		setIsChoosingLevel(!!areFilesReady);
-	}, [areFilesReady]);
+		setIsChoosingLevel(!!areFilesReady && !publishedLevelToLoad);
+	}, [areFilesReady, publishedLevelToLoad]);
 
 	useEffect(() => {
-		dispatch(loadBlankLevel());
-	}, []);
+		if (!publishedLevelToLoad) {
+			dispatch(loadBlankLevel());
+		} else {
+			dispatch(loadLevel(publishedLevelToLoad));
+		}
+	}, [publishedLevelToLoad]);
 
 	useEffect(() => {
 		function dispatchSaveLevelToLocalStorage() {
-			dispatch(saveToLocalStorage());
+			if (!publishedLevelToLoad) {
+				dispatch(saveToLocalStorage());
+			}
 		}
 
 		window.addEventListener('beforeunload', dispatchSaveLevelToLocalStorage);
@@ -77,7 +91,7 @@ function Editor({
 			// still want to save it, as user is probably navigating within the app
 			dispatchSaveLevelToLocalStorage();
 		};
-	}, []);
+	}, [publishedLevelToLoad]);
 
 	useHotkeys('?', () => setShowKeyboardHelpModal(true), []);
 
@@ -115,6 +129,14 @@ function Editor({
 			}
 		};
 	}, []);
+
+	function handleLevelsClick() {
+		if (router.pathname !== '/make') {
+			router.push('/make');
+		} else {
+			setIsChoosingLevel(true);
+		}
+	}
 
 	return (
 		<>
@@ -159,6 +181,7 @@ function Editor({
 							<Toolbox
 								className="flex-1"
 								disabled={isPlaying || mode === 'managing-rooms'}
+								disableSaving={!!publishedLevelToLoad}
 								isPlaying={isPlaying}
 								onPlayClick={() => setPlaying((p) => !p)}
 							/>
@@ -171,9 +194,21 @@ function Editor({
 							<Layers disabled={isPlaying || mode === 'managing-rooms'} />
 							<div className="grid grid-rows-3 items-stretch">
 								<MetadataMenu className="row-span-2" disabled={isPlaying} />
-								<PageMenu onLevelsClicked={() => setIsChoosingLevel(true)} />
+								<PageMenu onLevelsClicked={handleLevelsClick} />
 							</div>
 						</div>
+						{publishedLevelToLoad &&
+							typeof levelName === 'string' &&
+							typeof creatorName === 'string' && (
+								<div className="bg-yellow-100 text-yellow-800 p-1 pl-4 text-sm">
+									You&apos;re checking out{' '}
+									<span className="underline font-bold">{levelName}</span> by{' '}
+									<span className="underline font-bold">{creatorName}</span>{' '}
+									<a className="text-blue-600" href="/make">
+										click here to make your own level
+									</a>
+								</div>
+							)}
 					</div>
 					<div
 						className={clsx('fixed right-0 top-40 pointer-events-auto z-10', {
@@ -199,12 +234,8 @@ function Editor({
 					<div className="fixed top-1/3 left-1/3 w-1/3 grid place-items-center z-10 p-4 bg-red-200 text-black space-y-4">
 						<h1 className="text-xl font-bold">Failed to load the level</h1>
 						<p>
-							It may have been deleted, too old, or is owned by someone else.
-							Copying other people&apos;s levels is not supported yet.
-						</p>
-						<p>
-							The level format is stabilizing, so not being able to load old
-							levels will stop being a problem soon
+							It may have been deleted, unpublished, or is too old and no longer
+							works.
 						</p>
 						<p className="font-bold">
 							try refreshing the browser, might have just been a network error

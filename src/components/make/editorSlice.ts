@@ -94,6 +94,7 @@ type RoomState = {
 
 type InternalEditorState = {
 	name: string;
+	creatorName?: string;
 	settings: {
 		timer: number;
 	};
@@ -983,6 +984,12 @@ const editorSlice = createSlice({
 		setLevelName(state: InternalEditorState, action: PayloadAction<string>) {
 			state.name = action.payload;
 		},
+		setLevelCreatorName(
+			state: InternalEditorState,
+			action: PayloadAction<string | undefined>
+		) {
+			state.creatorName = action.payload;
+		},
 		setTimer(state: InternalEditorState, action: PayloadAction<number>) {
 			const newTimer = action.payload;
 			state.settings.timer = Math.min(Math.max(0, newTimer), 999);
@@ -1841,6 +1848,9 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 				const levelData = deserialize(convertedLevel.data);
 				dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
 				dispatch(editorSlice.actions.setLevelName(result.name));
+				dispatch(
+					editorSlice.actions.setLevelCreatorName(result.user?.username)
+				);
 				dispatch(editorSlice.actions.setSavedLevelId(result.id));
 				dispatch(editorSlice.actions.setLoadLevelState('success'));
 			}
@@ -1908,6 +1918,7 @@ const loadBlankLevel = (): LevelThunk => (dispatch) => {
 const setLevel = (level: Level): LevelThunk => (dispatch) => {
 	dispatch(editorSlice.actions.setLevelName(level.name));
 	dispatch(editorSlice.actions.setLevelDataFromLoad(level.data));
+	dispatch(editorSlice.actions.setSavedLevelId(level.id));
 };
 
 const LOCALSTORAGE_KEY = 'smaghetti_editor';

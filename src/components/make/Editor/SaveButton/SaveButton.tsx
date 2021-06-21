@@ -7,6 +7,7 @@ import { PlainIconButton } from '../../../PlainIconButton';
 type PublicSaveButtonProps = {
 	className?: string;
 	disabled?: boolean;
+	disabledExplicitly?: boolean;
 };
 
 type InternalSaveButtonProps = {
@@ -18,6 +19,7 @@ type InternalSaveButtonProps = {
 const SaveButton = memo(function SaveButton({
 	className,
 	disabled,
+	disabledExplicitly,
 	onSaveClick,
 	onSaveACopyClick,
 	saveLevelState,
@@ -41,11 +43,15 @@ const SaveButton = memo(function SaveButton({
 			<PlainIconButton
 				className={clsx(className, { 'relative group': !!onSaveACopyClick })}
 				size="large"
-				label="save this level"
+				label={
+					disabledExplicitly
+						? "Can't save someone else's level"
+						: 'save this level'
+				}
 				onClick={onSaveClick}
 				icon={AiFillSave}
 				loading={saveLevelState === 'saving'}
-				disabled={disabled}
+				disabled={disabled || disabledExplicitly}
 			>
 				{!!onSaveACopyClick && (
 					<a

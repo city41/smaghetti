@@ -9,6 +9,8 @@ import { TILE_SIZE } from '../../../../tiles/constants';
 import { RoomThumbnail } from '../../../RoomThumbnail';
 import { PlainIconButton } from '../../../PlainIconButton';
 import { FaTrash } from 'react-icons/fa';
+import { Button } from '../../../Button';
+import { isBrokenLevel } from './util';
 
 type SavedLevelsProps = {
 	className?: string;
@@ -17,11 +19,8 @@ type SavedLevelsProps = {
 	thumbnailScale: number;
 	onLevelChosen: (level: Level) => void;
 	onDeleteLevel: (level: Level | BrokenLevel) => void;
+	onTogglePublishLevel: (level: Level) => void;
 };
-
-function isBrokenLevel(level: Level | BrokenLevel): level is BrokenLevel {
-	return 'broken' in level;
-}
 
 function BrokenThumbnail({ scale }: { scale: number }) {
 	return (
@@ -75,6 +74,7 @@ type LevelRowProps = {
 	scale: number;
 	onLevelChosen: () => void;
 	onDeleteLevel: () => void;
+	onTogglePublishLevel: () => void;
 };
 
 function LevelRow({
@@ -82,6 +82,7 @@ function LevelRow({
 	scale,
 	onLevelChosen,
 	onDeleteLevel,
+	onTogglePublishLevel,
 }: LevelRowProps) {
 	const thumbnail = isBrokenLevel(level) ? (
 		<BrokenThumbnail scale={scale} />
@@ -103,9 +104,9 @@ function LevelRow({
 
 	return (
 		<div
-			className="grid items-center group hover:bg-blue-500 -mx-4 px-4"
+			className="grid items-center group hover:bg-blue-500 -mx-4 px-4 gap-x-2"
 			style={{
-				gridTemplateColumns: 'min-content 1fr max-content',
+				gridTemplateColumns: 'min-content 1fr max-content max-content',
 			}}
 		>
 			{thumbnail}
@@ -121,6 +122,13 @@ function LevelRow({
 			>
 				{level.name}
 			</div>
+			{isBrokenLevel(level) ? (
+				<div />
+			) : (
+				<Button onClick={onTogglePublishLevel}>
+					{level.published ? 'unpublish' : 'publish'}
+				</Button>
+			)}
 			<DeleteLevel onDeleteLevel={onDeleteLevel} />
 		</div>
 	);
@@ -133,6 +141,7 @@ function SavedLevels({
 	thumbnailScale,
 	onLevelChosen,
 	onDeleteLevel,
+	onTogglePublishLevel,
 }: SavedLevelsProps) {
 	let body = null;
 
@@ -159,6 +168,7 @@ function SavedLevels({
 									scale={thumbnailScale}
 									onLevelChosen={() => onLevelChosen(l as Level)}
 									onDeleteLevel={() => onDeleteLevel(l)}
+									onTogglePublishLevel={() => onTogglePublishLevel(l as Level)}
 								/>
 							);
 						})}

@@ -27,6 +27,10 @@ import {
 	reducer as hexTreeReducer,
 	HexTreeState,
 } from './components/hex-tree/hexTreeSlice';
+import {
+	reducer as levelsReducer,
+	LevelsState,
+} from './components/levels/levelsSlice';
 
 type AppState = {
 	editor: EditorState;
@@ -35,6 +39,7 @@ type AppState = {
 	palettes: PalettesState;
 	profile: ProfileState;
 	hexTree: HexTreeState;
+	levels: LevelsState;
 };
 
 const rootReducer = combineReducers({
@@ -44,6 +49,7 @@ const rootReducer = combineReducers({
 	palettes: palettesReducer,
 	profile: profileReducer,
 	hexTree: hexTreeReducer,
+	levels: levelsReducer,
 });
 
 const store = configureStore({
