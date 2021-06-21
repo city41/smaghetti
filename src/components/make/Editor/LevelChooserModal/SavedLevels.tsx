@@ -16,6 +16,7 @@ type SavedLevelsProps = {
 	className?: string;
 	loadingState: 'dormant' | 'loading' | 'error' | 'success';
 	levels: Array<Level | BrokenLevel>;
+	isAdmin: boolean;
 	thumbnailScale: number;
 	onLevelChosen: (level: Level) => void;
 	onDeleteLevel: (level: Level | BrokenLevel) => void;
@@ -71,6 +72,7 @@ function DeleteLevel({ onDeleteLevel }: { onDeleteLevel: () => void }) {
 
 type LevelRowProps = {
 	level: Level | BrokenLevel;
+	isAdmin: boolean;
 	scale: number;
 	onLevelChosen: () => void;
 	onDeleteLevel: () => void;
@@ -79,6 +81,7 @@ type LevelRowProps = {
 
 function LevelRow({
 	level,
+	isAdmin,
 	scale,
 	onLevelChosen,
 	onDeleteLevel,
@@ -102,11 +105,14 @@ function LevelRow({
 		</button>
 	);
 
+	const repeatCount = isAdmin ? 3 : 2;
+	const gridTemplateColumns = `min-content 1fr repeat(${repeatCount}, max-content)`;
+
 	return (
 		<div
 			className="grid items-center group hover:bg-blue-500 -mx-4 px-4 gap-x-2"
 			style={{
-				gridTemplateColumns: 'min-content 1fr max-content max-content',
+				gridTemplateColumns,
 			}}
 		>
 			{thumbnail}
@@ -122,6 +128,9 @@ function LevelRow({
 			>
 				{level.name}
 			</div>
+			{isAdmin && !isBrokenLevel(level) && (
+				<div className="text-xs text-gray-400">{level.user?.username}</div>
+			)}
 			{isBrokenLevel(level) ? (
 				<div />
 			) : (
@@ -138,6 +147,7 @@ function SavedLevels({
 	className,
 	loadingState,
 	levels,
+	isAdmin,
 	thumbnailScale,
 	onLevelChosen,
 	onDeleteLevel,
@@ -165,6 +175,7 @@ function SavedLevels({
 								<LevelRow
 									key={l.id}
 									level={l}
+									isAdmin={isAdmin}
 									scale={thumbnailScale}
 									onLevelChosen={() => onLevelChosen(l as Level)}
 									onDeleteLevel={() => onDeleteLevel(l)}

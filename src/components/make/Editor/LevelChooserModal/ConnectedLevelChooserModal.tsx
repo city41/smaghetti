@@ -21,7 +21,9 @@ import {
 function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 	const [localUser, setLocalUser] = useState(client.auth.user());
 
-	const { loadState, levels } = useSelector((state: AppState) => state.profile);
+	const { loadState, levels, user: loadedUser } = useSelector(
+		(state: AppState) => state.profile
+	);
 
 	useEffect(() => {
 		client.auth.onAuthStateChange(() => {
@@ -75,6 +77,7 @@ function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 			loadingLevelsState={localUser ? loadState : 'none'}
 			savedLevels={levels}
 			isLoggedIn={!!localUser}
+			isAdmin={loadedUser?.role === 'admin'}
 		/>
 	);
 }

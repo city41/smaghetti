@@ -30,7 +30,8 @@ export async function getProfile(id: string): Promise<ProfileData> {
       data,
       created_at,
       updated_at,
-      version
+      version,
+      user:user_id (username)
     `
 	);
 

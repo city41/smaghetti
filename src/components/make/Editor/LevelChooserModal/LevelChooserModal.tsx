@@ -24,6 +24,7 @@ type InternalLevelChooserModalProps = {
 	onExampleLevelChosen: () => void;
 	onBlankLevelChosen: () => void;
 	isLoggedIn: boolean;
+	isAdmin: boolean;
 	loadingLevelsState: 'none' | 'dormant' | 'loading' | 'error' | 'success';
 	savedLevels: Array<Level | BrokenLevel>;
 	onLevelChosen: (level: Level) => void;
@@ -63,6 +64,7 @@ function LevelChooserModal({
 	onExampleLevelChosen,
 	onBlankLevelChosen,
 	isLoggedIn,
+	isAdmin,
 	loadingLevelsState,
 	savedLevels,
 	onLevelChosen,
@@ -185,6 +187,7 @@ function LevelChooserModal({
 						<SavedLevels
 							loadingState={loadingLevelsState}
 							levels={savedLevels}
+							isAdmin={isAdmin}
 							thumbnailScale={THUMBNAIL_SCALE}
 							onLevelChosen={onLevelChosen}
 							onDeleteLevel={onDeleteLevel}
