@@ -53,7 +53,7 @@ const SaveButton = memo(function SaveButton({
 				loading={saveLevelState === 'saving'}
 				disabled={disabled || disabledExplicitly}
 			>
-				{!!onSaveACopyClick && (
+				{!!onSaveACopyClick && !disabled && !disabledExplicitly && (
 					<a
 						className="absolute z-10 hidden group-hover:block w-28 h-8 bg-yellow-800 -bottom-8 text-sm pt-1 hover:bg-yellow-700"
 						onClick={onSaveACopyClick}
