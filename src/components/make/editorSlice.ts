@@ -1906,8 +1906,8 @@ const loadExampleLevel = (): LevelThunk => (dispatch) => {
 		dispatch(editorSlice.actions.setLoadLevelState('error'));
 	} else {
 		const levelData = deserialize(converted.data);
-		dispatch(editorSlice.actions.setLevelName(exampleLevel.name));
 		dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
+		dispatch(editorSlice.actions.setLevelName(exampleLevel.name));
 	}
 };
 
@@ -1916,8 +1916,8 @@ const loadBlankLevel = (): LevelThunk => (dispatch) => {
 };
 
 const setLevel = (level: Level): LevelThunk => (dispatch) => {
-	dispatch(editorSlice.actions.setLevelName(level.name));
 	dispatch(editorSlice.actions.setLevelDataFromLoad(level.data));
+	dispatch(editorSlice.actions.setLevelName(level.name));
 	dispatch(editorSlice.actions.setSavedLevelId(level.id));
 };
 
