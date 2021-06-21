@@ -9,7 +9,7 @@ export async function getProfile(id: string): Promise<ProfileData> {
 	const { data: userData, error: userError } = await client
 		.from<User>('users')
 		// TODO: username
-		.select('id, username')
+		.select('id, username, role')
 		.eq('id', id)
 		.single();
 
@@ -21,10 +21,8 @@ export async function getProfile(id: string): Promise<ProfileData> {
 		throw new Error(`User with id ${id} not found`);
 	}
 
-	const { data: userLevels, error: levelsError } = await client
-		.from<SerializedLevel>('levels')
-		.select(
-			`
+	let selectPromise = client.from<SerializedLevel>('levels').select(
+		`
       id,
       name,
       description,
@@ -34,10 +32,19 @@ export async function getProfile(id: string): Promise<ProfileData> {
       updated_at,
       version
     `
-		)
-		// @ts-ignore supabase and types are ... hmm...
-		.eq('user_id', id)
-		.order('updated_at', { ascending: false });
+	);
+
+	if (userData.role !== 'admin') {
+		// @ts-ignore
+		selectPromise = selectPromise.eq('user_id', id);
+
+		// if the user is not an admin, then row level security will prevent selecting all levels
+		// so doing this if check on the client is safe
+	}
+
+	selectPromise = selectPromise.order('updated_at', { ascending: false });
+
+	const { data: userLevels, error: levelsError } = await selectPromise;
 
 	if (levelsError) {
 		throw levelsError;

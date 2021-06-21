@@ -183,7 +183,7 @@ type LocalStorageSerializedLevel = Omit<
 >;
 type LevelToLoadInGBA = Omit<NewLevel, 'created_at' | 'updated_at'>;
 
-type User = { id: string; username: string };
+type User = { id: string; username: string; role?: string };
 
 // TODO: these types don't fully work, for example when used as the return type of a function
 type Tuple<T, N extends number> = N extends N ? T[] : _TupleOf<T, N, []>;
