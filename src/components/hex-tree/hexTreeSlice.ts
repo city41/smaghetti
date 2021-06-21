@@ -504,10 +504,9 @@ const loadFromLocalStorage = (): HexTreeThunkAction => (dispatch, getState) => {
 			);
 
 			if (localStorageData) {
-				const deserialized = deserialize(localStorageData.data);
 				levelData = createLevelData({
 					name: localStorageData.name,
-					data: deserialized.levelData,
+					data: deserialize(localStorageData.data),
 				});
 			} else {
 				levelData = EMPTY_LEVEL;

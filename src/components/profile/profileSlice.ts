@@ -65,7 +65,7 @@ const profileSlice = createSlice({
 				try {
 					return {
 						...latestVersion,
-						data: deserialize(latestVersion.data).levelData,
+						data: deserialize(latestVersion.data),
 					};
 				} catch {
 					return {

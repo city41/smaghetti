@@ -116,9 +116,7 @@ function deserializeRoom(
 	};
 }
 
-function deserialize(
-	levelData: SerializedLevelData
-): { levelData: LevelData; maxId: number } {
+function deserialize(levelData: SerializedLevelData): LevelData {
 	let idCounter = 1;
 
 	const deserializedLevelData: LevelData = {
@@ -134,10 +132,7 @@ function deserialize(
 		}, []),
 	};
 
-	return {
-		levelData: deserializedLevelData,
-		maxId: idCounter,
-	};
+	return deserializedLevelData;
 }
 
 export { deserialize };

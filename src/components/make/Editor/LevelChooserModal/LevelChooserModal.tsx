@@ -71,8 +71,8 @@ function LevelChooserModal({
 	const serializedExampleLevel = getExampleLevel();
 
 	const exampleRoom = serializedExampleLevel
-		? deserialize(serializedExampleLevel.data).levelData.rooms[0]
-		: null;
+		? deserialize(serializedExampleLevel.data).rooms[0]
+		: EMPTY_ROOM;
 
 	const localStorageData = localStorage[LOCALSTORAGE_KEY];
 	let convertedLocalStorage;
@@ -85,7 +85,7 @@ function LevelChooserModal({
 	}
 
 	const localRoom = convertedLocalStorage
-		? deserialize(convertedLocalStorage.data).levelData.rooms[0]
+		? deserialize(convertedLocalStorage.data).rooms[0]
 		: EMPTY_ROOM;
 
 	return (

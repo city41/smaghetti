@@ -1,4 +1,4 @@
-import { convertASCIIToLevelName } from './util';
+import { convertASCIIToLevelName, flattenCells } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import cloneDeep from 'lodash/cloneDeep';
 import { entityMap } from '../entities/entityMap';
@@ -453,23 +453,6 @@ function getTransports(
 			exitTypeToByte[t.exitType],
 		]);
 	}, transportsHeader);
-}
-
-function flattenCells(matrix: EditorEntityMatrix): EditorEntity[] {
-	return matrix.reduce<EditorEntity[]>((building, row) => {
-		if (!row) {
-			return building;
-		}
-		const rowTiles = row.reduce<EditorEntity[]>((buildingRow, tile) => {
-			if (!tile) {
-				return buildingRow;
-			}
-
-			return buildingRow.concat(tile);
-		}, []);
-
-		return building.concat(rowTiles);
-	}, []);
 }
 
 function getRoom(

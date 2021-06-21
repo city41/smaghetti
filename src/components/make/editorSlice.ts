@@ -49,6 +49,7 @@ import {
 	convertLevelToLatestVersion,
 	CURRENT_VERSION,
 } from '../../level/versioning/convertLevelToLatestVersion';
+import { flattenCells } from '../../levelData/util';
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
 
@@ -394,7 +395,7 @@ const defaultInitialState: InternalEditorState = {
 
 const initialState = defaultInitialState;
 
-const EMPTY_SERIALIZED_LEVEL: SerializedLevelData = {
+const EMPTY_LEVEL: LevelData = {
 	settings: {
 		timer: 900,
 	},
@@ -404,12 +405,10 @@ const EMPTY_SERIALIZED_LEVEL: SerializedLevelData = {
 			actors: {
 				...initialState.rooms[0].actors,
 				matrix: [],
-				matrixSettings: [],
 			},
 			stage: {
 				...initialState.rooms[0].actors,
 				matrix: [],
-				matrixSettings: [],
 			},
 			paletteEntries: [...initialRoomState.paletteEntries],
 			roomTileHeight: INITIAL_ROOM_TILE_HEIGHT,
@@ -949,6 +948,34 @@ function fillAt(
 	floodFill(layer.matrix, type, x, y, tileWidth, tileHeight);
 }
 
+function getMaxId(levelData: LevelData): number {
+	// a level with no rooms? not sure how to get in that state,
+	// but rather be defensive here
+	if (levelData.rooms.length === 0) {
+		return 0;
+	}
+
+	return levelData.rooms.reduce<number>((highestSoFar, room) => {
+		const cellActorEntities = flattenCells(room.actors.matrix);
+		const cellStageEntities = flattenCells(room.stage.matrix);
+
+		const allEntities = room.actors.entities.concat(
+			room.stage.entities,
+			cellActorEntities,
+			cellStageEntities
+		);
+
+		if (allEntities.length === 0) {
+			return highestSoFar;
+		}
+
+		const ids = allEntities.map((e) => e.id);
+		const maxId = Math.max(...ids);
+
+		return Math.max(maxId, highestSoFar);
+	}, 0);
+}
+
 const editorSlice = createSlice({
 	name: 'editor',
 	initialState,
@@ -1296,11 +1323,11 @@ const editorSlice = createSlice({
 		},
 		setLevelDataFromLoad(
 			state: InternalEditorState,
-			action: PayloadAction<SerializedLevelData>
+			action: PayloadAction<LevelData>
 		) {
 			resetState(state);
 
-			const { levelData, maxId } = deserialize(action.payload);
+			const levelData = action.payload;
 
 			state.settings = levelData.settings;
 			state.rooms = levelData.rooms.map((r) => {
@@ -1342,7 +1369,7 @@ const editorSlice = createSlice({
 				updateValidEntityTypes(r);
 			});
 
-			idCounter = maxId;
+			idCounter = getMaxId(levelData) + 1;
 
 			assignAceCoinIndices(state.rooms);
 		},
@@ -1797,7 +1824,7 @@ const saveLevelCopy = (): LevelThunk => async (dispatch, getState) => {
 
 const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 	try {
-		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_SERIALIZED_LEVEL));
+		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
 		dispatch(editorSlice.actions.setLevelName(''));
 		dispatch(editorSlice.actions.setLoadLevelState('loading'));
 
@@ -1811,7 +1838,8 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 			if (!convertedLevel) {
 				dispatch(editorSlice.actions.setLoadLevelState('error'));
 			} else {
-				dispatch(editorSlice.actions.setLevelDataFromLoad(convertedLevel.data));
+				const levelData = deserialize(convertedLevel.data);
+				dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
 				dispatch(editorSlice.actions.setLevelName(result.name));
 				dispatch(editorSlice.actions.setSavedLevelId(result.id));
 				dispatch(editorSlice.actions.setLoadLevelState('success'));
@@ -1834,9 +1862,8 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 				);
 
 				if (localStorageData) {
-					dispatch(
-						editorSlice.actions.setLevelDataFromLoad(localStorageData.data)
-					);
+					const levelData = deserialize(localStorageData.data);
+					dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
 					dispatch(editorSlice.actions.setLevelName(localStorageData.name));
 				} else {
 					dispatch(editorSlice.actions.setLoadLevelState('legacy'));
@@ -1868,8 +1895,9 @@ const loadExampleLevel = (): LevelThunk => (dispatch) => {
 	if (!converted) {
 		dispatch(editorSlice.actions.setLoadLevelState('error'));
 	} else {
+		const levelData = deserialize(converted.data);
 		dispatch(editorSlice.actions.setLevelName(exampleLevel.name));
-		dispatch(editorSlice.actions.setLevelDataFromLoad(converted.data));
+		dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
 	}
 };
 

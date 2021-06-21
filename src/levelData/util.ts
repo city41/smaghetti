@@ -124,3 +124,20 @@ export function extractName(
 
 	return Uint8Array.from(name);
 }
+
+export function flattenCells(matrix: EditorEntityMatrix): EditorEntity[] {
+	return matrix.reduce<EditorEntity[]>((building, row) => {
+		if (!row) {
+			return building;
+		}
+		const rowTiles = row.reduce<EditorEntity[]>((buildingRow, tile) => {
+			if (!tile) {
+				return buildingRow;
+			}
+
+			return buildingRow.concat(tile);
+		}, []);
+
+		return building.concat(rowTiles);
+	}, []);
+}
