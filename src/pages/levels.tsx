@@ -7,7 +7,7 @@ import { store } from '../store';
 function NextLevelsPage() {
 	return (
 		<Provider store={store}>
-			<LevelsPage />;
+			<LevelsPage />
 		</Provider>
 	);
 }
