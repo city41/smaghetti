@@ -234,7 +234,7 @@ function PaletteChoiceModal({
 					{tabs[currentTabIndex].category === 'unfinished' && (
 						<UnfinishedDisclaimer />
 					)}
-					<div className={styles.currentEntries}>
+					<div className={clsx(styles.currentEntries, 'thinScrollbar')}>
 						{(Object.keys(currentEntries) as PaletteSubcategory[])
 							.sort(subcategoryComparator)
 							.map((groupKey) => {

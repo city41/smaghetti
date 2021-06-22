@@ -6,7 +6,7 @@
 	display: grid;
 	grid-template-columns: 1fr 200px;
 	min-height: 400px;
-	max-height: 60vh;
+	max-height: 100%;
 	width: 1100px;
 	max-width: 90vw;
 }
