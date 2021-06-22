@@ -77,15 +77,8 @@ function RoadmapPage() {
 				</div>
 				<div className="space-y-8 my-16">
 					<p>
-						Currently Smaghetti is in early preview. This means the core of the
-						tool is actively being built and significant reverse engineering of
-						the game is taking place. During early preview, things will change
-						and break as I figure out the best way to build this thing.
-					</p>
-					<p className="font-bold -mx-2 p-2 bg-red-400">
-						Any levels you make now will almost certainly stop working, please
-						don&apos;t put a lot of effort into a level yet. Better to just play
-						with the tool for now.
+						Smaghetti is juuuuust shy of being in alpha, just one last thing to
+						figure out related to positioning Mario.
 					</p>
 				</div>
 				<div className="space-y-8">
