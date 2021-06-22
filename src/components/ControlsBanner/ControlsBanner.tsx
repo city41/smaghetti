@@ -1,9 +1,7 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import clsx from 'clsx';
 import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 import { ControlsHelpModal } from './ControlsHelpModal';
-import { FirefoxWarning } from './FirefoxWarning';
-import { SafariWarning } from './SafariWarning';
 
 type ControlsBannerProps = {
 	className?: string;
@@ -11,17 +9,6 @@ type ControlsBannerProps = {
 
 function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 	const [showHelp, setShowHelp] = useState(false);
-	const [showFirefoxWarning, setShowFirefoxWarning] = useState(false);
-	const [showSafariWarning, setShowSafariWarning] = useState(false);
-
-	useEffect(() => {
-		const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-		setShowSafariWarning(isSafari);
-
-		setShowFirefoxWarning(
-			navigator.userAgent.toLowerCase().indexOf('firefox') > -1
-		);
-	}, []);
 
 	return (
 		<div className="flex flex-col">
@@ -48,8 +35,6 @@ function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 					help
 				</a>
 			</div>
-			{showFirefoxWarning && <FirefoxWarning />}
-			{showSafariWarning && <SafariWarning />}
 		</div>
 	);
 }
