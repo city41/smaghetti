@@ -1334,7 +1334,7 @@ const editorSlice = createSlice({
 		) {
 			resetState(state);
 
-			const levelData = action.payload;
+			const levelData = cloneDeep(action.payload);
 
 			state.settings = levelData.settings;
 			state.rooms = levelData.rooms.map((r) => {
