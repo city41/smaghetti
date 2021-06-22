@@ -73,9 +73,11 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-06-22">
 					<ul>
 						<li>Background Hills - Striped, Large</li>
+						<li>Background Hills - Textured, Large</li>
 						<li>Background Hills - Textured, Medium</li>
 						<li>Background Hills - Textured, Small</li>
 					</ul>
+					<p>All hill backgrounds are now extracted</p>
 				</NewEntry>
 				<NewEntry title="Community Levels Page" date="2021-06-21">
 					<p>You can now publish your levels to let other people try them.</p>

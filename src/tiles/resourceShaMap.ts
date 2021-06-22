@@ -6,6 +6,7 @@ export const resourceShaMap: Record<string, string> = {
   "ArrowLift": "362669ee6580cb99b02b76116c2c2fef0ed6d73d",
   "ArrowSign": "8598fafced94d7f0280581dbec4a940c65c287fa",
   "BackgroundHillsStripedLarge": "c1de58e81b0f7b8c646969613b767beaec140c8e",
+  "BackgroundHillsTexturedLarge": "1e2c408ee81d24a65a8a22eea87201d408f995d5",
   "BackgroundHillsTexturedMedium": "318071fd7991c21e7cfab74c30b9481042b84ff4",
   "BackgroundHillsTexturedSmall": "4e93da386bd53783315ee39264f88c474510f857",
   "BabyCheepCheep": "9bcaa900a99f34c5af4eb96226fdeac7e2bab331",

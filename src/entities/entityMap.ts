@@ -7,6 +7,7 @@ import { ArrowSign } from './ArrowSign';
 import { BackgroundHillsStripedLarge } from './BackgroundHillsStripedLarge';
 import { BackgroundHillsStripedMedium } from './BackgroundHillsStripedMedium';
 import { BackgroundHillsStripedSmall } from './BackgroundHillsStripedSmall';
+import { BackgroundHillsTexturedLarge } from './BackgroundHillsTexturedLarge';
 import { BackgroundHillsTexturedMedium } from './BackgroundHillsTexturedMedium';
 import { BackgroundHillsTexturedSmall } from './BackgroundHillsTexturedSmall';
 import { BabyCheepCheep } from './BabyCheepCheep';
@@ -247,6 +248,7 @@ const entityMap = {
 	BackgroundHillsStripedLarge,
 	BackgroundHillsStripedMedium,
 	BackgroundHillsStripedSmall,
+	BackgroundHillsTexturedLarge,
 	BackgroundHillsTexturedMedium,
 	BackgroundHillsTexturedSmall,
 	BabyCheepCheep,
