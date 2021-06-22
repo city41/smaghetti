@@ -75,7 +75,7 @@ function WhatsNewPage() {
 					<p>
 						Published levels will show up on the <a href="/levels">levels</a>{' '}
 						page. People can load your published levels into the editor and play
-						with them, but they can&apost save them, not even a copy. I might
+						with them, but they can&apos;t save them, not even a copy. I might
 						loosen that restriction later, what do you prefer?
 					</p>
 				</NewEntry>
