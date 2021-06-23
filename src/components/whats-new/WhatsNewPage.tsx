@@ -70,6 +70,18 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Download multiple levels to a save file"
+					date="2021-06-23"
+				>
+					<p>
+						On the <a href="/levels">levels</a> page, you can now choose to save
+						up to 30 levels into a save file. You can then load that save file
+						into a Game Boy using a flash cart, or into an emulator, and try out
+						all the levels you chose.
+					</p>
+					<p>Doing this on your own levels inside the editor is coming</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-22">
 					<ul>
 						<li>Background Hills - Striped, Large</li>

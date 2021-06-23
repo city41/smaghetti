@@ -23,17 +23,39 @@ function getSafeFileName(levelName: string): string {
 	return `${levelName}.sav`;
 }
 
-function downloadLevelAsSaveFile(level: LevelToLoadInGBA) {
+function downloadSetOfLevelsAsSaveFile(
+	levels: LevelToLoadInGBA[],
+	saveFileNameRoot: string
+) {
 	const emptySave = getEmptySave();
 
 	if (!emptySave) {
-		throw new Error('downloadLevelAsSaveFile: called before empty save is set');
+		throw new Error(
+			'downloadSetOfLevelsAsSaveFile: called before empty save is set'
+		);
 	}
 
-	const levelSaveData = createLevelData(level);
-	const fullSaveData = injectLevelIntoSave(emptySave, levelSaveData, true);
+	let fullSaveData = emptySave;
+	const nameMap: Record<string, number> = {};
 
-	sendFileToAnchorTag(fullSaveData, getSafeFileName(level.name));
+	levels.forEach((level) => {
+		const croppedName = level.name.substr(0, 19);
+		const name = `${nameMap[croppedName] ?? ''}${croppedName}`;
+		nameMap[croppedName] = (nameMap[croppedName] ?? 1) + 1;
+
+		const levelSaveData = createLevelData({ ...level, name });
+		fullSaveData = injectLevelIntoSave(fullSaveData, levelSaveData, false);
+	});
+
+	sendFileToAnchorTag(fullSaveData, getSafeFileName(saveFileNameRoot));
 }
 
-export { downloadLevelAsSaveFile, sendFileToAnchorTag };
+function downloadLevelAsSaveFile(level: LevelToLoadInGBA) {
+	downloadSetOfLevelsAsSaveFile([level], level.name);
+}
+
+export {
+	downloadLevelAsSaveFile,
+	downloadSetOfLevelsAsSaveFile,
+	sendFileToAnchorTag,
+};

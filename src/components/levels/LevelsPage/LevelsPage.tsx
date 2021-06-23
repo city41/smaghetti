@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { Root } from '../../layout/Root';
 import { LoadingBar } from '../../LoadingBar';
 import { LevelRow } from './LevelRow';
+import { SaveFileList } from './SaveFileList';
+import { downloadSetOfLevelsAsSaveFile } from '../../../levelData/downloadLevelAsSaveFile';
+import { HowToUseDownloadModal } from '../../HowToUseDownloadModal';
 
 type InternalLevelsPageProps = {
 	allFilesReady: boolean;
@@ -15,7 +18,18 @@ function LevelsPage({
 	loadState,
 	levels,
 }: InternalLevelsPageProps) {
+	const [isBuildingSave, setIsBuildingSave] = useState(false);
+	const [chosenLevels, setChosenLevels] = useState<Level[]>([]);
+	const [showDownloadHelp, setShowDownloadHelp] = useState(false);
+
 	let body = null;
+
+	function downloadSave(levels: Level[]) {
+		downloadSetOfLevelsAsSaveFile(levels, 'smaghetti');
+		setShowDownloadHelp(true);
+		setIsBuildingSave(false);
+		setChosenLevels([]);
+	}
 
 	switch (loadState) {
 		case 'dormant':
@@ -32,11 +46,43 @@ function LevelsPage({
 		case 'success':
 			if (levels.length > 0) {
 				body = (
-					<div className="space-y-8">
-						{levels.map((l) => (
-							<LevelRow key={l.id} level={l} />
-						))}
-					</div>
+					<>
+						<HowToUseDownloadModal
+							isOpen={showDownloadHelp}
+							onRequestClose={() => setShowDownloadHelp(false)}
+						/>
+						<div className="space-y-8">
+							<SaveFileList
+								className="mx-12 h-16 sticky top-0 z-10"
+								chosenLevelCount={chosenLevels.length}
+								totalLevelCount={levels.length}
+								onStartClick={() => {
+									setIsBuildingSave(true);
+								}}
+								onCancelClick={() => {
+									setIsBuildingSave(false);
+									setChosenLevels([]);
+								}}
+								onSaveClick={() => downloadSave(chosenLevels)}
+								isBuilding={isBuildingSave}
+							/>
+							{levels.map((l) => (
+								<LevelRow
+									key={l.id}
+									level={l}
+									isBuildingSave={isBuildingSave}
+									isChosen={chosenLevels.includes(l)}
+									onChosenChange={(newChosen) => {
+										if (newChosen && chosenLevels.length < 30) {
+											setChosenLevels((cl) => cl.concat(l));
+										} else {
+											setChosenLevels((cl) => cl.filter((cll) => cll !== l));
+										}
+									}}
+								/>
+							))}
+						</div>
+					</>
 				);
 			} else {
 				body = (
