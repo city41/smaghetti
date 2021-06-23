@@ -53,7 +53,8 @@ function LevelsPage({
 						/>
 						<div className="space-y-8">
 							<SaveFileList
-								className="mx-12 h-16 sticky top-0 z-10"
+								className="mx-12 sticky top-0 z-10"
+								style={{ minHeight: '3rem' }}
 								chosenLevelCount={chosenLevels.length}
 								totalLevelCount={levels.length}
 								onStartClick={() => {

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 import { MdFileDownload } from 'react-icons/md';
 import { Button } from '../../Button';
 
 type SaveFileListProps = {
 	className?: string;
+	style?: CSSProperties;
 	isBuilding: boolean;
 	onStartClick: () => void;
 	onSaveClick: () => void;
@@ -23,6 +24,7 @@ function pluralize(root: string, count: number): string {
 
 function SaveFileList({
 	className,
+	style = {},
 	isBuilding,
 	onStartClick,
 	onSaveClick,
@@ -36,7 +38,7 @@ function SaveFileList({
 				className,
 				'p-2 bg-gray-600 border border-white grid space-x-2 items-center text-sm'
 			)}
-			style={{ gridTemplateColumns: '8rem 1fr' }}
+			style={{ ...style, gridTemplateColumns: '8rem 1fr' }}
 		>
 			{isBuilding ? (
 				<div className="grid grid-cols-2 gap-x-1 h-full">
