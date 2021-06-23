@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import clsx from 'clsx';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { Root } from '../../layout/Root';
 import { LoadingBar } from '../../LoadingBar';
@@ -67,21 +68,27 @@ function LevelsPage({
 								onSaveClick={() => downloadSave(chosenLevels)}
 								isBuilding={isBuildingSave}
 							/>
-							{levels.map((l) => (
-								<LevelRow
-									key={l.id}
-									level={l}
-									isBuildingSave={isBuildingSave}
-									isChosen={chosenLevels.includes(l)}
-									onChosenChange={(newChosen) => {
-										if (newChosen && chosenLevels.length < 30) {
-											setChosenLevels((cl) => cl.concat(l));
-										} else {
-											setChosenLevels((cl) => cl.filter((cll) => cll !== l));
-										}
-									}}
-								/>
-							))}
+							<div
+								className={clsx('space-y-8', {
+									'border-4 border-green-300': isBuildingSave,
+								})}
+							>
+								{levels.map((l) => (
+									<LevelRow
+										key={l.id}
+										level={l}
+										isBuildingSave={isBuildingSave}
+										isChosen={chosenLevels.includes(l)}
+										onChosenChange={(newChosen) => {
+											if (newChosen && chosenLevels.length < 30) {
+												setChosenLevels((cl) => cl.concat(l));
+											} else {
+												setChosenLevels((cl) => cl.filter((cll) => cll !== l));
+											}
+										}}
+									/>
+								))}
+							</div>
 						</div>
 					</>
 				);
