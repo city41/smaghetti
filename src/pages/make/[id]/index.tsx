@@ -2,8 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { Provider } from 'react-redux';
 
-import { MakePage } from '../../components/make/MakePage';
-import { store } from '../../store';
+import { MakePage } from '../../../components/make/MakePage';
+import { store } from '../../../store';
 
 function NextMakeIdPage() {
 	const router = useRouter();

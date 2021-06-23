@@ -11,7 +11,13 @@ type LevelRowProps = {
 	level: Level;
 };
 
+function makeSlug(name: string): string {
+	return name.replace(/[^a-zA-Z0-9]/g, '-').substr(0, 30);
+}
+
 function LevelRow({ className, level }: LevelRowProps) {
+	const href = `/make/${level.id}/${makeSlug(level.name)}`;
+
 	return (
 		<div
 			className={clsx(
@@ -20,7 +26,7 @@ function LevelRow({ className, level }: LevelRowProps) {
 			)}
 			style={{ gridTemplateColumns: 'max-content 1fr max-content' }}
 		>
-			<a className="relative border-2 border-white" href={`/make/${level.id}`}>
+			<a className="relative border-2 border-white" href={href}>
 				<div className="absolute top-0 left-0 w-full h-full block group-hover:hidden bg-white opacity-25" />
 				<RoomThumbnail
 					upperLeftTile={{
@@ -35,7 +41,7 @@ function LevelRow({ className, level }: LevelRowProps) {
 			</a>
 			<a
 				className="text-lg font-bold group-hover:underline cursor-pointer"
-				href={`/make/${level.id}`}
+				href={href}
 			>
 				{level.name}
 			</a>
