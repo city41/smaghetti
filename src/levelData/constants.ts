@@ -139,17 +139,17 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'crystal-underground': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['crystal-underground'],
-		bgColor: 0x2,
+		bgColor: 0x4,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 	'hills-at-night': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['hills-at-night'],
-		bgColor: 0x2,
+		bgColor: 0x4,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 	'night-sky': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['night-sky'],
-		bgColor: 0x2,
+		bgColor: 0x4,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 };
