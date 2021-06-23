@@ -79,8 +79,7 @@ function HowToUseDownloadModal({
 							height={160}
 						/>
 						<figcaption className="text-sm mt-4" style={{ maxWidth: 240 }}>
-							Go into the tiny island, then choose to play the <b>SMAGHETTI</b>{' '}
-							level
+							Go into the tiny island, then choose to play your level(s)
 						</figcaption>
 					</figure>
 				</div>
