@@ -18,7 +18,7 @@ function HowToUseDownloadModal({
 	return (
 		<Modal
 			isOpen={isOpen}
-			title="How to use a downloaded level"
+			title="How to use a downloaded save file"
 			onOkClick={() => {
 				onRequestClose();
 			}}
@@ -79,7 +79,7 @@ function HowToUseDownloadModal({
 							height={160}
 						/>
 						<figcaption className="text-sm mt-4" style={{ maxWidth: 240 }}>
-							Go into the tiny island, then choose to play your level(s)
+							Go into the tiny island, then choose to play your levels
 						</figcaption>
 					</figure>
 				</div>
