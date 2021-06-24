@@ -70,6 +70,13 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Start Mario anywhere in the level" date="2021-06-24">
+					<p>
+						You can now place Mario anywhere you&apos;d like in your level. You
+						can also resize a room to any size you want, so this can open up
+						some cooler level types like starting way at the top of a tall level
+					</p>
+				</NewEntry>
 				<NewEntry
 					title="Download multiple levels to a save file"
 					date="2021-06-23"

@@ -88,15 +88,6 @@ const Player: Entity = {
 	render() {
 		return this.simpleRender(TILE_SIZE);
 	},
-
-	getWarning(_settings, entity, room) {
-		const ex = entity.x / TILE_SIZE;
-		const ey = entity.y / TILE_SIZE;
-
-		if (ex !== 2 || ey !== room.roomTileHeight - 2) {
-			return 'Warning: moving Mario is still experimental';
-		}
-	},
 };
 
 export { Player };

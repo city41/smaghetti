@@ -670,6 +670,21 @@ function ensureLevelIsInView(state: InternalEditorState) {
 	);
 }
 
+/**
+ * ensure player doesn't go beyond the bounds of the level, can happen in a width/height change
+ */
+function ensurePlayerIsInBounds(state: InternalEditorState) {
+	const currentRoom = getCurrentRoom(state);
+	const player = currentRoom.actors.entities.find((e) => e.type === 'Player');
+
+	if (player) {
+		const height = (currentRoom.roomTileHeight - 1) * TILE_SIZE;
+		const width = (currentRoom.roomTileWidth - 1) * TILE_SIZE;
+		player.x = clamp(player.x, 0, width);
+		player.y = clamp(player.y, 0, height);
+	}
+}
+
 function removeOutOfBoundsEntities(state: InternalEditorState) {
 	const currentRoom = getCurrentRoom(state);
 
@@ -1299,12 +1314,6 @@ const editorSlice = createSlice({
 					MIN_ROOM_TILE_HEIGHT,
 					MAX_ROOM_TILE_HEIGHT
 				);
-
-				const player = room.actors.entities.find((e) => e.type === 'Player');
-
-				if (player) {
-					player.y = (room.roomTileHeight - 2) * TILE_SIZE;
-				}
 			}
 		},
 		setSaveLevelState(
@@ -2001,7 +2010,7 @@ function cleanUpReducer(state: InternalEditorState, action: Action) {
 	const newState = reducer(state, action);
 
 	const nextState = produce(newState, (draftState) => {
-		// ensurePlayerIsInView(draftState, { x: 0, y: 0 });
+		ensurePlayerIsInBounds(draftState);
 		ensureLevelIsInView(draftState);
 
 		removeOutOfBoundsCells(draftState);

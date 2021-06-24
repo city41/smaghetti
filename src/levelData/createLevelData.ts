@@ -210,13 +210,13 @@ function getLevelSettings(
 		mostSigHeightInPixels, // screen y boundary, most sig byte
 		0, // fixed screen center y, least sig byte
 		0, // fixed screen center y, most sig byte
-		0x18, // player y screen center, least sig byte
+		0, // player y screen center, least sig byte
 		0, // player y screen center, most sig byte
-		0x38, // camera min
+		0x40, // camera min
 		0, // camera max
 		playerY, // player starting y
 		playerX, // player starting x
-		Math.max(0, playerY - 7), // screen starting y
+		Math.max(0, playerY - 4), // screen starting y
 		Math.max(0, playerX - 5), // screen starting x
 		objectSet, // object set, least sig byte
 		0, // object set, most sig byte
