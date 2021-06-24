@@ -20,6 +20,8 @@ const SpikeBall: Entity = {
 	dimensions: 'none',
 	objectId: 0x4d,
 	emptyBank: 0,
+	width: 2,
+	height: 2,
 
 	resource: {
 		palettes: [
