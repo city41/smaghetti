@@ -6,7 +6,7 @@ type EarlyPreviewModalProps = {
 	onRequestClose?: () => void;
 };
 
-function EarlyPreviewModal({
+function EarlyModal({
 	isOpen,
 	onRequestClose,
 }: EarlyPreviewModalProps): ReactElement {
@@ -19,13 +19,13 @@ function EarlyPreviewModal({
 		>
 			<div className="w-full max-w-2xl space-y-4">
 				<p>
-					Smaghetti is pretty new and there is still a ton of work to be done.
-					You will certainly hit bugs and there&apos;s tons of missing features.
+					Smaghetti is considered to be &quot;alpha&quot; quality, which means
+					there are still lots of bugs and some missing features.
 				</p>
 				<p>
 					Check the{' '}
 					<a
-						className="text-blue-500"
+						className="text-blue-300"
 						href="/roadmap"
 						target="_blank"
 						rel="noreferer"
@@ -39,4 +39,4 @@ function EarlyPreviewModal({
 	);
 }
 
-export { EarlyPreviewModal };
+export { EarlyModal };

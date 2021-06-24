@@ -22,7 +22,7 @@ import { useFirstRender } from '../../../hooks/useFirstRender';
 
 import styles from './Editor.module.css';
 import { LoadingBar } from '../../LoadingBar';
-import { EarlyPreviewStarburst } from '../../EarlyPreviewStarburst';
+import { EarlyStarburst } from '../../EarlyStarburst';
 
 type EditorProps = {
 	publishedLevelToLoad?: string;
@@ -215,7 +215,7 @@ function Editor({
 							hidden: isPlaying,
 						})}
 					>
-						<EarlyPreviewStarburst />
+						<EarlyStarburst />
 					</div>
 				</div>
 			</div>

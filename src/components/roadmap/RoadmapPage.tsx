@@ -33,7 +33,7 @@ const alphaChecklist: MilestoneChecklistItem[] = [
 	},
 	{ status: 'completed', description: 'Room settings' },
 	{ status: 'completed', description: "Set a room's size" },
-	{ status: 'in-progress', description: "Change player's starting location" },
+	{ status: 'completed', description: "Change player's starting location" },
 ];
 
 const betaChecklist: MilestoneChecklistItem[] = [
@@ -71,15 +71,15 @@ function RoadmapPage() {
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">Roadmap</h1>
 				<div className="grid grid-cols-4 gap-x-4">
-					<Milestone isCurrent>Early Preview</Milestone>
-					<Milestone>Alpha</Milestone>
+					<Milestone>Early Preview</Milestone>
+					<Milestone isCurrent>Alpha</Milestone>
 					<Milestone>Beta</Milestone>
 					<Milestone>1.0</Milestone>
 				</div>
 				<div className="space-y-8 my-16">
 					<p>
-						Smaghetti is juuuuust shy of being in alpha, just one last thing to
-						figure out related to positioning Mario.
+						Smaghetti is now alpha. This means the core is well defined, but
+						things can still be buggy. There are still missing features too.
 					</p>
 				</div>
 				<div className="space-y-8">
