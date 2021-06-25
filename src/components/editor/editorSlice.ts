@@ -1646,6 +1646,13 @@ const editorSlice = createSlice({
 						placeCells(currentRoom.stage, stageCells, tileDelta);
 
 						actorEntities.forEach((e) => {
+							// don't copy the player, but do move it
+							if (e.type === 'Player') {
+								e.x += tileXOffset * TILE_SIZE;
+								e.y += tileYOffset * TILE_SIZE;
+								return;
+							}
+
 							currentRoom.actors.entities.push({
 								...e,
 								id: idCounter++,
