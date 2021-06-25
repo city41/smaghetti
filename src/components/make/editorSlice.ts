@@ -1023,6 +1023,30 @@ function placeCells(
 	});
 }
 
+function deleteEntitiesById(layer: EditorRoomLayer, ids: number[]) {
+	layer.entities = layer.entities.filter((e) => {
+		return nonDeletableEntityTypes.includes(e.type) || !ids.includes(e.id);
+	});
+
+	layer.matrix = layer.matrix.map((row) => {
+		if (!row) {
+			return null;
+		}
+
+		return row.map((c) => {
+			if (!c) {
+				return c;
+			}
+
+			if (ids.includes(c.id)) {
+				return null;
+			} else {
+				return c;
+			}
+		});
+	});
+}
+
 const editorSlice = createSlice({
 	name: 'editor',
 	initialState,
@@ -1186,34 +1210,14 @@ const editorSlice = createSlice({
 			// technically the isEditable checks are not needed, as if the layer is not editable then nothing in it should
 			// be focused, but it doesn't hurt to double up here
 
+			const ids = Object.keys(state.focused).map((id) => Number(id));
+
 			if (isEditable(currentRoom.actors)) {
-				currentRoom.actors.entities = currentRoom.actors.entities.filter(
-					(e) => {
-						return (
-							nonDeletableEntityTypes.includes(e.type) || !state.focused[e.id]
-						);
-					}
-				);
+				deleteEntitiesById(currentRoom.actors, ids);
 			}
 
 			if (isEditable(currentRoom.stage)) {
-				currentRoom.stage.matrix = currentRoom.stage.matrix.map((row) => {
-					if (!row) {
-						return null;
-					}
-
-					return row.map((t) => {
-						if (!t) {
-							return t;
-						}
-
-						if (state.focused[t.id]) {
-							return null;
-						} else {
-							return t;
-						}
-					});
-				});
+				deleteEntitiesById(currentRoom.stage, ids);
 			}
 
 			state.focused = {};
