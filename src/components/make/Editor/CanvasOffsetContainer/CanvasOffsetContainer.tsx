@@ -13,7 +13,7 @@ type CanvasOffsetContainerProps = {
 	mouseMode: MouseMode;
 	dragOffset: Point | null;
 	onSelectDrag: (arg: { bounds: Bounds; startingPoint: Point }) => void;
-	onDragComplete: () => void;
+	onDragComplete: (shiftPressed: boolean) => void;
 	onPan: (delta: Point) => void;
 	onPressForPan: () => void;
 	onLiftFromPan: () => void;
@@ -116,7 +116,7 @@ function CanvasOffsetContainer({
 				onSelectDrag({ bounds, startingPoint: startingMousePoint.current! });
 			}
 
-			onDragComplete();
+			onDragComplete(e.shiftKey);
 		};
 
 		const handleMouseMove = (e: MouseEvent) => {

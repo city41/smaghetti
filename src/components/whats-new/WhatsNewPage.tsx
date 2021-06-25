@@ -70,6 +70,16 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Make a copy when doing drag and drop"
+					date="2021-06-25"
+				>
+					<p>
+						When you select some entities then drag them some place else, you
+						can make a copy of them by holding down the shift key while
+						dragging.
+					</p>
+				</NewEntry>
 				<NewEntry title="Start Mario anywhere in the level" date="2021-06-24">
 					<p>
 						You can now place Mario anywhere you&apos;d like in your level. You

@@ -992,6 +992,37 @@ function getMaxId(levelData: LevelData): number {
 	}, 0);
 }
 
+function getEntitiesById(
+	layer: EditorRoomLayer,
+	ids: number[]
+): { entities: EditorEntity[]; cells: EditorEntity[] } {
+	const entities = layer.entities.filter((e) => ids.includes(e.id));
+	const flattenedCells = flattenCells(layer.matrix);
+	const cells = flattenedCells.filter((c) => ids.includes(c.id));
+
+	return { entities, cells };
+}
+
+function clearCells(layer: EditorRoomLayer, cells: EditorEntity[]) {
+	cells.forEach((c) => {
+		layer.matrix[c.y]![c.x] = null;
+	});
+}
+
+function placeCells(
+	layer: EditorRoomLayer,
+	cells: EditorEntity[],
+	delta: Point
+) {
+	cells.forEach((c) => {
+		const newY = c.y + delta.y;
+		const newX = c.x + delta.x;
+
+		layer.matrix[newY] ??= [];
+		layer.matrix[newY]![newX] = { ...c, id: idCounter++, x: newX, y: newY };
+	});
+}
+
 const editorSlice = createSlice({
 	name: 'editor',
 	initialState,
@@ -1579,126 +1610,56 @@ const editorSlice = createSlice({
 				}
 			}
 		},
-		dragComplete(state: InternalEditorState) {
-			const currentRoom = getCurrentRoom(state);
-
+		dragComplete(state: InternalEditorState, action: PayloadAction<boolean>) {
 			if (state.dragOffset) {
-				const tileXOffset = Math.round(state.dragOffset!.x / TILE_SIZE);
-				const tileYOffset = Math.round(state.dragOffset!.y / TILE_SIZE);
+				const shouldCopy = action.payload;
+				const currentRoom = getCurrentRoom(state);
 
-				const actorSpotsToClear: Point[] = [];
-				const stageSpotsToClear: Point[] = [];
-				const movedEntities: EditorEntity[] = [];
-				const movedStageCells: EditorEntity[] = [];
-				const movedActorCells: EditorEntity[] = [];
+				const tileXOffset = Math.round(state.dragOffset.x / TILE_SIZE);
+				const tileYOffset = Math.round(state.dragOffset.y / TILE_SIZE);
+				const tileDelta = { x: tileXOffset, y: tileYOffset };
 
-				Object.keys(state.focused).forEach((fid) => {
-					const actorEntity = currentRoom.actors.entities.find(
-						(e) => e.id === Number(fid)
-					);
-
-					if (actorEntity) {
-						actorEntity.x += tileXOffset * TILE_SIZE;
-						actorEntity.y += tileYOffset * TILE_SIZE;
-
-						// nudge it over by one so entities just above or to the left won't
-						// get clobbered
-						actorSpotsToClear.push({
-							x: actorEntity.x + 1,
-							y: actorEntity.y + 1,
-						});
-						movedEntities.push(actorEntity);
-					}
-
-					const stageEntity = currentRoom.stage.entities.find(
-						(e) => e.id === Number(fid)
-					);
-
-					if (stageEntity) {
-						stageEntity.x += tileXOffset * TILE_SIZE;
-						stageEntity.y += tileYOffset * TILE_SIZE;
-
-						// nudge it over by one so entities just above or to the left won't
-						// get clobbered
-						stageSpotsToClear.push({
-							x: stageEntity.x + 1,
-							y: stageEntity.y + 1,
-						});
-						movedEntities.push(stageEntity);
-					}
-
-					const stageCell = findCellEntity(
-						currentRoom.stage.matrix,
-						Number(fid)
-					);
-
-					if (stageCell) {
-						currentRoom.stage.matrix[stageCell.y]![stageCell.x] = null;
-						movedStageCells.push(stageCell);
-					}
-
-					const actorCell = findCellEntity(
-						currentRoom.actors.matrix,
-						Number(fid)
-					);
-
-					if (actorCell) {
-						currentRoom.actors.matrix[actorCell.y]![actorCell.x] = null;
-						movedActorCells.push(actorCell);
-					}
-				});
-
-				currentRoom.actors.entities = currentRoom.actors.entities.filter(
-					(e) => {
-						if (movedEntities.includes(e)) {
-							return true;
-						}
-
-						const bounds = getEntityPixelBounds(e);
-
-						const spotToClear = actorSpotsToClear.find((spot) => {
-							return pointIsInside(spot, bounds);
-						});
-
-						return !spotToClear;
-					}
+				const focusedIds = Object.keys(state.focused).map((id) => Number(id));
+				const { entities: actorEntities, cells: actorCells } = getEntitiesById(
+					currentRoom.actors,
+					focusedIds
+				);
+				const { entities: stageEntities, cells: stageCells } = getEntitiesById(
+					currentRoom.stage,
+					focusedIds
 				);
 
-				currentRoom.stage.entities = currentRoom.stage.entities.filter((e) => {
-					if (movedEntities.includes(e)) {
-						return true;
-					}
+				if (shouldCopy) {
+					placeCells(currentRoom.actors, actorCells, tileDelta);
+					placeCells(currentRoom.stage, stageCells, tileDelta);
 
-					const bounds = getEntityPixelBounds(e);
-
-					const spotToClear = stageSpotsToClear.find((spot) => {
-						return pointIsInside(spot, bounds);
+					actorEntities.forEach((e) => {
+						currentRoom.actors.entities.push({
+							...e,
+							id: idCounter++,
+							x: e.x + tileXOffset * TILE_SIZE,
+							y: e.y + tileYOffset * TILE_SIZE,
+						});
 					});
+					stageEntities.forEach((e) => {
+						currentRoom.stage.entities.push({
+							...e,
+							id: idCounter++,
+							x: e.x + tileXOffset * TILE_SIZE,
+							y: e.y + tileYOffset * TILE_SIZE,
+						});
+					});
+				} else {
+					clearCells(currentRoom.actors, actorCells);
+					clearCells(currentRoom.stage, stageCells);
+					placeCells(currentRoom.actors, actorCells, tileDelta);
+					placeCells(currentRoom.stage, stageCells, tileDelta);
 
-					return !spotToClear;
-				});
-
-				movedActorCells.forEach((actorCell) => {
-					currentRoom.actors.matrix[actorCell.y + tileYOffset] =
-						currentRoom.actors.matrix[actorCell.y + tileYOffset] || [];
-					currentRoom.actors.matrix[actorCell.y + tileYOffset]![
-						actorCell.x + tileXOffset
-					] = actorCell;
-
-					actorCell.x += tileXOffset;
-					actorCell.y += tileYOffset;
-				});
-
-				movedStageCells.forEach((stageCell) => {
-					currentRoom.stage.matrix[stageCell.y + tileYOffset] =
-						currentRoom.stage.matrix[stageCell.y + tileYOffset] || [];
-					currentRoom.stage.matrix[stageCell.y + tileYOffset]![
-						stageCell.x + tileXOffset
-					] = stageCell;
-
-					stageCell.x += tileXOffset;
-					stageCell.y += tileYOffset;
-				});
+					actorEntities.concat(stageEntities).forEach((e) => {
+						e.x += tileXOffset * TILE_SIZE;
+						e.y += tileYOffset * TILE_SIZE;
+					});
+				}
 			}
 
 			state.dragOffset = null;
