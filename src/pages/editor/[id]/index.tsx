@@ -2,10 +2,10 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { Provider } from 'react-redux';
 
-import { MakePage } from '../../../components/make/MakePage';
+import { MakePage } from '../../../components/editor/MakePage';
 import { store } from '../../../store';
 
-function NextMakeIdSlugPage() {
+function NextMakeIdPage() {
 	const router = useRouter();
 
 	const { id } = router.query;
@@ -17,4 +17,4 @@ function NextMakeIdSlugPage() {
 	);
 }
 
-export default NextMakeIdSlugPage;
+export default NextMakeIdPage;

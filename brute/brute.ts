@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as mkdirp from 'mkdirp';
 import { createLevelData } from '../src/levelData/createLevelData';
 import { ROOM_BACKGROUND_SETTINGS } from '../src/levelData/constants';
-import { FLOOR_SO_PLAYER_DOESNT_FALL } from '../src/components/make/editorSlice';
+import { FLOOR_SO_PLAYER_DOESNT_FALL } from '../src/components/editor/editorSlice';
 import { injectLevelIntoSave } from '../src/levelData/injectLevelIntoSave';
 import cloneDeep from 'lodash/cloneDeep';
 import isEqual from 'lodash/isEqual';
@@ -14,7 +14,7 @@ import { deserialize } from '../src/saveStates/serializer';
 import {
 	INITIAL_ROOM_TILE_HEIGHT,
 	INITIAL_ROOM_TILE_WIDTH,
-} from '../src/components/make/constants';
+} from '../src/components/editor/constants';
 import { TILE_SIZE } from '../src/tiles/constants';
 import { ArrowSign } from '../src/entities/ArrowSign';
 import { toHexString } from '../src/components/hex-tree/HexTreePage/util';

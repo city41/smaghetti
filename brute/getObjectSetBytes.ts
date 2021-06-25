@@ -17,7 +17,7 @@ import {
 	INITIAL_ROOM_TILE_HEIGHT,
 	INITIAL_ROOM_TILE_WIDTH,
 	PLAY_WINDOW_TILE_WIDTH,
-} from '../src/components/make/constants';
+} from '../src/components/editor/constants';
 import { ArrowSign } from '../src/entities/ArrowSign';
 import { toHexString } from '../src/components/hex-tree/HexTreePage/util';
 import isEqual from 'lodash/isEqual';

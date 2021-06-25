@@ -8,7 +8,7 @@ import { client } from '../../remoteData/client';
 import { deserialize } from '../../level/deserialize';
 import { convertLevelToLatestVersion } from '../../level/versioning/convertLevelToLatestVersion';
 import { setLevelPublished } from '../../remoteData/setLevelPublished';
-import { isBrokenLevel } from '../make/Editor/LevelChooserModal/util';
+import { isBrokenLevel } from '../editor/Editor/LevelChooserModal/util';
 
 type DeleteState = 'deleting' | 'error' | 'success';
 type TogglePublishState = 'toggling' | 'error' | 'success';

@@ -24,7 +24,7 @@ function MenuLink(props: JSX.IntrinsicElements['a']) {
 
 function HighlightEditor() {
 	return (
-		<Link href="/make">
+		<Link href="/editor">
 			<div className="hidden sm:flex absolute -bottom-16 -left-4 p-2 bg-green-500 rounded-lg flex-row items-center space-x-2">
 				<ImPointUp className="w-8 h-8" />
 				<div className="w-20 text-sm text-center">try it here</div>
@@ -53,7 +53,7 @@ function Header({ className, highlightEditor }: HeaderProps) {
 						</div>
 					</div>
 					<div className={clsx({ relative: highlightEditor })}>
-						<MenuLink href="/make">editor</MenuLink>
+						<MenuLink href="/editor">editor</MenuLink>
 						{highlightEditor && <HighlightEditor />}
 					</div>
 					<MenuLink href="/levels">levels</MenuLink>

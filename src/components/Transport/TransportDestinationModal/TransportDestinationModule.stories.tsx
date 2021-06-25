@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta } from '@storybook/react';
 
 import { TransportDestinationModal } from './TransportDestinationModal';
-import { RoomState } from '../../make/editorSlice';
+import { RoomState } from '../../editor/editorSlice';
 import {
 	BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES,
 	BACKGROUND_GRAPHIC_VALUES,

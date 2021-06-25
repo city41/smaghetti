@@ -6,7 +6,7 @@ import { RoomThumbnail } from '../../RoomThumbnail';
 import {
 	PLAY_WINDOW_TILE_HEIGHT,
 	PLAY_WINDOW_TILE_WIDTH,
-} from '../../make/constants';
+} from '../../editor/constants';
 
 type LevelRowProps = {
 	className?: string;
@@ -27,7 +27,7 @@ function LevelRow({
 	isChosen,
 	onChosenChange,
 }: LevelRowProps) {
-	const href = `/make/${level.id}/${makeSlug(level.name)}`;
+	const href = `/editor/${level.id}/${makeSlug(level.name)}`;
 
 	function chooseDontNavIfBuilding(e: React.MouseEvent<HTMLAnchorElement>) {
 		if (isBuildingSave) {

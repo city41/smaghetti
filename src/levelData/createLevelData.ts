@@ -8,7 +8,7 @@ import { decodeObjectSet, encodeObjectSets } from '../entities/util';
 import {
 	INITIAL_ROOM_TILE_HEIGHT,
 	ROOM_WIDTH_INCREMENT,
-} from '../components/make/constants';
+} from '../components/editor/constants';
 
 type Room = {
 	objects: number[];

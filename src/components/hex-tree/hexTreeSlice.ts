@@ -49,7 +49,7 @@ import {
 	parseLevelSettings,
 	parseLevelSettingsFromLevelFile,
 } from '../../levelData/parseLevelSettingsFromLevelFile';
-import { LOCALSTORAGE_KEY } from '../make/editorSlice';
+import { LOCALSTORAGE_KEY } from '../editor/editorSlice';
 import { deserialize } from '../../level/deserialize';
 import { convertLevelToLatestVersion } from '../../level/versioning/convertLevelToLatestVersion';
 

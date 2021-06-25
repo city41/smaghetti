@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import { MakePage } from '../../components/make/MakePage';
+import { MakePage } from '../../components/editor/MakePage';
 import { store } from '../../store';
 
 function NextMakePage() {

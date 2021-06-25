@@ -41,7 +41,7 @@ type EditorProps = {
 };
 
 function toFreshEditor() {
-	window.location.replace('/make');
+	window.location.replace('/editor');
 }
 
 function Editor({
@@ -131,8 +131,8 @@ function Editor({
 	}, []);
 
 	function handleLevelsClick() {
-		if (router.pathname !== '/make') {
-			router.push('/make');
+		if (router.pathname !== '/editor' && router.pathname !== '/editor/') {
+			router.push('/editor');
 		} else {
 			setIsChoosingLevel(true);
 		}
@@ -204,7 +204,7 @@ function Editor({
 									You&apos;re checking out{' '}
 									<span className="underline font-bold">{levelName}</span> by{' '}
 									<span className="underline font-bold">{creatorName}</span>{' '}
-									<a className="text-blue-600" href="/make">
+									<a className="text-blue-600" href="/editor">
 										click here to make your own level
 									</a>
 								</div>

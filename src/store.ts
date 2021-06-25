@@ -6,7 +6,7 @@ import {
 import {
 	reducer as editorReducer,
 	EditorState,
-} from './components/make/editorSlice';
+} from './components/editor/editorSlice';
 import {
 	reducer as fileLoaderReducer,
 	FileLoaderState,

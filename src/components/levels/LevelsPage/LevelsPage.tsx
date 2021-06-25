@@ -96,7 +96,7 @@ function LevelsPage({
 				body = (
 					<div className="text-center mt-32">
 						No published levels yet, why not{' '}
-						<a className="text-blue-300 hover:underline" href="/make">
+						<a className="text-blue-300 hover:underline" href="/editor">
 							be the first?
 						</a>
 					</div>

@@ -2,7 +2,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import {
 	PLAY_WINDOW_TILE_HEIGHT,
 	PLAY_WINDOW_TILE_WIDTH,
-} from '../components/make/constants';
+} from '../components/editor/constants';
 
 const INCREMENT = 0.25;
 

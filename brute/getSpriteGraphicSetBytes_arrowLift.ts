@@ -14,7 +14,7 @@ import {
 	INITIAL_ROOM_TILE_WIDTH,
 	INITIAL_PLAYER_Y_TILE,
 	PLAY_WINDOW_TILE_WIDTH,
-} from '../src/components/make/constants';
+} from '../src/components/editor/constants';
 import { TILE_SIZE } from '../src/tiles/constants';
 import { ArrowSign } from '../src/entities/ArrowSign';
 import { toHexString } from '../src/components/hex-tree/HexTreePage/util';

@@ -6,7 +6,7 @@ import { GiWarpPipe } from 'react-icons/gi';
 import styles from './transportStyles.module.css';
 import { TransportDestinationModal } from './TransportDestinationModal';
 import { DestinationSetProps } from './TransportDestinationModal/TransportDestinationModal';
-import { MouseMode } from '../make/editorSlice';
+import { MouseMode } from '../editor/editorSlice';
 
 type TransportDestinationProps = {
 	style?: CSSProperties;

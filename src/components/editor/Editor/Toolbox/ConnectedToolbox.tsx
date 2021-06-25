@@ -49,7 +49,7 @@ function ConnectedToolbox(props: PublicToolboxProps) {
 
 	function handleEraseLevel() {
 		dispatch(eraseLevel());
-		router.replace('/make');
+		router.replace('/editor');
 	}
 
 	return (

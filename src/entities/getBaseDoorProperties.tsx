@@ -9,7 +9,7 @@ import { DestinationSetProps } from '../components/Transport/TransportDestinatio
 import {
 	getEntityTileBounds,
 	pointIsInside,
-} from '../components/make/editorSlice';
+} from '../components/editor/editorSlice';
 
 const DOOR_LOCK_OBJECT_ID = 0xce;
 

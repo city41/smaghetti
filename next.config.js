@@ -13,6 +13,40 @@ module.exports = withPlugins(
 		],
 	],
 	{
+		redirects() {
+			return [
+				{
+					source: '/make',
+					destination: '/editor',
+					permanent: true,
+				},
+				{
+					source: '/make/:id',
+					destination: '/editor/:id',
+					permanent: true,
+				},
+				{
+					source: '/make/:id/:slug',
+					destination: '/editor/:id/:slug',
+					permanent: true,
+				},
+				{
+					source: '/make/',
+					destination: '/editor',
+					permanent: true,
+				},
+				{
+					source: '/make/:id/',
+					destination: '/editor/:id',
+					permanent: true,
+				},
+				{
+					source: '/make/:id/:slug/',
+					destination: '/editor/:id/:slug',
+					permanent: true,
+				},
+			];
+		},
 		pageExtensions: ['tsx'],
 		trailingSlash: true,
 		publicRuntimeConfig: {

@@ -11,7 +11,7 @@ import { Modal } from '../../Modal';
 import { IconButtonGroup } from '../../IconButton/IconButtonGroup';
 import { IconButton } from '../../IconButton';
 import { RoomThumbnail } from '../../RoomThumbnail';
-import { RoomState } from '../../make/editorSlice';
+import { RoomState } from '../../editor/editorSlice';
 import { TILE_SIZE } from '../../../tiles/constants';
 import { Button } from '../../Button';
 
