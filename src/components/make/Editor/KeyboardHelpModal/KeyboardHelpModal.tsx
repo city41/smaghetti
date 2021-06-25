@@ -104,6 +104,11 @@ const KeyboardHelpModal: FunctionComponent<KeyboardHelpModalProps> = ({
 					<KeyboardKey>z</KeyboardKey>
 				</dt>
 				<dd>Redo</dd>
+				<Spacer />
+				<dt>
+					Hold <KeyboardKey>shift</KeyboardKey> while dragging
+				</dt>
+				<dd>Make a copy of dragged entities</dd>
 			</dl>
 		</Modal>
 	);
