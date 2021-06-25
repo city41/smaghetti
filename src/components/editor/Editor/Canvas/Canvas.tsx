@@ -49,6 +49,7 @@ type CanvasProps = {
 	transportDestinations: EditorTransport[];
 	focused: Record<number, boolean>;
 	isSelecting: boolean;
+	hasSelectionRectangle: boolean;
 	dragOffset: Point | null;
 	showGrid: boolean;
 	mouseMode: MouseMode;
@@ -72,6 +73,7 @@ type MatrixRowProps = {
 	rooms: RoomData[];
 	y: number;
 	focused: Record<number, boolean>;
+	hasSelectionRectangle: boolean;
 	dragOffset: Point | null;
 	onEntitySettingsChange: (arg: {
 		id: number;
@@ -101,6 +103,7 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 	rooms,
 	y,
 	focused,
+	hasSelectionRectangle,
 	dragOffset,
 	onEntitySettingsChange,
 }) {
@@ -135,7 +138,9 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 						room={room}
 						rooms={rooms}
 						focused={isFocused}
-						soleFocused={isFocused && focusCount === 1}
+						soleFocused={
+							isFocused && focusCount === 1 && !hasSelectionRectangle
+						}
 						settings={c.settings}
 						onEntitySettingsChange={(newSettings) =>
 							onEntitySettingsChange({ id: c.id, settings: newSettings })
@@ -198,6 +203,7 @@ type EntitiesProps = {
 	mouseMode: MouseMode;
 	focused: Record<number, boolean>;
 	isSelecting: boolean;
+	hasSelectionRectangle: boolean;
 	dragOffset: Point | null;
 	onEntitySettingsChange: (arg: {
 		id: number;
@@ -212,6 +218,7 @@ const Entities = memo(function Entities({
 	locked,
 	mouseMode,
 	focused,
+	hasSelectionRectangle,
 	dragOffset,
 	onEntitySettingsChange,
 }: EntitiesProps) {
@@ -248,7 +255,9 @@ const Entities = memo(function Entities({
 						rooms={rooms}
 						settings={e.settings}
 						focused={isFocused}
-						soleFocused={isFocused && focusCount === 1}
+						soleFocused={
+							isFocused && focusCount === 1 && !hasSelectionRectangle
+						}
 						dragging={!!dragOffset}
 						onEntitySettingsChange={(newSettings) =>
 							onEntitySettingsChange({ id: e.id, settings: newSettings })
@@ -332,6 +341,7 @@ const Canvas = memo(function Canvas({
 	transportDestinations,
 	focused,
 	isSelecting,
+	hasSelectionRectangle,
 	dragOffset,
 	showGrid,
 	mouseMode,
@@ -407,6 +417,7 @@ const Canvas = memo(function Canvas({
 					rooms={rooms}
 					y={y}
 					focused={focused}
+					hasSelectionRectangle={hasSelectionRectangle}
 					dragOffset={dragOffset}
 					onEntitySettingsChange={onEntitySettingsChange}
 				/>
@@ -424,6 +435,7 @@ const Canvas = memo(function Canvas({
 					rooms={rooms}
 					y={y}
 					focused={focused}
+					hasSelectionRectangle={hasSelectionRectangle}
 					dragOffset={dragOffset}
 					onEntitySettingsChange={onEntitySettingsChange}
 				/>
@@ -523,6 +535,7 @@ const Canvas = memo(function Canvas({
 					locked={stage.locked}
 					focused={focused}
 					isSelecting={isSelecting}
+					hasSelectionRectangle={hasSelectionRectangle}
 					mouseMode={mouseMode}
 					dragOffset={dragOffset}
 					onEntitySettingsChange={onEntitySettingsChange}
@@ -535,6 +548,7 @@ const Canvas = memo(function Canvas({
 					locked={actors.locked}
 					focused={focused}
 					isSelecting={isSelecting}
+					hasSelectionRectangle={hasSelectionRectangle}
 					mouseMode={mouseMode}
 					dragOffset={dragOffset}
 					onEntitySettingsChange={onEntitySettingsChange}

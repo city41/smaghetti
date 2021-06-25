@@ -127,6 +127,7 @@ type InternalEditorState = {
 	focused: Record<number, boolean>;
 	dragOffset: Point | null;
 	isSelecting: boolean;
+	hasSelectionRectangle: boolean;
 	savedLevelId?: string;
 	saveLevelState: 'dormant' | 'saving' | 'error' | 'success';
 	loadLevelState:
@@ -390,6 +391,7 @@ const defaultInitialState: InternalEditorState = {
 	focused: {},
 	dragOffset: null,
 	isSelecting: false,
+	hasSelectionRectangle: false,
 	rooms: [initialRoomState],
 	currentRoomIndex: 0,
 };
@@ -1451,6 +1453,10 @@ const editorSlice = createSlice({
 			const { bounds, startingPoint } = action.payload;
 
 			state.isSelecting = true;
+			state.hasSelectionRectangle = !isEqual(
+				bounds.upperLeft,
+				bounds.lowerRight
+			);
 
 			const scaledStartingPoint = {
 				x: startingPoint.x / currentRoom.scale + currentRoom.scrollOffset.x,
@@ -1673,6 +1679,7 @@ const editorSlice = createSlice({
 
 			state.dragOffset = null;
 			state.isSelecting = false;
+			state.hasSelectionRectangle = false;
 		},
 		pushPan(state: InternalEditorState) {
 			state.storedMouseMode = state.mouseMode;

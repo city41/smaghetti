@@ -43,6 +43,7 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 	const {
 		focused,
 		isSelecting,
+		hasSelectionRectangle,
 		dragOffset,
 		mouseMode,
 		showGrid,
@@ -86,6 +87,7 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 			transportDestinations={transportDestinations}
 			focused={focused}
 			isSelecting={isSelecting}
+			hasSelectionRectangle={hasSelectionRectangle}
 			dragOffset={dragOffset}
 			mouseMode={mouseMode}
 			showGrid={showGrid}
