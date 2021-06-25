@@ -179,7 +179,7 @@ type SerializedLevel = Omit<Level, 'data'> & {
 
 type LocalStorageSerializedLevel = Omit<
 	SerializedLevel,
-	'id' | 'created_at' | 'updated_at'
+	'created_at' | 'updated_at'
 >;
 type LevelToLoadInGBA = Omit<NewLevel, 'created_at' | 'updated_at'>;
 

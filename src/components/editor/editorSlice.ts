@@ -1868,6 +1868,7 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 					const levelData = deserialize(localStorageData.data);
 					dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
 					dispatch(editorSlice.actions.setLevelName(localStorageData.name));
+					dispatch(editorSlice.actions.setSavedLevelId(localStorageData.id));
 				} else {
 					dispatch(editorSlice.actions.setLoadLevelState('legacy'));
 				}
@@ -1932,6 +1933,7 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 
 		const dataToWrite: LocalStorageSerializedLevel = {
 			name: editorState.name,
+			id: editorState.savedLevelId ?? '',
 			version: CURRENT_VERSION,
 			data: serializedLevelData,
 		};

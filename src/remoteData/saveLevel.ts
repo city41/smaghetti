@@ -8,7 +8,7 @@ export async function saveLevel(
 	data: SerializedLevelData
 ): Promise<string> {
 	const { data: returnedId, error } = await client.rpc<string>('save_level', {
-		existing_id: id,
+		existing_id: (id && id.trim()) || null,
 		name: (name && name.trim()) || 'untitled level',
 		description,
 		data,
