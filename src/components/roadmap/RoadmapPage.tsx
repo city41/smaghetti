@@ -83,7 +83,7 @@ function RoadmapPage() {
 					</p>
 				</div>
 				<div className="space-y-8">
-					<MilestoneChecklist title="To get to alpha" items={alphaChecklist} />
+					<MilestoneChecklist title="Alpha features" items={alphaChecklist} />
 					<MilestoneChecklist title="To get to beta" items={betaChecklist} />
 					<MilestoneChecklist title="To get to 1.0" items={finalChecklist} />
 				</div>
