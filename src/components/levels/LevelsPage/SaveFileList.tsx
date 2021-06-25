@@ -63,8 +63,8 @@ function SaveFileList({
 			)}
 			{!isBuilding && (
 				<p>
-					You can choose up to 30 levels to add to a save file for play on a
-					Game Boy or emulator
+					You can choose up to {Math.min(30, totalLevelCount)} levels to add to
+					a save file for play on a Game Boy or emulator
 				</p>
 			)}
 			{isBuilding && (
