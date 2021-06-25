@@ -375,10 +375,11 @@ const Canvas = memo(function Canvas({
 	const viewportGridStyles = {
 		'--grid-width': `${TILE_SIZE * PLAY_WINDOW_TILE_WIDTH}px`,
 		'--grid-height': `${TILE_SIZE * PLAY_WINDOW_TILE_HEIGHT}px`,
-		'--grid-line-width': '0.8px',
-		'--grid-color': 'rgba(255, 255, 255, 0.6)',
+		'--grid-line-width': '1px',
+		'--grid-color': 'rgba(0, 0, 255, 0.6)',
 		backgroundPosition: 'left bottom',
 		display: gridDisplay,
+		mixBlendMode: 'color-burn',
 	} as CSSProperties;
 
 	function getMousePoint(e: React.MouseEvent<HTMLDivElement>): Point {
