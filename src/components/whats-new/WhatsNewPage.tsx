@@ -70,6 +70,14 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<div className="bg-red-100 text-gray-900 p-3 -mx-3">
+					<p>
+						<span className="font-bold">Heads up,</span> I need to put Smaghetti
+						on the back burner for a bit. I will still work on it when I can,
+						but updates will be less frequent.{' '}
+						<span className="text-xs">posted 25th of June, 2021</span>
+					</p>
+				</div>
 				<NewEntry
 					title="Make a copy when doing drag and drop"
 					date="2021-06-25"
