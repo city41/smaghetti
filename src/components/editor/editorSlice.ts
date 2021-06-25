@@ -1621,48 +1621,53 @@ const editorSlice = createSlice({
 
 				const tileXOffset = Math.round(state.dragOffset.x / TILE_SIZE);
 				const tileYOffset = Math.round(state.dragOffset.y / TILE_SIZE);
-				const tileDelta = { x: tileXOffset, y: tileYOffset };
 
-				const focusedIds = Object.keys(state.focused).map((id) => Number(id));
-				const { entities: actorEntities, cells: actorCells } = getEntitiesById(
-					currentRoom.actors,
-					focusedIds
-				);
-				const { entities: stageEntities, cells: stageCells } = getEntitiesById(
-					currentRoom.stage,
-					focusedIds
-				);
+				if (tileXOffset !== 0 || tileYOffset !== 0) {
+					const tileDelta = { x: tileXOffset, y: tileYOffset };
 
-				if (shouldCopy) {
-					placeCells(currentRoom.actors, actorCells, tileDelta);
-					placeCells(currentRoom.stage, stageCells, tileDelta);
+					const focusedIds = Object.keys(state.focused).map((id) => Number(id));
+					const {
+						entities: actorEntities,
+						cells: actorCells,
+					} = getEntitiesById(currentRoom.actors, focusedIds);
+					const {
+						entities: stageEntities,
+						cells: stageCells,
+					} = getEntitiesById(currentRoom.stage, focusedIds);
 
-					actorEntities.forEach((e) => {
-						currentRoom.actors.entities.push({
-							...e,
-							id: idCounter++,
-							x: e.x + tileXOffset * TILE_SIZE,
-							y: e.y + tileYOffset * TILE_SIZE,
+					if (shouldCopy) {
+						placeCells(currentRoom.actors, actorCells, tileDelta);
+						placeCells(currentRoom.stage, stageCells, tileDelta);
+
+						actorEntities.forEach((e) => {
+							currentRoom.actors.entities.push({
+								...e,
+								id: idCounter++,
+								x: e.x + tileXOffset * TILE_SIZE,
+								y: e.y + tileYOffset * TILE_SIZE,
+							});
 						});
-					});
-					stageEntities.forEach((e) => {
-						currentRoom.stage.entities.push({
-							...e,
-							id: idCounter++,
-							x: e.x + tileXOffset * TILE_SIZE,
-							y: e.y + tileYOffset * TILE_SIZE,
+						stageEntities.forEach((e) => {
+							currentRoom.stage.entities.push({
+								...e,
+								id: idCounter++,
+								x: e.x + tileXOffset * TILE_SIZE,
+								y: e.y + tileYOffset * TILE_SIZE,
+							});
 						});
-					});
-				} else {
-					clearCells(currentRoom.actors, actorCells);
-					clearCells(currentRoom.stage, stageCells);
-					placeCells(currentRoom.actors, actorCells, tileDelta);
-					placeCells(currentRoom.stage, stageCells, tileDelta);
+					} else {
+						clearCells(currentRoom.actors, actorCells);
+						clearCells(currentRoom.stage, stageCells);
+						placeCells(currentRoom.actors, actorCells, tileDelta);
+						placeCells(currentRoom.stage, stageCells, tileDelta);
 
-					actorEntities.concat(stageEntities).forEach((e) => {
-						e.x += tileXOffset * TILE_SIZE;
-						e.y += tileYOffset * TILE_SIZE;
-					});
+						actorEntities.concat(stageEntities).forEach((e) => {
+							e.x += tileXOffset * TILE_SIZE;
+							e.y += tileYOffset * TILE_SIZE;
+						});
+					}
+
+					state.focused = {};
 				}
 			}
 
