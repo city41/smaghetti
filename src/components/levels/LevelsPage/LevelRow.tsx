@@ -7,12 +7,10 @@ import {
 	PLAY_WINDOW_TILE_HEIGHT,
 	PLAY_WINDOW_TILE_WIDTH,
 } from '../../editor/constants';
-import { TILE_SIZE } from '../../../tiles/constants';
 
 type LevelRowProps = {
 	className?: string;
 	level: Level;
-	areFilesReady: boolean;
 	isBuildingSave: boolean;
 	isChosen: boolean;
 	onChosenChange: (newChosen: boolean) => void;
@@ -22,22 +20,9 @@ function makeSlug(name: string): string {
 	return name.replace(/[^a-zA-Z0-9]/g, '-').substr(0, 30);
 }
 
-function BlankThumbnail({ scale }: { scale: number }) {
-	return (
-		<div
-			style={{
-				width: PLAY_WINDOW_TILE_WIDTH * 1.5 * TILE_SIZE * scale,
-				height: PLAY_WINDOW_TILE_HEIGHT * TILE_SIZE * scale,
-			}}
-			className="bg-gray-900"
-		/>
-	);
-}
-
 function LevelRow({
 	className,
 	level,
-	areFilesReady,
 	isBuildingSave,
 	isChosen,
 	onChosenChange,
@@ -80,20 +65,16 @@ function LevelRow({
 						})}
 					/>
 				)}
-				{areFilesReady ? (
-					<RoomThumbnail
-						upperLeftTile={{
-							x: 0,
-							y: level.data.rooms[0].roomTileHeight - PLAY_WINDOW_TILE_HEIGHT,
-						}}
-						widthInTiles={PLAY_WINDOW_TILE_WIDTH * 1.5}
-						heightInTiles={PLAY_WINDOW_TILE_HEIGHT}
-						scale={0.5}
-						room={level.data.rooms[0]}
-					/>
-				) : (
-					<BlankThumbnail scale={0.5} />
-				)}
+				<RoomThumbnail
+					upperLeftTile={{
+						x: 0,
+						y: level.data.rooms[0].roomTileHeight - PLAY_WINDOW_TILE_HEIGHT,
+					}}
+					widthInTiles={PLAY_WINDOW_TILE_WIDTH * 1.5}
+					heightInTiles={PLAY_WINDOW_TILE_HEIGHT}
+					scale={0.5}
+					room={level.data.rooms[0]}
+				/>
 			</a>
 			<a
 				className="text-lg font-bold group-hover:underline cursor-pointer"
