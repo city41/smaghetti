@@ -13,6 +13,7 @@ import { convertLevelToLatestVersion } from '../../../../level/versioning/conver
 import { SavedLevels } from './SavedLevels';
 
 import styles from './LevelChooserModal.module.css';
+import { useLocalStorage } from '../../../../hooks/useLocalStorage';
 
 type PublicLevelChooserModalProps = {
 	isOpen: boolean;
@@ -35,6 +36,7 @@ type InternalLevelChooserModalProps = {
 const THUMBNAIL_SCALE = 0.5;
 
 const EMPTY_ROOM = initialRoomState;
+const PUBLISH_BLURB_KEY = 'smaghetti_LevelChooserModal_hidePublishBlurb';
 
 function LevelButton({
 	caption,
@@ -72,6 +74,10 @@ function LevelChooserModal({
 	onTogglePublishLevel,
 	onRequestClose,
 }: PublicLevelChooserModalProps & InternalLevelChooserModalProps) {
+	const [hidePublishBlurb, setHidePublishBlurb] = useLocalStorage(
+		PUBLISH_BLURB_KEY,
+		'false'
+	);
 	const serializedExampleLevel = getExampleLevel();
 
 	const exampleRoom = serializedExampleLevel
@@ -156,29 +162,39 @@ function LevelChooserModal({
 						)}
 					</LevelButton>
 				</div>
-				{isLoggedIn && (
-					<div className="mt-4 bg-green-200 text-green-900 p-2 text-sm">
-						Publishing a level lists it on the{' '}
-						<a
-							className="text-blue-500"
-							target="_blank"
-							rel="noreferrer"
-							href="/levels"
+				{isLoggedIn && hidePublishBlurb !== 'true' && (
+					<div className="mt-4 bg-green-200 text-green-900 p-2 text-sm flex flex-col">
+						<p>
+							Publishing a level lists it on the{' '}
+							<a
+								className="text-blue-500"
+								target="_blank"
+								rel="noreferrer"
+								href="/levels"
+							>
+								levels page
+							</a>
+							. Anyone can load your published levels into the editor to try
+							them, but they can not save them (not even a copy). Published
+							levels need to abide by the{' '}
+							<a
+								className="text-blue-500"
+								target="_blank"
+								rel="noreferrer"
+								href="/tos"
+							>
+								terms of service
+							</a>
+							.
+						</p>
+						<button
+							className="text-blue-500 self-center"
+							onClick={() => {
+								setHidePublishBlurb('true');
+							}}
 						>
-							levels page
-						</a>
-						. Anyone can load your published levels into the editor to try them,
-						but they can not save them (not even a copy). Published levels need
-						to abide by the{' '}
-						<a
-							className="text-blue-500"
-							target="_blank"
-							rel="noreferrer"
-							href="/tos"
-						>
-							terms of service
-						</a>
-						.
+							got it
+						</button>
 					</div>
 				)}
 				{loadingLevelsState !== 'none' && (
