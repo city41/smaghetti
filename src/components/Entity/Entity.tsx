@@ -25,6 +25,10 @@ function getTwoColumnWarning(
 	entity: EditorEntity,
 	room: RoomData
 ): string | void {
+	if (entity.type === 'Player') {
+		return;
+	}
+
 	const allSpriteEntities = room.actors.entities
 		.concat(room.stage.entities)
 		.filter((e) => !!entityMap[e.type].toSpriteBinary);
