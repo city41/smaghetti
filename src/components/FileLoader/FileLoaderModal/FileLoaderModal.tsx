@@ -131,7 +131,8 @@ function BaseFiles({
 						</div>
 					</div>
 					<label className="italic cursor-pointer hover:bg-gray-700 mt-4">
-						Please try again, drag a file here or click to choose
+						<span className="text-green-400 font-bold">Please try again:</span>{' '}
+						drag a file here or click to choose
 						<input
 							style={{ width: 0.01, height: 0.01 }}
 							type="file"
