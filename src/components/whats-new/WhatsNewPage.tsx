@@ -691,4 +691,4 @@ function WhatsNewPage() {
 	);
 }
 
-export { WhatsNewPage };
+export { WhatsNewPage, toId };
