@@ -99,7 +99,7 @@ function BaseFiles({
 						/>
 					</label>
 					<div className="text-xs mt-4 -mx-4 px-4 py-1 bg-green-500 text-white">
-						The ROM is only used locally and not uploaded anywhere
+						The ROM is only used in your browser and not uploaded anywhere
 					</div>
 				</DropZone>
 			);
