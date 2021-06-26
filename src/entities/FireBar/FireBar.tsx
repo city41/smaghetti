@@ -106,6 +106,7 @@ const FireBar: Entity = {
 		for (let i = 0; i < actualSettings.count; ++i) {
 			fireballs.push(
 				<div
+					key={i}
 					className="FireBar-bg absolute bg-center bg-no-repeat"
 					style={{ ...style, left: -i * FIREBALL_SIZE + 3 + shiftOffset }}
 				/>
