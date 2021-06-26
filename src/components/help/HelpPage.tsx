@@ -33,6 +33,27 @@ function HelpPage() {
 		<Root title="Help" metaDescription="">
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">Help</h1>
+				<p className="bg-green-500 text-white -mx-2 p-2">
+					Need more help? You can ask on{' '}
+					<a
+						className="text-green-200 underline"
+						target="_blank"
+						rel="noreferrer"
+						href="https://reddit.com/r/smaghetti"
+					>
+						Reddit
+					</a>{' '}
+					or{' '}
+					<a
+						className="text-green-200 underline"
+						target="_blank"
+						rel="noreferrer"
+						href="https://github.com/city41/smaghetti/discussions"
+					>
+						GitHub
+					</a>
+					, and I&apos;ll help you out.
+				</p>
 				<HelpEntry title="The game runs slowly when I test my level">
 					<p>
 						Unfortunately it can take a pretty powerful machine to get an
