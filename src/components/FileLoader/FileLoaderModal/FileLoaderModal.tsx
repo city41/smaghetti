@@ -84,8 +84,8 @@ function BaseFiles({
 						<b>Super Mario Advance 4 (v1.1)</b>
 						<br /> here
 					</p>
-					<label className="italic cursor-pointer hover:bg-gray-700 mt-4">
-						or click here to open a file dialog
+					<label className="italic cursor-pointer w-full hover:bg-gray-700 mt-4">
+						or click here to choose
 						<input
 							style={{ width: 0.01, height: 0.01 }}
 							type="file"
@@ -98,6 +98,9 @@ function BaseFiles({
 							}}
 						/>
 					</label>
+					<div className="text-xs mt-4 -mx-4 px-4 py-1 bg-green-500 text-white">
+						The ROM is only used locally and not uploaded anywhere
+					</div>
 				</DropZone>
 			);
 			break;
@@ -185,7 +188,10 @@ function BaseFiles({
 
 	return (
 		<div className="grid grid-cols-2 gap-x-4">
-			<div className="h-40 border border-dashed border-gray-300 bg-gray-600 text-center space-y-4 flex flex-col items-stretch justify-center">
+			<div
+				className="border border-dashed border-gray-300 bg-gray-600 space-y-4 flex flex-col items-stretch justify-center"
+				style={{ minHeight: '10rem' }}
+			>
 				{romBody}
 			</div>
 			<div className="p-4 xbg-gray-600 text-center grid place-items-center justify-items-stretch">

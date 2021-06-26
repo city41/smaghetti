@@ -2,10 +2,12 @@ import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 import { MdFileDownload } from 'react-icons/md';
 import { Button } from '../../Button';
+import { LoadingBar } from '../../LoadingBar';
 
 type SaveFileListProps = {
 	className?: string;
 	style?: CSSProperties;
+	emptySaveFileState: 'loading' | 'error' | 'success';
 	isBuilding: boolean;
 	onStartClick: () => void;
 	onSaveClick: () => void;
@@ -25,6 +27,7 @@ function pluralize(root: string, count: number): string {
 function SaveFileList({
 	className,
 	style = {},
+	emptySaveFileState,
 	isBuilding,
 	onStartClick,
 	onSaveClick,
@@ -32,15 +35,19 @@ function SaveFileList({
 	chosenLevelCount,
 	totalLevelCount,
 }: SaveFileListProps) {
-	return (
-		<div
-			className={clsx(
-				className,
-				'p-2 bg-gray-600 border border-white grid space-x-2 items-center text-sm'
-			)}
-			style={{ ...style, gridTemplateColumns: '8rem 1fr' }}
-		>
-			{isBuilding ? (
+	let body;
+
+	if (emptySaveFileState === 'loading') {
+		body = <LoadingBar className="col-span-2" percent={100} />;
+	} else if (emptySaveFileState === 'error') {
+		body = (
+			<div className="bg-red-200 text-red-900 col-span-2 p-1">
+				Doh, failed to load a needed file. Maybe try refreshing the page?
+			</div>
+		);
+	} else if (isBuilding) {
+		body = (
+			<>
 				<div className="grid grid-cols-2 gap-x-1 h-full">
 					<Button
 						className="h-full flex items-center justify-center"
@@ -56,23 +63,35 @@ function SaveFileList({
 						cancel
 					</Button>
 				</div>
-			) : (
-				<Button className="w-full h-full" onClick={onStartClick}>
-					Start a save file
-				</Button>
-			)}
-			{!isBuilding && (
-				<p>
-					You can choose up to {Math.min(30, totalLevelCount)} levels to add to
-					a save file for play on a Game Boy or emulator
-				</p>
-			)}
-			{isBuilding && (
 				<p>
 					{chosenLevelCount} {pluralize('level', chosenLevelCount)} of up to{' '}
 					{Math.min(30, totalLevelCount)} chosen
 				</p>
+			</>
+		);
+	} else {
+		body = (
+			<>
+				<Button className="w-full h-full" onClick={onStartClick}>
+					Start a save file
+				</Button>
+				<p>
+					You can choose up to {Math.min(30, totalLevelCount)} levels to add to
+					a save file for play on a Game Boy or emulator
+				</p>
+			</>
+		);
+	}
+
+	return (
+		<div
+			className={clsx(
+				className,
+				'p-2 bg-gray-600 border border-white grid space-x-2 items-center text-sm'
 			)}
+			style={{ ...style, gridTemplateColumns: '8rem 1fr' }}
+		>
+			{body}
 		</div>
 	);
 }

@@ -10,15 +10,18 @@ import { HowToUseDownloadModal } from '../../HowToUseDownloadModal';
 
 type InternalLevelsPageProps = {
 	allFilesReady: boolean;
+	emptySaveFileState: 'loading' | 'success' | 'error';
 	loadState: 'dormant' | 'loading' | 'success' | 'error';
 	levels: Level[];
 };
 
 function LevelsPage({
 	allFilesReady,
+	emptySaveFileState,
 	loadState,
 	levels,
 }: InternalLevelsPageProps) {
+	const [showFileLoaderModal, setShowFileLoaderModal] = useState(false);
 	const [isBuildingSave, setIsBuildingSave] = useState(false);
 	const [chosenLevels, setChosenLevels] = useState<Level[]>([]);
 	const [showDownloadHelp, setShowDownloadHelp] = useState(false);
@@ -54,6 +57,7 @@ function LevelsPage({
 						/>
 						<div className="space-y-8">
 							<SaveFileList
+								emptySaveFileState={emptySaveFileState}
 								className="mx-12 sticky top-0 z-10"
 								style={{ minHeight: '3rem' }}
 								chosenLevelCount={chosenLevels.length}
@@ -68,6 +72,17 @@ function LevelsPage({
 								onSaveClick={() => downloadSave(chosenLevels)}
 								isBuilding={isBuildingSave}
 							/>
+							{!allFilesReady && (
+								<div>
+									To see the thumbnails,{' '}
+									<button
+										className="text-blue-300"
+										onClick={() => setShowFileLoaderModal(true)}
+									>
+										load a SMA4 ROM
+									</button>
+								</div>
+							)}
 							<div
 								className={clsx('space-y-8', {
 									'border-4 border-green-300': isBuildingSave,
@@ -79,6 +94,7 @@ function LevelsPage({
 										level={l}
 										isBuildingSave={isBuildingSave}
 										isChosen={chosenLevels.includes(l)}
+										areFilesReady={allFilesReady}
 										onChosenChange={(newChosen) => {
 											if (newChosen && chosenLevels.length < 30) {
 												setChosenLevels((cl) => cl.concat(l));
@@ -107,7 +123,7 @@ function LevelsPage({
 
 	return (
 		<>
-			<FileLoaderModal isOpen={!allFilesReady} />
+			<FileLoaderModal isOpen={showFileLoaderModal && !allFilesReady} />
 			<Root title="Levels" metaDescription="">
 				<div className="max-w-2xl mx-auto pt-16">
 					<h1 className="font-bold text-5xl text-center mb-8">
