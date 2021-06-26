@@ -6,9 +6,11 @@ import { AppState, dispatch } from '../../../store';
 import { loadPublishedLevels } from '../levelsSlice';
 
 function ConnectedLevelsPage() {
-	const { allFilesReady, emptySaveFileState } = useSelector(
-		(state: AppState) => state.fileLoader
-	);
+	const {
+		allFilesReady,
+		emptySaveFileState,
+		overallExtractionState,
+	} = useSelector((state: AppState) => state.fileLoader);
 	const { levels, loadState } = useSelector((state: AppState) => state.levels);
 
 	useEffect(() => {
@@ -19,6 +21,7 @@ function ConnectedLevelsPage() {
 		<LevelsPage
 			allFilesReady={allFilesReady}
 			emptySaveFileState={emptySaveFileState}
+			extractionState={overallExtractionState}
 			loadState={loadState}
 			levels={levels}
 		/>

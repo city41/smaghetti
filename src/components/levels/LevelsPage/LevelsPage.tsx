@@ -7,10 +7,15 @@ import { LevelRow } from './LevelRow';
 import { SaveFileList } from './SaveFileList';
 import { downloadSetOfLevelsAsSaveFile } from '../../../levelData/downloadLevelAsSaveFile';
 import { HowToUseDownloadModal } from '../../HowToUseDownloadModal';
+import {
+	ExtractionState,
+	OtherFilesState,
+} from '../../FileLoader/fileLoaderSlice';
 
 type InternalLevelsPageProps = {
 	allFilesReady: boolean;
-	emptySaveFileState: 'loading' | 'success' | 'error';
+	emptySaveFileState: OtherFilesState;
+	extractionState: ExtractionState;
 	loadState: 'dormant' | 'loading' | 'success' | 'error';
 	levels: Level[];
 };
@@ -18,6 +23,7 @@ type InternalLevelsPageProps = {
 function LevelsPage({
 	allFilesReady,
 	emptySaveFileState,
+	extractionState,
 	loadState,
 	levels,
 }: InternalLevelsPageProps) {
@@ -72,7 +78,7 @@ function LevelsPage({
 								onSaveClick={() => downloadSave(chosenLevels)}
 								isBuilding={isBuildingSave}
 							/>
-							{!allFilesReady && (
+							{extractionState === 'not-started' && (
 								<div>
 									To see the thumbnails,{' '}
 									<button

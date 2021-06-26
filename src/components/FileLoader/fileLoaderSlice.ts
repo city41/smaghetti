@@ -297,7 +297,7 @@ const extract = (): FileLoaderThunk => async (dispatch) => {
 
 const reducer = fileLoaderSlice.reducer;
 
-export type { FileLoaderState };
+export type { FileLoaderState, OtherFilesState, ExtractionState };
 
 export {
 	reducer,
