@@ -127,8 +127,14 @@ function Resizer({
 				x: sizeRef.current.x + xDelta,
 				y: sizeRef.current.y + yDelta,
 			});
-			start.current.x = inputs.x;
-			start.current.y = inputs.y;
+
+			if (xDelta !== 0) {
+				start.current.x = inputs.x;
+			}
+
+			if (yDelta !== 0) {
+				start.current.y = inputs.y;
+			}
 		}
 
 		current.current.x = inputs.x;
