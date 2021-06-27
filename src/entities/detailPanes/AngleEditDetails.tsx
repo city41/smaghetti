@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { AiOutlineRotateLeft } from 'react-icons/ai';
+import { AiOutlineRotateRight } from 'react-icons/ai';
 
 type AngleEditDetailsProps = {
 	currentAngle?: number;
@@ -14,8 +14,7 @@ const PADDING = 1;
 
 function AngleEditDetails({
 	currentAngle = 0,
-	// TODO: this is a strange default, but it is what works best with tailwinds rotate classes
-	rotateAmount = 270,
+	rotateAmount = 90,
 	width,
 	height,
 	onAngleChange,
@@ -38,11 +37,11 @@ function AngleEditDetails({
 					onMouseDown={(e) => {
 						e.preventDefault();
 						e.stopPropagation();
-						const newAngle = ((currentAngle ?? 0) + rotateAmount) % 360;
+						const newAngle = (currentAngle ?? 0) + rotateAmount;
 						onAngleChange(newAngle);
 					}}
 				>
-					<AiOutlineRotateLeft
+					<AiOutlineRotateRight
 						className="hover:bg-gray-500"
 						style={{ fontSize: '0.25rem' }}
 					/>

@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 
 import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
@@ -61,7 +60,8 @@ const TriangularBlock: Entity = {
 	},
 
 	toObjectBinary(x, y, _w, _h, settings) {
-		return [0, y, x, angleToObjectId[(settings.angle ?? 0) as number]];
+		const angle = (settings.angle ?? 0) % 360;
+		return [0, y, x, angleToObjectId[angle]];
 	},
 
 	simpleRender(size) {
@@ -76,15 +76,12 @@ const TriangularBlock: Entity = {
 	render(showDetails, settings, onSettingsChange) {
 		const body = (
 			<div
-				className={clsx(
-					'TriangularBlock-bg bg-cover relative cursor-pointer transform',
-					{
-						'rotate-90': settings.angle === 90,
-						'rotate-180': settings.angle === 180,
-						'-rotate-90': settings.angle === 270,
-					}
-				)}
-				style={{ width: TILE_SIZE, height: TILE_SIZE }}
+				className="TriangularBlock-bg bg-cover relative cursor-pointer transform transition-all"
+				style={{
+					width: TILE_SIZE,
+					height: TILE_SIZE,
+					transform: `rotate(${settings.angle ?? 0}deg)`,
+				}}
 			/>
 		);
 

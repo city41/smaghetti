@@ -173,7 +173,9 @@ const OneWayDoor: Entity = {
 							width={TILE_SIZE}
 							height={TILE_SIZE * 2.5}
 							onAngleChange={(newAngle) => {
-								onSettingsChange({ direction: angleToDirection[newAngle] });
+								onSettingsChange({
+									direction: angleToDirection[newAngle % 360],
+								});
 							}}
 						>
 							{body}
