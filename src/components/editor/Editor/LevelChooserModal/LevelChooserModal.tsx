@@ -104,6 +104,7 @@ function LevelChooserModal({
 			title="Choose what to work on"
 			isOpen={isOpen}
 			onXClick={onRequestClose}
+			onRequestClose={onRequestClose}
 		>
 			<div
 				style={{ height: isLoggedIn ? '60vh' : 'auto' }}
