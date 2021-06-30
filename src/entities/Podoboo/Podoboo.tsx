@@ -1,41 +1,9 @@
 import React from 'react';
-import type { Entity } from './types';
-import { TILE_SIZE } from '../tiles/constants';
-import { ANY_OBJECT_SET } from './constants';
-import { TileSpace } from './TileSpace';
-
-const graphicSetValues = [
-	1,
-	3,
-	4,
-	5,
-	6,
-	7,
-	8,
-	9,
-	10,
-	11,
-	12,
-	13,
-	14,
-	15,
-	16,
-	17,
-	18,
-	19,
-	20,
-	21,
-	22,
-	23,
-	24,
-	25,
-	26,
-	27,
-	28,
-	29,
-	30,
-	31,
-];
+import type { Entity } from '../types';
+import { TILE_SIZE } from '../../tiles/constants';
+import { ANY_OBJECT_SET } from '../constants';
+import { TileSpace } from '../TileSpace';
+import { spriteGraphicSets } from './spriteGraphicSets';
 
 const Podoboo: Entity = {
 	paletteCategory: 'enemy',
@@ -47,7 +15,7 @@ const Podoboo: Entity = {
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, -1],
+	spriteGraphicSets,
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',

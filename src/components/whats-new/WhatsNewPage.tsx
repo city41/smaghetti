@@ -81,6 +81,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-06-30">
 					<ul>
 						<li>Podoboo (aka Lava Bubble)</li>
+						<li>Podoboo - Ceiling</li>
 					</ul>
 				</NewEntry>
 				<NewEntry
