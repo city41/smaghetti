@@ -23,6 +23,7 @@ import { ArrowSign } from '../src/entities/ArrowSign';
 import { toHexString } from '../src/components/hex-tree/HexTreePage/util';
 import isEqual from 'lodash/isEqual';
 import { SpriteGraphicSets } from '../src/entities/types';
+import { encodeObjectSets } from '../src/entities/util';
 
 const BRICKS_ALONG_BOTTOM: EditorEntityMatrix = (function () {
 	let idCounter = 1;
@@ -35,7 +36,7 @@ const BRICKS_ALONG_BOTTOM: EditorEntityMatrix = (function () {
 	for (let x = 0; x < PLAY_WINDOW_TILE_WIDTH; ++x) {
 		playerRow.push({
 			id: idCounter++,
-			type: 'IndestructibleBrick',
+			type: 'Lava',
 			x,
 			y: INITIAL_PLAYER_Y_TILE + 1,
 		} as const);
@@ -100,6 +101,7 @@ function getGbaScreen(
 			return bytes;
 		};
 		ArrowSign.spriteGraphicSets = spriteGraphicSet;
+		ArrowSign.objectSets = encodeObjectSets([[2, 10]]);
 
 		// @ts-ignore
 		const levelData = createLevelData({

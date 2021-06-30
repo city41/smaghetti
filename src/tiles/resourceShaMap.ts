@@ -138,6 +138,7 @@ export const resourceShaMap: Record<string, string> = {
   "PipeHorizontalMini": "462e503344af48135d8039b72f314b08c996d860",
   "PiranhaPlant": "5603bb3e5b2447fa3d53b427156a47bac975ce85",
   "Player": "380bc860471c4d9e8cb4bc369ea849aaac740ae8",
+  "Podoboo": "c99b47b9b6e0288174c8e7d6d689eedaa1e09156",
   "PoolOfWater": "128be9434bb05381b50dc1dc70b7b1e770178262",
   "Porcupo": "cbe688fa57038a320599919f54b7d515f3d749f4",
   "PorcuPuffer": "734c476e7fb10a332d775ca091118284c5405ef1",

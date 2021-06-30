@@ -78,6 +78,11 @@ function WhatsNewPage() {
 						<span className="text-xs">posted 25th of June, 2021</span>
 					</p>
 				</div>
+				<NewEntry title="New Entities" date="2021-06-30">
+					<ul>
+						<li>Podoboo (aka Lava Bubble)</li>
+					</ul>
+				</NewEntry>
 				<NewEntry
 					title="Make a copy when doing drag and drop"
 					date="2021-06-25"
