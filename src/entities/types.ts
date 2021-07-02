@@ -35,6 +35,7 @@ type PaletteSubcategory =
 	| 'enemy-common'
 	| 'enemy-piranha'
 	| 'enemy-fortress'
+	| 'enemy-airship'
 	| 'enemy-desert'
 	| 'enemy-water'
 	| 'enemy-winter'

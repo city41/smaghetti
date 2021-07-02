@@ -78,6 +78,12 @@ function WhatsNewPage() {
 						<span className="text-xs">posted 25th of June, 2021</span>
 					</p>
 				</div>
+				<NewEntry title="New Entities" date="2021-07-02">
+					<ul>
+						<li>Cannon</li>
+					</ul>
+					<p>The first airship entity. But so far, it can only fire bobombs.</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-06-30">
 					<ul>
 						<li>Podoboo (aka Lava Bubble)</li>

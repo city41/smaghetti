@@ -380,8 +380,14 @@ function getSprites(entities: EditorEntity[], room: RoomData): number[] {
 			return building;
 		}
 
-		const x = Math.floor(entity.x / TILE_SIZE);
-		const y = Math.floor(entity.y / TILE_SIZE);
+		const x =
+			entityDef.editorType === 'cell'
+				? entity.x
+				: Math.floor(entity.x / TILE_SIZE);
+		const y =
+			entityDef.editorType === 'cell'
+				? entity.y
+				: Math.floor(entity.y / TILE_SIZE);
 
 		return building.concat(
 			entityDef.toSpriteBinary(

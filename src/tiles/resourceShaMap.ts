@@ -33,6 +33,7 @@ export const resourceShaMap: Record<string, string> = {
   "BusterBeetle": "d7bac48efe155db7a06aac53abb0e7967cc1c32e",
   "BuzzyBeetle": "e6b0fe2b2190dfe86f7695da8a724835ba2e1ae1",
   "Cactus": "07ab53d2d9a108a04ec219f31aa0571790815525",
+  "Cannon": "2350204ca81e6f250e38c23545699d153e5765a6",
   "CapeFeather": "afb8b4c74ba116f3a2a9fc8c44d96ad2c546de03",
   "CardSlotMachine": "67013ca2a4a7cb9db7c43594f1fa691479a18abe",
   "CementBlock": "01401cc47bfd75f01323ef14cd1790fda78fa280",
