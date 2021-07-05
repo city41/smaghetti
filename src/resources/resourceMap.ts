@@ -39,6 +39,7 @@ import { GhostHouseBackground } from './GhostHouseBackground';
 import { GiantVegetable } from './GiantVegetable';
 import { GreenCheepCheep } from './GreenCheepCheep';
 import { GreenSpinyEgg } from './GreenSpinyEgg';
+import { GrassChuteDownRight } from './GrassChuteDownRight';
 import { GrassHorizontalDirt } from './GrassHorizontalDirt';
 import { GrassSlope30DegUpRight } from './GrassSlope30DegUpRight';
 import { GrassStaircaseUpLeft } from './GrassStaircaseUpLeft';
@@ -152,21 +153,22 @@ const resourceMap = {
 	FortressBackground,
 	FrogSuit,
 	GhostHouseBackground,
+	GiantVegetable,
+	GrassChuteDownRight,
 	GrassHorizontalDirt,
 	GrassSlope30DegUpRight,
 	GrassStaircaseUpLeft,
 	GrassStaircaseUpRight,
-	HillsAtNightBackground,
-	GiantVegetable,
 	GreenCheepCheep,
 	GreenSpinyEgg,
+	HillsAtNightBackground,
 	HoppingBowserStatueBody,
 	HoppingBowserStatueHead,
-	HotHeadEyes,
 	HorizontalDolphin,
-	KoopalingWand,
+	HotHeadEyes,
 	KoopaShell,
 	KoopaWing,
+	KoopalingWand,
 	MetalBrickBackground,
 	MontyMoleJumpingOut,
 	NightSkyBackground,
@@ -174,6 +176,7 @@ const resourceMap = {
 	OneWayDoorHorizontalFlipper,
 	OneWayDoorVerticalFlipper,
 	OrangeSpinyEgg,
+	PWing,
 	ParaWing,
 	PipeAirshipVerticalBody,
 	PipeAirshipVerticalLip,
@@ -183,7 +186,6 @@ const resourceMap = {
 	PipeVerticalLip,
 	PlainsBackground,
 	PoisonMushroom,
-	PWing,
 	RedCheepCheep,
 	RegularVegetable,
 	SeeSawPivotPoint,

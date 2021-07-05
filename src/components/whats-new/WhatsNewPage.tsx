@@ -78,6 +78,11 @@ function WhatsNewPage() {
 						<span className="text-xs">posted 25th of June, 2021</span>
 					</p>
 				</div>
+				<NewEntry title="New Entities" date="2021-07-05">
+					<ul>
+						<li>Grass Chute - Down Right</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-07-02">
 					<ul>
 						<li>Cannon</li>

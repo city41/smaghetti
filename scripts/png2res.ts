@@ -348,7 +348,7 @@ function main() {
 
 	if (!romPath || !pngPath || !palettePath) {
 		console.error(
-			'usage: node png2res <path-to-rom> <path-to-png> <palette-binary-path>'
+			'usage: node png2res <path-to-rom> <path-to-png> <palette-binary-path> [<zero-color-str>]'
 		);
 		process.exit(1);
 	}
