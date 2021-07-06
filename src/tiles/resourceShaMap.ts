@@ -239,6 +239,7 @@ export const resourceShaMap: Record<string, string> = {
   "FrogSuit": "fc88237b2720507b8661cd5f78f68b1ab9713ed1",
   "GhostHouseBackground": "10327aeb4d8de62bfb865f19ade70d1cd865b163",
   "GiantVegetable": "c974451b2c2668a13db10320b56c829056160669",
+  "GrassChuteDownLeft": "3aea0d3250e989617efb32873d2b5f44cde604df",
   "GrassChuteDownRight": "5a05352ed14cedf63421d5f596045c38271612c5",
   "GrassHorizontalDirt": "22872c4492dfe612ba1a06427a6c4ba96a84aa5e",
   "GrassSlope30DegUpRight": "aa4512d7c53a201db1293b6ba29ec90732c14d43",

@@ -5,11 +5,11 @@ import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { TileSpace } from './TileSpace';
 
-const GrassChuteDownRight: Entity = {
+const GrassChuteDownLeft: Entity = {
 	// paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-large',
-		title: 'Grass Chute - Down Right',
+		title: 'Grass Chute - Down Left',
 		warning:
 			'They only work towards the bottom of a level, need to understand why',
 	},
@@ -22,10 +22,10 @@ const GrassChuteDownRight: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x30,
+	objectId: 0x31,
 	emptyBank: 0,
 	width: 8,
-	height: 6,
+	height: 7,
 
 	toObjectBinary(x, y) {
 		return [0, y, x, this.objectId];
@@ -34,7 +34,7 @@ const GrassChuteDownRight: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="GrassChuteDownRight-bg bg-center bg-no-repeat"
+				className="GrassChuteDownLeft-bg bg-center bg-no-repeat"
 				style={{
 					width: size,
 					height: size,
@@ -47,16 +47,15 @@ const GrassChuteDownRight: Entity = {
 	render() {
 		const style = {
 			width: TILE_SIZE * 8,
-			height: TILE_SIZE * 6,
-			backgroundPosition: 'right center',
+			height: TILE_SIZE * 7,
 		};
 
 		return (
-			<div className="GrassChuteDownRight-bg bg-no-repeat" style={style}>
+			<div className="GrassChuteDownLeft-bg bg-no-repeat" style={style}>
 				<TileSpace />
 			</div>
 		);
 	},
 };
 
-export { GrassChuteDownRight };
+export { GrassChuteDownLeft };

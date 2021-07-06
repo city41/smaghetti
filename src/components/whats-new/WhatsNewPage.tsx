@@ -80,7 +80,8 @@ function WhatsNewPage() {
 				</div>
 				<NewEntry title="New Entities" date="2021-07-05">
 					<ul>
-						<li>Grass Chute - Down Right</li>
+						<li>Grass Chute - Down Left (unfinished)</li>
+						<li>Grass Chute - Down Right (unfinished)</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-07-02">
