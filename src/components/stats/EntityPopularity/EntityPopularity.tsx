@@ -12,6 +12,7 @@ type EntityPopularityProps = {
 function EntityCountRow({
 	type,
 	count,
+	percent,
 }: {
 	type: EntityType;
 	count: number;
@@ -21,7 +22,7 @@ function EntityCountRow({
 
 	return (
 		<div
-			className="grid gap-x-4 items-center"
+			className="relative grid gap-x-4 items-center"
 			style={{ gridTemplateColumns: '50px 1fr' }}
 		>
 			<div className="grid place-items-center">
@@ -35,6 +36,14 @@ function EntityCountRow({
 					{entityDef.paletteInfo.title}
 				</div>
 			</div>
+			<div
+				className="absolute bg-gray-600 h-full"
+				style={{
+					width: `calc(${percent * 100}% - 55px)`,
+					left: 55,
+					zIndex: -1,
+				}}
+			/>
 		</div>
 	);
 }
@@ -45,7 +54,7 @@ function EntityPopularity({
 }: EntityPopularityProps) {
 	const [hideObjects, setHideObjects] = useState(false);
 	const [curEntitiesByCount, setCurEntitiesByCount] = useState(entitiesByCount);
-	const highestCount = Math.max(...entitiesByCount.map((ec) => ec.count));
+	const highestCount = Math.max(...curEntitiesByCount.map((ec) => ec.count));
 
 	useEffect(() => {
 		let curEntities = entitiesByCount;
@@ -74,7 +83,7 @@ function EntityPopularity({
 				Total count of entities in all Smaghetti levels, not just published
 				levels.
 			</p>
-			<div className={clsx(className, 'space-y-8 mt-8')}>
+			<div className={clsx(className, 'space-y-8 mt-8 h-96 overflow-y-auto')}>
 				{curEntitiesByCount.map((ec) => (
 					<EntityCountRow
 						key={ec.type}
