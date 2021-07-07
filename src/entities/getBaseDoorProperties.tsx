@@ -6,10 +6,7 @@ import { TransportSource } from '../components/Transport/TransportSource';
 import { TransportEditDetails } from './detailPanes/TransportEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { DestinationSetProps } from '../components/Transport/TransportDestinationModal/TransportDestinationModal';
-import {
-	getEntityTileBounds,
-	pointIsInside,
-} from '../components/editor/editorSlice';
+import { getEntityTileBounds, pointIsInside } from '../components/editor/util';
 
 const DOOR_LOCK_OBJECT_ID = 0xce;
 

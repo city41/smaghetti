@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { MdClear } from 'react-icons/md';
 
-import { EntityType } from '../../entities/entityMap';
 import { ResourceType } from '../../resources/resourceMap';
 
 type PayloadEditDetailsProps = {

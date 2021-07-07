@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import { EntityType } from '../../entities/entityMap';
 import { ResourceType } from '../../resources/resourceMap';
 
 type PayloadViewDetailsProps = {

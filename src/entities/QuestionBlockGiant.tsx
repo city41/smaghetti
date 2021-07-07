@@ -3,7 +3,6 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
-import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';

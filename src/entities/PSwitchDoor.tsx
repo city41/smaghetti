@@ -6,10 +6,7 @@ import { TileSpace } from './TileSpace';
 import { TransportSource } from '../components/Transport/TransportSource';
 import { TransportEditDetails } from './detailPanes/TransportEditDetails';
 import { DestinationSetProps } from '../components/Transport/TransportDestinationModal/TransportDestinationModal';
-import {
-	getEntityTileBounds,
-	pointIsInside,
-} from '../components/editor/editorSlice';
+import { getEntityTileBounds, pointIsInside } from '../components/editor/util';
 
 const PSwitchDoor: Entity = {
 	paletteCategory: 'transport',

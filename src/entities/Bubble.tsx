@@ -3,7 +3,6 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
-import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { ANY_OBJECT_SET } from './constants';

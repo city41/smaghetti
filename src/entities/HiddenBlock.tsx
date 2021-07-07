@@ -2,7 +2,6 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
-import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';

@@ -1,8 +1,5 @@
 import { DestinationSetProps } from '../components/Transport/TransportDestinationModal/TransportDestinationModal';
-import {
-	getEntityTileBounds,
-	pointIsInside,
-} from '../components/editor/editorSlice';
+import { getEntityTileBounds, pointIsInside } from '../components/editor/util';
 import { TILE_SIZE } from '../tiles/constants';
 
 function getPipeExitType(

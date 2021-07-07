@@ -50,6 +50,7 @@ import {
 	CURRENT_VERSION,
 } from '../../level/versioning/convertLevelToLatestVersion';
 import { flattenCells } from '../../levelData/util';
+import { getEntityTileBounds, pointIsInside } from './util';
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
 
@@ -522,23 +523,6 @@ function floodFill(
 	return floodBounds;
 }
 
-function getEntityTileBounds(entity: NewEditorEntity): Bounds {
-	const entityDef = entityMap[entity.type];
-	const tileWidth = entity.settings?.width ?? entityDef.width ?? 1;
-	const tileHeight = entity.settings?.height ?? entityDef.height ?? 1;
-
-	const minX = Math.floor(entity.x / TILE_SIZE);
-	const minY = Math.floor(entity.y / TILE_SIZE);
-
-	const maxX = minX + tileWidth - 1;
-	const maxY = minY + tileHeight - 1;
-
-	return {
-		upperLeft: { x: minX, y: minY },
-		lowerRight: { x: maxX, y: maxY },
-	};
-}
-
 function getEntityPixelBounds(entity: NewEditorEntity): Bounds {
 	const tileBounds = getEntityTileBounds(entity);
 
@@ -552,29 +536,6 @@ function getEntityPixelBounds(entity: NewEditorEntity): Bounds {
 			y: tileBounds.lowerRight.y * TILE_SIZE + TILE_SIZE,
 		},
 	};
-}
-
-function pointIsInside(a: Point, b: Bounds) {
-	if (a.x < b.upperLeft.x) {
-		return false;
-	}
-
-	// a is completely to the right of b
-	if (a.x > b.lowerRight.x) {
-		return false;
-	}
-
-	// a is completely above b
-	if (a.y < b.upperLeft.y) {
-		return false;
-	}
-
-	// a is completely below b
-	if (a.y > b.lowerRight.y) {
-		return false;
-	}
-
-	return true;
 }
 
 function overlap(a: Bounds, b: Bounds): boolean {
