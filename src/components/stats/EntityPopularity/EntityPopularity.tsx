@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { EntityCount } from '../../../stats/types';
 import { entityMap } from '../../../entities/entityMap';
+import { Button } from '../../Button';
 
 type EntityPopularityProps = {
 	className?: string;
@@ -42,18 +43,47 @@ function EntityPopularity({
 	className,
 	entitiesByCount,
 }: EntityPopularityProps) {
+	const [hideObjects, setHideObjects] = useState(false);
+	const [curEntitiesByCount, setCurEntitiesByCount] = useState(entitiesByCount);
 	const highestCount = Math.max(...entitiesByCount.map((ec) => ec.count));
 
+	useEffect(() => {
+		let curEntities = entitiesByCount;
+
+		if (hideObjects) {
+			curEntities = entitiesByCount.filter(
+				(e) => !entityMap[e.type].toObjectBinary
+			);
+		}
+
+		setCurEntitiesByCount(curEntities);
+	}, [hideObjects, entitiesByCount]);
+
 	return (
-		<div className={clsx(className, 'space-y-8')}>
-			{entitiesByCount.map((ec) => (
-				<EntityCountRow
-					key={ec.type}
-					type={ec.type}
-					count={ec.count}
-					percent={ec.count / highestCount}
-				/>
-			))}
+		<div>
+			<h1 className="font-bold text-2xl text-center mb-2 flex flex-row space-x-4">
+				<div>Entity Popularity</div>
+				<Button
+					className="text-base"
+					onClick={() => setHideObjects((hc) => !hc)}
+				>
+					{hideObjects ? 'show objects' : 'hide objects'}
+				</Button>
+			</h1>
+			<p className="text-gray-400 text-sm my-2">
+				Total count of entities in all Smaghetti levels, not just published
+				levels.
+			</p>
+			<div className={clsx(className, 'space-y-8 mt-8')}>
+				{curEntitiesByCount.map((ec) => (
+					<EntityCountRow
+						key={ec.type}
+						type={ec.type}
+						count={ec.count}
+						percent={ec.count / highestCount}
+					/>
+				))}
+			</div>
 		</div>
 	);
 }

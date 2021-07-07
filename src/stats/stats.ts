@@ -1,7 +1,7 @@
 import type { LevelStats } from './types';
 	
 	export const stats: LevelStats = {
-  "lastUpdated": "Wed Jul 07 2021 08:21:24 GMT-0400 (Eastern Daylight Time)",
+  "lastUpdated": "Wed Jul 07 2021 08:41:26 GMT-0400 (Eastern Daylight Time)",
   "entitiesByCount": [
     {
       "type": "FortressBrick",

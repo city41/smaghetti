@@ -61,6 +61,7 @@ function Header({ className, highlightEditor }: HeaderProps) {
 					<MenuLink href="/whats-new">what&apos;s new</MenuLink>
 					<MenuLink href="/roadmap">roadmap</MenuLink>
 					<MenuLink href="/credits">credits</MenuLink>
+					<MenuLink href="/stats">stats</MenuLink>
 					<MenuLink
 						href="https://www.reddit.com/r/smaghetti/"
 						target="_blank"
@@ -68,14 +69,6 @@ function Header({ className, highlightEditor }: HeaderProps) {
 						title="Smaghetti subreddit"
 					>
 						subreddit
-					</MenuLink>
-					<MenuLink
-						href="https://github.com/city41/smaghetti"
-						target="_blank"
-						rel="noreferrer"
-						title="GitHub repo"
-					>
-						github
 					</MenuLink>
 				</div>
 			</div>

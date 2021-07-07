@@ -59,7 +59,10 @@ function calcStats(levels: LevelData[]): LevelStats {
 
 		const count = allEntities.filter((e) => e.type === entityType).length;
 
-		return building.concat({ type: entityType, count });
+		return building.concat({
+			type: entityType,
+			count,
+		});
 	}, []);
 
 	const entitiesByCount = orderBy(
