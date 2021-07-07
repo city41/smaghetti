@@ -89,6 +89,16 @@ const ScrollStopHorizontal: Entity = {
 			</div>
 		);
 	},
+
+	getWarning(settings, entity) {
+		const tx = entity.x / TILE_SIZE;
+		const delta = 15 - tx;
+		if (settings.direction === 'left' && delta > 0) {
+			return `Move over ${delta} tile${
+				delta === 1 ? '' : 's'
+			} to the right to work`;
+		}
+	},
 };
 
 export { ScrollStopHorizontal };
