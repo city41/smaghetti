@@ -21,6 +21,10 @@ function StatsPage({ allFilesReady }: InternalStatsPageProps) {
 					{allFilesReady && (
 						<EntityPopularity entitiesByCount={stats.entitiesByCount} />
 					)}
+					<p className="mt-8 text-gray-500 text-xs text-right">
+						<span className="text-gray-300">Stats last calculated:</span>{' '}
+						{stats.lastUpdated}
+					</p>
 				</div>
 			</Root>
 		</>

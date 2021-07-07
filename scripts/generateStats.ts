@@ -67,7 +67,10 @@ function calcStats(levels: LevelData[]): LevelStats {
 		['count', 'type'],
 		['desc', 'asc']
 	);
-	return { entitiesByCount };
+	return {
+		lastUpdated: new Date().toString(),
+		entitiesByCount,
+	};
 }
 
 function writeStats(stats: LevelStats, filePath: string) {

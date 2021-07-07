@@ -4,6 +4,7 @@ type EntityCount = {
 };
 
 type LevelStats = {
+	lastUpdated: string;
 	entitiesByCount: EntityCount[];
 };
 
