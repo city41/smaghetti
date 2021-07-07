@@ -4,10 +4,9 @@ import * as fs from 'fs';
 import { Client } from 'pg';
 import { convertLevelToLatestVersion } from '../src/level/versioning/convertLevelToLatestVersion';
 import { deserialize } from '../src/level/deserialize';
-import { entityMap, EntityType } from '../src/entities/entityMap';
-import { flattenCells } from '../src/levelData/util';
-import { EntityCount, LevelStats } from '../src/stats/types';
-import orderBy from 'lodash/orderBy';
+import { LevelStats } from '../src/stats/types';
+import { entitiesByCount } from './stats/entitiesByCount';
+import { roomsPerLevelPercentages } from './stats/roomsPerLevelPercentages';
 
 async function queryForLevels(): Promise<SerializedLevel[]> {
 	const client = new Client();
@@ -33,46 +32,10 @@ async function getLevelDatas(): Promise<LevelData[]> {
 }
 
 function calcStats(levels: LevelData[]): LevelStats {
-	const allRooms = levels.reduce<RoomData[]>((building, level) => {
-		return building.concat(level.rooms);
-	}, []);
-
-	const allEntities = allRooms.reduce<EditorEntity[]>((building, room) => {
-		const flattendActorCells = flattenCells(room.actors.matrix);
-		const flattendStageCells = flattenCells(room.stage.matrix);
-		return building.concat(
-			flattendActorCells,
-			flattendStageCells,
-			room.actors.entities,
-			room.stage.entities
-		);
-	}, []);
-
-	const entitiesByCountUnsorted: EntityCount[] = (Object.keys(
-		entityMap
-	) as EntityType[]).reduce<EntityCount[]>((building, entityType) => {
-		const entityDef = entityMap[entityType];
-
-		if (!entityDef || !entityDef.paletteCategory) {
-			return building;
-		}
-
-		const count = allEntities.filter((e) => e.type === entityType).length;
-
-		return building.concat({
-			type: entityType,
-			count,
-		});
-	}, []);
-
-	const entitiesByCount = orderBy(
-		entitiesByCountUnsorted,
-		['count', 'type'],
-		['desc', 'asc']
-	);
 	return {
 		lastUpdated: new Date().toString(),
-		entitiesByCount,
+		entitiesByCount: entitiesByCount(levels),
+		roomsPerLevelPercentages: roomsPerLevelPercentages(levels),
 	};
 }
 
