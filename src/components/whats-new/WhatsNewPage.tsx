@@ -78,6 +78,13 @@ function WhatsNewPage() {
 						<span className="text-xs">posted 25th of June, 2021</span>
 					</p>
 				</div>
+				<NewEntry title="Fixed a camera bug" date="2021-07-08">
+					<p>
+						There was a bug that would cause items about 4 tiles above Mario to
+						not render when first starting a level. That has now been fixed.
+						Sorry about that, it made some levels really strange.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-07-05">
 					<ul>
 						<li>Grass Chute - Down Left (unfinished)</li>
