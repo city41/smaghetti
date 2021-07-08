@@ -6,12 +6,10 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { TileSpace } from './TileSpace';
 
 const GrassChuteDownLeft: Entity = {
-	// paletteCategory: 'terrain',
+	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-large',
 		title: 'Grass Chute - Down Left',
-		warning:
-			'They only work towards the bottom of a level, need to understand why',
 	},
 
 	objectSets: encodeObjectSets([
@@ -55,6 +53,12 @@ const GrassChuteDownLeft: Entity = {
 				<TileSpace />
 			</div>
 		);
+	},
+
+	getWarning(_settings, entity) {
+		if (entity.x < 0) {
+			return "Can't extend outside the front of the level";
+		}
 	},
 };
 

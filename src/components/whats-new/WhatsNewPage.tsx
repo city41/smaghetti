@@ -84,6 +84,11 @@ function WhatsNewPage() {
 						not render when first starting a level. That has now been fixed.
 						Sorry about that, it made some levels really strange.
 					</p>
+					<p>
+						This bug is also what was causing the confusion with Grass Chutes.
+						So Grass Chutes have been moved out of the unfinished tab and are
+						fully usable now.
+					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-07-05">
 					<ul>
