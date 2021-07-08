@@ -1,7 +1,7 @@
 import type { LevelStats } from './types';
 	
 	export const stats: LevelStats = {
-  "lastUpdated": "Wed Jul 07 2021 18:25:34 GMT-0400 (Eastern Daylight Time)",
+  "lastUpdated": "Thu Jul 08 2021 09:47:00 GMT-0400 (Eastern Daylight Time)",
   "entitiesByCount": [
     {
       "type": "FortressBrick",
@@ -821,6 +821,14 @@ import type { LevelStats } from './types';
     },
     {
       "type": "FullerFlowerBush",
+      "count": 0
+    },
+    {
+      "type": "GrassChuteDownLeft",
+      "count": 0
+    },
+    {
+      "type": "GrassChuteDownRight",
       "count": 0
     },
     {
