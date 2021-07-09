@@ -5,7 +5,6 @@ import React from 'react';
 import { PayloadViewDetails } from '../detailPanes/PayloadViewDetails';
 import { ResourceType } from '../../resources/resourceMap';
 import { PayloadEditDetails } from '../detailPanes/PayloadEditDetails';
-import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
 
 const MusicBlock: Entity = {
@@ -17,7 +16,7 @@ const MusicBlock: Entity = {
 
 	// TODO: other object sets appear to also work with slightly different color palettes
 	objectSets: encodeObjectSets(objectSets),
-	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	spriteGraphicSets: [-1, 0, -1, -1, -1, -1],
 	layer: 'stage',
 	editorType: 'cell',
 	settingsType: 'single',

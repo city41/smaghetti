@@ -2,7 +2,6 @@ import type { Entity } from '../types';
 import { encodeObjectSets, getBankParam1 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import React from 'react';
-import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
 
 const MusicBlockThreeWay: Entity = {
@@ -14,7 +13,7 @@ const MusicBlockThreeWay: Entity = {
 	},
 
 	objectSets: encodeObjectSets(objectSets),
-	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	spriteGraphicSets: [-1, 0, -1, -1, -1, -1],
 	layer: 'stage',
 	editorType: 'cell',
 	settingsType: 'single',

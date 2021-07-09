@@ -10,6 +10,8 @@ import {
 	downloadLevelAsSaveFile,
 } from '../../../../levelData/downloadLevelAsSaveFile';
 import { HowToUseDownloadModal } from '../../../HowToUseDownloadModal';
+import { serialize } from '../../../../level/serialize';
+import { CURRENT_VERSION } from '../../../../level/versioning/convertLevelToLatestVersion';
 
 function ConnectedDownloadButton(props: PublicDownloadButtonProps) {
 	const { rooms } = useSelector((state: AppState) => state.editor.present);
@@ -33,6 +35,15 @@ function ConnectedDownloadButton(props: PublicDownloadButtonProps) {
 
 		if (process.env.NODE_ENV !== 'production') {
 			downloadLevelAsJson(level);
+			const serializedLevel: SerializedLevel = {
+				...level,
+				id: 'download-serialized',
+				created_at: '',
+				version: CURRENT_VERSION,
+				name: `${level.name}-serialized`,
+				data: serialize(level.data),
+			};
+			downloadLevelAsJson(serializedLevel);
 		}
 
 		setShowDownloadHelp(true);

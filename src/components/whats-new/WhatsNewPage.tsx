@@ -33,10 +33,12 @@ function NewEntry({
 	title,
 	date,
 	children,
+	breakingChange,
 }: {
 	title: string;
 	date: string;
 	children: ReactNode;
+	breakingChange?: boolean;
 }) {
 	const id = toId(`${title} ${date}`);
 
@@ -45,10 +47,19 @@ function NewEntry({
 			<a href={`#${id}`}>
 				<h3
 					id={id}
-					className="group relative text-gray-400 font-bold mb-4 text-xl flex flex-row justify-between items-baseline"
+					className="group relative font-bold mb-4 text-xl flex flex-row justify-between items-baseline"
 				>
-					<span className="flex-1">{title}</span>
-					<time className="text-sm" dateTime={date}>
+					<div className="flex-1">
+						<span
+							className={clsx({
+								'text-white bg-red-700 p-1': breakingChange,
+								'text-gray-400': !breakingChange,
+							})}
+						>
+							{title}
+						</span>
+					</div>
+					<time className="text-sm text-gray-400" dateTime={date}>
 						{dateToHumanString(date)}
 					</time>
 				</h3>
@@ -78,6 +89,31 @@ function WhatsNewPage() {
 						<span className="text-xs">posted 25th of June, 2021</span>
 					</p>
 				</div>
+				<NewEntry
+					title="Breaking change for note blocks"
+					date="2021-07-09"
+					breakingChange
+				>
+					<p>
+						Have you ever noticed Note Blocks have strange graphics when you
+						bounce on them? That is because Note Blocks are not always
+						compatible with other things in the room. Smaghetti had incorrect{' '}
+						<a href="/compatibility/MusicBlock">
+							Note Block compatibility settings.
+						</a>
+					</p>
+					<p>
+						This has now been fixed. If your level has Note Blocks in it,
+						possibly it has now had things removed. Whenever Smaghetti detects
+						incompatible entities in a level, it will remove entities until the
+						incompatibility is fixed.
+					</p>
+					<p>
+						This kind of compatibly fix that breaks levels will happen at least
+						a few more times before Smaghetti arrives at beta. Once in beta,
+						this kind of break should no longer happen.
+					</p>
+				</NewEntry>
 				<NewEntry title="Fixed a camera bug" date="2021-07-08">
 					<p>
 						There was a bug that would cause items about 4 tiles above Mario to
