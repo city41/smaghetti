@@ -13,7 +13,7 @@ import {
 import { Button } from '../../Button';
 import { HexTree } from './HexTree';
 import { injectLevelIntoSave } from '../../../levelData/injectLevelIntoSave';
-import { sendFileToAnchorTag } from '../../../levelData/downloadLevelAsSaveFile';
+import { sendBlobToAnchorTag } from '../../../levelData/downloadLevelAsSaveFile';
 import {
 	Add,
 	ByteSizes,
@@ -86,7 +86,10 @@ function HexTreePage({
 	function handleDownloadSave() {
 		if (data.length) {
 			const saveFile = injectLevelIntoSave(getEmptySave()!, data, true);
-			sendFileToAnchorTag(saveFile, 'hex-tree.sav');
+			const fileBlob = new Blob([saveFile.buffer], {
+				type: 'application/octet-stream',
+			});
+			sendBlobToAnchorTag(fileBlob, 'hex-tree.sav');
 		}
 	}
 

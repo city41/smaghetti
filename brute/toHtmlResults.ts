@@ -65,7 +65,7 @@ function toHtml(result: Result): string {
 
 	result.forEach((r) => {
 		const lis = r.sets
-			.map((s) => `<li>${s.replace('.png', '')},</li>`)
+			.map((s) => `<li>${s.replace('.png', '')}</li>`)
 			.join('\n');
 		entries.push(
 			ENTRY_TEMPLATE.replace('IMG_SRC', `file://${r.image}`).replace(

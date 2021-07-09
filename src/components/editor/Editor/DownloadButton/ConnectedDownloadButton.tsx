@@ -5,7 +5,10 @@ import { AppState } from '../../../../store';
 
 import { DownloadButton } from './DownloadButton';
 import type { PublicDownloadButtonProps } from './DownloadButton';
-import { downloadLevelAsSaveFile } from '../../../../levelData/downloadLevelAsSaveFile';
+import {
+	downloadLevelAsJson,
+	downloadLevelAsSaveFile,
+} from '../../../../levelData/downloadLevelAsSaveFile';
 import { HowToUseDownloadModal } from '../../../HowToUseDownloadModal';
 
 function ConnectedDownloadButton(props: PublicDownloadButtonProps) {
@@ -27,6 +30,10 @@ function ConnectedDownloadButton(props: PublicDownloadButtonProps) {
 		};
 
 		downloadLevelAsSaveFile(level);
+
+		if (process.env.NODE_ENV !== 'production') {
+			downloadLevelAsJson(level);
+		}
 
 		setShowDownloadHelp(true);
 	}

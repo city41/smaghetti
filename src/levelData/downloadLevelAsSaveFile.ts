@@ -2,14 +2,11 @@ import { getEmptySave } from '../components/FileLoader/files';
 import { createLevelData } from './createLevelData';
 import { injectLevelIntoSave } from './injectLevelIntoSave';
 
-function sendFileToAnchorTag(data: Uint8Array, fileName: string) {
+function sendBlobToAnchorTag(fileBlob: Blob, fileName: string) {
 	// stupid browser hack needed to download the file with a usable name
 	const a = document.createElement('a');
 	a.style.setProperty('display', 'none');
 
-	const fileBlob = new Blob([data.buffer], {
-		type: 'application/octet-stream',
-	});
 	const fileUrl = window.URL.createObjectURL(fileBlob);
 
 	a.href = fileUrl;
@@ -18,9 +15,9 @@ function sendFileToAnchorTag(data: Uint8Array, fileName: string) {
 	window.URL.revokeObjectURL(fileUrl);
 }
 
-function getSafeFileName(levelName: string): string {
+function getSafeFileName(levelName: string, ext: string): string {
 	// TODO: might need some scrubbing here
-	return `${levelName}.sav`;
+	return `${levelName}.${ext}`;
 }
 
 function downloadSetOfLevelsAsSaveFile(
@@ -47,15 +44,27 @@ function downloadSetOfLevelsAsSaveFile(
 		fullSaveData = injectLevelIntoSave(fullSaveData, levelSaveData, false);
 	});
 
-	sendFileToAnchorTag(fullSaveData, getSafeFileName(saveFileNameRoot));
+	const fileBlob = new Blob([fullSaveData.buffer], {
+		type: 'application/octet-stream',
+	});
+
+	sendBlobToAnchorTag(fileBlob, getSafeFileName(saveFileNameRoot, 'sav'));
 }
 
 function downloadLevelAsSaveFile(level: LevelToLoadInGBA) {
 	downloadSetOfLevelsAsSaveFile([level], level.name);
 }
 
+function downloadLevelAsJson(level: LevelToLoadInGBA) {
+	const levelString = JSON.stringify(level);
+	const fileBlob = new Blob([levelString], { type: 'text/json' });
+
+	sendBlobToAnchorTag(fileBlob, getSafeFileName(level.name, 'json'));
+}
+
 export {
 	downloadLevelAsSaveFile,
 	downloadSetOfLevelsAsSaveFile,
-	sendFileToAnchorTag,
+	downloadLevelAsJson,
+	sendBlobToAnchorTag,
 };

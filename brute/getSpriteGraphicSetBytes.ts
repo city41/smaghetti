@@ -4,54 +4,13 @@ import { createCanvas } from 'canvas';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as mkdirp from 'mkdirp';
-import { createLevelData } from '../src/levelData/createLevelData';
-import {
-	MUSIC_VALUES,
-	ROOM_BACKGROUND_SETTINGS,
-} from '../src/levelData/constants';
+import { ROOM_LEVELSETTING_POINTERS } from '../src/levelData/constants';
 import { injectLevelIntoSave } from '../src/levelData/injectLevelIntoSave';
 import cloneDeep from 'lodash/cloneDeep';
 import { deserialize } from '../src/saveStates/serializer';
-import {
-	INITIAL_ROOM_TILE_HEIGHT,
-	INITIAL_ROOM_TILE_WIDTH,
-	INITIAL_PLAYER_Y_TILE,
-	PLAY_WINDOW_TILE_WIDTH,
-} from '../src/components/editor/constants';
-import { TILE_SIZE } from '../src/tiles/constants';
-import { ArrowSign } from '../src/entities/ArrowSign';
 import { toHexString } from '../src/components/hex-tree/HexTreePage/util';
-import isEqual from 'lodash/isEqual';
 import { SpriteGraphicSets } from '../src/entities/types';
-import { encodeObjectSets } from '../src/entities/util';
-
-const BRICKS_ALONG_BOTTOM: EditorEntityMatrix = (function () {
-	let idCounter = 1;
-	const rows = [];
-	for (let y = 0; y < INITIAL_PLAYER_Y_TILE + 1; ++y) {
-		rows.push(null);
-	}
-
-	const playerRow = [];
-	for (let x = 0; x < PLAY_WINDOW_TILE_WIDTH; ++x) {
-		playerRow.push({
-			id: idCounter++,
-			type: 'Lava',
-			x,
-			y: INITIAL_PLAYER_Y_TILE + 1,
-		} as const);
-	}
-
-	rows.push(playerRow);
-
-	while (rows.length < INITIAL_ROOM_TILE_HEIGHT) {
-		rows.push(null);
-	}
-
-	return rows;
-})();
-
-let emptyLevelBuffer: Buffer | null = null;
+import { createLevelData } from '../src/levelData/createLevelData';
 
 const saveStateString = fs
 	.readFileSync(path.join(__dirname, '../public/justOutsideEReaderMenu.json'))
@@ -63,57 +22,36 @@ const emptySave = fs.readFileSync(path.join(__dirname, '../public/empty.sav'));
 const rom = fs.readFileSync(path.join(__dirname, './sma4.gba'));
 const canvas = createCanvas(240, 160);
 
-// TODO: this doesn't change anymore, doesn't need to be a function
-function getRoom(): RoomData {
-	return {
-		settings: {
-			music: MUSIC_VALUES.Underground,
-			...ROOM_BACKGROUND_SETTINGS.underground,
-		},
-		paletteEntries: [],
-		actors: {
-			entities: [
-				{
-					id: 1,
-					type: 'ArrowSign',
-					x: 8 * TILE_SIZE,
-					y: (INITIAL_ROOM_TILE_HEIGHT - 4) * TILE_SIZE,
-				},
-			],
-			matrix: [],
-		},
-		stage: {
-			entities: [],
-			matrix: BRICKS_ALONG_BOTTOM,
-		},
-		roomTileWidth: INITIAL_ROOM_TILE_WIDTH,
-		roomTileHeight: INITIAL_ROOM_TILE_HEIGHT,
-	};
+function applySpriteGraphicSet(
+	levelData: Uint8Array,
+	spriteGraphicSet: SpriteGraphicSets
+): Uint8Array {
+	const view = new DataView(levelData.buffer);
+
+	const levelSettingsPointer = ROOM_LEVELSETTING_POINTERS[0];
+	const levelSettingsIndex = view.getUint16(levelSettingsPointer, true);
+	const spriteGraphicSetIndex = levelSettingsIndex + 16;
+
+	for (let i = 0; i < spriteGraphicSet.length; ++i) {
+		const slot = spriteGraphicSet[i];
+		const value = Array.isArray(slot) ? slot[0] : slot;
+		view.setUint8(spriteGraphicSetIndex + i, value);
+	}
+
+	return levelData;
 }
 
 function getGbaScreen(
-	bytes: number[],
+	levelData: Uint8Array,
 	spriteGraphicSet: SpriteGraphicSets
 ): Promise<{ buffer: Buffer; data: Uint8ClampedArray }> {
 	return new Promise((resolve, reject) => {
-		ArrowSign.toObjectBinary = undefined;
-		ArrowSign.toSpriteBinary = () => {
-			return bytes;
-		};
-		ArrowSign.spriteGraphicSets = spriteGraphicSet;
-		ArrowSign.objectSets = encodeObjectSets([[2, 10]]);
-
-		// @ts-ignore
-		const levelData = createLevelData({
-			name: 'getSpriteGraphicSetBytes',
-			data: {
-				settings: {
-					timer: 999,
-				},
-				rooms: [getRoom()],
-			},
-		});
-		const saveFileWithLevel = injectLevelIntoSave(emptySave, levelData, true);
+		const patchedLevelData = applySpriteGraphicSet(levelData, spriteGraphicSet);
+		const saveFileWithLevel = injectLevelIntoSave(
+			emptySave,
+			patchedLevelData,
+			true
+		);
 
 		// @ts-ignore
 		const gba: any = new GameBoyAdvance();
@@ -151,10 +89,6 @@ function getGraphicSet(
 	return gs as [number, number, number, number, number, number];
 }
 
-function isEmptyLevel(levelBuffer: Buffer): boolean {
-	return isEqual(levelBuffer, emptyLevelBuffer);
-}
-
 function isBlackScreen(data: Uint8ClampedArray): boolean {
 	for (let i = 0; i < data.length; i += 4) {
 		if (!data.slice(i, i + 3).every((v) => v === 0)) {
@@ -166,59 +100,31 @@ function isBlackScreen(data: Uint8ClampedArray): boolean {
 }
 
 function capture(
-	spriteBytes: number[],
+	title: string,
+	levelData: Uint8Array,
 	graphicSetIndex: number,
 	graphicSetValue: number
 ): Promise<void> {
 	const graphicSet = getGraphicSet(graphicSetIndex, graphicSetValue);
 	const graphicSetStr = graphicSet.map(toHexString).join('_');
-	const spriteBytesStr = spriteBytes.map(toHexString).join('_');
 
-	return getGbaScreen(spriteBytes, graphicSet)
+	return getGbaScreen(levelData, graphicSet)
 		.then(({ buffer, data }) => {
-			if (isEmptyLevel(buffer)) {
-				console.log(graphicSetStr, 'empty');
-				// const dirPath = path.join(
-				// 	__dirname,
-				// 	`results_getSpriteGraphicSetBytes_${spriteBytesStr}`
-				// );
-				// mkdirp.sync(dirPath);
-				// fs.writeFileSync(
-				// 	path.join(
-				// 		dirPath,
-				// 		`gfx_${graphicSetStr}_bytes_${spriteBytesStr}.png`
-				// 	),
-				// 	buffer
-				// );
-			} else if (isBlackScreen(data)) {
+			if (isBlackScreen(data)) {
 				console.log(graphicSetStr, 'black');
 			} else {
 				const dirPath = path.join(
 					__dirname,
-					`results_getSpriteGraphicSetBytes_${spriteBytesStr}`
+					`results_getSpriteGraphicSetBytes_${title}`
 				);
 				mkdirp.sync(dirPath);
-				fs.writeFileSync(
-					path.join(
-						dirPath,
-						`gfx_${graphicSetStr}_bytes_${spriteBytesStr}.png`
-					),
-					buffer
-				);
+				fs.writeFileSync(path.join(dirPath, `${graphicSetStr}.png`), buffer);
 				console.log(graphicSetStr, 'not-empty');
 			}
 		})
 		.catch(() => {
 			console.error(`getGbaScreen rejected for graphicSet: ${graphicSetStr}`);
 		});
-}
-
-function captureEmptyLevel(
-	graphicSetIndex: number,
-	graphicSetValue: number
-): Promise<{ buffer: Buffer; data: Uint8ClampedArray }> {
-	const graphicSet = getGraphicSet(graphicSetIndex, graphicSetValue);
-	return getGbaScreen([], graphicSet);
 }
 
 const STARTING_VALUE = 0x0;
@@ -228,13 +134,13 @@ const SUBSEQUENT_STARTING_VALUE = 0x1;
 const ENDING_VALUE = 0x20;
 
 function dumpAllWithId(
-	spriteBytes: number[],
+	title: string,
+	levelData: Uint8Array,
 	offset: number,
 	chunkSize: number
 ): Promise<void> {
 	let graphicSetIndex = offset * chunkSize;
 	let graphicSetValue = STARTING_VALUE;
-	const spriteBytesStr = spriteBytes.map(toHexString).join('_');
 
 	function onCapture(): Promise<any> | undefined {
 		if (graphicSetValue < ENDING_VALUE - 1) {
@@ -245,47 +151,34 @@ function dumpAllWithId(
 		}
 
 		if (graphicSetIndex < (offset + 1) * chunkSize) {
-			return capture(spriteBytes, graphicSetIndex, graphicSetValue).then(
+			return capture(title, levelData, graphicSetIndex, graphicSetValue).then(
 				onCapture
 			);
 		}
 	}
 
-	return captureEmptyLevel(graphicSetIndex, graphicSetValue).then(
-		({ buffer }) => {
-			emptyLevelBuffer = buffer;
-
-			const dirPath = path.join(
-				__dirname,
-				`results_getSpriteGraphicSetBytes_${spriteBytesStr}`
-			);
-			mkdirp.sync(dirPath);
-			fs.writeFileSync(path.join(dirPath, `empty_${offset}.png`), buffer);
-			return capture(spriteBytes, graphicSetIndex, graphicSetValue).then(
-				onCapture
-			);
-		}
+	return capture(title, levelData, graphicSetIndex, graphicSetValue).then(
+		onCapture
 	);
 }
 
 function main() {
-	const spriteByteString = process.argv[2];
-	const offset = parseInt(process.argv[3], 10);
-	const chunkSize = parseInt(process.argv[4], 10);
+	const title = process.argv[2];
+	const levelJsonPath = process.argv[3];
+	const offset = parseInt(process.argv[4], 10);
+	const chunkSize = parseInt(process.argv[5], 10);
 
-	if (!spriteByteString || isNaN(offset) || isNaN(chunkSize)) {
+	if (!levelJsonPath || isNaN(offset) || isNaN(chunkSize)) {
 		console.error(
-			'usage: node getSpriteGraphicSetBytes <sprite-byte-string> <offset> <chunk-size>'
+			'usage: node getSpriteGraphicSetBytes <title> <level-json-path> <offset> <chunk-size>'
 		);
-		console.error("example: node getSpriteGraphicSetBytes '0 0x72 5 22' 0 2");
 		process.exit(1);
 	}
 
-	const bytes = spriteByteString.split(' ').map((v) => {
-		return parseInt(v.trim(), 16);
-	});
+	const smaghettiLevelData = require(path.join(process.cwd(), levelJsonPath));
+	const levelData = createLevelData(smaghettiLevelData);
 
-	dumpAllWithId(bytes, offset, chunkSize).then(() => {
+	dumpAllWithId(title, levelData, offset, chunkSize).then(() => {
 		console.log('all done');
 		process.exit(0);
 	});

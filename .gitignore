@@ -38,4 +38,6 @@ yarn-error.log*
 /src/levelData/smaghetti_classic1_2.sav
 /src/levelData/star_02.level
 /brute/results*
+/brute/*.sav
+/brute/*.json
 /pngsForResources
