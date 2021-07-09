@@ -3,8 +3,6 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 
-const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-
 const Bobomb: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
@@ -13,14 +11,7 @@ const Bobomb: Entity = {
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [
-		graphicSets,
-		graphicSets,
-		-1,
-		graphicSets,
-		graphicSets,
-		graphicSets,
-	],
+	spriteGraphicSets: [-1, -1, 0, -1, -1, -1],
 	objectId: 0x55,
 	layer: 'actor',
 	editorType: 'entity',
