@@ -192,16 +192,17 @@ export function isGraphicAndObjectSetCompatible(
 	);
 }
 
-export function isWorkingEntityType(type: EntityType): boolean {
-	// in dev mode, everything is "working"
+export function isUnfinishedEntityType(type: EntityType): boolean {
+	// in dev mode, everything is "finished"
 	if (process.env.NODE_ENV !== 'production') {
-		return true;
+		return false;
 	}
 
 	const entityDef = entityMap[type];
-	return !!(
-		entityDef &&
-		entityDef.paletteCategory &&
-		entityDef.paletteCategory !== 'unfinished'
+
+	return (
+		!entityDef ||
+		!entityDef.paletteCategory ||
+		entityDef.paletteCategory === 'unfinished'
 	);
 }

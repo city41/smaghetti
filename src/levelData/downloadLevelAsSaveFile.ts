@@ -55,7 +55,7 @@ function downloadLevelAsSaveFile(level: LevelToLoadInGBA) {
 	downloadSetOfLevelsAsSaveFile([level], level.name);
 }
 
-function downloadLevelAsJson(level: LevelToLoadInGBA) {
+function downloadLevelAsJson(level: LevelToLoadInGBA | SerializedLevel) {
 	const levelString = JSON.stringify(level);
 	const fileBlob = new Blob([levelString], { type: 'text/json' });
 

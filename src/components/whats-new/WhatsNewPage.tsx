@@ -33,10 +33,12 @@ function NewEntry({
 	title,
 	date,
 	children,
+	breakingChange,
 }: {
 	title: string;
 	date: string;
 	children: ReactNode;
+	breakingChange?: boolean;
 }) {
 	const id = toId(`${title} ${date}`);
 
@@ -45,10 +47,19 @@ function NewEntry({
 			<a href={`#${id}`}>
 				<h3
 					id={id}
-					className="group relative text-gray-400 font-bold mb-4 text-xl flex flex-row justify-between items-baseline"
+					className="group relative font-bold mb-4 text-xl flex flex-row justify-between items-baseline"
 				>
-					<span className="flex-1">{title}</span>
-					<time className="text-sm" dateTime={date}>
+					<div className="flex-1">
+						<span
+							className={clsx({
+								'text-white bg-red-700 p-1': breakingChange,
+								'text-gray-400': !breakingChange,
+							})}
+						>
+							{title}
+						</span>
+					</div>
+					<time className="text-sm text-gray-400" dateTime={date}>
 						{dateToHumanString(date)}
 					</time>
 				</h3>
