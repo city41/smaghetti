@@ -113,11 +113,14 @@ const CoinChallenge: Entity = {
 		const coinChallenges = room.actors.entities.filter(
 			(e) => e.type === 'CoinChallenge'
 		);
-		const firstChallengeCount = coinChallenges[0].settings!.count as number;
+		const firstChallengeCount = (coinChallenges[0].settings?.count ??
+			10) as number;
 
 		if (
 			coinChallenges.length > 1 &&
-			!coinChallenges.every((cc) => cc.settings!.count === firstChallengeCount)
+			!coinChallenges.every(
+				(cc) => (cc.settings?.count ?? 10) === firstChallengeCount
+			)
 		) {
 			return 'Coin challenges should all have the same value in the same room';
 		}
