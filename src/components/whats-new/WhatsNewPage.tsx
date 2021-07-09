@@ -89,6 +89,9 @@ function WhatsNewPage() {
 						<span className="text-xs">posted 25th of June, 2021</span>
 					</p>
 				</div>
+				<NewEntry title="Cannon Balls" date="2021-07-09">
+					<p>Cannons can now shoot either bobombs or cannon balls</p>
+				</NewEntry>
 				<NewEntry title="Fixed a camera bug" date="2021-07-08">
 					<p>
 						There was a bug that would cause items about 4 tiles above Mario to

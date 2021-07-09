@@ -11,6 +11,7 @@ import { BombFuse } from './BombFuse';
 import { BonusRoomBackground } from './BonusRoomBackground';
 import { BowserFireStatueBody } from './BowserFireStatueBody';
 import { BowserFireStatueHead } from './BowserFireStatueHead';
+import { CannonBall } from './CannonBall';
 import { ChargingChuckBody } from './ChargingChuckBody';
 import { ChargingChuckHead } from './ChargingChuckHead';
 import { ClimbingVineHead } from './ClimbingVineHead';
@@ -129,6 +130,7 @@ const resourceMap = {
 	BonusRoomBackground,
 	BowserFireStatueBody,
 	BowserFireStatueHead,
+	CannonBall,
 	ChargingChuckBody,
 	ChargingChuckHead,
 	ClimbingVineHead,

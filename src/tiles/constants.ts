@@ -13,6 +13,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	BuriedVegetable: 'Bu',
 	Brick: 'Br',
 	Cactus: 'Ca',
+	Cannon: 'Can',
 	CementBlock: 'Cmb',
 	CheckeredFloor: 'Chf',
 	CheckeredFloorPerspective: 'Chfp',

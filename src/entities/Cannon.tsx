@@ -2,8 +2,10 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { encodeObjectSets } from './util';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import clsx from 'clsx';
+import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
+import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
 
 type Direction = 'left' | 'right';
 
@@ -19,12 +21,16 @@ const directionToBobombSpriteId: Record<Direction, number> = {
 	right: 0xa3,
 };
 
+const directionToCannonBallSpriteId: Record<Direction, number> = {
+	left: 0x98,
+	right: 0x99,
+};
+
 const Cannon: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-airship',
 		title: 'Cannon',
-		warning: 'So far, can only fire Bobombs',
 	},
 
 	objectSets: encodeObjectSets([[10, 10]]),
@@ -32,7 +38,7 @@ const Cannon: Entity = {
 		graphicSets,
 		graphicSets,
 		-1,
-		graphicSets,
+		0,
 		graphicSets,
 		graphicSets,
 	],
@@ -42,7 +48,7 @@ const Cannon: Entity = {
 	objectId: 0x7,
 	alternateObjectIds: Object.values(directionToObjectId),
 	settingsType: 'single',
-	defaultSettings: { direction: 'left' },
+	defaultSettings: { direction: 'left', payload: 'CannonBall' },
 	emptyBank: 0,
 
 	resource: {
@@ -84,7 +90,14 @@ const Cannon: Entity = {
 	toSpriteBinary(x, y, _w, _h, settings) {
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
-		const spriteId = directionToBobombSpriteId[direction];
+		const payload = settings.payload ?? this.defaultSettings!.payload;
+
+		const idMap =
+			payload === 'CannonBall'
+				? directionToCannonBallSpriteId
+				: directionToBobombSpriteId;
+
+		const spriteId = idMap[direction];
 
 		return [1, spriteId, x, y];
 	},
@@ -98,7 +111,7 @@ const Cannon: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render(showDetails, settings, onSettingsChange, entity) {
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
 
@@ -106,12 +119,19 @@ const Cannon: Entity = {
 		const flipStyle =
 			direction === 'right' ? { transform: 'scale(-1, 1)' } : {};
 
-		return (
-			<div style={{ ...style, ...flipStyle }} className="Cannon-bg bg-cover">
+		const Icon = direction === 'right' ? FaArrowLeft : FaArrowRight;
+
+		const body = (
+			<div style={style} className="relative bg-cover group">
+				<div
+					style={flipStyle}
+					className="Cannon-bg absolute top-0 left-0 w-full h-full"
+				/>
+
 				{!!entity && (
 					<div
 						className={clsx(
-							'w-full h-full flex flex-col justify-end items-center border z-10',
+							'w-full h-full flex flex-row justify-start items-end border absolute top-0 left-0',
 							{
 								'border-blue-200': direction === 'right',
 								'border-yellow-200': direction === 'left',
@@ -119,6 +139,7 @@ const Cannon: Entity = {
 						)}
 					>
 						<button
+							className="hidden group-hover:block"
 							onMouseDown={(e) => {
 								e.preventDefault();
 								e.stopPropagation();
@@ -127,17 +148,33 @@ const Cannon: Entity = {
 								});
 							}}
 						>
-							<FaArrowLeft
+							<Icon
 								className={clsx('w-1.5 h-1.5 text-white', {
-									'bg-blue-500': direction === 'right',
-									'bg-yellow-500': direction === 'left',
+									'bg-blue-500': direction === 'left',
+									'bg-yellow-500': direction === 'right',
 								})}
 							/>
 						</button>
+						<PayloadViewDetails payload={settings.payload} />
 					</div>
 				)}
 			</div>
 		);
+
+		if (showDetails) {
+			return (
+				<PayloadEditDetails
+					width={TILE_SIZE}
+					height={TILE_SIZE}
+					onPayloadChange={(payload) => onSettingsChange({ payload })}
+					payloads={['CannonBall', 'Bobomb']}
+				>
+					{body}
+				</PayloadEditDetails>
+			);
+		} else {
+			return body;
+		}
 	},
 };
 
