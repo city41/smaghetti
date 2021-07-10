@@ -38,6 +38,7 @@ export const resourceShaMap: Record<string, string> = {
   "CardSlotMachine": "67013ca2a4a7cb9db7c43594f1fa691479a18abe",
   "CementBlock": "01401cc47bfd75f01323ef14cd1790fda78fa280",
   "ChainChomp": "4c6c3d041dd0304790ae07069ef6c03ad1d70eaa",
+  "CheckeredCornerLowerLeft": "2e6709898f171b298e9c31c5ec6b8e0c8d29bf5a",
   "CheckeredFloor": "bfb743be08e98eb41b18ada39a9144ae1972d780",
   "CheckeredFloorPerspective": "19672b750b8b99fef3101b721999baa8fc7c24d5",
   "CheckeredWallLeft": "1503847977dbbe00b0557263546d38e974569235",
