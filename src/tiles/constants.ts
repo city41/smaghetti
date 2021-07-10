@@ -22,6 +22,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	CheckeredPlatformRightCap: 'Chprc',
 	CheckeredInnerCornerLowerLeft: 'Chicll',
 	CheckeredInnerCornerLowerRight: 'Chiclr',
+	CheckeredInterior: 'Chi',
 	CheckeredOuterCornerLowerLeft: 'Chocll',
 	CheckeredOuterCornerLowerRight: 'Choclr',
 	CheckeredOuterCornerUpperLeft: 'Chocul',
