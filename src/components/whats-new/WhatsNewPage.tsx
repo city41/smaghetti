@@ -87,6 +87,7 @@ function WhatsNewPage() {
 						<li>Checkered Inner Corner - Lower Left</li>
 						<li>Checkered Inner Corner - Lower Right</li>
 						<li>Checkered Outer Corner - Lower Left</li>
+						<li>Checkered Outer Corner - Lower Right</li>
 						<li>Checkered Outer Corner - Upper Left</li>
 						<li>Checkered Outer Corner - Upper Right</li>
 						<li>Checkered Wall - Left</li>

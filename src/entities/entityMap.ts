@@ -54,6 +54,7 @@ import { CheckeredCeiling } from './CheckeredTerrain/CheckeredCeiling';
 import { CheckeredInnerCornerLowerLeft } from './CheckeredTerrain/CheckeredInnerCornerLowerLeft';
 import { CheckeredInnerCornerLowerRight } from './CheckeredTerrain/CheckeredInnerCornerLowerRight';
 import { CheckeredOuterCornerLowerLeft } from './CheckeredTerrain/CheckeredOuterCornerLowerLeft';
+import { CheckeredOuterCornerLowerRight } from './CheckeredTerrain/CheckeredOuterCornerLowerRight';
 import { CheckeredOuterCornerUpperLeft } from './CheckeredTerrain/CheckeredOuterCornerUpperLeft';
 import { CheckeredOuterCornerUpperRight } from './CheckeredTerrain/CheckeredOuterCornerUpperRight';
 import { CheckeredFloor } from './CheckeredTerrain/CheckeredFloor';
@@ -308,6 +309,7 @@ const entityMap = {
 	CheckeredInnerCornerLowerLeft,
 	CheckeredInnerCornerLowerRight,
 	CheckeredOuterCornerLowerLeft,
+	CheckeredOuterCornerLowerRight,
 	CheckeredOuterCornerUpperLeft,
 	CheckeredOuterCornerUpperRight,
 	CheckeredFloor,
