@@ -41,6 +41,7 @@ export const resourceShaMap: Record<string, string> = {
   "CheckeredCeiling": "00556fd79645225ce681c8fbebc440997cb955e7",
   "CheckeredInnerCornerLowerLeft": "2e6709898f171b298e9c31c5ec6b8e0c8d29bf5a",
   "CheckeredInnerCornerLowerRight": "dfcf986362f861f96aee5d703d445f38429c774f",
+  "CheckeredOuterCornerLowerLeft": "a35641b40ef798b6b5d827127ef2e577e41ff7b0",
   "CheckeredOuterCornerUpperLeft": "6fe03f4a564c90c6244a19ed1053d8eb0f0af25e",
   "CheckeredOuterCornerUpperRight": "89e50d619f6271548019ff7707829caa60384eb4",
   "CheckeredFloor": "bfb743be08e98eb41b18ada39a9144ae1972d780",
