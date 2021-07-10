@@ -50,9 +50,10 @@ import { CeilingSpiny } from './CeilingSpiny';
 import { CementBlock } from './CementBlock';
 import { ChainChomp } from './ChainChomp';
 import { ChargingChuck } from './ChargingChuck';
-import { CheckeredCornerLowerLeft } from './CheckeredTerrain/CheckeredCornerLowerLeft';
-import { CheckeredCornerLowerRight } from './CheckeredTerrain/CheckeredCornerLowerRight';
-import { CheckeredUpperLeftCap } from './CheckeredTerrain/CheckeredUpperLeftCap';
+import { CheckeredInnerCornerLowerLeft } from './CheckeredTerrain/CheckeredInnerCornerLowerLeft';
+import { CheckeredInnerCornerLowerRight } from './CheckeredTerrain/CheckeredInnerCornerLowerRight';
+import { CheckeredOuterCornerUpperLeft } from './CheckeredTerrain/CheckeredOuterCornerUpperLeft';
+import { CheckeredOuterCornerUpperRight } from './CheckeredTerrain/CheckeredOuterCornerUpperRight';
 import { CheckeredFloor } from './CheckeredTerrain/CheckeredFloor';
 import { CheckeredFloorPerspective } from './CheckeredFloorPerspective';
 import { CheckeredWallLeft } from './CheckeredTerrain/CheckeredWallLeft';
@@ -301,9 +302,10 @@ const entityMap = {
 	CementBlock,
 	ChainChomp,
 	ChargingChuck,
-	CheckeredCornerLowerLeft,
-	CheckeredCornerLowerRight,
-	CheckeredUpperLeftCap,
+	CheckeredInnerCornerLowerLeft,
+	CheckeredInnerCornerLowerRight,
+	CheckeredOuterCornerUpperLeft,
+	CheckeredOuterCornerUpperRight,
 	CheckeredFloor,
 	CheckeredFloorPerspective,
 	CheckeredWallLeft,

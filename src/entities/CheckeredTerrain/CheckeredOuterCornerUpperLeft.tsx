@@ -4,11 +4,11 @@ import { encodeObjectSets } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 
-const CheckeredCornerLowerRight: Entity = {
+const CheckeredOuterCornerUpperLeft: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-checkered',
-		title: 'Checkered Corner - Lower Right',
+		title: 'Checkered Outer Corner - Upper Left',
 	},
 
 	layer: 'stage',
@@ -51,11 +51,11 @@ const CheckeredCornerLowerRight: Entity = {
 			[
 				{
 					romOffset: 1584308,
-					tileIndex: 381,
+					tileIndex: 383,
 				},
-				477,
+				489,
 			],
-			[478, 479],
+			[493, 479],
 		],
 		romOffset: 1486172,
 	},
@@ -64,13 +64,13 @@ const CheckeredCornerLowerRight: Entity = {
 		// this is totally different from just about all objects
 		// in the entire game
 		// docs: https://github.com/city41/smaghetti/wiki/Checkered-terrain
-		return [0x48, y, x, this.objectId, 1];
+		return [0x4c, y, x, this.objectId, 1];
 	},
 
 	simpleRender(size) {
 		return (
 			<div
-				className="CheckeredCornerLowerRight-bg bg-cover"
+				className="CheckeredOuterCornerUpperLeft-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -81,4 +81,4 @@ const CheckeredCornerLowerRight: Entity = {
 	},
 };
 
-export { CheckeredCornerLowerRight };
+export { CheckeredOuterCornerUpperLeft };
