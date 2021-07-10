@@ -14,7 +14,7 @@ const CheckeredCeiling: Entity = {
 
 	layer: 'stage',
 	editorType: 'cell',
-	dimensions: 'xy',
+	dimensions: 'x',
 	param1: 'other',
 	param2: 'width',
 	objectId: 0x2e,
