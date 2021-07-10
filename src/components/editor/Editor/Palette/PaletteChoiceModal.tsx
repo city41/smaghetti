@@ -17,7 +17,7 @@ import {
 type PaletteChoiceModalProps = {
 	isOpen: boolean;
 	validEntityTypes: EntityType[];
-	onEntryAdded: (addedEntry: EntityType) => void;
+	onEntryAdded: (addedEntry: EntityType, keepOpen: boolean) => void;
 	onEntryRemoved: (removedEntry: EntityType) => void;
 	onCancel: () => void;
 };
@@ -263,8 +263,8 @@ function PaletteChoiceModal({
 															incompatible={
 																!isCompatible(e.entry, validEntityTypes)
 															}
-															onAddClick={() => {
-																onEntryAdded(e.entry);
+															onAddClick={(shiftHeld) => {
+																onEntryAdded(e.entry, shiftHeld);
 															}}
 														/>
 													);
@@ -308,6 +308,9 @@ function PaletteChoiceModal({
 							</a>
 						</div>
 					)}
+				</div>
+				<div className="text-xs text-center text-gray-300">
+					Hold shift when adding to keep chooser open
 				</div>
 			</div>
 		</Modal>

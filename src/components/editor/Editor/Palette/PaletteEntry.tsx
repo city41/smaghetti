@@ -13,7 +13,7 @@ type PaletteEntryProps = {
 	showAdd: boolean;
 	showRemove: boolean;
 	onClick: () => void;
-	onAddClick?: () => void;
+	onAddClick?: (shiftHeld: boolean) => void;
 	onRemoveClick?: () => void;
 	incompatible?: boolean;
 	disabled?: boolean;
@@ -57,7 +57,9 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 			{showAdd && !incompatible && (
 				<button
 					className="absolute -top-2 -right-2 w-5 h-5 hidden group-hover:block"
-					onClick={onAddClick}
+					onClick={(e) => {
+						onAddClick?.(e.shiftKey);
+					}}
 				>
 					<IoMdAddCircle className="text-green-500 bg-white rounded-full w-full h-full" />
 				</button>

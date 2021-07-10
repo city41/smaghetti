@@ -104,9 +104,9 @@ function Palette({
 			<PaletteChoiceModal
 				isOpen={modalOpen && !disabled}
 				validEntityTypes={validEntityTypes}
-				onEntryAdded={(addedEntry) => {
+				onEntryAdded={(addedEntry, keepOpen) => {
 					onPaletteEntryAdded(addedEntry);
-					setModalOpen(false);
+					setModalOpen(keepOpen);
 				}}
 				onEntryRemoved={onPaletteEntryRemove}
 				onCancel={() => setModalOpen(false)}
