@@ -89,6 +89,19 @@ function WhatsNewPage() {
 						<span className="text-xs">posted 25th of June, 2021</span>
 					</p>
 				</div>
+				<NewEntry title="New Entities" date="2021-07-05">
+					<ul>
+						<li>Checkered Wall - Left</li>
+					</ul>
+
+					<p>
+						Checkered terrain has its own subcategory in the item choose now,
+						because there is a ton of different ones. I&apos;ll be adding all
+						the checkered terrain gradually over the coming days. Go make those
+						bonus rooms! Thanks to NintyAlex for figuring out the details on
+						these.
+					</p>
+				</NewEntry>
 				<NewEntry title="Cannon Balls" date="2021-07-09">
 					<p>Cannons can now shoot either bobombs or cannon balls</p>
 				</NewEntry>

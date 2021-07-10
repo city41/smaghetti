@@ -5,25 +5,24 @@ import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
 
-const CheckeredFloor: Entity = {
+const CheckeredWallLeft: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-checkered',
-		title: 'Checkered Floor',
+		title: 'Checkered Wall - Left',
 	},
 
 	layer: 'stage',
 	editorType: 'cell',
-	dimensions: 'xy',
+	dimensions: 'y',
 	param1: 'other',
-	param2: 'width',
+	param2: 'height',
 	objectId: 0x2e,
 	emptyBank: 1,
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 
 	resource: {
-		romOffset: 0x16ad5c,
 		palettes: [
 			[
 				0x7f96,
@@ -45,22 +44,29 @@ const CheckeredFloor: Entity = {
 			],
 		],
 		tiles: [
-			[488, 489],
-			[478, 479],
+			[
+				{
+					romOffset: 1253344,
+					tileIndex: 262,
+				},
+				490,
+			],
+			[478, 491],
 		],
+		romOffset: 1486172,
 	},
 
-	toObjectBinary(x, y, w) {
+	toObjectBinary(x, y, _w, h) {
 		// this is totally different from just about all objects
 		// in the entire game
 		// docs: https://github.com/city41/smaghetti/wiki/Checkered-terrain
-		return [0x47, y, x, this.objectId, w + 1];
+		return [0x44, y, x, this.objectId, h + 1];
 	},
 
 	simpleRender(size) {
 		return (
 			<div
-				className="CheckeredFloor-bg bg-cover"
+				className="CheckeredWallLeft-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -71,4 +77,4 @@ const CheckeredFloor: Entity = {
 	},
 };
 
-export { CheckeredFloor };
+export { CheckeredWallLeft };

@@ -32,6 +32,7 @@ type PaletteSubcategory =
 	| 'terrain-statues'
 	| 'terrain-winter'
 	| 'terrain-large'
+	| 'terrain-checkered'
 	| 'enemy-common'
 	| 'enemy-piranha'
 	| 'enemy-fortress'
