@@ -43,7 +43,8 @@ function applySpriteGraphicSet(
 
 function getGbaScreen(
 	levelData: Uint8Array,
-	spriteGraphicSet: SpriteGraphicSets
+	spriteGraphicSet: SpriteGraphicSets,
+	action: 'stand' | 'jump'
 ): Promise<{ buffer: Buffer; data: Uint8ClampedArray }> {
 	return new Promise((resolve, reject) => {
 		const patchedLevelData = applySpriteGraphicSet(levelData, spriteGraphicSet);
@@ -61,6 +62,7 @@ function getGbaScreen(
 				reject();
 			} else {
 				if (status === 'level-ready') {
+					gba.setAction('stand');
 					gba.pause();
 					// eraseBogusTiles(canvas);
 					resolve({
@@ -71,6 +73,7 @@ function getGbaScreen(
 			}
 		};
 
+		gba.setAction(action);
 		gba.setBios(bios.buffer);
 		gba.setCanvasDirect(canvas);
 		gba.setRom(rom.buffer);
@@ -102,13 +105,14 @@ function isBlackScreen(data: Uint8ClampedArray): boolean {
 function capture(
 	title: string,
 	levelData: Uint8Array,
+	action: 'stand' | 'jump',
 	graphicSetIndex: number,
 	graphicSetValue: number
 ): Promise<void> {
 	const graphicSet = getGraphicSet(graphicSetIndex, graphicSetValue);
 	const graphicSetStr = graphicSet.map(toHexString).join('_');
 
-	return getGbaScreen(levelData, graphicSet)
+	return getGbaScreen(levelData, graphicSet, action)
 		.then(({ buffer, data }) => {
 			if (isBlackScreen(data)) {
 				console.log(graphicSetStr, 'black');
@@ -122,8 +126,11 @@ function capture(
 				console.log(graphicSetStr, 'not-empty');
 			}
 		})
-		.catch(() => {
-			console.error(`getGbaScreen rejected for graphicSet: ${graphicSetStr}`);
+		.catch((e) => {
+			console.error(
+				`getGbaScreen rejected for graphicSet: ${graphicSetStr}`,
+				e
+			);
 		});
 }
 
@@ -136,6 +143,7 @@ const ENDING_VALUE = 0x20;
 function dumpAllWithId(
 	title: string,
 	levelData: Uint8Array,
+	action: 'stand' | 'jump',
 	offset: number,
 	chunkSize: number
 ): Promise<void> {
@@ -151,26 +159,36 @@ function dumpAllWithId(
 		}
 
 		if (graphicSetIndex < (offset + 1) * chunkSize) {
-			return capture(title, levelData, graphicSetIndex, graphicSetValue).then(
-				onCapture
-			);
+			return capture(
+				title,
+				levelData,
+				action,
+				graphicSetIndex,
+				graphicSetValue
+			).then(onCapture);
 		}
 	}
 
-	return capture(title, levelData, graphicSetIndex, graphicSetValue).then(
-		onCapture
-	);
+	return capture(
+		title,
+		levelData,
+		action,
+		graphicSetIndex,
+		graphicSetValue
+	).then(onCapture);
 }
 
 function main() {
-	const title = process.argv[2];
-	const levelJsonPath = process.argv[3];
+	const levelJsonPath = process.argv[2];
+	const action = process.argv[3];
 	const offset = parseInt(process.argv[4], 10);
 	const chunkSize = parseInt(process.argv[5], 10);
 
-	if (!levelJsonPath || isNaN(offset) || isNaN(chunkSize)) {
+	const title = path.basename(levelJsonPath, '.json');
+
+	if (!levelJsonPath || !action || isNaN(offset) || isNaN(chunkSize)) {
 		console.error(
-			'usage: node getSpriteGraphicSetBytes <title> <level-json-path> <offset> <chunk-size>'
+			'usage: node getSpriteGraphicSetBytes <level-json-path> <jump or stand> <offset> <chunk-size>'
 		);
 		process.exit(1);
 	}
@@ -178,7 +196,13 @@ function main() {
 	const smaghettiLevelData = require(path.join(process.cwd(), levelJsonPath));
 	const levelData = createLevelData(smaghettiLevelData);
 
-	dumpAllWithId(title, levelData, offset, chunkSize).then(() => {
+	dumpAllWithId(
+		title,
+		levelData,
+		action as 'stand' | 'jump',
+		offset,
+		chunkSize
+	).then(() => {
 		console.log('all done');
 		process.exit(0);
 	});
