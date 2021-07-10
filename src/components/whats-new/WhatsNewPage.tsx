@@ -89,7 +89,7 @@ function WhatsNewPage() {
 						<span className="text-xs">posted 25th of June, 2021</span>
 					</p>
 				</div>
-				<NewEntry title="New Entities" date="2021-07-05">
+				<NewEntry title="New Entities" date="2021-07-09">
 					<ul>
 						<li>Checkered Wall - Left</li>
 						<li>Checkered Wall - Right</li>
