@@ -43,7 +43,7 @@ const Cannon: Entity = {
 		graphicSets,
 	],
 	layer: 'actor',
-	editorType: 'cell',
+	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x7,
 	alternateObjectIds: Object.values(directionToObjectId),
