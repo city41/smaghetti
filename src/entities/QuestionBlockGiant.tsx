@@ -8,13 +8,13 @@ import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
 
 const QuestionBlockGiant: Entity = {
-	// paletteCategory: 'object',
+	paletteCategory: 'object',
 	paletteInfo: {
 		title: 'Question Block - Giant',
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [9, -1, -1, -1, -1, -1],
+	spriteGraphicSets: [9, -1, -1, -1, 1, -1],
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
