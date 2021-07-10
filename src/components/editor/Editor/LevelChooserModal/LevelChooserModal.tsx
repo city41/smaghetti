@@ -38,17 +38,44 @@ const THUMBNAIL_SCALE = 0.5;
 const EMPTY_ROOM = initialRoomState;
 const PUBLISH_BLURB_KEY = 'smaghetti_LevelChooserModal_hidePublishBlurb';
 
+function getLocalStorageCaption(
+	level: SerializedLevel,
+	isLoggedIn: boolean
+): ReactNode {
+	if (!isLoggedIn) {
+		return 'last session';
+	}
+
+	const subLabel = level.id ? level.name : 'never saved';
+	return (
+		<>
+			<div>last session</div>
+			<div
+				className={clsx('text-xs', {
+					italic: !level.id,
+				})}
+			>
+				{subLabel}
+			</div>
+		</>
+	);
+}
+
 function LevelButton({
 	caption,
 	onClick,
 	children,
 }: {
-	caption: string;
+	caption: ReactNode;
 	onClick: () => void;
 	children: ReactNode;
 }) {
 	return (
-		<button className="relative border-2 border-white group" onClick={onClick}>
+		<button
+			className="relative border-2 border-white group"
+			onClick={onClick}
+			style={{ maxWidth: 184 }}
+		>
 			{children}
 			<div className="absolute top-0 left-0 w-full h-full block group-hover:hidden bg-white opacity-25" />
 			<div className="w-full grid place-items-center font-bold transform">
@@ -85,7 +112,7 @@ function LevelChooserModal({
 		: EMPTY_ROOM;
 
 	const localStorageData = localStorage[LOCALSTORAGE_KEY];
-	let convertedLocalStorage;
+	let convertedLocalStorage: SerializedLevel | null;
 	try {
 		convertedLocalStorage = localStorageData
 			? convertLevelToLatestVersion(JSON.parse(localStorageData))
@@ -131,9 +158,12 @@ function LevelChooserModal({
 							room={EMPTY_ROOM}
 						/>
 					</LevelButton>
-					{localStorageData && (
+					{localStorageData && convertedLocalStorage && (
 						<LevelButton
-							caption="Last session"
+							caption={getLocalStorageCaption(
+								convertedLocalStorage,
+								isLoggedIn
+							)}
 							onClick={onLocalStorageLevelChosen}
 						>
 							<RoomThumbnail
