@@ -51,6 +51,7 @@ import { CementBlock } from './CementBlock';
 import { ChainChomp } from './ChainChomp';
 import { ChargingChuck } from './ChargingChuck';
 import { CheckeredCornerLowerLeft } from './CheckeredTerrain/CheckeredCornerLowerLeft';
+import { CheckeredCornerLowerRight } from './CheckeredTerrain/CheckeredCornerLowerRight';
 import { CheckeredFloor } from './CheckeredTerrain/CheckeredFloor';
 import { CheckeredFloorPerspective } from './CheckeredFloorPerspective';
 import { CheckeredWallLeft } from './CheckeredTerrain/CheckeredWallLeft';
@@ -300,6 +301,7 @@ const entityMap = {
 	ChainChomp,
 	ChargingChuck,
 	CheckeredCornerLowerLeft,
+	CheckeredCornerLowerRight,
 	CheckeredFloor,
 	CheckeredFloorPerspective,
 	CheckeredWallLeft,

@@ -84,6 +84,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-07-09">
 					<ul>
 						<li>Checkered Corner - Lower Left</li>
+						<li>Checkered Corner - Lower Right</li>
 						<li>Checkered Wall - Left</li>
 						<li>Checkered Wall - Right</li>
 					</ul>
