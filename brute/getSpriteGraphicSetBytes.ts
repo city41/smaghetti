@@ -12,6 +12,8 @@ import { toHexString } from '../src/components/hex-tree/HexTreePage/util';
 import { SpriteGraphicSets } from '../src/entities/types';
 import { createLevelData } from '../src/levelData/createLevelData';
 
+type Action = 'stand' | 'jump' | 'walk-right';
+
 const saveStateString = fs
 	.readFileSync(path.join(__dirname, '../public/justOutsideEReaderMenu.json'))
 	.toString();
@@ -44,7 +46,7 @@ function applySpriteGraphicSet(
 function getGbaScreen(
 	levelData: Uint8Array,
 	spriteGraphicSet: SpriteGraphicSets,
-	action: 'stand' | 'jump'
+	action: Action
 ): Promise<{ buffer: Buffer; data: Uint8ClampedArray }> {
 	return new Promise((resolve, reject) => {
 		const patchedLevelData = applySpriteGraphicSet(levelData, spriteGraphicSet);
@@ -105,7 +107,7 @@ function isBlackScreen(data: Uint8ClampedArray): boolean {
 function capture(
 	title: string,
 	levelData: Uint8Array,
-	action: 'stand' | 'jump',
+	action: Action,
 	graphicSetIndex: number,
 	graphicSetValue: number
 ): Promise<void> {
@@ -143,7 +145,7 @@ const ENDING_VALUE = 0x20;
 function dumpAllWithId(
 	title: string,
 	levelData: Uint8Array,
-	action: 'stand' | 'jump',
+	action: Action,
 	offset: number,
 	chunkSize: number
 ): Promise<void> {
@@ -188,7 +190,7 @@ function main() {
 
 	if (!levelJsonPath || !action || isNaN(offset) || isNaN(chunkSize)) {
 		console.error(
-			'usage: node getSpriteGraphicSetBytes <level-json-path> <jump or stand> <offset> <chunk-size>'
+			'usage: node getSpriteGraphicSetBytes <level-json-path> <jump, stand or walk-right> <offset> <chunk-size>'
 		);
 		process.exit(1);
 	}
@@ -196,16 +198,12 @@ function main() {
 	const smaghettiLevelData = require(path.join(process.cwd(), levelJsonPath));
 	const levelData = createLevelData(smaghettiLevelData);
 
-	dumpAllWithId(
-		title,
-		levelData,
-		action as 'stand' | 'jump',
-		offset,
-		chunkSize
-	).then(() => {
-		console.log('all done');
-		process.exit(0);
-	});
+	dumpAllWithId(title, levelData, action as Action, offset, chunkSize).then(
+		() => {
+			console.log('all done');
+			process.exit(0);
+		}
+	);
 }
 
 main();

@@ -49,7 +49,7 @@ const goIntoLevelScript = [
 		// a dummy input because callbackWithStatus
 		// can't have frameDelay
 		description: 'dummy',
-		frameDelay: 60 * 5,
+		frameDelay: 60 * 4,
 		input: A_BUTTON,
 	},
 	{
@@ -136,6 +136,7 @@ GameBoyAdvance = function GameBoyAdvance() {
 GameBoyAdvance.prototype.setAction = function (action) {
 	this.action = action;
 	this.jumpCount = -1;
+	this.walkRight = false;
 };
 
 GameBoyAdvance.prototype.setCanvas = function (canvas) {
@@ -260,14 +261,22 @@ GameBoyAdvance.prototype.step = function () {
 		}
 	}
 
+	if (this.walkRight) {
+		this.keypad.feed(RIGHT_BUTTON);
+	}
+
 	if (this.script && this.scriptIndex < this.script.length) {
 		const entry = this.script[this.scriptIndex];
 
-		if (
-			entry.description === 'A to confirm first level' &&
-			this.action === 'jump'
-		) {
-			this.jumpCount = 5;
+		if (entry.description === 'A to confirm first level') {
+			switch (this.action) {
+				case 'jump':
+					this.jumpCount = 5;
+					break;
+				case 'walk-right':
+					this.walkRight = true;
+					break;
+			}
 		}
 
 		if (entry.callbackWithStatus && this.statusCallback) {

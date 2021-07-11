@@ -25,6 +25,7 @@ export const resourceShaMap: Record<string, string> = {
   "Bowser": "2c5790b74eaeca12c29663bd6af3dc348b083dfa",
   "BowserBrick": "ba9969abfa6691d7a34d8dfff051f493dfda317d",
   "BowserDoor": "bae2a738f87c8e3b5a9245fcf46c535069c310bb",
+  "BowserFireGenerator": "56fe6f2899daace151fb394f2a65e3eef44e1c43",
   "BowserLaserStatue": "330cc2e35b973749c3da5c4002df10e285d8200a",
   "Brick": "4b094df81b4ae581e7f58e91417dd5e93f955db7",
   "Bubble": "cd3a456ae82bc8fab31bec7fd463be53576f0082",
