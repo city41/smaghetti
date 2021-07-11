@@ -11,8 +11,8 @@ const PileDriverMiniGoomba: Entity = {
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	// TODO: there are probably more sets, but since the dump always just
-	// shows a brick, need to figure this one out manually
+
+	// sadly after doing a full dump, 2 was the only valid value for set 3
 	spriteGraphicSets: [-1, -1, -1, 2, -1, -1],
 	layer: 'actor',
 	editorType: 'entity',
