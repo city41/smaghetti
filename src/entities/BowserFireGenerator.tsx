@@ -115,12 +115,16 @@ const BowserFireGenerator: Entity = {
 		);
 	},
 
-	getWarning(_settings, entity) {
-		const tx = entity.x / TILE_SIZE;
+	getWarning(_settings, entity, room) {
+		const player = room.actors.entities.find((e) => e.type === 'Player')!;
 
-		if (tx < 17) {
-			const delta = 17 - tx;
-			return `Move ${delta} tile${delta === 1 ? '' : 's'} right for it to work`;
+		const px = player.x / TILE_SIZE;
+		const tx = entity.x / TILE_SIZE;
+		const diff = tx - Math.max(px, 2);
+
+		if (diff < 15) {
+			const delta = 15 - diff;
+			return `Must be ${delta} more tiles to the right of Mario's starting position to work`;
 		}
 	},
 };
