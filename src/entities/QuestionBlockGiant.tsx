@@ -25,6 +25,7 @@ const QuestionBlockGiant: Entity = {
 		Leaf: 0x97,
 		TanookiSuit: 0x98,
 		FrogSuit: 0x99,
+		HammerBroSuit: 0x9a,
 	},
 	objectId: 0x94,
 	settingsType: 'single',
