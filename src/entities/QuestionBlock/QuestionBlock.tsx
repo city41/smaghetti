@@ -125,6 +125,13 @@ const QuestionBlock: Entity = {
 			return body;
 		}
 	},
+
+	getWarning(settings) {
+		const { payload } = settings;
+		if (payload === 'PWing') {
+			return `${payload} might look garbled when playing. Smaghetti isn't smart enough yet to prevent this.`;
+		}
+	},
 };
 
 export { QuestionBlock };
