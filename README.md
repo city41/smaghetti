@@ -11,7 +11,7 @@ It's available here: https://smaghetti.com
 
 ## Status
 
-At the time of writing, Smaghetti has extracted out 245 entities from the game for use in creating levels. A lot of progress has been made, but a lot more work still lies ahead. For a high level view, check the [roadmap](https://smaghetti.com/roadmap)
+At the time of writing, Smaghetti has extracted out 262 entities from the game for use in creating levels. A lot of progress has been made, but a lot more work still lies ahead. For a high level view, check the [roadmap](https://smaghetti.com/roadmap)
 
 ## Editor quick start
 
