@@ -309,7 +309,7 @@ function PaletteChoiceModal({
 						</div>
 					)}
 				</div>
-				<div className="text-xs text-center text-gray-300">
+				<div className="text-xs text-center text-gray-300 -mb-2 pt-1">
 					Hold shift when adding to keep chooser open
 				</div>
 			</div>
