@@ -125,4 +125,4 @@ const BowserFireGenerator: Entity = {
 	},
 };
 
-export { BowserFireGenerator };
+export { BowserFireGenerator, graphicSetValues };

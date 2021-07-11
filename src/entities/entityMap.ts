@@ -32,6 +32,7 @@ import { BoomerangBro } from './BoomerangBro';
 import { Bowser } from './Bowser';
 import { BowserBrick } from './BowserBrick';
 import { BowserDoor } from './BowserDoor';
+import { BowserFireball } from './BowserFireball';
 import { BowserFireGenerator } from './BowserFireGenerator';
 import { BowserFireStatue } from './BowserFireStatue';
 import { BowserLaserStatue } from './BowserLaserStatue';
@@ -292,6 +293,7 @@ const entityMap = {
 	Bowser,
 	BowserBrick,
 	BowserDoor,
+	BowserFireball,
 	BowserFireGenerator,
 	BowserFireStatue,
 	BowserLaserStatue,
