@@ -175,8 +175,9 @@ import { POWBlock } from './POWBlock';
 import { PSwitch } from './PSwitch';
 import { PSwitchDoor } from './PSwitchDoor';
 import { ParaBeetle } from './ParaBeetle';
+import { ParaBobombGenerator } from './ParaBobombGenerator';
 import { ParaBomberGoomba } from './ParaBomberGoomba';
-import { ParaGaloombaBobombGenerator } from './ParaGaloombaBobombGenerator';
+import { ParaGaloombaGenerator } from './ParaGaloombaGenerator';
 import { ParaGoomba } from './ParaGoomba';
 import { PileDriverMiniGoomba } from './PileDriverMiniGoomba';
 import { PipeHorizontal } from './PipeHorizontal';
@@ -436,8 +437,9 @@ const entityMap = {
 	PSwitch,
 	PSwitchDoor,
 	ParaBeetle,
+	ParaBobombGenerator,
 	ParaBomberGoomba,
-	ParaGaloombaBobombGenerator,
+	ParaGaloombaGenerator,
 	ParaGoomba,
 	PileDriverMiniGoomba,
 	PipeHorizontal,

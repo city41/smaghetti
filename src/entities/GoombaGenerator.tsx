@@ -44,15 +44,20 @@ const GoombaGenerator: Entity = {
 
 	simpleRender(size) {
 		return (
-			<div className="Goomba-bg bg-cover" style={{ width: size, height: size }}>
-				<div className="w-full h-full flex flex-col justify-end items-center z-10">
-					<FaArrowRight className="w-5 h-5 text-white bg-blue-500" />
+			<div
+				className="relative Goomba-bg bg-cover"
+				style={{ width: size, height: size }}
+			>
+				<div className="w-full h-full flex flex-col justify-center items-center z-10">
+					<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
+						generatr
+					</div>
 				</div>
 			</div>
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange) {
+	render(_showDetails, settings, onSettingsChange, entity) {
 		const style = { width: TILE_SIZE, height: TILE_SIZE };
 
 		const direction = (settings.direction ??
@@ -60,33 +65,47 @@ const GoombaGenerator: Entity = {
 
 		const DirectionIcon = direction === 'left' ? FaArrowLeft : FaArrowRight;
 
+		const labelStyle = {
+			fontSize: 2,
+			bottom: 0,
+		};
+
 		return (
-			<div style={style} className="Goomba-bg bg-cover">
+			<div style={style} className="relative Goomba-bg bg-cover">
 				<div
 					className={clsx(
-						'w-full h-full flex flex-col justify-end items-center border z-10',
+						'w-full h-full flex flex-col justify-center items-center border z-10',
 						{
 							'border-blue-200': direction === 'right',
 							'border-yellow-200': direction === 'left',
 						}
 					)}
 				>
-					<button
-						onMouseDown={(e) => {
-							e.preventDefault();
-							e.stopPropagation();
-							onSettingsChange({
-								direction: direction === 'left' ? 'right' : 'left',
-							});
-						}}
+					{!!entity && (
+						<button
+							className="pt-0.5"
+							onMouseDown={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
+								onSettingsChange({
+									direction: direction === 'left' ? 'right' : 'left',
+								});
+							}}
+						>
+							<DirectionIcon
+								className={clsx('w-1.5 h-1.5 text-white', {
+									'bg-blue-500': direction === 'right',
+									'bg-yellow-500': direction === 'left',
+								})}
+							/>
+						</button>
+					)}
+					<div
+						className="absolute left-0 w-full text-center bg-black text-white"
+						style={labelStyle}
 					>
-						<DirectionIcon
-							className={clsx('w-1.5 h-1.5 text-white', {
-								'bg-blue-500': direction === 'right',
-								'bg-yellow-500': direction === 'left',
-							})}
-						/>
-					</button>
+						generator
+					</div>
 				</div>
 			</div>
 		);

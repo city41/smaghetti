@@ -86,6 +86,8 @@ function WhatsNewPage() {
 						<li>Bowser Fireball</li>
 						<li>Bowser Fire Generator</li>
 						<li>Giant Question Block: Hammer Bro suit payload</li>
+						<li>Para Bobomb Generator</li>
+						<li>Para Galoomba Generator</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="Giant Question Block ready" date="2021-07-10">

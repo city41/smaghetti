@@ -90,7 +90,7 @@ const BowserFireGenerator: Entity = {
 				style={style}
 			>
 				<div className="absolute bottom-0 left-0 w-full text-center bg-black text-white text-xs">
-					generator
+					generatr
 				</div>
 			</div>
 		);
