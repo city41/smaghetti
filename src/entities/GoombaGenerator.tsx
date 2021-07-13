@@ -4,6 +4,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import clsx from 'clsx';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { GiFactory } from 'react-icons/gi';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -48,11 +49,7 @@ const GoombaGenerator: Entity = {
 				className="relative Goomba-bg bg-cover"
 				style={{ width: size, height: size }}
 			>
-				<div className="w-full h-full flex flex-col justify-center items-center z-10">
-					<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
-						generatr
-					</div>
-				</div>
+				<GiFactory className="absolute bottom-0 right-0 p-0.5 bg-green-600 text-white text-xl rounded" />
 			</div>
 		);
 	},
@@ -67,7 +64,9 @@ const GoombaGenerator: Entity = {
 
 		const labelStyle = {
 			fontSize: 2,
-			bottom: 0,
+			width: TILE_SIZE / 2.5,
+			height: TILE_SIZE / 2.5,
+			padding: 1,
 		};
 
 		return (
@@ -100,12 +99,11 @@ const GoombaGenerator: Entity = {
 							/>
 						</button>
 					)}
-					<div
-						className="absolute left-0 w-full text-center bg-black text-white"
+					<GiFactory
 						style={labelStyle}
-					>
-						generator
-					</div>
+						className="absolute bottom-0 right-0 bg-green-600 text-white rounded-sm"
+						title="generator"
+					/>
 				</div>
 			</div>
 		);

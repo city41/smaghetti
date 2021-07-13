@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
+import { GiFactory } from 'react-icons/gi';
 
 const graphicSetValues = [
 	0x4,
@@ -89,9 +90,7 @@ const BowserFireGenerator: Entity = {
 				className="relative BowserFireGenerator-bg bg-center bg-no-repeat"
 				style={style}
 			>
-				<div className="absolute bottom-0 left-0 w-full text-center bg-black text-white text-xs">
-					generatr
-				</div>
+				<GiFactory className="absolute bottom-0 right-0 p-0.5 bg-green-600 text-white text-xl rounded" />
 			</div>
 		);
 	},
@@ -100,17 +99,18 @@ const BowserFireGenerator: Entity = {
 		const style = { width: TILE_SIZE * 1.5, height: TILE_SIZE };
 		const labelStyle = {
 			fontSize: 2,
-			bottom: 0,
+			width: TILE_SIZE / 2.5,
+			height: TILE_SIZE / 2.5,
+			padding: 1,
 		};
 
 		return (
 			<div style={style} className="relative BowserFireGenerator-bg bg-cover">
-				<div
-					className="absolute left-0 w-full text-center bg-black text-white"
+				<GiFactory
 					style={labelStyle}
-				>
-					generator
-				</div>
+					className="absolute bottom-0 right-0 bg-green-600 text-white rounded-sm"
+					title="generator"
+				/>
 			</div>
 		);
 	},
