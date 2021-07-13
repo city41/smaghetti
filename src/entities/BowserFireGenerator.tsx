@@ -84,35 +84,37 @@ const BowserFireGenerator: Entity = {
 	},
 
 	simpleRender(size) {
-		const style = { width: size, height: size, backgroundSize: '100% 66%' };
+		const style = {
+			width: size,
+			height: size,
+			backgroundPositionX: 'center',
+			backgroundPositionY: '25%',
+			backgroundSize: '90% 45%',
+			borderRadius: '10%',
+		};
+
+		const iconStyle = {
+			width: size / 2,
+			height: size / 2,
+			padding: '4%',
+		};
+
 		return (
 			<div
-				className="relative BowserFireGenerator-bg bg-center bg-no-repeat"
 				style={style}
+				className="relative BowserFireGenerator-bg bg-no-repeat bg-green-600"
 			>
-				<GiFactory className="absolute bottom-0 right-0 p-0.5 bg-green-600 text-white text-xl rounded" />
+				<GiFactory
+					style={iconStyle}
+					className="absolute bottom-0 right-0 text-white"
+					title="generator"
+				/>
 			</div>
 		);
 	},
 
 	render() {
-		const style = { width: TILE_SIZE * 1.5, height: TILE_SIZE };
-		const labelStyle = {
-			fontSize: 2,
-			width: TILE_SIZE / 2.5,
-			height: TILE_SIZE / 2.5,
-			padding: 1,
-		};
-
-		return (
-			<div style={style} className="relative BowserFireGenerator-bg bg-cover">
-				<GiFactory
-					style={labelStyle}
-					className="absolute bottom-0 right-0 bg-green-600 text-white rounded-sm"
-					title="generator"
-				/>
-			</div>
-		);
+		return this.simpleRender(TILE_SIZE);
 	},
 
 	getWarning(_settings, entity, room) {

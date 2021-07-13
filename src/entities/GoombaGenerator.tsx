@@ -44,67 +44,91 @@ const GoombaGenerator: Entity = {
 	},
 
 	simpleRender(size) {
+		const style = {
+			width: size,
+			height: size,
+			backgroundPositionX: '20%',
+			backgroundPositionY: '25%',
+			backgroundSize: '60%',
+			borderRadius: '10%',
+		};
+
+		const iconStyle = {
+			width: size / 2,
+			height: size / 2,
+			padding: '4%',
+		};
+
 		return (
 			<div
-				className="relative Goomba-bg bg-cover"
-				style={{ width: size, height: size }}
+				style={style}
+				className="relative Goomba-bg bg-no-repeat bg-green-600 overflow-hidden"
 			>
-				<GiFactory className="absolute bottom-0 right-0 p-0.5 bg-green-600 text-white text-xl rounded" />
+				<GiFactory
+					style={iconStyle}
+					className="absolute bottom-0 right-0 text-white"
+					title="generator"
+				/>
 			</div>
 		);
 	},
 
 	render(_showDetails, settings, onSettingsChange, entity) {
-		const style = { width: TILE_SIZE, height: TILE_SIZE };
+		const style = {
+			width: TILE_SIZE,
+			height: TILE_SIZE,
+			backgroundPositionX: '20%',
+			backgroundPositionY: '25%',
+			backgroundSize: '60%',
+			borderRadius: '10%',
+		};
 
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
 
 		const DirectionIcon = direction === 'left' ? FaArrowLeft : FaArrowRight;
 
-		const labelStyle = {
-			fontSize: 2,
-			width: TILE_SIZE / 2.5,
-			height: TILE_SIZE / 2.5,
-			padding: 1,
+		const iconStyle = {
+			width: TILE_SIZE / 2,
+			height: TILE_SIZE / 2,
+			padding: '4%',
+		};
+
+		const buttonStyle = {
+			top: 0,
+			right: 0,
 		};
 
 		return (
-			<div style={style} className="relative Goomba-bg bg-cover">
-				<div
-					className={clsx(
-						'w-full h-full flex flex-col justify-center items-center border z-10',
-						{
-							'border-blue-200': direction === 'right',
-							'border-yellow-200': direction === 'left',
-						}
-					)}
-				>
-					{!!entity && (
-						<button
-							className="pt-0.5"
-							onMouseDown={(e) => {
-								e.preventDefault();
-								e.stopPropagation();
-								onSettingsChange({
-									direction: direction === 'left' ? 'right' : 'left',
-								});
-							}}
-						>
-							<DirectionIcon
-								className={clsx('w-1.5 h-1.5 text-white', {
-									'bg-blue-500': direction === 'right',
-									'bg-yellow-500': direction === 'left',
-								})}
-							/>
-						</button>
-					)}
-					<GiFactory
-						style={labelStyle}
-						className="absolute bottom-0 right-0 bg-green-600 text-white rounded-sm"
-						title="generator"
-					/>
-				</div>
+			<div
+				style={style}
+				className="relative Goomba-bg bg-no-repeat bg-green-600 overflow-hidden"
+			>
+				{!!entity && (
+					<button
+						className="absolute"
+						style={buttonStyle}
+						onMouseDown={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
+							onSettingsChange({
+								direction: direction === 'left' ? 'right' : 'left',
+							});
+						}}
+					>
+						<DirectionIcon
+							className={clsx('w-1.5 h-1.5 text-white', {
+								'bg-purple-500': direction === 'right',
+								'bg-yellow-500': direction === 'left',
+							})}
+						/>
+					</button>
+				)}
+				<GiFactory
+					style={iconStyle}
+					className="absolute bottom-0 right-0 text-white"
+					title="generator"
+				/>
 			</div>
 		);
 	},

@@ -2,7 +2,6 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
-import { TileSpace } from './TileSpace';
 import { GiFactory } from 'react-icons/gi';
 
 const ParaGaloombaGenerator: Entity = {
@@ -32,50 +31,37 @@ const ParaGaloombaGenerator: Entity = {
 	},
 
 	simpleRender(size) {
+		const style = {
+			width: size,
+			height: size,
+			backgroundPositionX: '25%',
+			backgroundPositionY: 'center',
+			backgroundSize: '45% 90%',
+			borderRadius: '10%',
+		};
+
+		const iconStyle = {
+			width: size / 2,
+			height: size / 2,
+			padding: '4%',
+		};
+
 		return (
 			<div
-				className="relative GaloombaWithParachute-bg bg-center bg-no-repeat"
-				style={{
-					width: size,
-					height: size,
-					backgroundSize: '50% 100%',
-				}}
+				style={style}
+				className="relative GaloombaWithParachute-bg bg-no-repeat bg-green-600"
 			>
-				<GiFactory className="absolute bottom-0 right-0 p-0.5 bg-green-600 text-white text-xl rounded" />
+				<GiFactory
+					style={iconStyle}
+					className="absolute bottom-0 right-0 text-white"
+					title="generator"
+				/>
 			</div>
 		);
 	},
 
 	render() {
-		const style = {
-			width: TILE_SIZE,
-			height: TILE_SIZE * 2,
-			marginTop: -TILE_SIZE,
-		};
-
-		const spaceStyle = {
-			width: TILE_SIZE,
-			height: TILE_SIZE,
-			top: TILE_SIZE,
-		};
-
-		const labelStyle = {
-			fontSize: 2,
-			width: TILE_SIZE / 2.5,
-			height: TILE_SIZE / 2.5,
-			padding: 1,
-		};
-
-		return (
-			<div style={style} className="relative GaloombaWithParachute-bg bg-cover">
-				<TileSpace style={spaceStyle} className="absolute" />
-				<GiFactory
-					style={labelStyle}
-					className="absolute bottom-0 right-0 bg-green-600 text-white rounded-sm"
-					title="generator"
-				/>
-			</div>
-		);
+		return this.simpleRender(TILE_SIZE);
 	},
 
 	getWarning(_settings, entity, room) {

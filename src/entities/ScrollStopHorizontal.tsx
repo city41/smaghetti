@@ -38,12 +38,17 @@ const ScrollStopHorizontal: Entity = {
 	},
 
 	simpleRender(size) {
-		const style = { width: size, height: size, fontSize: size * 0.17 };
+		const style = {
+			width: size,
+			height: size,
+			fontSize: size * 0.17,
+			borderRadius: '10%',
+		};
 
 		return (
 			<div
 				style={style}
-				className="relative bg-red-500 text-white flex flex-col items-center justify-around rounded-lg p-0.5"
+				className="relative bg-red-500 text-white flex flex-col items-center justify-around p-0.5"
 			>
 				<div>scroll stop</div>
 				<FaArrowLeft className="w-1/2 h-1/2" />
@@ -60,6 +65,7 @@ const ScrollStopHorizontal: Entity = {
 			height: TILE_SIZE,
 			fontSize: 2.25,
 			padding: 1,
+			borderRadius: '10%',
 		};
 
 		const Icon = direction === 'left' ? FaArrowLeft : FaArrowRight;
@@ -67,7 +73,7 @@ const ScrollStopHorizontal: Entity = {
 		return (
 			<div
 				style={style}
-				className="relative bg-red-500 text-white flex flex-col items-center justify-around rounded"
+				className="relative bg-red-500 text-white flex flex-col items-center justify-around"
 			>
 				<div>scroll stop</div>
 				<button
