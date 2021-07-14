@@ -4,7 +4,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import clsx from 'clsx';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { GiFactory } from 'react-icons/gi';
+import { GeneratorFrame } from './components/GeneratorFrame';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -45,42 +45,19 @@ const GoombaGenerator: Entity = {
 
 	simpleRender(size) {
 		const style = {
-			width: size,
-			height: size,
 			backgroundPositionX: '20%',
 			backgroundPositionY: '25%',
 			backgroundSize: '60%',
-			borderRadius: '10%',
 		};
 
-		const iconStyle = {
-			width: size / 2,
-			height: size / 2,
-			padding: '4%',
-		};
-
-		return (
-			<div
-				style={style}
-				className="relative Goomba-bg bg-no-repeat bg-green-600 overflow-hidden"
-			>
-				<GiFactory
-					style={iconStyle}
-					className="absolute bottom-0 right-0 text-white"
-					title="generator"
-				/>
-			</div>
-		);
+		return <GeneratorFrame size={size} className="Goomba-bg" style={style} />;
 	},
 
 	render(_showDetails, settings, onSettingsChange, entity) {
 		const style = {
-			width: TILE_SIZE,
-			height: TILE_SIZE,
 			backgroundPositionX: '20%',
 			backgroundPositionY: '25%',
 			backgroundSize: '60%',
-			borderRadius: '10%',
 		};
 
 		const direction = (settings.direction ??
@@ -88,21 +65,16 @@ const GoombaGenerator: Entity = {
 
 		const DirectionIcon = direction === 'left' ? FaArrowLeft : FaArrowRight;
 
-		const iconStyle = {
-			width: TILE_SIZE / 2,
-			height: TILE_SIZE / 2,
-			padding: '4%',
-		};
-
 		const buttonStyle = {
 			top: 0,
 			right: 0,
 		};
 
 		return (
-			<div
+			<GeneratorFrame
+				size={TILE_SIZE}
+				className="relative Goomba-bg overflow-hidden"
 				style={style}
-				className="relative Goomba-bg bg-no-repeat bg-green-600 overflow-hidden"
 			>
 				{!!entity && (
 					<button
@@ -124,12 +96,7 @@ const GoombaGenerator: Entity = {
 						/>
 					</button>
 				)}
-				<GiFactory
-					style={iconStyle}
-					className="absolute bottom-0 right-0 text-white"
-					title="generator"
-				/>
-			</div>
+			</GeneratorFrame>
 		);
 	},
 };

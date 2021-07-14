@@ -2,7 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
-import { GiFactory } from 'react-icons/gi';
+import { GeneratorFrame } from './components/GeneratorFrame';
 
 const graphicSetValues = [
 	0x4,
@@ -85,31 +85,17 @@ const BowserFireGenerator: Entity = {
 
 	simpleRender(size) {
 		const style = {
-			width: size,
-			height: size,
 			backgroundPositionX: 'center',
 			backgroundPositionY: '25%',
 			backgroundSize: '90% 45%',
-			borderRadius: '10%',
-		};
-
-		const iconStyle = {
-			width: size / 2,
-			height: size / 2,
-			padding: '4%',
 		};
 
 		return (
-			<div
+			<GeneratorFrame
+				size={size}
+				className="BowserFireGenerator-bg"
 				style={style}
-				className="relative BowserFireGenerator-bg bg-no-repeat bg-green-600"
-			>
-				<GiFactory
-					style={iconStyle}
-					className="absolute bottom-0 right-0 text-white"
-					title="generator"
-				/>
-			</div>
+			/>
 		);
 	},
 
