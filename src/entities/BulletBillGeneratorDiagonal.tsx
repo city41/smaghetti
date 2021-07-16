@@ -4,13 +4,13 @@ import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import { GeneratorFrame } from './components/GeneratorFrame';
 
-const BulletBillGeneratorCardinal: Entity = {
+const BulletBillGeneratorDiagonal: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-generator',
-		title: 'Bullet Bill Generator - Cardinal',
+		title: 'Bullet Bill Generator - Diagonal',
 		description:
-			'Shoots at Mario from below, left and right. Mario must be above and to the right for it to activate.',
+			'Shoots at Mario from diagonals. Mario must be above and to the right for it to activate.',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -43,15 +43,15 @@ const BulletBillGeneratorCardinal: Entity = {
 		],
 		romOffset: 0x18fa98,
 		tiles: [
-			[82, 83],
-			[114, 115],
+			[84, 85],
+			[116, 117],
 		],
 	},
 
 	toSpriteBinary(x, y) {
-		// at odd x's, it shoots diagonally. That is a BulletBillGeneratorDiagonal. The user
+		// at even x's, it shoots cardinally. That is a BulletBillGeneratorCardinal. The user
 		// was warned to place this entity at an even x, so emitting nothing is OK.
-		if (x % 2 === 1) {
+		if (x % 2 === 0) {
 			return [];
 		}
 
@@ -68,7 +68,7 @@ const BulletBillGeneratorCardinal: Entity = {
 		return (
 			<GeneratorFrame
 				size={size}
-				className="BulletBillGeneratorCardinal-bg"
+				className="BulletBillGeneratorDiagonal-bg"
 				style={style}
 			/>
 		);
@@ -90,10 +90,10 @@ const BulletBillGeneratorCardinal: Entity = {
 			return `Must be ${delta} more tiles to the right of Mario's starting position to work`;
 		}
 
-		if (tx % 2 === 1) {
-			return 'Must be placed on an even x tile';
+		if (tx % 2 === 0) {
+			return 'Must be placed on an odd x tile';
 		}
 	},
 };
 
-export { BulletBillGeneratorCardinal };
+export { BulletBillGeneratorDiagonal };

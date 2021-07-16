@@ -39,6 +39,7 @@ import { BowserLaserStatue } from './BowserLaserStatue';
 import { Brick } from './Brick';
 import { Bubble } from './Bubble';
 import { BulletBillGeneratorCardinal } from './BulletBillGeneratorCardinal';
+import { BulletBillGeneratorDiagonal } from './BulletBillGeneratorDiagonal';
 import { Bumpty } from './Bumpty';
 import { BumptyAggressive } from './BumptyAggressive';
 import { BuriedVegetable } from './BuriedVegetable';
@@ -302,6 +303,7 @@ const entityMap = {
 	Brick,
 	Bubble,
 	BulletBillGeneratorCardinal,
+	BulletBillGeneratorDiagonal,
 	Bumpty,
 	BumptyAggressive,
 	BuriedVegetable,
