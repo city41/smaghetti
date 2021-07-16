@@ -25,7 +25,7 @@ const FlagPole: Entity = {
 	dimensions: 'none',
 	objectId: 0x1c,
 	settingsType: 'single',
-	defaultSettings: { height: MIN_HEIGHT },
+	defaultSettings: { height: MIN_HEIGHT + 1 },
 
 	resource: {
 		romOffset: 0x18c914,
