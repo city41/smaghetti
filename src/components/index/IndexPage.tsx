@@ -16,7 +16,7 @@ function IndexPage() {
 						A level editor for Super Mario Advance 4
 					</h1>
 					<p className="block bg-red-100 text-red-900 p-2 -mx-2">
-						Smaghetti is in alpha, checkout the{' '}
+						Smaghetti is in alpha, check out the{' '}
 						<a className="text-blue-500" href="/roadmap">
 							roadmap
 						</a>{' '}
