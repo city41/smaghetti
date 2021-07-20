@@ -39,7 +39,7 @@ const alphaChecklist: MilestoneChecklistItem[] = [
 const betaChecklist: MilestoneChecklistItem[] = [
 	{ status: 'not-started', description: 'Movement vectors for platforms' },
 	{
-		status: 'not-started',
+		status: 'in-progress',
 		description: 'Most entities in SMA4 are available to build levels with',
 	},
 	{ status: 'in-progress', description: 'Water levels' },
