@@ -1,8 +1,9 @@
 import React from 'react';
 import { Root } from '../../layout/Root';
-import { EntityPopularity } from '../EntityPopularity';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { stats } from '../../../stats/stats';
+import { EntityPopularity } from '../EntityPopularity';
+import { UnusedEntities } from '../UnusedEntities';
 import { RoomCounts } from '../RoomCounts';
 
 type InternalStatsPageProps = {
@@ -23,6 +24,9 @@ function StatsPage({ allFilesReady }: InternalStatsPageProps) {
 						<div>
 							<div className="mt-16 pb-16 px-4 sm:px-0 border-b border-dotted border-gray-500 last:border-0">
 								<EntityPopularity entitiesByCount={stats.entitiesByCount} />
+							</div>
+							<div className="mt-16 pb-16 px-4 sm:px-0 border-b border-dotted border-gray-500 last:border-0">
+								<UnusedEntities entitiesByCount={stats.entitiesByCount} />
 							</div>
 							<div className="mt-16 pb-16 px-4 sm:px-0 border-b border-dotted border-gray-500 last:border-0">
 								<RoomCounts

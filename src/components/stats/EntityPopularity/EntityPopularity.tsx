@@ -84,14 +84,19 @@ function EntityPopularity({
 				levels.
 			</p>
 			<div className={clsx(className, 'space-y-8 mt-8 h-96 overflow-y-auto')}>
-				{curEntitiesByCount.map((ec) => (
-					<EntityCountRow
-						key={ec.type}
-						type={ec.type}
-						count={ec.count}
-						percent={ec.count / highestCount}
-					/>
-				))}
+				{curEntitiesByCount.map((ec) => {
+					if (ec.count === 0) {
+						return null;
+					}
+					return (
+						<EntityCountRow
+							key={ec.type}
+							type={ec.type}
+							count={ec.count}
+							percent={ec.count / highestCount}
+						/>
+					);
+				})}
 			</div>
 		</div>
 	);
