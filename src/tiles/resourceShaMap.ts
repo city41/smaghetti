@@ -195,6 +195,7 @@ export const resourceShaMap: Record<string, string> = {
   "StretchBoo": "ff92f3cfbaac4af0c2d3c67e527c1f15b522555d",
   "StretchBooPlatform": "5d5cf0f601318ba14bbb975d4b0567db78ef425d",
   "Swooper": "8343d6c3b32c350bc724cca5dc2889be873a3807",
+  "TanMetalBricksSmallTrio": "279494c39077cb21096c99af627f091ab6e2b86e",
   "TanookiBlock": "f2b3107cefe22d6afae03d353c08ac191a12f7b4",
   "TerracottaBrick": "b8edc1ceab3c52fa2e21e40e93db54095287397d",
   "TexturedDoor": "2174d76de1392639106248873f27d9c375e1c805",
