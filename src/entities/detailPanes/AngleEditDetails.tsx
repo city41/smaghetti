@@ -7,10 +7,9 @@ type AngleEditDetailsProps = {
 	width: number;
 	height: number;
 	onAngleChange: (newAngle: number) => void;
+	disabled?: boolean;
 	children: ReactNode;
 };
-
-const PADDING = 1;
 
 function AngleEditDetails({
 	currentAngle = 0,
@@ -18,35 +17,35 @@ function AngleEditDetails({
 	width,
 	height,
 	onAngleChange,
+	disabled,
 	children,
 }: AngleEditDetailsProps) {
 	const style = {
-		top: -PADDING,
-		left: -PADDING,
-		width: width + 2 * PADDING,
-		minHeight: height + 2 * PADDING,
-		padding: PADDING,
+		width,
+		height,
 	};
 
 	return (
-		<div className="absolute bg-gray-700 z-10" style={style}>
+		<div className="relative group" style={style}>
 			{children}
-			<div className="grid my-0.5 place-items-center">
-				<button
-					aria-label="rotate"
-					onMouseDown={(e) => {
-						e.preventDefault();
-						e.stopPropagation();
-						const newAngle = (currentAngle ?? 0) + rotateAmount;
-						onAngleChange(newAngle);
-					}}
-				>
-					<AiOutlineRotateRight
-						className="hover:bg-gray-500"
-						style={{ fontSize: '0.25rem' }}
-					/>
-				</button>
-			</div>
+			{!disabled && (
+				<div className="absolute top-0 left-0 w-full h-full hidden group-hover:grid place-items-center">
+					<button
+						aria-label="rotate"
+						onMouseDown={(e) => {
+							e.preventDefault();
+							e.stopPropagation();
+							const newAngle = (currentAngle ?? 0) + rotateAmount;
+							onAngleChange(newAngle);
+						}}
+					>
+						<AiOutlineRotateRight
+							style={{ borderRadius: '10%' }}
+							className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600"
+						/>
+					</button>
+				</div>
+			)}
 		</div>
 	);
 }

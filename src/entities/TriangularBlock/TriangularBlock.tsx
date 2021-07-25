@@ -73,32 +73,24 @@ const TriangularBlock: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
-		const body = (
-			<div
-				className="TriangularBlock-bg bg-cover relative cursor-pointer transform transition-all"
-				style={{
-					width: TILE_SIZE,
-					height: TILE_SIZE,
-					transform: `rotate(${settings.angle ?? 0}deg)`,
-				}}
-			/>
+	render(_showDetails, settings, onSettingsChange) {
+		return (
+			<AngleEditDetails
+				width={TILE_SIZE}
+				height={TILE_SIZE}
+				currentAngle={settings.angle as number}
+				onAngleChange={(angle) => onSettingsChange({ angle })}
+			>
+				<div
+					className="TriangularBlock-bg bg-cover relative cursor-pointer transform transition-all"
+					style={{
+						width: TILE_SIZE,
+						height: TILE_SIZE,
+						transform: `rotate(${settings.angle ?? 0}deg)`,
+					}}
+				/>
+			</AngleEditDetails>
 		);
-
-		if (showDetails) {
-			return (
-				<AngleEditDetails
-					width={TILE_SIZE}
-					height={TILE_SIZE}
-					currentAngle={settings.angle as number}
-					onAngleChange={(angle) => onSettingsChange({ angle })}
-				>
-					{body}
-				</AngleEditDetails>
-			);
-		} else {
-			return body;
-		}
 	},
 };
 

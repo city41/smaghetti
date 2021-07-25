@@ -114,7 +114,7 @@ const OneWayDoor: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render(_showDetails, settings, onSettingsChange) {
 		const direction = settings.direction ?? this.defaultSettings!.direction;
 
 		switch (direction) {
@@ -166,24 +166,20 @@ const OneWayDoor: Entity = {
 					</div>
 				);
 
-				if (showDetails) {
-					return (
-						<AngleEditDetails
-							currentAngle={directionToAngle[direction]}
-							width={TILE_SIZE}
-							height={TILE_SIZE * 2.5}
-							onAngleChange={(newAngle) => {
-								onSettingsChange({
-									direction: angleToDirection[newAngle % 360],
-								});
-							}}
-						>
-							{body}
-						</AngleEditDetails>
-					);
-				} else {
-					return body;
-				}
+				return (
+					<AngleEditDetails
+						currentAngle={directionToAngle[direction]}
+						width={TILE_SIZE}
+						height={TILE_SIZE}
+						onAngleChange={(newAngle) => {
+							onSettingsChange({
+								direction: angleToDirection[newAngle % 360],
+							});
+						}}
+					>
+						{body}
+					</AngleEditDetails>
+				);
 			}
 			case 'proceed-right':
 			case 'proceed-left':
@@ -233,22 +229,18 @@ const OneWayDoor: Entity = {
 					</div>
 				);
 
-				if (showDetails) {
-					return (
-						<AngleEditDetails
-							currentAngle={directionToAngle[direction]}
-							width={TILE_SIZE}
-							height={TILE_SIZE * 2.5}
-							onAngleChange={(newAngle) => {
-								onSettingsChange({ direction: angleToDirection[newAngle] });
-							}}
-						>
-							{body}
-						</AngleEditDetails>
-					);
-				} else {
-					return body;
-				}
+				return (
+					<AngleEditDetails
+						currentAngle={directionToAngle[direction]}
+						width={TILE_SIZE}
+						height={TILE_SIZE * 4}
+						onAngleChange={(newAngle) => {
+							onSettingsChange({ direction: angleToDirection[newAngle] });
+						}}
+					>
+						{body}
+					</AngleEditDetails>
+				);
 			}
 		}
 	},

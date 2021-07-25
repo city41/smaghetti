@@ -153,6 +153,7 @@ export const resourceShaMap: Record<string, string> = {
   "ParaBomberGoomba": "e632aa124de55707f6a2594bdf7c2ac83cc0c358",
   "ParaGoomba": "690651f4801f76e96ccd260beebcda0c20700cb3",
   "PileDriverMiniGoomba": "94bf3247e6bc2c151e20295f77f5609fe07a9d62",
+  "PipeCornerTransition": "c49d5f94b4a584f4d20f498d3f9e91310122a5a9",
   "PipeHorizontalMini": "462e503344af48135d8039b72f314b08c996d860",
   "PiranhaPlant": "5603bb3e5b2447fa3d53b427156a47bac975ce85",
   "Player": "380bc860471c4d9e8cb4bc369ea849aaac740ae8",
