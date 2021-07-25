@@ -9,7 +9,7 @@ const TanMetalBricksSmallPyramid: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-large',
-		title: 'Tan Metal Brick - Pyramid',
+		title: 'Tan Metal Brick - Medium',
 	},
 
 	objectSets: encodeObjectSets([[9, 9]]),
@@ -17,7 +17,7 @@ const TanMetalBricksSmallPyramid: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x1,
+	objectId: 0x2,
 	emptyBank: 0,
 	width: 12,
 	height: 6,
