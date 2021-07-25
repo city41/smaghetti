@@ -114,7 +114,7 @@ const OneWayDoor: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange) {
+	render(_showDetails, settings, onSettingsChange, entity) {
 		const direction = settings.direction ?? this.defaultSettings!.direction;
 
 		switch (direction) {
@@ -176,6 +176,7 @@ const OneWayDoor: Entity = {
 								direction: angleToDirection[newAngle % 360],
 							});
 						}}
+						disabled={!entity}
 					>
 						{body}
 					</AngleEditDetails>
@@ -237,6 +238,7 @@ const OneWayDoor: Entity = {
 						onAngleChange={(newAngle) => {
 							onSettingsChange({ direction: angleToDirection[newAngle] });
 						}}
+						disabled={!entity}
 					>
 						{body}
 					</AngleEditDetails>

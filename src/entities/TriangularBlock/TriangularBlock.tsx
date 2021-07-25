@@ -73,13 +73,14 @@ const TriangularBlock: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange) {
+	render(_showDetails, settings, onSettingsChange, entity) {
 		return (
 			<AngleEditDetails
 				width={TILE_SIZE}
 				height={TILE_SIZE}
 				currentAngle={settings.angle as number}
 				onAngleChange={(angle) => onSettingsChange({ angle })}
+				disabled={!entity}
 			>
 				<div
 					className="TriangularBlock-bg bg-cover relative cursor-pointer transform transition-all"
