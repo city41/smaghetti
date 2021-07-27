@@ -4,7 +4,7 @@ exports.shorthands = undefined;
 
 const ERROR_TABLE = 'errors';
 const POLICY_NAME_CREATE_ERRORS = 'allow anyone to create errors';
-const POLICY_NAME_READ_ERRORS = 'allow admin read errors';
+const POLICY_NAME_READ_ERRORS = 'allow anyone to read errors';
 const POLICY_NAME_DELETE_ERRORS = 'allow admin delete errors';
 const POLICY_NAME_UPDATE_ERRORS = 'allow admin update errors';
 
@@ -43,7 +43,7 @@ exports.up = (pgm) => {
 		POLICY_NAME_READ_ERRORS,
 		{
 			command: 'SELECT',
-			using: "(select role from public.users where id = auth.uid()) = 'admin'",
+			using: 'true',
 		}
 	);
 

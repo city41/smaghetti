@@ -27,7 +27,7 @@ export async function insertError({
 		});
 
 		if (secondError) {
-			console.error('unable to send error logl', secondError);
+			console.error('unable to send error log', secondError);
 		}
 	}
 }
