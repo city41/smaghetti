@@ -9,6 +9,7 @@ import { deserialize } from '../../level/deserialize';
 import { convertLevelToLatestVersion } from '../../level/versioning/convertLevelToLatestVersion';
 import { setLevelPublished } from '../../remoteData/setLevelPublished';
 import { isBrokenLevel } from '../editor/Editor/LevelChooserModal/util';
+import { logError } from '../../reporting/logError';
 
 type DeleteState = 'deleting' | 'error' | 'success';
 type TogglePublishState = 'toggling' | 'error' | 'success';
@@ -119,6 +120,11 @@ const loadProfile = (): ProfileSliceThunk => async (dispatch) => {
 		dispatch(profileSlice.actions.setProfile(profileData));
 		dispatch(profileSlice.actions.setLoadState('success'));
 	} catch (e) {
+		logError({
+			context: 'profileSlice#loadProfile',
+			message: e?.message ?? 'no message',
+			stack: e?.stack,
+		});
 		dispatch(profileSlice.actions.setLoadState('error'));
 	}
 };
@@ -136,6 +142,11 @@ const deleteLevel = (level: Level | BrokenLevel): ProfileSliceThunk => async (
 		);
 		dispatch(profileSlice.actions.removeLevel(level.id));
 	} catch (e) {
+		logError({
+			context: 'profileSlice#deleteLevel',
+			message: e?.message ?? 'no message',
+			stack: e?.stack,
+		});
 		dispatch(
 			profileSlice.actions.setDeleteState({ id: level.id, state: 'error' })
 		);
@@ -156,6 +167,11 @@ const togglePublishLevel = (level: Level): ProfileSliceThunk => async (
 		);
 		dispatch(profileSlice.actions.togglePublished(level.id));
 	} catch (e) {
+		logError({
+			context: 'profileSlice#togglePublishLevel',
+			message: e?.message ?? 'no message',
+			stack: e?.stack,
+		});
 		dispatch(
 			profileSlice.actions.setPublishState({ id: level.id, state: 'error' })
 		);
