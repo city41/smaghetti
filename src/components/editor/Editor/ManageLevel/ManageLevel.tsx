@@ -205,7 +205,14 @@ function ManageLevel({
 										<select
 											className="text-black"
 											value={r.type}
-											onChange={(e) => onRoomTypeChange(i, e.target.value)}
+											onMouseDown={(e) => {
+												// this is needed for onChange to work correctly in firefox
+												// https://github.com/facebook/react/issues/12584
+												e.stopPropagation();
+											}}
+											onChange={(e) => {
+												onRoomTypeChange(i, e.target.value);
+											}}
 										>
 											{roomTypes.map((rt) => (
 												<option key={rt} value={rt}>
@@ -226,6 +233,11 @@ function ManageLevel({
 										<select
 											className="text-black"
 											value={r.settings.music}
+											onMouseDown={(e) => {
+												// this is needed for onChange to work correctly in firefox
+												// https://github.com/facebook/react/issues/12584
+												e.stopPropagation();
+											}}
 											onChange={(e) =>
 												onRoomSettingsChange({
 													index: i,
