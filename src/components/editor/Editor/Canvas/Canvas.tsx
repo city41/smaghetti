@@ -367,8 +367,8 @@ const Canvas = memo(function Canvas({
 	const tileGridStyles = {
 		'--grid-width': `${TILE_SIZE}px`,
 		'--grid-height': `${TILE_SIZE}px`,
-		'--grid-line-width': '0.3px',
-		'--grid-color': 'rgba(0, 0, 0, 0.3)',
+		'--grid-line-width': '1px',
+		'--grid-color': 'rgba(0, 0, 0, 0.1)',
 		display: gridDisplay,
 	} as CSSProperties;
 
