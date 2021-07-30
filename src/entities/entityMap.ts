@@ -198,6 +198,7 @@ import { PoisonMushroom } from './PoisonMushroom';
 import { PoolOfWater } from './PoolOfWater';
 import { Porcupo } from './Porcupo';
 import { PorcuPuffer } from './PorcuPuffer';
+import { Porthole } from './Porthole';
 import { PowerUpSlotMachine } from './PowerUpSlotMachine';
 import { PtooiePottedPiranhaPlant } from './PtooiePottedPiranhaPlant';
 import { PtooieWalkingPiranhaPlant } from './PtooieWalkingPiranhaPlant';
@@ -469,6 +470,7 @@ const entityMap = {
 	PoolOfWater,
 	Porcupo,
 	PorcuPuffer,
+	Porthole,
 	PowerUpSlotMachine,
 	PtooiePottedPiranhaPlant,
 	PtooieWalkingPiranhaPlant,

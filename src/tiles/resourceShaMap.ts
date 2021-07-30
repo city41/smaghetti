@@ -172,6 +172,7 @@ export const resourceShaMap: Record<string, string> = {
   "PoolOfWater": "128be9434bb05381b50dc1dc70b7b1e770178262",
   "Porcupo": "cbe688fa57038a320599919f54b7d515f3d749f4",
   "PorcuPuffer": "734c476e7fb10a332d775ca091118284c5405ef1",
+  "Porthole": "8cebea3f00ce9682c3052b2dae90462eca441e94",
   "PowerUpSlotMachine": "ccc080c02ff978c4496843bc7223977292fa4432",
   "PtooiePottedPiranhaPlant": "5f78effc1ab0f6cfb0ec186b11e08e3921ee4051",
   "PtooieWalkingPiranhaPlant": "cdeee91e2b08e564e31b1542b370a58dbc8ca60c",
