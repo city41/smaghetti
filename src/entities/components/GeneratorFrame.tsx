@@ -1,9 +1,10 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import clsx from 'clsx';
-import { GiFactory } from 'react-icons/gi';
+import { GiFactory, GiStopSign } from 'react-icons/gi';
 
 type GeneratorFrameProps = {
 	className?: string;
+	canceler?: boolean;
 	style?: CSSProperties;
 	size: number;
 	children?: ReactNode;
@@ -11,6 +12,7 @@ type GeneratorFrameProps = {
 
 function GeneratorFrame({
 	className,
+	canceler,
 	style,
 	size,
 	children,
@@ -27,16 +29,20 @@ function GeneratorFrame({
 		padding: '4%',
 	};
 
+	const Icon = canceler ? GiStopSign : GiFactory;
+
 	return (
 		<div
 			style={{ ...rootStyle, ...style }}
-			className={clsx(className, 'relative bg-no-repeat bg-green-600')}
+			className={clsx(className, 'relative bg-no-repeat', {
+				'bg-green-600': !canceler,
+				'bg-red-500': canceler,
+			})}
 		>
 			{children}
-			<GiFactory
+			<Icon
 				style={iconStyle}
 				className="absolute bottom-0 right-0 text-white"
-				title="generator"
 			/>
 		</div>
 	);
