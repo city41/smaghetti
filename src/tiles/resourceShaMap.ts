@@ -13,6 +13,7 @@ export const resourceShaMap: Record<string, string> = {
   "BeachBall": "97e5d4d56a203922d7636acd947089ccc2f8015a",
   "BigBass": "25066566c1755598473969a4e7b808ac668005ed",
   "BigBertha": "25066566c1755598473969a4e7b808ac668005ed",
+  "BillBlaster": "61b7c9b1703e3c54a3071487536a4ba17608e628",
   "Blooper": "eb81f134ca7d46f0415af061bf2a92680d3e714a",
   "BlueCoin": "261f6473b1e9300ecff46b8d3fbfbe3198dfbcbd",
   "Bobomb": "1d4fd085c9196d38cccc423f3116cbc5dc789d84",

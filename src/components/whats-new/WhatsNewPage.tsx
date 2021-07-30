@@ -83,10 +83,15 @@ function WhatsNewPage() {
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
 				<NewEntry title="New Entities" date="2021-07-25">
 					<ul>
+						<li>Bill Blaster</li>
 						<li>Bullet Bill Generator Canceler</li>
 					</ul>
 					<p>
 						You can now limit bullet bill generators to sections of a level.
+					</p>
+					<p>
+						Bill Blasters need more work. So far they have no body and can only
+						shoot Bullet Bills. Stay tuned for more.
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-07-25">
