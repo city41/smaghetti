@@ -60,12 +60,14 @@ type BackgroundGraphic =
 	| 'crystal-underground'
 	| 'hills-at-night'
 	| 'night-sky'
-	| 'bonus-room';
+	| 'bonus-room'
+	| 'stormy-clouds';
 
 type BackgroundExtraColorAndEffect =
 	| 'none'
 	| 'fortress-parallax'
-	| 'underwater-ripple-purple';
+	| 'underwater-ripple-purple'
+	| 'stormy-clouds-lightning';
 
 type RoomBackgroundSettings = {
 	bgGraphic: number;

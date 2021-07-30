@@ -62,6 +62,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'crystal-underground': 0x14,
 	'hills-at-night': 0x1d,
 	'night-sky': 0x2a,
+	'stormy-clouds': 0x2,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -71,6 +72,7 @@ export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
 	none: 0,
 	'fortress-parallax': 0x49,
 	'underwater-ripple-purple': 0x11,
+	'stormy-clouds-lightning': 0x33,
 };
 
 // setting a room's background is several settings that generally should be bundled
@@ -151,5 +153,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['night-sky'],
 		bgColor: 0x4,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'stormy-clouds': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['stormy-clouds'],
+		bgColor: 0x74,
+		bgExtraColorAndEffect:
+			BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES['stormy-clouds-lightning'],
 	},
 };

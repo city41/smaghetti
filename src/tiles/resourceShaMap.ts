@@ -319,6 +319,7 @@ export const resourceShaMap: Record<string, string> = {
   "StoneFloorTop": "0048e1baf9cbc794355e2eab17cfd83b2855bb22",
   "StoneFloorUpperLeft": "8be48cdd762ad7fd5e6d49949698dead463c6627",
   "StoneFloorUpperRight": "c874390366712e2fead5c2766529b4d2ae3b72e3",
+  "StormyCloudsBackground": "5d16d9b16c0861e984334796c28deed8209e1eca",
   "StretchBooPlatformLeft": "9179a0ced994a4c857652f60579a1766ea8502db",
   "StretchBooPlatformRight": "f43b33a9a5358569a36d991b93c9762ff8346555",
   "TallHillsBackground": "5d131feffdbbbd6bebbf9136bde8a57b42e56c39",

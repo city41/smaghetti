@@ -85,6 +85,7 @@ import { StoneFloorRight } from './StoneFloorRight';
 import { StoneFloorTop } from './StoneFloorTop';
 import { StoneFloorUpperLeft } from './StoneFloorUpperLeft';
 import { StoneFloorUpperRight } from './StoneFloorUpperRight';
+import { StormyCloudsBackground } from './StormyCloudsBackground';
 import { StretchBooPlatformLeft } from './StretchBooPlatformLeft';
 import { StretchBooPlatformRight } from './StretchBooPlatformRight';
 import { TallHillsBackground } from './TallHillsBackground';
@@ -205,6 +206,7 @@ const resourceMap = {
 	StoneFloorTop,
 	StoneFloorUpperLeft,
 	StoneFloorUpperRight,
+	StormyCloudsBackground,
 	StretchBooPlatformLeft,
 	StretchBooPlatformRight,
 	TallHillsBackground,

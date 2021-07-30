@@ -131,6 +131,20 @@ function HillsAtNight() {
 	);
 }
 
+function StormyClouds() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#000029' }}
+		>
+			<div
+				className="StormyCloudsBackground-bg w-full bg-repeat-x"
+				style={{ height: 112 }}
+			/>
+		</div>
+	);
+}
+
 const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.underground]: <Underground />,
 	[BACKGROUND_GRAPHIC_VALUES.fortress]: <Fortress />,
@@ -146,6 +160,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['crystal-underground']]: <CrystalUnderground />,
 	[BACKGROUND_GRAPHIC_VALUES['hills-at-night']]: <HillsAtNight />,
 	[BACKGROUND_GRAPHIC_VALUES['night-sky']]: <NightSky />,
+	[BACKGROUND_GRAPHIC_VALUES['stormy-clouds']]: <StormyClouds />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {
