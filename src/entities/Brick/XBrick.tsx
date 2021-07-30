@@ -1,8 +1,9 @@
 import type { Entity } from '../types';
-import { getBankParam1 } from '../util';
+import { encodeObjectSets, getBankParam1 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import React from 'react';
-import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
+import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
+import { objectSets } from './xObjectSets';
 
 const XBrick: Entity = {
 	paletteInfo: {
@@ -11,7 +12,7 @@ const XBrick: Entity = {
 		warning: 'Not intended for use in Smaghetti',
 	},
 
-	objectSets: ANY_OBJECT_SET,
+	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'cell',
