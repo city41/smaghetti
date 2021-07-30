@@ -91,6 +91,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2022-07-30">
 					<ul>
 						<li>Airship Platform</li>
+						<li>Rocky Wrench</li>
 					</ul>
 					<p>Airship Platform can be configured in many ways</p>
 					<div className="flex flex-row justify-center pt-6">

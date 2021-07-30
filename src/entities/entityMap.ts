@@ -208,6 +208,7 @@ import { RedKoopaTroopa } from './RedKoopaTroopa';
 import { RedParaTroopa } from './RedParaTroopa';
 import { RipVanFish } from './RipVanFish';
 import { RiverCheepCheep } from './RiverCheepCheep';
+import { RockyWrench } from './RockyWrench';
 import { Rope } from './Rope';
 import { RopeRailing } from './RopeRailing';
 import { RotatingCheckeredBlockLarge } from './RotatingCheckeredBlockLarge';
@@ -478,6 +479,7 @@ const entityMap = {
 	RedParaTroopa,
 	RipVanFish,
 	RiverCheepCheep,
+	RockyWrench,
 	Rope,
 	RopeRailing,
 	RotatingCheckeredBlockLarge,
