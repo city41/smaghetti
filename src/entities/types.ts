@@ -33,6 +33,7 @@ type PaletteSubcategory =
 	| 'terrain-winter'
 	| 'terrain-large'
 	| 'terrain-checkered'
+	| 'terrain-airship'
 	| 'enemy-common'
 	| 'enemy-piranha'
 	| 'enemy-fortress'

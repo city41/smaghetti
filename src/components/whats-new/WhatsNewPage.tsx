@@ -4,6 +4,8 @@ import { Root } from '../layout/Root';
 
 import typographyStyles from '../../styles/typography.module.css';
 
+import airshipExamples from './AirshipPlatformExamples.png';
+
 function dateToHumanString(input: string): string {
 	const date = new Date(input);
 
@@ -81,6 +83,20 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2022-07-30">
+					<ul>
+						<li>Airship Platform</li>
+					</ul>
+					<p>Airship Platform can be configured in many ways</p>
+					<div className="flex flex-row justify-center pt-6">
+						<img
+							width={480}
+							height={320}
+							src={airshipExamples}
+							alt="airship platform examples"
+						/>
+					</div>
+				</NewEntry>
 				<NewEntry title="Cannon: all directions" date="2022-07-30">
 					<p>
 						Cannons can now be configured to face in all four directions. In

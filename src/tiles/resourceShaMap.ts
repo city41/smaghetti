@@ -1,5 +1,11 @@
 export const resourceShaMap: Record<string, string> = {
   "AceCoin": "61fa63d507e5d50110d8b48a1d7a55e4f968fa60",
+  "AirshipPlatformLeftFlat": "220355cec6b2e6392312396599caabc8b98ee0e6",
+  "AirshipPlatformLeftShallow": "e77c3de81b0ad9de122977809441c78e06a7eac7",
+  "AirshipPlatformLeftDeep": "0c467c9b4a2b7c68a14bcd9779bbbf2a1ef5c3f3",
+  "AirshipPlatform": "3c0dbbc06fa9b3866eeeed093cebcdab930f56bd",
+  "AirshipPlatformRightFlat": "da96d26434ecf75df9d9a11a3175fef0822b647c",
+  "AirshipPlatformRightShallow": "b96d3d768fb0d557aead88101af6d555b6be6618",
   "AmazingFlyinHammerBro": "1f2d98cd04d398c27292bc087c64b30ca0771adb",
   "AngrySun": "2e7bfb4e6d21d9bc360608416094871124ed5923",
   "ArrowFloor": "24844fb81f0c7a91517a02a5319ecd57e797b4bb",
