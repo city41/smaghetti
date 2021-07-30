@@ -3,14 +3,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { createCanvas } from 'canvas';
 import { entityMap, EntityType } from '../src/entities/entityMap';
-import { resourceMap, ResourceType } from '../src/resources/resourceMap';
+import { resourceMap } from '../src/resources/resourceMap';
 // @ts-ignore no types
 import sha1 from 'js-sha1';
 import { isStaticResource } from '../src/resources/util';
 import { Resource } from '../src/resources/types';
 import { extractResourceToDataUrl } from '../src/tiles/extractResourcesToStylesheet';
 
-type ShaMap = Partial<Record<EntityType | ResourceType, string>>;
+type ShaMap = Partial<Record<string, string>>;
 
 function canvasGenerator(width: number, height: number) {
 	return createCanvas(width, height);
@@ -20,22 +20,28 @@ function buildShaMap(rom: Uint8Array): ShaMap {
 	const shaMap: ShaMap = {};
 
 	const entityResourceMap = Object.keys(entityMap).reduce<
-		Partial<Record<EntityType, Resource>>
+		Partial<Record<string, Resource>>
 	>((building, key) => {
 		const entityDef = entityMap[key as EntityType];
 		if (entityDef.resource) {
 			building[key as EntityType] = entityDef.resource;
 		}
 
+		if (entityDef.resources) {
+			Object.keys(entityDef.resources).forEach((resourceKey) => {
+				building[resourceKey] = entityDef.resources![resourceKey];
+			});
+		}
+
 		return building;
 	}, {});
 
-	const fullResourceMap = {
+	const fullResourceMap: Record<string, Resource> = {
 		...entityResourceMap,
 		...resourceMap,
 	};
 
-	const keys = Object.keys(fullResourceMap) as Array<EntityType | ResourceType>;
+	const keys = Object.keys(fullResourceMap) as string[];
 
 	for (let i = 0; i < keys.length; ++i) {
 		const resourceName = keys[i];

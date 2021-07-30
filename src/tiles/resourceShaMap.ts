@@ -171,6 +171,8 @@ export const resourceShaMap: Record<string, string> = {
   "QuestionMark": "f67be16f096b445c29983fb76d50a1fb3a176557",
   "RedKoopaTroopa": "f1bf5fb157478191f4f2e4a95e2c6e975afaaf78",
   "RipVanFish": "600cd86c10abf61e32f25054b5e8c5f02d84831c",
+  "RopeBody": "cafe11186bade425cc92d8f249bf068a9f40df96",
+  "RopeTail": "07c3b4b2cffd64ad9fab09dca1644ecadb826881",
   "RopeRailing": "dfd736eb2ac91d3ad37f78c32ce27303de1b95b5",
   "RotatingCheckeredBlockLarge": "22056dda5e97260fa3512ace778be421021992ef",
   "RotatingCheckeredBlockSmall": "b20ad29f9306176718877636066aa264aaca9c14",

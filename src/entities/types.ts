@@ -131,7 +131,17 @@ type Entity = {
 	// TODO: I think group settings is coming, but if not, switch to boolean
 	settingsType?: 'single';
 	defaultSettings?: EditorEntitySettings;
+
+	/**
+	 * a single graphic to extract and be usable for rendering the entity
+	 */
 	resource?: Resource;
+
+	/**
+	 * A map of multiple resources to extract, useful for more complex
+	 * entities that need multiple graphics to render
+	 */
+	resources?: Record<string, Resource>;
 
 	toObjectBinary?: (
 		x: number,

@@ -321,11 +321,17 @@ const extract = (): FileLoaderThunk => async (dispatch) => {
 	dispatch(fileLoaderSlice.actions.overallExtractionState('extracting'));
 
 	const entityResourceMap = Object.keys(entityMap).reduce<
-		Partial<Record<EntityType, Resource>>
+		Partial<Record<string, Resource>>
 	>((building, key) => {
 		const entityDef = entityMap[key as EntityType];
 		if (entityDef.resource) {
-			building[key as EntityType] = entityDef.resource;
+			building[key] = entityDef.resource;
+		}
+
+		if (entityDef.resources) {
+			Object.keys(entityDef.resources).forEach((resourceKey) => {
+				building[resourceKey] = entityDef.resources![resourceKey];
+			});
 		}
 
 		return building;

@@ -68,6 +68,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	PoolOfWater: 'Pw',
 	PSwitch: 'Ps',
 	QuestionBlock: '?',
+	Rope: 'Ro',
 	RopeRailing: 'Rr',
 	Stalactite: 'St',
 	StretchBooPlatform: 'Sbp',
