@@ -6,6 +6,7 @@ const TILE_SIZE = 16;
 // or at the least, flip these so we know the ids are unique
 // ie Mu: "Muncher" instead of Muncher: "Mu"
 const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
+	AirshipWindow: 'Asw',
 	ArrowFloor: 'Af',
 	BlueCoin: 'B$',
 	BoltLeft: 'Bl',
