@@ -2,29 +2,59 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { encodeObjectSets } from './util';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import clsx from 'clsx';
+import { AiOutlineRotateRight } from 'react-icons/ai';
 import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
+import clsx from 'clsx';
 
-type Direction = 'left' | 'right';
+const directions = ['up-left', 'up-right', 'down-right', 'down-left'] as const;
+type Direction = typeof directions[number];
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 const directionToObjectId: Record<Direction, number> = {
-	left: 0x6,
-	right: 0x7,
+	'up-left': 0x6,
+	'up-right': 0x7,
+	'down-left': 0x8,
+	'down-right': 0x9,
 };
 
 const directionToBobombSpriteId: Record<Direction, number> = {
-	left: 0xa2,
-	right: 0xa3,
+	'up-left': 0xa2,
+	'up-right': 0xa3,
+	// bobombs can only fire up. toSpriteBinary handles this
+	'down-left': -1,
+	'down-right': -1,
 };
 
 const directionToCannonBallSpriteId: Record<Direction, number> = {
-	left: 0x98,
-	right: 0x99,
+	'up-left': 0x98,
+	'up-right': 0x99,
+	'down-left': 0x9a,
+	'down-right': 0x9b,
 };
+
+const directionToResourceClass: Record<Direction, string> = {
+	'up-left': 'CannonUpLeft-bg',
+	'up-right': 'CannonUpRight-bg',
+	'down-left': 'CannonDownLeft-bg',
+	'down-right': 'CannonDownRight-bg',
+};
+
+function getDirection(settings: EditorEntitySettings): Direction {
+	const direction = settings.direction ?? 'up-left';
+
+	// first version of Cannon only had left | right
+	if (direction === 'left') {
+		return 'up-left';
+	}
+
+	if (direction === 'right') {
+		return 'up-right';
+	}
+
+	return direction;
+}
 
 const Cannon: Entity = {
 	paletteCategory: 'enemy',
@@ -48,49 +78,136 @@ const Cannon: Entity = {
 	objectId: 0x7,
 	alternateObjectIds: Object.values(directionToObjectId),
 	settingsType: 'single',
-	defaultSettings: { direction: 'left', payload: 'CannonBall' },
+	defaultSettings: { direction: 'up-left', payload: 'CannonBall' },
 	emptyBank: 0,
 
-	resource: {
-		palettes: [
-			[
-				0x7f96,
-				0x7fff,
-				0x0,
-				0x39ce,
-				0x4a52,
-				0x6318,
-				0x77bd,
-				0x267c,
-				0x435f,
-				0x5bbf,
-				0x3d89,
-				0x4a0d,
-				0x5650,
-				0x62b2,
-				0x6f15,
-				0x7778,
+	resources: {
+		CannonUpLeft: {
+			palettes: [
+				[
+					0x7f96,
+					0x7fff,
+					0x0,
+					0x39ce,
+					0x4a52,
+					0x6318,
+					0x77bd,
+					0x267c,
+					0x435f,
+					0x5bbf,
+					0x3d89,
+					0x4a0d,
+					0x5650,
+					0x62b2,
+					0x6f15,
+					0x7778,
+				],
 			],
-		],
-		romOffset: 0x16ea40,
-		tiles: [
-			[320, 321],
-			[336, 337],
-		],
+			romOffset: 0x16ea40,
+			tiles: [
+				[320, 321],
+				[336, 337],
+			],
+		},
+		CannonUpRight: {
+			palettes: [
+				[
+					0x7f96,
+					0x7fff,
+					0x0,
+					0x39ce,
+					0x4a52,
+					0x6318,
+					0x77bd,
+					0x267c,
+					0x435f,
+					0x5bbf,
+					0x3d89,
+					0x4a0d,
+					0x5650,
+					0x62b2,
+					0x6f15,
+					0x7778,
+				],
+			],
+			romOffset: 0x16ea40,
+			tiles: [
+				[323, 324],
+				[339, 340],
+			],
+		},
+		CannonDownRight: {
+			palettes: [
+				[
+					0x7f96,
+					0x7fff,
+					0x0,
+					0x39ce,
+					0x4a52,
+					0x6318,
+					0x77bd,
+					0x267c,
+					0x435f,
+					0x5bbf,
+					0x3d89,
+					0x4a0d,
+					0x5650,
+					0x62b2,
+					0x6f15,
+					0x7778,
+				],
+			],
+			romOffset: 0x16ea40,
+			tiles: [
+				[366, 367],
+				[382, 383],
+			],
+		},
+		CannonDownLeft: {
+			palettes: [
+				[
+					0x7f96,
+					0x7fff,
+					0x0,
+					0x39ce,
+					0x4a52,
+					0x6318,
+					0x77bd,
+					0x267c,
+					0x435f,
+					0x5bbf,
+					0x3d89,
+					0x4a0d,
+					0x5650,
+					0x62b2,
+					0x6f15,
+					0x7778,
+				],
+			],
+			romOffset: 0x16ea40,
+			tiles: [
+				[364, 365],
+				[380, 381],
+			],
+		},
 	},
 
 	toObjectBinary(x, y, _w, _h, settings) {
-		const direction = (settings.direction ??
-			this.defaultSettings!.direction) as Direction;
+		const direction = getDirection(settings);
 		const objectId = directionToObjectId[direction];
 
 		return [0, y, x, objectId];
 	},
 
 	toSpriteBinary(x, y, _w, _h, settings) {
-		const direction = (settings.direction ??
-			this.defaultSettings!.direction) as Direction;
+		const direction = getDirection(settings);
 		const payload = settings.payload ?? this.defaultSettings!.payload;
+
+		// somehow got in a bad state, a downward cannon that was told
+		// to fire bobombs. bobombs can only fire up, so just bail
+		if (payload === 'Bobomb' && direction.startsWith('down')) {
+			return [];
+		}
 
 		const idMap =
 			payload === 'CannonBall'
@@ -105,57 +222,57 @@ const Cannon: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="Cannon-bg bg-cover"
+				className="CannonUpLeft-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
 	},
 
 	render(showDetails, settings, onSettingsChange, entity) {
-		const direction = (settings.direction ??
-			this.defaultSettings!.direction) as Direction;
+		const direction = getDirection(settings);
+		const resourceClass = directionToResourceClass[direction];
 
 		const style = { width: TILE_SIZE, height: TILE_SIZE };
-		const flipStyle =
-			direction === 'right' ? { transform: 'scale(-1, 1)' } : {};
-
-		const Icon = direction === 'right' ? FaArrowLeft : FaArrowRight;
 
 		const body = (
 			<div style={style} className="relative bg-cover group">
 				<div
-					style={flipStyle}
-					className="Cannon-bg absolute top-0 left-0 w-full h-full"
+					className={clsx(resourceClass, 'absolute top-0 left-0 w-full h-full')}
 				/>
 
 				{!!entity && (
-					<div
-						className={clsx(
-							'w-full h-full flex flex-row justify-start items-end border absolute top-0 left-0',
-							{
-								'border-blue-200': direction === 'right',
-								'border-yellow-200': direction === 'left',
-							}
-						)}
-					>
+					<div className="w-full h-full flex flex-row justify-start items-end border absolute top-0 left-0">
 						<button
 							className="hidden group-hover:block"
 							onMouseDown={(e) => {
 								e.preventDefault();
 								e.stopPropagation();
+								const curDirIndex = directions.indexOf(direction);
+								const nextDirIndex = (curDirIndex + 1) % directions.length;
+								const nextDir = directions[nextDirIndex];
+
 								onSettingsChange({
-									direction: direction === 'left' ? 'right' : 'left',
+									direction: nextDir,
 								});
+
+								// bobombs can only fire up, so if the cannon is facing
+								// down, make sure its set to cannonball
+								if (nextDir.startsWith('down')) {
+									onSettingsChange({
+										payload: 'CannonBall',
+									});
+								}
 							}}
 						>
-							<Icon
-								className={clsx('w-1.5 h-1.5 text-white', {
-									'bg-blue-500': direction === 'left',
-									'bg-yellow-500': direction === 'right',
-								})}
+							<AiOutlineRotateRight
+								style={{ borderRadius: '10%' }}
+								className="w-1.5 h-1.5 bg-gray-700 text-white"
 							/>
 						</button>
-						<PayloadViewDetails payload={settings.payload} />
+						<PayloadViewDetails
+							size={TILE_SIZE / 3}
+							payload={settings.payload}
+						/>
 					</div>
 				)}
 			</div>
@@ -167,7 +284,12 @@ const Cannon: Entity = {
 					width={TILE_SIZE}
 					height={TILE_SIZE}
 					onPayloadChange={(payload) => onSettingsChange({ payload })}
-					payloads={['CannonBall', 'Bobomb']}
+					payloads={
+						direction.startsWith('down')
+							? ['CannonBall']
+							: ['CannonBall', 'Bobomb']
+					}
+					disabledPayloads={direction.startsWith('down') ? ['Bobomb'] : []}
 				>
 					{body}
 				</PayloadEditDetails>

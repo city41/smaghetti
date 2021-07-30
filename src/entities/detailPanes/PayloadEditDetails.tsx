@@ -6,6 +6,7 @@ import { ResourceType } from '../../resources/resourceMap';
 
 type PayloadEditDetailsProps = {
 	payloads: Array<EntityType | ResourceType>;
+	disabledPayloads?: Array<EntityType | ResourceType>;
 	width: number;
 	height: number;
 	canClear?: boolean;
@@ -17,6 +18,7 @@ const PADDING = 1;
 
 function PayloadEditDetails({
 	payloads,
+	disabledPayloads = [],
 	width,
 	height,
 	canClear,
@@ -44,6 +46,15 @@ function PayloadEditDetails({
 							e.stopPropagation();
 							onPayloadChange(p);
 						}}
+					/>
+				))}
+				{disabledPayloads.map((p) => (
+					<div
+						key={p}
+						className={clsx(
+							`${p}-bg`,
+							'w-1 h-1 bg-cover opacity-50 cursor-not-allowed'
+						)}
 					/>
 				))}
 				{canClear && (
