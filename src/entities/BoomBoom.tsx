@@ -27,7 +27,7 @@ const BoomBoom: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x4b,
+	objectId: 0x13,
 
 	resource: {
 		palettes: [
@@ -74,7 +74,9 @@ const BoomBoom: Entity = {
 	},
 
 	toSpriteBinary(x, y) {
-		return [0, this.objectId, x, y];
+		// 3 and 5 are likely the same params as koopalings have
+		// TODO: details pain for those params
+		return [1, this.objectId, x, y, 3, 5];
 	},
 
 	simpleRender(size) {
