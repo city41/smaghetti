@@ -22,7 +22,7 @@ const WoodColumn: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x4,
-	emptyBank: 0,
+	emptyBank: 1,
 	param1: 'width',
 	settingsType: 'single',
 	defaultSettings: { width: 1 },
