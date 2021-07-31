@@ -93,6 +93,7 @@ function WhatsNewPage() {
 						<li>Airship Platform</li>
 						<li>Porthole</li>
 						<li>Rocky Wrench</li>
+						<li>Wood Column</li>
 					</ul>
 					<p>Airship Platform can be configured in many ways</p>
 					<div className="flex flex-row justify-center pt-6">
@@ -103,6 +104,10 @@ function WhatsNewPage() {
 							alt="airship platform examples"
 						/>
 					</div>
+					<p>
+						Why is Wood Column so weird and limited? You&apos;ll have to ask
+						Nintendo :)
+					</p>
 				</NewEntry>
 				<NewEntry title="Cannon: all directions" date="2022-07-30">
 					<p>

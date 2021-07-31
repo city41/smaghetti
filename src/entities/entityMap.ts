@@ -261,6 +261,7 @@ import { Wendy } from './Wendy';
 import { Wiggler } from './Wiggler';
 import { WingedPlatform } from './WingedPlatform';
 import { WoodBlock } from './WoodBlock';
+import { WoodColumn } from './WoodColumn';
 import { WoodDoor } from './WoodDoor';
 import { WoodFloor } from './WoodFloor';
 import { WoodPlatform } from './WoodPlatform';
@@ -534,6 +535,7 @@ const entityMap = {
 	Wiggler,
 	WingedPlatform,
 	WoodBlock,
+	WoodColumn,
 	WoodDoor,
 	WoodFloor,
 	WoodPlatform,
