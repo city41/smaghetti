@@ -83,18 +83,18 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
-				<NewEntry title="New Entities" date="2023-07-31">
+				<NewEntry title="New Entities" date="2021-07-31">
 					<ul>
 						<li>Airship Propeller</li>
 						<li>Wall Mounted Cannon</li>
 					</ul>
 				</NewEntry>
-				<NewEntry title="New Background" date="2022-07-30">
+				<NewEntry title="New Background" date="2021-07-30">
 					<ul>
 						<li>Stormy Clouds</li>
 					</ul>
 				</NewEntry>
-				<NewEntry title="New Entities" date="2022-07-30">
+				<NewEntry title="New Entities" date="2021-07-30">
 					<ul>
 						<li>Airship Platform</li>
 						<li>Porthole</li>
@@ -115,13 +115,13 @@ function WhatsNewPage() {
 						Nintendo :)
 					</p>
 				</NewEntry>
-				<NewEntry title="Cannon: all directions" date="2022-07-30">
+				<NewEntry title="Cannon: all directions" date="2021-07-30">
 					<p>
 						Cannons can now be configured to face in all four directions. In
 						other words, ceiling cannons are now possible.
 					</p>
 				</NewEntry>
-				<NewEntry title="New Entities" date="2022-07-30">
+				<NewEntry title="New Entities" date="2021-07-30">
 					<ul>
 						<li>Rope</li>
 					</ul>
@@ -305,7 +305,7 @@ function WhatsNewPage() {
 						<li>Snow Plateau</li>
 					</ul>
 				</NewEntry>
-				<NewEntry title="Set Room Height" date="2022-06-18">
+				<NewEntry title="Set Room Height" date="2021-06-18">
 					<p>
 						You can now set how tall a room is. Find it in the &quot;manage
 						rooms&quot; mode, same place as background and music settings.
@@ -344,7 +344,7 @@ function WhatsNewPage() {
 						<li>Metal Brick</li>
 					</ul>
 				</NewEntry>
-				<NewEntry title="Set Room Width" date="2022-06-15">
+				<NewEntry title="Set Room Width" date="2021-06-15">
 					<p>
 						You can now set how wide a room is. Find it in the &quot;manage
 						rooms&quot; mode, same place as background and music settings.
@@ -354,7 +354,7 @@ function WhatsNewPage() {
 						harder to figure out.
 					</p>
 				</NewEntry>
-				<NewEntry title="New Entities" date="2022-06-14">
+				<NewEntry title="New Entities" date="2021-06-14">
 					<ul>
 						<li>Background Hills - Striped, Small</li>
 						<li>Grass Slope - 30° Up Left</li>
