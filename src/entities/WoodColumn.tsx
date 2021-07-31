@@ -13,7 +13,6 @@ const WoodColumn: Entity = {
 	paletteInfo: {
 		subCategory: 'terrain-airship',
 		title: 'Wood Column',
-		description: 'Normally Rocky Wrenchs pop out of them',
 	},
 
 	objectSets: encodeObjectSets([[10, 10]]),
