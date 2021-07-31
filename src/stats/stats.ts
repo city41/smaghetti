@@ -1,7 +1,7 @@
 import type { LevelStats } from './types';
 	
 	export const stats: LevelStats = {
-  "lastUpdated": "Fri Jul 30 2021 09:44:42 GMT-0400 (Eastern Daylight Time)",
+  "lastUpdated": "Sat Jul 31 2021 19:02:43 GMT-0400 (Eastern Daylight Time)",
   "entitiesByCount": [
     {
       "type": "FortressBrick",
@@ -9,7 +9,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "ChoppyWater",
-      "count": 8184
+      "count": 8217
     },
     {
       "type": "TerracottaBrick",
@@ -77,7 +77,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "LogBridge",
-      "count": 543
+      "count": 547
     },
     {
       "type": "GlassBlock",
@@ -97,7 +97,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "PipeVertical",
-      "count": 369
+      "count": 370
     },
     {
       "type": "GrassVerticalRight",
@@ -133,7 +133,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "MusicBlock",
-      "count": 160
+      "count": 164
     },
     {
       "type": "FireBarBase",
@@ -348,10 +348,6 @@ import type { LevelStats } from './types';
       "count": 26
     },
     {
-      "type": "ChainChomp",
-      "count": 26
-    },
-    {
       "type": "Fishbone",
       "count": 26
     },
@@ -362,6 +358,10 @@ import type { LevelStats } from './types';
     {
       "type": "RipVanFish",
       "count": 26
+    },
+    {
+      "type": "ChainChomp",
+      "count": 25
     },
     {
       "type": "LilSparky",
@@ -628,10 +628,6 @@ import type { LevelStats } from './types';
       "count": 5
     },
     {
-      "type": "BeachedCheepCheep",
-      "count": 5
-    },
-    {
       "type": "FireFlower",
       "count": 5
     },
@@ -661,6 +657,10 @@ import type { LevelStats } from './types';
     },
     {
       "type": "BackgroundHillsStripedSmall",
+      "count": 4
+    },
+    {
+      "type": "BeachedCheepCheep",
       "count": 4
     },
     {
@@ -852,6 +852,18 @@ import type { LevelStats } from './types';
       "count": 1
     },
     {
+      "type": "AirshipPlatform",
+      "count": 0
+    },
+    {
+      "type": "AirshipPlatform2",
+      "count": 0
+    },
+    {
+      "type": "AirshipPropeller",
+      "count": 0
+    },
+    {
       "type": "BigBooBoss",
       "count": 0
     },
@@ -884,6 +896,10 @@ import type { LevelStats } from './types';
       "count": 0
     },
     {
+      "type": "Brick2",
+      "count": 0
+    },
+    {
       "type": "BulletBillGeneratorCanceler",
       "count": 0
     },
@@ -893,6 +909,10 @@ import type { LevelStats } from './types';
     },
     {
       "type": "Cactus",
+      "count": 0
+    },
+    {
+      "type": "CannonWallMounted",
       "count": 0
     },
     {
@@ -936,7 +956,15 @@ import type { LevelStats } from './types';
       "count": 0
     },
     {
+      "type": "Coin2",
+      "count": 0
+    },
+    {
       "type": "CoralDonutBlock",
+      "count": 0
+    },
+    {
+      "type": "DeleteBlock",
       "count": 0
     },
     {
@@ -1000,6 +1028,14 @@ import type { LevelStats } from './types';
       "count": 0
     },
     {
+      "type": "Porthole",
+      "count": 0
+    },
+    {
+      "type": "RockyWrench",
+      "count": 0
+    },
+    {
       "type": "Rope",
       "count": 0
     },
@@ -1033,6 +1069,10 @@ import type { LevelStats } from './types';
     },
     {
       "type": "TanookiBlock",
+      "count": 0
+    },
+    {
+      "type": "WoodColumn",
       "count": 0
     }
   ],
