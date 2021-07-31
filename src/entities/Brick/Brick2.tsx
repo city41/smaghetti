@@ -5,11 +5,11 @@ import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './xObjectSets';
 
-const XBrick: Entity = {
+const Brick2: Entity = {
+	paletteCategory: 'hextree',
 	paletteInfo: {
 		title: 'Brick - Horizontal only',
 		description: 'An alternate brick object used in several e-ereader levels',
-		warning: 'Not intended for use in Smaghetti',
 	},
 
 	objectSets: encodeObjectSets(objectSets),
@@ -39,4 +39,4 @@ const XBrick: Entity = {
 	},
 };
 
-export { XBrick };
+export { Brick2 };

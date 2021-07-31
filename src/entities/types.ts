@@ -22,7 +22,8 @@ type PaletteCategory =
 	| 'transport'
 	| 'decoration'
 	| 'meta'
-	| 'unfinished';
+	| 'unfinished'
+	| 'hextree';
 
 type PaletteSubcategory =
 	| 'terrain-basic'

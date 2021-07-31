@@ -44,6 +44,14 @@ const tabs: TabType[] = [
 	{ title: 'Unfinished', category: 'unfinished' },
 ];
 
+const hexTreeOverride =
+	typeof window !== 'undefined' &&
+	window.location.search.includes('hextreecat');
+
+if (process.env.NODE_ENV !== 'production' || hexTreeOverride) {
+	tabs.push({ title: 'HexTree', category: 'hextree' });
+}
+
 type AllEntriesType = Record<
 	PaletteCategory | 'unfinished',
 	Partial<Record<PaletteSubcategory | 'misc', PaletteChoiceModalEntry[]>>

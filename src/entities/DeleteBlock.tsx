@@ -5,10 +5,10 @@ import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const DeleteBlock: Entity = {
+	paletteCategory: 'hextree',
 	paletteInfo: {
 		title: 'Delete Block',
 		description: 'Creates holes in the bg map',
-		warning: 'This is not intended for use in Smaghetti',
 	},
 
 	objectSets: encodeObjectSets([

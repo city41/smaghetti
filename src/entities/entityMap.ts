@@ -1,5 +1,6 @@
 import { AceCoin } from './AceCoin';
 import { AirshipPlatform } from './AirshipPlatform';
+import { AirshipPlatform2 } from './AirshipPlatform2';
 import { AirshipPropeller } from './AirshipPropeller';
 import { AirshipWindow } from './AirshipWindow';
 import { AmazingFlyinHammerBro } from './AmazingFlyinHammerBro';
@@ -41,6 +42,7 @@ import { BowserFireGenerator } from './BowserFireGenerator';
 import { BowserFireStatue } from './BowserFireStatue';
 import { BowserLaserStatue } from './BowserLaserStatue';
 import { Brick } from './Brick';
+import { Brick2 } from './Brick/Brick2';
 import { Bubble } from './Bubble';
 import { BulletBillGeneratorCanceler } from './BulletBillGeneratorCanceler';
 import { BulletBillGeneratorCardinal } from './BulletBillGeneratorCardinal';
@@ -268,13 +270,13 @@ import { WoodFloor } from './WoodFloor';
 import { WoodPlatform } from './WoodPlatform';
 import { WoodSupport } from './WoodSupport';
 import { WoodWalkway } from './WoodWalkway';
-import { XBrick } from './Brick/XBrick';
 import { YellowSwitch } from './YellowSwitch';
 import { YellowSwitchBrick } from './YellowSwitchBrick';
 
 const entityMap = {
 	AceCoin,
 	AirshipPlatform,
+	AirshipPlatform2,
 	AirshipPropeller,
 	AirshipWindow,
 	AmazingFlyinHammerBro,
@@ -316,6 +318,7 @@ const entityMap = {
 	BowserFireStatue,
 	BowserLaserStatue,
 	Brick,
+	Brick2,
 	Bubble,
 	BulletBillGeneratorCanceler,
 	BulletBillGeneratorCardinal,
@@ -543,7 +546,6 @@ const entityMap = {
 	WoodPlatform,
 	WoodSupport,
 	WoodWalkway,
-	XBrick,
 	YellowSwitch,
 	YellowSwitchBrick,
 };

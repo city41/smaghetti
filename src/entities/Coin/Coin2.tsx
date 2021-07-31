@@ -15,10 +15,10 @@ import { objectSets } from './objectSets';
  * first param is not 0 - dimension is x
  */
 const Coin2: Entity = {
+	paletteCategory: 'hextree',
 	paletteInfo: {
 		title: 'Coin2',
 		description: 'An alternate coin object used in Castle Dash',
-		warning: 'Not intended for Smaghetti',
 	},
 
 	objectSets: encodeObjectSets(objectSets),
