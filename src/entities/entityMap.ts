@@ -190,6 +190,7 @@ import { ParaBomberGoomba } from './ParaBomberGoomba';
 import { ParaGaloombaGenerator } from './ParaGaloombaGenerator';
 import { ParaGoomba } from './ParaGoomba';
 import { PileDriverMiniGoomba } from './PileDriverMiniGoomba';
+import { PipeCannonMini } from './PipeCannonMini';
 import { PipeCornerTransition } from './PipeCornerTransition';
 import { PipeHorizontal } from './PipeHorizontal';
 import { PipeHorizontalMini } from './PipeHorizontalMini';
@@ -467,6 +468,7 @@ const entityMap = {
 	ParaGaloombaGenerator,
 	ParaGoomba,
 	PileDriverMiniGoomba,
+	PipeCannonMini,
 	PipeCornerTransition,
 	PipeHorizontal,
 	PipeHorizontalMini,
