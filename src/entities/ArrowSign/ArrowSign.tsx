@@ -22,6 +22,8 @@ const ArrowSign: Entity = {
 	},
 
 	objectId: 0x4b,
+	alternateObjectIds: Object.values(directionToObjectId),
+	emptyBank: 0,
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
