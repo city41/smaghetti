@@ -1,4 +1,5 @@
 ![logo](https://github.com/city41/smaghetti/blob/main/illustrations/logo_140.png?raw=true)
+
 # Smaghetti - SMA4 Level Editor
 
 This is a web based level editor for the game Super Mario Advance 4: Super Mario Bros 3 for the Game Boy Advance.
@@ -11,13 +12,13 @@ It's available here: https://smaghetti.com
 
 ## Status
 
-At the time of writing, Smaghetti has extracted out 262 entities from the game for use in creating levels. A lot of progress has been made, but a lot more work still lies ahead. For a high level view, check the [roadmap](https://smaghetti.com/roadmap)
+At the time of writing, Smaghetti has extracted out 276 entities from the game for use in creating levels. A lot of progress has been made, but a lot more work still lies ahead. For a high level view, check the [roadmap](https://smaghetti.com/roadmap)
 
 ## Editor quick start
 
 The editor is at https://smaghetti.com/editor
 
-It is very user friendly and takes loose inspiration from Nintendo's Mario Maker. 
+It is very user friendly and takes loose inspiration from Nintendo's Mario Maker.
 
 Proper documentation and tutorial videos will come later, but for now just start playing with it, most people have been able to figure it out. If you get stuck, start a discussion here in the repo. I always welcome feedback to make things better.
 
@@ -54,7 +55,6 @@ Since Smaghetti is so young, there are a ton of bugs. Feel free to file them her
 ## Subreddit
 
 General discussion subreddit here: https://reddit.com/r/smaghetti
-
 
 ## Code of Conduct
 
