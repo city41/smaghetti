@@ -185,6 +185,38 @@ function buildSpriteGraphicSetBytes(
 	return graphicSets.map((v) => Math.max(v, 0));
 }
 
+type CameraValues = {
+	cameraMin: number;
+	screenStart: Point;
+};
+
+function getCameraValues(
+	playerPos: Point,
+	roomTileHeight: number
+): CameraValues {
+	const playerDistanceToBottom = roomTileHeight - playerPos.y - 1;
+
+	if (playerDistanceToBottom < 3) {
+		const delta = 3 - playerDistanceToBottom;
+
+		return {
+			cameraMin: 0x50 + delta * 0x10,
+			screenStart: {
+				x: Math.max(0, playerPos.x - 5),
+				y: Math.max(0, playerPos.y - (5 + delta)),
+			},
+		};
+	} else {
+		return {
+			cameraMin: 0x50,
+			screenStart: {
+				x: Math.max(0, playerPos.x - 5),
+				y: Math.max(0, playerPos.y - 5),
+			},
+		};
+	}
+}
+
 function getLevelSettings(
 	room: RoomData,
 	entities: EditorEntity[]
@@ -199,6 +231,11 @@ function getLevelSettings(
 	let mostSigHeightInPixels = 1;
 	let leastSigHeightInPixels = 0xbf;
 
+	const { cameraMin, screenStart } = getCameraValues(
+		{ x: playerX, y: playerY },
+		room.roomTileHeight
+	);
+
 	if (room.roomTileHeight !== INITIAL_ROOM_TILE_HEIGHT) {
 		const heightInPixels = room.roomTileHeight * TILE_SIZE + 15;
 		mostSigHeightInPixels = heightInPixels >> 8;
@@ -212,12 +249,12 @@ function getLevelSettings(
 		0, // fixed screen center y, most sig byte
 		0, // player y screen center, least sig byte
 		0, // player y screen center, most sig byte
-		0x70, // camera min
+		cameraMin,
 		0, // camera max
 		playerY, // player starting y
 		playerX, // player starting x
-		Math.max(0, playerY - 7), // screen starting y
-		Math.max(0, playerX - 5), // screen starting x
+		screenStart.y,
+		screenStart.x,
 		objectSet, // object set, least sig byte
 		0, // object set, most sig byte
 		room.settings.music, // music, least sig byte

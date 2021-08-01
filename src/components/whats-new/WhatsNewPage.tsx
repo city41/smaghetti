@@ -83,6 +83,18 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Better camera settings" date="2021-08-01">
+					<p>
+						The previous camera settings really pushed the camera up and you
+						could not see much below you. I have tweaked them to be more
+						balanced.
+					</p>
+					<p className="bg-green-500 text-white p-1.5 -mx-1.5">
+						Ultimately Smaghetti will let you configure the camera so that it
+						makes sense for your level. But that probably won&apos;t be for a
+						long time, as there is still a lot of work needed to pull that off.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-07-31">
 					<ul>
 						<li>Airship Propeller</li>
