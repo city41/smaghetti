@@ -1,13 +1,13 @@
+import React from 'react';
+import { FaArrowDown } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
-import React from 'react';
-import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const FallAwayPlatform: Entity = {
 	paletteCategory: 'gizmo',
 	paletteInfo: {
-		title: 'Fall Away Platform',
+		title: 'Platform - Fall Away',
 		description: 'Whenever Mario is standing on this platform, it falls',
 	},
 
@@ -51,25 +51,26 @@ const FallAwayPlatform: Entity = {
 		const style = { width: size, height: size, backgroundSize: '100% 25%' };
 		return (
 			<div
-				className="FallAwayPlatform-bg bg-center bg-no-repeat"
+				className="FallAwayPlatform-bg bg-center bg-no-repeat flex flex-row items-end"
 				style={style}
-			/>
+			>
+				<FaArrowDown />
+				<FaArrowDown />
+				<FaArrowDown />
+			</div>
 		);
 	},
 
 	render() {
-		const style = { width: TILE_SIZE * 2, height: TILE_SIZE / 2 };
+		const style = { width: TILE_SIZE * 2, height: TILE_SIZE };
 		return (
 			<div
-				className="relative FallAwayPlatform-bg bg-cover bg-no-repeat"
+				className="relative FallAwayPlatform-bg bg-no-repeat flex flex-row items-end justify-between"
 				style={style}
 			>
-				<div
-					className="absolute top-0 left-0"
-					style={{ width: TILE_SIZE, height: TILE_SIZE }}
-				>
-					<TileSpace />
-				</div>
+				<FaArrowDown className="w-2 h-2" />
+				<FaArrowDown className="w-2 h-2" />
+				<FaArrowDown className="w-2 h-2" />
 			</div>
 		);
 	},

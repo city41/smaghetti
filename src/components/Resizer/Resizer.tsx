@@ -16,7 +16,7 @@ type PublicResizerProps = {
 	className?: string;
 	style?: CSSProperties;
 	size: Point;
-	increment: number;
+	increment: number | Point;
 	axis: Axis;
 	onSizeChange: (newSize: Point) => void;
 	onResizeStart: () => void;
@@ -107,10 +107,13 @@ function Resizer({
 				break;
 		}
 
+		const incrementX = typeof increment === 'number' ? increment : increment.x;
+		const incrementY = typeof increment === 'number' ? increment : increment.y;
+
 		const xFloorCeil = xDiff < 0 ? Math.ceil : Math.floor;
-		const xDelta = xFloorCeil(xDiff / increment);
+		const xDelta = xFloorCeil(xDiff / incrementX);
 		const yFloorCeil = yDiff < 0 ? Math.ceil : Math.floor;
-		const yDelta = yFloorCeil(yDiff / increment);
+		const yDelta = yFloorCeil(yDiff / incrementY);
 
 		if (axisRef.current === 'x' && xDelta !== 0) {
 			onSizeChange({ x: sizeRef.current.x + xDelta, y: sizeRef.current.y });
