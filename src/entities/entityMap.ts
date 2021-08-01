@@ -54,6 +54,7 @@ import { BusterBeetle } from './BusterBeetle';
 import { BuzzyBeetle } from './BuzzyBeetle';
 import { Cactus } from './Cactus';
 import { Cannon } from './Cannon';
+import { CannonRotating } from './CannonRotating';
 import { CannonWallMounted } from './CannonWallMounted';
 import { CapeFeather } from './CapeFeather';
 import { CardSlotMachine } from './CardSlotMachine';
@@ -333,6 +334,7 @@ const entityMap = {
 	BuzzyBeetle,
 	Cactus,
 	Cannon,
+	CannonRotating,
 	CannonWallMounted,
 	CapeFeather,
 	CardSlotMachine,

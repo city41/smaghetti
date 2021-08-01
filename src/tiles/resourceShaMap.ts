@@ -50,6 +50,7 @@ export const resourceShaMap: Record<string, string> = {
   "CannonUpRight": "86905f2db9e2b0ce4d101e71ade6bbe7746496fa",
   "CannonDownRight": "4a3a4d0bbb9c66749ba90e291eb1d626f946e45b",
   "CannonDownLeft": "60d01428ee5057c9953e2d45e282cd32bfc85ee7",
+  "CannonRotating": "0ee699af9656a7a243dbf763718156342367cc04",
   "CannonWallMountedUpRight": "d123c650a6011a0ba03e7b9e4bd7dfa66f24fd3f",
   "CannonWallMountedDownRight": "2ff1fee8303b5c91ab9121c5d26905e1dfd2466a",
   "CapeFeather": "afb8b4c74ba116f3a2a9fc8c44d96ad2c546de03",
