@@ -27,7 +27,11 @@ export function entitiesByCount(
 	) as EntityType[]).reduce<EntityCount[]>((building, entityType) => {
 		const entityDef = entityMap[entityType];
 
-		if (!entityDef || !entityDef.paletteCategory) {
+		if (
+			!entityDef ||
+			!entityDef.paletteCategory ||
+			entityDef.paletteCategory === 'hextree'
+		) {
 			return building;
 		}
 

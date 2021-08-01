@@ -1,7 +1,7 @@
 import type { LevelStats } from './types';
 	
 	export const stats: LevelStats = {
-  "lastUpdated": "Sun Aug 01 2021 18:13:20 GMT-0400 (Eastern Daylight Time)",
+  "lastUpdated": "Sun Aug 01 2021 19:17:54 GMT-0400 (Eastern Daylight Time)",
   "entitiesByCount": [
     {
       "type": "FortressBrick",
@@ -860,10 +860,6 @@ import type { LevelStats } from './types';
       "count": 0
     },
     {
-      "type": "AirshipPlatform2",
-      "count": 0
-    },
-    {
       "type": "AirshipPropeller",
       "count": 0
     },
@@ -897,10 +893,6 @@ import type { LevelStats } from './types';
     },
     {
       "type": "BowserFireball",
-      "count": 0
-    },
-    {
-      "type": "Brick2",
       "count": 0
     },
     {
@@ -961,14 +953,6 @@ import type { LevelStats } from './types';
     },
     {
       "type": "CloudPlatformThin",
-      "count": 0
-    },
-    {
-      "type": "Coin2",
-      "count": 0
-    },
-    {
-      "type": "DeleteBlock",
       "count": 0
     },
     {
