@@ -1,7 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
 import { BiPlay, BiFastForward } from 'react-icons/bi';
-import { GiStopSign } from 'react-icons/gi';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
@@ -9,27 +8,24 @@ import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { Resizer } from '../components/Resizer';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
-import _, { clamp } from 'lodash';
+import { clamp } from 'lodash';
 import { IconType } from 'react-icons/lib';
 
-const speeds = ['stop', 'slow', 'fast'] as const;
+const speeds = ['slow', 'fast'] as const;
 type Speed = typeof speeds[number];
 type Width = 3 | 4;
 
 const speedToIcon: Record<Speed, IconType> = {
-	stop: GiStopSign,
 	slow: BiPlay,
 	fast: BiFastForward,
 };
 
 const speedToValue: Record<Speed, number> = {
-	stop: 0,
 	slow: 0x10,
 	fast: 0x1d,
 };
 
 const speedToRangeAdjustment: Record<Speed, number> = {
-	stop: 1,
 	slow: 1,
 	fast: 0.75,
 };
@@ -207,27 +203,17 @@ const PlatformUpDown: Entity = {
 				})}
 				style={style}
 			>
-				{speed !== 'stop' && (
-					<div
-						style={{
-							top: TILE_SIZE / 2,
-							height: `calc(100% - ${TILE_SIZE / 2}px`,
-						}}
-						className="absolute left-0 w-full opacity-20 bg-green-500 pointer-events-none"
-					/>
-				)}
+				<div
+					style={{
+						top: TILE_SIZE / 2,
+						height: `calc(100% - ${TILE_SIZE / 2}px`,
+					}}
+					className="absolute left-0 w-full opacity-20 bg-green-500 pointer-events-none"
+				/>
 				<div className="top-0 left-0 w-full z-10">{platform}</div>
-				{speed !== 'stop' && (
-					<>
-						<div className="absolute left-0 bottom-0 opacity-25 pointer-events-none">
-							{platform}
-						</div>
-						<div
-							className="absolute top-0 left-0"
-							style={{ width: TILE_SIZE, height: TILE_SIZE }}
-						></div>
-					</>
-				)}
+				<div className="absolute left-0 bottom-0 opacity-25 pointer-events-none">
+					{platform}
+				</div>
 				{!!entity && (
 					<>
 						<div
@@ -253,23 +239,21 @@ const PlatformUpDown: Entity = {
 								/>
 							</button>
 						</div>
-						{speed !== 'stop' && (
-							<Resizer
-								className="absolute bottom-0 right-0 z-10"
-								style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
-								size={size}
-								increment={{ x: TILE_SIZE, y: 1 }}
-								axis="xy"
-								onSizeChange={(newSizePoint) => {
-									onSettingsChange({
-										width: clamp(newSizePoint.x, 3, 4),
-										range: Math.max(8, newSizePoint.y),
-									});
-								}}
-								onResizeStart={() => onSettingsChange({ resizing: true })}
-								onResizeEnd={() => onSettingsChange({ resizing: false })}
-							/>
-						)}
+						<Resizer
+							className="absolute bottom-0 right-0 z-10"
+							style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
+							size={size}
+							increment={{ x: TILE_SIZE, y: 1 }}
+							axis="xy"
+							onSizeChange={(newSizePoint) => {
+								onSettingsChange({
+									width: clamp(newSizePoint.x, 3, 4),
+									range: Math.max(8, newSizePoint.y),
+								});
+							}}
+							onResizeStart={() => onSettingsChange({ resizing: true })}
+							onResizeEnd={() => onSettingsChange({ resizing: false })}
+						/>
 					</>
 				)}
 			</div>
