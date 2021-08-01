@@ -7,6 +7,7 @@ import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 const FallAwayPlatform: Entity = {
 	paletteCategory: 'gizmo',
 	paletteInfo: {
+		subCategory: 'gizmo-platform',
 		title: 'Platform - Fall Away',
 		description: 'Whenever Mario is standing on this platform, it falls',
 	},

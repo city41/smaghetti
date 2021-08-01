@@ -37,6 +37,7 @@ const speedToRangeAdjustment: Record<Speed, number> = {
 const PlatformUpDown: Entity = {
 	paletteCategory: 'gizmo',
 	paletteInfo: {
+		subCategory: 'gizmo-platform',
 		title: 'Platform - Up Down',
 		description: 'A platform that continually lowers and rises',
 		warning:
@@ -212,13 +213,13 @@ const PlatformUpDown: Entity = {
 							top: TILE_SIZE / 2,
 							height: `calc(100% - ${TILE_SIZE / 2}px`,
 						}}
-						className="absolute left-0 w-full opacity-20 bg-green-500"
+						className="absolute left-0 w-full opacity-20 bg-green-500 pointer-events-none"
 					/>
 				)}
 				<div className="top-0 left-0 w-full z-10">{platform}</div>
 				{speed !== 'stop' && (
 					<>
-						<div className="absolute left-0 bottom-0 opacity-25">
+						<div className="absolute left-0 bottom-0 opacity-25 pointer-events-none">
 							{platform}
 						</div>
 						<div

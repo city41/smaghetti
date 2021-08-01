@@ -200,6 +200,7 @@ import { PipeAirshipVertical } from './PipeAirshipVertical';
 import { PipeVertical } from './PipeVertical';
 import { PiranhaPlant } from './PiranhaPlant';
 import { PlatformUpDown } from './PlatformUpDown';
+import { PlatformWrapAround } from './PlatformWrapAround';
 import { Player } from './Player';
 import { Podoboo } from './Podoboo/Podoboo';
 import { PodobooCeiling } from './Podoboo/PodobooCeiling';
@@ -481,6 +482,7 @@ const entityMap = {
 	PipeVertical,
 	PiranhaPlant,
 	PlatformUpDown,
+	PlatformWrapAround,
 	Player,
 	Podoboo,
 	PodobooCeiling,

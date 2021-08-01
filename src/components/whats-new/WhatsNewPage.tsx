@@ -86,7 +86,9 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-08-01">
 					<ul>
 						<li>Platform - Up/Down</li>
+						<li>Platform - Wrap Around</li>
 					</ul>
+					<p>Find them under gizmos in the new platforms subcategory</p>
 				</NewEntry>
 				<NewEntry title="Better camera settings" date="2021-08-01">
 					<p>

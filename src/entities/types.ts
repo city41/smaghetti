@@ -45,7 +45,8 @@ type PaletteSubcategory =
 	| 'enemy-bro'
 	| 'enemy-giant'
 	| 'enemy-generator'
-	| 'enemy-boss';
+	| 'enemy-boss'
+	| 'gizmo-platform';
 
 type Entity = {
 	/**
