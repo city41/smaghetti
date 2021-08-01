@@ -86,6 +86,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-07-31">
 					<ul>
 						<li>Airship Propeller</li>
+						<li>Giant Cannon Ball</li>
 						<li>Pipe Cannon - Mini</li>
 						<li>Wall Mounted Cannon</li>
 					</ul>

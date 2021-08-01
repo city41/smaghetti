@@ -166,7 +166,7 @@ const PipeHorizontal: Entity = {
 						{body}
 					</>
 				)}
-				{entity && (
+				{!!entity && (
 					<Resizer
 						className="absolute bottom-0 right-0"
 						style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}

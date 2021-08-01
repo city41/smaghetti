@@ -118,6 +118,7 @@ import { FortressBrick } from './FortressBrick';
 import { FullerFlowerBush } from './FullerFlowerBush';
 import { Galoomba } from './Galoomba';
 import { GaloombaWithParachute } from './GaloombaWithParachute';
+import { GiantCannonBall } from './GiantCannonBall';
 import { GiantGreenKoopa } from './GiantGreenKoopa';
 import { GiantGreenParaKoopa } from './GiantGreenParaKoopa';
 import { GiantRedKoopa } from './GiantRedKoopa';
@@ -396,6 +397,7 @@ const entityMap = {
 	FullerFlowerBush,
 	Galoomba,
 	GaloombaWithParachute,
+	GiantCannonBall,
 	GiantGreenKoopa,
 	GiantGreenParaKoopa,
 	GiantRedKoopa,
