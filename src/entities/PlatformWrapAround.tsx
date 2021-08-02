@@ -4,11 +4,10 @@ import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { Resizer } from '../components/Resizer';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
-import _, { clamp } from 'lodash';
 import { IconType } from 'react-icons/lib';
+import { PlatformWidthButton } from './detailPanes/PlatformWidthButton';
 
 const directions = ['up', 'down'] as const;
 type Direction = typeof directions[number];
@@ -93,8 +92,6 @@ const PlatformWrapAround: Entity = {
 
 		const DirectionIcon = directionToIcon[direction];
 
-		const size = { x: width, y: 1 };
-
 		const pieceStyle = {
 			width: TILE_SIZE,
 			height: TILE_SIZE / 2,
@@ -155,64 +152,53 @@ const PlatformWrapAround: Entity = {
 				/>
 				<div className="top-0 left-0 w-full z-10">{platform}</div>
 				{!!entity && (
-					<button
-						style={{ fontSize: 4 }}
-						className="absolute z-10 bottom-0 left-0 font-bold bg-gray-700 hover:bg-gray-600 text-white rounded-xs text-center"
-						onMouseDown={(e) => {
-							e.stopPropagation();
-							e.preventDefault();
-							let newCount = count + 1;
-							if (newCount > 14) {
-								newCount = 1;
-							}
-
-							onSettingsChange({ count: newCount });
-						}}
+					<div
+						style={{ top: TILE_SIZE * 0.5 + 1, width: TILE_SIZE * 2 }}
+						className="absolute left-0 flex flex-row justify-around align-start z-10"
 					>
-						<div className="w-1.5 h-1.5">{count}</div>
-					</button>
-				)}
-				{!!entity && (
-					<>
-						<div
-							style={{ top: 1 }}
-							className="absolute left-0 w-full flex flex-row justify-center align-start z-10 pointer-events-none"
-						>
-							<button
-								className="pointer-events-auto"
-								onMouseDown={(e) => {
-									e.preventDefault();
-									e.stopPropagation();
+						<button
+							style={{ fontSize: 4, borderRadius: '10%' }}
+							className="font-bold bg-gray-700 hover:bg-gray-600 text-white text-center"
+							onMouseDown={(e) => {
+								e.stopPropagation();
+								e.preventDefault();
+								let newCount = count + 1;
+								if (newCount > 14) {
+									newCount = 1;
+								}
 
-									const dirIndex = directions.indexOf(direction);
-									const newDirIndex = (dirIndex + 1) % directions.length;
-									const newDir = directions[newDirIndex];
-									onSettingsChange({
-										direction: newDir,
-									});
-								}}
-							>
-								<DirectionIcon
-									style={{ borderRadius: '10%', padding: 0.5 }}
-									className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
-								/>
-							</button>
-						</div>
-						<Resizer
-							className="absolute bottom-0 right-0 z-10"
-							style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
-							size={size}
-							increment={TILE_SIZE}
-							axis="x"
-							onSizeChange={(newSizePoint) => {
+								onSettingsChange({ count: newCount });
+							}}
+						>
+							<div className="w-1.5 h-1.5">{count}</div>
+						</button>
+						<button
+							className="pointer-events-auto"
+							onMouseDown={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
+
+								const dirIndex = directions.indexOf(direction);
+								const newDirIndex = (dirIndex + 1) % directions.length;
+								const newDir = directions[newDirIndex];
 								onSettingsChange({
-									width: clamp(newSizePoint.x, 2, 3),
+									direction: newDir,
 								});
 							}}
-							onResizeStart={() => onSettingsChange({ resizing: true })}
-							onResizeEnd={() => onSettingsChange({ resizing: false })}
+						>
+							<DirectionIcon
+								style={{ borderRadius: '10%', padding: 0.5 }}
+								className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
+							/>
+						</button>
+						<PlatformWidthButton
+							widths={[2, 3]}
+							currentWidth={width}
+							onWidthChange={(newWidth) => {
+								onSettingsChange({ width: newWidth });
+							}}
 						/>
-					</>
+					</div>
 				)}
 			</div>
 		);

@@ -19,8 +19,8 @@ type PublicResizerProps = {
 	increment: number | Point;
 	axis: Axis;
 	onSizeChange: (newSize: Point) => void;
-	onResizeStart: () => void;
-	onResizeEnd: () => void;
+	onResizeStart?: () => void;
+	onResizeEnd?: () => void;
 };
 
 type InternalResizerProps = {
@@ -54,7 +54,7 @@ function Resizer({
 	const sizeRef = useRef<Point>(size);
 	const scaleRef = useRef<number>(scale);
 	const axisRef = useRef<Axis>(axis);
-	const onResizeEndRef = useRef<() => void>(onResizeEnd);
+	const onResizeEndRef = useRef<undefined | (() => void)>(onResizeEnd);
 
 	const ref = useRef<HTMLDivElement | null>(null);
 	const [listeningToDoc, setListeningToDoc] = useState(false);
@@ -151,7 +151,7 @@ function Resizer({
 			document.removeEventListener('mouseup', onDocumentMouseUp);
 			document.removeEventListener('mouseleave', onDocumentMouseUp);
 			setListeningToDoc(false);
-			onResizeEndRef.current();
+			onResizeEndRef.current?.();
 
 			const icon = ref.current!.querySelector('.resize-icon') as HTMLElement;
 			icon.style.setProperty(CSSProperty.x, '0px');
@@ -180,7 +180,7 @@ function Resizer({
 					document.addEventListener('mouseleave', onDocumentMouseUp);
 
 					setListeningToDoc(true);
-					onResizeStart();
+					onResizeStart?.();
 				}
 			}}
 		>

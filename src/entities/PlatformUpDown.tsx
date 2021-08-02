@@ -1,24 +1,13 @@
 import React from 'react';
-import clsx from 'clsx';
-import { BiPlay, BiFastForward } from 'react-icons/bi';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { Resizer } from '../components/Resizer';
+import { PlatformSpeedButton, Speed } from './detailPanes/PlatformSpeedButton';
+import { PlatformWidthButton } from './detailPanes/PlatformWidthButton';
 
-import styles from '../components/Resizer/ResizingStyles.module.css';
-import { clamp } from 'lodash';
-import { IconType } from 'react-icons/lib';
-
-const speeds = ['slow', 'fast'] as const;
-type Speed = typeof speeds[number];
 type Width = 3 | 4;
-
-const speedToIcon: Record<Speed, IconType> = {
-	slow: BiPlay,
-	fast: BiFastForward,
-};
 
 const speedToValue: Record<Speed, number> = {
 	slow: 0x10,
@@ -159,8 +148,6 @@ const PlatformUpDown: Entity = {
 		const speed = (settings.speed ?? this.defaultSettings!.speed) as Speed;
 		const range = (settings.range ?? this.defaultSettings!.range) as number;
 
-		const SpeedIcon = speedToIcon[speed];
-
 		const size = { x: width, y: range };
 
 		const pieceStyle = {
@@ -197,12 +184,7 @@ const PlatformUpDown: Entity = {
 
 		const style = { width: TILE_SIZE * width, height: TILE_SIZE / 2 + range };
 		return (
-			<div
-				className={clsx('relative', {
-					[styles.resizing]: settings?.resizing,
-				})}
-				style={style}
-			>
+			<div className="relative" style={style}>
 				<div
 					style={{
 						top: TILE_SIZE / 2,
@@ -217,42 +199,34 @@ const PlatformUpDown: Entity = {
 				{!!entity && (
 					<>
 						<div
-							style={{ top: 1 }}
-							className="absolute left-0 w-full flex flex-row justify-center align-start z-10"
+							style={{ top: TILE_SIZE * 0.5 + 1, width: TILE_SIZE }}
+							className="absolute left-0 flex flex-row justify-around align-start z-10"
 						>
-							<button
-								onMouseDown={(e) => {
-									e.preventDefault();
-									e.stopPropagation();
-
-									const speedIndex = speeds.indexOf(speed);
-									const newSpeedIndex = (speedIndex + 1) % speeds.length;
-									const newSpeed = speeds[newSpeedIndex];
-									onSettingsChange({
-										speed: newSpeed,
-									});
+							<PlatformSpeedButton
+								currentSpeed={speed}
+								onSpeedChange={(newSpeed) => {
+									onSettingsChange({ speed: newSpeed });
 								}}
-							>
-								<SpeedIcon
-									style={{ borderRadius: '10%', padding: 0.5 }}
-									className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
-								/>
-							</button>
+							/>
+							<PlatformWidthButton
+								widths={[3, 4]}
+								currentWidth={width}
+								onWidthChange={(newWidth) => {
+									onSettingsChange({ width: newWidth });
+								}}
+							/>
 						</div>
 						<Resizer
 							className="absolute bottom-0 right-0 z-10"
 							style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
 							size={size}
-							increment={{ x: TILE_SIZE, y: 1 }}
-							axis="xy"
+							increment={{ x: 0, y: 1 }}
+							axis="y"
 							onSizeChange={(newSizePoint) => {
 								onSettingsChange({
-									width: clamp(newSizePoint.x, 3, 4),
 									range: Math.max(8, newSizePoint.y),
 								});
 							}}
-							onResizeStart={() => onSettingsChange({ resizing: true })}
-							onResizeEnd={() => onSettingsChange({ resizing: false })}
 						/>
 					</>
 				)}
