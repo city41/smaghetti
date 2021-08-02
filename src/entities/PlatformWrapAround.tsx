@@ -154,22 +154,24 @@ const PlatformWrapAround: Entity = {
 					className="absolute left-0 w-full opacity-20 bg-green-500"
 				/>
 				<div className="top-0 left-0 w-full z-10">{platform}</div>
-				<button
-					style={{ fontSize: 4 }}
-					className="absolute z-10 bottom-0 left-0 font-bold bg-gray-700 hover:bg-gray-600 text-white rounded-xs text-center"
-					onMouseDown={(e) => {
-						e.stopPropagation();
-						e.preventDefault();
-						let newCount = count + 1;
-						if (newCount > 14) {
-							newCount = 1;
-						}
+				{!!entity && (
+					<button
+						style={{ fontSize: 4 }}
+						className="absolute z-10 bottom-0 left-0 font-bold bg-gray-700 hover:bg-gray-600 text-white rounded-xs text-center"
+						onMouseDown={(e) => {
+							e.stopPropagation();
+							e.preventDefault();
+							let newCount = count + 1;
+							if (newCount > 14) {
+								newCount = 1;
+							}
 
-						onSettingsChange({ count: newCount });
-					}}
-				>
-					<div className="w-1.5 h-1.5">{count}</div>
-				</button>
+							onSettingsChange({ count: newCount });
+						}}
+					>
+						<div className="w-1.5 h-1.5">{count}</div>
+					</button>
+				)}
 				{!!entity && (
 					<>
 						<div
