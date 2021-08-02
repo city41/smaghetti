@@ -193,11 +193,6 @@ export function isGraphicAndObjectSetCompatible(
 }
 
 export function isUnfinishedEntityType(type: EntityType): boolean {
-	// in dev mode, everything is "finished"
-	if (process.env.NODE_ENV !== 'production') {
-		return false;
-	}
-
 	const entityDef = entityMap[type];
 
 	return (
