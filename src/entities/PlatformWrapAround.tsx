@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
+import { RiArrowGoForwardFill } from 'react-icons/ri';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
@@ -78,8 +79,8 @@ const PlatformWrapAround: Entity = {
 				className="FallAwayPlatform-bg bg-center bg-no-repeat flex flex-col items-center justify-between"
 				style={style}
 			>
-				<FaArrowDown />
-				<FaArrowDown />
+				<RiArrowGoForwardFill className="transform rotate-90" />
+				<RiArrowGoForwardFill className="transform -rotate-90" />
 			</div>
 		);
 	},
