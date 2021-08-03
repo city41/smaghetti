@@ -6,8 +6,13 @@ import typographyStyles from '../../styles/typography.module.css';
 
 import airshipExamples from './AirshipPlatformExamples.png';
 
+const DAY_IN_MS = 24 * 60 * 60 * 1000;
+
 function dateToHumanString(input: string): string {
-	const date = new Date(input);
+	// adding a day because new Date('2021-08-03') creates Aug 2nd...
+	const timestamp = new Date(input).getTime();
+	const timeStampAdjusted = timestamp + DAY_IN_MS;
+	const date = new Date(timeStampAdjusted);
 
 	const month = date.toLocaleDateString('en-us', {
 		month: 'short',
