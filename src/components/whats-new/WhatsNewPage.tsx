@@ -119,7 +119,7 @@ function WhatsNewPage() {
 					<p>
 						Almost all airship entities are now in Smaghetti. Sadly Smaghetti
 						still can&apos;t do any kind of autoscrolling yet, so can&apos;t
-						quite make a tradition airship level. But it is getting there!
+						quite make a traditional airship level. But it is getting there!
 					</p>
 				</NewEntry>
 				<NewEntry title="New Background" date="2021-07-30">
