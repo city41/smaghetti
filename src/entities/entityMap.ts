@@ -240,6 +240,7 @@ import { Spike } from './Spike';
 import { SpikeBall } from './SpikeBall';
 import { SpikeTop } from './SpikeTop';
 import { Spiny } from './Spiny';
+import { SpinyCheepCheepGenerator } from './SpinyCheepCheepGenerator';
 import { SpringBoard } from './SpringBoard';
 import { Stalactite } from './Stalactite';
 import { StarMan } from './StarMan';
@@ -524,6 +525,7 @@ const entityMap = {
 	SpikeBall,
 	SpikeTop,
 	Spiny,
+	SpinyCheepCheepGenerator,
 	SpringBoard,
 	Stalactite,
 	StarMan,

@@ -49,7 +49,7 @@ const goIntoLevelScript = [
 		// a dummy input because callbackWithStatus
 		// can't have frameDelay
 		description: 'dummy',
-		frameDelay: 60 * 4,
+		frameDelay: 60 * 7,
 		input: A_BUTTON,
 	},
 	{
