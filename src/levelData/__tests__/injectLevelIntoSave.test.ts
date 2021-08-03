@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { injectLevelIntoSave } from './injectLevelIntoSave';
+import { injectLevelIntoSave } from '../injectLevelIntoSave';
 
 describe('injectLevelIntoSave', () => {
 	function load(path: string): Uint8Array {

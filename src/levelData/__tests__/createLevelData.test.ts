@@ -1,4 +1,4 @@
-import { createLevelData } from './createLevelData';
+import { createLevelData } from '../createLevelData';
 import {
 	BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES,
 	BACKGROUND_GRAPHIC_VALUES,
@@ -6,21 +6,21 @@ import {
 	ROOM_OBJECT_HEADER_SIZE_IN_BYTES,
 	ROOM_OBJECT_POINTERS,
 	ROOM_SPRITE_POINTERS,
-} from './constants';
-import { parseObject } from './parseObjectsFromLevelFile';
+} from '../constants';
+import { parseObject } from '../parseObjectsFromLevelFile';
 
 describe('createLevelData', () => {
 	describe('sprites', () => {
 		it('should store the sprites in the level sorted by x', () => {
 			const entities: EditorEntity[] = [
 				{
-					id: 0,
+					id: 1,
 					x: 32,
 					y: 64,
 					type: 'Goomba',
 				},
 				{
-					id: 1,
+					id: 2,
 					x: 16,
 					y: 48,
 					type: 'Mushroom',
@@ -40,11 +40,11 @@ describe('createLevelData', () => {
 					matrix: [],
 				},
 				stage: {
-					entities,
+					entities: [],
 					matrix: [],
 				},
-				roomTileWidth: 0,
-				roomTileHeight: 0,
+				roomTileWidth: 16,
+				roomTileHeight: 40,
 			};
 
 			const level = {
@@ -66,13 +66,13 @@ describe('createLevelData', () => {
 
 			expect(Array.from(spriteData)).toEqual([
 				0, // mushroom bank 0
-				13, // mushroom id
+				0xd, // mushroom id
 				1, // mushroom X
-				31, // mushroom Y (encoded to the level)
+				4, // mushroom Y
 				0, // goomba bank 0
-				114, // goomba id
+				0x72, // goomba id
 				2, // goomba x
-				32, // goomba y (encoded to the level)
+				5, // goomba y
 			]);
 		});
 	});
@@ -131,8 +131,7 @@ describe('createLevelData', () => {
 			expect(parsedObject.param2).toEqual(2);
 			expect(parsedObject.id).toEqual(0xf);
 
-			// 26 because SMA4 stores Ys very strangely.
-			expect(parsedObject.y).toEqual(26);
+			expect(parsedObject.y).toEqual(1);
 			expect(parsedObject.x).toEqual(0);
 		});
 	});

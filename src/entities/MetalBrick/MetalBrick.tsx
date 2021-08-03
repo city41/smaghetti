@@ -1,4 +1,4 @@
-import type { Entity } from '../types';
+import { Entity } from '../types';
 import { encodeObjectSets, getBankParam1 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import React from 'react';
