@@ -202,6 +202,7 @@ import { PiranhaPlant } from './PiranhaPlant';
 import { PlatformLeftRight } from './PlatformLeftRight';
 import { PlatformStatic } from './PlatformStatic';
 import { PlatformUpDown } from './PlatformUpDown';
+import { PlatformWoodUpDown } from './PlatformWoodUpDown';
 import { PlatformWrapAround } from './PlatformWrapAround';
 import { Player } from './Player';
 import { Podoboo } from './Podoboo/Podoboo';
@@ -487,6 +488,7 @@ const entityMap = {
 	PlatformLeftRight,
 	PlatformStatic,
 	PlatformUpDown,
+	PlatformWoodUpDown,
 	PlatformWrapAround,
 	Player,
 	Podoboo,
