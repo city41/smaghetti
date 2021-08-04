@@ -2149,4 +2149,5 @@ export {
 	getEntityTileBounds,
 	pointIsInside,
 	initialRoomState,
+	EMPTY_LEVEL,
 };

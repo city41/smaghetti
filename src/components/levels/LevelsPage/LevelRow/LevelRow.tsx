@@ -2,12 +2,12 @@ import React from 'react';
 import clsx from 'clsx';
 import { ImCheckboxUnchecked } from 'react-icons/im';
 import { FaCheck } from 'react-icons/fa';
-import { RoomThumbnail } from '../../RoomThumbnail';
+import { RoomThumbnail } from '../../../RoomThumbnail';
 import {
 	PLAY_WINDOW_TILE_HEIGHT,
 	PLAY_WINDOW_TILE_WIDTH,
-} from '../../editor/constants';
-import { TILE_SIZE } from '../../../tiles/constants';
+} from '../../../editor/constants';
+import { TILE_SIZE } from '../../../../tiles/constants';
 
 type LevelRowProps = {
 	className?: string;
@@ -60,11 +60,11 @@ function LevelRow({
 				className,
 				'grid gap-x-4 items-center group hover:bg-gray-600 p-2'
 			)}
-			style={{ gridTemplateColumns: 'max-content 1fr max-content' }}
+			style={{ gridTemplateColumns: 'max-content 1fr' }}
 		>
 			<a
 				className={clsx(
-					'relative block flex flex-row items-center border-2 border-white',
+					'relative flex flex-row items-center border-2 border-white',
 					{
 						'space-x-2': isBuildingSave,
 					}
@@ -95,15 +95,21 @@ function LevelRow({
 					<BlankThumbnail scale={0.5} />
 				)}
 			</a>
-			<a
-				className="text-lg font-bold group-hover:underline cursor-pointer"
-				href={href}
-				onClick={chooseDontNavIfBuilding}
-			>
-				{level.name}
-			</a>
-			<div className="text-right ml-4">
-				by <span className="font-bold">{level.user?.username}</span>
+			<div className="flex flex-col gap-y-1">
+				<a
+					className="text-xl font-bold group-hover:underline cursor-pointer"
+					href={href}
+					onClick={chooseDontNavIfBuilding}
+				>
+					{level.name}
+				</a>
+				<div className="w-full border-2 border-blue-400" />
+				<div className="flex flex-row justify-between">
+					<div>O O O</div>
+					<div className="text-sm">
+						by <span className="font-bold">{level.user?.username}</span>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
