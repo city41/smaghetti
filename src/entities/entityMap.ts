@@ -161,6 +161,7 @@ import { Jelectro } from './Jelectro';
 import { Key } from './Key';
 import { Lakitu } from './Lakitu';
 import { LakituCloud } from './LakituCloud';
+import { LakituCloudAlternate } from './LakituCloudAlternate';
 import { Larry } from './Larry';
 import { Lava } from './Lava';
 import { LavaLotus } from './LavaLotus';
@@ -447,6 +448,7 @@ const entityMap = {
 	Key,
 	Lakitu,
 	LakituCloud,
+	LakituCloudAlternate,
 	Larry,
 	Lava,
 	LavaLotus,
