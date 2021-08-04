@@ -1,3 +1,4 @@
+import { AceCoinSlot } from './AceCoinSlot';
 import { BackgroundHillsStripedMedium } from './BackgroundHillsStripedMedium';
 import { BackgroundHillsStripedSmall } from './BackgroundHillsStripedSmall';
 import { BigBooArm } from './BigBooArm';
@@ -119,6 +120,7 @@ import { WoodPlatformLeft } from './WoodPlatformLeft';
 import { WoodPlatformRight } from './WoodPlatformRight';
 
 const resourceMap = {
+	AceCoinSlot,
 	BackgroundHillsStripedMedium,
 	BackgroundHillsStripedSmall,
 	BigBooArm,

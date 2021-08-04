@@ -9,6 +9,8 @@ import {
 } from '../../../editor/constants';
 import { TILE_SIZE } from '../../../../tiles/constants';
 
+import styles from './LevelRow.module.css';
+
 type LevelRowProps = {
 	className?: string;
 	level: Level;
@@ -34,6 +36,13 @@ function BlankThumbnail({ scale }: { scale: number }) {
 	);
 }
 
+const SCALE = 1;
+
+const aceCoinSlotStyle = {
+	width: TILE_SIZE * 2 * SCALE,
+	height: TILE_SIZE * 3 * SCALE,
+};
+
 function LevelRow({
 	className,
 	level,
@@ -54,25 +63,50 @@ function LevelRow({
 
 	const CheckIcon = isChosen ? FaCheck : ImCheckboxUnchecked;
 
+	const aceCoinCount = level.data.rooms.reduce<number>((building, room) => {
+		const aceCoins = room.stage.entities.filter((e) => {
+			return e.type === 'AceCoin';
+		});
+
+		const bubblesWithAceCoins = room.actors.entities.filter((e) => {
+			return e.type === 'Bubble' && e.settings?.payload === 'AceCoin';
+		});
+
+		return building + aceCoins.length + bubblesWithAceCoins.length;
+	}, 0);
+
+	const aceCoinSlots = [];
+
+	for (let i = 0; i < aceCoinCount; ++i) {
+		aceCoinSlots.push(
+			<div
+				key={i}
+				className="AceCoinSlot-bg bg-cover"
+				style={aceCoinSlotStyle}
+			/>
+		);
+	}
+
+	if (aceCoinSlots.length === 0) {
+		aceCoinSlots.push(<div style={aceCoinSlotStyle} />);
+	}
+
 	return (
 		<div
 			className={clsx(
 				className,
-				'grid gap-x-4 items-center group hover:bg-gray-600 p-2'
+				styles.root,
+				'grid gap-x-4 items-center group p-4 border-2 border-black rounded-lg text-black'
 			)}
-			style={{ gridTemplateColumns: 'max-content 1fr' }}
 		>
 			<a
-				className={clsx(
-					'relative flex flex-row items-center border-2 border-white',
-					{
-						'space-x-2': isBuildingSave,
-					}
-				)}
+				className={clsx('relative flex flex-row items-center -ml-4 -my-4', {
+					'space-x-2': isBuildingSave,
+				})}
 				href={href}
 				onClick={chooseDontNavIfBuilding}
 			>
-				<div className="absolute top-0 left-0 w-full h-full block group-hover:hidden bg-white opacity-25" />
+				<div className="absolute top-0 left-0 w-full h-full block group-hover:hidden bg-white opacity-30 z-10" />
 				{isBuildingSave && (
 					<CheckIcon
 						className={clsx('w-5 h-5', {
@@ -86,26 +120,26 @@ function LevelRow({
 							x: 0,
 							y: level.data.rooms[0].roomTileHeight - PLAY_WINDOW_TILE_HEIGHT,
 						}}
-						widthInTiles={PLAY_WINDOW_TILE_WIDTH * 1.5}
+						widthInTiles={PLAY_WINDOW_TILE_WIDTH}
 						heightInTiles={PLAY_WINDOW_TILE_HEIGHT}
-						scale={0.5}
+						scale={0.75}
 						room={level.data.rooms[0]}
 					/>
 				) : (
-					<BlankThumbnail scale={0.5} />
+					<BlankThumbnail scale={0.75} />
 				)}
 			</a>
 			<div className="flex flex-col gap-y-1">
 				<a
-					className="text-xl font-bold group-hover:underline cursor-pointer"
+					className="text-xl font-bold cursor-pointer"
 					href={href}
 					onClick={chooseDontNavIfBuilding}
 				>
 					{level.name}
 				</a>
-				<div className="w-full border-2 border-blue-400" />
+				<div className="w-full border" style={{ borderColor: '#297bde' }} />
 				<div className="flex flex-row justify-between">
-					<div>O O O</div>
+					<div className="flex flex-row gap-x-1">{aceCoinSlots}</div>
 					<div className="text-sm">
 						by <span className="font-bold">{level.user?.username}</span>
 					</div>
