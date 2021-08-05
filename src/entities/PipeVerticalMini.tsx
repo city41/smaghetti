@@ -8,75 +8,88 @@ import { Resizer } from '../components/Resizer';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
 
-const PipeHorizontalMini: Entity = {
+const PipeVerticalMini: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'Pipe - Horizontal Mini',
+		title: 'Pipe - Vertical Mini',
 		description: "No mini mario in this game, so can't go inside...",
 	},
 
-	objectSets: encodeObjectSets([[10, 10]]),
+	objectSets: encodeObjectSets([
+		[5, 5],
+		[5, 6],
+		[5, 8],
+		[11, 5],
+		[11, 6],
+		[11, 8],
+		[13, 5],
+		[13, 6],
+		[13, 8],
+	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
 	settingsType: 'single',
-	defaultSettings: { width: 2, height: 1 },
+	defaultSettings: { height: 2 },
 	dimensions: 'none',
-	param1: 'width',
-	objectId: 0x36,
+	param1: 'height',
+	objectId: 0x9,
 	emptyBank: 1,
+	width: 1,
 
 	resource: {
 		palettes: [
 			[
-				31744,
-				32767,
-				0,
-				14798,
-				19026,
-				25368,
-				30653,
-				9852,
-				17247,
-				23487,
-				15753,
-				18957,
-				22096,
-				25266,
-				28437,
-				30584,
+				0x7f96,
+				0x7fff,
+				0x0,
+				0x209,
+				0x228e,
+				0x3732,
+				0x47b7,
+				0x1f4,
+				0x29a,
+				0x37f,
+				0x15,
+				0xd9d,
+				0x2bf,
+				0x3600,
+				0x4aa5,
+				0x5b29,
 			],
 		],
 		tiles: [
-			[331, 330, 330, 330],
-			[347, 346, 346, 346],
+			[590, 591],
+			[516, 525],
+			[516, 525],
+			[516, 525],
 		],
-		romOffset: 1501760,
+		romOffset: 0x17a894,
 	},
 
 	toObjectBinary(x, y, _w, _h, settings) {
-		const width = settings.width ?? 1;
+		const height = settings.height ?? 1;
 
-		return [getBankParam1(1, width - 1), y, x, this.objectId];
+		return [getBankParam1(1, height - 1), y, x, this.objectId];
 	},
 
 	simpleRender(size) {
-		const style = { width: size, height: size, backgroundSize: '100% 50%' };
+		const style = { width: size, height: size, backgroundSize: '50% 100%' };
 
 		return (
 			<div
 				style={style}
-				className="PipeHorizontalMini-bg bg-center bg-no-repeat"
+				className="PipeVerticalMini-bg bg-center bg-no-repeat"
 			/>
 		);
 	},
 
 	render(_showDetails, settings, onSettingsChange, entity) {
-		const width = (settings.width ?? this.defaultSettings!.width) as number;
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
 
 		const style = {
-			height: TILE_SIZE,
-			width: width * TILE_SIZE,
+			width: TILE_SIZE,
+			height: height * TILE_SIZE,
 		};
 
 		const lipStyle = {
@@ -84,29 +97,29 @@ const PipeHorizontalMini: Entity = {
 			width: TILE_SIZE,
 		};
 
-		const size = { x: width, y: 1 };
+		const size = { x: 1, y: height };
 
 		const bodyStyle = {
 			height: TILE_SIZE,
 			width: TILE_SIZE,
-			backgroundPositionX: -TILE_SIZE,
-			backgroundSize: `${2 * TILE_SIZE}px ${TILE_SIZE}px`,
+			backgroundPositionY: -TILE_SIZE,
+			backgroundSize: `${TILE_SIZE}px ${2 * TILE_SIZE}px`,
 		};
 
 		const bodyPieces = [];
 
-		for (let i = 0; i < width - 1; ++i) {
+		for (let i = 0; i < height - 1; ++i) {
 			bodyPieces.push(
-				<div className="PipeHorizontalMini-bg" style={bodyStyle} />
+				<div className="PipeVerticalMini-bg" style={bodyStyle} />
 			);
 		}
 
-		const lip = <div className="PipeHorizontalMini-bg" style={lipStyle} />;
+		const lip = <div className="PipeVerticalMini-bg" style={lipStyle} />;
 
 		return (
 			<div
 				style={style}
-				className={clsx('relative flex flex-row', {
+				className={clsx('relative flex flex-col', {
 					[styles.resizing]: settings?.resizing,
 				})}
 			>
@@ -118,9 +131,9 @@ const PipeHorizontalMini: Entity = {
 						style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
 						size={size}
 						increment={TILE_SIZE}
-						axis="x"
+						axis="y"
 						onSizeChange={(newSizePoint) => {
-							onSettingsChange({ width: Math.max(1, newSizePoint.x) });
+							onSettingsChange({ height: Math.max(1, newSizePoint.y) });
 						}}
 						onResizeStart={() => onSettingsChange({ resizing: true })}
 						onResizeEnd={() => onSettingsChange({ resizing: false })}
@@ -131,4 +144,4 @@ const PipeHorizontalMini: Entity = {
 	},
 };
 
-export { PipeHorizontalMini };
+export { PipeVerticalMini };
