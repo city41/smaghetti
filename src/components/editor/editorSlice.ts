@@ -99,6 +99,8 @@ type InternalEditorState = {
 	creatorName?: string;
 	settings: {
 		timer: number;
+		tag0?: string;
+		tag1?: string;
 	};
 	rooms: RoomState[];
 	currentRoomIndex: number;
@@ -357,6 +359,8 @@ const defaultInitialState: InternalEditorState = {
 	name: 'new level',
 	settings: {
 		timer: 900,
+		tag0: undefined,
+		tag1: undefined,
 	},
 	paintedGroup: '',
 	saveLevelState: 'dormant',
@@ -377,6 +381,8 @@ const initialState = defaultInitialState;
 const EMPTY_LEVEL: LevelData = {
 	settings: {
 		timer: 900,
+		tag0: undefined,
+		tag1: undefined,
 	},
 	rooms: [
 		{
@@ -1244,6 +1250,18 @@ const editorSlice = createSlice({
 			const room = state.rooms[index];
 			room.settings = { ...room.settings, ...settings };
 		},
+		tagChange(
+			state: InternalEditorState,
+			action: PayloadAction<{ index: number; tag: string }>
+		) {
+			const { index, tag } = action.payload;
+
+			if (index === 0) {
+				state.settings.tag0 = tag;
+			} else if (index === 1) {
+				state.settings.tag1 = tag;
+			}
+		},
 		roomSizeChange(
 			state: InternalEditorState,
 			action: PayloadAction<{ index: number; width?: number; height?: number }>
@@ -1912,6 +1930,7 @@ const {
 	deleteRoom,
 	roomSettingsChange,
 	roomSizeChange,
+	tagChange,
 	toggleGrid,
 	toggleLayerLock,
 	pushPan,
@@ -1959,6 +1978,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		scaleDecreased.toString(),
 		toggleManageLevelMode().toString(),
 		pan.toString(),
+		tagChange.toString(),
 		toggleGrid.toString(),
 		toggleLayerLock.toString(),
 		resetViewport.toString(),
@@ -2125,6 +2145,7 @@ export {
 	deleteRoom,
 	roomSettingsChange,
 	roomSizeChange,
+	tagChange,
 	toggleGrid,
 	toggleLayerLock,
 	pushPan,
@@ -2149,4 +2170,5 @@ export {
 	getEntityTileBounds,
 	pointIsInside,
 	initialRoomState,
+	EMPTY_LEVEL,
 };

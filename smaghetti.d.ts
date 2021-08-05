@@ -142,6 +142,8 @@ type SerializedRoomData = Omit<RoomData, 'actors' | 'stage'> & {
 
 type LevelSettings = {
 	timer: number;
+	tag0?: string;
+	tag1?: string;
 };
 
 type LevelData = {

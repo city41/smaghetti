@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import clsx from 'clsx';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { Root } from '../../layout/Root';
 import { LoadingBar } from '../../LoadingBar';
@@ -89,11 +88,7 @@ function LevelsPage({
 									</button>
 								</div>
 							)}
-							<div
-								className={clsx('space-y-8', {
-									'border-4 border-green-300': isBuildingSave,
-								})}
-							>
+							<div className="space-y-8">
 								{levels.map((l) => (
 									<LevelRow
 										key={l.id}

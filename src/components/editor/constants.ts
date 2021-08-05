@@ -23,3 +23,15 @@ export const MIN_ROOM_TILE_HEIGHT = PLAY_WINDOW_TILE_HEIGHT;
 
 // 64 and up causes the map to wrap, and corrupts the level
 export const MAX_ROOM_TILE_HEIGHT = 63;
+
+export const LEVEL_TAGS = [
+	'-',
+	'traditional',
+	'adventure',
+	'kaizo',
+	'experimental',
+	'difficult',
+	'easy',
+	'troll',
+	'puzzle',
+].sort();

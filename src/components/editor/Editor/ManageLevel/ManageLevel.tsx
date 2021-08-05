@@ -11,6 +11,7 @@ import { Modal } from '../../../Modal';
 import { MUSIC_VALUES } from '../../../../levelData/constants';
 import {
 	INITIAL_ROOM_TILE_HEIGHT,
+	LEVEL_TAGS,
 	ROOM_WIDTH_INCREMENT,
 } from '../../constants';
 
@@ -45,6 +46,7 @@ type InternalManageLevelProps = {
 		width?: number;
 		height?: number;
 	}) => void;
+	onTagChange: (payload: { index: number; tag: string }) => void;
 };
 
 const SCALE = 0.5;
@@ -115,6 +117,7 @@ function ManageLevel({
 	onTimerChange,
 	onRoomSettingsChange,
 	onRoomSizeChange,
+	onTagChange,
 }: PublicManageLevelProps & InternalManageLevelProps) {
 	const [help, setHelp] = useState<Help | null>(null);
 
@@ -171,6 +174,47 @@ function ManageLevel({
 						max={999}
 						onChange={(e) => onTimerChange(Number(e.target.value))}
 					/>
+					<SettingsKey>
+						<HelpButton>
+							Tags show up on the levels page. They help people find levels they
+							like.
+						</HelpButton>
+						Tags
+					</SettingsKey>
+					<div className="flex flex-row gap-x-2">
+						<select
+							className="text-black w-48"
+							value={levelSettings.tag0 ?? '-'}
+							onMouseDown={(e) => {
+								// this is needed for onChange to work correctly in firefox
+								// https://github.com/facebook/react/issues/12584
+								e.stopPropagation();
+							}}
+							onChange={(e) => onTagChange({ index: 0, tag: e.target.value })}
+						>
+							{LEVEL_TAGS.map((t) => (
+								<option key={t} value={t}>
+									{t}
+								</option>
+							))}
+						</select>
+						<select
+							className="text-black w-48 "
+							value={levelSettings.tag1 ?? '-'}
+							onMouseDown={(e) => {
+								// this is needed for onChange to work correctly in firefox
+								// https://github.com/facebook/react/issues/12584
+								e.stopPropagation();
+							}}
+							onChange={(e) => onTagChange({ index: 1, tag: e.target.value })}
+						>
+							{LEVEL_TAGS.map((t) => (
+								<option key={t} value={t}>
+									{t}
+								</option>
+							))}
+						</select>
+					</div>
 				</div>
 				<Button disabled={rooms.length === 4} onClick={onAddRoom}>
 					Add Room

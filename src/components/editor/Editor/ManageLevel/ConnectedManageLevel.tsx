@@ -11,6 +11,7 @@ import {
 	setTimer,
 	setLevelName,
 	roomSizeChange,
+	tagChange,
 } from '../../editorSlice';
 
 import { ManageLevel } from './ManageLevel';
@@ -29,6 +30,7 @@ const actions = bindActionCreators(
 		onLevelNameChange: setLevelName,
 		onRoomSettingsChange: roomSettingsChange,
 		onRoomSizeChange: roomSizeChange,
+		onTagChange: tagChange,
 	},
 	dispatch
 );
