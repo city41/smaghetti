@@ -34,4 +34,6 @@ export const LEVEL_TAGS = [
 	'easy',
 	'troll',
 	'puzzle',
+	'speed run',
+	'casual',
 ].sort();
