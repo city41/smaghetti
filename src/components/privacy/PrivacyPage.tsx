@@ -62,15 +62,7 @@ function PrivacyPage() {
 				</ul>
 
 				<h3>Identifying Information</h3>
-				<p>
-					We collect certain personal information from you when you sign up to
-					our Service that can be used to identify you, such as your e-mail
-					address and any other information that we deem necessary for the
-					purpose of providing you with our Service or which you provide to us
-					voluntarily. The information we collect from you, to the extent that
-					it is private, is disclosed only in accordance with our Terms of
-					Service and/or this Privacy Policy.
-				</p>
+				<p>We do not explicitly collect any identifying information.</p>
 
 				<h3>Non-Identifying Information</h3>
 				<p>
@@ -86,29 +78,12 @@ function PrivacyPage() {
 				<p>We may use your information to:</p>
 				<ul>
 					<li>Enhance or improve User experience, our Site, or our Service.</li>
-					<li>Send e-mails about our Site or respond to inquiries.</li>
-					<li>
-						Send e-mails and updates about Smaghetti, including our e-mail
-						newsletter.
-					</li>
 					<li>
 						Perform any other function that we believe in good faith is
 						necessary to protect the security or proper functioning of our Site
 						or Service.
 					</li>
 				</ul>
-
-				<h2> Accessing, Editing, and Removing Your Information</h2>
-				<p>
-					Users may in some cases be able to review and edit the personal
-					information they have provided to us by logging into your account on
-					the Site and editing their account. Although most changes may occur
-					immediately, information may still be stored in a web browser’s cache.
-					We take no responsibility for stored information in your cache, or in
-					other devices that may store information, and disclaim all liability
-					of such. In addition, we may, from time to time, retain residual
-					information about you in our backup and/or database.
-				</p>
 
 				<h2> Cookies</h2>
 				<p>
@@ -184,18 +159,6 @@ function PrivacyPage() {
 					request from law enforcement agencies or private litigants.
 				</p>
 
-				<h2> Commercial and Non-Commercial Communications</h2>
-				<p>
-					By providing information to the Site that forms the basis of
-					communications with you, such as contact information, you waive all
-					rights to file complaints concerning unsolicited e-mails from
-					Smaghetti since, by providing such information, you agree to receive
-					communication from us or anyone else covered under this Privacy
-					Policy. However, you may unsubscribe from certain communications by
-					notifying Smaghetti that you no longer wish to receive solicitations
-					or information and we will endeavor to remove you from the database.
-				</p>
-
 				<h2> Security Measures</h2>
 				<p>
 					We take certain measures to enhance the security of our Site and
@@ -238,7 +201,7 @@ function PrivacyPage() {
 					Privacy Policy, we will require you to accept the amendments as a
 					condition of your continued use of our Service.
 				</p>
-				<p>Last Modified: March 22nd, 2021</p>
+				<p>Last Modified: August 4th, 2021</p>
 			</div>
 		</Root>
 	);
