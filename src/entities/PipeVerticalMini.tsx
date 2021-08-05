@@ -9,7 +9,7 @@ import { Resizer } from '../components/Resizer';
 import styles from '../components/Resizer/ResizingStyles.module.css';
 
 const PipeVerticalMini: Entity = {
-	paletteCategory: 'terrain',
+	// paletteCategory: 'terrain',
 	paletteInfo: {
 		title: 'Pipe - Vertical Mini',
 		description: "No mini mario in this game, so can't go inside...",
