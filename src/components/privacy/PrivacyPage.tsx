@@ -16,6 +16,14 @@ function PrivacyPage() {
 				>
 					Privacy Policy
 				</h1>
+				<p className="bg-green-500 -mx-2 p-2">
+					I don&apos;t track you or know anything about you. I don&apos;t even
+					ask for your email address when you create an account. Let&apos;s just
+					make levels and have fun. As the creator of the site I can see
+					everyone&apos;s levels, even if you have not published them. This
+					enables me to find bugs easier. That&apos;s really it. But read the
+					full policy below for the nitty gritty.
+				</p>
 				<h2>Introduction</h2>
 				<p>
 					Thank you for visiting Smaghetti. Please read our{' '}
