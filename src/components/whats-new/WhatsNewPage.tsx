@@ -91,6 +91,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-08-05">
 					<ul>
 						<li>Angry Sun (see entry below)</li>
+						<li>Cheep Cheep - Jumping</li>
 						<li>Note Block Warp</li>
 						<li>Wood Floor - Snow Covered</li>
 						<li>Wood Window Frame</li>
