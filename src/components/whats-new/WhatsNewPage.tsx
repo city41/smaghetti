@@ -92,6 +92,7 @@ function WhatsNewPage() {
 					<ul>
 						<li>Angry Sun (see entry below)</li>
 						<li>Note Block Warp</li>
+						<li>Wood Window Frame</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="Angry Sun finished" date="2021-08-05">
