@@ -51,6 +51,7 @@ import { BulletBillGeneratorDiagonal } from './BulletBillGeneratorDiagonal';
 import { Bumpty } from './Bumpty';
 import { BumptyAggressive } from './BumptyAggressive';
 import { BuriedVegetable } from './BuriedVegetable';
+import { Burner } from './Burner';
 import { BusterBeetle } from './BusterBeetle';
 import { BuzzyBeetle } from './BuzzyBeetle';
 import { Cactus } from './Cactus';
@@ -346,6 +347,7 @@ const entityMap = {
 	Bumpty,
 	BumptyAggressive,
 	BuriedVegetable,
+	Burner,
 	BusterBeetle,
 	BuzzyBeetle,
 	Cactus,
