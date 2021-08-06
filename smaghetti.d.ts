@@ -63,7 +63,8 @@ type BackgroundGraphic =
 	| 'bonus-room'
 	| 'stormy-clouds'
 	| 'stone-wall'
-	| 'basement-dungeon';
+	| 'basement-dungeon'
+	| 'pyramids';
 
 type BackgroundExtraColorAndEffect =
 	| 'none'

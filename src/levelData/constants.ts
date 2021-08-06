@@ -65,6 +65,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'stormy-clouds': 0x2,
 	'stone-wall': 0x3a,
 	'basement-dungeon': 0x1f,
+	pyramids: 0xe,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -173,5 +174,10 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 		bgColor: 0x1,
 		bgExtraColorAndEffect:
 			BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES['lava-shimmer'],
+	},
+	pyramids: {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['pyramids'],
+		bgColor: 0xc,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 };

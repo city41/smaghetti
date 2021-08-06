@@ -73,6 +73,7 @@ import { PipeVerticalLip } from './PipeVerticalLip';
 import { PlainsBackground } from './PlainsBackground';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PWing } from './PWing';
+import { PyramidsBackground } from './PyramidsBackground';
 import { RedCheepCheep } from './RedCheepCheep';
 import { RegularVegetable } from './RegularVegetable';
 import { SeeSawPivotPoint } from './SeeSawPivotPoint';
@@ -187,6 +188,7 @@ const resourceMap = {
 	OneWayDoorVerticalFlipper,
 	OrangeSpinyEgg,
 	PWing,
+	PyramidsBackground,
 	ParaWing,
 	PipeAirshipVerticalBody,
 	PipeAirshipVerticalLip,

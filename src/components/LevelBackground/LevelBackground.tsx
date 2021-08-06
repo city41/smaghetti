@@ -79,6 +79,20 @@ function Desert() {
 	);
 }
 
+function Pyramids() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#f7dea5' }}
+		>
+			<div
+				className="PyramidsBackground-bg w-full bg-repeat-x"
+				style={{ height: 112 }}
+			/>
+		</div>
+	);
+}
+
 function TallHills() {
 	return (
 		<div
@@ -171,6 +185,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['stormy-clouds']]: <StormyClouds />,
 	[BACKGROUND_GRAPHIC_VALUES['stone-wall']]: <StoneWall />,
 	[BACKGROUND_GRAPHIC_VALUES['basement-dungeon']]: <BasementDungeon />,
+	[BACKGROUND_GRAPHIC_VALUES['pyramids']]: <Pyramids />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {
