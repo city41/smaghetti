@@ -256,6 +256,7 @@ export const resourceShaMap: Record<string, string> = {
   "YellowSwitchBrick": "e5268942fc2d50eced07df869c3f6fdde774648d",
   "BackgroundHillsStripedMedium": "d1fe08f2ed3909f392e569f791f455dc977897bd",
   "BackgroundHillsStripedSmall": "3375c9c553156e16493abf4e6481e250f50ba623",
+  "BasementDungeon": "45e5a0fbd1bfb3609bcfb8147dc58c57c824c0b0",
   "BigBooArm": "c23d3ba3bb0ab2fe9cc4e0b7342bc1febe7bd560",
   "BigBooBody": "8c590426e686ce9d58475223f465cefbe02ce9aa",
   "BigBooFace": "a40df3111dd70ef16dd7b4deb8fd08ba9ae85572",

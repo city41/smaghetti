@@ -64,6 +64,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'night-sky': 0x2a,
 	'stormy-clouds': 0x2,
 	'stone-wall': 0x3a,
+	'basement-dungeon': 0x1f,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -74,6 +75,7 @@ export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
 	'fortress-parallax': 0x49,
 	'underwater-ripple-purple': 0x11,
 	'stormy-clouds-lightning': 0x33,
+	'lava-shimmer': 0x49,
 };
 
 // setting a room's background is several settings that generally should be bundled
@@ -165,5 +167,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['stone-wall'],
 		bgColor: 0x4,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'basement-dungeon': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['basement-dungeon'],
+		bgColor: 0x1,
+		bgExtraColorAndEffect:
+			BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES['lava-shimmer'],
 	},
 };

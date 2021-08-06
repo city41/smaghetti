@@ -62,13 +62,15 @@ type BackgroundGraphic =
 	| 'night-sky'
 	| 'bonus-room'
 	| 'stormy-clouds'
-	| 'stone-wall';
+	| 'stone-wall'
+	| 'basement-dungeon';
 
 type BackgroundExtraColorAndEffect =
 	| 'none'
 	| 'fortress-parallax'
 	| 'underwater-ripple-purple'
-	| 'stormy-clouds-lightning';
+	| 'stormy-clouds-lightning'
+	| 'lava-shimmer';
 
 type RoomBackgroundSettings = {
 	bgGraphic: number;
