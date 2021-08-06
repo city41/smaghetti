@@ -5,10 +5,11 @@ import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
 
 const AngrySun: Entity = {
-	// paletteCategory: 'enemy',
+	paletteCategory: 'enemy',
 	paletteInfo: {
 		title: 'Angry Sun',
-		warning: 'Not fully working yet, more research needed',
+		description:
+			"Chases after Mario. You need a long level, it doesn't start chasing for a long time.",
 	},
 
 	objectSets: ANY_OBJECT_SET,

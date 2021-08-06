@@ -88,6 +88,13 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Angry Sun finished" date="2021-08-05">
+					<p>
+						Turns out the Angry Sun does work. It just takes a long time. If you
+						put it in a level, it won&apos;t chase Mario until he has traveled
+						quite a ways.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-08-05">
 					<ul>
 						<li>Pipe Vertical - Mini (unfinished)</li>
