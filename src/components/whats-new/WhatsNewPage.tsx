@@ -92,6 +92,7 @@ function WhatsNewPage() {
 					<ul>
 						<li>Angry Sun (see entry below)</li>
 						<li>Note Block Warp</li>
+						<li>Wood Floor - Snow Covered</li>
 						<li>Wood Window Frame</li>
 					</ul>
 				</NewEntry>
