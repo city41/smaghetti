@@ -29,6 +29,7 @@ const Thwomp: Entity = {
 	settingsType: 'single',
 	defaultSettings: { pursuit: 'down' },
 	objectId: 0x8a,
+	alternateObjectIds: Object.values(pursuitToObjectId),
 
 	resource: {
 		palettes: [
