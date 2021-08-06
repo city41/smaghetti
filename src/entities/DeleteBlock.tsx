@@ -14,6 +14,7 @@ const DeleteBlock: Entity = {
 	objectSets: encodeObjectSets([
 		[1, 1],
 		[2, 2],
+		[9, 3],
 	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
