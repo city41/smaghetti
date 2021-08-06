@@ -159,6 +159,7 @@ export const resourceShaMap: Record<string, string> = {
   "Mushroom": "514204409b5d7b295af960d58b7592471bd516f7",
   "MusicBlock": "a6ed0914eb460683468e361622da105157eaa935",
   "MusicBlockThreeWay": "c04170c6ae312bf55facafcec8f89d3648fe298f",
+  "MusicBlockWarp": "1e855c798e4225b2379a670e9c5f69db5958c17a",
   "NumberBlock": "32ed10c6c6474e0052a4fd0957dff96b2a20fc9d",
   "OneUpMushroom": "4b26ed8398e06a118ae4ac182712929fd09aee88",
   "OneWayDoor": "cc0514dfacbf41f1427bfadfc8e854519f9db60c",

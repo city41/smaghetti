@@ -180,6 +180,7 @@ import { Muncher } from './Muncher';
 import { Mushroom } from './Mushroom';
 import { MusicBlock } from './MusicBlock';
 import { MusicBlockThreeWay } from './MusicBlockThreeWay';
+import { MusicBlockWarp } from './MusicBlockWarp';
 import { NumberBlock } from './NumberBlock';
 import { OneUpMushroom } from './OneUpMushroom';
 import { OneWayDoor } from './OneWayDoor';
@@ -469,6 +470,7 @@ const entityMap = {
 	Mushroom,
 	MusicBlock,
 	MusicBlockThreeWay,
+	MusicBlockWarp,
 	NumberBlock,
 	OneUpMushroom,
 	OneWayDoor,
