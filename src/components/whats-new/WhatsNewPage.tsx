@@ -93,6 +93,7 @@ function WhatsNewPage() {
 						<li>Angry Sun (see entry below)</li>
 						<li>Cheep Cheep - Jumping</li>
 						<li>Note Block Warp</li>
+						<li>Upward Water Current - Narrow</li>
 						<li>Wood Floor - Snow Covered</li>
 						<li>Wood Window Frame</li>
 					</ul>

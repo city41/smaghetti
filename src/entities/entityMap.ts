@@ -196,11 +196,11 @@ import { ParaBomberGoomba } from './ParaBomberGoomba';
 import { ParaGaloombaGenerator } from './ParaGaloombaGenerator';
 import { ParaGoomba } from './ParaGoomba';
 import { PileDriverMiniGoomba } from './PileDriverMiniGoomba';
+import { PipeAirshipVertical } from './PipeAirshipVertical';
 import { PipeCannonMini } from './PipeCannonMini';
 import { PipeCornerTransition } from './PipeCornerTransition';
 import { PipeHorizontal } from './PipeHorizontal';
 import { PipeHorizontalMini } from './PipeHorizontalMini';
-import { PipeAirshipVertical } from './PipeAirshipVertical';
 import { PipeVertical } from './PipeVertical';
 import { PipeVerticalMini } from './PipeVerticalMini';
 import { PiranhaPlant } from './PiranhaPlant';
@@ -270,6 +270,7 @@ import { Tornado } from './Tornado';
 import { TriangularBlock } from './TriangularBlock';
 import { UnderwaterFloor } from './UnderwaterFloor';
 import { UpFortressSpike } from './UpFortressSpike';
+import { UpwardWaterCurrentNarrow } from './UpwardWaterCurrentNarrow';
 import { Vine } from './Vine';
 import { WarpArea } from './WarpArea';
 import { Water } from './Water';
@@ -563,6 +564,7 @@ const entityMap = {
 	TriangularBlock,
 	UnderwaterFloor,
 	UpFortressSpike,
+	UpwardWaterCurrentNarrow,
 	Vine,
 	WarpArea,
 	Water,
