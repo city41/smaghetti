@@ -61,7 +61,8 @@ type BackgroundGraphic =
 	| 'hills-at-night'
 	| 'night-sky'
 	| 'bonus-room'
-	| 'stormy-clouds';
+	| 'stormy-clouds'
+	| 'stone-wall';
 
 type BackgroundExtraColorAndEffect =
 	| 'none'

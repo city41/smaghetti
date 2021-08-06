@@ -34,6 +34,10 @@ function NightSky() {
 	return <div className="NightSkyBackground-bg bg-black w-full h-full" />;
 }
 
+function StoneWall() {
+	return <div className="StoneWallBackground-bg bg-black w-full h-full" />;
+}
+
 function GhostHouse() {
 	return (
 		<div
@@ -161,6 +165,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['hills-at-night']]: <HillsAtNight />,
 	[BACKGROUND_GRAPHIC_VALUES['night-sky']]: <NightSky />,
 	[BACKGROUND_GRAPHIC_VALUES['stormy-clouds']]: <StormyClouds />,
+	[BACKGROUND_GRAPHIC_VALUES['stone-wall']]: <StoneWall />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

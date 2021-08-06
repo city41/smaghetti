@@ -63,6 +63,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'hills-at-night': 0x1d,
 	'night-sky': 0x2a,
 	'stormy-clouds': 0x2,
+	'stone-wall': 0x3a,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -159,5 +160,10 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 		bgColor: 0x74,
 		bgExtraColorAndEffect:
 			BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES['stormy-clouds-lightning'],
+	},
+	'stone-wall': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['stone-wall'],
+		bgColor: 0x4,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 };
