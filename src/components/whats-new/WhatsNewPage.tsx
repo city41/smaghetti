@@ -104,7 +104,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-08-05">
 					<ul>
 						<li>Pipe Vertical - Mini (unfinished)</li>
-						<li>Screw Head</li>
+						<li>Bolt Head</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="Tag your levels" date="2021-08-04">

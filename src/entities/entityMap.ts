@@ -25,6 +25,7 @@ import { Blooper } from './Blooper';
 import { BlooperNanny } from './BlooperNanny';
 import { BlueCoin } from './BlueCoin';
 import { Bobomb } from './Bobomb';
+import { BoltHead } from './BoltHead';
 import { BoltLeft } from './BoltLeft';
 import { BoltLift } from './BoltLift';
 import { BoltRight } from './BoltRight';
@@ -232,7 +233,6 @@ import { RotatingCheckeredBlockLarge } from './RotatingCheckeredBlockLarge';
 import { RotatingCheckeredBlockSmall } from './RotatingCheckeredBlockSmall';
 import { RotoDisc } from './RotoDisc';
 import { Roy } from './Roy';
-import { ScrewHead } from './ScrewHead';
 import { ScrollStopHorizontal } from './ScrollStopHorizontal';
 import { Seaweed } from './Seaweed';
 import { SeeSawPlatform } from './SeeSawPlatform';
@@ -315,6 +315,7 @@ const entityMap = {
 	BlooperNanny,
 	BlueCoin,
 	Bobomb,
+	BoltHead,
 	BoltLeft,
 	BoltLift,
 	BoltRight,
@@ -522,7 +523,6 @@ const entityMap = {
 	RotatingCheckeredBlockSmall,
 	RotoDisc,
 	Roy,
-	ScrewHead,
 	ScrollStopHorizontal,
 	Seaweed,
 	SeeSawPlatform,

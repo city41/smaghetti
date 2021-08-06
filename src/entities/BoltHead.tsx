@@ -4,10 +4,10 @@ import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { encodeObjectSets } from './util';
 
-const ScrewHead: Entity = {
+const BoltHead: Entity = {
 	paletteCategory: 'decoration',
 	paletteInfo: {
-		title: 'Screw Head',
+		title: 'Bolt Head',
 		description: 'Holds airships together',
 	},
 
@@ -56,7 +56,7 @@ const ScrewHead: Entity = {
 			width: size,
 			height: size,
 		};
-		return <div className="ScrewHead-bg bg-cover" style={style} />;
+		return <div className="BoltHead-bg bg-cover" style={style} />;
 	},
 
 	render() {
@@ -64,4 +64,4 @@ const ScrewHead: Entity = {
 	},
 };
 
-export { ScrewHead };
+export { BoltHead };
