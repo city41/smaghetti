@@ -205,6 +205,7 @@ import { PipeVertical } from './PipeVertical';
 import { PipeVerticalMini } from './PipeVerticalMini';
 import { PiranhaPlant } from './PiranhaPlant';
 import { PlatformLeftRight } from './PlatformLeftRight';
+import { PlatformPullied } from './PlatformPullied';
 import { PlatformStatic } from './PlatformStatic';
 import { PlatformUpDown } from './PlatformUpDown';
 import { PlatformWoodUpDown } from './PlatformWoodUpDown';
@@ -499,6 +500,7 @@ const entityMap = {
 	PipeVerticalMini,
 	PiranhaPlant,
 	PlatformLeftRight,
+	PlatformPullied,
 	PlatformStatic,
 	PlatformUpDown,
 	PlatformWoodUpDown,

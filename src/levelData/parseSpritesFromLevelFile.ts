@@ -18,7 +18,8 @@ function getRawByteLength(bank: number, id: number): number {
 		return (
 			!!e.toSpriteBinary &&
 			(e.objectId === id || e.alternateObjectIds?.includes(id)) &&
-			e.toSpriteBinary(0, 0, 1, 1, {})[0] === bank
+			e.toSpriteBinary(0, 0, 1, 1, {})[0] === bank &&
+			e.toSpriteBinary(0, 0, 1, 1, {})[1] === id
 		);
 	});
 
