@@ -67,6 +67,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'basement-dungeon': 0x1f,
 	pyramids: 0xe,
 	'inside-airship': 0x3,
+	mountains: 0x11,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -184,6 +185,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	'inside-airship': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['inside-airship'],
 		bgColor: 0x1,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	mountains: {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES.mountains,
+		bgColor: 0x14,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 };

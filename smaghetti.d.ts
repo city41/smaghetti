@@ -65,7 +65,8 @@ type BackgroundGraphic =
 	| 'stone-wall'
 	| 'basement-dungeon'
 	| 'pyramids'
-	| 'inside-airship';
+	| 'inside-airship'
+	| 'mountains';
 
 type BackgroundExtraColorAndEffect =
 	| 'none'

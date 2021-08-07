@@ -59,6 +59,7 @@ import { KoopaShell } from './KoopaShell';
 import { KoopaWing } from './KoopaWing';
 import { MetalBrickBackground } from './MetalBrickBackground';
 import { MontyMoleJumpingOut } from './MontyMoleJumpingOut';
+import { MountainsBackground } from './MountainsBackground';
 import { NightSkyBackground } from './NightSkyBackground';
 import { OneNumberBlock } from './OneNumberBlock';
 import { OneWayDoorHorizontalFlipper } from './OneWayDoorHorizontalFlipper';
@@ -184,6 +185,7 @@ const resourceMap = {
 	KoopalingWand,
 	MetalBrickBackground,
 	MontyMoleJumpingOut,
+	MountainsBackground,
 	NightSkyBackground,
 	OneNumberBlock,
 	OneWayDoorHorizontalFlipper,
