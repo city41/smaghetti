@@ -22,6 +22,8 @@ const Lemmy: Entity = {
 	defaultSettings: { stompCount: 3, fireballCount: 10 },
 	objectId: 0x14,
 	koopalingId: 6,
+	width: 1,
+	height: 3,
 
 	resource: {
 		romOffset: 0x1724f0,

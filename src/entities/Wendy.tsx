@@ -22,6 +22,8 @@ const Wendy: Entity = {
 	defaultSettings: { stompCount: 3, fireballCount: 10 },
 	objectId: 0x14,
 	koopalingId: 3,
+	width: 1,
+	height: 2,
 
 	resource: {
 		romOffset: 0x1724f0,
