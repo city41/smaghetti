@@ -7,7 +7,7 @@ import { ANY_BELOW_0x16 } from './constants';
 const BillBlaster: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		subCategory: 'enemy-common',
+		subCategory: 'enemy-airship',
 		title: 'Bill Blaster',
 		description: 'Shoots Bullet Bills',
 	},
