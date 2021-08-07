@@ -66,6 +66,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'stone-wall': 0x3a,
 	'basement-dungeon': 0x1f,
 	pyramids: 0xe,
+	'inside-airship': 0x3,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -178,6 +179,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	pyramids: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['pyramids'],
 		bgColor: 0xc,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'inside-airship': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['inside-airship'],
+		bgColor: 0x1,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 };

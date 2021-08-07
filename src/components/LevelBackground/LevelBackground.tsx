@@ -153,6 +153,20 @@ function HillsAtNight() {
 	);
 }
 
+function InsideAirship() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#422121' }}
+		>
+			<div
+				className="InsideAirship-bg w-full bg-repeat-x"
+				style={{ height: 176 }}
+			/>
+		</div>
+	);
+}
+
 function StormyClouds() {
 	return (
 		<div
@@ -186,6 +200,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['stone-wall']]: <StoneWall />,
 	[BACKGROUND_GRAPHIC_VALUES['basement-dungeon']]: <BasementDungeon />,
 	[BACKGROUND_GRAPHIC_VALUES['pyramids']]: <Pyramids />,
+	[BACKGROUND_GRAPHIC_VALUES['inside-airship']]: <InsideAirship />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

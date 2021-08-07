@@ -53,6 +53,7 @@ import { HoppingBowserStatueBody } from './HoppingBowserStatueBody';
 import { HoppingBowserStatueHead } from './HoppingBowserStatueHead';
 import { HorizontalDolphin } from './HorizontalDolphin';
 import { HotHeadEyes } from './HotHeadEyes';
+import { InsideAirship } from './InsideAirship';
 import { KoopalingWand } from './KoopalingWand';
 import { KoopaShell } from './KoopaShell';
 import { KoopaWing } from './KoopaWing';
@@ -177,6 +178,7 @@ const resourceMap = {
 	HoppingBowserStatueHead,
 	HorizontalDolphin,
 	HotHeadEyes,
+	InsideAirship,
 	KoopaShell,
 	KoopaWing,
 	KoopalingWand,
