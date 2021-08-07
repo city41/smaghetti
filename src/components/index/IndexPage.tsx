@@ -15,13 +15,6 @@ function IndexPage() {
 					<h1 className="text-2xl font-bold">
 						A level editor for Super Mario Advance 4
 					</h1>
-					<p className="block bg-red-100 text-red-900 p-2 -mx-2">
-						Smaghetti is in alpha, check out the{' '}
-						<a className="text-blue-500" href="/roadmap">
-							roadmap
-						</a>{' '}
-						for more info
-					</p>
 					<img
 						className="shadow-lg p-4 bg-gray-500"
 						style={{ imageRendering: 'initial' }}
