@@ -21,7 +21,7 @@ const KeyboardHelpModal: FunctionComponent<KeyboardHelpModalProps> = ({
 		<Modal
 			isOpen={isOpen}
 			onRequestClose={onRequestClose}
-			title="Keyboard Shortcuts (press ? to close)"
+			title="Keyboard Shortcuts"
 		>
 			<dl className="grid grid-cols-2 items-center justify-items-center space-y-3">
 				<dt>
