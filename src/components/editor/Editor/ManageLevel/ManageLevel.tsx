@@ -260,7 +260,7 @@ function ManageLevel({
 										>
 											{roomTypes.map((rt) => (
 												<option key={rt} value={rt}>
-													{rt}
+													{rt.replace(/-/g, ' ')}
 												</option>
 											))}
 										</select>
