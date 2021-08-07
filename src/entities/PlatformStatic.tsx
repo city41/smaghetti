@@ -3,10 +3,9 @@ import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { Resizer } from '../components/Resizer';
-import clamp from 'lodash/clamp';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
+import { PlatformWidthButton } from './detailPanes/PlatformWidthButton';
 
 type Width = 3 | 4;
 
@@ -47,8 +46,6 @@ const PlatformStatic: Entity = {
 
 	render(_showDetails, settings, onSettingsChange, entity) {
 		const width = (settings.width ?? this.defaultSettings!.width) as Width;
-
-		const size = { x: width, y: 1 };
 
 		const pieceStyle = {
 			width: TILE_SIZE,
@@ -93,20 +90,18 @@ const PlatformStatic: Entity = {
 				<div className="top-0 left-0 w-full z-10">{platform}</div>
 				<></>
 				{!!entity && (
-					<Resizer
-						className="absolute bottom-0 right-0 z-10"
-						style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
-						size={size}
-						increment={{ x: TILE_SIZE, y: 1 }}
-						axis="x"
-						onSizeChange={(newSizePoint) => {
-							onSettingsChange({
-								width: clamp(newSizePoint.x, 3, 4),
-							});
-						}}
-						onResizeStart={() => onSettingsChange({ resizing: true })}
-						onResizeEnd={() => onSettingsChange({ resizing: false })}
-					/>
+					<div
+						style={{ top: TILE_SIZE * 0.5 + 1, width: TILE_SIZE }}
+						className="absolute left-0 flex flex-row justify-around align-start z-10"
+					>
+						<PlatformWidthButton
+							widths={[3, 4]}
+							currentWidth={width}
+							onWidthChange={(newWidth) => {
+								onSettingsChange({ width: newWidth });
+							}}
+						/>
+					</div>
 				)}
 			</div>
 		);
