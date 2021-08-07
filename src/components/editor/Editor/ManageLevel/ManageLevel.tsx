@@ -14,6 +14,7 @@ import {
 	LEVEL_TAGS,
 	ROOM_WIDTH_INCREMENT,
 } from '../../constants';
+import _ from 'lodash';
 
 type Help = {
 	title: string;
@@ -48,6 +49,19 @@ type InternalManageLevelProps = {
 	}) => void;
 	onTagChange: (payload: { index: number; tag: string }) => void;
 };
+
+/**
+ * converts "bonus-room" to "Bonus Room"
+ */
+function cleanUpRoomTypeString(rt: string): string {
+	const split = rt.split('-');
+
+	return split
+		.map((s) => {
+			return s[0].toUpperCase() + s.substr(1);
+		})
+		.join(' ');
+}
 
 const SCALE = 0.5;
 
@@ -260,7 +274,7 @@ function ManageLevel({
 										>
 											{roomTypes.map((rt) => (
 												<option key={rt} value={rt}>
-													{rt.replace(/-/g, ' ')}
+													{cleanUpRoomTypeString(rt)}
 												</option>
 											))}
 										</select>
