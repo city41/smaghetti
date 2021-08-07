@@ -24,7 +24,7 @@ const LakituCloudAlternate: Entity = {
 	alternateObjectIds: [0x2d],
 	emptyBank: 1,
 
-	toObjectBinary(x, y, w) {
+	toObjectBinary({ x, y, w }) {
 		return [getBankParam1(1, w), y, x, this.objectId];
 	},
 

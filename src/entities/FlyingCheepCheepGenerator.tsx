@@ -22,7 +22,7 @@ const FlyingCheepCheepGenerator: Entity = {
 	dimensions: 'none',
 	objectId: 0x60,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [1, this.objectId, x, y];
 	},
 

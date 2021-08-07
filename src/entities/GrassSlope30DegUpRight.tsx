@@ -25,7 +25,7 @@ const GrassSlope30DegUpRight: Entity = {
 	width: 8,
 	height: 6,
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 

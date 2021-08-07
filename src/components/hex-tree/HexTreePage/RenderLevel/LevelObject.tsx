@@ -78,23 +78,29 @@ function LevelObject({ object, scale, objectSet }: LevelObjectProps) {
 	};
 
 	if (entityDef) {
-		if (entityDef.editorType === 'entity') {
-			const payload =
-				(entityDefViaPayload &&
-					getPayloadType(entityDefViaPayload.payloadToObjectId!, object.id)) ||
-				null;
+		const payload =
+			(entityDefViaPayload &&
+				getPayloadType(entityDefViaPayload.payloadToObjectId!, object.id)) ||
+			null;
 
-			return entityDef.render(
-				false,
-				{ payload, width: widthInTiles, height: heightInTiles },
-				() => {}
-			);
+		if (entityDef.editorType === 'entity') {
+			return entityDef.render({
+				showDetails: false,
+				settings: { payload, width: widthInTiles, height: heightInTiles },
+				onSettingsChange: () => {},
+			});
 		} else {
 			const cells = [];
 
 			for (let y = 0; y < heightInTiles; ++y) {
 				for (let x = 0; x < widthInTiles; ++x) {
-					cells.push(entityDef.render(false, {}, () => {}));
+					cells.push(
+						entityDef.render({
+							showDetails: false,
+							settings: { payload, width: widthInTiles, height: heightInTiles },
+							onSettingsChange: () => {},
+						})
+					);
 				}
 			}
 

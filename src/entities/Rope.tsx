@@ -96,7 +96,7 @@ const Rope: Entity = {
 		},
 	},
 
-	toObjectBinary(x, y, _w, h) {
+	toObjectBinary({ x, y, h }) {
 		return [getBankParam1(1, h), y, x, this.objectId];
 	},
 
@@ -108,7 +108,7 @@ const Rope: Entity = {
 		return <div className="RopeTail-bg bg-cover" style={style} />;
 	},
 
-	render(_showDetails, _settings, _osc, entity, room) {
+	render({ entity, room }) {
 		const ropeBelow = isRopeBelow(entity, room);
 
 		const style = {

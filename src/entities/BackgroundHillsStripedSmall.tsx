@@ -21,7 +21,7 @@ const BackgroundHillsStripedSmall: Entity = {
 	width: 4,
 	height: 3,
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 

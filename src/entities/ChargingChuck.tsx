@@ -17,7 +17,7 @@ const ChargingChuck: Entity = {
 	dimensions: 'none',
 	objectId: 0x9b,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y, 0];
 	},
 

@@ -55,7 +55,7 @@ const AirshipPlatform2: Entity = {
 	alternateObjectIds: [0x33, 0x2a, 3],
 	emptyBank: 1,
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 		// this is a valid param, creates rows of platforms
 		const height = 0;
@@ -96,7 +96,7 @@ const AirshipPlatform2: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const width = settings.width ?? this.defaultSettings!.width;
 		const cap = (settings.cap ?? this.defaultSettings!.cap) as Cap;
 

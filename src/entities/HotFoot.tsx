@@ -42,7 +42,7 @@ const HotFoot: Entity = {
 		tiles: [[131], [146]],
 	},
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

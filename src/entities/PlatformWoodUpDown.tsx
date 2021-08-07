@@ -32,7 +32,7 @@ const PlatformWoodUpDown: Entity = {
 	settingsType: 'single',
 	defaultSettings: { range: 6 },
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const range = (settings.range ?? this.defaultSettings!.range) as Range;
 		const objectId = travelRangeToObjectId[range];
 		return [0, objectId, x, y];
@@ -53,7 +53,7 @@ const PlatformWoodUpDown: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const range = (settings.range ?? this.defaultSettings!.range) as Range;
 
 		const style = { width: TILE_SIZE * 3, height: TILE_SIZE };

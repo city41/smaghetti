@@ -21,7 +21,7 @@ const Water: Entity = {
 	objectId: 0xd,
 	emptyBank: 0,
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 
@@ -37,7 +37,7 @@ const Water: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _osc, entity, room) {
+	render({ entity, room }) {
 		if (!entity || !room) {
 			return this.simpleRender(TILE_SIZE);
 		}

@@ -67,7 +67,7 @@ const BuriedVegetable: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		const objectId =
@@ -86,7 +86,7 @@ const BuriedVegetable: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const body = (
 			<div
 				className="BuriedVegetable-bg bg-cover relative cursor-pointer"

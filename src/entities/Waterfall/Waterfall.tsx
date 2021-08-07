@@ -69,7 +69,7 @@ const Waterfall: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w, h): number[] {
+	toObjectBinary({ x, y, w, h }) {
 		return [getBankParam1(1, h), y, x, this.objectId, w];
 	},
 
@@ -82,7 +82,7 @@ const Waterfall: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _osc, entity, room) {
+	render({ entity, room }) {
 		const waterAbove = isWaterfallAbove(entity, room);
 
 		const style = {

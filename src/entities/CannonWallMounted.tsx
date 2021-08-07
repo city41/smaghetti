@@ -165,7 +165,7 @@ const CannonWallMounted: Entity = {
 		},
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const cannonBallDirection = (settings.cannonBallDirection ??
 			this.defaultSettings!.cannonBallDirection) as CannonBallDirection;
 
@@ -177,7 +177,7 @@ const CannonWallMounted: Entity = {
 		return [1, spriteId, x + offset.x, y + offset.y];
 	},
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const cannonBallDirection = (settings.cannonBallDirection ??
 			this.defaultSettings!.cannonBallDirection) as CannonBallDirection;
 
@@ -196,7 +196,7 @@ const CannonWallMounted: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const cannonBallDirection = (settings.cannonBallDirection ??
 			this.defaultSettings!.cannonBallDirection) as CannonBallDirection;
 

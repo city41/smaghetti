@@ -24,7 +24,7 @@ const PipeCannonMini: Entity = {
 		graphicSets,
 	],
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [1, 0x96, x, y];
 	},
 

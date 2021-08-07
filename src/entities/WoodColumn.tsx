@@ -59,7 +59,7 @@ const WoodColumn: Entity = {
 		romOffset: 1501760,
 	},
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const width = settings.width ?? this.defaultSettings!.width;
 
 		return [getBankParam1(1, width - 1), y, x, this.objectId];
@@ -76,7 +76,7 @@ const WoodColumn: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const width = settings.width ?? this.defaultSettings!.width;
 
 		const style = {

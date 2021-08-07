@@ -143,11 +143,11 @@ const CannonRotating: Entity = {
 		romOffset: 1534952,
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [1, 0x93, x, y + 1];
 	},
 

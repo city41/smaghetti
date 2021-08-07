@@ -78,7 +78,7 @@ const WoodSupport: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 
@@ -91,7 +91,7 @@ const WoodSupport: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _onSettingsChange, entity, room) {
+	render({ entity, room }) {
 		const height = getHeight(entity, room);
 
 		const style = {

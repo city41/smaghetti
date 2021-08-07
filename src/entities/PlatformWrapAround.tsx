@@ -59,7 +59,7 @@ const PlatformWrapAround: Entity = {
 	settingsType: 'single',
 	defaultSettings: { width: 2, direction: 'down', count: 3 },
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const width = (settings.width ?? this.defaultSettings!.width) as Width;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
@@ -85,7 +85,7 @@ const PlatformWrapAround: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity, room) {
+	render({ settings, onSettingsChange, entity, room }) {
 		const width = (settings.width ?? this.defaultSettings!.width) as Width;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;

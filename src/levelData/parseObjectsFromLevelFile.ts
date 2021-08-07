@@ -65,7 +65,13 @@ function getRawByteLength(
 	if (matchingEntity) {
 		return {
 			isKnown: true,
-			rawByteLength: matchingEntity[1].toObjectBinary!(0, 0, 1, 1, {}).length,
+			rawByteLength: matchingEntity[1].toObjectBinary!({
+				x: 0,
+				y: 0,
+				w: 1,
+				h: 1,
+				settings: {},
+			}).length,
 		};
 	}
 

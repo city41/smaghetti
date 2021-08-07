@@ -49,7 +49,7 @@ const Coin: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w, h) {
+	toObjectBinary({ x, y, w, h }) {
 		return [getBankParam1(1, w), y, x, this.objectId, h];
 	},
 

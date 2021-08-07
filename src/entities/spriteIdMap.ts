@@ -1,5 +1,6 @@
 import { EntityType, entityMap } from './entityMap';
 
+// TODO: why do these still exist? are they needed? they need to go
 const bank1SpriteIdToEntityType: Record<number, EntityType> = (function () {
 	return Object.keys(entityMap).reduce<Record<number, EntityType>>(
 		(building, key) => {
@@ -9,7 +10,7 @@ const bank1SpriteIdToEntityType: Record<number, EntityType> = (function () {
 				return building;
 			}
 
-			const bytes = s.toSpriteBinary(0, 0, 1, 1, {});
+			const bytes = s.toSpriteBinary({ x: 0, y: 0, w: 1, h: 1, settings: {} });
 
 			// bank
 			if (bytes[0] !== 1) {
@@ -32,7 +33,7 @@ const bank0SpriteIdToEntityType: Record<number, EntityType> = (function () {
 				return building;
 			}
 
-			const bytes = s.toSpriteBinary(0, 0, 1, 1, {});
+			const bytes = s.toSpriteBinary({ x: 0, y: 0, w: 1, h: 1, settings: {} });
 
 			// bank
 			if (bytes[0] !== 0) {

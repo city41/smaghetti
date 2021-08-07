@@ -75,7 +75,7 @@ const ConveyorBelt: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const width = settings.width ?? 1;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
@@ -94,7 +94,7 @@ const ConveyorBelt: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const width = settings.width ?? this.defaultSettings!.width;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;

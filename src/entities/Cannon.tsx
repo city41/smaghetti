@@ -192,14 +192,14 @@ const Cannon: Entity = {
 		},
 	},
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const direction = getDirection(settings);
 		const objectId = directionToObjectId[direction];
 
 		return [0, y, x, objectId];
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const direction = getDirection(settings);
 		const payload = settings.payload ?? this.defaultSettings!.payload;
 
@@ -228,7 +228,7 @@ const Cannon: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange, entity) {
+	render({ showDetails, settings, onSettingsChange, entity }) {
 		const direction = getDirection(settings);
 		const resourceClass = directionToResourceClass[direction];
 

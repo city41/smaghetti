@@ -68,7 +68,7 @@ const Chest: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const payloadToObjectId = this.payloadToObjectId!;
 		const payload = (settings.payload ??
 			this.defaultSettings!.payload) as keyof typeof payloadToObjectId;
@@ -87,7 +87,7 @@ const Chest: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const body = (
 			<div
 				className="Chest-bg bg-cover relative cursor-pointer"
@@ -117,11 +117,7 @@ const Chest: Entity = {
 		}
 	},
 
-	getWarning(
-		_settings: EditorEntitySettings,
-		_entity: EditorEntity,
-		room: RoomData
-	) {
+	getWarning({ room }) {
 		const chests = room.actors.entities.filter((e) => e.type === 'Chest');
 		const firstChestPayload = chests[0].settings!.payload as EntityType;
 

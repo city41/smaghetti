@@ -55,7 +55,7 @@ const CoralDonutBlock: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, _w, h) {
+	toObjectBinary({ x, y, h }) {
 		return [getBankParam1(1, h), y, x, this.objectId];
 	},
 

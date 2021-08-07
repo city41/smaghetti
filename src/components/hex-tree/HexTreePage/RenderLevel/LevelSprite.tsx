@@ -19,7 +19,8 @@ function LevelSprite({ sprite, scale }: LevelSpriteProps) {
 		return (
 			!!e.toSpriteBinary &&
 			(e.objectId === sprite.id || e.alternateObjectIds?.includes(sprite.id)) &&
-			e.toSpriteBinary(0, 0, 1, 1, {})[0] === sprite.bank
+			e.toSpriteBinary({ x: 0, y: 0, w: 1, h: 1, settings: {} })[0] ===
+				sprite.bank
 		);
 	});
 
@@ -38,7 +39,11 @@ function LevelSprite({ sprite, scale }: LevelSpriteProps) {
 	const width = tileWidth * TILE_SIZE * scale;
 	const height = tileHeight * TILE_SIZE * scale;
 
-	const body = spriteDef?.render(false, {}, () => {});
+	const body = spriteDef?.render({
+		showDetails: false,
+		settings: {},
+		onSettingsChange: () => {},
+	});
 
 	if (body) {
 		return body;

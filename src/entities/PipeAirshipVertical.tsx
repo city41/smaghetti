@@ -35,7 +35,7 @@ const PipeAirshipVertical: Entity = {
 	alternateObjectIds: [nonTransportObjectId],
 	emptyBank: 1,
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const height = settings.height ?? 1;
 
 		const objectId = settings.destination
@@ -61,7 +61,7 @@ const PipeAirshipVertical: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 		const destination = settings.destination;
 

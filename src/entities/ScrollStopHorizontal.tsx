@@ -29,7 +29,7 @@ const ScrollStopHorizontal: Entity = {
 	settingsType: 'single',
 	defaultSettings: { direction: 'left' },
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
 		const objectId = directionToObjectId[direction];
@@ -56,7 +56,7 @@ const ScrollStopHorizontal: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
 
@@ -96,7 +96,7 @@ const ScrollStopHorizontal: Entity = {
 		);
 	},
 
-	getWarning(settings, entity) {
+	getWarning({ settings, entity }) {
 		const tx = entity.x / TILE_SIZE;
 		const delta = 15 - tx;
 		if (settings.direction === 'left' && delta > 0) {

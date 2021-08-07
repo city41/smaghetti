@@ -73,7 +73,7 @@ const BoomBoom: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		// 3 and 5 are likely the same params as koopalings have
 		// TODO: details pain for those params
 		return [1, this.objectId, x, y, 3, 5];

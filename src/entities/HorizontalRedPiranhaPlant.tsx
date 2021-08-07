@@ -49,7 +49,7 @@ const HorizontalRedPiranhaPlant: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		// fifth byte
 		// 0 -- face right
 		// 1 -- face left

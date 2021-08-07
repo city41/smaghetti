@@ -76,13 +76,19 @@ function getPipeExitType(
 
 export function getBasePipeProperties(type: EntityType) {
 	return {
-		getTransports(
-			room: number,
-			rooms: RoomData[],
-			x: number,
-			y: number,
-			settings: EditorEntitySettings
-		) {
+		getTransports({
+			room,
+			allRooms,
+			x,
+			y,
+			settings,
+		}: {
+			room: number;
+			allRooms: RoomData[];
+			x: number;
+			y: number;
+			settings: EditorEntitySettings;
+		}) {
 			const dest = settings.destination as DestinationSetProps;
 
 			let sourceY = y;
@@ -105,7 +111,7 @@ export function getBasePipeProperties(type: EntityType) {
 						y: sourceY,
 						room,
 						exitCategory: 'pipe',
-						exitType: getPipeExitType(dest, rooms) ?? 'up-from-pipe',
+						exitType: getPipeExitType(dest, allRooms) ?? 'up-from-pipe',
 					},
 				];
 			}
@@ -113,16 +119,17 @@ export function getBasePipeProperties(type: EntityType) {
 			return [];
 		},
 
-		getWarning(
-			settings: EditorEntitySettings,
-			_entity: EditorEntity,
-			_room: RoomData,
-			rooms: RoomData[]
-		) {
+		getWarning({
+			settings,
+			allRooms,
+		}: {
+			settings: EditorEntitySettings;
+			allRooms: RoomData[];
+		}) {
 			if (settings.destination) {
 				const exitType = getPipeExitType(
 					settings.destination as DestinationSetProps,
-					rooms
+					allRooms
 				);
 
 				if (!exitType) {

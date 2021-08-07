@@ -61,7 +61,7 @@ const QuestionBlockGiant: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const payloadToObjectId = this.payloadToObjectId!;
 		const payload = settings.payload ?? this.defaultSettings!.payload;
 		const objectId =
@@ -80,7 +80,7 @@ const QuestionBlockGiant: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const style = { width: TILE_SIZE * 2, height: TILE_SIZE * 2 };
 		const spaceStyle = { width: TILE_SIZE, height: TILE_SIZE };
 

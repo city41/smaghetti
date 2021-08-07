@@ -78,7 +78,7 @@ const Lakitu: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const payload = settings.payload ?? this.defaultSettings!.payload;
 		const eggId = this.payloadToObjectId![payload as ResourceType]!;
 		return [1, this.objectId, x, y, eggId];
@@ -94,7 +94,7 @@ const Lakitu: Entity = {
 		return <div className="Lakitu-bg bg-center bg-no-repeat" style={style} />;
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const style = {
 			width: TILE_SIZE,
 			height: TILE_SIZE * 2,

@@ -19,7 +19,7 @@ const HoppingBowserStatue: Entity = {
 	objectId: 0xf,
 	emptyBank: 0,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		// fifth byte drives behavior
 		// 0 - just a statue
 		// 1 - statute that shoots fire

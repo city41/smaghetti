@@ -19,7 +19,7 @@ const BlooperNanny: Entity = {
 	dimensions: 'none',
 	objectId: 0x61,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

@@ -81,7 +81,7 @@ const RopeRailing: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w) {
+	toObjectBinary({ x, y, w }) {
 		return [getBankParam1(1, w), y, x, this.objectId];
 	},
 
@@ -92,7 +92,7 @@ const RopeRailing: Entity = {
 		return <div className="RopeRailing-bg bg-repeat-x" style={style} />;
 	},
 
-	render(_showDetails, _settings, _onSettingsChange, entity, room) {
+	render({ entity, room }) {
 		const ropeToRight = isRopeToRight(entity, room);
 		const oneWide = isOneWide(entity, room);
 
@@ -104,7 +104,7 @@ const RopeRailing: Entity = {
 		return <div className="RopeRailing-bg bg-no-repeat" style={style} />;
 	},
 
-	getWarning(_settings, entity, room) {
+	getWarning({ entity, room }) {
 		if (isOneWide(entity, room)) {
 			return 'Must be at least 2 tiles wide';
 		}

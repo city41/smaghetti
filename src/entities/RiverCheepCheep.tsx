@@ -21,7 +21,7 @@ const RiverCheepCheep: Entity = {
 	dimensions: 'none',
 	objectId: 0x3b,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

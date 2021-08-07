@@ -50,7 +50,7 @@ const CheckeredPlatformCenter: Entity = {
 		romOffset: 1486172,
 	},
 
-	toObjectBinary(x, y, w) {
+	toObjectBinary({ x, y, w }) {
 		// this is totally different from just about all objects
 		// in the entire game
 		// docs: https://github.com/city41/smaghetti/wiki/Checkered-terrain

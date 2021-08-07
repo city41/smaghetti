@@ -17,7 +17,7 @@ const ClappingChuck: Entity = {
 	dimensions: 'none',
 	objectId: 0x9b,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		// last byte: 0 = charging, 1 = clapping
 		return [0, this.objectId, x, y, 1];
 	},

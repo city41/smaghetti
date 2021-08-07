@@ -73,7 +73,7 @@ const GiantCannonBall: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
 		const spriteId = directionToSpriteId[direction];
@@ -90,7 +90,7 @@ const GiantCannonBall: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
 

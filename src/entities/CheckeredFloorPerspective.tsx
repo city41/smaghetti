@@ -156,7 +156,7 @@ const CheckeredFloorPerspective: Entity = {
 		romOffset: 1253344,
 	},
 
-	toObjectBinary(x, y, w, h) {
+	toObjectBinary({ x, y, w, h }) {
 		return [getBankParam1(1, h), y, x, this.objectId, w];
 	},
 
@@ -169,7 +169,7 @@ const CheckeredFloorPerspective: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _osc, entity, room) {
+	render({ entity, room }) {
 		const style = { width: TILE_SIZE, height: TILE_SIZE };
 		const checkeredAbove = isCheckeredAbove(entity, room);
 
@@ -187,7 +187,7 @@ const CheckeredFloorPerspective: Entity = {
 		}
 	},
 
-	getWarning(_settings, entity, room) {
+	getWarning({ entity, room }) {
 		const moreThanOneAbove = isMoreThanOneAbove(entity, room);
 
 		if (moreThanOneAbove) {

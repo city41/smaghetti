@@ -86,7 +86,7 @@ const CloudPlatformThin: Entity = {
 		romOffset: 1253344,
 	},
 
-	toObjectBinary(x, y, w) {
+	toObjectBinary({ x, y, w }) {
 		return [getBankParam1(1, w), y, x, this.objectId];
 	},
 
@@ -99,7 +99,7 @@ const CloudPlatformThin: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _onSettingsChange, entity, room) {
+	render({ entity, room }) {
 		const platformToLeft = isPlatformToLeft(entity, room);
 		const platformToRight = isPlatformToRight(entity, room);
 
@@ -127,7 +127,7 @@ const CloudPlatformThin: Entity = {
 		return <div style={style} className="CloudPlatformThin-bg" />;
 	},
 
-	getWarning(_settings, entity, room) {
+	getWarning({ entity, room }) {
 		const platformToLeft = isPlatformToLeft(entity, room);
 		const platformToRight = isPlatformToRight(entity, room);
 

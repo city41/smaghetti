@@ -61,7 +61,7 @@ const Thwomp: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const pursuit = (settings.pursuit ??
 			this.defaultSettings!.pursuit) as Pursuit;
 		const objectId = pursuitToObjectId[pursuit];
@@ -78,7 +78,7 @@ const Thwomp: Entity = {
 		return <div className="Thwomp-bg bg-center bg-no-repeat" style={style} />;
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const pursuit = (settings.pursuit ??
 			this.defaultSettings!.pursuit) as Pursuit;
 

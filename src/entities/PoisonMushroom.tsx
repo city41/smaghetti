@@ -16,7 +16,7 @@ const PoisonMushroom: Entity = {
 	dimensions: 'none',
 	objectId: 0xf1,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

@@ -38,7 +38,13 @@ function MatrixRow({ entities, room, startingX, y, width }: MatrixRowProps) {
 
 		return (
 			<div key={t.id} style={style}>
-				{entityMap[t.type].render(false, t.settings ?? {}, () => {}, t, room)}
+				{entityMap[t.type].render({
+					showDetails: false,
+					settings: t.settings ?? {},
+					onSettingsChange: () => {},
+					entity: t,
+					room,
+				})}
 			</div>
 		);
 	});
@@ -83,8 +89,13 @@ function Entities({
 		}
 
 		const body =
-			entityMap[e.type]?.render(false, e.settings ?? {}, () => {}, e, room) ??
-			null;
+			entityMap[e.type]?.render({
+				showDetails: false,
+				settings: e.settings ?? {},
+				onSettingsChange: () => {},
+				entity: e,
+				room,
+			}) ?? null;
 
 		return (
 			<div

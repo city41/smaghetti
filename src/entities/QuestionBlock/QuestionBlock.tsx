@@ -63,7 +63,7 @@ const QuestionBlock: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w, h, settings) {
+	toObjectBinary({ x, y, w, h, settings }) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		if (settings.payload in payloadToObjectId) {
@@ -95,7 +95,7 @@ const QuestionBlock: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const body = (
 			<div
 				className="QuestionBlock-bg bg-cover relative cursor-pointer"
@@ -126,7 +126,7 @@ const QuestionBlock: Entity = {
 		}
 	},
 
-	getWarning(settings) {
+	getWarning({ settings }) {
 		const { payload } = settings;
 		if (payload === 'PWing') {
 			return `${payload} might look garbled when playing. Smaghetti isn't smart enough yet to prevent this.`;

@@ -20,7 +20,7 @@ const RedParaTroopa: Entity = {
 	dimensions: 'none',
 	objectId: 0x6f,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

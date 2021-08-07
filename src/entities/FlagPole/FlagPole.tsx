@@ -55,11 +55,11 @@ const FlagPole: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [1, this.objectId, x, y + 1];
 	},
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 		return [
 			getBankParam1(1, Math.min(Math.max(height, MIN_HEIGHT), MAX_HEIGHT) - 3),
@@ -99,7 +99,7 @@ const FlagPole: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 
 		const style = {

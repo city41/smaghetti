@@ -167,7 +167,7 @@ const WoodFloorSnowCovered: Entity = {
 		},
 	},
 
-	toObjectBinary(x, y, w) {
+	toObjectBinary({ x, y, w }) {
 		return [0x40, y, x, this.objectId, w];
 	},
 
@@ -180,7 +180,7 @@ const WoodFloorSnowCovered: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _onSettingsChange, entity, room) {
+	render({ entity, room }) {
 		if (!entity) {
 			return this.simpleRender(TILE_SIZE);
 		}
@@ -203,7 +203,7 @@ const WoodFloorSnowCovered: Entity = {
 		);
 	},
 
-	getWarning(_settings, entity, room) {
+	getWarning({ entity, room }) {
 		const platformToLeft = isFloorToLeft(entity, room);
 		const platformToRight = isFloorToRight(entity, room);
 

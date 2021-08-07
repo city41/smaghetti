@@ -22,7 +22,7 @@ const PSwitchDoor: Entity = {
 	dimensions: 'none',
 	objectId: 0x8,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 
@@ -37,11 +37,7 @@ const PSwitchDoor: Entity = {
 		);
 	},
 
-	render(
-		showDetails: boolean,
-		settings: EditorEntitySettings,
-		onSettingsChange: (newSettings: EditorEntitySettings) => void
-	) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const style = {
 			width: TILE_SIZE,
 			height: TILE_SIZE * 2,
@@ -81,15 +77,10 @@ const PSwitchDoor: Entity = {
 		}
 	},
 
-	getWarning(
-		settings: EditorEntitySettings,
-		_entity: EditorEntity,
-		_room: RoomData,
-		rooms: RoomData[]
-	) {
+	getWarning({ settings, allRooms }) {
 		if (settings.destination) {
 			const destination = settings.destination as DestinationSetProps;
-			const destRoom = rooms[destination.room];
+			const destRoom = allRooms[destination.room];
 
 			// the dest should be on top of a pipe
 			const destEntity = destRoom.stage.entities.find((e) => {
@@ -112,13 +103,7 @@ const PSwitchDoor: Entity = {
 		}
 	},
 
-	getTransports(
-		room: number,
-		_rooms: RoomData[],
-		x: number,
-		y: number,
-		settings: EditorEntitySettings
-	) {
+	getTransports({ room, x, y, settings }) {
 		const dest = settings.destination;
 
 		if (dest) {

@@ -33,7 +33,7 @@ const UpwardWaterCurrentNarrow: Entity = {
 	dimensions: 'none',
 	objectId: 0x65,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

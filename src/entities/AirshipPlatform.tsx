@@ -212,7 +212,7 @@ const AirshipPlatform: Entity = {
 		},
 	},
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 		const cap = (settings.cap ?? this.defaultSettings!.cap) as Cap;
 
@@ -251,7 +251,7 @@ const AirshipPlatform: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const width = settings.width ?? this.defaultSettings!.width;
 		const cap = (settings.cap ?? this.defaultSettings!.cap) as Cap;
 

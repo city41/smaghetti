@@ -60,7 +60,7 @@ const NumberBlock: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w, h, settings): number[] {
+	toObjectBinary({ x, y, w, h, settings }) {
 		const payload = settings.payload ?? this.defaultSettings!.payload;
 
 		const payloadId = this.payloadToObjectId![payload as EntityType];
@@ -77,7 +77,7 @@ const NumberBlock: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const payload = settings.payload ?? this.defaultSettings!.payload;
 
 		const body = (

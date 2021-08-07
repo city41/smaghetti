@@ -55,8 +55,7 @@ const FireBar: Entity = {
 		tiles: [[290], [306]],
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings): number[] {
-		// todo: 3 means 4 fireballs counterclockwise, need a details pane to let user choose
+	toSpriteBinary({ x, y, settings }) {
 		const rotation = settings.rotation ?? this.defaultSettings!.rotation;
 		const pivot = settings.pivot ?? this.defaultSettings!.pivot;
 		const count = settings.count ?? this.defaultSettings!.count;
@@ -77,7 +76,7 @@ const FireBar: Entity = {
 		return <div className="FireBar-bg bg-center bg-no-repeat" style={style} />;
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const FIREBALL_SIZE = TILE_SIZE - 5;
 
 		const actualSettings = {

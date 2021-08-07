@@ -18,8 +18,8 @@ function getRawByteLength(bank: number, id: number): number {
 		return (
 			!!e.toSpriteBinary &&
 			(e.objectId === id || e.alternateObjectIds?.includes(id)) &&
-			e.toSpriteBinary(0, 0, 1, 1, {})[0] === bank &&
-			e.toSpriteBinary(0, 0, 1, 1, {})[1] === id
+			e.toSpriteBinary({ x: 0, y: 0, w: 1, h: 1, settings: {} })[0] === bank &&
+			e.toSpriteBinary({ x: 0, y: 0, w: 1, h: 1, settings: {} })[1] === id
 		);
 	});
 
@@ -30,7 +30,13 @@ function getRawByteLength(bank: number, id: number): number {
 	// TODO: once get decent at reverse engineering, should have a very solid
 	// way to do all this *cross fingers*
 	if (matchingEntity && !(bank === 1 && id === 5)) {
-		return matchingEntity[1].toSpriteBinary!(0, 0, 1, 1, {}).length;
+		return matchingEntity[1].toSpriteBinary!({
+			x: 0,
+			y: 0,
+			w: 1,
+			h: 1,
+			settings: {},
+		}).length;
 	}
 
 	const fullId = id ^ (bank << 8);

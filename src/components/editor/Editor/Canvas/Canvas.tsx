@@ -523,7 +523,11 @@ const Canvas = memo(function Canvas({
 							opacity: 0.3,
 						}}
 					>
-						{entityMap[currentPaletteEntry].render(false, {}, () => {})}
+						{entityMap[currentPaletteEntry].render({
+							showDetails: false,
+							settings: {},
+							onSettingsChange: () => {},
+						})}
 					</div>
 				)}
 				<div className={styles.grid} style={tileGridStyles} />

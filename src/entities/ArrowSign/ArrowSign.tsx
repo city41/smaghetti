@@ -65,7 +65,7 @@ const ArrowSign: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, _w, _h, settings): number[] {
+	toObjectBinary({ x, y, settings }) {
 		const direction = settings?.direction ?? this.defaultSettings!.direction;
 
 		return [
@@ -88,7 +88,7 @@ const ArrowSign: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const baseStyle = {
 			width: TILE_SIZE * 2,
 			height: TILE_SIZE * 2,

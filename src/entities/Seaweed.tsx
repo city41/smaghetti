@@ -90,7 +90,7 @@ const Seaweed: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, _w, h) {
+	toObjectBinary({ x, y, h }) {
 		return [getBankParam1(1, h), y, x, this.objectId];
 	},
 
@@ -103,7 +103,7 @@ const Seaweed: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _onSettingsChange, entity, room) {
+	render({ entity, room }) {
 		const offset = isSeaweedAbove(entity, room) ? -TILE_SIZE : 0;
 
 		const style = {

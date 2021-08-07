@@ -3,6 +3,50 @@ import { Resource } from '../resources/types';
 import { EntityType } from './entityMap';
 import { ResourceType } from '../resources/resourceMap';
 
+type toObjectBinaryProps = {
+	x: number;
+	y: number;
+	w: number;
+	h: number;
+	settings: EditorEntitySettings;
+	entity?: EditorEntity;
+	room?: RoomData;
+};
+
+type toSpriteBinaryProps = {
+	x: number;
+	y: number;
+	w: number;
+	h: number;
+	settings: EditorEntitySettings;
+	entity?: EditorEntity;
+	room?: RoomData;
+};
+
+type getTransportProps = {
+	room: number;
+	allRooms: RoomData[];
+	x: number;
+	y: number;
+	settings: EditorEntitySettings;
+};
+
+type renderProps = {
+	showDetails: boolean;
+	settings: EditorEntitySettings;
+	onSettingsChange: (newSettings: EditorEntitySettings) => void;
+	entity?: EditorEntity;
+	room?: RoomData;
+	allRooms?: RoomData[];
+};
+
+type getWarningProps = {
+	settings: EditorEntitySettings;
+	entity: EditorEntity;
+	room: RoomData;
+	allRooms: RoomData[];
+};
+
 type SpriteGraphicSet = number | number[];
 type SpriteGraphicSets = [
 	SpriteGraphicSet,
@@ -64,9 +108,10 @@ type Entity = {
 	/**
 	 * which sprite graphic set values does this entity need? If not specified,
 	 * it doesn't care (mushroom, objects) otherwise it will specify the value(s)
-	 * at the indices it needs. for example [0, 0, 0, 2, 0, 0] means it only cares
-	 * about index 3, and it must be set to 2. [0, 0, 0, [1, 2], 0, 0] means it
-	 * only cares about index 3, and it can be 1 or 2
+	 * at the indices it needs. for example [-1, -1, -1, 2, -1, -1] means it only cares
+	 * about index 3, and it must be set to 2. [-1, -1, -1, [1, 2], -1, -1] means it
+	 * only cares about index 3, and it can be 1 or 2. Note that 0 is a valid graphic set value, so
+	 * if an entity declares zero, it means that slot must be zero.
 	 */
 	spriteGraphicSets: SpriteGraphicSets;
 
@@ -87,6 +132,7 @@ type Entity = {
 
 	layer: 'actor' | 'stage';
 	editorType: 'entity' | 'cell';
+
 	/**
 	 * When placing this entity in the palette choice modal, which category should it go under.
 	 * If this is absent, the entity will be placed in "unfinished"
@@ -131,7 +177,9 @@ type Entity = {
 	 * Mostly used by HexTree
 	 */
 	payloadToObjectId?: Partial<Record<EntityType | ResourceType, number>>;
-	// TODO: I think group settings is coming, but if not, switch to boolean
+
+	// TODO: this isn't really needed. The presence of defaultSettings indicates
+	// an entity is configurable
 	settingsType?: 'single';
 	defaultSettings?: EditorEntitySettings;
 
@@ -146,56 +194,18 @@ type Entity = {
 	 */
 	resources?: Record<string, Resource>;
 
-	toObjectBinary?: (
-		x: number,
-		y: number,
-		w: number,
-		h: number,
-		settings: EditorEntitySettings,
-		entity?: EditorEntity,
-		room?: RoomData
-	) => number[];
-
-	toSpriteBinary?: (
-		x: number,
-		y: number,
-		w: number,
-		h: number,
-		settings: EditorEntitySettings,
-		entity?: EditorEntity,
-		room?: RoomData
-	) => number[];
-
-	getTransports?: (
-		room: number,
-		rooms: RoomData[],
-		x: number,
-		y: number,
-		settings: EditorEntitySettings
-	) => EditorTransport[];
-
+	toObjectBinary?: (arg: toObjectBinaryProps) => number[];
+	toSpriteBinary?: (arg: toSpriteBinaryProps) => number[];
+	getTransports?: (args: getTransportProps) => EditorTransport[];
 	simpleRender: (size: number) => ReactElement;
-
-	render: (
-		showDetails: boolean,
-		settings: EditorEntitySettings,
-		onSettingsChange: (newSettings: EditorEntitySettings) => void,
-		entity?: EditorEntity,
-		room?: RoomData,
-		allRooms?: RoomData[]
-	) => ReactElement | null;
+	render: (arg: renderProps) => ReactElement | null;
 
 	/**
 	 * Entities can implement this to emit warnings.
 	 * If they have a warning, they will get rendered with a warning
 	 * icon and a red border, clicking the icon shows the warning.
 	 */
-	getWarning?: (
-		settings: EditorEntitySettings,
-		entity: EditorEntity,
-		room: RoomData,
-		allRooms: RoomData[]
-	) => string | null | void;
+	getWarning?: (arg: getWarningProps) => string | null | void;
 };
 
 export type {

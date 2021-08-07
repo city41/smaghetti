@@ -978,7 +978,7 @@ const TanMetalBricksSmallPyramid: Entity = {
 		romOffset: 0x16ea40,
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x + 4, this.objectId];
 	},
 

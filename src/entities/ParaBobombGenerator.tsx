@@ -49,7 +49,7 @@ const ParaBobombGenerator: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		if (x % 2 === 0) {
 			// if not at an odd x, don't emit it, otherwise it will
 			// be a galoomba generator. The user gets a warning so it's ok
@@ -80,7 +80,7 @@ const ParaBobombGenerator: Entity = {
 		return this.simpleRender(TILE_SIZE);
 	},
 
-	getWarning(_settings, entity, room) {
+	getWarning({ entity, room }) {
 		const player = room.actors.entities.find((e) => e.type === 'Player')!;
 
 		const px = player.x / TILE_SIZE;

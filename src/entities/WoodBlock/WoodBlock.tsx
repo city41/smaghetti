@@ -62,7 +62,7 @@ const WoodBlock: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w, h, settings) {
+	toObjectBinary({ x, y, w, h, settings }) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		if (settings.payload in payloadToObjectId) {
@@ -94,7 +94,7 @@ const WoodBlock: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const body = (
 			<div
 				className="WoodBlock-bg bg-cover relative cursor-pointer"

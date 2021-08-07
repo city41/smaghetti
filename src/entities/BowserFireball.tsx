@@ -19,7 +19,7 @@ const BowserFireball: Entity = {
 	dimensions: 'none',
 	objectId: 0x75,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		// return [0, this.objectId, x, y];
 		return [0, 0x75, x, y];
 	},

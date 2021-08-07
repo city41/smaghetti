@@ -367,15 +367,15 @@ function getObjects(layer: RoomLayer, room: RoomData): number[] {
 			const height = bestY - tile.y;
 
 			objects.push(
-				...objectDef.toObjectBinary(
+				...objectDef.toObjectBinary({
 					x,
-					y + 1,
-					length,
-					height,
-					tile.settings ?? {},
-					tile,
-					room
-				)
+					y: y + 1,
+					w: length,
+					h: height,
+					settings: tile.settings ?? {},
+					entity: tile,
+					room,
+				})
 			);
 
 			erase(tile.y, bestY, tile.x, endXTile.x);
@@ -390,15 +390,15 @@ function getObjects(layer: RoomLayer, room: RoomData): number[] {
 		}
 
 		return building.concat(
-			entityDef.toObjectBinary(
-				e.x / TILE_SIZE,
-				e.y / TILE_SIZE + 1,
-				1,
-				1,
-				e.settings ?? {},
-				e,
-				room
-			)
+			entityDef.toObjectBinary({
+				x: e.x / TILE_SIZE,
+				y: e.y / TILE_SIZE + 1,
+				w: 1,
+				h: 1,
+				settings: e.settings ?? {},
+				entity: e,
+				room,
+			})
 		);
 	}, []);
 
@@ -427,15 +427,15 @@ function getSprites(entities: EditorEntity[], room: RoomData): number[] {
 				: Math.floor(entity.y / TILE_SIZE);
 
 		return building.concat(
-			entityDef.toSpriteBinary(
+			entityDef.toSpriteBinary({
 				x,
-				y + 1,
-				1,
-				1,
-				entity.settings ?? {},
+				y: y + 1,
+				w: 1,
+				h: 1,
+				settings: entity.settings ?? {},
 				entity,
-				room
-			)
+				room,
+			})
 		);
 	}, []);
 }
@@ -453,13 +453,13 @@ function getTransports(
 		}
 
 		return building.concat(
-			entityDef.getTransports(
-				roomIndex,
+			entityDef.getTransports({
+				room: roomIndex,
 				allRooms,
-				Math.floor(e.x / TILE_SIZE),
-				Math.floor(e.y / TILE_SIZE),
-				e.settings ?? {}
-			)
+				x: Math.floor(e.x / TILE_SIZE),
+				y: Math.floor(e.y / TILE_SIZE),
+				settings: e.settings ?? {},
+			})
 		);
 	}, []);
 

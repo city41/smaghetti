@@ -74,7 +74,7 @@ const Vine: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0x40, y, x, this.objectId];
 	},
 
@@ -84,7 +84,7 @@ const Vine: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _onSettingsChange, entity, room) {
+	render({ entity, room }) {
 		const height = getHeight(entity, room);
 
 		const style = {

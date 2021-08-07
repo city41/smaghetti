@@ -59,7 +59,7 @@ const TriangularBlock: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const angle = (settings.angle ?? 0) % 360;
 		return [0, y, x, angleToObjectId[angle]];
 	},
@@ -73,7 +73,7 @@ const TriangularBlock: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		return (
 			<AngleEditDetails
 				width={TILE_SIZE}

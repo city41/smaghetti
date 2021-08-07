@@ -54,7 +54,7 @@ const PipeVertical: Entity = {
 	),
 	emptyBank: 1,
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const height = settings.height ?? 1;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as PipeDirection;
@@ -80,7 +80,7 @@ const PipeVertical: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as PipeDirection;

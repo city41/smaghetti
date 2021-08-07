@@ -60,7 +60,7 @@ const Burner: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, _settings, entity, room) {
+	toSpriteBinary({ x, y, entity, room }) {
 		if (isBurnerAbove(entity, room)) {
 			return [];
 		}
@@ -69,7 +69,7 @@ const Burner: Entity = {
 		return [0, 0x9d, x, y - 3];
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 

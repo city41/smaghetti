@@ -79,7 +79,7 @@ const BowserFireGenerator: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [1, this.objectId, x, y];
 	},
 
@@ -103,7 +103,7 @@ const BowserFireGenerator: Entity = {
 		return this.simpleRender(TILE_SIZE);
 	},
 
-	getWarning(_settings, entity, room) {
+	getWarning({ entity, room }) {
 		const player = room.actors.entities.find((e) => e.type === 'Player')!;
 
 		const px = player.x / TILE_SIZE;

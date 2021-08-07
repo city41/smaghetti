@@ -78,7 +78,7 @@ const PoolOfWater: Entity = {
 		tiles: [[420, 421]],
 	},
 
-	toObjectBinary(x, y, w, h): number[] {
+	toObjectBinary({ x, y, w, h }) {
 		return [getBankParam1(1, h), y, x, this.objectId, w];
 	},
 
@@ -99,7 +99,7 @@ const PoolOfWater: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _osc, entity, room) {
+	render({ entity, room }) {
 		const waterAbove = isWaterAbove(entity, room);
 		const tallerThanOne = isTallerThanOne(entity, room);
 		const style = {

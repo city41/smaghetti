@@ -461,7 +461,7 @@ const BackgroundHillsStripedLarge: Entity = {
 		romOffset: 1455976,
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 

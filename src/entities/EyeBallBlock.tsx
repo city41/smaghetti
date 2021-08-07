@@ -51,7 +51,7 @@ const EyeBallBlock: Entity = {
 		romOffset: 0x16ea40,
 	},
 
-	toObjectBinary(x, y, w, h) {
+	toObjectBinary({ x, y, w, h }) {
 		return [getBankParam1(1, h), y, x, this.objectId, w];
 	},
 

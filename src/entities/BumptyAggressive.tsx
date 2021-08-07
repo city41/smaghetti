@@ -17,7 +17,7 @@ const BumptyAggressive: Entity = {
 	dimensions: 'none',
 	objectId: 0xf3,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

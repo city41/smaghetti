@@ -94,7 +94,7 @@ const WoodWindowFrame: Entity = {
 		romOffset: 1501760,
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 

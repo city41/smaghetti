@@ -48,7 +48,7 @@ const PSwitch: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 

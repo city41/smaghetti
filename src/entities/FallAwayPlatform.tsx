@@ -44,7 +44,7 @@ const FallAwayPlatform: Entity = {
 		tiles: [[224, 225, 226, 227]],
 	},
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

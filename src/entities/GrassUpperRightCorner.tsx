@@ -52,7 +52,7 @@ const GrassUpperRightCorner: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 

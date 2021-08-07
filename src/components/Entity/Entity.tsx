@@ -56,19 +56,19 @@ function Entity({
 	const entityDef = entityMap[entity.type];
 
 	const body =
-		entityDef?.render(
-			!!soleFocused && !dragging && !showWarning,
+		entityDef?.render({
+			showDetails: !!soleFocused && !dragging && !showWarning,
 			settings,
-			onEntitySettingsChange,
+			onSettingsChange: onEntitySettingsChange,
 			entity,
 			room,
-			rooms
-		) ?? null;
+			allRooms: rooms,
+		}) ?? null;
 
 	const warning =
 		room &&
 		rooms &&
-		(entityDef.getWarning?.(settings, entity, room, rooms) ||
+		(entityDef.getWarning?.({ settings, entity, room, allRooms: rooms }) ||
 			getTwoColumnWarning(entity, room));
 
 	return (

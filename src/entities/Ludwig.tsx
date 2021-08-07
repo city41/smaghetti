@@ -55,7 +55,7 @@ const Ludwig: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const fireballCount = (settings.fireballCount ??
 			this.defaultSettings!.fireballCount) as number;
 		const stompCount = (settings.stompCount ??
@@ -77,7 +77,7 @@ const Ludwig: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const stompCount = (settings.stompCount ??
 			this.defaultSettings!.stompCount) as number;
 		const fireballCount = (settings.fireballCount ??

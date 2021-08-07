@@ -92,7 +92,7 @@ const StoneSupport: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, _w, h, _settings, entity, room) {
+	toObjectBinary({ x, y, h, entity, room }) {
 		if (shouldBeInShadow(entity, room)) {
 			if (h === 0) {
 				return [getBankParam1(1, 0), y, x, this.objectId];
@@ -122,7 +122,7 @@ const StoneSupport: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _osc, entity, room) {
+	render({ entity, room }) {
 		const position = getPosition(entity, room);
 		const offset = shouldBeInShadow(entity, room) ? 0 : (position % 3) + 1;
 

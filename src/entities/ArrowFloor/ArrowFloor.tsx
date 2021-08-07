@@ -81,7 +81,7 @@ const ArrowFloor: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w) {
+	toObjectBinary({ x, y, w }) {
 		return [getBankParam1(1, w), y, x, this.objectId];
 	},
 

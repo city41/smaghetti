@@ -31,7 +31,7 @@ const Coin2: Entity = {
 	param1: 'other',
 	param2: 'width',
 
-	toObjectBinary(x, y, w) {
+	toObjectBinary({ x, y, w }) {
 		return [getBankParam1(1, 1), y, x, this.objectId, w];
 	},
 

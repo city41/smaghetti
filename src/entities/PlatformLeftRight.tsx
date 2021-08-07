@@ -39,7 +39,7 @@ const PlatformLeftRight: Entity = {
 	settingsType: 'single',
 	defaultSettings: { width: 3, speed: 'slow', range: 0x10 },
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const range = (settings.range ?? this.defaultSettings!.range) as number;
 		const width = (settings.width ?? this.defaultSettings!.width) as Width;
 		const speed = (settings.speed ?? this.defaultSettings!.speed) as Speed;
@@ -69,7 +69,7 @@ const PlatformLeftRight: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const width = (settings.width ?? this.defaultSettings!.width) as Width;
 		const speed = (settings.speed ?? this.defaultSettings!.speed) as Speed;
 		const range = (settings.range ?? this.defaultSettings!.range) as number;

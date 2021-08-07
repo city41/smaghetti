@@ -19,17 +19,11 @@ const WarpArea: Entity = {
 	dimensions: 'none',
 	objectId: 0x0,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [1, this.objectId, x, y, 0];
 	},
 
-	getTransports(
-		room: number,
-		_rooms: RoomData[],
-		x: number,
-		y: number,
-		settings: EditorEntitySettings
-	) {
+	getTransports({ room, x, y, settings }) {
 		const dest = settings.destination;
 
 		if (dest) {
@@ -63,7 +57,7 @@ const WarpArea: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const destination = settings.destination;
 
 		const style = { width: TILE_SIZE, height: TILE_SIZE * 2, fontSize: 3 };

@@ -76,7 +76,7 @@ const AmazingFlyinHammerBro: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, _settings, entity, room) {
+	toSpriteBinary({ x, y, entity, room }) {
 		const objectId = isRidingWingedPlatform(entity, room) ? 0x2 : 0xd9;
 		return [0, objectId, x, y];
 	},

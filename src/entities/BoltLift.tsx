@@ -18,7 +18,7 @@ const BoltLift: Entity = {
 	dimensions: 'none',
 	objectId: 0xae,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

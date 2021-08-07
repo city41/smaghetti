@@ -67,7 +67,7 @@ const PipeVerticalMini: Entity = {
 		romOffset: 0x17a894,
 	},
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const height = settings.height ?? 1;
 
 		return [getBankParam1(1, height - 1), y, x, this.objectId];
@@ -84,7 +84,7 @@ const PipeVerticalMini: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 
 		const style = {

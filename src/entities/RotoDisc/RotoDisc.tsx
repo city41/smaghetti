@@ -50,8 +50,8 @@ const RotoDisc: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y): number[] {
-		// todo: other objectIds for other rotodiscs
+	toSpriteBinary({ x, y }) {
+		// TODO: other objectIds for other rotodiscs
 		// 5b - single counterclockwise
 		// 5e - double, starts from side
 		// 5f - double, starts from top

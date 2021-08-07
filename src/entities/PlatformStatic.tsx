@@ -26,7 +26,7 @@ const PlatformStatic: Entity = {
 	settingsType: 'single',
 	defaultSettings: { width: 3 },
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const width = (settings.width ?? this.defaultSettings!.width) as Width;
 
 		const widthByte = width === 3 ? 0 : 0x80;
@@ -44,7 +44,7 @@ const PlatformStatic: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const width = (settings.width ?? this.defaultSettings!.width) as Width;
 
 		const pieceStyle = {

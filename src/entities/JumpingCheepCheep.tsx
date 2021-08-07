@@ -20,7 +20,7 @@ const JumpingCheepCheep: Entity = {
 	dimensions: 'none',
 	objectId: 0x43,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

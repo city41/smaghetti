@@ -48,7 +48,7 @@ const BulletBillGeneratorCardinal: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		// at odd x's, it shoots diagonally. That is a BulletBillGeneratorDiagonal. The user
 		// was warned to place this entity at an even x, so emitting nothing is OK.
 		if (x % 2 === 1) {
@@ -78,7 +78,7 @@ const BulletBillGeneratorCardinal: Entity = {
 		return this.simpleRender(TILE_SIZE);
 	},
 
-	getWarning(_settings, entity, room) {
+	getWarning({ entity, room }) {
 		const player = room.actors.entities.find((e) => e.type === 'Player')!;
 
 		const px = player.x / TILE_SIZE;

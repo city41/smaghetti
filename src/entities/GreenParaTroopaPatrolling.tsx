@@ -22,7 +22,7 @@ const GreenParaTroopaPatrolling: Entity = {
 	dimensions: 'none',
 	objectId: 0x80,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

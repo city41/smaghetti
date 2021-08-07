@@ -51,7 +51,7 @@ const BowserDoor: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0x40, y, x, this.objectId];
 	},
 

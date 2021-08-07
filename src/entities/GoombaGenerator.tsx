@@ -34,7 +34,7 @@ const GoombaGenerator: Entity = {
 	settingsType: 'single',
 	defaultSettings: { direction: 'right' },
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
 
@@ -53,7 +53,7 @@ const GoombaGenerator: Entity = {
 		return <GeneratorFrame size={size} className="Goomba-bg" style={style} />;
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const style = {
 			backgroundPositionX: '20%',
 			backgroundPositionY: '25%',

@@ -55,7 +55,7 @@ const StretchBlock: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const orientation =
 			settings.orientation ?? this.defaultSettings!.orientation;
 		const objectId =
@@ -77,7 +77,7 @@ const StretchBlock: Entity = {
 	},
 
 	// TODO: this is such a mess...
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const singleBlockStyle = {
 			width: TILE_SIZE,
 			height: TILE_SIZE,

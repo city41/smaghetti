@@ -22,7 +22,7 @@ const GreenParaTroopa: Entity = {
 	dimensions: 'none',
 	objectId: 0x6e,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

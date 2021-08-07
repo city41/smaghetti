@@ -82,7 +82,7 @@ const Bubble: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		if (settings.payload in payloadToObjectId) {
@@ -106,7 +106,7 @@ const Bubble: Entity = {
 		return <div className="Bubble-bg bg-center bg-no-repeat" style={style} />;
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const style = {
 			width: TILE_SIZE * 2,
 			height: TILE_SIZE * 2,

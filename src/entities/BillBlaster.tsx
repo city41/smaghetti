@@ -50,13 +50,13 @@ const BillBlaster: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		// 0x90 is bullet bill
 		// TODO: support flames
 		return [1, 0x90, x, y];
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 

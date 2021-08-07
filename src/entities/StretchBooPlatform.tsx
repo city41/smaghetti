@@ -83,7 +83,7 @@ const StretchBooPlatform: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w) {
+	toObjectBinary({ x, y, w }) {
 		return [getBankParam1(1, w), y, x, this.objectId];
 	},
 
@@ -96,7 +96,7 @@ const StretchBooPlatform: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _onSettingsChange, entity, room) {
+	render({ entity, room }) {
 		const platformToLeft = isPlatformToLeft(entity, room);
 		const platformToRight = isPlatformToRight(entity, room);
 
@@ -115,7 +115,7 @@ const StretchBooPlatform: Entity = {
 		);
 	},
 
-	getWarning(_settings, entity, room) {
+	getWarning({ entity, room }) {
 		const platformToLeft = isPlatformToLeft(entity, room);
 		const platformToRight = isPlatformToRight(entity, room);
 

@@ -53,7 +53,7 @@ const Tornado: Entity = {
 		tiles: [[163]],
 	},
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

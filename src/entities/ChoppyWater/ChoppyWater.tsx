@@ -66,7 +66,7 @@ const ChoppyWater: Entity = {
 		tiles: [[199]],
 	},
 
-	toObjectBinary(x, y, w, h): number[] {
+	toObjectBinary({ x, y, w, h }): number[] {
 		return [getBankParam1(1, h), y, x, this.objectId, w];
 	},
 
@@ -87,7 +87,7 @@ const ChoppyWater: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _osc, entity, room) {
+	render({ entity, room }) {
 		const waterAbove = isWaterAbove(entity, room);
 		const style = {
 			width: TILE_SIZE,

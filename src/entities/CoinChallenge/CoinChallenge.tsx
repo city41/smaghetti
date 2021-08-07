@@ -58,7 +58,7 @@ const CoinChallenge: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const count = settings.count ?? this.defaultSettings!.count;
 		return [0, this.objectId, x, y, count];
 	},
@@ -72,7 +72,7 @@ const CoinChallenge: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const count = settings.count ?? this.defaultSettings!.count;
 		const style = { width: TILE_SIZE, height: TILE_SIZE };
 
@@ -105,11 +105,7 @@ const CoinChallenge: Entity = {
 		}
 	},
 
-	getWarning(
-		_settings: EditorEntitySettings,
-		_entity: EditorEntity,
-		room: RoomData
-	) {
+	getWarning({ room }) {
 		const coinChallenges = room.actors.entities.filter(
 			(e) => e.type === 'CoinChallenge'
 		);

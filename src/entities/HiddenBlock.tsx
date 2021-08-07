@@ -42,7 +42,7 @@ const HiddenBlock: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, _w, _h, settings): number[] {
+	toObjectBinary({ x, y, settings }) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		const objectId =
@@ -63,7 +63,7 @@ const HiddenBlock: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const body = (
 			<div
 				className="relative border-green-400 border-2 border-dashed grid place-items-center font-bold cursor-pointer"

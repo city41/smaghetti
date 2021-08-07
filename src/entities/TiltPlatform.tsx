@@ -20,7 +20,7 @@ const TiltPlatform: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

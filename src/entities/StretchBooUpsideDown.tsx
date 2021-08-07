@@ -47,7 +47,7 @@ const StretchBooUpsideDown: Entity = {
 	dimensions: 'none',
 	objectId: 0x32,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 
@@ -60,7 +60,7 @@ const StretchBooUpsideDown: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _onSettingsChange, entity, room) {
+	render({ entity, room }) {
 		const attached = isAttached(entity, room);
 
 		const style = {
@@ -85,11 +85,7 @@ const StretchBooUpsideDown: Entity = {
 		);
 	},
 
-	getWarning(
-		_settings: EditorEntitySettings,
-		entity: EditorEntity,
-		room: RoomData
-	) {
+	getWarning({ entity, room }) {
 		const attached = isAttached(entity, room);
 
 		if (!attached) {

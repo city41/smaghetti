@@ -54,7 +54,7 @@ const Bowser: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		// TODO: the parameters almost certainly determine whether
 		// he throws hammers and all that. Possibly also what enemy
 		// he turns into if dies by fireballs

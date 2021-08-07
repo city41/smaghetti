@@ -224,7 +224,7 @@ const BackgroundHillsTexturedSmall: Entity = {
 		romOffset: 1472116,
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 

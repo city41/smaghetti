@@ -61,7 +61,7 @@ const FluffyCloud: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 
 		return [getBankParam1(1, width - 1), y, x, this.objectId];
@@ -74,7 +74,7 @@ const FluffyCloud: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange) {
+	render({ settings, onSettingsChange }) {
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 
 		const style = {

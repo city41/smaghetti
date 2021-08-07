@@ -93,7 +93,7 @@ const ColorfulMetalBox: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, _w, _h, settings): number[] {
+	toObjectBinary({ x, y, settings }): number[] {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 		const color = (settings.color ?? this.defaultSettings!.color) as Color;
@@ -130,7 +130,7 @@ const ColorfulMetalBox: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 		const color = (settings.color ?? this.defaultSettings!.color) as Color;

@@ -37,7 +37,7 @@ const BoltLeft: Entity = {
 	objectId: 0x6,
 	emptyBank: 1,
 
-	toObjectBinary(x, y, w) {
+	toObjectBinary({ x, y, w }) {
 		return [getBankParam1(1, w), y, x, this.objectId];
 	},
 
@@ -55,7 +55,7 @@ const BoltLeft: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _onSettingsChange, entity, room) {
+	render({ entity, room }) {
 		const boltToLeft = isBoltToLeft(entity, room);
 
 		return (

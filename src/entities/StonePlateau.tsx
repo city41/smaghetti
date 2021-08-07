@@ -106,7 +106,7 @@ const StonePlateau: Entity = {
 		romOffset: 1584308,
 	},
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 		return [getBankParam1(1, width - 1), y, x, this.objectId];
 	},
@@ -124,7 +124,7 @@ const StonePlateau: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity, room) {
+	render({ settings, onSettingsChange, entity, room }) {
 		return (
 			<Plateau
 				bgClassName="StonePlateau-bg"

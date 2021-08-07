@@ -83,7 +83,7 @@ const Lava: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w, h): number[] {
+	toObjectBinary({ x, y, w, h }) {
 		return [getBankParam1(1, h), y, x, this.objectId, w];
 	},
 
@@ -93,7 +93,7 @@ const Lava: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _osc, entity, room) {
+	render({ entity, room }) {
 		const lavaAbove = isLavaAbove(entity, room);
 
 		const style = {

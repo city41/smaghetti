@@ -19,7 +19,7 @@ const ParaGaloombaGenerator: Entity = {
 	dimensions: 'none',
 	objectId: 0x6d,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		if (x % 2 === 1) {
 			// if not at an even x, don't emit it, otherwise it will
 			// be a bobomb generator. The user gets a warning so it's ok
@@ -50,7 +50,7 @@ const ParaGaloombaGenerator: Entity = {
 		return this.simpleRender(TILE_SIZE);
 	},
 
-	getWarning(_settings, entity, room) {
+	getWarning({ entity, room }) {
 		const player = room.actors.entities.find((e) => e.type === 'Player')!;
 
 		const px = player.x / TILE_SIZE;

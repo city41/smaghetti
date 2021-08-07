@@ -47,7 +47,7 @@ const Herbert: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [getBankParam1(1, 0), y, x, this.objectId];
 	},
 

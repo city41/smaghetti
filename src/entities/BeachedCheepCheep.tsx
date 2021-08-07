@@ -20,7 +20,7 @@ const BeachedCheepCheep: Entity = {
 	dimensions: 'none',
 	objectId: 0x2c,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [1, this.objectId, x, y];
 	},
 

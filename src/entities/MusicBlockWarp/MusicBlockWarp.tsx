@@ -50,13 +50,7 @@ const MusicBlockWarp: Entity = {
 		],
 	},
 
-	getTransports(
-		room: number,
-		_rooms: RoomData[],
-		x: number,
-		y: number,
-		settings: EditorEntitySettings
-	) {
+	getTransports({ room, x, y, settings }) {
 		const dest = settings.destination;
 
 		if (dest) {
@@ -77,7 +71,7 @@ const MusicBlockWarp: Entity = {
 		return [];
 	},
 
-	toObjectBinary(x, y): number[] {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 
@@ -90,11 +84,7 @@ const MusicBlockWarp: Entity = {
 		);
 	},
 
-	render(
-		showDetails: boolean,
-		settings: EditorEntitySettings,
-		onSettingsChange: (newSettings: EditorEntitySettings) => void
-	) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const style = {
 			width: TILE_SIZE,
 			height: TILE_SIZE,
@@ -134,11 +124,7 @@ const MusicBlockWarp: Entity = {
 		}
 	},
 
-	getWarning(
-		_settings: EditorEntitySettings,
-		_entity: EditorEntity,
-		room: RoomData
-	) {
+	getWarning({ room }) {
 		const allNoteWarps = room.stage.entities.filter(
 			(e) => e.type === 'MusicBlockWarp'
 		);

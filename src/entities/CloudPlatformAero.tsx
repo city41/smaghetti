@@ -134,7 +134,7 @@ const CloudPlatformAero: Entity = {
 		romOffset: 1501760,
 	},
 
-	toObjectBinary(x, y, w) {
+	toObjectBinary({ x, y, w }) {
 		return [getBankParam1(1, w), y, x, this.objectId];
 	},
 
@@ -147,7 +147,7 @@ const CloudPlatformAero: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _onSettingsChange, entity, room) {
+	render({ entity, room }) {
 		const platformToLeft = isPlatformToLeft(entity, room);
 		const platformToRight = isPlatformToRight(entity, room);
 

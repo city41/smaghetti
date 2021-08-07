@@ -104,7 +104,7 @@ const PlatformPullied: Entity = {
 		},
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		const { pulleyDistance, leftHeight, rightHeight } = {
 			...this.defaultSettings!,
 			...settings,
@@ -142,7 +142,7 @@ const PlatformPullied: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const { pulleyDistance, leftHeight, rightHeight } = {
 			...this.defaultSettings!,
 			...settings,

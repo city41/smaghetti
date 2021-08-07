@@ -29,13 +29,17 @@ function getBaseDoorProperties(bgClass: string, objectId: number) {
 		height: 2,
 		objectId,
 
-		getTransports(
-			room: number,
-			_rooms: RoomData[],
-			x: number,
-			y: number,
-			settings: EditorEntitySettings
-		) {
+		getTransports({
+			room,
+			x,
+			y,
+			settings,
+		}: {
+			room: number;
+			x: number;
+			y: number;
+			settings: EditorEntitySettings;
+		}) {
 			const dest = settings.destination;
 
 			if (dest) {
@@ -56,17 +60,19 @@ function getBaseDoorProperties(bgClass: string, objectId: number) {
 			return [];
 		},
 
-		toObjectBinary(x: number, y: number) {
+		toObjectBinary({ x, y }: { x: number; y: number }) {
 			return [0, y, x, this.objectId];
 		},
 
-		toSpriteBinary(
-			x: number,
-			y: number,
-			_w: number,
-			_h: number,
-			settings: EditorEntitySettings
-		) {
+		toSpriteBinary({
+			x,
+			y,
+			settings,
+		}: {
+			x: number;
+			y: number;
+			settings: EditorEntitySettings;
+		}) {
 			if (settings.locked) {
 				return [0, DOOR_LOCK_OBJECT_ID, x, y];
 			} else {
@@ -89,11 +95,15 @@ function getBaseDoorProperties(bgClass: string, objectId: number) {
 			);
 		},
 
-		render(
-			showDetails: boolean,
-			settings: EditorEntitySettings,
-			onSettingsChange: (newSettings: EditorEntitySettings) => void
-		) {
+		render({
+			showDetails,
+			settings,
+			onSettingsChange,
+		}: {
+			showDetails: boolean;
+			settings: EditorEntitySettings;
+			onSettingsChange: (newSettings: EditorEntitySettings) => void;
+		}) {
 			const style = {
 				width: TILE_SIZE,
 				height: TILE_SIZE * 2,
@@ -145,15 +155,16 @@ function getBaseDoorProperties(bgClass: string, objectId: number) {
 			}
 		},
 
-		getWarning(
-			settings: EditorEntitySettings,
-			_entity: EditorEntity,
-			_room: RoomData,
-			rooms: RoomData[]
-		) {
+		getWarning({
+			settings,
+			allRooms,
+		}: {
+			settings: EditorEntitySettings;
+			allRooms: RoomData[];
+		}) {
 			if (settings.destination) {
 				const destination = settings.destination as DestinationSetProps;
-				const destRoom = rooms[destination.room];
+				const destRoom = allRooms[destination.room];
 
 				// the dest should be on top of a pipe
 				const destEntity = destRoom.stage.entities.find((e) => {

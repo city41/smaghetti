@@ -60,7 +60,7 @@ const MusicBlock: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w, h, settings): number[] {
+	toObjectBinary({ x, y, w, h, settings }) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		if (settings.payload in payloadToObjectId) {
@@ -92,7 +92,7 @@ const MusicBlock: Entity = {
 		);
 	},
 
-	render(showDetails, settings, onSettingsChange) {
+	render({ showDetails, settings, onSettingsChange }) {
 		const body = (
 			<div
 				className="MusicBlock-bg bg-cover relative cursor-pointer"

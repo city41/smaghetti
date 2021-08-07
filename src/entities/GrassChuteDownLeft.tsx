@@ -25,7 +25,7 @@ const GrassChuteDownLeft: Entity = {
 	width: 8,
 	height: 7,
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 
@@ -55,7 +55,7 @@ const GrassChuteDownLeft: Entity = {
 		);
 	},
 
-	getWarning(_settings, entity) {
+	getWarning({ entity }) {
 		if (entity.x < 0) {
 			return "Can't extend outside the front of the level";
 		}

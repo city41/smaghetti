@@ -68,7 +68,7 @@ const OneWayDoor: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		switch (settings.direction) {
 			case 'proceed-left': {
 				return [0, 0xe5, x, y, 1];
@@ -114,7 +114,7 @@ const OneWayDoor: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const direction = settings.direction ?? this.defaultSettings!.direction;
 
 		switch (direction) {

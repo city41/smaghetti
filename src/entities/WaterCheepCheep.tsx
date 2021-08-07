@@ -20,7 +20,7 @@ const WaterCheepCheep: Entity = {
 	dimensions: 'none',
 	objectId: 0x77,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
 	},
 

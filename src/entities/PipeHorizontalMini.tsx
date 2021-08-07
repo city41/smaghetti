@@ -54,7 +54,7 @@ const PipeHorizontalMini: Entity = {
 		romOffset: 1501760,
 	},
 
-	toObjectBinary(x, y, _w, _h, settings) {
+	toObjectBinary({ x, y, settings }) {
 		const width = settings.width ?? 1;
 
 		return [getBankParam1(1, width - 1), y, x, this.objectId];
@@ -71,7 +71,7 @@ const PipeHorizontalMini: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 
 		const style = {

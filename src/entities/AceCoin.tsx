@@ -51,7 +51,7 @@ const AceCoin: Entity = {
 		],
 	},
 
-	toSpriteBinary(x, y, _w, _h, settings) {
+	toSpriteBinary({ x, y, settings }) {
 		// if (typeof settings.aceCoinIndex !== 'number') {
 		// 	throw new Error('AceCoin#toBinary: no aceCoinIndex setting found');
 		// }
@@ -69,7 +69,7 @@ const AceCoin: Entity = {
 		return <div className="AceCoin-bg bg-center bg-no-repeat" style={style} />;
 	},
 
-	render(_showDetails, settings) {
+	render({ settings }) {
 		const style = {
 			width: TILE_SIZE,
 			height: TILE_SIZE * 2,
@@ -99,7 +99,7 @@ const AceCoin: Entity = {
 		);
 	},
 
-	getWarning(settings) {
+	getWarning({ settings }) {
 		if (settings.aceCoinIndex >= 5) {
 			return 'The ace coin in your bubble is one too many';
 		}

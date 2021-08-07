@@ -50,7 +50,7 @@ const IceBlockMuncher: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w, h): number[] {
+	toObjectBinary({ x, y, w, h }) {
 		return [getBankParam1(1, w), y, x, this.objectId, h];
 	},
 

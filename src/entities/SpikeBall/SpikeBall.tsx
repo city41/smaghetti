@@ -153,7 +153,7 @@ const SpikeBall: Entity = {
 		romOffset: 1617792,
 	},
 
-	toObjectBinary(x, y) {
+	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
 	},
 

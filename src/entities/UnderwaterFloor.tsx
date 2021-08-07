@@ -73,7 +73,7 @@ const UnderwaterFloor: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, _w, _h, settings): number[] {
+	toObjectBinary({ x, y, settings }) {
 		const h = (settings.height ?? this.defaultSettings!.height) - 1;
 		const w = (settings.width ?? this.defaultSettings!.width) - 1;
 
@@ -107,7 +107,7 @@ const UnderwaterFloor: Entity = {
 		);
 	},
 
-	render(_showDetails, settings, onSettingsChange, entity) {
+	render({ settings, onSettingsChange, entity }) {
 		const height = settings.height ?? this.defaultSettings!.height;
 		const width = settings.width ?? this.defaultSettings!.width;
 

@@ -84,7 +84,7 @@ const WoodPlatform: Entity = {
 		],
 	},
 
-	toObjectBinary(x, y, w) {
+	toObjectBinary({ x, y, w }) {
 		return [0x40, y, x, this.objectId, w];
 	},
 
@@ -97,7 +97,7 @@ const WoodPlatform: Entity = {
 		);
 	},
 
-	render(_showDetails, _settings, _onSettingsChange, entity, room) {
+	render({ entity, room }) {
 		const platformToLeft = isPlatformToLeft(entity, room);
 		const platformToRight = isPlatformToRight(entity, room);
 
@@ -115,7 +115,7 @@ const WoodPlatform: Entity = {
 		);
 	},
 
-	getWarning(_settings, entity, room) {
+	getWarning({  entity, room }) {
 		const platformToLeft = isPlatformToLeft(entity, room);
 		const platformToRight = isPlatformToRight(entity, room);
 

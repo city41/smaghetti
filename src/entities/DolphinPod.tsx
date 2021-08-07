@@ -19,7 +19,7 @@ const DolphinPod: Entity = {
 	dimensions: 'none',
 	objectId: 0x6b,
 
-	toSpriteBinary(x, y) {
+	toSpriteBinary({ x, y }) {
 		return [1, this.objectId, x, y];
 	},
 
