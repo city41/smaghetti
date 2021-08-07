@@ -137,7 +137,7 @@ const Toolbox = memo(function Toolbox({
 			/>
 
 			<PlainIconButton
-				label="toggle grid (r)"
+				label="toggle grid (g)"
 				size="large"
 				icon={MdGridOn}
 				toggled={showGrid}
