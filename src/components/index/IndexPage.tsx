@@ -15,14 +15,25 @@ function IndexPage() {
 					<h1 className="text-2xl font-bold">
 						A level editor for Super Mario Advance 4
 					</h1>
-					<img
-						className="shadow-lg p-4 bg-gray-500"
-						style={{ imageRendering: 'initial' }}
-						src={screenshotPng}
-						width={1259}
-						height={713}
-						alt="screenshot of the editor"
-					/>
+					<figure>
+						<img
+							className="shadow-lg p-4 bg-gray-500"
+							style={{ imageRendering: 'initial' }}
+							src={screenshotPng}
+							width={1259}
+							height={930}
+							alt="screenshot of the editor"
+						/>
+						<figcaption className="w-full text-center mt-1.5 text-sm">
+							<a
+								className="underline text-blue-400"
+								href="/editor/HTCbl1q6/Invaded-Beach/"
+							>
+								Invaded Beach
+							</a>{' '}
+							by Nauts
+						</figcaption>
+					</figure>
 				</div>
 			</div>
 		</Root>

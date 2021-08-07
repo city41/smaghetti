@@ -6,6 +6,8 @@ This is a web based level editor for the game Super Mario Advance 4: Super Mario
 
 ![screenshot](https://github.com/city41/smaghetti/blob/main/screenshotCropped.png?raw=true)
 
+[Invaded Beach by Nauts](https://smaghetti.com/editor/HTCbl1q6/Invaded-Beach/)
+
 ## Try it
 
 It's available here: https://smaghetti.com
