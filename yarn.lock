@@ -13804,6 +13804,11 @@ ts-jest@^27.0.4:
     semver "7.x"
     yargs-parser "20.x"
 
+ts-mockery@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/ts-mockery/-/ts-mockery-1.2.0.tgz#aa76521653d729e99b3808836817f64e61a213dd"
+  integrity sha512-ArGPMUzO4H25KBYVTWmmE36y5bCOFAwC7XdW4CLTqYg+gQcvxJzKoj5URSc+luzwI8QdtwAkHtazBmrKepX81g==
+
 ts-node@^9.1.1:
   version "9.1.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-9.1.1.tgz#51a9a450a3e959401bda5f004a72d54b936d376d"

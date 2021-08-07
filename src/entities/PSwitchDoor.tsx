@@ -17,7 +17,7 @@ const PSwitchDoor: Entity = {
 
 	objectSets: ANY_OBJECT_SET,
 	spriteGraphicSets: [-1, -1, -1, 1, -1, ANY_BELOW_0x16],
-	layer: 'actor',
+	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x8,

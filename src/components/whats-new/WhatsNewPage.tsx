@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
+import { GoAlert } from 'react-icons/go';
 import { Root } from '../layout/Root';
 
 import typographyStyles from '../../styles/typography.module.css';
@@ -40,12 +41,12 @@ function NewEntry({
 	title,
 	date,
 	children,
-	breakingChange,
+	alertingChange,
 }: {
 	title: string;
 	date: string;
 	children: ReactNode;
-	breakingChange?: boolean;
+	alertingChange?: boolean;
 }) {
 	const id = toId(`${title} ${date}`);
 
@@ -57,14 +58,12 @@ function NewEntry({
 					className="group relative font-bold mb-4 text-xl flex flex-row justify-between items-baseline"
 				>
 					<div className="flex-1">
-						<span
-							className={clsx({
-								'text-white bg-red-700 p-1': breakingChange,
-								'text-gray-400': !breakingChange,
-							})}
-						>
+						<div className="text-gray-400 flex flex-row gap-x-2 items-center">
+							{alertingChange && (
+								<GoAlert className="w-8 h-8 text-yellow-300" />
+							)}
 							{title}
-						</span>
+						</div>
 					</div>
 					<time className="text-sm text-gray-400" dateTime={date}>
 						{dateToHumanString(date)}
@@ -88,6 +87,31 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Change in how testing your level works"
+					date="2021-08-07"
+					alertingChange
+				>
+					<p>
+						When you go to play your level, you will start in whatever room the
+						editor is currently focused on.
+					</p>
+					<p>
+						So if you are working on room 2, and go to test your level, you will
+						start in room 2. The entire level will still be available. So for
+						example if you have a warp that goes from room 2 to room 1, it will
+						still work.
+					</p>
+					<p className="bg-yellow-200 text-yellow-900 py-1 px-2 -mx-2">
+						When starting in a room other than 1, you start wherever Mario is
+						positioned in that room. Make sure to move him to where it makes
+						sense.
+					</p>
+					<p>
+						If you want to test your level from the beginning, just return to
+						room 1 before testing.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-08-07">
 					<ul>
 						<li>Inside Airship</li>

@@ -9,6 +9,7 @@ import {
 	getSaveState,
 } from '../../../FileLoader/files';
 import { AppState } from '../../../../store';
+import { moveRoomToFront } from './moveRoomToFront';
 
 type LevelPlayerProps = {
 	className?: string;
@@ -18,7 +19,7 @@ type LevelPlayerProps = {
 };
 
 function ConnectedLevelPlayer(props: LevelPlayerProps) {
-	const { name, settings, rooms } = useSelector(
+	const { name, settings, rooms, currentRoomIndex } = useSelector(
 		(state: AppState) => state.editor.present
 	);
 
@@ -39,7 +40,7 @@ function ConnectedLevelPlayer(props: LevelPlayerProps) {
 
 	const level = {
 		name,
-		data: { settings, rooms },
+		data: { settings, rooms: moveRoomToFront(rooms, currentRoomIndex) },
 	};
 
 	return (
