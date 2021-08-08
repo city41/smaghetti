@@ -112,6 +112,11 @@ function WhatsNewPage() {
 						room 1 before testing.
 					</p>
 				</NewEntry>
+				<NewEntry title="New Entities" date="2021-08-07">
+					<ul>
+						<li>Piranha Plant - Upside Down Red</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-08-07">
 					<ul>
 						<li>Inside Airship</li>
