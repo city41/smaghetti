@@ -91,6 +91,7 @@ function WhatsNewPage() {
 					<ul>
 						<li>Piranha Plant - Facing Left, Red</li>
 						<li>Piranha Plant - Facing Left, Red, Fire</li>
+						<li>Piranha Plant - Facing Right, Red</li>
 					</ul>
 
 					<p>
