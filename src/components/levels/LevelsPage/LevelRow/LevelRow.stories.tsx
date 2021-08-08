@@ -31,6 +31,10 @@ export const Basic = () => {
 				isChosen={false}
 				onChosenChange={() => {}}
 				level={emptyLevel}
+				currentUserVoted={false}
+				voteCount={11}
+				isVoting={false}
+				onVoteClick={() => {}}
 			/>
 		</div>
 	);
@@ -45,6 +49,10 @@ export const filesNotReady = () => {
 				isChosen={false}
 				onChosenChange={() => {}}
 				level={emptyLevel}
+				currentUserVoted={false}
+				voteCount={11}
+				isVoting={false}
+				onVoteClick={() => {}}
 			/>
 		</div>
 	);
@@ -59,6 +67,10 @@ export const ChosenForSave = () => {
 				isChosen={true}
 				onChosenChange={() => {}}
 				level={emptyLevel}
+				currentUserVoted={false}
+				voteCount={11}
+				isVoting={false}
+				onVoteClick={() => {}}
 			/>
 		</div>
 	);
@@ -77,6 +89,10 @@ export const LongLevelName = () => {
 					name:
 						"go west paradise is there you'll be the brightest light we've ever seen",
 				}}
+				currentUserVoted={false}
+				voteCount={11}
+				isVoting={false}
+				onVoteClick={() => {}}
 			/>
 		</div>
 	);
@@ -96,6 +112,10 @@ export const LongUserName = () => {
 						username: 'San Andreas Fault Move Your Fingers',
 					},
 				}}
+				currentUserVoted={false}
+				voteCount={11}
+				isVoting={false}
+				onVoteClick={() => {}}
 			/>
 		</div>
 	);

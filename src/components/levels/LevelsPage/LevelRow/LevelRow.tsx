@@ -1,7 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 import { ImCheckboxUnchecked } from 'react-icons/im';
-// import { /* AiFillHeart, */ AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { RiLoaderFill } from 'react-icons/ri';
 import { FaCheck } from 'react-icons/fa';
 import { RoomThumbnail } from '../../../RoomThumbnail';
 import {
@@ -13,13 +14,20 @@ import { TILE_SIZE } from '../../../../tiles/constants';
 
 import styles from './LevelRow.module.css';
 
-type LevelRowProps = {
+type PublicLevelRowProps = {
 	className?: string;
 	level: Level;
 	areFilesReady: boolean;
 	isBuildingSave: boolean;
 	isChosen: boolean;
 	onChosenChange: (newChosen: boolean) => void;
+};
+
+type InternalLevelRowProps = {
+	voteCount: number;
+	currentUserVoted: boolean;
+	isVoting: boolean;
+	onVoteClick: () => void;
 };
 
 function makeSlug(name: string): string {
@@ -56,7 +64,11 @@ function LevelRow({
 	isBuildingSave,
 	isChosen,
 	onChosenChange,
-}: LevelRowProps) {
+	voteCount,
+	currentUserVoted,
+	isVoting,
+	onVoteClick,
+}: PublicLevelRowProps & InternalLevelRowProps) {
 	const href = `/editor/${level.id}/${makeSlug(level.name)}`;
 
 	function chooseDontNavIfBuilding(e: React.MouseEvent<HTMLAnchorElement>) {
@@ -89,6 +101,12 @@ function LevelRow({
 		);
 	}
 
+	const VoteIcon = isVoting
+		? RiLoaderFill
+		: currentUserVoted
+		? AiFillHeart
+		: AiOutlineHeart;
+
 	return (
 		<div
 			className={clsx(
@@ -103,17 +121,29 @@ function LevelRow({
 				}
 			}}
 		>
-			{/* <div
-				className="absolute right-0 top-0 bg-white p-1 flex flex-row gap-x-1 items-center"
+			<div
+				className="absolute right-0 top-0 bg-white p-1 flex flex-row gap-x-1 items-center cursor-pointer"
 				style={{
 					width: `calc(${
 						PLAY_WINDOW_TILE_WIDTH * TILE_SIZE * 0.75 * 0.5
 					}px - 1rem)`,
 				}}
+				onClick={(e) => {
+					e.stopPropagation();
+					e.preventDefault();
+
+					if (!isVoting) {
+						onVoteClick();
+					}
+				}}
 			>
-				<AiOutlineHeart className="w-6 h-6" />
-				<div className="text-lg">123</div>
-			</div> */}
+				<VoteIcon
+					className={clsx('w-6 h-6', {
+						'text-red-600': currentUserVoted && !isVoting,
+					})}
+				/>
+				<div className="text-lg">{voteCount}</div>
+			</div>
 			<a
 				className={clsx('relative flex flex-row items-center -my-2', {
 					'space-x-2 ml-0': isBuildingSave,
@@ -181,3 +211,4 @@ function LevelRow({
 }
 
 export { LevelRow };
+export type { PublicLevelRowProps };

@@ -5,7 +5,7 @@ import { Modal } from '../../Modal';
 import logoPng from '../../../images/logo.png';
 import { Button } from '../../Button';
 
-type SignInJoinModalMode = 'sign-in' | 'join' | 'join-to-save';
+type SignInJoinModalMode = 'sign-in' | 'join' | 'join-to-save' | 'join-to-vote';
 type Credentials = { username?: string; email: string; password: string };
 
 type PublicSignInJoinModalProps = {
@@ -25,6 +25,7 @@ const titles: Record<SignInJoinModalMode, string> = {
 	'sign-in': 'Sign In',
 	join: 'Join',
 	'join-to-save': 'Join to save your level',
+	'join-to-vote': 'Join to vote on this level',
 };
 
 function Input({
@@ -83,7 +84,7 @@ function SignInJoinModal({
 		BLANK_CREDENTIALS
 	);
 
-	const isJoining = mode === 'join' || mode === 'join-to-save';
+	const isJoining = mode.startsWith('join');
 
 	function setMode(newMode: SignInJoinModalMode) {
 		if (newMode !== mode) {
@@ -127,6 +128,10 @@ function SignInJoinModal({
 				You need an account to save your level. Accounts are free. If you
 				don&apos;t want an account, your level is still saved locally to your
 				browser.
+			</div>
+		) : mode === 'join-to-vote' ? (
+			<div className="p-4 bg-gray-200 text-gray-900 text-sm space-y-2 mb-4">
+				You need an account to vote on levels. Accounts are free.
 			</div>
 		) : (
 			logoImg

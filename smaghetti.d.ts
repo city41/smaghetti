@@ -187,6 +187,11 @@ type SerializedLevel = Omit<Level, 'data'> & {
 	version: string;
 };
 
+type LevelVote = {
+	userId: string;
+	levelId: string;
+};
+
 type LocalStorageSerializedLevel = Omit<
 	SerializedLevel,
 	'created_at' | 'updated_at'

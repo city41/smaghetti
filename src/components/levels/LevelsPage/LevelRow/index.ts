@@ -1,1 +1,1 @@
-export * from './LevelRow';
+export { ConnectedLevelRow as LevelRow } from './ConnectedLevelRow';

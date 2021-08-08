@@ -198,3 +198,5 @@ exports.down = (pgm) => {
 	pgm.dropTable(LEVEL_PLAY_SESSIONS_TABLE);
 	pgm.dropTable(LEVEL_TABLE);
 };
+
+exports.LEVEL_TABLE = LEVEL_TABLE;

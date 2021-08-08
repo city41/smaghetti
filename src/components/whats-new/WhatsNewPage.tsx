@@ -6,6 +6,7 @@ import { Root } from '../layout/Root';
 import typographyStyles from '../../styles/typography.module.css';
 
 import airshipExamples from './AirshipPlatformExamples.png';
+import { AiFillHeart } from 'react-icons/ai';
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
 
@@ -87,6 +88,13 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Liking levels" date="2021-08-08">
+					<p>
+						Found a level on the <a href="/levels">levels</a> page you liked?
+						Click on the heart!{' '}
+						<AiFillHeart className="text-red-600 inline-block w-6 h-6" />
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-08-08" alertingChange>
 					<ul>
 						<li>Piranha Plant - Facing Left, Red</li>
