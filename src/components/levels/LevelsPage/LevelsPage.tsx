@@ -10,6 +10,7 @@ import {
 	ExtractionState,
 	OtherFilesState,
 } from '../../FileLoader/fileLoaderSlice';
+import { Button } from '../../Button';
 
 type InternalLevelsPageProps = {
 	allFilesReady: boolean;
@@ -17,6 +18,8 @@ type InternalLevelsPageProps = {
 	extractionState: ExtractionState;
 	loadState: 'dormant' | 'loading' | 'success' | 'error';
 	levels: Level[];
+	sortType: 'likes' | 'new';
+	onSortTypeChange: () => void;
 };
 
 function LevelsPage({
@@ -25,6 +28,8 @@ function LevelsPage({
 	extractionState,
 	loadState,
 	levels,
+	sortType,
+	onSortTypeChange,
 }: InternalLevelsPageProps) {
 	const [showFileLoaderModal, setShowFileLoaderModal] = useState(false);
 	const [isBuildingSave, setIsBuildingSave] = useState(false);
@@ -88,6 +93,21 @@ function LevelsPage({
 									</button>
 								</div>
 							)}
+							<div className="flex flex-row gap-x-2 items-center">
+								<div>Sort by: </div>
+								<Button
+									disabled={sortType === 'likes'}
+									onClick={onSortTypeChange}
+								>
+									Most liked
+								</Button>{' '}
+								<Button
+									disabled={sortType === 'new'}
+									onClick={onSortTypeChange}
+								>
+									Newest
+								</Button>
+							</div>
 							<div className="space-y-8">
 								{levels.map((l) => (
 									<LevelRow
