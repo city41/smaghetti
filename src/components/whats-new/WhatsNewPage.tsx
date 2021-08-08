@@ -116,6 +116,7 @@ function WhatsNewPage() {
 					<ul>
 						<li>Piranha Plant - Red</li>
 						<li>Piranha Plant - Upside Down Red</li>
+						<li>Piranha Plant - Upside Down Red, Short</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-08-07">
