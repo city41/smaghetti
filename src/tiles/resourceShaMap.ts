@@ -130,7 +130,7 @@ export const resourceShaMap: Record<string, string> = {
   "HiddenBlock": "03fe87a7b95d84edac8e16c729380d4690c41740",
   "HomingFireball": "4a96321824b7e757d5df027874776cc4f3c8814d",
   "Hoopster": "fc8f35f4f18451ce655ea148955f4711818d522b",
-  "HorizontalRedPiranhaPlant": "3daa2c2b548f8857d9950f3759d6167325e38545",
+  "HorizontalRedPiranhaPlant": "48cfac5012f504a81e52c110152d544a128df723",
   "HotFoot": "4ffc16656c0a9bfd4421933767be31c730740da3",
   "HotFootShy": "cc3df0ed9084209016a1f942b4ca9ad30c291441",
   "HotHead": "9bb2d3eed44278175049721f1898b9f6c448a3c5",

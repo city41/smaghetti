@@ -150,7 +150,6 @@ import { HiddenBlock } from './HiddenBlock';
 import { HomingFireball } from './HomingFireball';
 import { Hoopster } from './Hoopster';
 import { HoppingBowserStatue } from './HoppingBowserStatue';
-import { HorizontalRedPiranhaPlant } from './HorizontalRedPiranhaPlant';
 import { HotFoot } from './HotFoot';
 import { HotFootShy } from './HotFootShy';
 import { HotHead } from './HotHead';
@@ -207,6 +206,8 @@ import { PipeVerticalMini } from './PipeVerticalMini';
 import { PiranhaPlant } from './PiranhaPlant';
 import { PiranhaPlantFire } from './PiranhaPlantFire';
 import { PiranhaPlantRed } from './PiranhaPlantRed';
+import { PiranhaPlantRedFacingLeft } from './PiranhaPlantRedFacingLeft';
+import { PiranhaPlantRedFacingLeftFire } from './PiranhaPlantRedFacingLeftFire';
 import { PiranhaPlantRedFire } from './PiranhaPlantRedFire';
 import { PiranhaPlantRedUpsideDown } from './PiranhaPlantRedUpsideDown';
 import { PiranhaPlantRedUpsideDownFire } from './PiranhaPlantRedUpsideDownFire';
@@ -452,7 +453,6 @@ const entityMap = {
 	HomingFireball,
 	Hoopster,
 	HoppingBowserStatue,
-	HorizontalRedPiranhaPlant,
 	HotFoot,
 	HotFootShy,
 	HotHead,
@@ -509,6 +509,8 @@ const entityMap = {
 	PiranhaPlant,
 	PiranhaPlantFire,
 	PiranhaPlantRed,
+	PiranhaPlantRedFacingLeft,
+	PiranhaPlantRedFacingLeftFire,
 	PiranhaPlantRedFire,
 	PiranhaPlantRedUpsideDown,
 	PiranhaPlantRedUpsideDownFire,

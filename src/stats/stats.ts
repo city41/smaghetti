@@ -1,15 +1,15 @@
 import type { LevelStats } from './types';
 	
 	export const stats: LevelStats = {
-  "lastUpdated": "Fri Aug 06 2021 10:48:52 GMT-0400 (Eastern Daylight Time)",
+  "lastUpdated": "Sun Aug 08 2021 10:04:30 GMT-0400 (Eastern Daylight Time)",
   "entitiesByCount": [
     {
       "type": "FortressBrick",
-      "count": 21272
+      "count": 22187
     },
     {
       "type": "ChoppyWater",
-      "count": 14086
+      "count": 14455
     },
     {
       "type": "TerracottaBrick",
@@ -17,7 +17,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "WoodBlock",
-      "count": 5342
+      "count": 5359
     },
     {
       "type": "BowserBrick",
@@ -25,19 +25,19 @@ import type { LevelStats } from './types';
     },
     {
       "type": "Coin",
-      "count": 3980
+      "count": 4105
     },
     {
       "type": "IndestructibleBrick",
-      "count": 3743
+      "count": 3799
     },
     {
       "type": "GrassHorizontal",
-      "count": 2294
+      "count": 2144
     },
     {
       "type": "Brick",
-      "count": 1708
+      "count": 1752
     },
     {
       "type": "CementBlock",
@@ -45,7 +45,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "MetalBrick",
-      "count": 1454
+      "count": 1457
     },
     {
       "type": "Lava",
@@ -53,7 +53,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "DiggableSand",
-      "count": 1127
+      "count": 1137
     },
     {
       "type": "Waterfall",
@@ -69,11 +69,11 @@ import type { LevelStats } from './types';
     },
     {
       "type": "UpFortressSpike",
-      "count": 801
+      "count": 842
     },
     {
       "type": "DownFortressSpike",
-      "count": 704
+      "count": 733
     },
     {
       "type": "GlassBlock",
@@ -81,7 +81,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "LogBridge",
-      "count": 606
+      "count": 602
     },
     {
       "type": "MetalDonutFloor",
@@ -89,7 +89,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "Goomba",
-      "count": 504
+      "count": 512
     },
     {
       "type": "WoodPlatform",
@@ -97,35 +97,35 @@ import type { LevelStats } from './types';
     },
     {
       "type": "PipeVertical",
-      "count": 411
+      "count": 429
     },
     {
       "type": "MagicBrick",
       "count": 392
     },
     {
-      "type": "GrassVerticalRight",
-      "count": 370
-    },
-    {
-      "type": "GrassVerticalLeft",
-      "count": 364
-    },
-    {
       "type": "QuestionBlock",
-      "count": 359
+      "count": 375
+    },
+    {
+      "type": "GrassVerticalRight",
+      "count": 343
     },
     {
       "type": "YellowSwitchBrick",
-      "count": 329
+      "count": 335
+    },
+    {
+      "type": "GrassVerticalLeft",
+      "count": 334
+    },
+    {
+      "type": "BlueCoin",
+      "count": 263
     },
     {
       "type": "TriangularBlock",
       "count": 242
-    },
-    {
-      "type": "BlueCoin",
-      "count": 224
     },
     {
       "type": "BuriedVegetable",
@@ -137,11 +137,11 @@ import type { LevelStats } from './types';
     },
     {
       "type": "MusicBlock",
-      "count": 166
+      "count": 167
     },
     {
       "type": "AceCoin",
-      "count": 158
+      "count": 161
     },
     {
       "type": "FireBarBase",
@@ -160,6 +160,10 @@ import type { LevelStats } from './types';
       "count": 120
     },
     {
+      "type": "HiddenBlock",
+      "count": 114
+    },
+    {
       "type": "ConveyorBelt",
       "count": 112
     },
@@ -168,12 +172,12 @@ import type { LevelStats } from './types';
       "count": 111
     },
     {
-      "type": "HiddenBlock",
-      "count": 105
+      "type": "GrassUpperRightCorner",
+      "count": 108
     },
     {
-      "type": "GrassUpperRightCorner",
-      "count": 103
+      "type": "GrassUpperLeftCorner",
+      "count": 102
     },
     {
       "type": "Bowser",
@@ -188,8 +192,8 @@ import type { LevelStats } from './types';
       "count": 100
     },
     {
-      "type": "GrassUpperLeftCorner",
-      "count": 96
+      "type": "WoodWalkway",
+      "count": 100
     },
     {
       "type": "Thwomp",
@@ -208,10 +212,6 @@ import type { LevelStats } from './types';
       "count": 85
     },
     {
-      "type": "WoodWalkway",
-      "count": 85
-    },
-    {
       "type": "PiranhaPlant",
       "count": 83
     },
@@ -220,12 +220,20 @@ import type { LevelStats } from './types';
       "count": 78
     },
     {
+      "type": "PipeHorizontal",
+      "count": 76
+    },
+    {
       "type": "StoneFloor",
       "count": 74
     },
     {
-      "type": "PipeHorizontal",
+      "type": "StoneSupport",
       "count": 73
+    },
+    {
+      "type": "WarpArea",
+      "count": 69
     },
     {
       "type": "WoodSupport",
@@ -236,6 +244,10 @@ import type { LevelStats } from './types';
       "count": 64
     },
     {
+      "type": "ScrollStopHorizontal",
+      "count": 63
+    },
+    {
       "type": "Vine",
       "count": 63
     },
@@ -244,11 +256,11 @@ import type { LevelStats } from './types';
       "count": 62
     },
     {
-      "type": "FallAwaySpike",
-      "count": 60
+      "type": "RedKoopaTroopa",
+      "count": 61
     },
     {
-      "type": "ScrollStopHorizontal",
+      "type": "FallAwaySpike",
       "count": 60
     },
     {
@@ -256,12 +268,12 @@ import type { LevelStats } from './types';
       "count": 58
     },
     {
-      "type": "RedKoopaTroopa",
-      "count": 58
-    },
-    {
       "type": "Bobomb",
       "count": 57
+    },
+    {
+      "type": "WoodFloor",
+      "count": 56
     },
     {
       "type": "BuzzyBeetle",
@@ -272,16 +284,16 @@ import type { LevelStats } from './types';
       "count": 52
     },
     {
-      "type": "WarpArea",
-      "count": 50
-    },
-    {
-      "type": "WoodFloor",
-      "count": 50
+      "type": "CloudPlatformAero",
+      "count": 49
     },
     {
       "type": "CheckeredFloorPerspective",
       "count": 48
+    },
+    {
+      "type": "ColorfulMetalBox",
+      "count": 47
     },
     {
       "type": "OneWayDoor",
@@ -292,16 +304,16 @@ import type { LevelStats } from './types';
       "count": 46
     },
     {
+      "type": "Spiny",
+      "count": 45
+    },
+    {
       "type": "TiltPlatform",
       "count": 45
     },
     {
-      "type": "ColorfulMetalBox",
-      "count": 42
-    },
-    {
       "type": "CardSlotMachine",
-      "count": 41
+      "count": 42
     },
     {
       "type": "PtooiePottedPiranhaPlant",
@@ -310,10 +322,6 @@ import type { LevelStats } from './types';
     {
       "type": "BusterBeetle",
       "count": 40
-    },
-    {
-      "type": "Spiny",
-      "count": 39
     },
     {
       "type": "GrandGoomba",
@@ -348,6 +356,14 @@ import type { LevelStats } from './types';
       "count": 32
     },
     {
+      "type": "FlyingPiranhaPlant",
+      "count": 31
+    },
+    {
+      "type": "GreenKoopaTroopa",
+      "count": 31
+    },
+    {
       "type": "PileDriverMiniGoomba",
       "count": 31
     },
@@ -358,10 +374,6 @@ import type { LevelStats } from './types';
     {
       "type": "MusicBlockThreeWay",
       "count": 30
-    },
-    {
-      "type": "GreenKoopaTroopa",
-      "count": 29
     },
     {
       "type": "Bubble",
@@ -392,15 +404,11 @@ import type { LevelStats } from './types';
       "count": 26
     },
     {
-      "type": "ParaGoomba",
-      "count": 26
-    },
-    {
       "type": "RipVanFish",
       "count": 26
     },
     {
-      "type": "ArrowSign",
+      "type": "Chest",
       "count": 25
     },
     {
@@ -410,6 +418,14 @@ import type { LevelStats } from './types';
     {
       "type": "LilSparky",
       "count": 25
+    },
+    {
+      "type": "ParaGoomba",
+      "count": 25
+    },
+    {
+      "type": "ArrowSign",
+      "count": 24
     },
     {
       "type": "IceBlockMuncher",
@@ -424,8 +440,8 @@ import type { LevelStats } from './types';
       "count": 23
     },
     {
-      "type": "Chest",
-      "count": 22
+      "type": "RedParaTroopa",
+      "count": 23
     },
     {
       "type": "Jelectro",
@@ -438,14 +454,6 @@ import type { LevelStats } from './types';
     {
       "type": "ChargingChuck",
       "count": 20
-    },
-    {
-      "type": "FlyingPiranhaPlant",
-      "count": 19
-    },
-    {
-      "type": "RedParaTroopa",
-      "count": 19
     },
     {
       "type": "SledgeBro",
@@ -472,6 +480,10 @@ import type { LevelStats } from './types';
       "count": 16
     },
     {
+      "type": "PSwitch",
+      "count": 15
+    },
+    {
       "type": "SimpleBlackDoor",
       "count": 15
     },
@@ -488,11 +500,11 @@ import type { LevelStats } from './types';
       "count": 14
     },
     {
-      "type": "PSwitch",
-      "count": 14
+      "type": "Boo",
+      "count": 13
     },
     {
-      "type": "Boo",
+      "type": "DolphinPod",
       "count": 13
     },
     {
@@ -552,15 +564,7 @@ import type { LevelStats } from './types';
       "count": 10
     },
     {
-      "type": "DolphinPod",
-      "count": 10
-    },
-    {
       "type": "GrassSlope30DegUpRight",
-      "count": 10
-    },
-    {
-      "type": "HorizontalRedPiranhaPlant",
       "count": 10
     },
     {
@@ -574,6 +578,10 @@ import type { LevelStats } from './types';
     {
       "type": "Thwimp",
       "count": 10
+    },
+    {
+      "type": "BackgroundHillsStripedSmall",
+      "count": 9
     },
     {
       "type": "Boomerang",
@@ -600,11 +608,15 @@ import type { LevelStats } from './types';
       "count": 9
     },
     {
-      "type": "ClappingChuck",
+      "type": "FlagPole",
       "count": 8
     },
     {
       "type": "GiantRedKoopa",
+      "count": 8
+    },
+    {
+      "type": "PorcuPuffer",
       "count": 8
     },
     {
@@ -628,7 +640,11 @@ import type { LevelStats } from './types';
       "count": 7
     },
     {
-      "type": "FlagPole",
+      "type": "ClappingChuck",
+      "count": 7
+    },
+    {
+      "type": "FireFlower",
       "count": 7
     },
     {
@@ -648,10 +664,6 @@ import type { LevelStats } from './types';
       "count": 7
     },
     {
-      "type": "PorcuPuffer",
-      "count": 7
-    },
-    {
       "type": "SeeSawPlatform",
       "count": 7
     },
@@ -660,11 +672,19 @@ import type { LevelStats } from './types';
       "count": 7
     },
     {
-      "type": "BackgroundHillsStripedSmall",
+      "type": "BackgroundHillsStripedMedium",
+      "count": 6
+    },
+    {
+      "type": "FireBro",
       "count": 6
     },
     {
       "type": "HomingFireball",
+      "count": 6
+    },
+    {
+      "type": "PowerUpSlotMachine",
       "count": 6
     },
     {
@@ -673,10 +693,6 @@ import type { LevelStats } from './types';
     },
     {
       "type": "AmazingFlyinHammerBro",
-      "count": 5
-    },
-    {
-      "type": "FireFlower",
       "count": 5
     },
     {
@@ -689,10 +705,6 @@ import type { LevelStats } from './types';
     },
     {
       "type": "PlatformUpDown",
-      "count": 5
-    },
-    {
-      "type": "PowerUpSlotMachine",
       "count": 5
     },
     {
@@ -720,10 +732,6 @@ import type { LevelStats } from './types';
       "count": 5
     },
     {
-      "type": "BackgroundHillsStripedMedium",
-      "count": 4
-    },
-    {
       "type": "BoomerangBro",
       "count": 4
     },
@@ -737,10 +745,6 @@ import type { LevelStats } from './types';
     },
     {
       "type": "ClassicBowser",
-      "count": 4
-    },
-    {
-      "type": "FireBro",
       "count": 4
     },
     {
@@ -844,6 +848,10 @@ import type { LevelStats } from './types';
       "count": 2
     },
     {
+      "type": "PiranhaPlantRedFire",
+      "count": 2
+    },
+    {
       "type": "PlatformStatic",
       "count": 2
     },
@@ -908,6 +916,10 @@ import type { LevelStats } from './types';
       "count": 1
     },
     {
+      "type": "PiranhaPlantRedUpsideDownFire",
+      "count": 1
+    },
+    {
       "type": "PlatformLeftRight",
       "count": 1
     },
@@ -964,6 +976,10 @@ import type { LevelStats } from './types';
       "count": 0
     },
     {
+      "type": "Burner",
+      "count": 0
+    },
+    {
       "type": "CannonRotating",
       "count": 0
     },
@@ -1004,10 +1020,6 @@ import type { LevelStats } from './types';
       "count": 0
     },
     {
-      "type": "CloudPlatformAero",
-      "count": 0
-    },
-    {
       "type": "CloudPlatformThin",
       "count": 0
     },
@@ -1044,6 +1056,10 @@ import type { LevelStats } from './types';
       "count": 0
     },
     {
+      "type": "JumpingCheepCheep",
+      "count": 0
+    },
+    {
       "type": "LakituCloudAlternate",
       "count": 0
     },
@@ -1069,6 +1085,34 @@ import type { LevelStats } from './types';
     },
     {
       "type": "PipeCannonMini",
+      "count": 0
+    },
+    {
+      "type": "PiranhaPlantFire",
+      "count": 0
+    },
+    {
+      "type": "PiranhaPlantRed",
+      "count": 0
+    },
+    {
+      "type": "PiranhaPlantRedFacingLeft",
+      "count": 0
+    },
+    {
+      "type": "PiranhaPlantRedFacingLeftFire",
+      "count": 0
+    },
+    {
+      "type": "PiranhaPlantRedUpsideDown",
+      "count": 0
+    },
+    {
+      "type": "PiranhaPlantRedUpsideDownShort",
+      "count": 0
+    },
+    {
+      "type": "PlatformPullied",
       "count": 0
     },
     {
@@ -1104,18 +1148,26 @@ import type { LevelStats } from './types';
       "count": 0
     },
     {
-      "type": "StoneSupport",
+      "type": "UpwardWaterCurrentNarrow",
       "count": 0
     },
     {
       "type": "WoodColumn",
       "count": 0
+    },
+    {
+      "type": "WoodFloorSnowCovered",
+      "count": 0
+    },
+    {
+      "type": "WoodWindowFrame",
+      "count": 0
     }
   ],
   "roomsPerLevelPercentages": {
-    "1": 48,
-    "2": 18,
-    "3": 18,
+    "1": 46,
+    "2": 19,
+    "3": 17,
     "4": 17
   }
 };

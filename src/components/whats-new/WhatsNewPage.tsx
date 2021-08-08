@@ -87,6 +87,25 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-08-08" alertingChange>
+					<ul>
+						<li>Piranha Plant - Facing Left, Red</li>
+						<li>Piranha Plant - Facing Left, Red, Fire</li>
+					</ul>
+
+					<p>
+						<span className="inline-block bg-yellow-200 text-yellow-900 p-1">
+							I needed to rename Horizontal Piranha Plant.
+						</span>{' '}
+						So if it is in your levels, you will find it is now missing. You
+						need to re-add it, sorry about that.
+					</p>
+					<p>
+						Renames like this should be very rare, Horizontal Piranha Plant was
+						one of the first entities in Smaghetti and I didn&apos;t think
+						through its name very well in those early days.
+					</p>
+				</NewEntry>
 				<NewEntry
 					title="Change in how testing your level works"
 					date="2021-08-07"
