@@ -222,7 +222,7 @@ function PaletteChoiceModal({
 
 	return (
 		<Modal
-			className={styles.modal}
+			className={clsx(styles.modal, 'overflow-y-hidden')}
 			noAnimation={true}
 			isOpen={isOpen}
 			onRequestClose={onCancel}
@@ -293,7 +293,7 @@ function PaletteChoiceModal({
 					</div>
 				</div>
 
-				<div className={styles.details}>
+				<div className="flex flex-col text-white rounded-br-xl rounded-tr-xl px-4 py-8 -mt-3 -mb-8 -mr-4 bg-gray-900">
 					{currentEntry && (
 						<h2 className="font-bold mb-4">{currentEntry.info.title}</h2>
 					)}
@@ -319,6 +319,19 @@ function PaletteChoiceModal({
 								see compatibility chart
 							</a>
 						</div>
+					)}
+					{currentEntry && isCompatible(currentEntry.entry, validEntityTypes) && (
+						<>
+							<div className="flex-1" />
+							<a
+								className="text-xs text-blue-500"
+								href={`/compatibility/${currentEntry.entry}`}
+								target="_blank"
+								rel="noreferrer"
+							>
+								compatibility chart
+							</a>
+						</>
 					)}
 				</div>
 				<div className="text-xs text-center text-gray-300 -mb-2 pt-1">
