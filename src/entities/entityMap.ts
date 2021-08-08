@@ -209,6 +209,7 @@ import { PiranhaPlantRed } from './PiranhaPlantRed';
 import { PiranhaPlantRedFacingLeft } from './PiranhaPlantRedFacingLeft';
 import { PiranhaPlantRedFacingLeftFire } from './PiranhaPlantRedFacingLeftFire';
 import { PiranhaPlantRedFacingRight } from './PiranhaPlantRedFacingRight';
+import { PiranhaPlantRedFacingRightFire } from './PiranhaPlantRedFacingRightFire';
 import { PiranhaPlantRedFire } from './PiranhaPlantRedFire';
 import { PiranhaPlantRedUpsideDown } from './PiranhaPlantRedUpsideDown';
 import { PiranhaPlantRedUpsideDownFire } from './PiranhaPlantRedUpsideDownFire';
@@ -513,6 +514,7 @@ const entityMap = {
 	PiranhaPlantRedFacingLeft,
 	PiranhaPlantRedFacingLeftFire,
 	PiranhaPlantRedFacingRight,
+	PiranhaPlantRedFacingRightFire,
 	PiranhaPlantRedFire,
 	PiranhaPlantRedUpsideDown,
 	PiranhaPlantRedUpsideDownFire,
