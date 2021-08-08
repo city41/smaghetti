@@ -180,6 +180,7 @@ export const resourceShaMap: Record<string, string> = {
   "PiranhaPlant": "5603bb3e5b2447fa3d53b427156a47bac975ce85",
   "PiranhaPlantFire": "29d720d89af601f0d041a253b83b15fa7e622fb9",
   "PiranhaPlantRed": "289c1bbe0c22a5469891b8ce1b3550ba4ede86a4",
+  "PiranhaPlantRedFire": "970a45062db954988dab8e512336ff755082807e",
   "PiranhaPlantRedUpsideDown": "765afe73980df20321ea1321ad1793129a0a720d",
   "PiranhaPlantRedUpsideDownShort": "765afe73980df20321ea1321ad1793129a0a720d",
   "PlatformPulley": "d68d2c43f1aceee2109250b156ea41f6eedc0298",

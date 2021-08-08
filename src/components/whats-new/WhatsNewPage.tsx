@@ -116,6 +116,7 @@ function WhatsNewPage() {
 					<ul>
 						<li>Piranha Plant - Fire</li>
 						<li>Piranha Plant - Red</li>
+						<li>Piranha Plant - Red, Fire</li>
 						<li>Piranha Plant - Upside Down Red</li>
 						<li>Piranha Plant - Upside Down Red, Short</li>
 					</ul>
