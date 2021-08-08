@@ -14,7 +14,9 @@ It's available here: https://smaghetti.com
 
 ## Status
 
-At the time of writing, Smaghetti has extracted out 298 entities from the game for use in creating levels. A lot of progress has been made, but a lot more work still lies ahead. For a high level view, check the [roadmap](https://smaghetti.com/roadmap)
+Smaghetti at this point is pretty far along. The [roadmap](https://smaghetti.com/roadmap) marks it as being alpha quality, mostly because several big features are missing from the editor.
+
+At the time of writing, 307 entities exist in Smaghetti. That represents almost every item/enemy/terrain/etc in the game. There aren't many left that need to be added. Mostly what is missing -- entity wise -- are "meta" controls such as sprites that influence auto scrolling. You can create a rather nice level these days, and [many people have](https://smaghetti.com/levels).
 
 ## Editor quick start
 
@@ -49,10 +51,6 @@ There are some other minor tools listed here too: https://smaghetti.com/tools
 ## Code contributions
 
 PRs are welcome, but please open an issue and discuss with me first before starting any work. That way no one does any wasted effort. The code is pretty messy and in many parts of the codebase I'm more focused on figuring stuff out than creating clean code. So I am refactoring pretty often. I'd hate to merge a refactor that really harms someone else's PR.
-
-## Bug reports
-
-Since Smaghetti is so young, there are a ton of bugs. Feel free to file them here as an issue
 
 ## Subreddit
 
