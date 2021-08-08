@@ -114,6 +114,7 @@ function WhatsNewPage() {
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-08-07">
 					<ul>
+						<li>Piranha Plant - Fire</li>
 						<li>Piranha Plant - Red</li>
 						<li>Piranha Plant - Upside Down Red</li>
 						<li>Piranha Plant - Upside Down Red, Short</li>
