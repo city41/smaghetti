@@ -24,7 +24,7 @@ function TipEntry({ title, children }: { title: string; children: ReactNode }) {
 function TipsPage() {
 	return (
 		<Root
-			title="Help"
+			title="Tips"
 			metaDescription="Tips on using Smaghetti more effectively"
 		>
 			<div className="max-w-2xl mx-auto pt-16">
