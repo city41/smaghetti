@@ -57,11 +57,10 @@ function Header({ className, highlightEditor }: HeaderProps) {
 						{highlightEditor && <HighlightEditor />}
 					</div>
 					<MenuLink href="/levels">levels</MenuLink>
-					<MenuLink href="/help">help</MenuLink>
 					<MenuLink href="/whats-new">what&apos;s new</MenuLink>
 					<MenuLink href="/roadmap">roadmap</MenuLink>
-					<MenuLink href="/stats">stats</MenuLink>
 					<MenuLink href="/tips">tips</MenuLink>
+					<MenuLink href="/stats">stats</MenuLink>
 					<MenuLink
 						href="https://www.reddit.com/r/smaghetti/"
 						target="_blank"
