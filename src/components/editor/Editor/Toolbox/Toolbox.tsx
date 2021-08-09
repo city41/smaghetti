@@ -147,7 +147,14 @@ const Toolbox = memo(function Toolbox({
 
 			<div className="flex-1 text-center text-sm text-gray-300">
 				press <span className="font-bold text-base">?</span> for keyboard
-				shortcuts
+				shortcuts{' '}
+				<a
+					className="inline-block ml-2 bg-blue-500 text-white font-bold px-1 py-0.5 hover:bg-blue-500 rounded"
+					href="/tips"
+					target="_blank"
+				>
+					more tips
+				</a>
 			</div>
 
 			<div className="flex flex-row items-center space-x-2">
