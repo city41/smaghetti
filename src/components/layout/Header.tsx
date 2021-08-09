@@ -61,6 +61,7 @@ function Header({ className, highlightEditor }: HeaderProps) {
 					<MenuLink href="/whats-new">what&apos;s new</MenuLink>
 					<MenuLink href="/roadmap">roadmap</MenuLink>
 					<MenuLink href="/stats">stats</MenuLink>
+					<MenuLink href="/tips">tips</MenuLink>
 					<MenuLink
 						href="https://www.reddit.com/r/smaghetti/"
 						target="_blank"
