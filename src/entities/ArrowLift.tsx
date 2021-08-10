@@ -18,6 +18,8 @@ const ArrowLift: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xe8,
+	width: 2,
+	height: 2,
 
 	resource: {
 		romOffset: 0x18af80,
