@@ -33,6 +33,19 @@ function TipsPage() {
 					Really simple so far. I plan to expand this page into nice advanced
 					usage docs. Stay tuned.
 				</p>
+				<TipEntry title="Mario's position and the camera">
+					<p>
+						Where Mario starts in a room has an influence on the camera. If you
+						start him down low, then the camera will bias up high. If you start
+						him about 3 or 4 files up from the bottom, the camera will be more
+						balanced.
+					</p>
+					<p>
+						This is temporary, eventually Smaghetti will give you controls to
+						configure the camera. But that probably won&apos;t get added for a
+						good while.
+					</p>
+				</TipEntry>
 				<TipEntry title="Keyboard shortcuts">
 					<p>
 						In the editor press &apos;?&apos; to see all the shortcuts
