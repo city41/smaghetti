@@ -69,7 +69,7 @@ const Zoom: FunctionComponent<ZoomProps> = ({
 				label="reset viewport"
 				icon={MdTerrain}
 				onClick={onResetViewport}
-				disabled={!canIncreaseScale || disabled}
+				disabled={disabled}
 			/>
 		</div>
 	);
