@@ -4,13 +4,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import { encodeObjectSets } from './util';
 import { ANY_BELOW_0x16 } from './constants';
 
-const BillBlaster: Entity = {
+const BillBlasterNoBody: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-airship',
 		title: 'Bill Blaster - Airship',
-		description:
-			'A Bill Blaster that does not have a body. Nintendo uses these in airship levels. Normal Bill Blasters are found in the common section.',
+		description: 'Shoots Bullet Bills',
 	},
 
 	objectSets: encodeObjectSets([[10, 10]]),
@@ -66,7 +65,7 @@ const BillBlaster: Entity = {
 			width: size,
 			height: size,
 		};
-		return <div className="BillBlaster-bg bg-cover" style={style} />;
+		return <div className="BillBlasterNoBody-bg bg-cover" style={style} />;
 	},
 
 	render() {
@@ -74,4 +73,4 @@ const BillBlaster: Entity = {
 	},
 };
 
-export { BillBlaster };
+export { BillBlasterNoBody };

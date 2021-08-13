@@ -1,15 +1,15 @@
 import type { LevelStats } from './types';
 	
 	export const stats: LevelStats = {
-  "lastUpdated": "Wed Aug 11 2021 17:02:12 GMT-0400 (Eastern Daylight Time)",
+  "lastUpdated": "Fri Aug 13 2021 10:10:11 GMT-0400 (Eastern Daylight Time)",
   "entitiesByCount": [
     {
       "type": "FortressBrick",
-      "count": 22211
+      "count": 22303
     },
     {
       "type": "ChoppyWater",
-      "count": 14465
+      "count": 14479
     },
     {
       "type": "TerracottaBrick",
@@ -33,7 +33,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "Brick",
-      "count": 3594
+      "count": 3599
     },
     {
       "type": "GrassHorizontal",
@@ -45,7 +45,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "MetalBrick",
-      "count": 1457
+      "count": 1489
     },
     {
       "type": "Lava",
@@ -69,11 +69,11 @@ import type { LevelStats } from './types';
     },
     {
       "type": "UpFortressSpike",
-      "count": 844
+      "count": 848
     },
     {
       "type": "DownFortressSpike",
-      "count": 735
+      "count": 739
     },
     {
       "type": "GlassBlock",
@@ -101,7 +101,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "PipeVertical",
-      "count": 438
+      "count": 439
     },
     {
       "type": "MagicBrick",
@@ -112,12 +112,12 @@ import type { LevelStats } from './types';
       "count": 343
     },
     {
-      "type": "YellowSwitchBrick",
-      "count": 335
-    },
-    {
       "type": "GrassVerticalLeft",
       "count": 334
+    },
+    {
+      "type": "YellowSwitchBrick",
+      "count": 333
     },
     {
       "type": "BlueCoin",
@@ -150,6 +150,10 @@ import type { LevelStats } from './types';
     {
       "type": "FireBarBase",
       "count": 156
+    },
+    {
+      "type": "WoodWalkway",
+      "count": 122
     },
     {
       "type": "ArrowFloor",
@@ -192,8 +196,8 @@ import type { LevelStats } from './types';
       "count": 100
     },
     {
-      "type": "WoodWalkway",
-      "count": 100
+      "type": "StoneSupport",
+      "count": 98
     },
     {
       "type": "Thwomp",
@@ -208,12 +212,12 @@ import type { LevelStats } from './types';
       "count": 88
     },
     {
-      "type": "WaterCheepCheep",
+      "type": "FallAwaySpike",
       "count": 85
     },
     {
-      "type": "FallAwaySpike",
-      "count": 84
+      "type": "WaterCheepCheep",
+      "count": 85
     },
     {
       "type": "PiranhaPlant",
@@ -221,7 +225,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "PipeHorizontal",
-      "count": 79
+      "count": 80
     },
     {
       "type": "CoralDonutBlock",
@@ -230,10 +234,6 @@ import type { LevelStats } from './types';
     {
       "type": "StoneFloor",
       "count": 74
-    },
-    {
-      "type": "StoneSupport",
-      "count": 73
     },
     {
       "type": "WarpArea",
@@ -356,15 +356,15 @@ import type { LevelStats } from './types';
       "count": 32
     },
     {
-      "type": "SpringBoard",
-      "count": 32
-    },
-    {
       "type": "GreenKoopaTroopa",
       "count": 31
     },
     {
       "type": "PileDriverMiniGoomba",
+      "count": 31
+    },
+    {
+      "type": "SpringBoard",
       "count": 31
     },
     {
@@ -412,6 +412,10 @@ import type { LevelStats } from './types';
       "count": 26
     },
     {
+      "type": "ThreeUpMoon",
+      "count": 26
+    },
+    {
       "type": "Chest",
       "count": 25
     },
@@ -425,10 +429,6 @@ import type { LevelStats } from './types';
     },
     {
       "type": "ParaGoomba",
-      "count": 25
-    },
-    {
-      "type": "ThreeUpMoon",
       "count": 25
     },
     {
@@ -457,7 +457,7 @@ import type { LevelStats } from './types';
     },
     {
       "type": "DolphinPod",
-      "count": 19
+      "count": 20
     },
     {
       "type": "SledgeBro",
@@ -508,6 +508,10 @@ import type { LevelStats } from './types';
       "count": 13
     },
     {
+      "type": "OneUpMushroom",
+      "count": 13
+    },
+    {
       "type": "SilverPSwitch",
       "count": 13
     },
@@ -532,11 +536,11 @@ import type { LevelStats } from './types';
       "count": 12
     },
     {
-      "type": "OneUpMushroom",
+      "type": "ParaBeetle",
       "count": 12
     },
     {
-      "type": "ParaBeetle",
+      "type": "QuestionBlockGiant",
       "count": 12
     },
     {
@@ -556,15 +560,15 @@ import type { LevelStats } from './types';
       "count": 11
     },
     {
-      "type": "QuestionBlockGiant",
-      "count": 11
-    },
-    {
       "type": "ArrowLift",
       "count": 10
     },
     {
       "type": "BowserLaserStatue",
+      "count": 10
+    },
+    {
+      "type": "CeilingSpiny",
       "count": 10
     },
     {
@@ -628,6 +632,10 @@ import type { LevelStats } from './types';
       "count": 8
     },
     {
+      "type": "GreenParaTroopaPatrolling",
+      "count": 8
+    },
+    {
       "type": "PorcuPuffer",
       "count": 8
     },
@@ -652,10 +660,6 @@ import type { LevelStats } from './types';
       "count": 7
     },
     {
-      "type": "CeilingSpiny",
-      "count": 7
-    },
-    {
       "type": "ClappingChuck",
       "count": 7
     },
@@ -672,11 +676,11 @@ import type { LevelStats } from './types';
       "count": 7
     },
     {
-      "type": "GreenParaTroopaPatrolling",
+      "type": "HomingFireball",
       "count": 7
     },
     {
-      "type": "HomingFireball",
+      "type": "PowerUpSlotMachine",
       "count": 7
     },
     {
@@ -686,10 +690,6 @@ import type { LevelStats } from './types';
     {
       "type": "SnowPlateau",
       "count": 7
-    },
-    {
-      "type": "PowerUpSlotMachine",
-      "count": 6
     },
     {
       "type": "Tornado",
@@ -964,7 +964,7 @@ import type { LevelStats } from './types';
       "count": 0
     },
     {
-      "type": "BillBlaster",
+      "type": "BillBlasterNoBody",
       "count": 0
     },
     {
@@ -1174,8 +1174,8 @@ import type { LevelStats } from './types';
   ],
   "roomsPerLevelPercentages": {
     "1": 46,
-    "2": 20,
-    "3": 17,
+    "2": 19,
+    "3": 18,
     "4": 17
   }
 };
