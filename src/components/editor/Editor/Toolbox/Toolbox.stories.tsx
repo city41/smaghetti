@@ -18,6 +18,7 @@ export const Basic = () => {
 			mouseMode="draw"
 			onMouseModeChanged={noop}
 			onResetViewport={noop}
+			onShowEntireRoom={noop}
 			onScaleDecreased={noop}
 			onScaleIncreased={noop}
 			canIncreaseScale={false}

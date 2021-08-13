@@ -3,7 +3,10 @@ import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 import { TiZoomIn, TiZoomOut } from 'react-icons/ti';
-import { MdTerrain } from 'react-icons/md';
+import {
+	MdPhotoSizeSelectLarge,
+	MdPhotoSizeSelectActual,
+} from 'react-icons/md';
 
 import { PlainIconButton } from '../../../PlainIconButton';
 
@@ -11,6 +14,7 @@ type ZoomProps = {
 	className?: string;
 	disabled?: boolean;
 	onResetViewport: () => void;
+	onShowEntireRoom: () => void;
 	onScaleIncreased: () => void;
 	onScaleDecreased: () => void;
 	canIncreaseScale: boolean;
@@ -21,6 +25,7 @@ const Zoom: FunctionComponent<ZoomProps> = ({
 	className,
 	disabled,
 	onResetViewport,
+	onShowEntireRoom,
 	onScaleIncreased,
 	onScaleDecreased,
 	canIncreaseScale,
@@ -67,8 +72,15 @@ const Zoom: FunctionComponent<ZoomProps> = ({
 			<PlainIconButton
 				size="large"
 				label="reset viewport"
-				icon={MdTerrain}
+				icon={MdPhotoSizeSelectLarge}
 				onClick={onResetViewport}
+				disabled={disabled}
+			/>
+			<PlainIconButton
+				size="large"
+				label="show entire room"
+				icon={MdPhotoSizeSelectActual}
+				onClick={onShowEntireRoom}
 				disabled={disabled}
 			/>
 		</div>

@@ -42,6 +42,7 @@ type InternalToolboxProps = {
 	mouseMode: MouseMode;
 	onMouseModeChanged: (mouseMode: MouseMode) => void;
 	onResetViewport: () => void;
+	onShowEntireRoom: () => void;
 	onScaleDecreased: () => void;
 	onScaleIncreased: () => void;
 	canIncreaseScale: boolean;
@@ -61,6 +62,7 @@ const Toolbox = memo(function Toolbox({
 	mouseMode,
 	onMouseModeChanged,
 	onResetViewport,
+	onShowEntireRoom,
 	onScaleDecreased,
 	onScaleIncreased,
 	canIncreaseScale,
@@ -130,6 +132,7 @@ const Toolbox = memo(function Toolbox({
 			<Zoom
 				disabled={disabled}
 				onResetViewport={onResetViewport}
+				onShowEntireRoom={onShowEntireRoom}
 				onScaleDecreased={onScaleDecreased}
 				onScaleIncreased={onScaleIncreased}
 				canIncreaseScale={canIncreaseScale}

@@ -61,6 +61,8 @@ type EditorFocusRect = {
 	height: number;
 };
 
+const ROUGH_TOOLBAR_HEIGHT = 210;
+
 const nonDeletableEntityTypes = ['Player'];
 
 const playerScale = getPlayerScaleFromWindow();
@@ -675,6 +677,16 @@ function scaleTo(state: InternalEditorState, newScale: number) {
 	currentRoom.canDecreaseScale = newScaleIndex !== -1 && newScaleIndex > 0;
 }
 
+function calcScaleToFit(tileWidth: number, tileHeight: number): number {
+	const availWidth = window.innerWidth - 10;
+	const availHeight = window.innerHeight - ROUGH_TOOLBAR_HEIGHT;
+
+	const widthScale = availWidth / (tileWidth * TILE_SIZE);
+	const heightScale = availHeight / (tileHeight * TILE_SIZE);
+
+	return Math.min(widthScale, heightScale);
+}
+
 function setScaleAndOffsetForManageLevel(state: InternalEditorState) {
 	const currentRoom = getCurrentRoom(state);
 	currentRoom.scale = 1;
@@ -682,7 +694,7 @@ function setScaleAndOffsetForManageLevel(state: InternalEditorState) {
 	currentRoom.scrollOffset = {
 		// stick it about in the upper left corner-ish, accounting for the upper toolbar area
 		x: -100,
-		y: -200,
+		y: -ROUGH_TOOLBAR_HEIGHT,
 	};
 }
 
@@ -1175,7 +1187,32 @@ const editorSlice = createSlice({
 				currentRoom.roomTileHeight,
 				initialScale
 			);
-			currentRoom.scale = initialScale;
+
+			scaleTo(state, initialScale);
+		},
+		viewportToEntireRoom(state: InternalEditorState) {
+			const currentRoom = getCurrentRoom(state);
+
+			const { roomTileWidth, roomTileHeight } = currentRoom;
+
+			const scale = calcScaleToFit(roomTileWidth, roomTileHeight);
+
+			const scaledHeightInPx = roomTileHeight * TILE_SIZE * scale;
+			const yOffset =
+				(window.innerHeight - ROUGH_TOOLBAR_HEIGHT) / 2 -
+				scaledHeightInPx / 2 +
+				ROUGH_TOOLBAR_HEIGHT;
+
+			const scaledWidthInPx = roomTileWidth * TILE_SIZE * scale;
+			const xOffset = window.innerWidth / 2 - scaledWidthInPx / 2;
+
+			currentRoom.scrollOffset = {
+				x: -xOffset / scale,
+				y: -yOffset / scale,
+			};
+			currentRoom.scale = scale;
+			currentRoom.canIncreaseScale = scale < scales[scales.length - 1];
+			currentRoom.canDecreaseScale = scale > scales[0];
 		},
 		editorVisibleWindowChanged(
 			state: InternalEditorState,
@@ -1187,19 +1224,44 @@ const editorSlice = createSlice({
 			currentRoom.scrollOffset = action.payload.offset;
 		},
 		scaleDecreased(state: InternalEditorState) {
-			const currentScaleIndex = scales.indexOf(getCurrentRoom(state).scale);
-			const newScaleIndex = Math.max(0, currentScaleIndex - 1);
+			const currentScale = getCurrentRoom(state).scale;
 
-			if (newScaleIndex !== currentScaleIndex) {
-				scaleTo(state, scales[newScaleIndex]);
+			const currentScaleIndex = scales.indexOf(currentScale);
+
+			if (currentScaleIndex !== -1) {
+				const newScaleIndex = Math.max(0, currentScaleIndex - 1);
+
+				if (newScaleIndex !== currentScaleIndex) {
+					scaleTo(state, scales[newScaleIndex]);
+				}
+			} else {
+				const nextSmallestScale = scales.find((s, i, a) => {
+					return (
+						s < currentScale && (i === a.length - 1 || a[i + 1] > currentScale)
+					);
+				});
+				scaleTo(state, nextSmallestScale ?? scales[scales.length - 1]);
 			}
 		},
 		scaleIncreased(state: InternalEditorState) {
-			const currentScaleIndex = scales.indexOf(getCurrentRoom(state).scale);
-			const newScaleIndex = Math.min(scales.length - 1, currentScaleIndex + 1);
+			const currentScale = getCurrentRoom(state).scale;
 
-			if (newScaleIndex !== currentScaleIndex) {
-				scaleTo(state, scales[newScaleIndex]);
+			const currentScaleIndex = scales.indexOf(currentScale);
+
+			if (currentScaleIndex !== -1) {
+				const newScaleIndex = Math.min(
+					scales.length - 1,
+					currentScaleIndex + 1
+				);
+
+				if (newScaleIndex !== currentScaleIndex) {
+					scaleTo(state, scales[newScaleIndex]);
+				}
+			} else {
+				const nextLargestScale = scales.find((s, i, a) => {
+					return s > currentScale && (i === 0 || a[i - 1] < currentScale);
+				});
+				scaleTo(state, nextLargestScale ?? scales[0]);
 			}
 		},
 		toggleManageLevelMode(state: InternalEditorState) {
@@ -1936,6 +1998,7 @@ const {
 	pushPan,
 	popPan,
 	resetViewport,
+	viewportToEntireRoom,
 	addPaletteEntry,
 	removePaletteEntry,
 	setCurrentPaletteEntryByIndex,
@@ -1974,6 +2037,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		mouseModeChanged.toString(),
 		editorVisibleWindowChanged.toString(),
 		resetViewport.toString(),
+		viewportToEntireRoom.toString(),
 		scaleIncreased.toString(),
 		scaleDecreased.toString(),
 		toggleManageLevelMode().toString(),
@@ -1981,7 +2045,6 @@ const undoableReducer = undoable(cleanUpReducer, {
 		tagChange.toString(),
 		toggleGrid.toString(),
 		toggleLayerLock.toString(),
-		resetViewport.toString(),
 		addPaletteEntry.toString(),
 		removePaletteEntry.toString(),
 		setCurrentPaletteEntryByIndex.toString(),
@@ -2151,6 +2214,7 @@ export {
 	pushPan,
 	popPan,
 	resetViewport,
+	viewportToEntireRoom,
 	addPaletteEntry,
 	removePaletteEntry,
 	setCurrentPaletteEntryByIndex,

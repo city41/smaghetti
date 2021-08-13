@@ -12,6 +12,7 @@ import {
 	toggleGrid,
 	eraseLevel,
 	resetViewport,
+	viewportToEntireRoom,
 } from '../../editorSlice';
 import { Toolbox, PublicToolboxProps } from './Toolbox';
 import { useRouter } from 'next/router';
@@ -20,6 +21,7 @@ const actions = bindActionCreators(
 	{
 		onMouseModeChanged: mouseModeChanged,
 		onResetViewport: resetViewport,
+		onShowEntireRoom: viewportToEntireRoom,
 		onScaleDecreased: scaleDecreased,
 		onScaleIncreased: scaleIncreased,
 		onUndo: undo,
