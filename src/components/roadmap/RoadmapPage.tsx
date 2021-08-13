@@ -59,7 +59,6 @@ const finalChecklist: MilestoneChecklistItem[] = [
 		status: 'not-started',
 		description: 'All entities in SMA4 are available to build levels with',
 	},
-	{ status: 'not-started', description: 'Credits page' },
 	{
 		status: 'not-started',
 		description: 'All known bugs fixed and editor is very stable',

@@ -3,15 +3,15 @@
 }
 
 .typography h1 {
-	@apply text-2xl font-bold mb-8;
+	@apply text-3xl font-bold mb-8;
 }
 
 .typography h2 {
-	@apply text-xl font-bold mb-4;
+	@apply text-2xl font-bold mb-4;
 }
 
 .typography h3 {
-	@apply text-lg font-bold mb-4;
+	@apply text-xl font-bold mb-4;
 }
 
 .typography p {
@@ -29,4 +29,20 @@
 .typography code {
 	font-family: monospace;
 	@apply px-1 py-0.5 bg-gray-500 text-gray-200;
+}
+
+.typography figure {
+	@apply p-2 my-8;
+}
+
+.typography figure img {
+	@apply mx-auto my-8;
+}
+
+.typography figure figcaption {
+	@apply text-center text-sm text-gray-300 mt-4 mb-2;
+}
+
+.typography :global(.flow) {
+	@apply mx-auto my-8;
 }

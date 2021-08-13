@@ -69,6 +69,7 @@ function Header({ className, highlightEditor }: HeaderProps) {
 					>
 						subreddit
 					</MenuLink>
+					<MenuLink href="/about">about</MenuLink>
 				</div>
 			</div>
 		</header>
