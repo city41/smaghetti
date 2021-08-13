@@ -17,7 +17,7 @@ function KoopalingViewDetails({
 		<div
 			className={clsx(
 				className,
-				'flex flex-row items-center justify-around bg-black absolute left-0 bottom-0 w-full'
+				'thumbnail-hide flex flex-row items-center justify-around bg-black absolute left-0 bottom-0 w-full'
 			)}
 			style={{ fontSize: 2.5 }}
 		>

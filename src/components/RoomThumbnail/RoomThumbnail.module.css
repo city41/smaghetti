@@ -1,4 +1,4 @@
-.root :global(.TileSpace),
+.root :global(.thumbnail-hide),
 .root svg,
 .root button {
 	display: none !important;

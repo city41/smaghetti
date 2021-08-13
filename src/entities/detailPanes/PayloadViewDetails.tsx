@@ -26,7 +26,7 @@ function PayloadViewDetails({
 			className={clsx(
 				className,
 				`${payload}-bg`,
-				'bg-cover absolute bottom-0 right-0 w-2 h-2 bg-black'
+				'thumbnail-hide bg-cover absolute bottom-0 right-0 w-2 h-2 bg-black'
 			)}
 		/>
 	);

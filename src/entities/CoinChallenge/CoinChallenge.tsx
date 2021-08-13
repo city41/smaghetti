@@ -80,7 +80,7 @@ const CoinChallenge: Entity = {
 			<div className="relative CoinChallenge-bg bg-cover" style={style}>
 				<div
 					style={{ fontSize: 3 }}
-					className="absolute bottom-0 right-0 w-1.5 h-1 bg-black text-white rounded-xs text-center"
+					className="thumbnail-hide absolute bottom-0 right-0 w-1.5 h-1 bg-black text-white rounded-xs text-center"
 				>
 					{count}
 				</div>
