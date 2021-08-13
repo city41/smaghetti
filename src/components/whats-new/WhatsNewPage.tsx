@@ -91,6 +91,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-08-13">
 					<ul>
 						<li>Bill Blaster</li>
+						<li>Bullet Bill - Targeting</li>
 					</ul>
 					<p>
 						The previous Bill Blaster was a special one meant only for airship

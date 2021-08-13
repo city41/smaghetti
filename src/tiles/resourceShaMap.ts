@@ -281,6 +281,7 @@ export const resourceShaMap: Record<string, string> = {
   "BonusRoomBackground": "317d67472a88622da2db6f271c270fa9544c0cfe",
   "BowserFireStatueBody": "dc02e431d822de42127d0a6b346213ca2ec40738",
   "BowserFireStatueHead": "09f1d3f5b4b86c8d9786b24ba6954079c6c49e3d",
+  "BulletBill": "e7c8157a92435eb2b0587fcdf93686e6d4c26e88",
   "CannonBall": "b1659efe5f4ba1f709b1b7736c6f0b2bc190d76e",
   "ChargingChuckBody": "650c9a2c3fb0ce43af731545cbb32ecb4c3fc680",
   "ChargingChuckHead": "55fb6952e8edc7ebb723d5de6da54069db36bc5b",
