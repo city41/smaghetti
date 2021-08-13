@@ -9,7 +9,8 @@ const BillBlasterNoBody: Entity = {
 	paletteInfo: {
 		subCategory: 'enemy-airship',
 		title: 'Bill Blaster - Airship',
-		description: 'Shoots Bullet Bills',
+		description:
+			'A Bill Blaster that does not have a body. Nintendo uses these in airship levels. Normal Bill Blasters are found in the common section.',
 	},
 
 	objectSets: encodeObjectSets([[10, 10]]),
@@ -21,34 +22,6 @@ const BillBlasterNoBody: Entity = {
 	objectId: 0x1,
 	emptyBank: 0,
 	dimensions: 'none',
-
-	resource: {
-		romOffset: 0x16ad5c,
-		palettes: [
-			[
-				0x7f96,
-				0x7fff,
-				0x0,
-				0x39ce,
-				0x4a52,
-				0x6318,
-				0x77bd,
-				0x267c,
-				0x435f,
-				0x5bbf,
-				0x3d89,
-				0x4a0d,
-				0x5650,
-				0x62b2,
-				0x6f15,
-				0x7778,
-			],
-		],
-		tiles: [
-			[456, 458],
-			[457, 459],
-		],
-	},
 
 	toSpriteBinary({ x, y }) {
 		// 0x90 is bullet bill
@@ -65,7 +38,7 @@ const BillBlasterNoBody: Entity = {
 			width: size,
 			height: size,
 		};
-		return <div className="BillBlasterNoBody-bg bg-cover" style={style} />;
+		return <div className="BillBlasterBarrel-bg bg-cover" style={style} />;
 	},
 
 	render() {

@@ -88,6 +88,26 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-08-13">
+					<ul>
+						<li>Bill Blaster</li>
+					</ul>
+					<p>
+						The previous Bill Blaster was a special one meant only for airship
+						levels. It is still available in the enemies airship section. That
+						one can not have a body.
+					</p>
+					<p>
+						This new Bill Blaster is the general one that can be used in any
+						level, and it can have a body of whatever height you choose. Thanks
+						to NintyAlex for working these out.
+					</p>
+					<p>
+						Bill Blasters can shoot various things, but so far Smaghetti only
+						supports normal Bullet Bills. The other payloads will get added
+						eventually.
+					</p>
+				</NewEntry>
 				<NewEntry title="Liking levels" date="2021-08-08">
 					<p>
 						Found a level on the <a href="/levels">levels</a> page you liked?
