@@ -92,6 +92,7 @@ function WhatsNewPage() {
 					<ul>
 						<li>Bill Blaster</li>
 						<li>Bullet Bill - Targeting</li>
+						<li>Burner: can now shoot flames up or down</li>
 					</ul>
 					<p>
 						The previous Bill Blaster was a special one meant only for airship

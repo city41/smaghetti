@@ -1,19 +1,32 @@
 import React from 'react';
+import clsx from 'clsx';
+import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import type { IconType } from 'react-icons';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { encodeObjectSets } from './util';
 
-function isBurnerAbove(
+type BurnerDirection = 'up' | 'down';
+
+const directionIcons: Record<BurnerDirection, IconType> = {
+	up: FaArrowUp,
+	down: FaArrowDown,
+};
+
+const directions = ['up', 'down'];
+
+function isBurner(
 	entity: EditorEntity | undefined,
-	room: RoomData | undefined
+	room: RoomData | undefined,
+	delta: 1 | -1
 ): boolean {
 	if (!entity || !room) {
 		return false;
 	}
 
-	const cellAbove = room.stage.matrix[entity.y - 1]?.[entity.x];
+	const otherCell = room.stage.matrix[entity.y + delta]?.[entity.x];
 
-	return cellAbove?.type === 'Burner';
+	return otherCell?.type === 'Burner';
 }
 
 const Burner: Entity = {
@@ -31,6 +44,8 @@ const Burner: Entity = {
 	dimensions: 'none',
 	objectId: 0x2,
 	emptyBank: 0,
+	settingsType: 'single',
+	defaultSettings: { direction: 'up' },
 
 	resource: {
 		romOffset: 0x176be8,
@@ -60,13 +75,25 @@ const Burner: Entity = {
 		],
 	},
 
-	toSpriteBinary({ x, y, entity, room }) {
-		if (isBurnerAbove(entity, room)) {
-			return [];
-		}
+	toSpriteBinary({ x, y, entity, room, settings }) {
+		const direction = (settings.direction ??
+			this.defaultSettings!.direction) as BurnerDirection;
 
-		// the flame itself
-		return [0, 0x9d, x, y - 3];
+		if (direction === 'up') {
+			if (isBurner(entity, room, -1)) {
+				return [];
+			}
+
+			// the flame itself
+			return [0, 0x9d, x, y - 3];
+		} else {
+			if (isBurner(entity, room, 1)) {
+				return [];
+			}
+
+			// the flame itself
+			return [0, 0xb2, x, y + 1];
+		}
 	},
 
 	toObjectBinary({ x, y }) {
@@ -81,8 +108,42 @@ const Burner: Entity = {
 		return <div className="Burner-bg bg-cover" style={style} />;
 	},
 
-	render() {
-		return this.simpleRender(TILE_SIZE);
+	render({ settings, onSettingsChange, entity }) {
+		const direction = (settings.direction ??
+			this.defaultSettings!.direction) as BurnerDirection;
+
+		const style = {
+			width: TILE_SIZE,
+			height: TILE_SIZE,
+		};
+
+		const DirectionIcon = directionIcons[direction];
+
+		return (
+			<div className="relative Burner-bg bg-cover" style={style}>
+				{entity && (
+					<div className="absolute w-full h-full grid place-items-center">
+						<button
+							onMouseDown={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
+
+								const curDirIndex = directions.indexOf(direction);
+								const nexDirIndex = (curDirIndex + 1) % directions.length;
+								onSettingsChange({ direction: directions[nexDirIndex] });
+							}}
+						>
+							<DirectionIcon
+								className={clsx('w-1.5 h-1.5 text-white', {
+									'bg-blue-500': direction === 'up',
+									'bg-yellow-500': direction === 'down',
+								})}
+							/>
+						</button>
+					</div>
+				)}
+			</div>
+		);
 	},
 };
 
