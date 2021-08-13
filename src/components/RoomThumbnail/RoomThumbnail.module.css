@@ -1,3 +1,5 @@
-.root :global(.TileSpace) {
+.root :global(.TileSpace),
+.root svg,
+.root button {
 	display: none !important;
 }
