@@ -15,6 +15,7 @@ type RoomThumbnailProps = {
 	scale: number;
 	room: RoomData;
 	children?: ReactNode;
+	prioritizeObjects?: boolean;
 };
 
 type MatrixRowProps = {
@@ -157,12 +158,68 @@ const RoomThumbnail = React.memo(function RoomThumbnail({
 	scale,
 	room,
 	children,
+	prioritizeObjects,
 }: RoomThumbnailProps) {
 	const canvasWidth = widthInTiles * TILE_SIZE;
 	const canvasHeight = heightInTiles * TILE_SIZE;
 
 	const outerWidth = widthInTiles * TILE_SIZE * scale;
 	const outerHeight = heightInTiles * TILE_SIZE * scale;
+
+	const stageMatrix = (
+		<Matrix
+			room={room}
+			matrix={room.stage.matrix}
+			upperLeftTile={upperLeftTile}
+			heightInTiles={heightInTiles}
+			widthInTiles={widthInTiles}
+		/>
+	);
+	const actorMatrix = (
+		<Matrix
+			room={room}
+			matrix={room.actors.matrix}
+			upperLeftTile={upperLeftTile}
+			heightInTiles={heightInTiles}
+			widthInTiles={widthInTiles}
+		/>
+	);
+
+	const stageEntities = (
+		<Entities
+			entities={room.stage.entities}
+			room={room}
+			upperLeftTile={upperLeftTile}
+			heightInTiles={heightInTiles}
+			widthInTiles={widthInTiles}
+		/>
+	);
+
+	const actorEntities = (
+		<Entities
+			entities={room.actors.entities}
+			room={room}
+			upperLeftTile={upperLeftTile}
+			heightInTiles={heightInTiles}
+			widthInTiles={widthInTiles}
+		/>
+	);
+
+	const body = prioritizeObjects ? (
+		<>
+			{actorEntities}
+			{stageEntities}
+			{actorMatrix}
+			{stageMatrix}
+		</>
+	) : (
+		<>
+			{stageMatrix}
+			{actorMatrix}
+			{stageEntities}
+			{actorEntities}
+		</>
+	);
 
 	return (
 		<div
@@ -188,34 +245,7 @@ const RoomThumbnail = React.memo(function RoomThumbnail({
 						bgNumber={room.settings.bgGraphic}
 					/>
 				)}
-				<Matrix
-					room={room}
-					matrix={room.stage.matrix}
-					upperLeftTile={upperLeftTile}
-					heightInTiles={heightInTiles}
-					widthInTiles={widthInTiles}
-				/>
-				<Matrix
-					room={room}
-					matrix={room.actors.matrix}
-					upperLeftTile={upperLeftTile}
-					heightInTiles={heightInTiles}
-					widthInTiles={widthInTiles}
-				/>
-				<Entities
-					entities={room.stage.entities}
-					room={room}
-					upperLeftTile={upperLeftTile}
-					heightInTiles={heightInTiles}
-					widthInTiles={widthInTiles}
-				/>
-				<Entities
-					entities={room.actors.entities}
-					room={room}
-					upperLeftTile={upperLeftTile}
-					heightInTiles={heightInTiles}
-					widthInTiles={widthInTiles}
-				/>
+				{body}
 				{children}
 			</div>
 		</div>
