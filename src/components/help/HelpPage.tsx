@@ -108,6 +108,36 @@ function HelpPage() {
 						what can be done to fix the problem.
 					</p>
 				</HelpEntry>
+				<HelpEntry title="I added an entity to my level but it is not showing up">
+					<p>
+						There are many reasons why this can happen. Since we need to figure
+						out how this game engine works, you might have stumbled upon a
+						combination that does not work that we don&apos;t yet know about.
+						That is just how level editors for existing games tend to go.
+					</p>
+					<p>
+						Your idea might just not work, or there might be more we need to
+						figure out to make it happen. You can always reach out on{' '}
+						<a
+							className="text-blue-300"
+							target="_blank"
+							rel="noreferrer"
+							href="https://reddit.com/r/smaghetti"
+						>
+							Reddit
+						</a>{' '}
+						or{' '}
+						<a
+							className="text-blue-300"
+							target="_blank"
+							rel="noreferrer"
+							href="https://github.com/city41/smaghetti/discussions"
+						>
+							GitHub
+						</a>{' '}
+						and we can see if we can help figure out what is wrong.
+					</p>
+				</HelpEntry>
 				<HelpEntry title="Why do so many things get grayed out in the item chooser?">
 					<p>
 						To draw graphics on the screen, the Game Boy Advance first has to
