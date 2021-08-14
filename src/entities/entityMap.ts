@@ -220,6 +220,7 @@ import { PlatformLeftRight } from './PlatformLeftRight';
 import { PlatformPullied } from './PlatformPullied';
 import { PlatformStatic } from './PlatformStatic';
 import { PlatformUpDown } from './PlatformUpDown';
+import { PlatformWoodLeftRight } from './PlatformWoodLeftRight';
 import { PlatformWoodUpDown } from './PlatformWoodUpDown';
 import { PlatformWrapAround } from './PlatformWrapAround';
 import { Player } from './Player';
@@ -527,6 +528,7 @@ const entityMap = {
 	PlatformPullied,
 	PlatformStatic,
 	PlatformUpDown,
+	PlatformWoodLeftRight,
 	PlatformWoodUpDown,
 	PlatformWrapAround,
 	Player,
