@@ -51,6 +51,9 @@ const betaChecklist: MilestoneChecklistItem[] = [
 	{ status: 'not-started', description: 'Object priorities' },
 	{ status: 'not-started', description: 'Wrap-around rooms' },
 	{ status: 'not-started', description: 'Adjustable camera' },
+	{ status: 'not-started', description: 'Configurable controls' },
+	{ status: 'not-started', description: 'Save states' },
+	{ status: 'not-started', description: 'Movement trails to help gauge jumps' },
 ];
 
 const finalChecklist: MilestoneChecklistItem[] = [
