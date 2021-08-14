@@ -181,6 +181,20 @@ function Mountains() {
 	);
 }
 
+function Waterfalls() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#b5e7ff' }}
+		>
+			<div
+				className="WaterfallsBackground-bg w-full bg-repeat-x"
+				style={{ height: 112 }}
+			/>
+		</div>
+	);
+}
+
 function StormyClouds() {
 	return (
 		<div
@@ -216,6 +230,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['pyramids']]: <Pyramids />,
 	[BACKGROUND_GRAPHIC_VALUES['inside-airship']]: <InsideAirship />,
 	[BACKGROUND_GRAPHIC_VALUES.mountains]: <Mountains />,
+	[BACKGROUND_GRAPHIC_VALUES.waterfalls]: <Waterfalls />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

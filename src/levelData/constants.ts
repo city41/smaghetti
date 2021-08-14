@@ -68,6 +68,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	pyramids: 0xe,
 	'inside-airship': 0x3,
 	mountains: 0x11,
+	waterfalls: 0x16,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -191,5 +192,10 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.mountains,
 		bgColor: 0x14,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	waterfalls: {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES.waterfalls,
+		bgColor: 0x98,
+		bgExtraColorAndEffect: 0x71,
 	},
 };
