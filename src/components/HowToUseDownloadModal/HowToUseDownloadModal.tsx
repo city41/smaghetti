@@ -60,23 +60,25 @@ function HowToUseDownloadModal({
 				</p>
 				<h2>Once in game</h2>
 				<div className="grid grid-cols-2 gap-x-4 justify-items-center items-start">
-					<figure className="flex flex-col items-center">
+					<figure className="flex flex-col items-center" style={{ margin: 0 }}>
 						<img
 							src={selectAFileScreenshotPng}
 							alt="The save file screen in SMA4"
 							width={240}
 							height={160}
+							style={{ margin: 0 }}
 						/>
 						<figcaption className="text-sm mt-4" style={{ maxWidth: 240 }}>
 							Choose <b>Level Card</b> on the save file screen
 						</figcaption>
 					</figure>
-					<figure className="flex flex-col items-center">
+					<figure className="flex flex-col items-center" style={{ margin: 0 }}>
 						<img
 							src={marioToPlayEReaderLevelPng}
 							alt="Mario in the e-reader overworld"
 							width={240}
 							height={160}
+							style={{ margin: 0 }}
 						/>
 						<figcaption className="text-sm mt-4" style={{ maxWidth: 240 }}>
 							Go into the tiny island, then choose to play your levels
