@@ -169,7 +169,6 @@ function LevelRow({
 						heightInTiles={PLAY_WINDOW_TILE_HEIGHT}
 						scale={0.75}
 						room={level.data.rooms[0]}
-						prioritizeObjects
 					/>
 				) : (
 					<BlankThumbnail scale={0.75} />
