@@ -833,7 +833,25 @@ function eraseAt(layer: EditorRoomLayer, tilePoint: Point) {
 	}
 }
 
-function drawAt(layer: EditorRoomLayer, { x, y }: Point, type: EntityType) {
+function getTotalAceCoinCount(state: InternalEditorState): number {
+	return state.rooms.reduce<number>((building, r) => {
+		const aceCoinsInRoom = r.stage.entities.filter((e) => e.type === 'AceCoin')
+			.length;
+
+		const aceCoinBubblesInRoom = r.actors.entities.filter(
+			(e) => e.type === 'Bubble' && e.settings?.payload === 'AceCoin'
+		).length;
+
+		return building + aceCoinsInRoom + aceCoinBubblesInRoom;
+	}, 0);
+}
+
+function drawAt(
+	layer: EditorRoomLayer,
+	{ x, y }: Point,
+	type: EntityType,
+	state: InternalEditorState
+) {
 	if (!isEditable(layer)) {
 		return;
 	}
@@ -873,8 +891,7 @@ function drawAt(layer: EditorRoomLayer, { x, y }: Point, type: EntityType) {
 
 		if (
 			canDrop(newEntity, layer.entities) &&
-			(type !== 'AceCoin' ||
-				layer.entities.filter((e) => e.type === 'AceCoin').length < 5)
+			(type !== 'AceCoin' || getTotalAceCoinCount(state) < 5)
 		) {
 			const completeEntity: EditorEntity = {
 				...newEntity,
@@ -1121,7 +1138,12 @@ const editorSlice = createSlice({
 						break;
 					}
 					case 'draw': {
-						drawAt(currentLayer!, tilePoint, currentRoom.currentPaletteEntry!);
+						drawAt(
+							currentLayer!,
+							tilePoint,
+							currentRoom.currentPaletteEntry!,
+							state
+						);
 						break;
 					}
 					case 'fill': {

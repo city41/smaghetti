@@ -48,7 +48,7 @@ const Bubble: Entity = {
 		// 12 is some kind of wing?
 		Key: 13,
 		SpringBoard: 14,
-		AceCoin: 15,
+		// AceCoin: 15,
 		// 16 is some kind of lettering? possibly need a diff graphic set
 	},
 
