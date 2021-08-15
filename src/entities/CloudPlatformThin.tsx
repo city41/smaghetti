@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { encodeObjectSets, getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { TileSpace } from './TileSpace';
 
 function isPlatformToLeft(
 	entity: EditorEntity | undefined,
@@ -119,12 +120,22 @@ const CloudPlatformThin: Entity = {
 		}
 
 		const style = {
+			marginTop: TILE_SIZE / 2,
 			width: TILE_SIZE,
-			height: TILE_SIZE,
+			height: TILE_SIZE * 1.5,
 			backgroundPositionX: -bgOffset * TILE_SIZE,
+			backgroundPositionY: TILE_SIZE / 2,
+			paddingBottom: TILE_SIZE / 2,
 		};
 
-		return <div style={style} className="CloudPlatformThin-bg" />;
+		return (
+			<div style={style} className="CloudPlatformThin-bg bg-no-repeat">
+				<TileSpace
+					className="w-full h-full"
+					style={{ marginTop: -TILE_SIZE / 2 }}
+				/>
+			</div>
+		);
 	},
 
 	getWarning({ entity, room }) {

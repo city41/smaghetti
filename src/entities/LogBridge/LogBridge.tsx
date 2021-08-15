@@ -95,9 +95,10 @@ const LogBridge: Entity = {
 
 		return (
 			<div className="LogBridge-bg bg-no-repeat" style={style}>
-				<div className="w-full h-full" style={{ marginTop: -TILE_SIZE / 2 }}>
-					<TileSpace />
-				</div>
+				<TileSpace
+					className="w-full h-full"
+					style={{ marginTop: -TILE_SIZE / 2 }}
+				/>
 			</div>
 		);
 	},
