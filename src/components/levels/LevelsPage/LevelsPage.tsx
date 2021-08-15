@@ -45,6 +45,16 @@ function LevelsPage({
 		setChosenLevels([]);
 	}
 
+	const newestLevel = levels.reduce<Level>((champ, contender) => {
+		if (champ.created_at > contender.created_at) {
+			return champ;
+		} else {
+			return contender;
+		}
+	}, levels[0]);
+
+	const restOfLevels = levels.filter((l) => l !== newestLevel);
+
 	switch (loadState) {
 		case 'dormant':
 		case 'loading':
@@ -65,7 +75,7 @@ function LevelsPage({
 							isOpen={showDownloadHelp}
 							onRequestClose={() => setShowDownloadHelp(false)}
 						/>
-						<div className="space-y-8">
+						<div>
 							<SaveFileList
 								emptySaveFileState={emptySaveFileState}
 								className="mx-12 sticky top-0 z-10"
@@ -93,7 +103,27 @@ function LevelsPage({
 									</button>
 								</div>
 							)}
-							<div className="flex flex-row gap-x-2 items-center">
+							{newestLevel && (
+								<div className="my-8">
+									<h3 className="m-0 text-xl font-bold">Newest Level</h3>
+									<LevelRow
+										level={newestLevel}
+										isBuildingSave={isBuildingSave}
+										isChosen={chosenLevels.includes(newestLevel)}
+										areFilesReady={allFilesReady}
+										onChosenChange={(newChosen) => {
+											if (newChosen && chosenLevels.length < 30) {
+												setChosenLevels((cl) => cl.concat(newestLevel));
+											} else {
+												setChosenLevels((cl) =>
+													cl.filter((cll) => cll !== newestLevel)
+												);
+											}
+										}}
+									/>
+								</div>
+							)}
+							<div className="flex flex-row gap-x-2 items-center mb-4 mt-12">
 								<div>Sort by: </div>
 								<Button
 									disabled={sortType === 'likes'}
@@ -109,7 +139,7 @@ function LevelsPage({
 								</Button>
 							</div>
 							<div className="space-y-8">
-								{levels.map((l) => (
+								{restOfLevels.map((l) => (
 									<LevelRow
 										key={l.id}
 										level={l}
