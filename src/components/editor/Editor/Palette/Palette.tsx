@@ -64,6 +64,7 @@ function Palette({
 			disabled={disabled}
 			entry={pe}
 			isCurrent={isEqual(pe, currentPaletteEntry)}
+			shortcutKey={i < 9 ? (i + 1).toString() : undefined}
 			onClick={() => {
 				onPaletteEntryIndexChosen(i);
 			}}

@@ -9,6 +9,7 @@ type PaletteEntryProps = {
 	className?: string;
 	entry: EntityType;
 	isCurrent: boolean;
+	shortcutKey?: string;
 	buttonsOnHover?: boolean;
 	showAdd: boolean;
 	showRemove: boolean;
@@ -23,6 +24,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 	className,
 	entry,
 	isCurrent,
+	shortcutKey,
 	onClick,
 	showAdd,
 	showRemove,
@@ -37,7 +39,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 
 	return (
 		<div
-			className={clsx(className, styles.root, 'group', {
+			className={clsx(className, styles.root, 'group relative', {
 				[styles.buttonsOnHover]: buttonsOnHover && !disabled,
 				'border-2 border-transparent': !isCurrent,
 				'border-2 border-gray-700 bg-yellow-400': isCurrent && !disabled,
@@ -84,6 +86,11 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 					)}
 				>
 					<div>can&apos;t add</div>
+				</div>
+			)}
+			{shortcutKey && (
+				<div className="absolute -bottom-5 left-0 w-full text-center text-xs text-gray-500">
+					{shortcutKey}
 				</div>
 			)}
 		</div>
