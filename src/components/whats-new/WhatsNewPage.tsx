@@ -93,8 +93,9 @@ function WhatsNewPage() {
 						<li>Ghost Player</li>
 					</ul>
 					<p>
-						The Ghost Player is meant for advanced users. What it does is
-						explained on the <a href="/tips#ghost-player">tips page</a>.
+						The Ghost Player lets you put Mario in a temporary starting spot for
+						testing purposes. More details on the{' '}
+						<a href="/tips#ghost-player">tips page</a>.
 					</p>
 				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-08-13">
