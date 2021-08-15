@@ -18,6 +18,8 @@ const WarpArea: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x0,
+	width: 1,
+	height: 2,
 
 	toSpriteBinary({ x, y }) {
 		return [1, this.objectId, x, y, 0];
