@@ -99,11 +99,7 @@ type RoomState = {
 type InternalEditorState = {
 	name: string;
 	creatorName?: string;
-	settings: {
-		timer: number;
-		tag0?: string;
-		tag1?: string;
-	};
+	settings: LevelSettings;
 	rooms: RoomState[];
 	currentRoomIndex: number;
 
@@ -1397,6 +1393,12 @@ const editorSlice = createSlice({
 				state.settings.tag1 = tag;
 			}
 		},
+		descriptionChange(
+			state: InternalEditorState,
+			action: PayloadAction<string>
+		) {
+			state.settings.description = action.payload.substring(0, 200);
+		},
 		roomSizeChange(
 			state: InternalEditorState,
 			action: PayloadAction<{ index: number; width?: number; height?: number }>
@@ -1846,7 +1848,7 @@ async function doSave(
 			dispatch(editorSlice.actions.setSaveLevelState('success'));
 		} catch (e) {
 			// eslint-disable-next-line no-console
-			console.error('error saving level', e);
+			console.error('error saving level', console.dir(e));
 			logError({
 				context: 'editorSlice#doSave,first catch',
 				message: e?.message ?? 'no message',
@@ -2066,6 +2068,7 @@ const {
 	roomSettingsChange,
 	roomSizeChange,
 	tagChange,
+	descriptionChange,
 	toggleGrid,
 	toggleLayerLock,
 	pushPan,
@@ -2116,6 +2119,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		toggleManageLevelMode().toString(),
 		pan.toString(),
 		tagChange.toString(),
+		descriptionChange.toString(),
 		toggleGrid.toString(),
 		toggleLayerLock.toString(),
 		addPaletteEntry.toString(),
@@ -2282,6 +2286,7 @@ export {
 	roomSettingsChange,
 	roomSizeChange,
 	tagChange,
+	descriptionChange,
 	toggleGrid,
 	toggleLayerLock,
 	pushPan,

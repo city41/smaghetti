@@ -12,6 +12,7 @@ import {
 	setLevelName,
 	roomSizeChange,
 	tagChange,
+	descriptionChange,
 } from '../../editorSlice';
 
 import { ManageLevel } from './ManageLevel';
@@ -31,6 +32,7 @@ const actions = bindActionCreators(
 		onRoomSettingsChange: roomSettingsChange,
 		onRoomSizeChange: roomSizeChange,
 		onTagChange: tagChange,
+		onDescriptionChange: descriptionChange,
 	},
 	dispatch
 );

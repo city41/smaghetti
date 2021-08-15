@@ -107,12 +107,15 @@ function LevelRow({
 		? AiFillHeart
 		: AiOutlineHeart;
 
+	const tag0Valid = isValidTag(level.data.settings.tag0);
+	const tag1Valid = isValidTag(level.data.settings.tag1);
+
 	return (
 		<div
 			className={clsx(
 				className,
 				styles.root,
-				'relative grid gap-x-4 items-center group p-2 shadow-xl bg-gray-300 hover:bg-blue-300 text-gray-900 -mx-4 sm:mx-0',
+				'relative grid gap-x-4 items-center group shadow-xl bg-gray-300 hover:bg-blue-300 text-gray-900',
 				{ 'cursor-pointer': isBuildingSave }
 			)}
 			onClick={() => {
@@ -145,9 +148,8 @@ function LevelRow({
 				<div className="text-lg">{voteCount}</div>
 			</div>
 			<a
-				className={clsx('relative flex flex-row items-center -my-2', {
+				className={clsx('relative flex flex-row items-center self-start', {
 					'space-x-2 ml-0': isBuildingSave,
-					'-ml-2': !isBuildingSave,
 				})}
 				href={href}
 				onClick={chooseDontNavIfBuilding}
@@ -174,34 +176,43 @@ function LevelRow({
 					<BlankThumbnail scale={0.75} />
 				)}
 			</a>
-			<div className="grid gap-y-2" style={{ gridTemplateRows: '1fr 1fr' }}>
-				<div>
-					<a
-						className="inline text-2xl font-bold cursor-pointer"
-						href={href}
-						onClick={chooseDontNavIfBuilding}
-					>
-						{level.name}
-					</a>
-				</div>
-				<div className="flex flex-row justify-between">
-					<div className="flex flex-row gap-x-2 items-center">
-						{aceCoinCount > 0 && (
-							<div className="flex flex-row gap-x-1">{aceCoinSlots}</div>
-						)}
-						{isValidTag(level.data.settings.tag0) && (
-							<div className="bg-yellow-700 text-white p-1 text-xs">
-								{level.data.settings.tag0}
-							</div>
-						)}
-						{isValidTag(level.data.settings.tag1) &&
-							level.data.settings.tag0 !== level.data.settings.tag1 && (
+			<div
+				className="grid gap-y-1 h-full p-1"
+				style={{ gridTemplateRows: 'max-content 1fr max-content' }}
+			>
+				<a
+					className="inline-block text-2xl font-bold cursor-pointer pt-1"
+					href={href}
+					onClick={chooseDontNavIfBuilding}
+				>
+					{level.name}
+				</a>
+				{(aceCoinCount > 0 || tag0Valid || tag1Valid) && (
+					<div className="flex flex-row justify-between">
+						<div className="flex flex-row gap-x-2 items-center">
+							{aceCoinCount > 0 && (
+								<div className="flex flex-row gap-x-1">{aceCoinSlots}</div>
+							)}
+							{tag0Valid && (
 								<div className="bg-yellow-700 text-white p-1 text-xs">
-									{level.data.settings.tag1}
+									{level.data.settings.tag0}
 								</div>
 							)}
+							{tag1Valid &&
+								level.data.settings.tag0 !== level.data.settings.tag1 && (
+									<div className="bg-yellow-700 text-white p-1 text-xs">
+										{level.data.settings.tag1}
+									</div>
+								)}
+						</div>
 					</div>
-					<div className="text-sm self-end mb-0 sm:-mb-4">
+				)}
+				<div
+					className="grid gap-x-4"
+					style={{ gridTemplateColumns: '1fr max-content' }}
+				>
+					<p className="text-xs pb-1">{level.data.settings.description}</p>
+					<div className="text-sm self-end">
 						by <span className="font-bold">{level.user?.username}</span>
 					</div>
 				</div>

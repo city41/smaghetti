@@ -151,6 +151,7 @@ type LevelSettings = {
 	timer: number;
 	tag0?: string;
 	tag1?: string;
+	description?: string;
 };
 
 type LevelData = {

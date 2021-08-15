@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { FaTrash, FaHammer } from 'react-icons/fa';
 import { RoomState } from '../../editorSlice';
@@ -48,6 +48,7 @@ type InternalManageLevelProps = {
 		height?: number;
 	}) => void;
 	onTagChange: (payload: { index: number; tag: string }) => void;
+	onDescriptionChange: (desc: string) => void;
 };
 
 /**
@@ -132,8 +133,14 @@ function ManageLevel({
 	onRoomSettingsChange,
 	onRoomSizeChange,
 	onTagChange,
+	onDescriptionChange,
 }: PublicManageLevelProps & InternalManageLevelProps) {
 	const [help, setHelp] = useState<Help | null>(null);
+	const [description, setDescription] = useState(levelSettings.description);
+
+	useEffect(() => {
+		setDescription(levelSettings.description);
+	}, [levelSettings.description]);
 
 	return (
 		<>
@@ -197,7 +204,8 @@ function ManageLevel({
 					</SettingsKey>
 					<div className="flex flex-row gap-x-2">
 						<select
-							className="text-black w-48"
+							className="text-black"
+							style={{ width: 'calc(33.33% - 0.25rem)' }}
 							value={levelSettings.tag0 ?? '-'}
 							onMouseDown={(e) => {
 								// this is needed for onChange to work correctly in firefox
@@ -213,7 +221,8 @@ function ManageLevel({
 							))}
 						</select>
 						<select
-							className="text-black w-48 "
+							className="text-black"
+							style={{ width: 'calc(33.33% - 0.25rem)' }}
 							value={levelSettings.tag1 ?? '-'}
 							onMouseDown={(e) => {
 								// this is needed for onChange to work correctly in firefox
@@ -229,6 +238,19 @@ function ManageLevel({
 							))}
 						</select>
 					</div>
+					<SettingsKey>Description</SettingsKey>
+					<textarea
+						value={description}
+						onChange={(e) => setDescription(e.target.value.substring(0, 200))}
+						className="w-2/3 text-black"
+						rows={4}
+						onMouseDown={(e) => {
+							// this is needed for onChange to work correctly in firefox
+							// https://github.com/facebook/react/issues/12584
+							e.stopPropagation();
+						}}
+						onBlur={() => onDescriptionChange(description ?? '')}
+					/>
 				</div>
 				<Button disabled={rooms.length === 4} onClick={onAddRoom}>
 					Add Room
