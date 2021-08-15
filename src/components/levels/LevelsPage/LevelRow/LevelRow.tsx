@@ -211,7 +211,7 @@ function LevelRow({
 					className="grid gap-x-4"
 					style={{ gridTemplateColumns: '1fr max-content' }}
 				>
-					<p className="text-xs pb-1">{level.data.settings.description}</p>
+					<p className="text-xs pb-2">{level.data.settings.description}</p>
 					<div className="text-sm self-end">
 						by <span className="font-bold">{level.user?.username}</span>
 					</div>
