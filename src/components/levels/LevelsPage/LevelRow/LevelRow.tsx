@@ -115,7 +115,7 @@ function LevelRow({
 			className={clsx(
 				className,
 				styles.root,
-				'relative grid gap-x-4 items-center group shadow-xl bg-gray-300 hover:bg-blue-300 text-gray-900',
+				'relative grid gap-x-4 items-center group shadow-xl bg-gray-300 hover:bg-blue-300 text-gray-900 -mx-4 sm:mx-0',
 				{ 'cursor-pointer': isBuildingSave }
 			)}
 			onClick={() => {
@@ -125,7 +125,7 @@ function LevelRow({
 			}}
 		>
 			<div
-				className="absolute right-0 top-0 bg-white p-1 flex flex-row gap-x-1 items-center cursor-pointer"
+				className="absolute z-10 sm:right-0 top-0 bg-white p-1 flex flex-row gap-x-1 items-center cursor-pointer"
 				style={{
 					width: `calc(${
 						PLAY_WINDOW_TILE_WIDTH * TILE_SIZE * 0.75 * 0.5
@@ -181,7 +181,7 @@ function LevelRow({
 				style={{ gridTemplateRows: 'max-content 1fr max-content' }}
 			>
 				<a
-					className="inline-block text-2xl font-bold cursor-pointer pt-1"
+					className="inline-block text-2xl font-bold cursor-pointer pt-1 truncate"
 					href={href}
 					onClick={chooseDontNavIfBuilding}
 				>
@@ -191,7 +191,18 @@ function LevelRow({
 					<div className="flex flex-row justify-between">
 						<div className="flex flex-row gap-x-2 items-center">
 							{aceCoinCount > 0 && (
-								<div className="flex flex-row gap-x-1">{aceCoinSlots}</div>
+								<>
+									<div className="hidden sm:flex flex-row gap-x-1">
+										{aceCoinSlots}
+									</div>
+									<div className="flex sm:hidden flex-row items-center gap-x-1">
+										<div
+											className="AceCoin-bg bg-cover"
+											style={aceCoinSlotStyle}
+										/>
+										<div className="text-xs">{aceCoinCount}</div>
+									</div>
+								</>
 							)}
 							{tag0Valid && (
 								<div className="bg-yellow-700 text-white p-1 text-xs">
