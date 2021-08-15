@@ -27,7 +27,7 @@ import {
 import { getPlayerScaleFromWindow } from '../../util/getPlayerScaleFromWindow';
 import { saveLevel as saveLevelMutation } from '../../remoteData/saveLevel';
 import { getLevel as getLevelQuery } from '../../remoteData/getLevel';
-import { serialize } from '../../level/serialize';
+import { serialize as levelSerialize } from '../../level/serialize';
 import { deserialize } from '../../level/deserialize';
 import isEqual from 'lodash/isEqual';
 import cloneDeep from 'lodash/cloneDeep';
@@ -165,6 +165,53 @@ function resetState(state: InternalEditorState) {
 			initialState[key as keyof InternalEditorState]
 		);
 	});
+}
+
+function removeEntitiesFromLevel(
+	levelData: LevelData,
+	keepIf: (e: EditorEntity) => boolean
+): LevelData {
+	function removeEntitiesFromLayer(layer: RoomLayer): RoomLayer {
+		return {
+			...layer,
+			entities: layer.entities.filter(keepIf),
+			matrix: layer.matrix.map((row) => {
+				if (!row) {
+					return row;
+				}
+
+				return row.map((cell) => {
+					if (!cell || !keepIf(cell)) {
+						return null;
+					}
+					return cell;
+				});
+			}),
+		};
+	}
+
+	return {
+		...levelData,
+		rooms: levelData.rooms.map((r) => {
+			return {
+				...r,
+				actors: removeEntitiesFromLayer(r.actors),
+				stage: removeEntitiesFromLayer(r.stage),
+			};
+		}),
+	};
+}
+
+function serialize(levelData: LevelData): ReturnType<typeof levelSerialize> {
+	const cleanedLevelData = removeEntitiesFromLevel(levelData, (e) => {
+		return (
+			e.type === 'Player' ||
+			(e.type !== 'PlayerGhost' &&
+				!!entityMap[e.type].paletteCategory &&
+				entityMap[e.type].paletteCategory !== 'hextree')
+		);
+	});
+	return levelSerialize(cleanedLevelData);
 }
 
 function fixTransportsForEntities(
@@ -888,6 +935,10 @@ function drawAt(
 				? { ...entityDef.defaultSettings }
 				: undefined,
 		};
+
+		if (type === 'PlayerGhost') {
+			layer.entities = layer.entities.filter((e) => e.type !== 'PlayerGhost');
+		}
 
 		if (
 			canDrop(newEntity, layer.entities) &&

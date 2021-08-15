@@ -40,7 +40,7 @@ const tabs: TabType[] = [
 	{ title: 'Power Ups', category: 'power-up' },
 	{ title: 'Warps', category: 'transport' },
 	{ title: 'Decorations', category: 'decoration' },
-	{ title: 'Meta', category: 'meta' },
+	{ title: 'Utility', category: 'utility' },
 	{ title: 'Unfinished', category: 'unfinished' },
 ];
 

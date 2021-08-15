@@ -4,13 +4,21 @@ import { Root } from '../layout/Root';
 import typographyStyles from '../../styles/typography.module.css';
 import { toId } from '../whats-new/WhatsNewPage';
 
+import styles from './TipsPage.module.css';
+
 function TipEntry({ title, children }: { title: string; children: ReactNode }) {
 	const id = toId(title);
 
 	return (
-		<div className="mt-12 px-4 sm:px-0">
+		<div className="mt-12 px-4 sm:px-0'">
 			<a href={`#${id}`}>
-				<h3 id={id} className="group text-white font-bold text-xl">
+				<h3
+					id={id}
+					className={clsx(
+						styles.headerTarget,
+						'group text-white font-bold text-xl'
+					)}
+				>
 					{title}
 				</h3>
 			</a>
@@ -101,6 +109,25 @@ function TipsPage() {
 						I hate having to suggest this. But it is true that Chrome runs the
 						emulator much faster than Firefox.
 					</p>
+				</TipEntry>
+				<TipEntry title="Ghost Player">
+					<p>
+						The Ghost Player entity is found in the utility section of the
+						entity chooser. It lets you start Mario at a temporary location in
+						your room, for testing purposes.
+					</p>
+					<ul>
+						<li>
+							There can only be one Ghost Player per room. If you draw a new
+							one, the old one gets erased. Use this to quickly set up a new
+							ghost wherever you are working in your room.
+						</li>
+						<li>
+							When testing a room, if it has a ghost, that is where Mario will
+							start the level, otherwise he starts in his real position.
+						</li>
+						<li>Whenever you save your level, all ghosts are removed.</li>
+					</ul>
 				</TipEntry>
 			</div>
 		</Root>

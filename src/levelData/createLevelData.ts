@@ -223,7 +223,9 @@ function getLevelSettings(
 ): Tuple<number, 32> {
 	const [objectSet] = getObjectSet(entities);
 	const spriteGraphicSet = buildSpriteGraphicSetBytes(entities);
-	const player = entities.find((e) => e.type === 'Player');
+	const player =
+		entities.find((e) => e.type === 'PlayerGhost') ??
+		entities.find((e) => e.type === 'Player');
 	const playerY = player ? player.y / TILE_SIZE : room.roomTileHeight - 2;
 	const playerX = player ? player.x / TILE_SIZE : 2;
 

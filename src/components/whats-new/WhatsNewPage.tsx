@@ -88,6 +88,15 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-08-15">
+					<ul>
+						<li>Ghost Player</li>
+					</ul>
+					<p>
+						The Ghost Player is meant for advanced users. What it does is
+						explained on the <a href="/tips#ghost-player">tips page</a>.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-08-13">
 					<ul>
 						<li>Waterfalls</li>

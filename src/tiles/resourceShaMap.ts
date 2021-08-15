@@ -194,6 +194,7 @@ export const resourceShaMap: Record<string, string> = {
   "FloatingPlatformCenter": "25f1aa64cb4fb19a7f3d54169fbbb30e4619e4ae",
   "FloatingPlatformRightEnd": "39a9728551067c774974cf512f1fb5838cbff30d",
   "Player": "380bc860471c4d9e8cb4bc369ea849aaac740ae8",
+  "PlayerGhost": "4acb71d40aa2ab63eb324c933c634e07d8cda06b",
   "Podoboo": "c99b47b9b6e0288174c8e7d6d689eedaa1e09156",
   "PoolOfWater": "128be9434bb05381b50dc1dc70b7b1e770178262",
   "Porcupo": "cbe688fa57038a320599919f54b7d515f3d749f4",

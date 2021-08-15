@@ -224,6 +224,7 @@ import { PlatformWoodLeftRight } from './PlatformWoodLeftRight';
 import { PlatformWoodUpDown } from './PlatformWoodUpDown';
 import { PlatformWrapAround } from './PlatformWrapAround';
 import { Player } from './Player';
+import { PlayerGhost } from './PlayerGhost';
 import { Podoboo } from './Podoboo/Podoboo';
 import { PodobooCeiling } from './Podoboo/PodobooCeiling';
 import { PoisonMushroom } from './PoisonMushroom';
@@ -532,6 +533,7 @@ const entityMap = {
 	PlatformWoodUpDown,
 	PlatformWrapAround,
 	Player,
+	PlayerGhost,
 	Podoboo,
 	PodobooCeiling,
 	PoisonMushroom,
