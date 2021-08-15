@@ -36,12 +36,6 @@ const exitTypeToByte: Record<EditorTransport['exitType'], number> = {
 };
 
 function getHeader(aceCoinCount: number): Tuple<number, 5> {
-	if (aceCoinCount > 5) {
-		throw new Error(
-			`createLevelData: this level has too many ace coins. max of 5, but given ${aceCoinCount}`
-		);
-	}
-
 	// copying the values from classic 1-2 for now
 	return [
 		0, // whether it has an ecoin
@@ -578,8 +572,11 @@ function createLevelData(level: LevelToLoadInGBA): Uint8Array {
 
 	const allNonCellEntities = getAllNonCellEntities(level.data.rooms);
 
-	const aceCoinCount = allNonCellEntities.filter((e) => e.type === 'AceCoin')
-		.length;
+	const aceCoinCount =
+		allNonCellEntities.filter((e) => e.type === 'AceCoin').length +
+		allNonCellEntities.filter(
+			(e) => e.type === 'Bubble' && e.settings?.payload === 'AceCoin'
+		).length;
 
 	const header = getHeader(aceCoinCount);
 	// four rooms, each with six pointers, pointers are two bytes

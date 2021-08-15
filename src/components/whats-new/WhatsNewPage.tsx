@@ -88,14 +88,23 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
-				<NewEntry title="New Entities" date="2021-08-15">
+				<NewEntry title="New/Changed Entities" date="2021-08-15">
 					<ul>
 						<li>Ghost Player</li>
+						<li>Ace Coin: You can now choose the position for Ace Coins</li>
 					</ul>
 					<p>
 						The Ghost Player lets you put Mario in a temporary starting spot for
 						testing purposes. More details on the{' '}
 						<a href="/tips#ghost-player">tips page</a>.
+					</p>
+					<p>
+						Ace Coins have a specific position associated with them. For
+						example, if a coin has position #2, when the player gets that coin,
+						the second Ace Coin up in the HUD will get filled in. Before
+						Smaghetti picked these positions automatically, and did a bad job.
+						Now you can pick them yourself. This is helpful as you can now
+						arrange it so Ace Coins generally get picked up in order.
 					</p>
 				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-08-13">

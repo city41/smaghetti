@@ -31,6 +31,8 @@ const Bubble: Entity = {
 	dimensions: 'none',
 	objectId: 0xdb,
 	defaultSettings: { payload: 'Mushroom' },
+	width: 2,
+	height: 2,
 
 	payloadToObjectId: {
 		OneUpMushroom: 0,
@@ -48,7 +50,7 @@ const Bubble: Entity = {
 		// 12 is some kind of wing?
 		Key: 13,
 		SpringBoard: 14,
-		// AceCoin: 15,
+		AceCoin: 15,
 		// 16 is some kind of lettering? possibly need a diff graphic set
 	},
 
