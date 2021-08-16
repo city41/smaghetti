@@ -756,28 +756,6 @@ function findCellEntity(
 	return null;
 }
 
-// Each ace coin is given a specific index, so the game can keep track of
-// which coins have been collected. Whenever a new ace coin is added or deleted,
-// the indices need to be updated
-function assignAceCoinIndices(rooms: RoomState[]) {
-	const allEntities = rooms.reduce<EditorEntity[]>((building, room) => {
-		return building.concat(room.actors.entities, room.stage.entities);
-	}, []);
-
-	const hasBubbleWithAceCoin = allEntities.some(
-		(e) => e.type === 'Bubble' && e.settings?.payload === 'AceCoin'
-	);
-
-	let aceCoinIndex = hasBubbleWithAceCoin ? 1 : 0;
-
-	const aceCoins = allEntities.filter((e) => e.type === 'AceCoin');
-
-	aceCoins.forEach((ac) => {
-		ac.settings = { aceCoinIndex };
-		aceCoinIndex += 1;
-	});
-}
-
 function updateValidEntityTypes(room: RoomState) {
 	const stageCells = room.stage.matrix.reduce<EditorEntity[]>(
 		(building, row) => {
@@ -1207,7 +1185,6 @@ const editorSlice = createSlice({
 			});
 
 			updateValidEntityTypes(currentRoom);
-			assignAceCoinIndices(state.rooms);
 		},
 		deleteFocused(state: InternalEditorState) {
 			const currentRoom = getCurrentRoom(state);
@@ -1227,7 +1204,6 @@ const editorSlice = createSlice({
 
 			state.focused = {};
 
-			assignAceCoinIndices(state.rooms);
 			updateValidEntityTypes(currentRoom);
 		},
 		mouseModeChanged(
@@ -1494,8 +1470,6 @@ const editorSlice = createSlice({
 			});
 
 			idCounter = getMaxId(levelData) + 1;
-
-			assignAceCoinIndices(state.rooms);
 		},
 		pan(state: InternalEditorState, action: PayloadAction<Point>) {
 			const currentRoom = getCurrentRoom(state);
@@ -1804,11 +1778,6 @@ const editorSlice = createSlice({
 					...entity.settings,
 					...settings,
 				};
-
-				// possibly the bubble just added an ace coin
-				if (entity.type === 'Bubble') {
-					assignAceCoinIndices(state.rooms);
-				}
 			} else {
 				const cell =
 					findCellEntity(currentRoom.stage.matrix, id) ??
