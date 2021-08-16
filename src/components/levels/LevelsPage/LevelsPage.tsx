@@ -11,6 +11,7 @@ import {
 	OtherFilesState,
 } from '../../FileLoader/fileLoaderSlice';
 import { Button } from '../../Button';
+import clsx from 'clsx';
 
 type InternalLevelsPageProps = {
 	allFilesReady: boolean;
@@ -53,7 +54,25 @@ function LevelsPage({
 		}
 	}, levels[0]);
 
-	const restOfLevels = levels.filter((l) => l !== newestLevel);
+	const mostRecentlyUpdatedLevel = levels.reduce<Level>((champ, contender) => {
+		if (!contender.updated_at) {
+			return champ;
+		}
+
+		if (!champ.updated_at) {
+			return contender;
+		}
+
+		if (champ.updated_at > contender.updated_at) {
+			return champ;
+		} else {
+			return contender;
+		}
+	}, levels[0]);
+
+	const restOfLevels = levels.filter(
+		(l) => l !== newestLevel && l !== mostRecentlyUpdatedLevel
+	);
 
 	switch (loadState) {
 		case 'dormant':
@@ -93,7 +112,7 @@ function LevelsPage({
 								isBuilding={isBuildingSave}
 							/>
 							{extractionState === 'not-started' && (
-								<div>
+								<div className="mt-4">
 									To see the thumbnails,{' '}
 									<button
 										className="text-blue-300"
@@ -103,24 +122,63 @@ function LevelsPage({
 									</button>
 								</div>
 							)}
-							{newestLevel && (
-								<div className="my-8">
-									<h3 className="m-0 text-xl font-bold">Newest Level</h3>
-									<LevelRow
-										level={newestLevel}
-										isBuildingSave={isBuildingSave}
-										isChosen={chosenLevels.includes(newestLevel)}
-										areFilesReady={allFilesReady}
-										onChosenChange={(newChosen) => {
-											if (newChosen && chosenLevels.length < 30) {
-												setChosenLevels((cl) => cl.concat(newestLevel));
-											} else {
-												setChosenLevels((cl) =>
-													cl.filter((cll) => cll !== newestLevel)
-												);
-											}
-										}}
-									/>
+							{(newestLevel || mostRecentlyUpdatedLevel) && (
+								<div className="bg-gray-600 -mx-4 p-4 my-10">
+									{newestLevel && (
+										<>
+											<h3 className="m-0 mb-2 text-xl font-bold">
+												Newest Level
+											</h3>
+											<LevelRow
+												level={newestLevel}
+												isBuildingSave={isBuildingSave}
+												isChosen={chosenLevels.includes(newestLevel)}
+												areFilesReady={allFilesReady}
+												onChosenChange={(newChosen) => {
+													if (newChosen && chosenLevels.length < 30) {
+														setChosenLevels((cl) => cl.concat(newestLevel));
+													} else {
+														setChosenLevels((cl) =>
+															cl.filter((cll) => cll !== newestLevel)
+														);
+													}
+												}}
+											/>
+										</>
+									)}
+									{mostRecentlyUpdatedLevel &&
+										mostRecentlyUpdatedLevel !== newestLevel && (
+											<>
+												<h3
+													className={clsx('m-0 mb-2 text-xl font-bold', {
+														'mt-4': !!newestLevel,
+													})}
+												>
+													Recently Updated
+												</h3>
+												<LevelRow
+													level={mostRecentlyUpdatedLevel}
+													isBuildingSave={isBuildingSave}
+													isChosen={chosenLevels.includes(
+														mostRecentlyUpdatedLevel
+													)}
+													areFilesReady={allFilesReady}
+													onChosenChange={(newChosen) => {
+														if (newChosen && chosenLevels.length < 30) {
+															setChosenLevels((cl) =>
+																cl.concat(mostRecentlyUpdatedLevel)
+															);
+														} else {
+															setChosenLevels((cl) =>
+																cl.filter(
+																	(cll) => cll !== mostRecentlyUpdatedLevel
+																)
+															);
+														}
+													}}
+												/>
+											</>
+										)}
 								</div>
 							)}
 							<div className="flex flex-row gap-x-2 items-center mb-4 mt-12">
