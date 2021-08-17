@@ -10,6 +10,7 @@ import { BoltNut } from './BoltNut';
 import { BoltShaft } from './BoltShaft';
 import { BombFuse } from './BombFuse';
 import { BonusRoomBackground } from './BonusRoomBackground';
+import { BowserCastleBackground } from './BowserCastleBackground';
 import { BowserFireStatueBody } from './BowserFireStatueBody';
 import { BowserFireStatueHead } from './BowserFireStatueHead';
 import { BulletBill } from './BulletBill';
@@ -138,6 +139,7 @@ const resourceMap = {
 	BoltShaft,
 	BombFuse,
 	BonusRoomBackground,
+	BowserCastleBackground,
 	BowserFireStatueBody,
 	BowserFireStatueHead,
 	BulletBill,

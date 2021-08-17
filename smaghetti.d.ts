@@ -67,7 +67,8 @@ type BackgroundGraphic =
 	| 'pyramids'
 	| 'inside-airship'
 	| 'mountains'
-	| 'waterfalls';
+	| 'waterfalls'
+	| 'bowser-castle';
 
 type BackgroundExtraColorAndEffect =
 	| 'none'

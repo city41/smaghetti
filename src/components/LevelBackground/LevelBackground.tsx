@@ -51,6 +51,15 @@ function GhostHouse() {
 	);
 }
 
+function BowserCastle() {
+	return (
+		<div
+			className="BowserCastleBackground-bg w-full h-full bg-repeat-x bg-black"
+			style={{ backgroundPositionY: 'bottom' }}
+		/>
+	);
+}
+
 function Plains() {
 	return (
 		<div
@@ -231,6 +240,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['inside-airship']]: <InsideAirship />,
 	[BACKGROUND_GRAPHIC_VALUES.mountains]: <Mountains />,
 	[BACKGROUND_GRAPHIC_VALUES.waterfalls]: <Waterfalls />,
+	[BACKGROUND_GRAPHIC_VALUES['bowser-castle']]: <BowserCastle />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {
