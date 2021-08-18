@@ -157,6 +157,7 @@ export const resourceShaMap: Record<string, string> = {
   "LogBridge": "3d4848f7adc227ae8009dd9ebcbfbafb1f36f49b",
   "Ludwig": "ffc32be9407a10f0395f3e8afc681927232645df",
   "MagicBrick": "e64b11ca5b205271ab71b986a07e34cefad6198e",
+  "Magikoopa": "c2ed76589a99d5ebf65a7e4b40e68740fd120c5f",
   "MetalBrick": "d38d14be74a252048e6db61b43fb64a933f03f5e",
   "MetalDonutFloor": "04752a80e0c4f069176700303f1e3be53a6401bc",
   "MetalMushroom": "7c6c01668c9bdac99f7485f89a37fbf4356344bb",

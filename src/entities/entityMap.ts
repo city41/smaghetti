@@ -179,6 +179,7 @@ import { LilSparky } from './LilSparky';
 import { LogBridge } from './LogBridge';
 import { Ludwig } from './Ludwig';
 import { MagicBrick } from './MagicBrick';
+import { Magikoopa } from './Magikoopa';
 import { MetalBrick } from './MetalBrick';
 import { MetalDonutFloor } from './MetalDonutFloor';
 import { MetalMushroom } from './MetalMushroom';
@@ -493,6 +494,7 @@ const entityMap = {
 	LogBridge,
 	Ludwig,
 	MagicBrick,
+	Magikoopa,
 	MetalBrick,
 	MetalDonutFloor,
 	MetalMushroom,
