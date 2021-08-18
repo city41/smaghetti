@@ -91,9 +91,11 @@ function WhatsNewPage() {
 				<NewEntry title="New/Changed Entities" date="2021-08-18">
 					<ul>
 						<li>Magikoopa</li>
+						<li>Piranha Plant - Giant</li>
 						<li>Stalactite: now fully compatible with everything</li>
 						<li>Surprise Donut Lift</li>
 					</ul>
+					<p>No giant pipes yet, but giant Piranhas do fit in normal pipes!</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-08-17">
 					<ul>

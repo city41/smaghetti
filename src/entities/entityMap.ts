@@ -212,6 +212,7 @@ import { PipeVertical } from './PipeVertical';
 import { PipeVerticalMini } from './PipeVerticalMini';
 import { PiranhaPlant } from './PiranhaPlant';
 import { PiranhaPlantFire } from './PiranhaPlantFire';
+import { PiranhaPlantGiant } from './PiranhaPlantGiant';
 import { PiranhaPlantRed } from './PiranhaPlantRed';
 import { PiranhaPlantRedFacingLeft } from './PiranhaPlantRedFacingLeft';
 import { PiranhaPlantRedFacingLeftFire } from './PiranhaPlantRedFacingLeftFire';
@@ -527,6 +528,7 @@ const entityMap = {
 	PipeVerticalMini,
 	PiranhaPlant,
 	PiranhaPlantFire,
+	PiranhaPlantGiant,
 	PiranhaPlantRed,
 	PiranhaPlantRedFacingLeft,
 	PiranhaPlantRedFacingLeftFire,
