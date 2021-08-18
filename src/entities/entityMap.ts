@@ -102,6 +102,7 @@ import { DeleteBlock } from './DeleteBlock';
 import { DiggableSand } from './DiggableSand';
 import { DolphinPod } from './DolphinPod';
 import { DonutBlock } from './DonutBlock';
+import { DonutLiftSurprise } from './DonutLiftSurprise';
 import { DownFortressSpike } from './DownFortressSpike';
 import { DryBones } from './DryBones';
 import { EndOfLevelBackdrop } from './EndOfLevelBackdrop';
@@ -415,6 +416,7 @@ const entityMap = {
 	DiggableSand,
 	DolphinPod,
 	DonutBlock,
+	DonutLiftSurprise,
 	DownFortressSpike,
 	DryBones,
 	EndOfLevelBackdrop,

@@ -88,6 +88,11 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-08-18">
+					<ul>
+						<li>Surprise Donut Lift</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-08-17">
 					<ul>
 						<li>Checkered Block</li>

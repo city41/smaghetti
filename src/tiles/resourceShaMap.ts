@@ -93,6 +93,7 @@ export const resourceShaMap: Record<string, string> = {
   "DeleteBlock": "f6fa87eb1d1b89e6ab3bbc45da74e5745fa85bf8",
   "DiggableSand": "32ed10c6c6474e0052a4fd0957dff96b2a20fc9d",
   "DonutBlock": "0c5502b3b874bd328218c615c1fb2ca0956b4bb5",
+  "DonutLiftSurprise": "3f65b552123eb030cb6f4a0dfa65e7c357ccbca9",
   "DownFortressSpike": "5b7abdb3d58f69daeab9744827e5265f8107d32f",
   "DryBones": "0282499d59b44152281ad7c1fb67018eab94d9bd",
   "EndOfLevelBackdrop": "f169d5550bf346d8ac0c8899aa0b5609d5887a07",
