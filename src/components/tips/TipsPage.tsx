@@ -68,13 +68,6 @@ function TipsPage() {
 						Configure the first one, then make copies.
 					</p>
 				</TipEntry>
-				<TipEntry title="Move Mario to skip ahead">
-					<p>
-						Working on a later part of a room? Move Mario so you don&apos;t have
-						to work through the whole room each time. Just remember to move him
-						back when done.
-					</p>
-				</TipEntry>
 				<TipEntry title="Press 'p' twice to get playing again quicker">
 					<p>
 						&apos;p&apos; toggles between playing and editing. If you die and
