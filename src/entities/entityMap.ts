@@ -67,6 +67,7 @@ import { CeilingSpiny } from './CeilingSpiny';
 import { CementBlock } from './CementBlock';
 import { ChainChomp } from './ChainChomp';
 import { ChargingChuck } from './ChargingChuck';
+import { CheckeredBlock } from './CheckeredTerrain/CheckeredBlock';
 import { CheckeredCeiling } from './CheckeredTerrain/CheckeredCeiling';
 import { CheckeredInnerCornerLowerLeft } from './CheckeredTerrain/CheckeredInnerCornerLowerLeft';
 import { CheckeredInnerCornerLowerRight } from './CheckeredTerrain/CheckeredInnerCornerLowerRight';
@@ -379,6 +380,7 @@ const entityMap = {
 	CementBlock,
 	ChainChomp,
 	ChargingChuck,
+	CheckeredBlock,
 	CheckeredCeiling,
 	CheckeredInnerCornerLowerLeft,
 	CheckeredInnerCornerLowerRight,

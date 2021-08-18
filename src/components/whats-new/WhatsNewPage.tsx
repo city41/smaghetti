@@ -90,10 +90,19 @@ function WhatsNewPage() {
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
 				<NewEntry title="New Entities" date="2021-08-17">
 					<ul>
+						<li>Checkered Block</li>
 						<li>Checkered Inner Corner - Upper Left</li>
 						<li>Checkered Inner Corner - Upper Right</li>
 						<li>Stalactite - Falling</li>
 					</ul>
+					<p>
+						There are still 13 Checkered Terrain entities that need to be added.
+						I have also found that the checkered terrain can behave weird in
+						some layouts. Eventually (and it won&apos;t be for quite a while) I
+						will add a checkered terrain auto-tiler. Where you just draw with a
+						&quot;checkered terrain brush&quot; and Smaghetti figures out the
+						tiles for you.
+					</p>
 				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-08-17">
 					<ul>
