@@ -27,6 +27,7 @@ export const MAX_ROOM_TILE_HEIGHT = 63;
 export const LEVEL_TAGS = [
 	'-',
 	'traditional',
+	'classic',
 	'adventure',
 	'kaizo',
 	'experimental',
