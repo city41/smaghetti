@@ -160,7 +160,7 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	'night-sky': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['night-sky'],
 		bgColor: 0x4,
-		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+		bgExtraColorAndEffect: 0x8d, // BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 	'stormy-clouds': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['stormy-clouds'],

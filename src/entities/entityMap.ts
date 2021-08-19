@@ -1,5 +1,6 @@
 import { AceCoin } from './AceCoin';
 import { AirshipCrate } from './AirshipCrate';
+import { AirshipMetalPanel } from './AirshipMetalPanel';
 import { AirshipPlatform } from './AirshipPlatform';
 import { AirshipPlatform2 } from './AirshipPlatform2';
 import { AirshipPropeller } from './AirshipPropeller';
@@ -317,6 +318,7 @@ import { YellowSwitchBrick } from './YellowSwitchBrick';
 const entityMap = {
 	AceCoin,
 	AirshipCrate,
+	AirshipMetalPanel,
 	AirshipPlatform,
 	AirshipPlatform2,
 	AirshipPropeller,

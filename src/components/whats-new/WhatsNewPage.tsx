@@ -91,6 +91,7 @@ function WhatsNewPage() {
 				<NewEntry title="New/Changed Entities" date="2021-08-18">
 					<ul>
 						<li>Airship Crate</li>
+						<li>Airship Metal Plate</li>
 						<li>Magikoopa</li>
 						<li>Piranha Plant - Giant</li>
 						<li>Stalactite: now fully compatible with everything</li>
