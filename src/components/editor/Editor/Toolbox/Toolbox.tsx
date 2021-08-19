@@ -148,7 +148,7 @@ const Toolbox = memo(function Toolbox({
 				onClick={() => onToggleGrid()}
 			/>
 
-			<div className="flex-1 text-center text-sm text-gray-300">
+			<div className="hidden lg:block flex-1 text-center text-sm text-gray-300">
 				press <span className="font-bold text-base">?</span> for keyboard
 				shortcuts{' '}
 				<a
