@@ -5,8 +5,12 @@ import { LoadingBar } from '../../LoadingBar';
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 import localForage from 'localforage';
 
-type FileLoaderModalProps = {
+type PublicFileLoaderModalProps = {
 	isOpen: boolean;
+	onRequestClose?: () => void;
+};
+
+type InternalFileLoaderModalProps = {
 	romFileState:
 		| 'not-chosen'
 		| 'loading'
@@ -64,7 +68,7 @@ function BaseFiles({
 	otherFilesState,
 	onRomFileChosen,
 }: Pick<
-	FileLoaderModalProps,
+	InternalFileLoaderModalProps,
 	'romFileState' | 'otherFilesState' | 'onRomFileChosen'
 >) {
 	function cacheRomThenOnChosen(romFile: File) {
@@ -213,11 +217,12 @@ function ExtractingResources() {
 
 function FileLoaderModal({
 	isOpen,
+	onRequestClose,
 	otherFilesState,
 	romFileState,
 	onRomFileChosen,
 	extractionState,
-}: FileLoaderModalProps) {
+}: InternalFileLoaderModalProps & PublicFileLoaderModalProps) {
 	useEffect(() => {
 		localForage.getItem<File>(ROM_KEY).then((cachedRomFile) => {
 			if (cachedRomFile) {
@@ -240,7 +245,11 @@ function FileLoaderModal({
 	}
 
 	return (
-		<Modal isOpen={isOpen} title="Before You Can Start">
+		<Modal
+			isOpen={isOpen}
+			title="Before You Can Start"
+			onRequestClose={onRequestClose}
+		>
 			{body}
 			<div className="mt-4 px-4 py-2 border-red-400">
 				<span className="inline-block font-bold text-lg bg-red-400 text-white px-2 mr-1">
@@ -253,3 +262,4 @@ function FileLoaderModal({
 }
 
 export { FileLoaderModal, ROM_KEY };
+export type { PublicFileLoaderModalProps };

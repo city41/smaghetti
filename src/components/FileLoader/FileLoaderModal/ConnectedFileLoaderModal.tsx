@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { AppState, dispatch } from '../../../store';
-import { FileLoaderModal } from './FileLoaderModal';
+import { FileLoaderModal, PublicFileLoaderModalProps } from './FileLoaderModal';
 import {
 	loadBios,
 	loadRom,
@@ -13,10 +13,6 @@ import {
 	extract,
 } from '../fileLoaderSlice';
 
-type ConnectedFileLoaderModalProps = {
-	isOpen: boolean;
-};
-
 const actions = bindActionCreators(
 	{
 		onRomFileChosen: loadRom,
@@ -24,7 +20,7 @@ const actions = bindActionCreators(
 	dispatch
 );
 
-function ConnectedFileLoaderModal({ isOpen }: ConnectedFileLoaderModalProps) {
+function ConnectedFileLoaderModal(props: PublicFileLoaderModalProps) {
 	const { overallExtractionState, romFileState, otherFilesState } = useSelector(
 		(state: AppState) => state.fileLoader
 	);
@@ -48,7 +44,7 @@ function ConnectedFileLoaderModal({ isOpen }: ConnectedFileLoaderModalProps) {
 
 	return (
 		<FileLoaderModal
-			isOpen={isOpen}
+			{...props}
 			extractionState={overallExtractionState}
 			romFileState={romFileState}
 			otherFilesState={otherFilesState}

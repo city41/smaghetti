@@ -6,17 +6,13 @@ import { LevelRow } from './LevelRow';
 import { SaveFileList } from './SaveFileList';
 import { downloadSetOfLevelsAsSaveFile } from '../../../levelData/downloadLevelAsSaveFile';
 import { HowToUseDownloadModal } from '../../HowToUseDownloadModal';
-import {
-	ExtractionState,
-	OtherFilesState,
-} from '../../FileLoader/fileLoaderSlice';
+import { OtherFilesState } from '../../FileLoader/fileLoaderSlice';
 import { Button } from '../../Button';
 import clsx from 'clsx';
 
 type InternalLevelsPageProps = {
 	allFilesReady: boolean;
 	emptySaveFileState: OtherFilesState;
-	extractionState: ExtractionState;
 	loadState: 'dormant' | 'loading' | 'success' | 'error';
 	levels: Level[];
 	sortType: 'likes' | 'new';
@@ -26,7 +22,6 @@ type InternalLevelsPageProps = {
 function LevelsPage({
 	allFilesReady,
 	emptySaveFileState,
-	extractionState,
 	loadState,
 	levels,
 	sortType,
@@ -111,17 +106,6 @@ function LevelsPage({
 								onSaveClick={() => downloadSave(chosenLevels)}
 								isBuilding={isBuildingSave}
 							/>
-							{extractionState === 'not-started' && (
-								<div className="mt-4">
-									To see the thumbnails,{' '}
-									<button
-										className="text-blue-300"
-										onClick={() => setShowFileLoaderModal(true)}
-									>
-										load a SMA4 ROM
-									</button>
-								</div>
-							)}
 							{(newestLevel || mostRecentlyUpdatedLevel) && (
 								<div className="bg-gray-600 -mx-4 p-4 my-10">
 									{newestLevel && (
@@ -143,6 +127,7 @@ function LevelsPage({
 														);
 													}
 												}}
+												onLoadRomClick={() => setShowFileLoaderModal(true)}
 											/>
 										</>
 									)}
@@ -176,6 +161,7 @@ function LevelsPage({
 															);
 														}
 													}}
+													onLoadRomClick={() => setShowFileLoaderModal(true)}
 												/>
 											</>
 										)}
@@ -211,6 +197,7 @@ function LevelsPage({
 												setChosenLevels((cl) => cl.filter((cll) => cll !== l));
 											}
 										}}
+										onLoadRomClick={() => setShowFileLoaderModal(true)}
 									/>
 								))}
 							</div>
@@ -232,7 +219,10 @@ function LevelsPage({
 
 	return (
 		<>
-			<FileLoaderModal isOpen={showFileLoaderModal && !allFilesReady} />
+			<FileLoaderModal
+				isOpen={showFileLoaderModal && !allFilesReady}
+				onRequestClose={() => setShowFileLoaderModal(false)}
+			/>
 			<Root title="Levels" metaDescription="">
 				<div className="max-w-2xl mx-auto pt-16">
 					<h1 className="font-bold text-5xl text-center mb-8">

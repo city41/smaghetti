@@ -35,6 +35,7 @@ export const Basic = () => {
 				voteCount={11}
 				isVoting={false}
 				onVoteClick={() => {}}
+				onLoadRomClick={() => {}}
 			/>
 		</div>
 	);
@@ -53,6 +54,7 @@ export const filesNotReady = () => {
 				voteCount={11}
 				isVoting={false}
 				onVoteClick={() => {}}
+				onLoadRomClick={() => {}}
 			/>
 		</div>
 	);
@@ -71,6 +73,7 @@ export const ChosenForSave = () => {
 				voteCount={11}
 				isVoting={false}
 				onVoteClick={() => {}}
+				onLoadRomClick={() => {}}
 			/>
 		</div>
 	);
@@ -93,6 +96,7 @@ export const LongLevelName = () => {
 				voteCount={11}
 				isVoting={false}
 				onVoteClick={() => {}}
+				onLoadRomClick={() => {}}
 			/>
 		</div>
 	);
@@ -116,6 +120,7 @@ export const LongUserName = () => {
 				voteCount={11}
 				isVoting={false}
 				onVoteClick={() => {}}
+				onLoadRomClick={() => {}}
 			/>
 		</div>
 	);

@@ -21,6 +21,7 @@ type PublicLevelRowProps = {
 	isBuildingSave: boolean;
 	isChosen: boolean;
 	onChosenChange: (newChosen: boolean) => void;
+	onLoadRomClick: () => void;
 };
 
 type InternalLevelRowProps = {
@@ -34,15 +35,35 @@ function makeSlug(name: string): string {
 	return name.replace(/[^a-zA-Z0-9]/g, '-').substr(0, 30);
 }
 
-function BlankThumbnail({ scale }: { scale: number }) {
+function BlankThumbnail({
+	scale,
+	onLoadRomClick,
+}: {
+	scale: number;
+	onLoadRomClick: () => void;
+}) {
 	return (
 		<div
 			style={{
 				width: PLAY_WINDOW_TILE_WIDTH * TILE_SIZE * scale,
 				height: PLAY_WINDOW_TILE_HEIGHT * TILE_SIZE * scale,
 			}}
-			className="bg-gray-900"
-		/>
+			className="bg-gray-900 text-white grid place-items-center text-center text-sm"
+		>
+			<div>
+				<a
+					className="text-blue-500 hover:underline cursor-pointer"
+					onClick={(e) => {
+						e.stopPropagation();
+						e.preventDefault();
+						onLoadRomClick();
+					}}
+				>
+					Load ROM
+				</a>{' '}
+				to see thumbnails
+			</div>
+		</div>
 	);
 }
 
@@ -68,6 +89,7 @@ function LevelRow({
 	currentUserVoted,
 	isVoting,
 	onVoteClick,
+	onLoadRomClick,
 }: PublicLevelRowProps & InternalLevelRowProps) {
 	const href = `/editor/${level.id}/${makeSlug(level.name)}`;
 
@@ -173,7 +195,7 @@ function LevelRow({
 						room={level.data.rooms[0]}
 					/>
 				) : (
-					<BlankThumbnail scale={0.75} />
+					<BlankThumbnail scale={0.75} onLoadRomClick={onLoadRomClick} />
 				)}
 			</a>
 			<div

@@ -46,11 +46,9 @@ function sortLevels(
 }
 
 function ConnectedLevelsPage() {
-	const {
-		allFilesReady,
-		emptySaveFileState,
-		overallExtractionState,
-	} = useSelector((state: AppState) => state.fileLoader);
+	const { allFilesReady, emptySaveFileState } = useSelector(
+		(state: AppState) => state.fileLoader
+	);
 	const [sortType, setSortType] = useState<SortType>('likes');
 
 	const { levels, votes, loadState } = useSelector(
@@ -65,7 +63,6 @@ function ConnectedLevelsPage() {
 		<LevelsPage
 			allFilesReady={allFilesReady}
 			emptySaveFileState={emptySaveFileState}
-			extractionState={overallExtractionState}
 			loadState={loadState}
 			levels={sortLevels(levels, votes, sortType)}
 			sortType={sortType}
