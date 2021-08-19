@@ -28,10 +28,12 @@ import { Blooper } from './Blooper';
 import { BlooperNanny } from './BlooperNanny';
 import { BlueCoin } from './BlueCoin';
 import { Bobomb } from './Bobomb';
+import { BoltDown } from './BoltDown';
 import { BoltHead } from './BoltHead';
 import { BoltLeft } from './BoltLeft';
 import { BoltLift } from './BoltLift';
 import { BoltRight } from './BoltRight';
+import { BoltUp } from './BoltUp';
 import { Bomb } from './Bomb';
 import { BonyBeetle } from './BonyBeetle';
 import { Boo } from './Boo';
@@ -347,10 +349,12 @@ const entityMap = {
 	BlooperNanny,
 	BlueCoin,
 	Bobomb,
+	BoltDown,
 	BoltHead,
 	BoltLeft,
 	BoltLift,
 	BoltRight,
+	BoltUp,
 	Bomb,
 	BonyBeetle,
 	Boo,

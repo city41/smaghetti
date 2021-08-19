@@ -16,7 +16,7 @@ It's available here: https://smaghetti.com
 
 Smaghetti at this point is pretty far along. The [roadmap](https://smaghetti.com/roadmap) marks it as being alpha quality, mostly because several big features are missing from the editor.
 
-At the time of writing, 307 entities exist in Smaghetti. That represents almost every item/enemy/terrain/etc in the game. There aren't many left that need to be added. Mostly what is missing -- entity wise -- are "meta" controls such as sprites that influence auto scrolling. You can create a rather nice level these days, and [many people have](https://smaghetti.com/levels).
+At the time of writing, 323 entities exist in Smaghetti. That represents almost every item/enemy/terrain/etc in the game. There aren't many left that need to be added. Mostly what is missing -- entity wise -- are "meta" controls such as sprites that influence auto scrolling. You can create a rather nice level these days, and [many people have](https://smaghetti.com/levels).
 
 ## Editor quick start
 

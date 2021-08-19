@@ -5,7 +5,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { encodeObjectSets, getBankParam1 } from './util';
 
-function isBoltToLeft(
+function isBoltAbove(
 	entity: EditorEntity | undefined,
 	room: RoomData | undefined
 ): boolean {
@@ -13,33 +13,32 @@ function isBoltToLeft(
 		return false;
 	}
 
-	const cellToLeft = room.stage.matrix[entity.y]?.[entity.x - 1];
+	const cellAbove = room.stage.matrix[entity.y - 1]?.[entity.x];
 
-	if (!cellToLeft) {
+	if (!cellAbove) {
 		return false;
 	}
 
-	return cellToLeft.type === 'BoltLeft';
+	return cellAbove.type === 'BoltUp';
 }
 
-const BoltLeft: Entity = {
+const BoltUp: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-airship',
-		title: 'Bolt - Left',
-		description: 'Bolt Lifts ride on these',
+		title: 'Bolt - Up',
 	},
 
 	objectSets: encodeObjectSets([[10, 10]]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'cell',
-	dimensions: 'x',
-	objectId: 0x6,
+	dimensions: 'y',
+	objectId: 0x9,
 	emptyBank: 1,
 
-	toObjectBinary({ x, y, w }) {
-		return [getBankParam1(1, w), y, x, this.objectId];
+	toObjectBinary({ x, y, h }) {
+		return [getBankParam1(1, h), y, x, this.objectId];
 	},
 
 	simpleRender(size) {
@@ -49,26 +48,32 @@ const BoltLeft: Entity = {
 			backgroundSize: '50% 100%',
 		};
 		return (
-			<div className="flex flex-row items-center">
-				<div className="BoltNut-bg bg-cover" style={style} />
-				<div className="BoltShaft-bg bg-cover" style={style} />
+			<div className="flex flex-col items-center">
+				<div
+					className="BoltNut-bg bg-cover transform rotate-90"
+					style={style}
+				/>
+				<div
+					className="BoltShaft-bg bg-cover transform rotate-90"
+					style={style}
+				/>
 			</div>
 		);
 	},
 
 	render({ entity, room }) {
-		const boltToLeft = isBoltToLeft(entity, room);
+		const boltAbove = isBoltAbove(entity, room);
 
 		return (
 			<div
 				style={{ width: TILE_SIZE, height: TILE_SIZE }}
-				className={clsx({
-					'BoltShaft-bg': boltToLeft,
-					'BoltNut-bg': !boltToLeft,
+				className={clsx('transform rotate-90', {
+					'BoltShaft-bg': boltAbove,
+					'BoltNut-bg': !boltAbove,
 				})}
 			/>
 		);
 	},
 };
 
-export { BoltLeft };
+export { BoltUp };
