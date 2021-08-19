@@ -90,6 +90,7 @@ function WhatsNewPage() {
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
 				<NewEntry title="New/Changed Entities" date="2021-08-18">
 					<ul>
+						<li>Airship Crate</li>
 						<li>Magikoopa</li>
 						<li>Piranha Plant - Giant</li>
 						<li>Stalactite: now fully compatible with everything</li>
