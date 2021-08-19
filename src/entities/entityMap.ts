@@ -197,6 +197,7 @@ import { OneUpMushroom } from './OneUpMushroom';
 import { OneWayDoor } from './OneWayDoor';
 import { PalmTree } from './PalmTree';
 import { POWBlock } from './POWBlock';
+import { POWBlockSprite } from './POWBlock/POWBlockSprite';
 import { PSwitch } from './PSwitch';
 import { PSwitchDoor } from './PSwitchDoor';
 import { ParaBeetle } from './ParaBeetle';
@@ -515,6 +516,7 @@ const entityMap = {
 	OneWayDoor,
 	PalmTree,
 	POWBlock,
+	POWBlockSprite,
 	PSwitch,
 	PSwitchDoor,
 	ParaBeetle,
