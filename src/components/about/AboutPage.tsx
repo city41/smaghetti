@@ -5,6 +5,7 @@ import typographyStyles from '../../styles/typography.module.css';
 import sma4BannerJpg from './sma4Banner.jpg';
 import gbaVsSnesOverlayPng from './gbaVsSnesOverlay.png';
 import ereaderJpg from './ereader.jpg';
+import levelCardsJpg from './levelCards.jpg';
 import jumpClubPng from './jumpClub.png';
 import earlySmaghettiPng from './earlySmaghetti.png';
 import { YoutubeEmbeddedVideo } from './YoutubeEmbeddedVideo';
@@ -59,6 +60,15 @@ function AboutPage() {
 							width={585}
 							height={476}
 						/>
+						<figure>
+							<img
+								src={levelCardsJpg}
+								alt="E-Reader bonus level cards photo"
+								width={598}
+								height={502}
+							/>
+							<figcaption>E-Reader bonus level cards</figcaption>
+						</figure>
 					</p>
 					<h2>Unused stuff found on the game cart</h2>
 					<p>
