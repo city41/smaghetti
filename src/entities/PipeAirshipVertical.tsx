@@ -8,7 +8,6 @@ import { Resizer } from '../components/Resizer';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
 import { TransportSource } from '../components/Transport/TransportSource';
-import { TileSpace } from './TileSpace';
 import { getBasePipeProperties } from './getBasePipeProperties';
 
 const transportObjectId = 0x17;
@@ -119,7 +118,6 @@ const PipeAirshipVertical: Entity = {
 					[styles.resizing]: settings?.resizing,
 				})}
 			>
-				{!!entity && <TileSpace className="absolute w-full h-full" />}
 				{upperLip}
 				{body}
 				{entity && (

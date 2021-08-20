@@ -11,7 +11,6 @@ import { objectSets } from './objectSets';
 
 import styles from '../../components/Resizer/ResizingStyles.module.css';
 import { TransportSource } from '../../components/Transport/TransportSource';
-import { TileSpace } from '../TileSpace';
 import { getBasePipeProperties } from '../getBasePipeProperties';
 
 type PipeDirection = 'right' | 'left';
@@ -154,7 +153,6 @@ const PipeHorizontal: Entity = {
 					[styles.resizing]: settings?.resizing,
 				})}
 			>
-				{!!entity && <TileSpace className="absolute w-full h-full" />}
 				{direction === 'right' ? (
 					<>
 						{body}
