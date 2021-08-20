@@ -202,6 +202,8 @@ export const resourceShaMap: Record<string, string> = {
   "PipeCannonMini": "462e503344af48135d8039b72f314b08c996d860",
   "PipeCornerTransition": "c49d5f94b4a584f4d20f498d3f9e91310122a5a9",
   "PipeHorizontalMini": "462e503344af48135d8039b72f314b08c996d860",
+  "PipeVerticalGiantLip": "000e8c58eaef58726cd49aaf762de398998403a3",
+  "PipeVerticalGiantBody": "7451473164850fad778d63cac2587f7d9f455f31",
   "PipeVerticalMiniMuncherLip": "e2ad34069f973c891019b0e1ea171f61cd5c88df",
   "PipeVerticalMiniMuncherBody": "3c2d9a79675fdb3f2d72df912c8ec51af3830c0d",
   "PiranhaPlant": "5603bb3e5b2447fa3d53b427156a47bac975ce85",
