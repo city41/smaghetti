@@ -86,7 +86,7 @@ function Entity({
 						e.preventDefault();
 						setShowWarning((w) => !w);
 					}}
-					className="w-1 h-1 bg-white text-red-700 bottom-0 left-0 absolute cursor-pointer"
+					className="w-1 h-1 bg-white text-red-700 bottom-0 left-0 absolute cursor-pointer z-10"
 				>
 					<AiFillWarning className="w-full h-full" />
 				</button>

@@ -101,6 +101,8 @@ export const resourceShaMap: Record<string, string> = {
   "ChoppyWater": "20a10e820c36f0496ae100be02f1fb14cf60744c",
   "ClassicBowser": "26bb64f95d49bf77e0d33666fb6d4b112a696145",
   "Clock": "b7018f7d0b1d718f852dc1a960040dae1f8f7998",
+  "CloudFloorTop": "cd07a66c1d0444b2745fc2f9ac1b0dee3a024558",
+  "CloudFloorBottom": "fbe647a1fb12d9dff0ce74cf744a15d0243b9bcd",
   "CloudPlatformAero": "708fffb5a67ba54aaa8d48299878d726c9f39b4b",
   "CloudPlatformThin": "715d8b13d5f649ed775a24bd87b2480dad658f45",
   "Coin": "4ccf7e71a4edbff5f09d1b9d5619abe05c9a2f37",

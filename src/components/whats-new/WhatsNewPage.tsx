@@ -88,10 +88,11 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
-				<NewEntry title="New/Changed Entities" date="2021-08-19">
+				<NewEntry title="New Entities" date="2021-08-19">
 					<ul>
 						<li>Bolt - Down</li>
 						<li>Bolt - Up</li>
+						<li>Cloud Floor</li>
 						<li>Pipe - Vertical Mini Muncher</li>
 					</ul>
 					<p>Bolts have been moved to terrain, in the airship section.</p>
