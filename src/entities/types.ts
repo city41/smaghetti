@@ -65,7 +65,7 @@ type PaletteCategory =
 	| 'power-up'
 	| 'transport'
 	| 'decoration'
-	| 'utility'
+	| 'meta'
 	| 'unfinished'
 	| 'hextree';
 

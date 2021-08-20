@@ -4,7 +4,7 @@ import React from 'react';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const PlayerGhost: Entity = {
-	paletteCategory: 'utility',
+	paletteCategory: 'meta',
 	paletteInfo: {
 		title: 'Ghost Player',
 		description: (

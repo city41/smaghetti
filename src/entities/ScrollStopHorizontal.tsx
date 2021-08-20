@@ -12,7 +12,7 @@ const directionToObjectId: Record<Direction, number> = {
 };
 
 const ScrollStopHorizontal: Entity = {
-	paletteCategory: 'utility',
+	paletteCategory: 'meta',
 	paletteInfo: {
 		title: 'Scroll Stop - Horizontal',
 		description:
