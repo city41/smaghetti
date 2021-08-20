@@ -92,8 +92,15 @@ function WhatsNewPage() {
 					<ul>
 						<li>Bolt - Down</li>
 						<li>Bolt - Up</li>
+						<li>Pipe - Vertical Mini Muncher</li>
 					</ul>
 					<p>Bolts have been moved to terrain, in the airship section.</p>
+					<p>
+						Turns out vertical mini pipes must have munchers inside them.
+						It&apos;s very strange how Nintendo implemented them O_o. Smaghetti
+						has shown me many strange things Nintendo did, but this one takes
+						the cake so far!
+					</p>
 				</NewEntry>
 				<NewEntry title="New/Changed Entities" date="2021-08-18">
 					<ul>
