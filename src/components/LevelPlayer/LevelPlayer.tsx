@@ -1,4 +1,6 @@
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties, ReactNode, useRef } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
+import { AiFillCamera } from 'react-icons/ai';
 import ReactDOM from 'react-dom';
 import clsx from 'clsx';
 
@@ -7,6 +9,7 @@ import checkerboardStyles from '../../styles/checkerboard.module.css';
 import { GBAPlayer } from './GBAPlayer';
 import { createLevelData } from '../../levelData/createLevelData';
 import { ControlsBanner } from '../ControlsBanner';
+import { PlainIconButton } from '../PlainIconButton';
 
 type LevelPlayerProps = {
 	className?: string;
@@ -37,6 +40,22 @@ function LevelPlayer({
 	saveState,
 	checkeredBackground,
 }: LevelPlayerProps) {
+	const canvasRef = useRef<HTMLCanvasElement | null>(null);
+	const screenshotIndexRef = useRef(1);
+
+	function downloadScreenshot() {
+		if (canvasRef.current && isPlaying) {
+			const dataUrl = canvasRef.current.toDataURL();
+			const link = document.createElement('a');
+			link.download = `${level.name}_${screenshotIndexRef.current}.png`;
+			link.href = dataUrl;
+			link.click();
+			screenshotIndexRef.current += 1;
+		}
+	}
+
+	useHotkeys('t', downloadScreenshot, [level]);
+
 	return (
 		<div
 			className={clsx(
@@ -66,8 +85,16 @@ function LevelPlayer({
 						saveState={saveState}
 						levelData={createLevelData(level)}
 						isPlaying={isPlaying}
+						canvasRef={canvasRef}
 					/>
-					<div className="fixed left-0 bottom-0 w-full grid place-items-center pointer-events-auto">
+					<div className="fixed left-0 bottom-0 w-full flex flex-row gap-x-4 justify-center items-center pointer-events-auto">
+						<PlainIconButton
+							className="bg-green-500"
+							icon={AiFillCamera}
+							label="take screenshot (t)"
+							onClick={downloadScreenshot}
+							size="large"
+						/>
 						<ControlsBanner />
 					</div>
 				</div>

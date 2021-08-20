@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, RefObject, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import cloneDeep from 'lodash/cloneDeep';
 
@@ -15,6 +15,7 @@ type GBAPlayerProps = {
 	levelData: Uint8Array;
 	isPlaying: boolean;
 	scale?: number;
+	canvasRef: RefObject<HTMLCanvasElement>;
 };
 
 function GBAPlayer({
@@ -26,8 +27,8 @@ function GBAPlayer({
 	levelData,
 	isPlaying,
 	scale = 3,
+	canvasRef,
 }: GBAPlayerProps) {
-	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const [gbaStatus, setGbaStatus] = useState<GBAStatus>('reset');
 	const [hasCrashed, setHasCrashed] = useState(false);
 
@@ -73,11 +74,7 @@ function GBAPlayer({
 
 	return (
 		<div
-			className={clsx(
-				className,
-				styles.root,
-				'relative border border-black bg-green-50'
-			)}
+			className={clsx(className, styles.root, 'relative')}
 			style={{ '--scale': scale } as CSSProperties}
 		>
 			<canvas

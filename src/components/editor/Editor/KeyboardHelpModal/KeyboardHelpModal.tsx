@@ -109,6 +109,11 @@ const KeyboardHelpModal: FunctionComponent<KeyboardHelpModalProps> = ({
 					Hold <KeyboardKey>shift</KeyboardKey> while dragging
 				</dt>
 				<dd>Make a copy of dragged entities</dd>
+				<Spacer />
+				<dt>
+					<KeyboardKey>t</KeyboardKey>
+				</dt>
+				<dd>Take a screenshot while playing</dd>
 			</dl>
 		</Modal>
 	);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaPlay } from 'react-icons/fa';
 import { VscDebugRestart } from 'react-icons/vsc';
 
@@ -68,6 +68,8 @@ function HexTreePage({
 	onFiveBytes,
 	byteSizes,
 }: HexTreePageProps) {
+	const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [focusedEntity, setFocusedEntity] = useState<any>(null);
 	const [immediateMode, setImmediateMode] = useState(false);
@@ -172,6 +174,7 @@ function HexTreePage({
 								levelData={data}
 								isPlaying={editState === 'running' || immediateMode}
 								scale={1.5}
+								canvasRef={canvasRef}
 							/>
 							<PlainIconButton
 								className="absolute -left-12 -bottom-2 w-8 h-8 grid place-items-center"
