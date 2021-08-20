@@ -14,7 +14,7 @@ const WoodFloor: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-basic',
-		title: 'WoodFloor',
+		title: 'Wood Floor',
 	},
 
 	objectSets: encodeObjectSets([[1, 1]]),

@@ -1544,12 +1544,6 @@ const editorSlice = createSlice({
 			const actorEntityUnderStart = !isEditable(currentRoom.actors)
 				? null
 				: currentRoom.actors.entities.find((e) => {
-						// temp hack: don't allow dragging the player until player location
-						// is taken into account when creating the gba level
-						// if (e.type === 'Player') {
-						// 	return false;
-						// }
-
 						const pixelBounds = getEntityPixelBounds(e);
 
 						return pointIsInside(scaledStartingPoint, pixelBounds);
@@ -1558,12 +1552,6 @@ const editorSlice = createSlice({
 			const stageEntityUnderStart = !isEditable(currentRoom.stage)
 				? null
 				: currentRoom.stage.entities.find((e) => {
-						// temp hack: don't allow dragging the player until player location
-						// is taken into account when creating the gba level
-						// if (e.type === 'Player') {
-						// 	return false;
-						// }
-
 						const pixelBounds = getEntityPixelBounds(e);
 
 						return pointIsInside(scaledStartingPoint, pixelBounds);
@@ -2278,7 +2266,6 @@ export {
 	eraseLevel,
 	LOCALSTORAGE_KEY,
 	FLOOR_SO_PLAYER_DOESNT_FALL,
-	getEntityTileBounds,
 	pointIsInside,
 	initialRoomState,
 	EMPTY_LEVEL,

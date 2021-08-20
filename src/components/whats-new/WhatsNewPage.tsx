@@ -91,6 +91,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2021-08-20">
 					<ul>
 						<li>Pipe - Vertical Giant</li>
+						<li>Wood Floor - Giant</li>
 					</ul>
 					<p>
 						Why don&apos;t giant piranha plants fit properly inside giant

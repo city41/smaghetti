@@ -289,6 +289,7 @@ export const resourceShaMap: Record<string, string> = {
   "WoodColumn": "4928739f0cec1f8152effb9a2896a4ff2a07e6db",
   "WoodDoor": "056207bb22a39e0085bfc59e280074ade196fff6",
   "WoodFloor": "613a44cc64c7f772fccf4085f9fedcf22ecdf5cb",
+  "WoodFloorGiant": "7632e5600ef6af47ac48f18b024f6e43f37dc122",
   "WoodPlatform": "67cb5437632f80c44a0a2471075a0ed5adfef01b",
   "WoodFloorSnowCoveredLeft": "62fd34c8746a52234c98a22861847441f1d517b1",
   "WoodFloorSnowCovered": "5720d3afc0e9d2592478f5ec012a0103a22ec334",
