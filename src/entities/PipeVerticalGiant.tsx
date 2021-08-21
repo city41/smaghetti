@@ -24,7 +24,7 @@ const PipeVerticalGiant: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	settingsType: 'single',
-	defaultSettings: { height: 2 },
+	defaultSettings: { height: 3 },
 	dimensions: 'none',
 	param1: 'height',
 	objectId: 0x7,
@@ -201,7 +201,7 @@ const PipeVerticalGiant: Entity = {
 	toObjectBinary({ x, y, settings }) {
 		const height = settings.height ?? 1;
 
-		return [getBankParam1(1, height), y, x, this.objectId];
+		return [getBankParam1(1, height - 1), y, x, this.objectId];
 	},
 
 	simpleRender(size) {
@@ -225,7 +225,7 @@ const PipeVerticalGiant: Entity = {
 
 		const style = {
 			width: 3 * TILE_SIZE,
-			height: (height + 1) * TILE_SIZE,
+			height: height * TILE_SIZE,
 		};
 
 		const lipStyle = {
@@ -233,7 +233,7 @@ const PipeVerticalGiant: Entity = {
 			height: 2 * TILE_SIZE,
 		};
 
-		const bodyHeight = height - 1;
+		const bodyHeight = Math.max(height - 2, 0);
 		const bodyStyle = {
 			width: 3 * TILE_SIZE,
 			height: bodyHeight * TILE_SIZE,
