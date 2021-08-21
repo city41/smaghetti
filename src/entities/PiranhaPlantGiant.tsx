@@ -55,6 +55,8 @@ const PiranhaPlantGiant: Entity = {
 	alternateObjectIds: Object.values(pipeToObjectId),
 	settingsType: 'single',
 	defaultSettings: { pipe: 'giant' },
+	width: 2,
+	height: 2,
 
 	resource: {
 		palettes: [
