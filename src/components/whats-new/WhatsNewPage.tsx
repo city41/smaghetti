@@ -88,6 +88,17 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Giant Piranha can now fit in giant pipes"
+					date="2021-08-21"
+				>
+					<p>
+						Giant Piranha can be made to fit in a giant pipe after all. You can
+						now choose whether it should be positioned for a regular or giant
+						pipe by clicking its hammer button. Thanks again to NintyAlex for
+						figuring this out.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-08-20">
 					<ul>
 						<li>Pipe - Vertical Giant</li>

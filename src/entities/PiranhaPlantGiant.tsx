@@ -1,8 +1,17 @@
 import React from 'react';
+import { FaHammer } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
+
+const pipes = ['giant', 'regular'] as const;
+type Pipe = typeof pipes[number];
+
+const pipeToObjectId: Record<Pipe, number> = {
+	giant: 0x7f,
+	regular: 0x7d,
+};
 
 const graphicSetValues = [
 	0xb,
@@ -33,6 +42,8 @@ const PiranhaPlantGiant: Entity = {
 	paletteInfo: {
 		subCategory: 'enemy-giant',
 		title: 'Piranha Plant - Giant',
+		description:
+			'Click its hammer button to position it for giant or regular pipes',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -40,7 +51,10 @@ const PiranhaPlantGiant: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x7d,
+	objectId: 0x7f,
+	alternateObjectIds: Object.values(pipeToObjectId),
+	settingsType: 'single',
+	defaultSettings: { pipe: 'giant' },
 
 	resource: {
 		palettes: [
@@ -146,8 +160,10 @@ const PiranhaPlantGiant: Entity = {
 		romOffset: 1501760,
 	},
 
-	toSpriteBinary({ x, y }) {
-		return [0, this.objectId, x, y];
+	toSpriteBinary({ x, y, settings }) {
+		const pipe = (settings.pipe ?? this.defaultSettings!.pipe) as Pipe;
+		const objectId = pipeToObjectId[pipe];
+		return [0, objectId, x, y];
 	},
 
 	simpleRender(size) {
@@ -161,22 +177,47 @@ const PiranhaPlantGiant: Entity = {
 		);
 	},
 
-	render() {
+	render({ settings, onSettingsChange, entity }) {
+		const pipe = (settings.pipe ?? this.defaultSettings!.pipe) as Pipe;
+		const marginOffset = pipe === 'regular' ? 0.25 : 0.75;
+
 		const style = {
 			width: TILE_SIZE * 1.5,
 			height: TILE_SIZE * 2,
-			marginLeft: TILE_SIZE * 0.25,
+			marginLeft: TILE_SIZE * marginOffset,
 		};
 		const spaceStyle = {
 			width: TILE_SIZE,
 			height: TILE_SIZE,
 			top: 0,
-			left: -TILE_SIZE * 0.25,
+			left: -TILE_SIZE * marginOffset,
 		};
 
 		return (
 			<div style={style} className="relative PiranhaPlantGiant-bg bg-cover">
 				<TileSpace style={spaceStyle} className="absolute" />
+				{!!entity && (
+					<div className="absolute top-0 left-0 w-full h-full flex flex-row justify-center align-center z-10">
+						<button
+							onMouseDown={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
+
+								const pipeIndex = pipes.indexOf(pipe);
+								const newPipeIndex = (pipeIndex + 1) % pipes.length;
+								const newPipe = pipes[newPipeIndex];
+								onSettingsChange({
+									pipe: newPipe,
+								});
+							}}
+						>
+							<FaHammer
+								style={{ borderRadius: '10%', padding: 0.5 }}
+								className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
+							/>
+						</button>
+					</div>
+				)}
 			</div>
 		);
 	},

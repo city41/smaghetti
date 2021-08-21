@@ -151,7 +151,7 @@ const StalactiteFalling: Entity = {
 						'StalactiteFallingStationary-bg': fall === 'left',
 					})}
 				/>
-				{entity && (
+				{!!entity && (
 					<div className="absolute top-0 left-0 w-full h-full flex flex-row justify-center align-center z-10">
 						<button
 							onMouseDown={(e) => {
