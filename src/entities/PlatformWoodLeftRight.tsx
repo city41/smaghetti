@@ -3,7 +3,7 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
-import { FaHammer } from 'react-icons/fa';
+import { HammerButton } from './detailPanes/HammerButton';
 
 const ranges = [4, 6] as const;
 type Range = typeof ranges[number];
@@ -98,27 +98,17 @@ const PlatformWoodLeftRight: Entity = {
 			<div className="relative" style={style}>
 				{platform}
 				{rangeBox}
-				{entity && (
-					<div className="absolute top-0 left-0 w-full h-full flex flex-row justify-center align-center gap-x-0.5 z-10">
-						<button
-							onMouseDown={(e) => {
-								e.preventDefault();
-								e.stopPropagation();
-
-								const rangeIndex = ranges.indexOf(range);
-								const newRangeIndex = (rangeIndex + 1) % ranges.length;
-								const newRange = ranges[newRangeIndex];
-								onSettingsChange({
-									range: newRange,
-								});
-							}}
-						>
-							<FaHammer
-								style={{ borderRadius: '10%', padding: 0.5 }}
-								className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
-							/>
-						</button>
-					</div>
+				{!!entity && (
+					<HammerButton
+						onClick={() => {
+							const rangeIndex = ranges.indexOf(range);
+							const newRangeIndex = (rangeIndex + 1) % ranges.length;
+							const newRange = ranges[newRangeIndex];
+							onSettingsChange({
+								range: newRange,
+							});
+						}}
+					/>
 				)}
 			</div>
 		);

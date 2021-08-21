@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import { FaHammer } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { HammerButton } from './detailPanes/HammerButton';
 
 const falls = ['left', 'right'] as const;
 type Fall = typeof falls[number];
@@ -152,26 +152,16 @@ const StalactiteFalling: Entity = {
 					})}
 				/>
 				{!!entity && (
-					<div className="absolute top-0 left-0 w-full h-full flex flex-row justify-center align-center z-10">
-						<button
-							onMouseDown={(e) => {
-								e.preventDefault();
-								e.stopPropagation();
-
-								const fallIndex = falls.indexOf(fall);
-								const newFallIndex = (fallIndex + 1) % falls.length;
-								const newFall = falls[newFallIndex];
-								onSettingsChange({
-									fall: newFall,
-								});
-							}}
-						>
-							<FaHammer
-								style={{ borderRadius: '10%', padding: 0.5 }}
-								className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
-							/>
-						</button>
-					</div>
+					<HammerButton
+						onClick={() => {
+							const fallIndex = falls.indexOf(fall);
+							const newFallIndex = (fallIndex + 1) % falls.length;
+							const newFall = falls[newFallIndex];
+							onSettingsChange({
+								fall: newFall,
+							});
+						}}
+					/>
 				)}
 			</div>
 		);

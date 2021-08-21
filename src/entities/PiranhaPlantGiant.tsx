@@ -1,9 +1,9 @@
 import React from 'react';
-import { FaHammer } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
+import { HammerButton } from './detailPanes/HammerButton';
 
 const pipes = ['giant', 'regular'] as const;
 type Pipe = typeof pipes[number];
@@ -199,26 +199,16 @@ const PiranhaPlantGiant: Entity = {
 			<div style={style} className="relative PiranhaPlantGiant-bg bg-cover">
 				<TileSpace style={spaceStyle} className="absolute" />
 				{!!entity && (
-					<div className="absolute top-0 left-0 w-full h-full flex flex-row justify-center align-center z-10">
-						<button
-							onMouseDown={(e) => {
-								e.preventDefault();
-								e.stopPropagation();
-
-								const pipeIndex = pipes.indexOf(pipe);
-								const newPipeIndex = (pipeIndex + 1) % pipes.length;
-								const newPipe = pipes[newPipeIndex];
-								onSettingsChange({
-									pipe: newPipe,
-								});
-							}}
-						>
-							<FaHammer
-								style={{ borderRadius: '10%', padding: 0.5 }}
-								className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
-							/>
-						</button>
-					</div>
+					<HammerButton
+						onClick={() => {
+							const pipeIndex = pipes.indexOf(pipe);
+							const newPipeIndex = (pipeIndex + 1) % pipes.length;
+							const newPipe = pipes[newPipeIndex];
+							onSettingsChange({
+								pipe: newPipe,
+							});
+						}}
+					/>
 				)}
 			</div>
 		);
