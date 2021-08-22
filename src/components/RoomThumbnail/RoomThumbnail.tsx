@@ -16,6 +16,7 @@ type RoomThumbnailProps = {
 	room: RoomData;
 	children?: ReactNode;
 	prioritizeObjects?: boolean;
+	showPlayer?: boolean;
 };
 
 type MatrixRowProps = {
@@ -63,6 +64,7 @@ type EntitiesProps = {
 	upperLeftTile: Point;
 	widthInTiles: number;
 	heightInTiles: number;
+	showPlayer?: boolean;
 };
 
 function Entities({
@@ -71,13 +73,14 @@ function Entities({
 	upperLeftTile,
 	widthInTiles,
 	heightInTiles,
+	showPlayer,
 }: EntitiesProps) {
 	const width = widthInTiles * TILE_SIZE;
 	const height = heightInTiles * TILE_SIZE;
 
 	const entityCmps = entities.map((e) => {
 		// thumbnail never shows the player
-		if (e.type === 'Player') {
+		if (e.type === 'Player' && !showPlayer) {
 			return null;
 		}
 
@@ -159,6 +162,7 @@ const RoomThumbnail = React.memo(function RoomThumbnail({
 	room,
 	children,
 	prioritizeObjects,
+	showPlayer,
 }: RoomThumbnailProps) {
 	const canvasWidth = widthInTiles * TILE_SIZE;
 	const canvasHeight = heightInTiles * TILE_SIZE;
@@ -202,6 +206,7 @@ const RoomThumbnail = React.memo(function RoomThumbnail({
 			upperLeftTile={upperLeftTile}
 			heightInTiles={heightInTiles}
 			widthInTiles={widthInTiles}
+			showPlayer={showPlayer}
 		/>
 	);
 
