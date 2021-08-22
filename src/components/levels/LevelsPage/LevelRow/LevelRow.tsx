@@ -171,7 +171,7 @@ function LevelRow({
 			</div>
 			<a
 				className={clsx('relative flex flex-row items-center self-start', {
-					'space-x-2 ml-0': isBuildingSave,
+					'space-x-2 ml-2': isBuildingSave,
 				})}
 				href={href}
 				onClick={chooseDontNavIfBuilding}
