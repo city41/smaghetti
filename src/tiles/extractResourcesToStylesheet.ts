@@ -196,15 +196,15 @@ function extractResourceTileData(
 			let data;
 
 			if (typeof t === 'number' || !t.uncompressed) {
-				const offsetData = memoDecompress(rom, romOffset);
+				const offsetDataResult = memoDecompress(rom, romOffset);
 
-				if (!offsetData) {
+				if (!offsetDataResult) {
 					throw new Error(
 						`extractResource: romOffset does not yield tile data: ${romOffset}`
 					);
 				}
 
-				data = offsetData.slice(
+				data = offsetDataResult.data.slice(
 					tileIndex * BYTES_PER_TILE,
 					(tileIndex + 1) * BYTES_PER_TILE
 				);

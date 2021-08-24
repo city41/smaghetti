@@ -8,6 +8,7 @@ import { IGNORED_OFFSETS } from './ignoredCompressionOffsets';
 type TilePage = {
 	address: number;
 	tiles: Array<number[]>;
+	compressedLength: number;
 };
 
 const SCAN_DEPTH = 4;
@@ -76,7 +77,10 @@ function getCompressionOffsets(rom: Uint8Array): number[] {
 	return offsets;
 }
 
-function decompress(rom: Uint8Array, offset: number): number[] | null {
+function decompress(
+	rom: Uint8Array,
+	offset: number
+): { data: number[]; endOffset: number } | null {
 	const decompressedData: number[] = [];
 
 	if (rom[offset] !== 0x10) {
@@ -132,22 +136,27 @@ function decompress(rom: Uint8Array, offset: number): number[] | null {
 		decompressedData[i] = decompressedData[i] || 0;
 	}
 
-	return decompressedData;
+	return { data: decompressedData, endOffset: offset };
 }
 
-function getTiles(rom: Uint8Array, offset: number): Array<number[]> {
+function getTiles(
+	rom: Uint8Array,
+	offset: number
+): { tiles: Array<number[]>; compressedLength: number } {
 	const view = new DataView(rom.buffer);
 	const length = view.getUint32(offset);
 
 	if (length < 1) {
-		return [];
+		return { tiles: [], compressedLength: 0 };
 	}
 
-	const uncompressedData = decompress(rom, offset);
+	const uncompressedDataResult = decompress(rom, offset);
 
-	if (!uncompressedData) {
-		return [];
+	if (!uncompressedDataResult) {
+		return { tiles: [], compressedLength: 0 };
 	}
+
+	const { data: uncompressedData, endOffset } = uncompressedDataResult;
 
 	const tiles: Array<number[]> = [];
 
@@ -155,22 +164,22 @@ function getTiles(rom: Uint8Array, offset: number): Array<number[]> {
 		tiles.push(uncompressedData.slice(i, i + 0x20));
 	}
 
-	return tiles;
+	return { tiles, compressedLength: endOffset - offset };
 }
 
 function extractCompressedTilesFromRom(rom: Uint8Array): TilePage[] {
 	const compressionOffsets = getCompressionOffsets(rom);
 
 	return compressionOffsets.reduce<TilePage[]>((building, address) => {
-		const tiles = getTiles(rom, address);
+		const tileResult = getTiles(rom, address);
 
-		if (tiles.length < 2) {
+		if (tileResult.tiles.length < 2) {
 			return building;
 		}
 
 		return building.concat({
 			address,
-			tiles,
+			...tileResult,
 		});
 	}, []);
 }

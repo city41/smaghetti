@@ -43,6 +43,7 @@ function divideIntoPages(
 		pages.push({
 			address: i,
 			tiles,
+			compressedLength: -1,
 		});
 	}
 
@@ -71,6 +72,32 @@ const tilesSlice = createSlice({
 			}
 
 			state.pages = extractCompressedTilesFromRom(rom);
+
+			const compressedByteLength = state.pages.reduce<number>(
+				(building, page) => {
+					return building + page.compressedLength;
+				},
+				0
+			);
+
+			const uncompressedByteLength = state.pages.reduce<number>(
+				(building, page) => {
+					const pageSize = page.tiles.length * 0x20;
+					return building + pageSize;
+				},
+				0
+			);
+
+			// eslint-disable-next-line no-console
+			console.log(
+				'total compressed tiles byte length:',
+				compressedByteLength,
+				'uncompressed:',
+				uncompressedByteLength,
+				'ratio:',
+				compressedByteLength / uncompressedByteLength
+			);
+
 			state.dumpType = 'compressed';
 		},
 		setShift(state: TilesState, action: PayloadAction<number>) {
