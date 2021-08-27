@@ -1,28 +1,16 @@
 import React from 'react';
 import type { Entity } from '../types';
 import { encodeObjectSets, getBankParam1 } from '../util';
-import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
+import { ResizableRect } from '../../components/ResizableRect';
 
-const WATER_COLOR = 'rgb(24, 104, 200)';
-
-function isWaterAbove(
-	entity: EditorEntity | undefined,
-	room: RoomData | undefined
-): boolean {
-	if (!entity || !room) {
-		return false;
-	}
-
-	const cellAbove = room.stage.matrix[entity.y - 1]?.[entity.x];
-
-	if (!cellAbove) {
-		return false;
-	}
-
-	return cellAbove.type === 'ChoppyWater';
-}
+const BLUE_COLOR_STYLE = { backgroundColor: 'rgb(24, 104, 200)' };
+const RECT_CLASSES = [
+	['ChoppyWater-bg', 'ChoppyWater-bg', 'ChoppyWater-bg'],
+	[BLUE_COLOR_STYLE, BLUE_COLOR_STYLE, BLUE_COLOR_STYLE],
+	[BLUE_COLOR_STYLE, BLUE_COLOR_STYLE, BLUE_COLOR_STYLE],
+];
 
 const ChoppyWater: Entity = {
 	paletteCategory: 'terrain',
@@ -34,12 +22,14 @@ const ChoppyWater: Entity = {
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
-	editorType: 'cell',
-	dimensions: 'xy',
+	editorType: 'entity',
+	dimensions: 'none',
 	objectId: 0x25,
 	param1: 'height',
 	param2: 'width',
 	emptyBank: 1,
+	settingsType: 'single',
+	defaultSettings: { width: 2, height: 1 },
 
 	resource: {
 		palettes: [
@@ -63,52 +53,43 @@ const ChoppyWater: Entity = {
 			],
 		],
 		romOffset: 0x176be8,
-		tiles: [[199]],
+		tiles: [
+			[199, 199],
+			[254, 254],
+		],
 	},
 
-	toObjectBinary({ x, y, w, h }): number[] {
-		return [getBankParam1(1, h), y, x, this.objectId, w];
+	toObjectBinary({ x, y, settings }): number[] {
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const width = (settings.width ?? this.defaultSettings!.width) as number;
+
+		return [getBankParam1(1, height - 1), y, x, this.objectId, width - 1];
 	},
 
 	simpleRender(size) {
 		return (
-			<div style={{ width: size, height: size }} className="grid grid-rows-2">
-				<div
-					className="ChoppyWater-bg w-full h-full"
-					style={{ backgroundSize: '50% 100%', backgroundRepeat: 'repeat-x' }}
-				/>
-				<div
-					className="w-full h-full"
-					style={{
-						backgroundColor: WATER_COLOR,
-					}}
-				/>
-			</div>
+			<div
+				style={{ width: size, height: size }}
+				className="ChoppyWater-bg bg-cover"
+			/>
 		);
 	},
 
-	render({ entity, room }) {
-		const waterAbove = isWaterAbove(entity, room);
-		const style = {
-			width: TILE_SIZE,
-			height: TILE_SIZE,
-		};
+	render({ settings, onSettingsChange, entity }) {
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const width = (settings.width ?? this.defaultSettings!.width) as number;
 
-		if (waterAbove) {
-			return <div style={{ ...style, backgroundColor: WATER_COLOR }} />;
-		} else {
-			return (
-				<div style={style} className="grid grid-rows-2">
-					<div className="ChoppyWater-bg w-full h-full" />
-					<div
-						className="w-full h-full"
-						style={{
-							backgroundColor: WATER_COLOR,
-						}}
-					/>
-				</div>
-			);
-		}
+		return (
+			<ResizableRect
+				width={width}
+				height={height}
+				styles={RECT_CLASSES}
+				hideResizer={!entity}
+				minW={1}
+				minH={1}
+				onSizeChange={(width, height) => onSettingsChange({ width, height })}
+			></ResizableRect>
+		);
 	},
 };
 

@@ -1,27 +1,15 @@
 import React from 'react';
 import type { Entity } from '../types';
 import { encodeObjectSets, getBankParam1 } from '../util';
-import { TILE_SIZE } from '../../tiles/constants';
-import clsx from 'clsx';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
+import { ResizableRect } from '../../components/ResizableRect';
 
-function isWaterfallAbove(
-	entity: EditorEntity | undefined,
-	room: RoomData | undefined
-): boolean {
-	if (!entity || !room) {
-		return false;
-	}
-
-	const cellAbove = room.stage.matrix[entity.y - 1]?.[entity.x];
-
-	if (!cellAbove) {
-		return false;
-	}
-
-	return cellAbove.type === 'Waterfall';
-}
+const RECT_CLASSES = [
+	['WaterfallTop-bg', 'WaterfallTop-bg', 'WaterfallTop-bg'],
+	['Waterfall-bg', 'Waterfall-bg', 'Waterfall-bg'],
+	['Waterfall-bg', 'Waterfall-bg', 'Waterfall-bg'],
+];
 
 const Waterfall: Entity = {
 	paletteCategory: 'terrain',
@@ -34,12 +22,14 @@ const Waterfall: Entity = {
 	objectSets: encodeObjectSets(objectSets),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
-	editorType: 'cell',
-	dimensions: 'xy',
+	editorType: 'entity',
+	dimensions: 'none',
 	objectId: 0x23,
 	param1: 'height',
 	param2: 'width',
 	emptyBank: 1,
+	settingsType: 'single',
+	defaultSettings: { width: 2, height: 1 },
 
 	resource: {
 		palettes: [
@@ -69,8 +59,11 @@ const Waterfall: Entity = {
 		],
 	},
 
-	toObjectBinary({ x, y, w, h }) {
-		return [getBankParam1(1, h), y, x, this.objectId, w];
+	toObjectBinary({ x, y, settings }) {
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const width = (settings.width ?? this.defaultSettings!.width) as number;
+
+		return [getBankParam1(1, height - 1), y, x, this.objectId, width - 1];
 	},
 
 	simpleRender(size) {
@@ -82,22 +75,20 @@ const Waterfall: Entity = {
 		);
 	},
 
-	render({ entity, room }) {
-		const waterAbove = isWaterfallAbove(entity, room);
-
-		const style = {
-			width: TILE_SIZE,
-			height: TILE_SIZE,
-		};
+	render({ settings, onSettingsChange, entity }) {
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const width = (settings.width ?? this.defaultSettings!.width) as number;
 
 		return (
-			<div
-				style={style}
-				className={clsx('bg-cover', {
-					'WaterfallTop-bg': !waterAbove,
-					'Waterfall-bg': waterAbove,
-				})}
-			/>
+			<ResizableRect
+				width={width}
+				height={height}
+				styles={RECT_CLASSES}
+				hideResizer={!entity}
+				minW={1}
+				minH={1}
+				onSizeChange={(width, height) => onSettingsChange({ width, height })}
+			></ResizableRect>
 		);
 	},
 };

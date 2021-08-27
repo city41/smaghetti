@@ -1,12 +1,14 @@
-import React, { useState, ReactNode } from 'react';
+import React, { useState, ReactNode, CSSProperties } from 'react';
 import clsx from 'clsx';
 import { TILE_SIZE } from '../../tiles/constants';
 import { Resizer } from '../Resizer';
-import styles from '../Resizer/ResizingStyles.module.css';
+import resizingStyles from '../Resizer/ResizingStyles.module.css';
+
+type ResizableRectCellStyle = string | CSSProperties;
 
 type ResizableRectProps = {
 	className?: string;
-	classes: string[][];
+	styles: ResizableRectCellStyle[][];
 	width: number;
 	height: number;
 	hideResizer?: boolean;
@@ -16,60 +18,60 @@ type ResizableRectProps = {
 	children?: ReactNode;
 };
 
-function getClassName(
-	classes: string[][],
+function getCellStyle(
+	styles: ResizableRectCellStyle[][],
 	x: number,
 	y: number,
 	w: number,
 	h: number
-): string {
+): ResizableRectCellStyle {
 	// upper left
 	if (x === 0 && y === 0) {
-		return classes[0][0];
+		return styles[0][0];
 	}
 
 	// lower left
 	if (x === 0 && y === h - 1) {
-		return classes[2][0];
+		return styles[2][0];
 	}
 
 	// upper right
 	if (x === w - 1 && y === 0) {
-		return classes[0][2];
+		return styles[0][2];
 	}
 
 	// lower right
 	if (x === w - 1 && y === h - 1) {
-		return classes[2][2];
+		return styles[2][2];
 	}
 
 	// left wall
 	if (x === 0) {
-		return classes[1][0];
+		return styles[1][0];
 	}
 
 	// right wall
 	if (x === w - 1) {
-		return classes[1][2];
+		return styles[1][2];
 	}
 
 	// top
 	if (y === 0) {
-		return classes[0][1];
+		return styles[0][1];
 	}
 
 	// bottom
 	if (y === h - 1) {
-		return classes[2][1];
+		return styles[2][1];
 	}
 
 	// center
-	return classes[1][1];
+	return styles[1][1];
 }
 
 function ResizableRect({
 	className,
-	classes,
+	styles,
 	width,
 	height,
 	minW,
@@ -93,12 +95,14 @@ function ResizableRect({
 
 	for (let y = 0; y < height; ++y) {
 		for (let x = 0; x < width; ++x) {
-			cells.push(
-				<div
-					style={cellStyle}
-					className={getClassName(classes, x, y, width, height)}
-				/>
-			);
+			const styleOrClass = getCellStyle(styles, x, y, width, height);
+			const className =
+				typeof styleOrClass === 'string' ? styleOrClass : undefined;
+			const finalStyle =
+				typeof styleOrClass === 'object'
+					? { ...cellStyle, ...styleOrClass }
+					: cellStyle;
+			cells.push(<div style={finalStyle} className={className} />);
 		}
 	}
 
@@ -107,7 +111,7 @@ function ResizableRect({
 	return (
 		<div
 			className={clsx(className, 'grid', {
-				[styles.resizing]: resizing,
+				[resizingStyles.resizing]: resizing,
 			})}
 			style={style}
 		>

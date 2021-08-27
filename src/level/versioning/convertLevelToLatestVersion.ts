@@ -1,5 +1,6 @@
 import { from_5_0_0_to_5_1_0 } from './from_5_0_0_to_5_1_0';
 import { from_5_1_0_to_5_1_1 } from './from_5_1_0_to_5_1_1';
+import { from_5_1_1_to_5_2_0 } from './from_5_1_1_to_5_2_0';
 
 type Versioned = { version: string };
 type Converter = {
@@ -11,12 +12,15 @@ type Converter = {
 // 5.0.0 - first version with actor/stage
 // 5.1.0 - first consolidated server/local version, adds settings.timer
 // 5.1.1 - duh, settings has to be down under data to save on the server...
-const CURRENT_VERSION = '5.1.1';
+// 5.2.0 - PoolOfWater, ChoppyWater, Lava and Waterfall all stopped being cell entities
 
 const converters: Converter[] = [
 	{ from: '5.0.0', to: '5.1.0', fn: from_5_0_0_to_5_1_0 },
 	{ from: '5.1.0', to: '5.1.1', fn: from_5_1_0_to_5_1_1 },
+	{ from: '5.1.1', to: '5.2.0', fn: from_5_1_1_to_5_2_0 },
 ];
+
+const CURRENT_VERSION = converters[converters.length - 1].to;
 
 function convertLevelToLatestVersion(level: unknown): SerializedLevel | null {
 	if (

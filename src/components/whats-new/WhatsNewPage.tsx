@@ -5,7 +5,10 @@ import { Root } from '../layout/Root';
 
 import typographyStyles from '../../styles/typography.module.css';
 
-import airshipExamples from './AirshipPlatformExamples.png';
+import airshipExamplesPng from './AirshipPlatformExamples.png';
+import badWaterExamplePng from './BadBodyOfWaterExample.png';
+import goodWaterExamplePng from './GoodBodyOfWaterExample.png';
+import convertedButNotFixedPng from './convertedButNotFixed.png';
 import { AiFillHeart } from 'react-icons/ai';
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
@@ -88,6 +91,60 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Changes to 'liquid' terrain"
+					date="2021-08-27"
+					alertingChange
+				>
+					<p>
+						All liquid terrains are now done using a drag handle, similar to how
+						things like Colorful Metal Box work. The old way of
+						&quot;painting&quot; the tiles is not good enough for these
+						entities, as in more complex scenarios Smaghetti was unable to
+						figure out how you wanted your liquid to work. For example,
+						Smaghetti would build bodies of water that looked like this:
+					</p>
+					<img
+						width={480}
+						height={320}
+						src={badWaterExamplePng}
+						alt="Screenshot showing Smaghetti not creating water correctly"
+					/>
+					<p>
+						With the new way liquid entities are handled, you can now get the
+						expected result:
+					</p>
+					<img
+						width={480}
+						height={320}
+						src={goodWaterExamplePng}
+						alt="Screenshot showing Smaghetti now creating the water correctly"
+					/>
+					<p>
+						But! If Smaghetti was making bad liquid for you before, you will
+						need to go into your level and fix it using the new entities. The
+						old liquid tiles will be replaced automatically for you, but the bad
+						scenarios can not be automatically fixed. In other words, the above
+						scenario will first look like this in the editor:
+					</p>
+					<img
+						width={582}
+						height={255}
+						src={convertedButNotFixedPng}
+						alt="Screenshot showing Smaghetti has converted the entities, but not fixed the problem"
+					/>
+					<p>
+						And you will need to manually fix up your level to get the correct
+						water.
+					</p>
+					<p>The impacted entities are:</p>
+					<ul>
+						<li>Choppy Water</li>
+						<li>Lava</li>
+						<li>Pool of Water</li>
+						<li>Waterfall</li>
+					</ul>
+				</NewEntry>
 				<NewEntry
 					title="Giant Piranha can now fit in giant pipes"
 					date="2021-08-21"
@@ -384,7 +441,7 @@ function WhatsNewPage() {
 						<img
 							width={480}
 							height={320}
-							src={airshipExamples}
+							src={airshipExamplesPng}
 							alt="airship platform examples"
 						/>
 					</div>

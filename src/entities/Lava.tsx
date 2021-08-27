@@ -1,26 +1,15 @@
 import type { Entity } from './types';
 import { encodeObjectSets, getBankParam1 } from './util';
-import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import clsx from 'clsx';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ResizableRect } from '../components/ResizableRect';
 
-function isLavaAbove(
-	entity: EditorEntity | undefined,
-	room: RoomData | undefined
-): boolean {
-	if (!entity || !room) {
-		return false;
-	}
-
-	const cellAbove = room.stage.matrix[entity.y - 1]?.[entity.x];
-
-	if (!cellAbove) {
-		return false;
-	}
-
-	return cellAbove.type === 'Lava';
-}
+const RED_COLOR_STYLE = { backgroundColor: 'rgb(208, 0, 0)' };
+const RECT_CLASSES = [
+	['Lava-bg', 'Lava-bg', 'Lava-bg'],
+	[RED_COLOR_STYLE, RED_COLOR_STYLE, RED_COLOR_STYLE],
+	[RED_COLOR_STYLE, RED_COLOR_STYLE, RED_COLOR_STYLE],
+];
 
 const Lava: Entity = {
 	paletteCategory: 'terrain',
@@ -47,9 +36,10 @@ const Lava: Entity = {
 	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
-	editorType: 'cell',
+	editorType: 'entity',
 	settingsType: 'single',
-	dimensions: 'xy',
+	defaultSettings: { width: 2, height: 1 },
+	dimensions: 'none',
 	objectId: 0x30,
 	param1: 'height',
 	param2: 'width',
@@ -83,8 +73,11 @@ const Lava: Entity = {
 		],
 	},
 
-	toObjectBinary({ x, y, w, h }) {
-		return [getBankParam1(1, h), y, x, this.objectId, w];
+	toObjectBinary({ x, y, settings }) {
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const width = (settings.width ?? this.defaultSettings!.width) as number;
+
+		return [getBankParam1(1, height - 1), y, x, this.objectId, width - 1];
 	},
 
 	simpleRender(size) {
@@ -93,22 +86,20 @@ const Lava: Entity = {
 		);
 	},
 
-	render({ entity, room }) {
-		const lavaAbove = isLavaAbove(entity, room);
-
-		const style = {
-			width: TILE_SIZE,
-			height: TILE_SIZE,
-			backgroundColor: lavaAbove ? 'rgb(208, 0, 0)' : 'transparent',
-		};
+	render({ settings, onSettingsChange, entity }) {
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const width = (settings.width ?? this.defaultSettings!.width) as number;
 
 		return (
-			<div
-				style={style}
-				className={clsx({
-					'Lava-bg bg-cover': !isLavaAbove(entity, room),
-				})}
-			/>
+			<ResizableRect
+				width={width}
+				height={height}
+				styles={RECT_CLASSES}
+				hideResizer={!entity}
+				minW={1}
+				minH={1}
+				onSizeChange={(width, height) => onSettingsChange({ width, height })}
+			></ResizableRect>
 		);
 	},
 };

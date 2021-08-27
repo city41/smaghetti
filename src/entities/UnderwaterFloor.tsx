@@ -117,7 +117,7 @@ const UnderwaterFloor: Entity = {
 				height={height}
 				minW={2}
 				minH={1}
-				classes={RECT_CLASSES}
+				styles={RECT_CLASSES}
 				hideResizer={!entity}
 				onSizeChange={(width, height) => onSettingsChange({ width, height })}
 			/>
