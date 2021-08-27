@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { TILE_SIZE } from '../../tiles/constants';
 import { Resizer } from '../Resizer';
 import resizingStyles from '../Resizer/ResizingStyles.module.css';
+import clamp from 'lodash/clamp';
 
 type ResizableRectCellStyle = string | CSSProperties;
 
@@ -14,6 +15,8 @@ type ResizableRectProps = {
 	hideResizer?: boolean;
 	minW: number;
 	minH: number;
+	maxW?: number;
+	maxH?: number;
 	onSizeChange: (newWidth: number, newHeight: number) => void;
 	children?: ReactNode;
 };
@@ -76,6 +79,8 @@ function ResizableRect({
 	height,
 	minW,
 	minH,
+	maxW,
+	maxH,
 	hideResizer,
 	onSizeChange,
 	children,
@@ -125,8 +130,8 @@ function ResizableRect({
 					axis="xy"
 					onSizeChange={(newSizePoint) => {
 						onSizeChange(
-							Math.max(minW, newSizePoint.x),
-							Math.max(minH, newSizePoint.y)
+							clamp(newSizePoint.x, minW, maxW ?? Number.MAX_SAFE_INTEGER),
+							clamp(newSizePoint.y, minH, maxH ?? Number.MAX_SAFE_INTEGER)
 						);
 					}}
 					onResizeStart={() => setResizing(true)}

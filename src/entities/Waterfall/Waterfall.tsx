@@ -87,6 +87,7 @@ const Waterfall: Entity = {
 				hideResizer={!entity}
 				minW={1}
 				minH={1}
+				maxW={26}
 				onSizeChange={(width, height) => onSettingsChange({ width, height })}
 			></ResizableRect>
 		);
