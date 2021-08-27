@@ -2148,10 +2148,12 @@ const NonUndoableRoomState: Array<keyof RoomState> = [
 	'currentPaletteEntry',
 ];
 
+const NonUndoableRoomLayerState: Array<keyof EditorRoomLayer> = ['locked'];
+
 function pullForwardNonUndoableState<T>(
-	state: T | undefined,
+	state: T,
 	stateToPullForward: Array<keyof T>
-): Partial<T> | undefined {
+): Partial<T> {
 	if (!state) {
 		return state;
 	}
@@ -2171,16 +2173,35 @@ function neverUndoRedoCertainStateReducer(
 	const newState = undoableReducer(state, action);
 
 	if (
-		action.type === ReduxUndoActionTypes.UNDO ||
-		action.type === ReduxUndoActionTypes.REDO
+		state &&
+		(action.type === ReduxUndoActionTypes.UNDO ||
+			action.type === ReduxUndoActionTypes.REDO)
 	) {
 		const pulledFowardRooms = newState.present.rooms.map((newRoom, i) => {
+			const pulledForwardState = pullForwardNonUndoableState(
+				state.present.rooms[i],
+				NonUndoableRoomState
+			);
+
 			return {
 				...newRoom,
-				...pullForwardNonUndoableState(
-					state?.present.rooms[i],
-					NonUndoableRoomState
-				),
+				...pulledForwardState,
+				stage: {
+					...newRoom.stage,
+					...pulledForwardState.stage,
+					...pullForwardNonUndoableState(
+						state.present.rooms[i].stage,
+						NonUndoableRoomLayerState
+					),
+				},
+				actors: {
+					...newRoom.actors,
+					...pulledForwardState.actors,
+					...pullForwardNonUndoableState(
+						state.present.rooms[i].actors,
+						NonUndoableRoomLayerState
+					),
+				},
 			};
 		});
 
@@ -2191,7 +2212,7 @@ function neverUndoRedoCertainStateReducer(
 			...newState,
 			present: {
 				...newState.present,
-				...pullForwardNonUndoableState(state?.present, NonUndoableEditorState),
+				...pullForwardNonUndoableState(state.present, NonUndoableEditorState),
 				rooms: pulledFowardRooms,
 				currentRoom: pulledForwardCurrentRoom,
 			},
