@@ -3,7 +3,7 @@ import type { Entity } from './types';
 import { encodeObjectSets, getBankParam1 } from './util';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { ResizableRect } from '../components/ResizableRect';
-import { TILE_SIZE } from '../tiles/constants';
+import { HammerButton } from './detailPanes/HammerButton';
 
 const RECT_CLASSES = [
 	[
@@ -31,13 +31,6 @@ const colorToObjectId = {
 };
 
 type Color = keyof typeof colorToObjectId;
-
-const buttonColorToCss: Record<Color, string> = {
-	white: 'white',
-	orange: '#f8a060',
-	green: '#90c868',
-	blue: '#70d8f8',
-};
 
 const overlayColorToCss: Record<Color, string> = {
 	white: 'transparent',
@@ -154,31 +147,13 @@ const ColorfulMetalBox: Entity = {
 					}}
 				/>
 				{!!entity && (
-					<button
-						className="absolute z-10"
-						style={{
-							top: `calc(50% - ${TILE_SIZE / 4}px)`,
-							left: `calc(50% - ${TILE_SIZE / 4}px)`,
-							width: TILE_SIZE / 2,
-							height: TILE_SIZE / 2,
-							border:
-								color === 'white'
-									? '1px solid rgb(0, 0, 0, 0.25)'
-									: '1px solid white',
-						}}
-						onMouseDown={(e) => {
-							e.preventDefault();
-							e.stopPropagation();
+					<HammerButton
+						onClick={() => {
 							const i = colorCycle.indexOf(color);
 							const ni = (i + 1) % colorCycle.length;
 							onSettingsChange({ color: colorCycle[ni] });
 						}}
-					>
-						<div
-							className="w-full h-full"
-							style={{ backgroundColor: buttonColorToCss[color] }}
-						/>
-					</button>
+					/>
 				)}
 			</ResizableRect>
 		);
