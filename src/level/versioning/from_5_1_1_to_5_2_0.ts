@@ -147,12 +147,14 @@ function convertLiquidEntities(room: SerializedRoomData): SerializedRoomData {
 export function from_5_1_1_to_5_2_0(level: Versioned): Version_5_2_0 | null {
 	if (is511(level)) {
 		return {
+			...level,
 			version: '5.2.0',
 			id: level.id,
 			name: level.name,
 			created_at: level.created_at,
 			updated_at: level.updated_at ?? '',
 			data: {
+				...level.data,
 				// @ts-ignore level settings got moved
 				settings: level.data.settings ?? level.settings ?? DEFAULT_SETTINGS,
 				rooms: level.data.rooms.map(convertLiquidEntities),
