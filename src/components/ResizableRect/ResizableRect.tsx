@@ -1,4 +1,4 @@
-import React, { useState, ReactNode, CSSProperties } from 'react';
+import React, { memo, useState, ReactNode, CSSProperties } from 'react';
 import clsx from 'clsx';
 import { TILE_SIZE } from '../../tiles/constants';
 import { Resizer } from '../Resizer';
@@ -72,7 +72,7 @@ function getCellStyle(
 	return styles[1][1];
 }
 
-function ResizableRect({
+const ResizableRect = memo(function ResizableRect({
 	className,
 	styles,
 	width,
@@ -107,7 +107,9 @@ function ResizableRect({
 				typeof styleOrClass === 'object'
 					? { ...cellStyle, ...styleOrClass }
 					: cellStyle;
-			cells.push(<div style={finalStyle} className={className} />);
+			cells.push(
+				<div key={`${y}-${x}`} style={finalStyle} className={className} />
+			);
 		}
 	}
 
@@ -141,6 +143,6 @@ function ResizableRect({
 			{children}
 		</div>
 	);
-}
+});
 
 export { ResizableRect };
