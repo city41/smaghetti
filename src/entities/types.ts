@@ -202,7 +202,7 @@ type Entity = {
 	render: (arg: renderProps) => ReactElement | null;
 
 	/**
-	 * Used to take a SMA4 level as found in the game or a save file,
+	 * Used to take SMA4 object bytes as found in a level
 	 * and parse out Smaghetti entities from it.
 	 *
 	 * NOTE: the return result is using the assumption that the Entity
@@ -217,10 +217,19 @@ type Entity = {
 	 * mostly to support objects, such as a single SMA4 Brick object likely
 	 * maps to many Smaghetti bricks
 	 */
-	parse?: (
+	parseObject?: (
 		data: Uint8Array,
 		offset: number
 	) => void | { entities: NewEditorEntity[]; offset: number };
+
+	/**
+	 * Just like parseObject but for sprites. A difference is sprites
+	 * can only ever return one entity, so no array here
+	 */
+	parseSprite?: (
+		data: Uint8Array,
+		offset: number
+	) => void | { entity: NewEditorEntity; offset: number };
 
 	/**
 	 * Entities can implement this to emit warnings.

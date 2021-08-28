@@ -64,19 +64,18 @@ const Goomba: Entity = {
 		return this.simpleRender(TILE_SIZE);
 	},
 
-	parse(data, offset) {
+	// TODO: pixel positioned Goombas
+	parseSprite(data, offset) {
 		if (data[offset++] === 0 && data[offset++] === this.objectId) {
 			const x = data[offset++];
 			const y = data[offset++];
 
 			return {
-				entities: [
-					{
-						type: 'Goomba',
-						x: x * TILE_SIZE,
-						y: y * TILE_SIZE,
-					},
-				],
+				entity: {
+					type: 'Goomba',
+					x: x * TILE_SIZE,
+					y: y * TILE_SIZE,
+				},
 				offset,
 			};
 		}

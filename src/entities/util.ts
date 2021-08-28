@@ -9,6 +9,10 @@ export function getBankParam1(bank: 0 | 1, param: number): number {
 	return (bank << 6) | param;
 }
 
+export function parseParamFromBank(byte: number): number {
+	return 0x2f & byte;
+}
+
 function getEntityTileWidth(entityDef: Entity): number {
 	if (entityDef.width) {
 		return entityDef.width;
