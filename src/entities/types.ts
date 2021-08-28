@@ -202,6 +202,27 @@ type Entity = {
 	render: (arg: renderProps) => ReactElement | null;
 
 	/**
+	 * Used to take a SMA4 level as found in the game or a save file,
+	 * and parse out Smaghetti entities from it.
+	 *
+	 * NOTE: the return result is using the assumption that the Entity
+	 * being called parse() on is compatible with the room's object set
+	 * and object graphic set. That is the responsibility of the caller
+	 *
+	 * @param data Uint8Array the stream of binary SMA4 data that is being parsed
+	 * @param offset number the current offset into the stream
+	 * @return void if this entity can't parse at the current offset, or
+	 * any entities it can parse out plus the new offset pushed out by
+	 * how many bytes this parsing consumed. Multiple entities can be returned
+	 * mostly to support objects, such as a single SMA4 Brick object likely
+	 * maps to many Smaghetti bricks
+	 */
+	parse?: (
+		data: Uint8Array,
+		offset: number
+	) => void | { entities: NewEditorEntity[]; offset: number };
+
+	/**
 	 * Entities can implement this to emit warnings.
 	 * If they have a warning, they will get rendered with a warning
 	 * icon and a red border, clicking the icon shows the warning.

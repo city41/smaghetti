@@ -63,6 +63,24 @@ const Goomba: Entity = {
 	render() {
 		return this.simpleRender(TILE_SIZE);
 	},
+
+	parse(data, offset) {
+		if (data[offset++] === 0 && data[offset++] === this.objectId) {
+			const x = data[offset++];
+			const y = data[offset++];
+
+			return {
+				entities: [
+					{
+						type: 'Goomba',
+						x: x * TILE_SIZE,
+						y: y * TILE_SIZE,
+					},
+				],
+				offset,
+			};
+		}
+	},
 };
 
 export { Goomba };
