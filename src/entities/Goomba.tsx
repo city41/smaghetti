@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -66,19 +67,7 @@ const Goomba: Entity = {
 
 	// TODO: pixel positioned Goombas
 	parseSprite(data, offset) {
-		if (data[offset++] === 0 && data[offset++] === this.objectId) {
-			const x = data[offset++];
-			const y = data[offset++];
-
-			return {
-				entity: {
-					type: 'Goomba',
-					x: x * TILE_SIZE,
-					y: y * TILE_SIZE,
-				},
-				offset,
-			};
-		}
+		return parseSimpleSprite(data, offset, 0, this.objectId, 'Goomba');
 	},
 };
 

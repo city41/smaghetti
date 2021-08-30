@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -82,6 +83,17 @@ const GreenKoopaTroopa: Entity = {
 			<div className="GreenKoopaTroopa-bg bg-cover bg-no-repeat" style={style}>
 				<TileSpace />
 			</div>
+		);
+	},
+
+	// TODO: pixel positioned koopas
+	parseSprite(data, offset) {
+		return parseSimpleSprite(
+			data,
+			offset,
+			0,
+			this.objectId,
+			'GreenKoopaTroopa'
 		);
 	},
 };

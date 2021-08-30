@@ -205,3 +205,25 @@ export function isUnfinishedEntityType(type: EntityType): boolean {
 		entityDef.paletteCategory === 'unfinished'
 	);
 }
+
+export function parseSimpleSprite(
+	data: Uint8Array,
+	offset: number,
+	bank: number,
+	objectId: number,
+	type: EntityType
+): ReturnType<Required<Entity>['parseSprite']> {
+	if (data[offset++] === bank && data[offset++] === objectId) {
+		const x = data[offset++];
+		const y = data[offset++];
+
+		return {
+			entity: {
+				type,
+				x: x * TILE_SIZE,
+				y: y * TILE_SIZE,
+			},
+			offset,
+		};
+	}
+}
