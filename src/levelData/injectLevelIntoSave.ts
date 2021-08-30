@@ -46,8 +46,9 @@ function loadCompressedLevelData(level: ELevelData, inputData: Uint8Array) {
 	const minSize = Math.min(compressedBuffer1.length, compressedBuffer2.length);
 
 	if (minSize >= MAX_DATA_SIZE) {
-		throw new Error(
-			`Level is to large to fit in a save file, compressed size: ${minSize}, max: ${MAX_DATA_SIZE}`
+		// eslint-disable-next-line no-console
+		console.warn(
+			`Level is too large to fit in a save file, compressed size: ${minSize}, max: ${MAX_DATA_SIZE}`
 		);
 	}
 
