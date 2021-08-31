@@ -3,6 +3,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const PiranhaPlantRedFacingRight: Entity = {
 	paletteCategory: 'enemy',
@@ -20,6 +21,16 @@ const PiranhaPlantRedFacingRight: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(
+			data,
+			offset,
+			0,
+			this.objectId,
+			'PiranhaPlantRedFacingRight'
+		);
 	},
 
 	simpleRender(size) {

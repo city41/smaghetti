@@ -7,6 +7,7 @@ import { TransportSource } from '../components/Transport/TransportSource';
 import { TransportEditDetails } from './detailPanes/TransportEditDetails';
 import { DestinationSetProps } from '../components/Transport/TransportDestinationModal/TransportDestinationModal';
 import { getEntityTileBounds, pointIsInside } from '../components/editor/util';
+import { parseSimpleSprite } from './util';
 
 const PSwitchDoor: Entity = {
 	paletteCategory: 'transport',
@@ -24,6 +25,10 @@ const PSwitchDoor: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this.objectId, 'PSwitchDoor');
 	},
 
 	simpleRender(size) {

@@ -55,6 +55,11 @@ const RedKoopaTroopa: Entity = {
 		return [0, this.objectId, x, y];
 	},
 
+	// TODO: pixel positioned koopas
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this.objectId, 'RedKoopaTroopa');
+	},
+
 	simpleRender(size) {
 		const style = {
 			width: size,
@@ -81,11 +86,6 @@ const RedKoopaTroopa: Entity = {
 				<TileSpace />
 			</div>
 		);
-	},
-
-	// TODO: pixel positioned koopas
-	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'RedKoopaTroopa');
 	},
 };
 

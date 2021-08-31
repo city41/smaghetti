@@ -3,6 +3,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const SledgeBro: Entity = {
 	paletteCategory: 'enemy',
@@ -50,6 +51,10 @@ const SledgeBro: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this.objectId, 'SledgeBro');
 	},
 
 	simpleRender(size) {

@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
+import { parseSimpleSprite } from './util';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -76,6 +77,16 @@ const PiranhaPlantRedFire: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(
+			data,
+			offset,
+			0,
+			this.objectId,
+			'PiranhaPlantRedFire'
+		);
 	},
 
 	simpleRender(size) {

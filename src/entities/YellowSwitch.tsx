@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const YellowSwitch: Entity = {
 	paletteCategory: 'gizmo',
@@ -47,6 +48,10 @@ const YellowSwitch: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this.objectId, 'YellowSwitch');
 	},
 
 	simpleRender(size) {

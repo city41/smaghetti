@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const PoisonMushroom: Entity = {
 	paletteCategory: 'power-up',
@@ -18,6 +19,10 @@ const PoisonMushroom: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this.objectId, 'PoisonMushroom');
 	},
 
 	simpleRender(size) {

@@ -55,6 +55,10 @@ const PiranhaPlant: Entity = {
 		return [0, this.objectId, x, y];
 	},
 
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this.objectId, 'PiranhaPlant');
+	},
+
 	simpleRender(size) {
 		return (
 			<div
@@ -83,10 +87,6 @@ const PiranhaPlant: Entity = {
 				<TileSpace className="absolute" style={spaceStyle} />
 			</div>
 		);
-	},
-
-	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'PiranhaPlant');
 	},
 };
 
