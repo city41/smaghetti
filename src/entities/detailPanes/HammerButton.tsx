@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { FaHammer } from 'react-icons/fa';
 
 type HammerButtonProps = {
 	onClick: () => void;
+	style?: CSSProperties;
 };
 
-function HammerButton({ onClick }: HammerButtonProps) {
+function HammerButton({ onClick, style }: HammerButtonProps) {
 	return (
-		<div className="absolute top-0 left-0 w-full h-full grid place-items-center z-10">
+		<div
+			style={style}
+			className="absolute top-0 left-0 w-full h-full grid place-items-center z-10"
+		>
 			<button
 				onMouseDown={(e) => {
 					e.preventDefault();

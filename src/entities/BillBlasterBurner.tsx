@@ -7,17 +7,27 @@ import { getBankParam1 } from './util';
 import { Resizer } from '../components/Resizer';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
+import { HammerButton } from './detailPanes/HammerButton';
 
-const BillBlaster: Entity = {
+const directions = ['left', 'right'] as const;
+type Direction = typeof directions[number];
+
+const directionToBurnerId: Record<Direction, number> = {
+	left: 0xac,
+	right: 0xb1,
+};
+
+// TODO: this is 99% the same as BillBlaster, consolidate somehow
+const BillBlasterBurner: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-common',
-		title: 'Bill Blaster',
-		description: 'Shoots Bullet Bills',
+		title: 'Bill Blaster - Burner',
+		description: 'Shoots fire',
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [-1, -1, -1, -1, -1, ANY_BELOW_0x16],
+	spriteGraphicSets: [0, -1, -1, -1, -1, ANY_BELOW_0x16],
 	layer: 'stage',
 	editorType: 'entity',
 	objectId: 0x20,
@@ -25,96 +35,45 @@ const BillBlaster: Entity = {
 	param1: 'height',
 	dimensions: 'none',
 	settingsType: 'single',
-	defaultSettings: { height: 2 },
+	defaultSettings: { height: 2, direction: 'left' },
 
 	resources: {
-		BillBlasterBarrel: {
-			romOffset: 0x16ad5c,
+		BillBlasterBurnerFlame: {
+			romOffset: 0x163768,
 			palettes: [
 				[
 					0x7f96,
 					0x7fff,
-					0x0,
-					0x39ce,
-					0x4a52,
-					0x6318,
-					0x77bd,
-					0x267c,
-					0x435f,
-					0x5bbf,
-					0x3d89,
-					0x4a0d,
-					0x5650,
-					0x62b2,
-					0x6f15,
-					0x7778,
+					0x18c6,
+					0x101a,
+					0x10bf,
+					0x125f,
+					0x25fd,
+					0x369e,
+					0x475f,
+					0x139f,
+					0x177,
+					0x21c,
+					0x29f,
+					0x47bf,
+					0x137f,
+					0x25f,
 				],
 			],
 			tiles: [
-				[456, 458],
-				[457, 459],
-			],
-		},
-		BillBlasterNeck: {
-			romOffset: 0x16ad5c,
-			palettes: [
-				[
-					0x7f96,
-					0x7fff,
-					0x0,
-					0x39ce,
-					0x4a52,
-					0x6318,
-					0x77bd,
-					0x267c,
-					0x435f,
-					0x5bbf,
-					0x3d89,
-					0x4a0d,
-					0x5650,
-					0x62b2,
-					0x6f15,
-					0x7778,
-				],
-			],
-			tiles: [
-				[460, 462],
-				[461, 463],
-			],
-		},
-		BillBlasterBody: {
-			romOffset: 0x16ad5c,
-			palettes: [
-				[
-					0x7f96,
-					0x7fff,
-					0x0,
-					0x39ce,
-					0x4a52,
-					0x6318,
-					0x77bd,
-					0x267c,
-					0x435f,
-					0x5bbf,
-					0x3d89,
-					0x4a0d,
-					0x5650,
-					0x62b2,
-					0x6f15,
-					0x7778,
-				],
-			],
-			tiles: [
-				[472, 473],
-				[472, 473],
+				[64, 65, 66, 67, 68, 69],
+				[80, 81, 82, 83, 84, 85],
 			],
 		},
 	},
 
-	toSpriteBinary({ x, y }) {
-		// 0x90 is bullet bill
-		// TODO: support flames
-		return [1, 0x90, x, y];
+	toSpriteBinary({ x, y, settings }) {
+		const direction = (settings.direction ??
+			this.defaultSettings!.direction) as Direction;
+		const objectId = directionToBurnerId[direction];
+		const xOffset = direction === 'left' ? -3 : 1;
+
+		return [0, objectId, x + xOffset, y];
 	},
 
 	toObjectBinary({ x, y, settings }) {
@@ -134,14 +93,20 @@ const BillBlaster: Entity = {
 		};
 
 		return (
-			<div className="flex flex-col items-center" style={style}>
+			<div className="flex flex-col items-center relative" style={style}>
 				<div className="BillBlasterBarrel-bg bg-cover" style={pieceStyle} />
 				<div className="BillBlasterNeck-bg bg-cover" style={pieceStyle} />
+				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
+					burner
+				</div>
 			</div>
 		);
 	},
 
 	render({ settings, onSettingsChange, entity }) {
+		const direction = (settings.direction ??
+			this.defaultSettings!.direction) as Direction;
+
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 
 		const tileSize = { width: TILE_SIZE, height: TILE_SIZE };
@@ -169,6 +134,24 @@ const BillBlaster: Entity = {
 			height: height * TILE_SIZE,
 		};
 
+		const flameStyle = {
+			width: TILE_SIZE * 3,
+			height: TILE_SIZE,
+			left: direction === 'left' ? -TILE_SIZE * 3 : TILE_SIZE,
+		};
+
+		const flame = (
+			<div
+				style={flameStyle}
+				className={clsx(
+					'absolute BillBlasterBurnerFlame-bg bg-cover opacity-30',
+					{
+						'transform rotate-180': direction === 'right',
+					}
+				)}
+			/>
+		);
+
 		return (
 			<div
 				style={style}
@@ -176,9 +159,24 @@ const BillBlaster: Entity = {
 					[styles.resizing]: settings?.resizing,
 				})}
 			>
+				{!!entity && (
+					<HammerButton
+						style={{ height: TILE_SIZE }}
+						onClick={() => {
+							const directionIndex = directions.indexOf(direction);
+							const newDirectionIndex =
+								(directionIndex + 1) % directions.length;
+							const newDirection = directions[newDirectionIndex];
+							onSettingsChange({
+								direction: newDirection,
+							});
+						}}
+					/>
+				)}
 				{barrel}
 				{neck}
 				{body}
+				{flame}
 				{!!entity && (
 					<Resizer
 						className="absolute bottom-0 right-0"
@@ -198,4 +196,4 @@ const BillBlaster: Entity = {
 	},
 };
 
-export { BillBlaster };
+export { BillBlasterBurner };
