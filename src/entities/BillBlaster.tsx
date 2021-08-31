@@ -16,9 +16,7 @@ const BillBlaster: Entity = {
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	// TODO: not sure 4 is needed. originally had ANY_SPRITE_GRAPHIC_SET
-	// and it worked
-	spriteGraphicSets: [-1, -1, -1, -1, 4, ANY_BELOW_0x16],
+	spriteGraphicSets: [-1, -1, -1, -1, -1, ANY_BELOW_0x16],
 	layer: 'stage',
 	editorType: 'entity',
 	objectId: 0x20,
