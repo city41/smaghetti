@@ -21,7 +21,7 @@ function HammerButton({ onClick, style }: HammerButtonProps) {
 				}}
 			>
 				<FaHammer
-					style={{ borderRadius: '10%', padding: 0.5 }}
+					style={{ borderRadius: '10%' }}
 					className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
 				/>
 			</button>

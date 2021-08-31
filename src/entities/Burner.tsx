@@ -1,19 +1,18 @@
 import React from 'react';
 import clsx from 'clsx';
-import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
-import type { IconType } from 'react-icons';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { encodeObjectSets } from './util';
+import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import type { IconType } from 'react-icons';
 
-type BurnerDirection = 'up' | 'down';
+const directions = ['up', 'down'] as const;
+type Direction = typeof directions[number];
 
-const directionIcons: Record<BurnerDirection, IconType> = {
+const directionIcons: Record<Direction, IconType> = {
 	up: FaArrowUp,
 	down: FaArrowDown,
 };
-
-const directions = ['up', 'down'];
 
 function isBurner(
 	entity: EditorEntity | undefined,
@@ -77,7 +76,7 @@ const Burner: Entity = {
 
 	toSpriteBinary({ x, y, entity, room, settings }) {
 		const direction = (settings.direction ??
-			this.defaultSettings!.direction) as BurnerDirection;
+			this.defaultSettings!.direction) as Direction;
 
 		if (direction === 'up') {
 			if (isBurner(entity, room, -1)) {
@@ -108,20 +107,41 @@ const Burner: Entity = {
 		return <div className="Burner-bg bg-cover" style={style} />;
 	},
 
-	render({ settings, onSettingsChange, entity }) {
+	render({ settings, onSettingsChange, entity, room }) {
 		const direction = (settings.direction ??
-			this.defaultSettings!.direction) as BurnerDirection;
+			this.defaultSettings!.direction) as Direction;
+
+		const hasFlame = !isBurner(entity, room, direction === 'up' ? -1 : 1);
 
 		const style = {
 			width: TILE_SIZE,
 			height: TILE_SIZE,
 		};
 
+		const flame = hasFlame && (
+			<div
+				style={{
+					width: TILE_SIZE * 3,
+					height: TILE_SIZE,
+					top: direction === 'up' ? -TILE_SIZE * 2 : TILE_SIZE * 2,
+					left: -TILE_SIZE,
+				}}
+				className={clsx(
+					'absolute BillBlasterBurnerFlame-bg bg-cover transform opacity-30',
+					{
+						'-rotate-90': direction === 'down',
+						'rotate-90': direction === 'up',
+					}
+				)}
+			/>
+		);
+
 		const DirectionIcon = directionIcons[direction];
 
 		return (
 			<div className="relative Burner-bg bg-cover" style={style}>
-				{entity && (
+				{flame}
+				{!!entity && (
 					<div className="absolute w-full h-full grid place-items-center">
 						<button
 							onMouseDown={(e) => {
