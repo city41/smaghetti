@@ -56,6 +56,33 @@ const PlatformLeftRight: Entity = {
 		];
 	},
 
+	parseSprite(data, offset) {
+		if (data[offset++] === 1 && data[offset++] === this.objectId) {
+			const x = data[offset++];
+			const y = data[offset++];
+			const speedWidth = data[offset++];
+			const range = data[offset++];
+
+			const width = speedWidth >= 0x80 ? 4 : 3;
+			const speedByte = speedWidth >= 0x80 ? speedWidth - 0x80 : speedWidth;
+			const speedValue = speedByte < 1 ? 'slow' : 'fast';
+
+			return {
+				entity: {
+					type: 'PlatformLeftRight',
+					x,
+					y,
+					settings: {
+						width,
+						range: range / speedToRangeAdjustment[speedValue],
+						speed: speedValue,
+					},
+				},
+				offset,
+			};
+		}
+	},
+
 	simpleRender(size) {
 		const style = { width: size, height: size, backgroundSize: '100% 25%' };
 		return (
