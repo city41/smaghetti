@@ -9,6 +9,10 @@ export function getBankParam1(bank: 0 | 1, param: number): number {
 	return (bank << 6) | param;
 }
 
+export function parseParamFromBank(byte: number): number {
+	return 0x2f & byte;
+}
+
 function getEntityTileWidth(entityDef: Entity): number {
 	if (entityDef.width) {
 		return entityDef.width;
@@ -200,4 +204,26 @@ export function isUnfinishedEntityType(type: EntityType): boolean {
 		!entityDef.paletteCategory ||
 		entityDef.paletteCategory === 'unfinished'
 	);
+}
+
+export function parseSimpleSprite(
+	data: Uint8Array,
+	offset: number,
+	bank: number,
+	objectId: number,
+	type: EntityType
+): ReturnType<Required<Entity>['parseSprite']> {
+	if (data[offset++] === bank && data[offset++] === objectId) {
+		const x = data[offset++];
+		const y = data[offset++];
+
+		return {
+			entity: {
+				type,
+				x: x * TILE_SIZE,
+				y: y * TILE_SIZE,
+			},
+			offset,
+		};
+	}
 }

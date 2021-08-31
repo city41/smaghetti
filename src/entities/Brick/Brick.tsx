@@ -1,5 +1,5 @@
 import type { Entity } from '../types';
-import { encodeObjectSets, getBankParam1 } from '../util';
+import { encodeObjectSets, getBankParam1, parseParamFromBank } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import React from 'react';
 import { PayloadViewDetails } from '../detailPanes/PayloadViewDetails';
@@ -7,6 +7,20 @@ import { ResourceType } from '../../resources/resourceMap';
 import { PayloadEditDetails } from '../detailPanes/PayloadEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
+import invert from 'lodash/invert';
+
+const payloadToObjectId = {
+	Coin: 0x19,
+	CoinCache: 0x1a,
+	FireFlower: 0x16,
+	Leaf: 0x17,
+	OneUpMushroom: 0x1b,
+	StarMan: 0x18,
+	PSwitch: 0x1d,
+	ClimbingVineHead: 0x1c,
+};
+
+const objectIdToPayload = invert(payloadToObjectId);
 
 const Brick: Entity = {
 	paletteCategory: 'terrain',
@@ -22,16 +36,7 @@ const Brick: Entity = {
 	settingsType: 'single',
 	dimensions: 'xy',
 	objectId: 0xf,
-	payloadToObjectId: {
-		Coin: 0x19,
-		CoinCache: 0x1a,
-		FireFlower: 0x16,
-		Leaf: 0x17,
-		OneUpMushroom: 0x1b,
-		StarMan: 0x18,
-		PSwitch: 0x1d,
-		ClimbingVineHead: 0x1c,
-	},
+	payloadToObjectId,
 	param1: 'width',
 	param2: 'height',
 	payloadBank: 0,
@@ -125,6 +130,55 @@ const Brick: Entity = {
 			);
 		} else {
 			return body;
+		}
+	},
+
+	parseObject(data, offset) {
+		if (data[offset] === 0) {
+			const matchingPayloadId = Object.values(payloadToObjectId).find(
+				(payloadId) => {
+					return payloadId === data[offset + 3];
+				}
+			);
+
+			if (matchingPayloadId) {
+				const y = data[offset + 1];
+				const x = data[offset + 2];
+
+				return {
+					entities: [
+						{
+							type: 'Brick',
+							x,
+							y,
+							settings: {
+								payload: objectIdToPayload[matchingPayloadId],
+							},
+						},
+					],
+					offset: offset + 4,
+				};
+			}
+		} else if (data[offset] >= 0x40 && data[offset + 3] === this.objectId) {
+			const width = parseParamFromBank(data[offset++]);
+			const y = data[offset++];
+			const x = data[offset++];
+			offset += 1; // move past objectId
+			const height = data[offset++];
+
+			const entities = [];
+
+			for (let h = 0; h <= height; ++h) {
+				for (let w = 0; w <= width; ++w) {
+					entities.push({
+						type: 'Brick',
+						x: x + w,
+						y: y + h,
+					} as const);
+				}
+
+				return { entities, offset };
+			}
 		}
 	},
 };
