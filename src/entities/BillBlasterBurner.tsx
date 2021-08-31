@@ -162,14 +162,10 @@ const BillBlasterBurner: Entity = {
 				{!!entity && (
 					<HammerButton
 						style={{ height: TILE_SIZE }}
-						onClick={() => {
-							const directionIndex = directions.indexOf(direction);
-							const newDirectionIndex =
-								(directionIndex + 1) % directions.length;
-							const newDirection = directions[newDirectionIndex];
-							onSettingsChange({
-								direction: newDirection,
-							});
+						currentValue={direction}
+						values={directions}
+						onNewValue={(newDirection) => {
+							onSettingsChange({ direction: newDirection });
 						}}
 					/>
 				)}

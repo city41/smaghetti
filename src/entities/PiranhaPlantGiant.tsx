@@ -200,13 +200,10 @@ const PiranhaPlantGiant: Entity = {
 				<TileSpace style={spaceStyle} className="absolute" />
 				{!!entity && (
 					<HammerButton
-						onClick={() => {
-							const pipeIndex = pipes.indexOf(pipe);
-							const newPipeIndex = (pipeIndex + 1) % pipes.length;
-							const newPipe = pipes[newPipeIndex];
-							onSettingsChange({
-								pipe: newPipe,
-							});
+						currentValue={pipe}
+						values={pipes}
+						onNewValue={(newPipe) => {
+							onSettingsChange({ pipe: newPipe });
 						}}
 					/>
 				)}

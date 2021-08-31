@@ -148,10 +148,10 @@ const ColorfulMetalBox: Entity = {
 				/>
 				{!!entity && (
 					<HammerButton
-						onClick={() => {
-							const i = colorCycle.indexOf(color);
-							const ni = (i + 1) % colorCycle.length;
-							onSettingsChange({ color: colorCycle[ni] });
+						currentValue={color}
+						values={colorCycle}
+						onNewValue={(newColor) => {
+							onSettingsChange({ color: newColor });
 						}}
 					/>
 				)}

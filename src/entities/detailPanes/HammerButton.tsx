@@ -1,12 +1,19 @@
 import React, { CSSProperties } from 'react';
 import { FaHammer } from 'react-icons/fa';
 
-type HammerButtonProps = {
-	onClick: () => void;
+type HammerButtonProps<T> = {
+	values: readonly T[];
+	currentValue: T;
+	onNewValue: (newValue: T) => void;
 	style?: CSSProperties;
 };
 
-function HammerButton({ onClick, style }: HammerButtonProps) {
+function HammerButton<T>({
+	values,
+	currentValue,
+	onNewValue,
+	style,
+}: HammerButtonProps<T>) {
 	return (
 		<div
 			style={style}
@@ -17,7 +24,10 @@ function HammerButton({ onClick, style }: HammerButtonProps) {
 					e.preventDefault();
 					e.stopPropagation();
 
-					onClick();
+					const curIndex = values.indexOf(currentValue);
+					const nextIndex = (curIndex + 1) % values.length;
+					const nextValue = values[nextIndex];
+					onNewValue(nextValue);
 				}}
 			>
 				<FaHammer

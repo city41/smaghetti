@@ -93,13 +93,10 @@ const PlatformWoodUpDown: Entity = {
 				{rangeBox}
 				{!!entity && (
 					<HammerButton
-						onClick={() => {
-							const rangeIndex = ranges.indexOf(range);
-							const newRangeIndex = (rangeIndex + 1) % ranges.length;
-							const newRange = ranges[newRangeIndex];
-							onSettingsChange({
-								range: newRange,
-							});
+						currentValue={range}
+						values={ranges}
+						onNewValue={(newRange) => {
+							onSettingsChange({ range: newRange });
 						}}
 					/>
 				)}

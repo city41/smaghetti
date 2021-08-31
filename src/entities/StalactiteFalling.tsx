@@ -153,13 +153,10 @@ const StalactiteFalling: Entity = {
 				/>
 				{!!entity && (
 					<HammerButton
-						onClick={() => {
-							const fallIndex = falls.indexOf(fall);
-							const newFallIndex = (fallIndex + 1) % falls.length;
-							const newFall = falls[newFallIndex];
-							onSettingsChange({
-								fall: newFall,
-							});
+						currentValue={fall}
+						values={falls}
+						onNewValue={(newFall) => {
+							onSettingsChange({ fall: newFall });
 						}}
 					/>
 				)}

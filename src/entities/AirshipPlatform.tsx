@@ -318,16 +318,10 @@ const AirshipPlatform: Entity = {
 				{entity && (
 					<>
 						<HammerButton
-							onClick={() => {
-								const capArray = width === 2 ? twoWideCaps : caps;
-
-								// @ts-ignore
-								const capIndex = capArray.indexOf(cap);
-								const newCapIndex = (capIndex + 1) % capArray.length;
-								const newCap = capArray[newCapIndex];
-								onSettingsChange({
-									cap: newCap,
-								});
+							currentValue={cap}
+							values={width === 2 ? twoWideCaps : caps}
+							onNewValue={(newCap) => {
+								onSettingsChange({ cap: newCap });
 							}}
 						/>
 						<Resizer
