@@ -169,6 +169,12 @@ function AboutPage() {
 						, a native GBA emulator. I use mGBA extensively when I am working on
 						Smaghetti.
 					</p>
+					<p>
+						Also want to thank those who have been directly helping with
+						Smaghetti such as nintyalex, bumptytobumpty, mariomadproductions and
+						others. If you&apos;ve reported a bug, or contributed any knowledge
+						to reverse engineering SMA4, thank you!
+					</p>
 					<h2>Going forward</h2>
 					<p>
 						Smaghetti is far from done (checkout the{' '}
