@@ -15,6 +15,8 @@ const caps = [
 	'deep-flat',
 	'shallow-shallow',
 	'deep-shallow',
+	'hatch-flat',
+	'hatch-shallow',
 ] as const;
 
 const twoWideCaps = [
@@ -22,6 +24,8 @@ const twoWideCaps = [
 	'shallow-flat',
 	'deep-flat',
 	'shallow-shallow',
+	'hatch-flat',
+	'hatch-shallow',
 ] as const;
 
 type Cap = typeof caps[number];
@@ -210,6 +214,57 @@ const AirshipPlatform: Entity = {
 				[343, 345],
 			],
 		},
+		AirshipPlatformLeftUpperHatch: {
+			palettes: [
+				[
+					31744,
+					32767,
+					0,
+					17932,
+					23185,
+					28469,
+					32731,
+					8378,
+					8606,
+					15007,
+					304,
+					435,
+					6711,
+					11931,
+					16158,
+					19359,
+				],
+				[
+					31744,
+					32767,
+					0,
+					14798,
+					19026,
+					25368,
+					30653,
+					9852,
+					17247,
+					23487,
+					15753,
+					18957,
+					22096,
+					25266,
+					28437,
+					30584,
+				],
+			],
+			tiles: [
+				[
+					{
+						tileIndex: 322,
+						palette: 1,
+					},
+					297,
+				],
+				[313, 305],
+			],
+			romOffset: 1501760,
+		},
 	},
 
 	toObjectBinary({ x, y, settings }) {
@@ -223,6 +278,8 @@ const AirshipPlatform: Entity = {
 			? []
 			: cap.startsWith('shallow')
 			? [0, y, x, 3]
+			: cap.startsWith('hatch')
+			? [0, y, x, 0x2f]
 			: [0, y, x, 0x2a];
 
 		return bodyBytes.concat(leftCapBytes);
@@ -286,6 +343,7 @@ const AirshipPlatform: Entity = {
 					'AirshipPlatformLeftFlat-bg': cap.startsWith('flat'),
 					'AirshipPlatformLeftDeep-bg': cap.startsWith('deep'),
 					'AirshipPlatformLeftShallow-bg': cap.startsWith('shallow'),
+					'AirshipPlatformLeftUpperHatch-bg': cap.startsWith('hatch'),
 				})}
 				style={leftCapStyle}
 			/>

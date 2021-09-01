@@ -24,6 +24,7 @@ export const resourceShaMap: Record<string, string> = {
   "AirshipPlatform": "3c0dbbc06fa9b3866eeeed093cebcdab930f56bd",
   "AirshipPlatformRightFlat": "da96d26434ecf75df9d9a11a3175fef0822b647c",
   "AirshipPlatformRightShallow": "b96d3d768fb0d557aead88101af6d555b6be6618",
+  "AirshipPlatformLeftUpperHatch": "36546db1c3f47c5dac74dd67f868604c626c2d29",
   "AirshipPropeller": "81d0fc9d92fef8f3f2609080d71b3c6faeb7f662",
   "AirshipWindow": "25f6bb1e7c85d4d7c5fce3339a4f60b9887c9b1d",
   "AmazingFlyinHammerBro": "1f2d98cd04d398c27292bc087c64b30ca0771adb",
