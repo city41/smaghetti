@@ -6,6 +6,7 @@ import { TILE_SIZE } from '../../tiles/constants';
 import { TileSpace } from '../TileSpace';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { AceCoinDetails, AceCoinIndex } from './AceCoinDetails';
+import { parseSimpleSprite } from '../util';
 
 function getAllAceCoinEntities(allRooms: RoomData[]): EditorEntity[] {
 	return allRooms.reduce<EditorEntity[]>((building, room) => {
@@ -76,6 +77,23 @@ const AceCoin: Entity = {
 
 	toSpriteBinary({ x, y, settings }) {
 		return [0, this.objectId, x, y, settings.aceCoinIndex ?? 0];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 0, this.objectId, 'AceCoin');
+
+		if (result) {
+			offset = result.offset;
+			return {
+				entity: {
+					...result.entity,
+					settings: {
+						aceCoinIndex: data[offset++],
+					},
+				},
+				offset,
+			};
+		}
 	},
 
 	simpleRender(size) {

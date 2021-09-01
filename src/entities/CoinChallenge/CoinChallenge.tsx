@@ -3,6 +3,7 @@ import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { NumberPickerEditDetails } from '../detailPanes/NumberPickerEditDetails';
+import { parseSimpleSprite } from '../util';
 
 /**
  * This is the weird thing at the beginning of mushroom05, Bombarded by Bob-ombs.
@@ -61,6 +62,29 @@ const CoinChallenge: Entity = {
 	toSpriteBinary({ x, y, settings }) {
 		const count = settings.count ?? this.defaultSettings!.count;
 		return [0, this.objectId, x, y, count];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(
+			data,
+			offset,
+			0,
+			this.objectId,
+			'CoinChallenge'
+		);
+
+		if (result) {
+			offset = result.offset;
+			return {
+				entity: {
+					...result.entity,
+					settings: {
+						count: data[offset++],
+					},
+				},
+				offset,
+			};
+		}
 	},
 
 	simpleRender(size) {
