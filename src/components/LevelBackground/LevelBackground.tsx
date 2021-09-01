@@ -60,6 +60,15 @@ function BowserCastle() {
 	);
 }
 
+function Pipes() {
+	return (
+		<div
+			className="PipesBackground-bg w-full h-full bg-repeat bg-black"
+			style={{ backgroundPositionY: 'bottom' }}
+		/>
+	);
+}
+
 function Plains() {
 	return (
 		<div
@@ -241,6 +250,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.mountains]: <Mountains />,
 	[BACKGROUND_GRAPHIC_VALUES.waterfalls]: <Waterfalls />,
 	[BACKGROUND_GRAPHIC_VALUES['bowser-castle']]: <BowserCastle />,
+	[BACKGROUND_GRAPHIC_VALUES.pipes]: <Pipes />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

@@ -68,6 +68,7 @@ import { OneWayDoorHorizontalFlipper } from './OneWayDoorHorizontalFlipper';
 import { OneWayDoorVerticalFlipper } from './OneWayDoorVerticalFlipper';
 import { OrangeSpinyEgg } from './OrangeSpinyEgg';
 import { ParaWing } from './ParaWing';
+import { PipesBackground } from './PipesBackground';
 import { PipeAirshipVerticalBody } from './PipeAirshipVerticalBody';
 import { PipeAirshipVerticalLip } from './PipeAirshipVerticalLip';
 import { PipeHorizontalBody } from './PipeHorizontalBody';
@@ -199,6 +200,7 @@ const resourceMap = {
 	PWing,
 	PyramidsBackground,
 	ParaWing,
+	PipesBackground,
 	PipeAirshipVerticalBody,
 	PipeAirshipVerticalLip,
 	PipeHorizontalBody,

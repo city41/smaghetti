@@ -373,6 +373,7 @@ export const resourceShaMap: Record<string, string> = {
   "PWing": "c663cbca826986135e9a54e69bb7145737e063c5",
   "PyramidsBackground": "28259ee62d3807caf7d1b874ece433c851ad4a64",
   "ParaWing": "d4bbf1a8cff2e04b03eac18f2cf2bec1caf4686e",
+  "PipesBackground": "5e401747f8812f0b65cf5b2625be3ee5fb29cfe1",
   "PipeAirshipVerticalBody": "fed197c458651d9ecdd6618dd47c967956bef9c7",
   "PipeAirshipVerticalLip": "9e939b29fd2d0daf3f10d15fe23a39d25e6a6fc1",
   "PipeHorizontalBody": "1e19c709056986c74e57cee68bb64484207bc2c1",
