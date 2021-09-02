@@ -8,14 +8,12 @@ const BulletBillGeneratorCanceler: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-generator',
-		title: 'Bullet Bill Generator Canceler',
+		title: 'Bullet Bill Canceler',
 		description:
 			'Once Mario goes to the right and above it, any active Bullet Bill generators will stop. They will turn on again if he goes back left of the canceler.',
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	// TODO: for now going with the same sets as bullet bill generators
-	// but since this has no visual component, it possibly is more flexible
 	spriteGraphicSets: [-1, -1, -1, -1, 4, ANY_BELOW_0x16],
 	layer: 'actor',
 	editorType: 'entity',

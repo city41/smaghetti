@@ -91,12 +91,14 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
-				<NewEntry title="Changed Entities" date="2021-09-01">
+				<NewEntry title="New/Changed Entities" date="2021-09-01">
 					<ul>
 						<li>
 							Airship Platform: now supports the upper window &quot;hatch&quot;,
 							um, thing :)
 						</li>
+						<li>Para Bobomb Canceler</li>
+						<li>Para Galoomba Canceler</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-09-01">

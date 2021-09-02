@@ -207,8 +207,10 @@ import { PSwitch } from './PSwitch';
 import { PSwitchDoor } from './PSwitchDoor';
 import { ParaBeetle } from './ParaBeetle';
 import { ParaBobombGenerator } from './ParaBobombGenerator';
+import { ParaBobombGeneratorCanceler } from './ParaBobombGeneratorCanceler';
 import { ParaBomberGoomba } from './ParaBomberGoomba';
 import { ParaGaloombaGenerator } from './ParaGaloombaGenerator';
+import { ParaGaloombaGeneratorCanceler } from './ParaGaloombaGeneratorCanceler';
 import { ParaGoomba } from './ParaGoomba';
 import { PileDriverMiniGoomba } from './PileDriverMiniGoomba';
 import { PipeAirshipVertical } from './PipeAirshipVertical';
@@ -533,8 +535,10 @@ const entityMap = {
 	PSwitchDoor,
 	ParaBeetle,
 	ParaBobombGenerator,
+	ParaBobombGeneratorCanceler,
 	ParaBomberGoomba,
 	ParaGaloombaGenerator,
+	ParaGaloombaGeneratorCanceler,
 	ParaGoomba,
 	PileDriverMiniGoomba,
 	PipeCannonMini,
