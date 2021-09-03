@@ -2,21 +2,38 @@ type InGameLevel = {
 	name: string;
 	root: number;
 	sprites: number;
-	objects: number;
 };
 
 const inGameLevels: InGameLevel[] = [
 	{
 		name: '1-1',
-		root: 0x1408c7,
+		root: 0,
 		sprites: 0x157811,
-		objects: 0x1408c7 + 15,
 	},
 	{
 		name: '1-2',
-		root: 0x141db8,
+		root: 0,
 		sprites: 0x157a93,
-		objects: 0x141db8 + 15,
+	},
+	{
+		name: '2-5',
+		root: 0,
+		sprites: 0x158c56,
+	},
+	{
+		name: 'unknown-1',
+		root: 0,
+		sprites: 0x15875d,
+	},
+	{
+		name: 'unknown-2',
+		root: 0,
+		sprites: 0x157b1d,
+	},
+	{
+		name: 'unknown-3',
+		root: 0,
+		sprites: 0x157e5d,
 	},
 ];
 

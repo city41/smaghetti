@@ -5,9 +5,13 @@ import * as path from 'path';
 function isBytes(
 	data: Uint8Array,
 	offset: number,
-	spriteBytes: number[]
+	spriteBytes: Array<[number, number]>
 ): boolean {
-	return spriteBytes.every((sb, i) => data[offset + i] === sb);
+	return spriteBytes.every((sb, i) => {
+		const val = data[offset + i];
+
+		return sb[0] <= val && sb[1] >= val;
+	});
 }
 
 function main() {
@@ -21,16 +25,25 @@ function main() {
 
 	const romBuffer = fs.readFileSync(path.resolve(process.cwd(), romPath));
 	const romData = new Uint8Array(romBuffer);
-	const bytes = byteString.split(' ').map((bs) => parseInt(bs, 16));
+	const bytes: Array<[number, number]> = byteString.split(' ').map((bs) => {
+		if (bs === '?') {
+			return [0, 256];
+		} else if (bs.includes('-')) {
+			const splits = bs.split('-');
+			return [parseInt(splits[0], 16), parseInt(splits[1], 16)];
+		} else {
+			return [parseInt(bs, 16), parseInt(bs, 16)];
+		}
+	});
 
 	for (let i = 0; i < romData.length; ++i) {
 		if (isBytes(romData, i, bytes)) {
-			const slice = romData.slice(i, i + 4);
-			const bytes = Array.from(slice)
+			const slice = romData.slice(i, i + bytes.length);
+			const foundBytes = Array.from(slice)
 				.map((b) => b.toString(16))
 				.join(',');
 
-			console.log('match at', i.toString(16), bytes);
+			console.log('match at', i.toString(16), foundBytes);
 		}
 	}
 }
