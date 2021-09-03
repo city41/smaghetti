@@ -176,8 +176,8 @@ function HexTreePage({
 						>
 							<option value={-1}>-</option>
 							{inGameLevels.map((igl, i) => (
-								<option key={igl.name} value={i}>
-									{igl.name}
+								<option key={igl.sprites} value={i}>
+									{igl.name ?? '0x' + igl.sprites.toString(16)}
 								</option>
 							))}
 						</select>
