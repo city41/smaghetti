@@ -1064,7 +1064,9 @@ const editorSlice = createSlice({
 			);
 
 			currentRoom.paletteEntries.unshift(newEntry);
-			currentRoom.currentPaletteEntry = currentRoom.paletteEntries[0];
+
+			currentRoom.currentPaletteEntry = newEntry;
+			state.mouseMode = 'draw';
 		},
 		removePaletteEntry(
 			state: InternalEditorState,
@@ -1094,12 +1096,13 @@ const editorSlice = createSlice({
 			state: InternalEditorState,
 			action: PayloadAction<number>
 		) {
+			const currentRoom = getCurrentRoom(state);
+
 			const index = action.payload;
 
 			if (index >= 0 && index < getCurrentRoom(state).paletteEntries.length) {
-				getCurrentRoom(state).currentPaletteEntry = getCurrentRoom(
-					state
-				).paletteEntries[index];
+				currentRoom.currentPaletteEntry = currentRoom.paletteEntries[index];
+				state.mouseMode = 'draw';
 			}
 		},
 		entityDropped(
