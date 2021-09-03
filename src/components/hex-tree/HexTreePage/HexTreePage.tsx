@@ -30,6 +30,22 @@ import { PlainIconButton } from '../../PlainIconButton';
 import cloneDeep from 'lodash/cloneDeep';
 import { InGameLevel, inGameLevels } from '../inGameLevels';
 
+function getInGameLevelName(igl: InGameLevel): string {
+	if (igl.name) {
+		return igl.name;
+	}
+
+	if (igl.sprites) {
+		return `0x${igl.sprites.toString(16)}`;
+	}
+
+	if (igl.root) {
+		return `0x${igl.root.toString(16)}`;
+	}
+
+	return '???';
+}
+
 type HexTreePageProps = {
 	allFilesReady: boolean;
 	mode: 'rom' | 'e-reader';
@@ -176,8 +192,8 @@ function HexTreePage({
 						>
 							<option value={-1}>-</option>
 							{inGameLevels.map((igl, i) => (
-								<option key={igl.sprites} value={i}>
-									{igl.name ?? '0x' + igl.sprites.toString(16)}
+								<option key={`${getInGameLevelName(igl)}-${i}`} value={i}>
+									{getInGameLevelName(igl)}
 								</option>
 							))}
 						</select>

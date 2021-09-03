@@ -87,17 +87,17 @@ function getRawByteLength(
 		rawByteLength = 5;
 	} else if (
 		bank === 0 &&
-		knownFourByteBank0ObjectIds[objectSet].includes(id)
+		knownFourByteBank0ObjectIds[objectSet]?.includes(id)
 	) {
 		rawByteLength = 4;
 	} else if (
 		bank !== 0 &&
-		knownFourByteBank1ObjectIds[objectSet].includes(id)
+		knownFourByteBank1ObjectIds[objectSet]?.includes(id)
 	) {
 		rawByteLength = 4;
 	} else if (
 		bank !== 0 &&
-		knownFiveByteBank1ObjectIds[objectSet].includes(id)
+		knownFiveByteBank1ObjectIds[objectSet]?.includes(id)
 	) {
 		rawByteLength = 5;
 	}

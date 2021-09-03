@@ -4,6 +4,7 @@ import { AppState } from '../../store';
 import {
 	parseObject,
 	parseObjectHeader,
+	parseObjects,
 	parseObjectsFromLevelFile,
 } from '../../levelData/parseObjectsFromLevelFile';
 import {
@@ -472,6 +473,8 @@ function parseInGameLevelToTree(
 	level: InGameLevel,
 	_byteSizes: ByteSizes
 ): LevelTree {
+	const objectSet = level.root ? rom[level.root + 6] & 0xf : 0;
+
 	const room: LevelTreeRoom = {
 		objects: {
 			header: {
@@ -479,7 +482,9 @@ function parseInGameLevelToTree(
 				roomLength: 0,
 				rawBytes: [],
 			},
-			objects: [],
+			objects: level.root
+				? parseObjects(rom, level.root + 15, objectSet, [], [])
+				: [],
 			pendingRawBytes: [],
 		},
 		levelSettings: {
@@ -497,7 +502,7 @@ function parseInGameLevelToTree(
 			rawBytes: [],
 		},
 		sprites: {
-			sprites: parseSprites(rom, level.sprites + 1),
+			sprites: level.sprites ? parseSprites(rom, level.sprites + 1) : [],
 			pendingRawBytes: [],
 		},
 	};
