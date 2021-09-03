@@ -28,14 +28,17 @@ import { RenderLevel } from './RenderLevel';
 import { HexEditor } from './HexEditor';
 import { PlainIconButton } from '../../PlainIconButton';
 import cloneDeep from 'lodash/cloneDeep';
+import { InGameLevel, inGameLevels } from '../inGameLevels';
 
 type HexTreePageProps = {
 	allFilesReady: boolean;
+	mode: 'rom' | 'e-reader';
 	levelName: string | null;
 	onLevelChosen: (file: File) => void;
 	onStartEmpty: () => void;
 	onReset: () => void;
 	onStartFromLocalStorage: () => void;
+	onInGameLevelChosen: (level: InGameLevel) => void;
 	onExcludeChange: (exclusion: Exclusion) => void;
 	onExcludeAfter: (arg: ExcludeAfter) => void;
 	onPatch: (patch: Patch) => void;
@@ -48,15 +51,15 @@ type HexTreePageProps = {
 	byteSizes: ByteSizes;
 };
 
-const tabs = ['Outline', 'Hex (current)', 'Hex (original)'];
-
 function HexTreePage({
 	allFilesReady,
+	mode,
 	levelName,
 	onLevelChosen,
 	onStartEmpty,
 	onReset,
 	onStartFromLocalStorage,
+	onInGameLevelChosen,
 	onExcludeChange,
 	onExcludeAfter,
 	onPatch,
@@ -68,6 +71,11 @@ function HexTreePage({
 	onFiveBytes,
 	byteSizes,
 }: HexTreePageProps) {
+	const tabs =
+		mode === 'e-reader'
+			? ['Outline', 'Hex (current)', 'Hex (original)']
+			: ['Outline'];
+
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -155,6 +163,25 @@ function HexTreePage({
 					<Button onClick={onStartFromLocalStorage}>
 						start from localstorage
 					</Button>
+					<div className="mx-2 flex flex-row gap-x-2">
+						<span>or, in game level:</span>
+						<select
+							className="text-black"
+							onChange={(e) => {
+								const val = Number(e.target.value);
+								if (val >= 0) {
+									onInGameLevelChosen(inGameLevels[val]);
+								}
+							}}
+						>
+							<option value={-1}>-</option>
+							{inGameLevels.map((igl, i) => (
+								<option key={igl.name} value={i}>
+									{igl.name}
+								</option>
+							))}
+						</select>
+					</div>
 					<Button onClick={onReset}>reset</Button>
 					<Button onClick={handleDownloadSave}>Download</Button>
 					<div className="flex-1 text-white text-right pr-2">{levelName}</div>
@@ -165,43 +192,49 @@ function HexTreePage({
 						style={{ gridTemplateColumns: 'max-content 1fr' }}
 					>
 						<div className="flex flex-row items-center space-x-1 relative p-4 pr-12">
-							<GBAPlayer
-								className="inline-block"
-								romFile={getRom()!}
-								biosFile={getBios()!}
-								emptySaveFile={getEmptySave()!}
-								saveState={getSaveState()!}
-								levelData={data}
-								isPlaying={editState === 'running' || immediateMode}
-								scale={1.5}
-								canvasRef={canvasRef}
-							/>
-							<PlainIconButton
-								className="absolute -left-12 -bottom-2 w-8 h-8 grid place-items-center"
-								label={editState === 'editing' ? 'paused' : 'running'}
-								icon={editState === 'editing' ? FaPlay : VscDebugRestart}
-								onClick={handleRunningEditToggle}
-								disabled={immediateMode}
-							/>
-							<div className="absolute left-0 -bottom-2 xw-32 h-8 flex flex-row items-center space-x-2">
-								<input
-									id="immediate-mode-input"
-									type="checkbox"
-									checked={immediateMode}
-									onChange={() => setImmediateMode((im) => !im)}
-								/>
-								<div className="flex flex-col">
-									<label
-										htmlFor="immediate-mode-input"
-										className="cursor-pointer"
-									>
-										immediate mode
-									</label>
-									<div className="text-xs text-gray-400">
-										emulator resets whenever level changes
+							{mode === 'e-reader' ? (
+								<>
+									<GBAPlayer
+										className="inline-block"
+										romFile={getRom()!}
+										biosFile={getBios()!}
+										emptySaveFile={getEmptySave()!}
+										saveState={getSaveState()!}
+										levelData={data}
+										isPlaying={editState === 'running' || immediateMode}
+										scale={1.5}
+										canvasRef={canvasRef}
+									/>
+									<PlainIconButton
+										className="absolute -left-12 -bottom-2 w-8 h-8 grid place-items-center"
+										label={editState === 'editing' ? 'paused' : 'running'}
+										icon={editState === 'editing' ? FaPlay : VscDebugRestart}
+										onClick={handleRunningEditToggle}
+										disabled={immediateMode}
+									/>
+									<div className="absolute left-0 -bottom-2 xw-32 h-8 flex flex-row items-center space-x-2">
+										<input
+											id="immediate-mode-input"
+											type="checkbox"
+											checked={immediateMode}
+											onChange={() => setImmediateMode((im) => !im)}
+										/>
+										<div className="flex flex-col">
+											<label
+												htmlFor="immediate-mode-input"
+												className="cursor-pointer"
+											>
+												immediate mode
+											</label>
+											<div className="text-xs text-gray-400">
+												emulator resets whenever level changes
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
+								</>
+							) : (
+								<div>gba not available for in game levels ... yet</div>
+							)}
 						</div>
 						<RenderLevel
 							rooms={tree?.rooms ?? []}

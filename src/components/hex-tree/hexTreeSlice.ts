@@ -8,6 +8,7 @@ import {
 } from '../../levelData/parseObjectsFromLevelFile';
 import {
 	parseSprite,
+	parseSprites,
 	parseSpritesFromLevelFile,
 } from '../../levelData/parseSpritesFromLevelFile';
 import {
@@ -52,12 +53,17 @@ import {
 import { LOCALSTORAGE_KEY } from '../editor/editorSlice';
 import { deserialize } from '../../level/deserialize';
 import { convertLevelToLatestVersion } from '../../level/versioning/convertLevelToLatestVersion';
+import { getRom } from '../FileLoader/files';
+import { InGameLevel } from './inGameLevels';
+
+type HexTreeMode = 'rom' | 'e-reader';
 
 type HexTreeState = {
 	tree: LevelTree | null;
 	originalData: number[] | null;
 	byteSizes: ByteSizes;
 	originalLevelName: string | null;
+	mode: HexTreeMode;
 };
 
 const EMPTY_LEVEL = createLevelData({
@@ -100,6 +106,7 @@ const defaultInitialState: HexTreeState = {
 			five: [],
 		},
 	},
+	mode: 'e-reader',
 };
 
 function getLevelName(data: number[]): string {
@@ -127,6 +134,9 @@ const hexTreeSlice = createSlice({
 	name: 'hexTree',
 	initialState,
 	reducers: {
+		setMode(state: HexTreeState, action: PayloadAction<HexTreeMode>) {
+			state.mode = action.payload;
+		},
 		setOriginalData(state: HexTreeState, action: PayloadAction<number[]>) {
 			state.originalData = action.payload;
 			state.originalLevelName = getLevelName(action.payload);
@@ -447,6 +457,54 @@ function parseDataToTree(data: Uint8Array, byteSizes: ByteSizes): LevelTree {
 	return { header, rooms };
 }
 
+const NULL_HEADER: LevelHeader = {
+	aceCoins: 0,
+	eCoin: false,
+	levelClass: 0,
+	levelIcon: 0,
+	levelName: '',
+	levelNumber: 0,
+	rawBytes: [],
+};
+
+function parseInGameLevelToTree(
+	rom: Uint8Array,
+	level: InGameLevel,
+	_byteSizes: ByteSizes
+): LevelTree {
+	const room: LevelTreeRoom = {
+		objects: {
+			header: {
+				timeLimit: 0,
+				roomLength: 0,
+				rawBytes: [],
+			},
+			objects: [],
+			pendingRawBytes: [],
+		},
+		levelSettings: {
+			settings: null,
+			rawBytes: [],
+		},
+		transports: {
+			transports: [],
+			rawBytes: [],
+		},
+		autoScroll: {
+			rawBytes: [],
+		},
+		blockPaths: {
+			rawBytes: [],
+		},
+		sprites: {
+			sprites: parseSprites(rom, level.sprites + 1),
+			pendingRawBytes: [],
+		},
+	};
+
+	return { header: NULL_HEADER, rooms: [room, room, room, room] };
+}
+
 type HexTreeThunkAction = ThunkAction<void, AppState, null, Action>;
 
 const loadLevel = (levelFile: File): HexTreeThunkAction => async (
@@ -463,6 +521,7 @@ const loadLevel = (levelFile: File): HexTreeThunkAction => async (
 				parseDataToTree(data, getState().hexTree.byteSizes)
 			)
 		);
+		dispatch(hexTreeSlice.actions.setMode('e-reader'));
 	};
 
 	reader.readAsArrayBuffer(levelFile);
@@ -490,6 +549,7 @@ const loadEmptyLevel = (): HexTreeThunkAction => (dispatch, getState) => {
 			parseDataToTree(EMPTY_LEVEL, getState().hexTree.byteSizes)
 		)
 	);
+	dispatch(hexTreeSlice.actions.setMode('e-reader'));
 };
 
 const loadFromLocalStorage = (): HexTreeThunkAction => (dispatch, getState) => {
@@ -525,6 +585,26 @@ const loadFromLocalStorage = (): HexTreeThunkAction => (dispatch, getState) => {
 			parseDataToTree(levelData, getState().hexTree.byteSizes)
 		)
 	);
+	dispatch(hexTreeSlice.actions.setMode('e-reader'));
+};
+
+const loadInGameLevel = (level: InGameLevel): HexTreeThunkAction => (
+	dispatch,
+	getState
+) => {
+	const rom = getRom();
+
+	if (!rom) {
+		throw new Error('loadInGameLevel: called before rom is available');
+	}
+
+	dispatch(hexTreeSlice.actions.setOriginalData([]));
+	dispatch(
+		hexTreeSlice.actions.setTree(
+			parseInGameLevelToTree(rom, level, getState().hexTree.byteSizes)
+		)
+	);
+	dispatch(hexTreeSlice.actions.setMode('rom'));
 };
 
 const reducer = hexTreeSlice.reducer;
@@ -543,6 +623,7 @@ export {
 	loadLevel,
 	loadEmptyLevel,
 	loadFromLocalStorage,
+	loadInGameLevel,
 	toggleExclude,
 	toggleExcludeAfter,
 	patch,

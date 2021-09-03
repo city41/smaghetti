@@ -8,6 +8,7 @@ import {
 	loadLevel,
 	loadEmptyLevel,
 	loadFromLocalStorage,
+	loadInGameLevel,
 	resetLevel,
 	toggleExclude,
 	toggleExcludeAfter,
@@ -274,6 +275,7 @@ const actions = bindActionCreators(
 		onStartEmpty: loadEmptyLevel,
 		onReset: resetLevel,
 		onStartFromLocalStorage: loadFromLocalStorage,
+		onInGameLevelChosen: loadInGameLevel,
 		onExcludeChange: toggleExclude,
 		onExcludeAfter: toggleExcludeAfter,
 		onPatch: patch,
@@ -286,15 +288,20 @@ const actions = bindActionCreators(
 
 function ConnectedHexTreePage() {
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
-	const { tree, originalData, originalLevelName, byteSizes } = useSelector(
-		(state: AppState) => state.hexTree
-	);
+	const {
+		mode,
+		tree,
+		originalData,
+		originalLevelName,
+		byteSizes,
+	} = useSelector((state: AppState) => state.hexTree);
 
 	const data = tree ? parseTreeToData(tree) : new Uint8Array();
 
 	return (
 		<HexTreePage
 			allFilesReady={allFilesReady}
+			mode={mode}
 			levelName={originalLevelName}
 			tree={tree}
 			data={data}
