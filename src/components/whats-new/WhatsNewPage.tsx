@@ -91,6 +91,17 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-09-03">
+					<ul>
+						<li>Quicksand</li>
+					</ul>
+					<p>
+						Quicksand is a bit of a turning point entity, as it is the first
+						entity added to Smaghetti by reverse engineering the main game
+						instead of e-reader levels. Reverse engineering of the main game is
+						my main focus now.
+					</p>
+				</NewEntry>
 				<NewEntry title="New/Changed Entities" date="2021-09-01">
 					<ul>
 						<li>

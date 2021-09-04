@@ -237,6 +237,8 @@ export const resourceShaMap: Record<string, string> = {
   "QuestionBlock": "5e4ec186715724be42f9aa75bd2c602e442c3430",
   "QuestionBlockGiant": "658e7c8043383645a231a1f14773fbdfe98d7502",
   "QuestionMark": "f67be16f096b445c29983fb76d50a1fb3a176557",
+  "QuicksandTop": "2e6f28eed1c00012d2bf2fe63eb164b8c196e087",
+  "QuicksandBody": "3160e549af6d2c71f15802a489eee0e9a9712e07",
   "RedKoopaTroopa": "f1bf5fb157478191f4f2e4a95e2c6e975afaaf78",
   "RipVanFish": "600cd86c10abf61e32f25054b5e8c5f02d84831c",
   "RockyWrench": "a7a4f0d06e3013fc4265065026b21e1b2a906322",
