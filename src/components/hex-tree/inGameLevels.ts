@@ -311,7 +311,7 @@ const inGameLevels: InGameLevel[] = [
 	{ root: 0x142190, name: '7-3' },
 	{ root: 0x146bb0, name: '7-4' },
 	{ root: 0x13ee5c, name: '7-5' },
-	{ root: 0x1475e1, name: '7-6' },
+	{ root: 0x1475e1, name: '7-6', sprites: 0x15869b },
 	{ root: 0x14647e, name: '7-7' },
 	{ root: 0x13f9d7, name: '7-8' },
 	{ root: 0x1495fe, name: '7-9' },
