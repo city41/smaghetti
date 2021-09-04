@@ -42,6 +42,8 @@ The [discussions](https://github.com/city41/smaghetti.com/discussions) are now w
 
 As of this writing I have [began the effort](https://github.com/city41/smaghetti/discussions/138) of truly reverse engineering the game with the goal of fully decompiling the game back to C code using tools such as Ghidra and Radare2. If you have experience with this or want to contribute, please comment in the discussion.
 
+For now, the [decomp directory](https://github.com/city41/smaghetti/tree/main/decomp) is the home of this effort.
+
 ### HexTree tool
 
 This tool is growing to be pretty powerful. It really lets you explore and manipulate a level. I need to document a bit how it works, but just playing with it should enable one to figure out most of its features.
