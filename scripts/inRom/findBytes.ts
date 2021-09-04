@@ -19,7 +19,11 @@ function main() {
 	const byteString = process.argv[3];
 
 	if (!romPath || !byteString) {
-		console.error('usage: node findBytes <path-to-rom> <byte-string>');
+		console.error(
+			`usage: ${path.basename(process.argv[0])} ${path.basename(
+				process.argv[1]
+			)} <path-to-rom> <byte-string>`
+		);
 		process.exit(1);
 	}
 
