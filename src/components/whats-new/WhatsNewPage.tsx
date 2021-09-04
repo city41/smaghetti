@@ -13,11 +13,28 @@ import { AiFillHeart } from 'react-icons/ai';
 
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
 
-function dateToHumanString(input: string): string {
-	// adding a day because new Date('2021-08-03') creates Aug 2nd...
-	const timestamp = new Date(input).getTime();
+function addDayToDate(dateStr: string): string {
+	const timestamp = new Date(dateStr).getTime();
 	const timeStampAdjusted = timestamp + DAY_IN_MS;
 	const date = new Date(timeStampAdjusted);
+
+	const month = date.toLocaleDateString('en-us', {
+		month: 'numeric',
+	});
+
+	const day = date.toLocaleDateString('en-us', {
+		day: 'numeric',
+	});
+
+	const year = date.toLocaleDateString('en-us', {
+		year: 'numeric',
+	});
+
+	return `${year}-${month}-${day}`;
+}
+
+function dateToHumanString(input: string): string {
+	const date = new Date(input);
 
 	const month = date.toLocaleDateString('en-us', {
 		month: 'short',
@@ -53,6 +70,8 @@ function NewEntry({
 	alertingChange?: boolean;
 }) {
 	const id = toId(`${title} ${date}`);
+
+	date = addDayToDate(date);
 
 	return (
 		<div className="mt-16 pb-16 px-4 sm:px-0 border-b border-dotted border-gray-500 last:border-0">
