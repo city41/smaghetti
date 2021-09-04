@@ -106,6 +106,7 @@ export const resourceShaMap: Record<string, string> = {
   "CloudFloorTop": "cd07a66c1d0444b2745fc2f9ac1b0dee3a024558",
   "CloudFloorBottom": "fbe647a1fb12d9dff0ce74cf744a15d0243b9bcd",
   "CloudPlatformAero": "708fffb5a67ba54aaa8d48299878d726c9f39b4b",
+  "CloudPlatformAeroMoving": "b9257668ee607035b919967aabfa8e4b4cc4c2fc",
   "CloudPlatformThin": "715d8b13d5f649ed775a24bd87b2480dad658f45",
   "Coin": "4ccf7e71a4edbff5f09d1b9d5619abe05c9a2f37",
   "CoinChallenge": "f45f5d03456f1931ab884432a76f9af18be67aae",
