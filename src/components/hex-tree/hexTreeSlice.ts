@@ -488,7 +488,19 @@ function parseInGameLevelToTree(
 			pendingRawBytes: [],
 		},
 		levelSettings: {
-			settings: null,
+			settings: {
+				cameraMax: 0,
+				cameraMin: 0,
+				fixedScreenCenterY: 0,
+				music: 0,
+				playerScreenCenterY: 0,
+				playerXStart: 0,
+				playerYStart: 0,
+				screenXStart: 0,
+				screenYStart: 0,
+				screenYBoundary: 0,
+				objectSet,
+			},
 			rawBytes: [],
 		},
 		transports: {
