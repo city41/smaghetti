@@ -4,47 +4,44 @@ import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import { parseSimpleSprite } from './util';
 
-const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-
-const Goomba: Entity = {
+const NipperPlant: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		subCategory: 'enemy-common',
-		title: 'Goomba',
+		title: 'Nipper Plant',
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, ANY_BELOW_0x16],
+	spriteGraphicSets: [3, -1, -1, -1, -1, ANY_BELOW_0x16],
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x72,
+	objectId: 0x33,
 
 	resource: {
-		romOffset: 0x134104,
+		romOffset: 0x163768,
 		palettes: [
 			[
 				0x7f96,
 				0x7fff,
 				0x18c6,
-				0x101a,
-				0x10bf,
-				0x125f,
-				0x25fd,
-				0x369e,
-				0x475f,
-				0x139f,
-				0x177,
-				0x21c,
-				0x29f,
-				0x47bf,
-				0x137f,
-				0x25f,
+				0x11f1,
+				0x1a75,
+				0x22f9,
+				0x318c,
+				0x4631,
+				0x56b5,
+				0x2b5c,
+				0xda,
+				0x219e,
+				0x363f,
+				0x7eb7,
+				0x6e11,
+				0x596d,
 			],
 		],
 		tiles: [
-			[394, 395],
-			[426, 427],
+			[674, 675],
+			[690, 691],
 		],
 	},
 
@@ -52,15 +49,14 @@ const Goomba: Entity = {
 		return [0, this.objectId, x, y];
 	},
 
-	// TODO: pixel positioned Goombas
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'Goomba');
+		return parseSimpleSprite(data, offset, 0, this.objectId, 'NipperPlant');
 	},
 
 	simpleRender(size) {
 		return (
 			<div
-				className="Goomba-bg bg-cover"
+				className="NipperPlant-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -71,4 +67,4 @@ const Goomba: Entity = {
 	},
 };
 
-export { Goomba };
+export { NipperPlant };
