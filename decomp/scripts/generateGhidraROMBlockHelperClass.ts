@@ -21,28 +21,37 @@ function blockCall(
 
 	return `mem.createInitializedBlock("${name}", api.toAddr(${hex(
 		BASE + start
-	)}), provider.getInputStream(0), ${hex(
+	)}), provider.getInputStream(${hex(start)}), ${hex(
 		size
 	)}, monitor, false).setExecute(${executable});`;
 }
+
+// when loading sma4.gba in a hex editor, this is the last byte with a value
+// from 0x3e15fb on, it's just zeros. So assuming those zeros are unused space
+// in the ROM
+const ROM_SIZE = 0x3e15fa;
 
 function generateJavaCalls(pages: TilePage[]): string {
 	const initialCall = blockCall('code', 0, pages[0].address, true);
 
 	const calls = pages.reduce<string>((building, page, i, a) => {
+		const nextPage = a[i + 1];
+		const gapStart = page.address + page.compressedLength;
+		const gapSize = (nextPage?.address ?? Number.MAX_SAFE_INTEGER) - gapStart;
+
+		const gapAdjustment = gapSize < 16 ? gapSize : 0;
+
 		const call =
-			blockCall('LZ77 tiles', page.address, page.compressedLength, false) +
-			'\n';
+			blockCall(
+				'LZ77 tiles',
+				page.address,
+				page.compressedLength + gapAdjustment,
+				false
+			) + '\n';
 		let gapCall = '';
 
-		const nextPage = a[i + 1];
-		if (nextPage) {
-			const gapStart = page.address + page.compressedLength;
-			const gapSize = nextPage.address - gapStart;
-
-			if (gapSize > 0) {
-				gapCall = blockCall('gap?', gapStart, gapSize, true) + '\n';
-			}
+		if (nextPage && gapSize >= 16) {
+			gapCall = blockCall('gap?', gapStart, gapSize, true) + '\n';
 		}
 
 		return building + call + gapCall;
@@ -50,7 +59,7 @@ function generateJavaCalls(pages: TilePage[]): string {
 
 	const lastPage = pages[pages.length - 1];
 	const start = lastPage.address + lastPage.compressedLength;
-	const remainingSpace = 0x1000000 - start;
+	const remainingSpace = ROM_SIZE - start + 1;
 	const finalCall = blockCall('code', start, remainingSpace, true);
 
 	return initialCall + '\n' + calls + finalCall;
@@ -95,7 +104,7 @@ function main() {
 
 	const outPath = path.resolve(
 		__dirname,
-		'../tools/GhidraLoader/src/main/java/ghidrasma4/AddSMA4MemoryBlocks.java'
+		'../tools/SMA4GhidraLoader/src/main/java/ghidrasma4/AddSMA4MemoryBlocks.java'
 	);
 
 	fs.writeFileSync(outPath, classSrc);
