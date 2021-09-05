@@ -115,7 +115,7 @@ const ConveyorBelt: Entity = {
 				})}
 				style={style}
 			>
-				{entity && (
+				{!!entity && (
 					<>
 						<div
 							className={clsx(

@@ -145,6 +145,7 @@ import { GoombaGenerator } from './GoombaGenerator';
 import { GrandGoomba } from './GrandGoomba';
 import { GrassChuteDownLeft } from './GrassChuteDownLeft';
 import { GrassChuteDownRight } from './GrassChuteDownRight';
+import { GrassFloor } from './GrassFloor';
 import { GrassHorizontal } from './GrassHorizontal';
 import { GrassPlateau } from './GrassPlateau';
 import { GrassSlope30DegUpLeft } from './GrassSlope30DegUpLeft';
@@ -476,6 +477,7 @@ const entityMap = {
 	GrandGoomba,
 	GrassChuteDownLeft,
 	GrassChuteDownRight,
+	GrassFloor,
 	GrassHorizontal,
 	GrassPlateau,
 	GrassSlope30DegUpLeft,

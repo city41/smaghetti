@@ -147,6 +147,7 @@ export const resourceShaMap: Record<string, string> = {
   "GlassBlock": "5151e54d25ba593a9e76d7bcfcb52f5cd3ef9283",
   "Goomba": "e632aa124de55707f6a2594bdf7c2ac83cc0c358",
   "GrandGoomba": "8e4e70256c81b14d9a1c6bcb8d384c7fd1bb4607",
+  "GrassFloor": "acb6bba27572535ab7658c777d89f82c411533ad",
   "GrassHorizontal": "1d6b8e6841849e86a54b55273f82b01cf00f2710",
   "GrassPlateau": "cf069e49418f715545bc5b19c07082e3c536ad85",
   "GrassUpperLeftCorner": "609f44af1d2cc5bfcc8cfbe18771ba792676c09e",
