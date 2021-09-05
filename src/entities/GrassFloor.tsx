@@ -77,12 +77,7 @@ const GrassFloor: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseParam1WidthEntityObject(
-			data,
-			offset,
-			this.objectId,
-			'GrassFloor'
-		);
+		return parseParam1WidthEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {

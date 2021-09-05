@@ -206,20 +206,25 @@ export function isUnfinishedEntityType(type: EntityType): boolean {
 	);
 }
 
+function getType(entity: Entity): EntityType {
+	return Object.entries(entityMap).find(
+		([_t, e]) => entity === e
+	)![0] as EntityType;
+}
+
 export function parseSimpleSprite(
 	data: Uint8Array,
 	offset: number,
 	bank: number,
-	objectId: number,
-	type: EntityType
+	target: Entity
 ): ReturnType<Required<Entity>['parseSprite']> {
-	if (data[offset++] === bank && data[offset++] === objectId) {
+	if (data[offset++] === bank && data[offset++] === target.objectId) {
 		const x = data[offset++];
 		const y = data[offset++];
 
 		return {
 			entity: {
-				type,
+				type: getType(target),
 				x: x * TILE_SIZE,
 				y: y * TILE_SIZE,
 			},
@@ -231,10 +236,9 @@ export function parseSimpleSprite(
 export function parseParam1WidthEntityObject(
 	data: Uint8Array,
 	offset: number,
-	objectId: number,
-	type: EntityType
+	target: Entity
 ): ReturnType<Required<Entity>['parseObject']> {
-	if (data[offset] >= 0x40 && data[offset + 3] === objectId) {
+	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
 		const width = parseParamFromBank(data[offset]);
 		const y = data[offset + 1];
 		const x = data[offset + 2];
@@ -242,7 +246,7 @@ export function parseParam1WidthEntityObject(
 		return {
 			entities: [
 				{
-					type,
+					type: getType(target),
 					x,
 					y,
 					settings: {
@@ -258,10 +262,9 @@ export function parseParam1WidthEntityObject(
 export function parseParam1WidthParam2HeightEntityObject(
 	data: Uint8Array,
 	offset: number,
-	objectId: number,
-	type: EntityType
+	target: Entity
 ): ReturnType<Required<Entity>['parseObject']> {
-	if (data[offset] >= 0x40 && data[offset + 3] === objectId) {
+	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
 		const width = parseParamFromBank(data[offset]);
 		const y = data[offset + 1];
 		const x = data[offset + 2];
@@ -270,7 +273,7 @@ export function parseParam1WidthParam2HeightEntityObject(
 		return {
 			entities: [
 				{
-					type,
+					type: getType(target),
 					x,
 					y,
 					settings: {
@@ -287,10 +290,9 @@ export function parseParam1WidthParam2HeightEntityObject(
 export function parseParam1HeightParam2WidthEntityObject(
 	data: Uint8Array,
 	offset: number,
-	objectId: number,
-	type: EntityType
+	target: Entity
 ): ReturnType<Required<Entity>['parseObject']> {
-	if (data[offset] >= 0x40 && data[offset + 3] === objectId) {
+	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
 		const height = parseParamFromBank(data[offset]);
 		const y = data[offset + 1];
 		const x = data[offset + 2];
@@ -299,7 +301,7 @@ export function parseParam1HeightParam2WidthEntityObject(
 		return {
 			entities: [
 				{
-					type,
+					type: getType(target),
 					x,
 					y,
 					settings: {
@@ -310,5 +312,35 @@ export function parseParam1HeightParam2WidthEntityObject(
 			],
 			offset: offset + 5,
 		};
+	}
+}
+
+export function parseKoopalingSprite(
+	data: Uint8Array,
+	offset: number,
+	target: Entity
+): ReturnType<Required<Entity>['parseSprite']> {
+	if (data[offset] === 1 && data[offset + 1] === target.objectId) {
+		const koopalingId = (data[offset + 4] >> 4) & 0xf;
+
+		if (koopalingId === target.koopalingId) {
+			const x = data[offset + 2];
+			const y = data[offset + 3];
+
+			const fireballCount = data[offset + 5];
+			const stompCount = data[offset + 4] & 0xf;
+			return {
+				entity: {
+					type: getType(target),
+					x,
+					y,
+					settings: {
+						fireballCount,
+						stompCount,
+					},
+				},
+				offset: offset + 6,
+			};
+		}
 	}
 }

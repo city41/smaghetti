@@ -57,7 +57,7 @@ const RipVanFish: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'RipVanFish');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

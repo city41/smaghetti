@@ -132,12 +132,7 @@ const PlatformBlueWhiteCheckered: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseParam1WidthEntityObject(
-			data,
-			offset,
-			this.objectId,
-			'PlatformBlueWhiteCheckered'
-		);
+		return parseParam1WidthEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {

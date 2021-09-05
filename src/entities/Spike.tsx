@@ -53,7 +53,7 @@ const Spike: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'Spike');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

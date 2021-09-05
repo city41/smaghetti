@@ -128,12 +128,7 @@ const Quicksand: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseParam1HeightParam2WidthEntityObject(
-			data,
-			offset,
-			this.objectId,
-			'Quicksand'
-		);
+		return parseParam1HeightParam2WidthEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {

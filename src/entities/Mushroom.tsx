@@ -50,7 +50,7 @@ const Mushroom: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'Mushroom');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

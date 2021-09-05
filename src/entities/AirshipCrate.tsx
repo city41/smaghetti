@@ -295,12 +295,7 @@ const AirshipCrate: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseParam1WidthParam2HeightEntityObject(
-			data,
-			offset,
-			this.objectId,
-			'AirshipCrate'
-		);
+		return parseParam1WidthParam2HeightEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {

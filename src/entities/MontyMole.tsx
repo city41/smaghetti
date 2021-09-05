@@ -56,7 +56,7 @@ const MontyMole: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'MontyMole');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

@@ -57,7 +57,7 @@ const RedKoopaTroopa: Entity = {
 
 	// TODO: pixel positioned koopas
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'RedKoopaTroopa');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

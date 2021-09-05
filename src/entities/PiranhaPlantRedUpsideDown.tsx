@@ -118,13 +118,7 @@ const PiranhaPlantRedUpsideDown: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(
-			data,
-			offset,
-			0,
-			this.objectId,
-			'PiranhaPlantRedUpsideDown'
-		);
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

@@ -85,12 +85,7 @@ const Lava: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseParam1HeightParam2WidthEntityObject(
-			data,
-			offset,
-			this.objectId,
-			'Lava'
-		);
+		return parseParam1HeightParam2WidthEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {

@@ -50,7 +50,7 @@ const StarMan: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'StarMan');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

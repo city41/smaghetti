@@ -50,7 +50,7 @@ const NipperPlant: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'NipperPlant');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

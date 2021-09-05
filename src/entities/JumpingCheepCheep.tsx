@@ -26,13 +26,7 @@ const JumpingCheepCheep: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(
-			data,
-			offset,
-			0,
-			this.objectId,
-			'JumpingCheepCheep'
-		);
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

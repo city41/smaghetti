@@ -53,13 +53,7 @@ const StretchBooUpsideDown: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(
-			data,
-			offset,
-			0,
-			this.objectId,
-			'StretchBooUpsideDown'
-		);
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

@@ -54,13 +54,7 @@ const SpinyCheepCheepGenerator: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(
-			data,
-			offset,
-			1,
-			this.objectId,
-			'SpinyCheepCheepGenerator'
-		);
+		return parseSimpleSprite(data, offset, 1, this);
 	},
 
 	simpleRender(size) {

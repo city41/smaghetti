@@ -51,7 +51,7 @@ const Swooper: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'Swooper');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

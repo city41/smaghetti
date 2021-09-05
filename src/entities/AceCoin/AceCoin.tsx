@@ -80,7 +80,7 @@ const AceCoin: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		const result = parseSimpleSprite(data, offset, 0, this.objectId, 'AceCoin');
+		const result = parseSimpleSprite(data, offset, 0, this);
 
 		if (result) {
 			offset = result.offset;

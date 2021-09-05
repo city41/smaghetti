@@ -96,12 +96,7 @@ const PipeHorizontalMiniDoubleEnded: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseParam1WidthEntityObject(
-			data,
-			offset,
-			this.objectId,
-			'PipeHorizontalMiniDoubleEnded'
-		);
+		return parseParam1WidthEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {

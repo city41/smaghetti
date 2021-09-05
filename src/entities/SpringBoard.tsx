@@ -57,7 +57,7 @@ const SpringBoard: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'SpringBoard');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

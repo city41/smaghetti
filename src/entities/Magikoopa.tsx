@@ -59,7 +59,7 @@ const Magikoopa: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'Magikoopa');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

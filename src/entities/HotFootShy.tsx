@@ -50,7 +50,7 @@ const HotFootShy: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'HotFootShy');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

@@ -71,12 +71,7 @@ const Waterfall: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseParam1HeightParam2WidthEntityObject(
-			data,
-			offset,
-			this.objectId,
-			'Waterfall'
-		);
+		return parseParam1HeightParam2WidthEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {

@@ -26,7 +26,7 @@ const WaterCheepCheep: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'WaterCheepCheep');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

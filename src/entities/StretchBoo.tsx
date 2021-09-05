@@ -81,7 +81,7 @@ const StretchBoo: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'StretchBoo');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

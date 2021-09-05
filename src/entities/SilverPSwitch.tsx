@@ -51,7 +51,7 @@ const SilverPSwitch: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'SilverPSwitch');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

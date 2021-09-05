@@ -51,7 +51,7 @@ const Thwimp: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'Thwimp');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

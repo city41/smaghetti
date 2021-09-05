@@ -55,7 +55,7 @@ const AngrySun: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'AngrySun');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

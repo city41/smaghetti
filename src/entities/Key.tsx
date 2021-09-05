@@ -50,7 +50,7 @@ const Key: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'Key');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

@@ -51,7 +51,7 @@ const LilSparky: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'LilSparky');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

@@ -78,12 +78,7 @@ const PoolOfWater: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseParam1HeightParam2WidthEntityObject(
-			data,
-			offset,
-			this.objectId,
-			'PoolOfWater'
-		);
+		return parseParam1HeightParam2WidthEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {

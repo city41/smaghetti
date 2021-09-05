@@ -81,7 +81,7 @@ const ShoeGoomba: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'ShoeGoomba');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

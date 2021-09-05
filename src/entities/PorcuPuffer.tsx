@@ -54,7 +54,7 @@ const PorcuPuffer: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this.objectId, 'PorcuPuffer');
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {
