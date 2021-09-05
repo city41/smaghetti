@@ -166,7 +166,7 @@ const PipeHorizontalMiniDoubleEnded: Entity = {
 						increment={TILE_SIZE}
 						axis="x"
 						onSizeChange={(newSizePoint) => {
-							onSettingsChange({ width: Math.max(1, newSizePoint.x) });
+							onSettingsChange({ width: Math.max(2, newSizePoint.x) });
 						}}
 						onResizeStart={() => onSettingsChange({ resizing: true })}
 						onResizeEnd={() => onSettingsChange({ resizing: false })}
