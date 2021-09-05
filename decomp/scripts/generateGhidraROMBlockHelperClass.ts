@@ -32,7 +32,7 @@ function blockCall(
 const ROM_SIZE = 0x3e15fa;
 
 function generateJavaCalls(pages: TilePage[]): string {
-	const initialCall = blockCall('code', 0, pages[0].address, true);
+	const initialCall = blockCall('rom', 0, pages[0].address, true);
 
 	const calls = pages.reduce<string>((building, page, i, a) => {
 		const nextPage = a[i + 1];
@@ -60,7 +60,7 @@ function generateJavaCalls(pages: TilePage[]): string {
 	const lastPage = pages[pages.length - 1];
 	const start = lastPage.address + lastPage.compressedLength;
 	const remainingSpace = ROM_SIZE - start + 1;
-	const finalCall = blockCall('code', start, remainingSpace, true);
+	const finalCall = blockCall('rom', start, remainingSpace, true);
 
 	return initialCall + '\n' + calls + finalCall;
 }
