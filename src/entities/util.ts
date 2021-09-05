@@ -254,3 +254,61 @@ export function parseParam1WidthEntityObject(
 		};
 	}
 }
+
+export function parseParam1WidthParam2HeightEntityObject(
+	data: Uint8Array,
+	offset: number,
+	objectId: number,
+	type: EntityType
+): ReturnType<Required<Entity>['parseObject']> {
+	if (data[offset] >= 0x40 && data[offset + 3] === objectId) {
+		const width = parseParamFromBank(data[offset]);
+		const y = data[offset + 1];
+		const x = data[offset + 2];
+		const height = data[offset + 4];
+
+		return {
+			entities: [
+				{
+					type,
+					x,
+					y,
+					settings: {
+						width: width + 1,
+						height: height + 1,
+					},
+				},
+			],
+			offset: offset + 5,
+		};
+	}
+}
+
+export function parseParam1HeightParam2WidthEntityObject(
+	data: Uint8Array,
+	offset: number,
+	objectId: number,
+	type: EntityType
+): ReturnType<Required<Entity>['parseObject']> {
+	if (data[offset] >= 0x40 && data[offset + 3] === objectId) {
+		const height = parseParamFromBank(data[offset]);
+		const y = data[offset + 1];
+		const x = data[offset + 2];
+		const width = data[offset + 4];
+
+		return {
+			entities: [
+				{
+					type,
+					x,
+					y,
+					settings: {
+						width: height + 1,
+						height: width + 1,
+					},
+				},
+			],
+			offset: offset + 5,
+		};
+	}
+}

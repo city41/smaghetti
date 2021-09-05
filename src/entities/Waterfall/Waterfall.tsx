@@ -1,6 +1,10 @@
 import React from 'react';
 import type { Entity } from '../types';
-import { encodeObjectSets, getBankParam1 } from '../util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseParam1HeightParam2WidthEntityObject,
+} from '../util';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
 import { ResizableRect } from '../../components/ResizableRect';
@@ -64,6 +68,15 @@ const Waterfall: Entity = {
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 
 		return [getBankParam1(1, height - 1), y, x, this.objectId, width - 1];
+	},
+
+	parseObject(data, offset) {
+		return parseParam1HeightParam2WidthEntityObject(
+			data,
+			offset,
+			this.objectId,
+			'Waterfall'
+		);
 	},
 
 	simpleRender(size) {

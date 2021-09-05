@@ -1,6 +1,10 @@
 import React from 'react';
 import type { Entity } from './types';
-import { encodeObjectSets, getBankParam1 } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseParam1WidthParam2HeightEntityObject,
+} from './util';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { ResizableRect } from '../components/ResizableRect';
 
@@ -288,6 +292,15 @@ const AirshipCrate: Entity = {
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 
 		return [getBankParam1(1, width - 1), y, x, this.objectId, height - 1];
+	},
+
+	parseObject(data, offset) {
+		return parseParam1WidthParam2HeightEntityObject(
+			data,
+			offset,
+			this.objectId,
+			'AirshipCrate'
+		);
 	},
 
 	simpleRender(size) {
