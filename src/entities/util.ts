@@ -227,3 +227,30 @@ export function parseSimpleSprite(
 		};
 	}
 }
+
+export function parseParam1WidthEntityObject(
+	data: Uint8Array,
+	offset: number,
+	objectId: number,
+	type: EntityType
+): ReturnType<Required<Entity>['parseObject']> {
+	if (data[offset] >= 0x40 && data[offset + 3] === objectId) {
+		const width = parseParamFromBank(data[offset]);
+		const y = data[offset + 1];
+		const x = data[offset + 2];
+
+		return {
+			entities: [
+				{
+					type,
+					x,
+					y,
+					settings: {
+						width: width + 1,
+					},
+				},
+			],
+			offset: offset + 4,
+		};
+	}
+}
