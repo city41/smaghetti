@@ -5,6 +5,7 @@ import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
 import { KoopalingViewDetails } from './detailPanes/KoopalingViewDetails';
 import { KoopalingEditDetails } from './detailPanes/KoopalingEditDetails';
+import { parseKoopalingSprite } from './util';
 
 const Lemmy: Entity = {
 	paletteCategory: 'enemy',
@@ -66,6 +67,10 @@ const Lemmy: Entity = {
 		const stompParam = (this.koopalingId! << 4) | (stompCount & 0xf);
 
 		return [1, this.objectId, x, y, stompParam, fireballCount & 0xff];
+	},
+
+	parseSprite(data, offset) {
+		return parseKoopalingSprite(data, offset, this);
 	},
 
 	simpleRender(size) {
