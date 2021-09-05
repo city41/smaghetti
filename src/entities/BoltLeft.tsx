@@ -3,7 +3,11 @@ import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { encodeObjectSets, getBankParam1 } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseCellObjectsParam1Width,
+} from './util';
 
 function isBoltToLeft(
 	entity: EditorEntity | undefined,
@@ -40,6 +44,10 @@ const BoltLeft: Entity = {
 
 	toObjectBinary({ x, y, w }) {
 		return [getBankParam1(1, w), y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseCellObjectsParam1Width(data, offset, this);
 	},
 
 	simpleRender(size) {

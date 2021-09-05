@@ -233,6 +233,29 @@ export function parseSimpleSprite(
 	}
 }
 
+export function parseSimpleObject(
+	data: Uint8Array,
+	offset: number,
+	bank: number,
+	target: Entity
+): ReturnType<Required<Entity>['parseObject']> {
+	if (data[offset] === bank && data[offset + 3] === target.objectId) {
+		const x = data[offset + 2];
+		const y = data[offset + 1];
+
+		return {
+			entities: [
+				{
+					type: getType(target),
+					x,
+					y,
+				},
+			],
+			offset: offset + 4,
+		};
+	}
+}
+
 export function parseParam1WidthEntityObject(
 	data: Uint8Array,
 	offset: number,
@@ -342,5 +365,84 @@ export function parseKoopalingSprite(
 				offset: offset + 6,
 			};
 		}
+	}
+}
+
+export function parseCellObjectsParam1WidthParam2Height(
+	data: Uint8Array,
+	offset: number,
+	target: Entity
+): ReturnType<Required<Entity>['parseObject']> {
+	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
+		const width = parseParamFromBank(data[offset++]);
+		const y = data[offset++];
+		const x = data[offset++];
+		offset += 1; // move past objectId
+		const height = data[offset++];
+
+		const entities = [];
+		const type = getType(target);
+
+		for (let h = 0; h <= height; ++h) {
+			for (let w = 0; w <= width; ++w) {
+				entities.push({
+					type,
+					x: x + w,
+					y: y + h,
+				});
+			}
+		}
+
+		return { entities, offset };
+	}
+}
+
+export function parseCellObjectsParam1Width(
+	data: Uint8Array,
+	offset: number,
+	target: Entity
+): ReturnType<Required<Entity>['parseObject']> {
+	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
+		const width = parseParamFromBank(data[offset++]);
+		const y = data[offset++];
+		const x = data[offset++];
+
+		const entities = [];
+		const type = getType(target);
+
+		for (let w = 0; w <= width; ++w) {
+			entities.push({
+				type,
+				x: x + w,
+				y,
+			});
+		}
+
+		return { entities, offset };
+	}
+}
+
+export function parseCellObjectsParam1Height(
+	data: Uint8Array,
+	offset: number,
+	target: Entity
+): ReturnType<Required<Entity>['parseObject']> {
+	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
+		const height = parseParamFromBank(data[offset++]);
+		const y = data[offset++];
+		const x = data[offset++];
+
+		const entities = [];
+		const type = getType(target);
+
+		for (let h = 0; h <= height; ++h) {
+			entities.push({
+				type,
+				x,
+				y: y + h,
+			});
+		}
+
+		return { entities, offset };
 	}
 }

@@ -112,8 +112,6 @@ const BillBlaster: Entity = {
 	},
 
 	toSpriteBinary({ x, y }) {
-		// 0x90 is bullet bill
-		// TODO: support flames
 		return [1, 0x90, x, y];
 	},
 

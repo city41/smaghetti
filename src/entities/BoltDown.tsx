@@ -3,7 +3,11 @@ import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { encodeObjectSets, getBankParam1 } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseCellObjectsParam1Height,
+} from './util';
 
 function isBoltBelow(
 	entity: EditorEntity | undefined,
@@ -39,6 +43,10 @@ const BoltDown: Entity = {
 
 	toObjectBinary({ x, y, h }) {
 		return [getBankParam1(1, h), y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseCellObjectsParam1Height(data, offset, this);
 	},
 
 	simpleRender(size) {
