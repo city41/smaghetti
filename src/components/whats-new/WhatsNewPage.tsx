@@ -114,6 +114,7 @@ function WhatsNewPage() {
 					<ul>
 						<li>Grass Floor</li>
 						<li>Pipe - Horizontal, Mini, Double Ended</li>
+						<li>Platform - Blue/White Checkered</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-09-04">
