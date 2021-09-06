@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { getBankParam1 } from './util';
+import { getBankParam1, parseCellObjectsParam1Height } from './util';
 
 function isRopeBelow(
 	entity: EditorEntity | undefined,
@@ -98,6 +98,10 @@ const Rope: Entity = {
 
 	toObjectBinary({ x, y, h }) {
 		return [getBankParam1(1, h), y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseCellObjectsParam1Height(data, offset, this);
 	},
 
 	simpleRender(size) {

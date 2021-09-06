@@ -1,5 +1,9 @@
 import type { Entity } from './types';
-import { encodeObjectSets, getBankParam1, parseParamFromBank } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseCellObjectsParam1HeightParam2Width,
+} from './util';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { ResizableRect } from '../components/ResizableRect';
@@ -65,27 +69,7 @@ const WoodFloor: Entity = {
 	},
 
 	parseObject(data, offset) {
-		if (data[offset + 3] === this.objectId) {
-			const height = parseParamFromBank(data[offset]);
-			const y = data[offset + 1];
-			const x = data[offset + 2];
-			const width = data[offset + 4];
-
-			return {
-				entities: [
-					{
-						type: 'WoodFloor',
-						x,
-						y,
-						settings: {
-							width: width + 1,
-							height: height + 1,
-						},
-					},
-				],
-				offset: offset + 5,
-			};
-		}
+		return parseCellObjectsParam1HeightParam2Width(data, offset, this);
 	},
 
 	simpleRender(size) {

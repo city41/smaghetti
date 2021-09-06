@@ -2,7 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { encodeObjectSets, getBankParam1 } from './util';
+import { encodeObjectSets, getBankParam1, parseSimpleObject } from './util';
 
 const Herbert: Entity = {
 	paletteCategory: 'decoration',
@@ -49,6 +49,10 @@ const Herbert: Entity = {
 
 	toObjectBinary({ x, y }) {
 		return [getBankParam1(1, 0), y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseSimpleObject(data, offset, 0x40, this);
 	},
 
 	simpleRender(size) {

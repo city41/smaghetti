@@ -3,6 +3,7 @@ import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_OBJECT_SET } from '../constants';
 import { spriteGraphicSets } from './spriteGraphicSets';
+import { parseSimpleSprite } from '../util';
 
 const PodobooCeiling: Entity = {
 	paletteCategory: 'enemy',
@@ -21,6 +22,10 @@ const PodobooCeiling: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

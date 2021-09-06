@@ -1,6 +1,10 @@
 import React from 'react';
 import type { Entity } from './types';
-import { encodeObjectSets, getBankParam1 } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseParam1WidthEntityObject,
+} from './util';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { Plateau } from '../components/Plateau';
 
@@ -109,6 +113,10 @@ const StonePlateau: Entity = {
 	toObjectBinary({ x, y, settings }) {
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 		return [getBankParam1(1, width - 1), y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseParam1WidthEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {

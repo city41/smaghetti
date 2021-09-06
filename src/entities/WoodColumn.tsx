@@ -3,7 +3,11 @@ import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { encodeObjectSets, getBankParam1 } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseCellObjectsParam1Width,
+} from './util';
 import { Resizer } from '../components/Resizer';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
@@ -63,6 +67,10 @@ const WoodColumn: Entity = {
 		const width = settings.width ?? this.defaultSettings!.width;
 
 		return [getBankParam1(1, width - 1), y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseCellObjectsParam1Width(data, offset, this);
 	},
 
 	simpleRender(size) {

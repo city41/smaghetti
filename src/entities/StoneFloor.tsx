@@ -1,6 +1,10 @@
 import React from 'react';
 import type { Entity } from './types';
-import { encodeObjectSets, getBankParam1 } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseParam1HeightParam2WidthEntityObject,
+} from './util';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { ResizableRect } from '../components/ResizableRect';
 
@@ -62,6 +66,10 @@ const StoneFloor: Entity = {
 		const w = (settings.width ?? this.defaultSettings!.width) - 1;
 
 		return [getBankParam1(1, h), y, x, this.objectId, w];
+	},
+
+	parseObject(data, offset) {
+		return parseParam1HeightParam2WidthEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {

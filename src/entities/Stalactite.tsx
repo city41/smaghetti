@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { getBankParam1 } from './util';
+import { getBankParam1, parseCellObjectsParam1Width } from './util';
 
 const Stalactite: Entity = {
 	paletteCategory: 'terrain',
@@ -50,6 +50,10 @@ const Stalactite: Entity = {
 
 	toObjectBinary({ x, y, w }) {
 		return [getBankParam1(1, w), y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseCellObjectsParam1Width(data, offset, this);
 	},
 
 	simpleRender(size) {
