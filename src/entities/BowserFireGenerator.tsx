@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 import { GeneratorFrame } from './components/GeneratorFrame';
+import { parseSimpleSprite } from './util';
 
 const graphicSetValues = [
 	0x4,
@@ -81,6 +82,10 @@ const BowserFireGenerator: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [1, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 1, this);
 	},
 
 	simpleRender(size) {

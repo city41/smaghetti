@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 import { graphicSetValues } from './BowserFireGenerator';
+import { parseSimpleSprite } from './util';
 
 const BowserFireball: Entity = {
 	paletteCategory: 'enemy',
@@ -20,8 +21,11 @@ const BowserFireball: Entity = {
 	objectId: 0x75,
 
 	toSpriteBinary({ x, y }) {
-		// return [0, this.objectId, x, y];
-		return [0, 0x75, x, y];
+		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

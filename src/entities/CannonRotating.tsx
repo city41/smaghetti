@@ -1,7 +1,7 @@
 import React from 'react';
 import { TILE_SIZE } from '../tiles/constants';
 import type { Entity } from './types';
-import { encodeObjectSets } from './util';
+import { encodeObjectSets, parseSimpleObject } from './util';
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -145,6 +145,10 @@ const CannonRotating: Entity = {
 
 	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseSimpleObject(data, offset, 0, this);
 	},
 
 	toSpriteBinary({ x, y }) {

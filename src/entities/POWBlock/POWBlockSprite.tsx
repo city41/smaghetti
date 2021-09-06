@@ -3,7 +3,7 @@ import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
-import { encodeObjectSets } from '../util';
+import { encodeObjectSets, parseSimpleSprite } from '../util';
 
 /**
  * This is a sprite version of the POW block. It has 100% compatibility.
@@ -29,6 +29,10 @@ const POWBlockSprite: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

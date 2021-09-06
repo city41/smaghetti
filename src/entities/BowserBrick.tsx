@@ -1,5 +1,9 @@
 import type { Entity } from './types';
-import { encodeObjectSets, getBankParam1 } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseCellObjectsParam1HeightParam2Width,
+} from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
@@ -53,6 +57,10 @@ const BowserBrick: Entity = {
 
 	toObjectBinary({ x, y, w, h }): number[] {
 		return [getBankParam1(1, h), y, x, this.objectId, w];
+	},
+
+	parseObject(data, offset) {
+		return parseCellObjectsParam1HeightParam2Width(data, offset, this);
 	},
 
 	simpleRender(size) {

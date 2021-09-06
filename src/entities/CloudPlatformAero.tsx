@@ -1,6 +1,10 @@
 import React from 'react';
 import type { Entity } from './types';
-import { encodeObjectSets, getBankParam1 } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseCellObjectsParam1Width,
+} from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
@@ -136,6 +140,10 @@ const CloudPlatformAero: Entity = {
 
 	toObjectBinary({ x, y, w }) {
 		return [getBankParam1(1, w), y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseCellObjectsParam1Width(data, offset, this);
 	},
 
 	simpleRender(size) {

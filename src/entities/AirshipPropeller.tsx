@@ -2,6 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const AirshipPropeller: Entity = {
 	paletteCategory: 'decoration',
@@ -48,6 +49,20 @@ const AirshipPropeller: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y + 1];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 0, this);
+
+		if (result) {
+			return {
+				...result,
+				entity: {
+					...result.entity,
+					y: result.entity.y - 1,
+				},
+			};
+		}
 	},
 
 	simpleRender(size) {

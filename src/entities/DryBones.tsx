@@ -3,6 +3,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import React from 'react';
 import { ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 /**
  * not compatible with any existing room types :(
@@ -53,6 +54,10 @@ const DryBones: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

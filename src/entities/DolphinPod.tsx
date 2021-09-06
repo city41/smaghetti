@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const DolphinPod: Entity = {
 	paletteCategory: 'enemy',
@@ -21,6 +22,10 @@ const DolphinPod: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [1, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 1, this);
 	},
 
 	simpleRender(size) {

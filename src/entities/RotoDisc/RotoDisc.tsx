@@ -1,9 +1,9 @@
 import React from 'react';
-
 import type { Entity } from '../types';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from '../constants';
 import { TILE_SIZE } from '../../tiles/constants';
 import { TileSpace } from '../TileSpace';
+import { parseSimpleSprite } from '../util';
 
 const RotoDisc: Entity = {
 	paletteCategory: 'enemy',
@@ -57,6 +57,10 @@ const RotoDisc: Entity = {
 		// 5f - double, starts from top
 		// 60 - double, clockwise
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {
