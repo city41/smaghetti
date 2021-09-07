@@ -6,7 +6,7 @@ async function getPublishedLevels(): Promise<SerializedLevel[]> {
 		.select('*, user:user_id (username)')
 		.eq('published', true)
 		.order('updated_at', { ascending: false })
-		.limit(40);
+		.limit(60);
 
 	if (error) {
 		throw error;
