@@ -110,6 +110,17 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Unofficial Discord Server" date="2021-09-07">
+					MrSkittles420 has started{' '}
+					<a
+						href="https://discord.gg/wBVE4yyWhM"
+						target="_blank"
+						rel="nofollower noreferrer"
+					>
+						an unofficial Smaghetti Discord server
+					</a>
+					.
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-09-06">
 					<ul>
 						<li>Fortress Lamp</li>
