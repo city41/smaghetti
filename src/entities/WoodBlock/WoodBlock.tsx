@@ -1,12 +1,28 @@
 import React from 'react';
 import type { Entity } from '../types';
-import { encodeObjectSets, getBankParam1 } from '../util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parsePotentialPayloadObject,
+} from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { PayloadViewDetails } from '../detailPanes/PayloadViewDetails';
 import { ResourceType } from '../../resources/resourceMap';
 import { PayloadEditDetails } from '../detailPanes/PayloadEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
+import invert from 'lodash/invert';
+
+const payloadToObjectId = {
+	FireFlower: 0x24,
+	Leaf: 0x25,
+	StarMan: 0x26,
+};
+
+const objectIdToPayload = invert(payloadToObjectId) as Record<
+	number,
+	ResourceType
+>;
 
 const WoodBlock: Entity = {
 	paletteCategory: 'terrain',
@@ -24,15 +40,12 @@ const WoodBlock: Entity = {
 	dimensions: 'xy',
 	defaultSettings: {},
 	objectId: 0x12,
+	alternateObjectIds: Object.values(payloadToObjectId),
 	emptyBank: 1,
 	payloadBank: 0,
 	param1: 'width',
 	param2: 'height',
-	payloadToObjectId: {
-		FireFlower: 0x24,
-		Leaf: 0x25,
-		StarMan: 0x26,
-	},
+	payloadToObjectId,
 
 	resource: {
 		palettes: [
@@ -83,6 +96,16 @@ const WoodBlock: Entity = {
 		} else {
 			return [getBankParam1(1, w), y, x, this.objectId, h];
 		}
+	},
+
+	parseObject(data, offset) {
+		return parsePotentialPayloadObject(
+			data,
+			offset,
+			0,
+			objectIdToPayload,
+			this
+		);
 	},
 
 	simpleRender(size) {

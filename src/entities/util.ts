@@ -4,6 +4,7 @@ import isEqual from 'lodash/isEqual';
 import intersection from 'lodash/intersection';
 import { Entity } from './types';
 import { isStaticResource } from '../resources/util';
+import { ResourceType } from '../resources/resourceMap';
 
 export function getBankParam1(bank: 0 | 1, param: number): number {
 	return (bank << 6) | param;
@@ -256,6 +257,34 @@ export function parseSimpleObject(
 	}
 }
 
+export function parseSimpleObjectWithWidth(
+	data: Uint8Array,
+	offset: number,
+	bankByte: number,
+	target: Entity
+): ReturnType<Required<Entity>['parseObject']> {
+	const result = parseSimpleObject(data, offset, bankByte, target);
+
+	if (result) {
+		const seedEntity = result.entities[0];
+
+		const width = data[offset + 4];
+
+		const entities = [];
+		for (let x = seedEntity.x; x < seedEntity.x + width; ++x) {
+			entities.push({
+				...seedEntity,
+				x,
+			});
+		}
+
+		return {
+			entities,
+			offset: offset + 5,
+		};
+	}
+}
+
 export function parseParam1WidthEntityObject(
 	data: Uint8Array,
 	offset: number,
@@ -397,6 +426,38 @@ export function parseCellObjectsParam1WidthParam2Height(
 	}
 }
 
+export function parsePayloadObject(
+	data: Uint8Array,
+	offset: number,
+	bankByte: number,
+	objectIdToPayload: Record<number, ResourceType>,
+	target: Entity
+) {
+	const objectId = data[offset + 3];
+
+	if (
+		data[offset] === bankByte &&
+		Object.keys(objectIdToPayload).includes(objectId.toString())
+	) {
+		const y = data[offset + 1];
+		const x = data[offset + 2];
+
+		return {
+			entities: [
+				{
+					type: getType(target),
+					x,
+					y,
+					settings: {
+						payload: objectIdToPayload[objectId],
+					},
+				},
+			],
+			offset: offset + 4,
+		};
+	}
+}
+
 export function parseCellObjectsParam1HeightParam2Width(
 	data: Uint8Array,
 	offset: number,
@@ -473,5 +534,28 @@ export function parseCellObjectsParam1Height(
 		}
 
 		return { entities, offset };
+	}
+}
+
+export function parsePotentialPayloadObject(
+	data: Uint8Array,
+	offset: number,
+	bankByte: number,
+	objectIdToPayload: Record<number, ResourceType>,
+	target: Entity
+): ReturnType<Required<Entity>['parseObject']> {
+	const objectId = data[offset + 3];
+
+	// no payload? it's a rectangle of objects
+	if (data[offset] >= 0x40 && objectId === target.objectId) {
+		return parseCellObjectsParam1WidthParam2Height(data, offset, target);
+	} else {
+		return parsePayloadObject(
+			data,
+			offset,
+			bankByte,
+			objectIdToPayload,
+			target
+		);
 	}
 }
