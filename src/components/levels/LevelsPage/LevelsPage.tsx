@@ -19,6 +19,8 @@ type InternalLevelsPageProps = {
 	onSortTypeChange: () => void;
 };
 
+const MAX_LEVELS_IN_SAVE = 32;
+
 function LevelsPage({
 	allFilesReady,
 	emptySaveFileState,
@@ -119,7 +121,10 @@ function LevelsPage({
 												isChosen={chosenLevels.includes(newestLevel)}
 												areFilesReady={allFilesReady}
 												onChosenChange={(newChosen) => {
-													if (newChosen && chosenLevels.length < 30) {
+													if (
+														newChosen &&
+														chosenLevels.length < MAX_LEVELS_IN_SAVE
+													) {
 														setChosenLevels((cl) => cl.concat(newestLevel));
 													} else {
 														setChosenLevels((cl) =>
@@ -149,7 +154,10 @@ function LevelsPage({
 													)}
 													areFilesReady={allFilesReady}
 													onChosenChange={(newChosen) => {
-														if (newChosen && chosenLevels.length < 30) {
+														if (
+															newChosen &&
+															chosenLevels.length < MAX_LEVELS_IN_SAVE
+														) {
 															setChosenLevels((cl) =>
 																cl.concat(mostRecentlyUpdatedLevel)
 															);
@@ -191,7 +199,10 @@ function LevelsPage({
 										isChosen={chosenLevels.includes(l)}
 										areFilesReady={allFilesReady}
 										onChosenChange={(newChosen) => {
-											if (newChosen && chosenLevels.length < 30) {
+											if (
+												newChosen &&
+												chosenLevels.length < MAX_LEVELS_IN_SAVE
+											) {
 												setChosenLevels((cl) => cl.concat(l));
 											} else {
 												setChosenLevels((cl) => cl.filter((cll) => cll !== l));
@@ -239,4 +250,4 @@ function LevelsPage({
 	);
 }
 
-export { LevelsPage };
+export { LevelsPage, MAX_LEVELS_IN_SAVE };

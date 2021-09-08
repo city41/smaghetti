@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { MdFileDownload } from 'react-icons/md';
 import { Button } from '../../Button';
 import { LoadingBar } from '../../LoadingBar';
+import { MAX_LEVELS_IN_SAVE } from './LevelsPage';
 
 type SaveFileListProps = {
 	className?: string;
@@ -66,7 +67,7 @@ function SaveFileList({
 				</div>
 				<p>
 					{chosenLevelCount} {pluralize('level', chosenLevelCount)} of up to{' '}
-					{Math.min(30, totalLevelCount)} chosen
+					{Math.min(MAX_LEVELS_IN_SAVE, totalLevelCount)} chosen
 				</p>
 			</>
 		);
@@ -77,8 +78,8 @@ function SaveFileList({
 					Start a save file
 				</Button>
 				<p>
-					You can choose up to {Math.min(30, totalLevelCount)} levels to add to
-					a save file for play on a Game Boy or emulator
+					You can choose up to {Math.min(MAX_LEVELS_IN_SAVE, totalLevelCount)}{' '}
+					levels to add to a save file for play on a Game Boy or emulator
 				</p>
 			</>
 		);
