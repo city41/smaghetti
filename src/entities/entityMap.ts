@@ -121,6 +121,7 @@ import { FireBar } from './FireBar';
 import { FireBarBase } from './FireBarBase';
 import { FireBro } from './FireBro';
 import { FireFlower } from './FireFlower';
+import { FireSnake } from './FireSnake';
 import { Fishbone } from './Fishbone';
 import { FlagPole } from './FlagPole';
 import { FlameChomp } from './FlameChomp';
@@ -457,6 +458,7 @@ const entityMap = {
 	FireBarBase,
 	FireBro,
 	FireFlower,
+	FireSnake,
 	Fishbone,
 	FlagPole,
 	FlameChomp,

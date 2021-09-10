@@ -127,6 +127,7 @@ export const resourceShaMap: Record<string, string> = {
   "FireBarBase": "872708306591d1aee7e1c29dff3b0b48fe5f2d67",
   "FireBro": "20f2ec8191b88807ac3f9e9d54ef8b8a6d6734cf",
   "FireFlower": "4e828d84cda1641ff0e9571f19a6d6f9599fc76b",
+  "FireSnake": "b428ffc8c3de5e60d2f59c09ce14ced9f2d91b8d",
   "Fishbone": "12a89e3ccc2b5c0dd098bbe469ba6f5acb71dd28",
   "FlagPole": "1487082dff896a918f1dbe47b387d98f9f685d91",
   "FlameChomp": "e4ed28c21a9a95c7c3653af8f06460373898c18f",
