@@ -96,8 +96,8 @@ function WhatsNewPage() {
 						haven&apos;t gotten to implementing that just yet.
 					</p>
 					<p>
-						It&apos;s a mystery why it ends up purple in Smaghetti levels. Still
-						much to figure out...
+						It&apos;s a mystery why Fire Snake ends up purple in Smaghetti
+						levels. Still much to figure out...
 					</p>
 				</NewEntry>
 				<NewEntry title="Unofficial Discord Server" date="2021-09-07">
