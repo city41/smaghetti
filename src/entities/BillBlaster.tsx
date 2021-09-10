@@ -7,6 +7,15 @@ import { getBankParam1 } from './util';
 import { Resizer } from '../components/Resizer';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
+import { HammerButton } from './detailPanes/HammerButton';
+
+const orientations = ['up', 'down'] as const;
+type Orientation = typeof orientations[number];
+
+const orientationToObjectId: Record<Orientation, number> = {
+	up: 0x20,
+	down: 0x6e,
+};
 
 const BillBlaster: Entity = {
 	paletteCategory: 'enemy',
@@ -21,11 +30,12 @@ const BillBlaster: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	objectId: 0x20,
+	alternateObjectIds: Object.values(orientationToObjectId),
 	emptyBank: 1,
 	param1: 'height',
 	dimensions: 'none',
 	settingsType: 'single',
-	defaultSettings: { height: 2 },
+	defaultSettings: { height: 2, orientation: 'up' },
 
 	resources: {
 		BillBlasterBarrel: {
@@ -111,13 +121,24 @@ const BillBlaster: Entity = {
 		},
 	},
 
-	toSpriteBinary({ x, y }) {
-		return [1, 0x90, x, y];
+	toSpriteBinary({ x, y, settings }) {
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const orientation = (settings.orientation ??
+			this.defaultSettings!.orientation) as Orientation;
+
+		const yOffset = orientation === 'down' ? height - 1 : 0;
+
+		return [1, 0x90, x, y + yOffset];
 	},
 
 	toObjectBinary({ x, y, settings }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
-		return [getBankParam1(1, height - 1), y, x, this.objectId];
+		const orientation = (settings.orientation ??
+			this.defaultSettings!.orientation) as Orientation;
+
+		const objectId = orientationToObjectId[orientation];
+
+		return [getBankParam1(1, height - 1), y, x, objectId];
 	},
 
 	simpleRender(size) {
@@ -141,6 +162,8 @@ const BillBlaster: Entity = {
 
 	render({ settings, onSettingsChange, entity }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const orientation = (settings.orientation ??
+			this.defaultSettings!.orientation) as Orientation;
 
 		const tileSize = { width: TILE_SIZE, height: TILE_SIZE };
 
@@ -174,22 +197,39 @@ const BillBlaster: Entity = {
 					[styles.resizing]: settings?.resizing,
 				})}
 			>
-				{barrel}
-				{neck}
-				{body}
+				<div
+					className={clsx('relative flex flex-col', {
+						'transform rotate-180': orientation === 'down',
+					})}
+				>
+					{barrel}
+					{neck}
+					{body}
+				</div>
 				{!!entity && (
-					<Resizer
-						className="absolute bottom-0 right-0"
-						style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
-						size={{ x: 1, y: height }}
-						increment={TILE_SIZE}
-						axis="y"
-						onSizeChange={(newSizePoint) => {
-							onSettingsChange({ height: Math.max(1, newSizePoint.y) });
-						}}
-						onResizeStart={() => onSettingsChange({ resizing: true })}
-						onResizeEnd={() => onSettingsChange({ resizing: false })}
-					/>
+					<>
+						<HammerButton
+							style={{ height: TILE_SIZE }}
+							currentValue={orientation}
+							values={orientations}
+							onNewValue={(newOrientation) => {
+								onSettingsChange({ orientation: newOrientation });
+							}}
+						/>
+
+						<Resizer
+							className="absolute bottom-0 right-0"
+							style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
+							size={{ x: 1, y: height }}
+							increment={TILE_SIZE}
+							axis="y"
+							onSizeChange={(newSizePoint) => {
+								onSettingsChange({ height: Math.max(1, newSizePoint.y) });
+							}}
+							onResizeStart={() => onSettingsChange({ resizing: true })}
+							onResizeEnd={() => onSettingsChange({ resizing: false })}
+						/>
+					</>
 				)}
 			</div>
 		);
