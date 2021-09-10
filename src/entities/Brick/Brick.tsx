@@ -1,5 +1,9 @@
 import type { Entity } from '../types';
-import { encodeObjectSets, getBankParam1, parseParamFromBank } from '../util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parsePotentialPayloadObject,
+} from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import React from 'react';
 import { PayloadViewDetails } from '../detailPanes/PayloadViewDetails';
@@ -20,7 +24,10 @@ const payloadToObjectId = {
 	ClimbingVineHead: 0x1c,
 };
 
-const objectIdToPayload = invert(payloadToObjectId);
+const objectIdToPayload = invert(payloadToObjectId) as Record<
+	number,
+	ResourceType
+>;
 
 const Brick: Entity = {
 	paletteCategory: 'terrain',
@@ -93,6 +100,16 @@ const Brick: Entity = {
 		}
 	},
 
+	parseObject(data, offset) {
+		return parsePotentialPayloadObject(
+			data,
+			offset,
+			0,
+			objectIdToPayload,
+			this
+		);
+	},
+
 	simpleRender(size) {
 		return (
 			<div
@@ -130,55 +147,6 @@ const Brick: Entity = {
 			);
 		} else {
 			return body;
-		}
-	},
-
-	parseObject(data, offset) {
-		if (data[offset] === 0) {
-			const matchingPayloadId = Object.values(payloadToObjectId).find(
-				(payloadId) => {
-					return payloadId === data[offset + 3];
-				}
-			);
-
-			if (matchingPayloadId) {
-				const y = data[offset + 1];
-				const x = data[offset + 2];
-
-				return {
-					entities: [
-						{
-							type: 'Brick',
-							x,
-							y,
-							settings: {
-								payload: objectIdToPayload[matchingPayloadId],
-							},
-						},
-					],
-					offset: offset + 4,
-				};
-			}
-		} else if (data[offset] >= 0x40 && data[offset + 3] === this.objectId) {
-			const width = parseParamFromBank(data[offset++]);
-			const y = data[offset++];
-			const x = data[offset++];
-			offset += 1; // move past objectId
-			const height = data[offset++];
-
-			const entities = [];
-
-			for (let h = 0; h <= height; ++h) {
-				for (let w = 0; w <= width; ++w) {
-					entities.push({
-						type: 'Brick',
-						x: x + w,
-						y: y + h,
-					} as const);
-				}
-
-				return { entities, offset };
-			}
 		}
 	},
 };

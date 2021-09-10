@@ -1,11 +1,27 @@
 import type { Entity } from '../types';
-import { encodeObjectSets, getBankParam1 } from '../util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parsePotentialPayloadObject,
+} from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import React from 'react';
 import { PayloadViewDetails } from '../detailPanes/PayloadViewDetails';
 import { ResourceType } from '../../resources/resourceMap';
 import { PayloadEditDetails } from '../detailPanes/PayloadEditDetails';
 import { objectSets } from './objectSets';
+import invert from 'lodash/invert';
+
+const payloadToObjectId = {
+	FireFlower: 0x21,
+	Leaf: 0x22,
+	StarMan: 0x23,
+};
+
+const objectIdToPayload = invert(payloadToObjectId) as Record<
+	number,
+	ResourceType
+>;
 
 const MusicBlock: Entity = {
 	paletteCategory: 'terrain',
@@ -22,15 +38,11 @@ const MusicBlock: Entity = {
 	settingsType: 'single',
 	defaultSettings: {},
 	dimensions: 'x',
-	payloadToObjectId: {
-		FireFlower: 0x21,
-		Leaf: 0x22,
-		StarMan: 0x23,
-	},
 	objectId: 0x14,
 	payloadBank: 0,
 	emptyBank: 1,
 	param1: 'width',
+	payloadToObjectId,
 
 	resource: {
 		palettes: [
@@ -81,6 +93,16 @@ const MusicBlock: Entity = {
 		} else {
 			return [getBankParam1(1, w), y, x, this.objectId];
 		}
+	},
+
+	parseObject(data, offset) {
+		return parsePotentialPayloadObject(
+			data,
+			offset,
+			0,
+			objectIdToPayload,
+			this
+		);
 	},
 
 	simpleRender(size) {

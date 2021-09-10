@@ -3,6 +3,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const graphicSets = [0xb, 0xc, 0xd, 0xe, 0xf];
 
@@ -52,6 +53,10 @@ const GiantGreenParaKoopa: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

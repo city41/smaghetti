@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
+import { parseSimpleSprite } from './util';
 
 const GaloombaWithParachute: Entity = {
 	paletteCategory: 'enemy',
@@ -74,6 +75,10 @@ const GaloombaWithParachute: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {
