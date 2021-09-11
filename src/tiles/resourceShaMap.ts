@@ -304,6 +304,8 @@ export const resourceShaMap: Record<string, string> = {
   "WingedPlatform": "e147c89d4b70d92c7300c77e0eafe1fffc22726a",
   "WoodBlock": "fbcf50256d499ceaf3c76367e7fd875e1dd7f114",
   "WoodColumn": "4928739f0cec1f8152effb9a2896a4ff2a07e6db",
+  "WoodColumnWideTop": "84404c186b19706355e1a3a6e01bcd9348af8b3b",
+  "WoodColumnWideBody": "e15719f7a26ccfcf0e3f66084b053bf3e6745945",
   "WoodDoor": "056207bb22a39e0085bfc59e280074ade196fff6",
   "WoodFloor": "613a44cc64c7f772fccf4085f9fedcf22ecdf5cb",
   "WoodFloorGiant": "7632e5600ef6af47ac48f18b024f6e43f37dc122",

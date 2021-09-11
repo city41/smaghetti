@@ -322,6 +322,7 @@ import { Wiggler } from './Wiggler';
 import { WingedPlatform } from './WingedPlatform';
 import { WoodBlock } from './WoodBlock';
 import { WoodColumn } from './WoodColumn';
+import { WoodColumnWide } from './WoodColumnWide';
 import { WoodDoor } from './WoodDoor';
 import { WoodFloor } from './WoodFloor';
 import { WoodFloorGiant } from './WoodFloorGiant';
@@ -659,6 +660,7 @@ const entityMap = {
 	WingedPlatform,
 	WoodBlock,
 	WoodColumn,
+	WoodColumnWide,
 	WoodDoor,
 	WoodFloor,
 	WoodFloorGiant,
