@@ -45,6 +45,17 @@ function sortByStart(a: RomSection, b: RomSection): number {
 	return a.start - b.start;
 }
 
+function getSize(rom: Uint8Array, offset: number): number {
+	let size = 0;
+
+	while (offset < rom.length && rom[offset] != 0xff) {
+		++offset;
+		++size;
+	}
+
+	return size;
+}
+
 const loadSections = (): RomLayoutThunkAction => async (dispatch) => {
 	const rom = getRom();
 
@@ -71,8 +82,8 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch) => {
 		if (igl.root) {
 			sections.push({
 				label: igl.name ?? '?',
-				start: igl.root,
-				size: 1,
+				start: igl.root + 15,
+				size: getSize(rom, igl.root + 15),
 				type: 'level-objects',
 			} as const);
 		}
@@ -81,7 +92,7 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch) => {
 			sections.push({
 				label: igl.name ?? '?',
 				start: igl.sprites,
-				size: 1,
+				size: getSize(rom, igl.sprites),
 				type: 'level-sprites',
 			} as const);
 		}

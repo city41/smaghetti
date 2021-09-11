@@ -25,15 +25,16 @@ function RomSectionCmp({ section }: { section: RomSection }) {
 			preview = <LevelSpritesPreview offset={section.start} />;
 			break;
 		case 'level-objects':
-			preview = <LevelObjectsPreview offset={section.start + 15} />;
+			preview = <LevelObjectsPreview offset={section.start} />;
 			break;
 		default:
 			preview = '-';
 	}
 
 	return (
-		<tr>
+		<tr className={section.type}>
 			<td>0x{section.start.toString(16)}</td>
+			<td>0x{section.size.toString(16)}</td>
 			<td>{section.type}</td>
 			<td>{section.label}</td>
 			<td>{preview}</td>
@@ -77,6 +78,7 @@ function RomLayoutPage({ allFilesReady, sections }: RomLayoutPageProps) {
 					<thead>
 						<tr>
 							<th>offset</th>
+							<th>size</th>
 							<th>type</th>
 							<th>content</th>
 							<th>preview</th>

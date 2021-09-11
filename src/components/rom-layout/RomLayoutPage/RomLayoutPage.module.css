@@ -1,4 +1,15 @@
 .table td {
-	@apply p-1 border border-gray-500;
-	min-width: 12vw;
+	@apply py-1 px-4 border border-gray-500;
+}
+
+.table :global(tr.compressed-tiles) {
+	@apply bg-gray-100 text-gray-900;
+}
+
+.table :global(tr.level-objects) {
+	@apply bg-green-900;
+}
+
+.table :global(tr.level-sprites) {
+	@apply bg-blue-900;
 }
