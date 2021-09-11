@@ -105,9 +105,9 @@ function TipsPage() {
 				</TipEntry>
 				<TipEntry title="Ghost Player">
 					<p>
-						The Ghost Player entity is found in the utility section of the
-						entity chooser. It lets you start Mario at a temporary location in
-						your room, for testing purposes.
+						The Ghost Player entity is found in the meta section of the entity
+						chooser. It lets you start Mario at a temporary location in your
+						room, for testing purposes.
 					</p>
 					<ul>
 						<li>
