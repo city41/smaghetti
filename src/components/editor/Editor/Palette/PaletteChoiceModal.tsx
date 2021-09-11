@@ -123,7 +123,7 @@ const paletteSubCategoryLabel: Record<PaletteSubcategory | 'misc', string> = {
 	'terrain-sky': 'sky',
 	'terrain-large': 'big things',
 	'terrain-checkered': 'checkered',
-	'terrain-giant': 'giant world',
+	'terrain-giant': 'giant land',
 	'enemy-common': 'common',
 	'enemy-piranha': 'piranhas',
 	'enemy-airship': 'airship',
