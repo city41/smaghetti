@@ -5,6 +5,7 @@ import {
 	extractCompressedTilesFromRom,
 	TilePage,
 } from '../../src/tiles/extractCompressedTilesFromRom';
+import { ROM_SIZE } from '../../src/components/rom-layout/constants';
 
 function hex(num: number): string {
 	return `0x` + num.toString(16);
@@ -25,11 +26,6 @@ function blockCall(
 		size
 	)}, monitor, false).setExecute(${executable});`;
 }
-
-// when loading sma4.gba in a hex editor, this is the last byte with a value
-// from 0x3e15fb on, it's just zeros. So assuming those zeros are unused space
-// in the ROM
-const ROM_SIZE = 0x3e15fa;
 
 function generateJavaCalls(pages: TilePage[]): string {
 	const initialCall = blockCall('rom', 0, pages[0].address, true);

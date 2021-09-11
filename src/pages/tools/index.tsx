@@ -53,6 +53,11 @@ function NextToolsIndexPage() {
 						also includes a byte search to enable locating a tile using data
 						pulled from an emulator (I am using mGBA).
 					</li>
+					<li>
+						<a href="./rom-layout">ROM Layout</a>: a table of byte sections in
+						the ROM which can be code, data, graphics, audio, etc. Brand new and
+						has a loooooong ways to go.
+					</li>
 				</ul>
 			</div>
 		</Root>

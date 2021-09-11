@@ -31,6 +31,10 @@ import {
 	reducer as levelsReducer,
 	LevelsState,
 } from './components/levels/levelsSlice';
+import {
+	reducer as romLayoutReducer,
+	RomLayoutState,
+} from './components/rom-layout/romLayoutSlice';
 
 type AppState = {
 	editor: EditorState;
@@ -40,6 +44,7 @@ type AppState = {
 	profile: ProfileState;
 	hexTree: HexTreeState;
 	levels: LevelsState;
+	romLayout: RomLayoutState;
 };
 
 const rootReducer = combineReducers({
@@ -50,6 +55,7 @@ const rootReducer = combineReducers({
 	profile: profileReducer,
 	hexTree: hexTreeReducer,
 	levels: levelsReducer,
+	romLayout: romLayoutReducer,
 });
 
 const store = configureStore({
