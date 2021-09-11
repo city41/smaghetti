@@ -1,22 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from '../../Button';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
-import { RomSection as RomSectionType } from '../types';
+import { RomSection, RomSectionType } from '../types';
 import { CompressedTilesPreview } from './CompressedTilesPreview';
+import { LevelObjectsPreview } from './LevelObjectsPreview';
+import { LevelSpritesPreview } from './LevelSpritesPreview';
 
 import styles from './RomLayoutPage.module.css';
 import { SectionPercentage } from './SectionPercentage';
 
 type RomLayoutPageProps = {
 	allFilesReady: boolean;
-	sections: RomSectionType[];
+	sections: RomSection[];
 };
 
-function RomSection({ section }: { section: RomSectionType }) {
+function RomSectionCmp({ section }: { section: RomSection }) {
 	let preview;
 
 	switch (section.type) {
 		case 'compressed-tiles':
 			preview = <CompressedTilesPreview page={section.page} />;
+			break;
+		case 'level-sprites':
+			preview = <LevelSpritesPreview offset={section.start} />;
+			break;
+		case 'level-objects':
+			preview = <LevelObjectsPreview offset={section.start + 15} />;
 			break;
 		default:
 			preview = '-';
@@ -33,12 +42,37 @@ function RomSection({ section }: { section: RomSectionType }) {
 }
 
 function RomLayoutPage({ allFilesReady, sections }: RomLayoutPageProps) {
+	const [hideSections, setHideSections] = useState<
+		Record<RomSectionType, boolean>
+	>({
+		'compressed-tiles': false,
+		'level-objects': false,
+		'level-sprites': false,
+	});
+
 	return (
 		<>
 			<FileLoaderModal isOpen={!allFilesReady} />
 
 			<div className="max-w-2xl mx-auto my-16">
 				<SectionPercentage />
+				<div className="flex flex-row justify-center gap-x-2 my-8">
+					{(Object.keys(hideSections) as RomSectionType[]).map((hs) => (
+						<Button
+							key={hs}
+							onClick={() => {
+								setHideSections((hide) => {
+									return {
+										...hide,
+										[hs]: !hide[hs],
+									};
+								});
+							}}
+						>
+							{hideSections[hs] ? 'show' : 'hide'} {hs}
+						</Button>
+					))}
+				</div>
 				<table className={styles.table}>
 					<thead>
 						<tr>
@@ -49,8 +83,12 @@ function RomLayoutPage({ allFilesReady, sections }: RomLayoutPageProps) {
 						</tr>
 					</thead>
 					<tbody>
-						{sections.map((s) => {
-							return <RomSection key={s.start} section={s} />;
+						{sections.map((s, i) => {
+							if (hideSections[s.type]) {
+								return null;
+							} else {
+								return <RomSectionCmp key={`${i}-${s.start}`} section={s} />;
+							}
 						})}
 					</tbody>
 				</table>
