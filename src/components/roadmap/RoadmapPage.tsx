@@ -37,7 +37,7 @@ const alphaChecklist: MilestoneChecklistItem[] = [
 ];
 
 const betaChecklist: MilestoneChecklistItem[] = [
-	{ status: 'not-started', description: 'Movement vectors for platforms' },
+	{ status: 'in-progress', description: 'Movement vectors for platforms' },
 	{
 		status: 'in-progress',
 		description: 'Most entities in SMA4 are available to build levels with',
@@ -46,9 +46,9 @@ const betaChecklist: MilestoneChecklistItem[] = [
 	{ status: 'in-progress', description: 'Giant object grid' },
 	{ status: 'in-progress', description: 'Airship Levels' },
 	{ status: 'not-started', description: 'All entities are fully configurable' },
-	{ status: 'not-started', description: 'Level file format is finalized' },
-	{ status: 'not-started', description: 'Autoscroll rooms' },
-	{ status: 'not-started', description: 'Object priorities' },
+	{ status: 'in-progress', description: 'Level file format is finalized' },
+	{ status: 'in-progress', description: 'Autoscroll rooms' },
+	{ status: 'in-progress', description: 'Object priorities' },
 	{ status: 'not-started', description: 'Wrap-around rooms' },
 	{ status: 'not-started', description: 'Adjustable camera' },
 	{ status: 'not-started', description: 'Configurable controls' },
