@@ -9,15 +9,49 @@ import { Resizer } from '../components/Resizer';
 import styles from '../components/Resizer/ResizingStyles.module.css';
 import { HammerButton } from './detailPanes/HammerButton';
 
-const directions = ['left', 'right'] as const;
-type Direction = typeof directions[number];
+const orientations = [
+	'up-left',
+	'up-right',
+	'down-left',
+	'down-right',
+] as const;
+type Orientation = typeof orientations[number];
 
-const directionToBurnerId: Record<Direction, number> = {
-	left: 0xac,
-	right: 0xb1,
+const orientationToObjectId: Record<Orientation, number> = {
+	'up-left': 0x20,
+	'up-right': 0x20,
+	'down-left': 0x6e,
+	'down-right': 0x6e,
 };
 
-// TODO: this is 99% the same as BillBlaster, consolidate somehow
+const orientationToBurnerId: Record<Orientation, number> = {
+	'up-left': 0xac,
+	'down-left': 0xac,
+	'up-right': 0xb1,
+	'down-right': 0xb1,
+};
+
+const orientationToFlameLeft: Record<Orientation, number> = {
+	'up-left': -TILE_SIZE * 3,
+	'up-right': TILE_SIZE,
+	'down-right': -TILE_SIZE * 3,
+	'down-left': TILE_SIZE,
+};
+
+// originally these only had direction: left | right
+// this function translates to the new orientation
+function getOrientation(settings: EditorEntitySettings): Orientation {
+	if (settings.orientation) {
+		return settings.orientation;
+	} else if (settings.direction === 'left') {
+		return 'up-left';
+	} else if (settings.direction === 'right') {
+		return 'up-right';
+	}
+
+	return 'up-left';
+}
+
 const BillBlasterBurner: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
@@ -35,7 +69,7 @@ const BillBlasterBurner: Entity = {
 	param1: 'height',
 	dimensions: 'none',
 	settingsType: 'single',
-	defaultSettings: { height: 2, direction: 'left' },
+	defaultSettings: { height: 2, orientation: 'up-left' },
 
 	resources: {
 		BillBlasterBurnerFlame: {
@@ -68,17 +102,23 @@ const BillBlasterBurner: Entity = {
 	},
 
 	toSpriteBinary({ x, y, settings }) {
-		const direction = (settings.direction ??
-			this.defaultSettings!.direction) as Direction;
-		const objectId = directionToBurnerId[direction];
-		const xOffset = direction === 'left' ? -3 : 1;
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const orientation = getOrientation(settings);
 
-		return [0, objectId, x + xOffset, y];
+		const objectId = orientationToBurnerId[orientation];
+		const xOffset = orientation.endsWith('left') ? -3 : 1;
+		const yOffset = orientation.startsWith('down') ? height - 1 : 0;
+
+		return [0, objectId, x + xOffset, y + yOffset];
 	},
 
 	toObjectBinary({ x, y, settings }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
-		return [getBankParam1(1, height - 1), y, x, this.objectId];
+		const orientation = getOrientation(settings);
+
+		const objectId = orientationToObjectId[orientation];
+
+		return [getBankParam1(1, height - 1), y, x, objectId];
 	},
 
 	simpleRender(size) {
@@ -104,8 +144,7 @@ const BillBlasterBurner: Entity = {
 	},
 
 	render({ settings, onSettingsChange, entity }) {
-		const direction = (settings.direction ??
-			this.defaultSettings!.direction) as Direction;
+		const orientation = getOrientation(settings);
 
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 
@@ -137,7 +176,7 @@ const BillBlasterBurner: Entity = {
 		const flameStyle = {
 			width: TILE_SIZE * 3,
 			height: TILE_SIZE,
-			left: direction === 'left' ? -TILE_SIZE * 3 : TILE_SIZE,
+			left: orientationToFlameLeft[orientation],
 		};
 
 		const flame = (
@@ -146,7 +185,8 @@ const BillBlasterBurner: Entity = {
 				className={clsx(
 					'absolute BillBlasterBurnerFlame-bg bg-cover opacity-30',
 					{
-						'transform rotate-180': direction === 'right',
+						'transform rotate-180':
+							orientation === 'up-right' || orientation === 'down-left',
 					}
 				)}
 			/>
@@ -162,17 +202,23 @@ const BillBlasterBurner: Entity = {
 				{!!entity && (
 					<HammerButton
 						style={{ height: TILE_SIZE }}
-						currentValue={direction}
-						values={directions}
-						onNewValue={(newDirection) => {
-							onSettingsChange({ direction: newDirection });
+						currentValue={orientation}
+						values={orientations}
+						onNewValue={(newOrientation) => {
+							onSettingsChange({ orientation: newOrientation });
 						}}
 					/>
 				)}
-				{barrel}
-				{neck}
-				{body}
-				{flame}
+				<div
+					className={clsx('relative flex flex-col', {
+						'transform rotate-180': orientation.startsWith('down'),
+					})}
+				>
+					{barrel}
+					{neck}
+					{body}
+					{flame}
+				</div>
 				{!!entity && (
 					<Resizer
 						className="absolute bottom-0 right-0"
