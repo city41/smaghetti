@@ -9,7 +9,7 @@ import { extractCompressedTilesFromRom } from '../../tiles/extractCompressedTile
 import { getRom } from '../FileLoader/files';
 import { inGameLevels } from '../hex-tree/inGameLevels';
 import { ROM_SIZE } from './constants';
-import { RomSection } from './types';
+import { CompressedTilesRomSection, RomSection } from './types';
 
 type RomLayoutState = {
 	sections: RomSection[];
@@ -54,13 +54,17 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch) => {
 
 	const tilePages = extractCompressedTilesFromRom(rom);
 
-	const compressedTileSections: RomSection[] = tilePages.map((tp) => {
-		return {
-			size: tp.compressedLength,
-			start: tp.address,
-			type: 'compressed-tiles',
-		};
-	});
+	const compressedTileSections: CompressedTilesRomSection[] = tilePages.map(
+		(tp) => {
+			return {
+				label: `${tp.tiles.length} tiles`,
+				size: tp.compressedLength,
+				start: tp.address,
+				type: 'compressed-tiles',
+				page: tp,
+			};
+		}
+	);
 
 	const levelSections = inGameLevels.reduce<RomSection[]>((building, igl) => {
 		const sections = [];
@@ -85,7 +89,9 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch) => {
 		return building.concat(sections);
 	}, []);
 
-	const allSections = compressedTileSections.concat(levelSections);
+	const allSections: RomSection[] = (compressedTileSections as RomSection[]).concat(
+		levelSections
+	);
 
 	dispatch(romLayoutSlice.actions.setSections(allSections.sort(sortByStart)));
 };
