@@ -69,7 +69,6 @@ const WoodFloor: Entity = {
 	},
 
 	parseObject(data, offset) {
-		debugger;
 		return parseCellObjectsParam1HeightParam2Width(data, offset, this);
 	},
 

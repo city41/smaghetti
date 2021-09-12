@@ -13,12 +13,14 @@ type LevelObjectsPreviewProps = {
 
 const entityDefs = Object.values(entityMap);
 
-function memoize(method: Function) {
-	let cache: Record<string, any> = {};
+function memoize(
+	method: (start: number, end: number) => Promise<NewEditorEntity[]>
+) {
+	const cache: Record<string, Promise<NewEditorEntity[]>> = {};
 
-	return async function (...args: any[]) {
-		let argString = JSON.stringify(args);
-		cache[argString] = cache[argString] || method.apply(undefined, args);
+	return async function (...args: [number, number]) {
+		const argString = JSON.stringify(args);
+		cache[argString] = cache[argString] || method(...args);
 		return cache[argString];
 	};
 }
@@ -58,7 +60,11 @@ const parseObjects = memoize(async function _parseObjects(
 
 		if (parseResult) {
 			offset = parseResult.offset;
-			entities.push(parseResult.entities[0]);
+			const newEntity = parseResult.entities[0];
+
+			if (newEntity && entities.every((e) => e.type !== newEntity.type)) {
+				entities.push(newEntity);
+			}
 		} else {
 			const fourResult = await parseObjects(offset + 4, end);
 			const fiveResult = await parseObjects(offset + 5, end);
