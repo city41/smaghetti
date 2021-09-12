@@ -3,7 +3,8 @@ import type { Entity } from '../types';
 import {
 	encodeObjectSets,
 	getBankParam1,
-	parsePotentialPayloadObject,
+	parseCellObjectsParam1Width,
+	parsePayloadObject,
 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { PayloadViewDetails } from '../detailPanes/PayloadViewDetails';
@@ -99,13 +100,12 @@ const QuestionBlock: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parsePotentialPayloadObject(
-			data,
-			offset,
-			0,
-			objectIdToPayload,
-			this
-		);
+		// no payload? it's a strip of question blocks
+		if (data[offset] >= 0x40 && data[offset + 3] === this.objectId) {
+			return parseCellObjectsParam1Width(data, offset, this);
+		} else {
+			return parsePayloadObject(data, offset, 0, objectIdToPayload, this);
+		}
 	},
 
 	simpleRender(size) {

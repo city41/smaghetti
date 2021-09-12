@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import {
 	encodeObjectSets,
 	getBankParam1,
-	parseCellObjectsParam1HeightParam2Width,
+	parseParam1HeightParam2WidthEntityObject,
 } from './util';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
@@ -69,7 +69,7 @@ const WoodFloor: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseCellObjectsParam1HeightParam2Width(data, offset, this);
+		return parseParam1HeightParam2WidthEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {

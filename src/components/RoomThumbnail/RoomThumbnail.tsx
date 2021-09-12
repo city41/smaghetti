@@ -17,6 +17,7 @@ type RoomThumbnailProps = {
 	children?: ReactNode;
 	prioritizeObjects?: boolean;
 	showPlayer?: boolean;
+	showEntireEntityRender?: boolean;
 };
 
 type MatrixRowProps = {
@@ -163,6 +164,7 @@ const RoomThumbnail = React.memo(function RoomThumbnail({
 	children,
 	prioritizeObjects,
 	showPlayer,
+	showEntireEntityRender,
 }: RoomThumbnailProps) {
 	const canvasWidth = widthInTiles * TILE_SIZE;
 	const canvasHeight = heightInTiles * TILE_SIZE;
@@ -229,11 +231,9 @@ const RoomThumbnail = React.memo(function RoomThumbnail({
 	return (
 		<div
 			style={{ width: outerWidth, height: outerHeight }}
-			className={clsx(
-				className,
-				styles.root,
-				'overflow-hidden pointer-events-none'
-			)}
+			className={clsx(className, 'overflow-hidden pointer-events-none', {
+				[styles.doHide]: !showEntireEntityRender,
+			})}
 		>
 			<div
 				className="relative"

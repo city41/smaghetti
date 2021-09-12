@@ -3,8 +3,11 @@ import { Button } from '../../Button';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { RomSection, RomSectionType } from '../types';
 import { CompressedTilesPreview } from './CompressedTilesPreview';
+import { CompressedTilesDetails } from './CompressedTilesDetails';
 import { LevelObjectsPreview } from './LevelObjectsPreview';
+import { LevelObjectsDetails } from './LevelObjectsDetails';
 import { LevelSpritesPreview } from './LevelSpritesPreview';
+import { LevelSpritesDetails } from './LevelSpritesDetails';
 
 import styles from './RomLayoutPage.module.css';
 import { SectionPercentage } from './SectionPercentage';
@@ -14,7 +17,22 @@ type RomLayoutPageProps = {
 	sections: RomSection[];
 };
 
+function Details({ section }: { section: RomSection }) {
+	switch (section.type) {
+		case 'compressed-tiles':
+			return <CompressedTilesDetails page={section.page} />;
+		case 'level-sprites':
+			return <LevelSpritesDetails offset={section.start} />;
+		case 'level-objects':
+			return <LevelObjectsDetails offset={section.start} size={section.size} />;
+		default:
+			return <>details</>;
+	}
+}
+
 function RomSectionCmp({ section }: { section: RomSection }) {
+	const [showDetails, setShowDetails] = useState(false);
+
 	let preview;
 
 	switch (section.type) {
@@ -34,24 +52,40 @@ function RomSectionCmp({ section }: { section: RomSection }) {
 	}
 
 	return (
-		<tr className={section.type}>
-			<td>0x{section.start.toString(16)}</td>
-			<td>0x{section.size.toString(16)}</td>
-			<td>{section.type}</td>
-			<td>{section.label}</td>
-			<td>{preview}</td>
-		</tr>
+		<>
+			<tr className={section.type}>
+				<td>
+					<Button onClick={() => setShowDetails((d) => !d)}>
+						{showDetails ? '-' : '+'}
+					</Button>
+				</td>
+				<td>0x{section.start.toString(16)}</td>
+				<td>0x{section.size.toString(16)}</td>
+				<td>{section.type}</td>
+				<td>{section.label}</td>
+				<td>{preview}</td>
+			</tr>
+			{showDetails && (
+				<tr>
+					<td colSpan={6}>
+						<Details section={section} />
+					</td>
+				</tr>
+			)}
+		</>
 	);
 }
 
+const sectionTypes: RomSectionType[] = [
+	'compressed-tiles',
+	'level-objects',
+	'level-sprites',
+];
+
 function RomLayoutPage({ allFilesReady, sections }: RomLayoutPageProps) {
-	const [hideSections, setHideSections] = useState<
-		Record<RomSectionType, boolean>
-	>({
-		'compressed-tiles': false,
-		'level-objects': false,
-		'level-sprites': false,
-	});
+	const [sectionToShow, setSectionToShow] = useState<RomSectionType | null>(
+		null
+	);
 
 	return (
 		<>
@@ -62,28 +96,29 @@ function RomLayoutPage({ allFilesReady, sections }: RomLayoutPageProps) {
 					This page shows where things are inside the game ROM. It is a work in
 					progress.
 				</p>
+				<p className="bg-red-700 text-white p-2 my-4">
+					Most level-objects detail views (click the plus sign on a row) are
+					currently totally wrong. Try 1-1 for a somewhat decent one.
+				</p>
 
 				<SectionPercentage />
 				<div className="flex flex-row justify-center gap-x-2 my-8">
-					{(Object.keys(hideSections) as RomSectionType[]).map((hs) => (
+					{sectionTypes.map((s) => (
 						<Button
-							key={hs}
+							key={s}
 							onClick={() => {
-								setHideSections((hide) => {
-									return {
-										...hide,
-										[hs]: !hide[hs],
-									};
-								});
+								setSectionToShow(s);
 							}}
 						>
-							{hideSections[hs] ? 'show' : 'hide'} {hs}
+							{s}
 						</Button>
 					))}
+					<Button onClick={() => setSectionToShow(null)}>all</Button>
 				</div>
 				<table className={styles.table}>
 					<thead>
 						<tr>
+							<th />
 							<th>offset</th>
 							<th>size</th>
 							<th>type</th>
@@ -93,7 +128,7 @@ function RomLayoutPage({ allFilesReady, sections }: RomLayoutPageProps) {
 					</thead>
 					<tbody>
 						{sections.map((s, i) => {
-							if (hideSections[s.type]) {
+							if (sectionToShow && sectionToShow !== s.type) {
 								return null;
 							} else {
 								return <RomSectionCmp key={`${i}-${s.start}`} section={s} />;

@@ -1,5 +1,6 @@
 .table td {
 	@apply py-1 px-4 border border-gray-500;
+	max-width: 75vw;
 }
 
 .table :global(tr.compressed-tiles) {

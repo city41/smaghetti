@@ -1,5 +1,5 @@
-.root :global(.thumbnail-hide),
-.root svg,
-.root button {
+.doHide :global(.thumbnail-hide),
+.doHide svg,
+.doHide button {
 	display: none !important;
 }

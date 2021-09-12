@@ -82,13 +82,17 @@ const parseObjects = memoize(async function _parseObjects(
 
 function LevelObjectsPreview({ offset, size }: LevelObjectsPreviewProps) {
 	const [loading, setLoading] = useState(true);
+	// const [loading, setLoading] = useState(offset === 0x1408d6);
+
 	const [entities, setEntities] = useState<NewEditorEntity[]>([]);
 
 	useEffect(() => {
+		// if (offset === 0x1408d6) {
 		parseObjects(offset, offset + size).then((parsedEntities) => {
 			setEntities(parsedEntities);
 			setLoading(false);
 		});
+		// }
 	}, []);
 
 	let body;

@@ -243,13 +243,14 @@ export function parseSimpleObject(
 	if (data[offset] === bankByte && data[offset + 3] === target.objectId) {
 		const x = data[offset + 2];
 		const y = data[offset + 1];
+		const multiplier = target.editorType === 'cell' ? 1 : TILE_SIZE;
 
 		return {
 			entities: [
 				{
 					type: getType(target),
-					x,
-					y,
+					x: x * multiplier,
+					y: y * multiplier,
 				},
 			],
 			offset: offset + 4,
@@ -299,8 +300,8 @@ export function parseParam1WidthEntityObject(
 			entities: [
 				{
 					type: getType(target),
-					x,
-					y,
+					x: x * TILE_SIZE,
+					y: y * TILE_SIZE,
 					settings: {
 						width: width + 1,
 					},
@@ -326,8 +327,8 @@ export function parseParam1WidthParam2HeightEntityObject(
 			entities: [
 				{
 					type: getType(target),
-					x,
-					y,
+					x: x * TILE_SIZE,
+					y: y * TILE_SIZE,
 					settings: {
 						width: width + 1,
 						height: height + 1,
@@ -354,11 +355,11 @@ export function parseParam1HeightParam2WidthEntityObject(
 			entities: [
 				{
 					type: getType(target),
-					x,
-					y,
+					x: x * TILE_SIZE,
+					y: y * TILE_SIZE,
 					settings: {
-						width: height + 1,
-						height: width + 1,
+						width: width + 1,
+						height: height + 1,
 					},
 				},
 			],
@@ -384,8 +385,8 @@ export function parseKoopalingSprite(
 			return {
 				entity: {
 					type: getType(target),
-					x,
-					y,
+					x: x * TILE_SIZE,
+					y: y * TILE_SIZE,
 					settings: {
 						fireballCount,
 						stompCount,
@@ -441,13 +442,14 @@ export function parsePayloadObject(
 	) {
 		const y = data[offset + 1];
 		const x = data[offset + 2];
+		const multiplier = target.editorType === 'cell' ? 1 : TILE_SIZE;
 
 		return {
 			entities: [
 				{
 					type: getType(target),
-					x,
-					y,
+					x: x * multiplier,
+					y: y * multiplier,
 					settings: {
 						payload: objectIdToPayload[objectId],
 					},
