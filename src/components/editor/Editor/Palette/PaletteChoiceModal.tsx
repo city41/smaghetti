@@ -180,9 +180,9 @@ function UnfinishedDisclaimer() {
 					className="text-blue-700"
 					target="_blank"
 					rel="noreferrer"
-					href="https://reddit.com/r/smaghetti"
+					href="https://discord.gg/wBVE4yyWhM"
 				>
-					Reddit
+					Discord
 				</a>
 				,{' '}
 				<a

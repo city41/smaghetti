@@ -39,9 +39,9 @@ function HelpPage() {
 						className="text-green-200 underline"
 						target="_blank"
 						rel="noreferrer"
-						href="https://reddit.com/r/smaghetti"
+						href="https://discord.gg/wBVE4yyWhM"
 					>
-						Reddit
+						Discord
 					</a>{' '}
 					or{' '}
 					<a
@@ -83,9 +83,9 @@ function HelpPage() {
 							className="text-blue-300"
 							target="_blank"
 							rel="noreferrer"
-							href="https://reddit.com/r/smaghetti"
+							href="https://discord.gg/wBVE4yyWhM"
 						>
-							Reddit
+							Discord
 						</a>{' '}
 						or{' '}
 						<a
@@ -122,9 +122,9 @@ function HelpPage() {
 							className="text-blue-300"
 							target="_blank"
 							rel="noreferrer"
-							href="https://reddit.com/r/smaghetti"
+							href="https://discord.gg/wBVE4yyWhM"
 						>
-							Reddit
+							Discord
 						</a>{' '}
 						or{' '}
 						<a
