@@ -49,6 +49,7 @@ import { GrassHorizontalDirt } from './GrassHorizontalDirt';
 import { GrassSlope30DegUpRight } from './GrassSlope30DegUpRight';
 import { GrassStaircaseUpLeft } from './GrassStaircaseUpLeft';
 import { GrassStaircaseUpRight } from './GrassStaircaseUpRight';
+import { GreenMountainsBackground } from './GreenMountainsBackground';
 import { HammerBroSuit } from './HammerBroSuit';
 import { HillsAtNightBackground } from './HillsAtNightBackground';
 import { HoppingBowserStatueBody } from './HoppingBowserStatueBody';
@@ -177,6 +178,7 @@ const resourceMap = {
 	GrassSlope30DegUpRight,
 	GrassStaircaseUpLeft,
 	GrassStaircaseUpRight,
+	GreenMountainsBackground,
 	HammerBroSuit,
 	GreenCheepCheep,
 	GreenSpinyEgg,

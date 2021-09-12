@@ -69,7 +69,8 @@ type BackgroundGraphic =
 	| 'mountains'
 	| 'waterfalls'
 	| 'bowser-castle'
-	| 'pipes';
+	| 'pipes'
+	| 'green-mountains';
 
 type BackgroundExtraColorAndEffect =
 	| 'none'

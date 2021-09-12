@@ -83,6 +83,20 @@ function Plains() {
 	);
 }
 
+function GreenMountains() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#84adff' }}
+		>
+			<div
+				className="GreenMountainsBackground-bg w-full bg-repeat-x"
+				style={{ height: 176 }}
+			/>
+		</div>
+	);
+}
+
 function Desert() {
 	return (
 		<div
@@ -251,6 +265,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.waterfalls]: <Waterfalls />,
 	[BACKGROUND_GRAPHIC_VALUES['bowser-castle']]: <BowserCastle />,
 	[BACKGROUND_GRAPHIC_VALUES.pipes]: <Pipes />,
+	[BACKGROUND_GRAPHIC_VALUES['green-mountains']]: <GreenMountains />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

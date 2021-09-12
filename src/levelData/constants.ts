@@ -71,6 +71,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	waterfalls: 0x16,
 	'bowser-castle': 0x1b,
 	pipes: 0x35,
+	'green-mountains': 0xc,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -209,5 +210,10 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.pipes,
 		bgColor: 0x0,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'green-mountains': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['green-mountains'],
+		bgColor: 0x4,
+		bgExtraColorAndEffect: 0,
 	},
 };

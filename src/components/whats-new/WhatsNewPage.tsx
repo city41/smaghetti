@@ -86,6 +86,15 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Backgrounds" date="2021-09-12">
+					<ul>
+						<li>Green Mountains</li>
+					</ul>
+					<p>
+						There are supposed to be clouds that go with these mountains. But so
+						far they are proving elusive. So for now at least, some mountains.
+					</p>
+				</NewEntry>
 				<NewEntry title="New/Changed Entities" date="2021-09-11">
 					<ul>
 						<li>Bill Blaster Burner: can now be turned upside down</li>

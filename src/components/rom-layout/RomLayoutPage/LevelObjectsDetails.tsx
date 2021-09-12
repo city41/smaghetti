@@ -124,11 +124,11 @@ function LevelObjectsDetails({ offset, size }: LevelObjectsDetailsProps) {
 
 	let body;
 
-	const rom = getRom()!;
-
 	if (loading) {
 		body = <PlainIconButton loading icon={AiFillSave} label="loading" />;
 	} else {
+		const rom = getRom()!;
+
 		const topY = getDim(entities, 'y', Math.min, Number.MAX_SAFE_INTEGER);
 		const bottomY = getDim(entities, 'y', Math.max, Number.MIN_SAFE_INTEGER);
 		const leftX = getDim(entities, 'x', Math.min, Number.MAX_SAFE_INTEGER);
@@ -155,8 +155,17 @@ function LevelObjectsDetails({ offset, size }: LevelObjectsDetailsProps) {
 			},
 		};
 
+		const headerBytes = Array.from(rom.slice(offset - 15, offset))
+			.map((b) => b.toString(16))
+			.join(' ');
+		const levelBytes = Array.from(rom.slice(offset, offset + size))
+			.map((b) => b.toString(16))
+			.join(' ');
+
 		body = (
 			<div className="w-full overflow-auto">
+				<div className="my-2 bg-gray-600 text-white">{headerBytes}</div>
+				<div className="my-2 bg-gray-600 text-white">{levelBytes}</div>
 				<RoomThumbnail
 					className="bg-gray-600"
 					upperLeftTile={{ x: leftX, y: topY }}
