@@ -116,7 +116,7 @@ The following data can be found under these RAM offsets in the VBA:
 |     `D` | Map length, a nibble corresponds to a block of 256px, i.e. 0 = 256px, 1 = 512px etc ... |
 |    `EE` | Start position X                                                                        |
 |     `F` | Scroll type                                                                             |
-|     `G` | Object set of the next area                                                             |
+|     `G` | Object set of this area                                                                 |
 |    `HH` | GFX                                                                                     |
 |     `I` | Object set of the next area                                                             |
 |     `J` | Music                                                                                   |
