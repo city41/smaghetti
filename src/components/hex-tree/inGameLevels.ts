@@ -20,7 +20,6 @@ const potentialSpriteStarts = [
 	// 0x1575b7,
 	0x1575ce,
 	// 0x157646,
-	0x157711,
 	// 0x15784b,
 	0x15789b,
 	0x1578c7,
@@ -380,6 +379,11 @@ const inGameLevels: InGameLevel[] = [
 		name: '3-2castle: room 2 (stretch boos)',
 
 		sprites: 0x158f23,
+	},
+	{
+		name: '3-7',
+
+		sprites: 0x157711,
 	},
 	{
 		name: 'hammer bros fight',

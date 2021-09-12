@@ -109,11 +109,17 @@ function RomLayoutPage({ allFilesReady, sections }: RomLayoutPageProps) {
 							onClick={() => {
 								setSectionToShow(s);
 							}}
+							disabled={s === sectionToShow}
 						>
 							{s}
 						</Button>
 					))}
-					<Button onClick={() => setSectionToShow(null)}>all</Button>
+					<Button
+						disabled={sectionToShow === null}
+						onClick={() => setSectionToShow(null)}
+					>
+						all
+					</Button>
 				</div>
 				<table className={styles.table}>
 					<thead>
