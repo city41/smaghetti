@@ -12,7 +12,7 @@ function SectionPercentage({ sections, rom }: SectionPercentageProps) {
 
 	return (
 		<div className="p-4 text-center">
-			{((sections / rom) * 100).toFixed(2)}% of ROM classified
+			{((sections / rom) * 100).toFixed(2)}% of ROM categorized
 		</div>
 	);
 }

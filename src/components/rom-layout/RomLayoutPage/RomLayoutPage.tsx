@@ -58,6 +58,11 @@ function RomLayoutPage({ allFilesReady, sections }: RomLayoutPageProps) {
 			<FileLoaderModal isOpen={!allFilesReady} />
 
 			<div className="max-w-2xl mx-auto my-16">
+				<p className="bg-green-700 text-white p-2">
+					This page shows where things are inside the game ROM. It is a work in
+					progress.
+				</p>
+
 				<SectionPercentage />
 				<div className="flex flex-row justify-center gap-x-2 my-8">
 					{(Object.keys(hideSections) as RomSectionType[]).map((hs) => (
