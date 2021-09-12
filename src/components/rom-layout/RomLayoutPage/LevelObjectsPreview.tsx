@@ -1,34 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { AiFillSave } from 'react-icons/ai';
 import { ANY_OBJECT_SET } from '../../../entities/constants';
 import { entityMap } from '../../../entities/entityMap';
 import { decodeObjectSet } from '../../../entities/util';
 import { getRom } from '../../FileLoader/files';
+import { PlainIconButton } from '../../PlainIconButton';
 
 type LevelObjectsPreviewProps = {
 	offset: number;
+	size: number;
 };
 
 const entityDefs = Object.values(entityMap);
 
-function parseObjects(offset: number): NewEditorEntity[] {
+function memoize(method: Function) {
+	let cache: Record<string, any> = {};
+
+	return async function (...args: any[]) {
+		let argString = JSON.stringify(args);
+		cache[argString] = cache[argString] || method.apply(undefined, args);
+		return cache[argString];
+	};
+}
+
+function wait(millis: number): Promise<void> {
+	return new Promise((resolve) => setTimeout(resolve, millis));
+}
+
+const parseObjects = memoize(async function _parseObjects(
+	start: number,
+	end: number
+): Promise<NewEditorEntity[]> {
+	await wait(2);
 	const rom = getRom()!;
 
 	const entities: NewEditorEntity[] = [];
 
-	const objectSet = rom[offset - 9] & 0xf;
+	const objectSet = rom[start - 9] & 0xf;
 
-	while (offset < rom.length && rom[offset] !== 0xff && entities.length < 5) {
+	let offset = start;
+	while (offset < end && rom[offset] !== 0xff && entities.length < 5) {
 		let parseResult;
 
 		for (let i = 0; i < entityDefs.length && !parseResult; ++i) {
 			const entityDef = entityDefs[i];
 
 			if (
+				entityDef.parseObject &&
 				(entityDef.objectSets === ANY_OBJECT_SET ||
 					entityDef.objectSets.some(
 						(os) => decodeObjectSet(os)[0] === objectSet
-					)) &&
-				entityDef.parseObject
+					))
 			) {
 				parseResult = entityDef.parseObject(rom, offset);
 			}
@@ -38,22 +60,42 @@ function parseObjects(offset: number): NewEditorEntity[] {
 			offset = parseResult.offset;
 			entities.push(parseResult.entities[0]);
 		} else {
-			++offset;
+			const fourResult = await parseObjects(offset + 4, end);
+			const fiveResult = await parseObjects(offset + 5, end);
+
+			if (fourResult.length > fiveResult.length) {
+				offset += 4;
+			} else {
+				offset += 5;
+			}
 		}
 	}
 
 	return entities;
-}
+});
 
-function LevelObjectsPreview({ offset }: LevelObjectsPreviewProps) {
-	// const entities = offset === 0x1408d6 ? parseObjects(offset) : [];
-	const entities = parseObjects(offset);
+function LevelObjectsPreview({ offset, size }: LevelObjectsPreviewProps) {
+	const [loading, setLoading] = useState(true);
+	const [entities, setEntities] = useState<NewEditorEntity[]>([]);
 
-	const entityCmps = entities.map((e, i) => {
-		return <div key={i}>{entityMap[e.type].simpleRender(40)}</div>;
-	});
+	useEffect(() => {
+		parseObjects(offset, offset + size).then((parsedEntities) => {
+			setEntities(parsedEntities);
+			setLoading(false);
+		});
+	}, []);
 
-	return <div className="flex flex-row gap-x-2">{entityCmps}</div>;
+	let body;
+
+	if (loading) {
+		body = <PlainIconButton loading icon={AiFillSave} label="loading" />;
+	} else {
+		body = entities.map((e, i) => {
+			return <div key={i}>{entityMap[e.type].simpleRender(40)}</div>;
+		});
+	}
+
+	return <div className="flex flex-row gap-x-2">{body}</div>;
 }
 
 export { LevelObjectsPreview };

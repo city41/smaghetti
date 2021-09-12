@@ -25,7 +25,9 @@ function RomSectionCmp({ section }: { section: RomSection }) {
 			preview = <LevelSpritesPreview offset={section.start} />;
 			break;
 		case 'level-objects':
-			preview = <LevelObjectsPreview offset={section.start} />;
+			preview = (
+				<LevelObjectsPreview offset={section.start} size={section.size} />
+			);
 			break;
 		default:
 			preview = '-';
