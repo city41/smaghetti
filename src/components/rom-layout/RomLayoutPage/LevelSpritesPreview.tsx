@@ -24,7 +24,11 @@ function parseSprites(offset: number): NewEditorEntity[] {
 
 		if (parseResult) {
 			offset = parseResult.offset;
-			entities.push(parseResult.entity);
+			const newEntity = parseResult.entity;
+
+			if (newEntity && entities.every((e) => e.type !== newEntity.type)) {
+				entities.push(parseResult.entity);
+			}
 		} else {
 			++offset;
 		}
