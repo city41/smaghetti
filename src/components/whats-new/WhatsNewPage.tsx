@@ -86,6 +86,15 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Changed Entities" date="2021-09-13">
+					<ul>
+						<li>Bolt Head: Can now face up</li>
+					</ul>
+					<p>
+						I don&apos;t think Nintendo made Bolt Heads in the other directions
+						(left and down)
+					</p>
+				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-09-12">
 					<ul>
 						<li>Green Mountains</li>
