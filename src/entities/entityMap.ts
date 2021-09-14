@@ -290,6 +290,7 @@ import { SpinyCheepCheepGenerator } from './SpinyCheepCheepGenerator';
 import { SpringBoard } from './SpringBoard';
 import { Stalactite } from './Stalactite';
 import { StalactiteFalling } from './StalactiteFalling';
+import { StalactiteSingle } from './StalactiteSingle';
 import { StarMan } from './StarMan';
 import { StoneFloor } from './StoneFloor';
 import { StonePlateau } from './StonePlateau';
@@ -628,6 +629,7 @@ const entityMap = {
 	SpringBoard,
 	Stalactite,
 	StalactiteFalling,
+	StalactiteSingle,
 	StarMan,
 	StoneFloor,
 	StonePlateau,

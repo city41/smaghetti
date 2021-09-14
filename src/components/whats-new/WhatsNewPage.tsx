@@ -89,6 +89,7 @@ function WhatsNewPage() {
 				<NewEntry title="Changed Entities" date="2021-09-13">
 					<ul>
 						<li>Bolt Head: Can now face up</li>
+						<li>Stalactite - Single</li>
 					</ul>
 					<p>
 						I don&apos;t think Nintendo made Bolt Heads in the other directions
