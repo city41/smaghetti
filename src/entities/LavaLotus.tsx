@@ -18,6 +18,8 @@ const LavaLotus: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x67,
+	width: 1,
+	height: 2,
 
 	resource: {
 		romOffset: 0x167674,
