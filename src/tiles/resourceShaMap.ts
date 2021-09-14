@@ -235,6 +235,8 @@ export const resourceShaMap: Record<string, string> = {
   "PlatformPulley": "d68d2c43f1aceee2109250b156ea41f6eedc0298",
   "PlatformPulleyRopeHorizontal": "cec9a29b1515f6862c8d202328757e1574a3de19",
   "PlatformPulleyRopeVertical": "d80a7578773e7e5e8930227fef814057c419d290",
+  "PlatformRopeSupportAttach": "56086e46cd35605d75f9d6cdc5b986fe8f3f79d3",
+  "PlatformRopeSupportRope": "ef87eded530caeb4bc545a1fcbf9c5d9c6054d6a",
   "FloatingPlatformLeftEnd": "ad08e5c8feccd15145742035dca9f8bd0eb607d6",
   "FloatingPlatformCenter": "25f1aa64cb4fb19a7f3d54169fbbb30e4619e4ae",
   "FloatingPlatformRightEnd": "39a9728551067c774974cf512f1fb5838cbff30d",

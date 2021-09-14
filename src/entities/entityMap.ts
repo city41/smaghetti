@@ -242,6 +242,7 @@ import { PiranhaPlantRedUpsideDownShort } from './PiranhaPlantRedUpsideDownShort
 import { PlatformBlueWhiteCheckered } from './PlatformBlueWhiteCheckered';
 import { PlatformLeftRight } from './PlatformLeftRight';
 import { PlatformPullied } from './PlatformPullied';
+import { PlatformRopeSupport } from './PlatformRopeSupport';
 import { PlatformStatic } from './PlatformStatic';
 import { PlatformUpDown } from './PlatformUpDown';
 import { PlatformWoodLeftRight } from './PlatformWoodLeftRight';
@@ -581,6 +582,7 @@ const entityMap = {
 	PlatformBlueWhiteCheckered,
 	PlatformLeftRight,
 	PlatformPullied,
+	PlatformRopeSupport,
 	PlatformStatic,
 	PlatformUpDown,
 	PlatformWoodLeftRight,
