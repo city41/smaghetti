@@ -27,12 +27,12 @@ function AboutPage() {
 						Super Mario Advance 4 is the Game Boy Advance version of Super Mario
 						Bros 3. It&apos;s a somewhat strange version of the game. It uses
 						the graphics from the Super Mario All Stars version of SMB3 from the
-						SNES. The playfield is cramped due to the GBA&apos;s lower
-						resolution. They added voices for Mario and Luigi that most people
-						find annoying (myself included). It has low quality, scratchy audio
-						that is a common plague of GBA games. So in a few key ways,
-						it&apos;s not a great way to play SMB3. But there&apos;s more to
-						consider.
+						SNES but with various fixes and enhancements. The playfield is
+						cramped due to the GBA&apos;s lower resolution. They added voices
+						for Mario and Luigi that most people find annoying (myself
+						included). It has low quality, scratchy audio that is a common
+						plague of GBA games. So in a few key ways, it&apos;s not a great way
+						to play SMB3. But there&apos;s more to consider.
 					</p>
 					<figure>
 						<img
@@ -178,13 +178,11 @@ function AboutPage() {
 					<h2>Going forward</h2>
 					<p>
 						Smaghetti is far from done (checkout the{' '}
-						<a href="/roadmap">roadmap</a> for an overview). I am planning to
-						add the ability to print your own e-reader cards from levels you
-						create. You could swipe it in a real E-Reader just like an official
-						card. I am also planning to expand Smaghetti to support the All
-						Stars version of SMB3 to address the pesky screen size problem. But
-						both of these ideas are a long, long ways off. Who knows if they
-						will ever come to be ...
+						<a href="/roadmap">roadmap</a> for an overview). I have a lot of big
+						ideas for it, such as supporting Super Mario All-Stars on the SNES,
+						building entire games rather than just E-Reader levels and more.
+						Can&apos;t promise any of these things will actually happen, but who
+						knows, let&apos;s see where this all goes...
 					</p>
 				</div>
 			</div>
