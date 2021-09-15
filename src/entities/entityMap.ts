@@ -246,6 +246,7 @@ import { PlatformRopeSupport } from './PlatformRopeSupport';
 import { PlatformStatic } from './PlatformStatic';
 import { PlatformUpDown } from './PlatformUpDown';
 import { PlatformWoodLeftRight } from './PlatformWoodLeftRight';
+import { PlatformWoodMoveRightOnTouch } from './PlatformWoodMoveRightOnTouch';
 import { PlatformWoodUpDown } from './PlatformWoodUpDown';
 import { PlatformWrapAround } from './PlatformWrapAround';
 import { Player } from './Player';
@@ -586,6 +587,7 @@ const entityMap = {
 	PlatformStatic,
 	PlatformUpDown,
 	PlatformWoodLeftRight,
+	PlatformWoodMoveRightOnTouch,
 	PlatformWoodUpDown,
 	PlatformWrapAround,
 	Player,
