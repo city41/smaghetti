@@ -10,7 +10,7 @@ const PlatformWoodMoveLeftFallOnTouch: Entity = {
 	paletteCategory: 'gizmo',
 	paletteInfo: {
 		subCategory: 'gizmo-platform',
-		title: 'Platform - Wood, Move Left, Fall on Touch',
+		title: 'Platform - Wood, Moves Left, Fall on Touch',
 		description: 'Moves left, once Mario lands on it, it falls',
 	},
 
