@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 import { convertCharacterToASCII } from '../../../levelData/util';
 import {
+	ROOM_BLOCKPATH_POINTERS,
 	ROOM_OBJECT_HEADER_SIZE_IN_BYTES,
 	ROOM_OBJECT_POINTERS,
 	ROOM_SPRITE_POINTERS,
@@ -30,6 +31,7 @@ const categoryClasses = {
 	'sprite-ptr': 'bg-green-300 text-green-900',
 	'sprite-data': 'bg-green-300 text-green-900',
 	'blockpath-movement-ptr': 'bg-pink-700 text-white',
+	'blockpath-data': 'bg-pink-700 text-white',
 	'autoscroll-data-ptr': 'bg-indigo-800 text-white',
 };
 
@@ -112,7 +114,30 @@ function getObjectCellMetaData(data: Uint8Array): Record<number, CellMetaData> {
 		{}
 	);
 
-	return objectCells;
+	const blockPathCells = ROOM_BLOCKPATH_POINTERS.reduce<
+		Record<number, CellMetaData>
+	>((building, value, roomIndex) => {
+		building[value] = {
+			category: 'blockpath-movement-ptr',
+			label: `Room ${roomIndex} block path pointer`,
+		};
+
+		building[value + 1] = {
+			category: 'blockpath-movement-ptr',
+			label: `Room ${roomIndex} block path pointer`,
+		};
+
+		const destAddr = getPointerAddress(data, value);
+
+		building[destAddr] = {
+			category: 'blockpath-data',
+			label: `Room ${roomIndex} start of blockpath data`,
+		};
+
+		return building;
+	}, {});
+
+	return { ...objectCells, ...blockPathCells };
 }
 
 function getSpriteCellMetaData(data: Uint8Array): Record<number, CellMetaData> {
