@@ -86,10 +86,18 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
-				<NewEntry title="New Entities" date="2021-09-14">
+				<NewEntry title="New/Changed Entities" date="2021-09-14">
 					<ul>
 						<li>Platform Rope Support</li>
+						<li>Muncher: greatly increased compatibility</li>
 					</ul>
+
+					<p>
+						Muncher is now compatible with pretty much everything except airship
+						entities. They come in many colors, so what color your munchers end
+						up being is pretty random. But a strange colored muncher is better
+						than no muncher at all!
+					</p>
 				</NewEntry>
 				<NewEntry title="New/Changed Entities" date="2021-09-13">
 					<ul>
