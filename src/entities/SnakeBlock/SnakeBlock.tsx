@@ -12,10 +12,9 @@ import { EyeButton } from '../detailPanes/EyeButton';
 import { BombButton } from '../detailPanes/BombButton';
 
 const SnakeBlock: Entity = {
-	// paletteCategory: 'gizmo',
+	paletteCategory: 'gizmo',
 	paletteInfo: {
 		title: 'Snake Block',
-		warning: 'Still some bugs to work out, but this should be done soon',
 	},
 
 	objectId: 0xba,
