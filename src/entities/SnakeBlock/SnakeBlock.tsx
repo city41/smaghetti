@@ -10,6 +10,7 @@ import { Resizer } from '../../components/Resizer';
 import clamp from 'lodash/clamp';
 import { EyeButton } from '../detailPanes/EyeButton';
 import { BombButton } from '../detailPanes/BombButton';
+import { NumberButton } from '../detailPanes/NumberButton';
 
 const SnakeBlock: Entity = {
 	paletteCategory: 'gizmo',
@@ -24,7 +25,7 @@ const SnakeBlock: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	settingsType: 'single',
-	defaultSettings: { path: [], width: 5, hidePath: false },
+	defaultSettings: { path: [], width: 5, hidePath: false, speed: 2 },
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y, 0];
@@ -75,6 +76,7 @@ const SnakeBlock: Entity = {
 	},
 
 	render({ onSettingsChange, settings, entity }) {
+		const speed = (settings.speed ?? this.defaultSettings!.speed) as number;
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 
 		const style = {
@@ -91,6 +93,16 @@ const SnakeBlock: Entity = {
 			>
 				{!!entity && (
 					<>
+						<NumberButton
+							className="absolute"
+							style={{ width: TILE_SIZE, height: TILE_SIZE }}
+							currentValue={speed}
+							range={[1, 8]}
+							title="speed"
+							onNewValue={(newSpeed) => {
+								onSettingsChange({ speed: newSpeed });
+							}}
+						/>
 						{settings.path.length > 0 && (
 							<div
 								className="absolute top-0 right-0 flex flex-row"

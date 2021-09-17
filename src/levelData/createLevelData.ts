@@ -497,7 +497,10 @@ const BLOCK_PATH_RIGHT = 0;
 const BLOCK_PATH_LEFT = 1;
 const BLOCK_PATH_UP = 2;
 const BLOCK_PATH_DOWN = 3;
-const DEFAULT_SNAKE_SPEED = 2;
+
+// this is really 2, one gets subtracted below
+// the subtraction is just a cheap way to allow the UI to be 1-8 instead of 0-7
+const DEFAULT_SNAKE_SPEED = 3;
 
 function getDirection(cur: Point, prev: Point): number {
 	if (cur.x > prev.x) {
@@ -543,8 +546,10 @@ function getBlockPathMovementData(room: RoomData): number[] {
 
 	blockPathData.push((curDistance << 2) | curDirection);
 
+	const speed = (snake.settings?.speed ?? DEFAULT_SNAKE_SPEED) - 1;
+
 	const headerByte =
-		BLOCK_PATH_RIGHT | ((snake.settings.width ?? 5) << 3) | DEFAULT_SNAKE_SPEED;
+		BLOCK_PATH_RIGHT | ((snake.settings.width ?? 5) << 3) | speed;
 	return [headerByte].concat(blockPathData, [0xff]);
 }
 
