@@ -45,8 +45,8 @@ function SnakePath({
 	onResizeEnd,
 }: SnakePathProps) {
 	const cellStyle = {
-		width: TILE_SIZE,
-		height: TILE_SIZE,
+		width: TILE_SIZE - 2,
+		height: TILE_SIZE - 2,
 	};
 
 	const pathCells = path.map((c, i, a) => {
