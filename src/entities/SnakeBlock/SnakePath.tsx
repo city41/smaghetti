@@ -64,7 +64,7 @@ function SnakePath({
 					backgroundColor: `hsla(52, 100%, ${(i / path.length) * 40}%, 0.75)`,
 				}}
 			>
-				<Icon className="w-3/4 h-3/4" />
+				<Icon className="w-2 h-2" />
 			</div>
 		);
 	});
