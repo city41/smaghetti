@@ -10,6 +10,7 @@ import {
 } from 'react-icons/fa';
 import { IconType } from 'react-icons/lib';
 import isEqual from 'lodash/isEqual';
+import clamp from 'lodash/clamp';
 
 import styles from './SnakePath.module.css';
 
@@ -88,17 +89,18 @@ function SnakePath({
 				increment={TILE_SIZE}
 				axis="x-or-y"
 				onSizeChange={(newSizePoint) => {
+					const prop = newSizePoint.x ? 'x' : 'y';
+					const delta = clamp(newSizePoint[prop], -1, 1);
+
 					const newPath = [...path];
 
 					const lastCell = path[path.length - 1] ?? { x: 0, y: 0 };
 					const newCells = [];
 
-					const prop = newSizePoint.x ? 'x' : 'y';
-
-					for (let i = 1; i <= Math.abs(newSizePoint[prop]); ++i) {
+					for (let i = 1; i <= Math.abs(delta); ++i) {
 						const newCell = {
 							...lastCell,
-							[prop]: lastCell[prop] + i * Math.sign(newSizePoint[prop]),
+							[prop]: lastCell[prop] + i * Math.sign(delta),
 						};
 
 						if (isEqual(newCell, path[path.length - 2])) {
