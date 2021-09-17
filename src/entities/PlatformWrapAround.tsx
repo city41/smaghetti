@@ -9,6 +9,7 @@ import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import styles from '../components/Resizer/ResizingStyles.module.css';
 import { IconType } from 'react-icons/lib';
 import { PlatformWidthButton } from './detailPanes/PlatformWidthButton';
+import { NumberButton } from './detailPanes/NumberButton';
 
 const directions = ['up', 'down'] as const;
 type Direction = typeof directions[number];
@@ -157,22 +158,14 @@ const PlatformWrapAround: Entity = {
 						style={{ top: TILE_SIZE * 0.5 + 1, width: TILE_SIZE * 2 }}
 						className="absolute left-0 flex flex-row justify-around align-start z-10"
 					>
-						<button
-							style={{ fontSize: 4, borderRadius: '10%' }}
-							className="font-bold bg-gray-700 hover:bg-gray-600 text-white text-center"
-							onMouseDown={(e) => {
-								e.stopPropagation();
-								e.preventDefault();
-								let newCount = count + 1;
-								if (newCount > 14) {
-									newCount = 1;
-								}
-
-								onSettingsChange({ count: newCount });
+						<NumberButton
+							className="pointer-events-auto"
+							currentValue={count}
+							range={[1, 14]}
+							onNewValue={(newValue) => {
+								onSettingsChange({ count: newValue });
 							}}
-						>
-							<div className="w-1.5 h-1.5">{count}</div>
-						</button>
+						/>
 						<button
 							className="pointer-events-auto"
 							onMouseDown={(e) => {
