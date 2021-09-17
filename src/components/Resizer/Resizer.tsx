@@ -9,7 +9,7 @@ import { FaArrowsAltH, FaArrowsAltV, FaArrowsAlt } from 'react-icons/fa';
 import clsx from 'clsx';
 import { IconType } from 'react-icons';
 
-type Axis = 'x' | 'y' | 'xy';
+type Axis = 'x' | 'y' | 'xy' | 'x-or-y';
 type Direction = 'x' | 'y';
 
 type PublicResizerProps = {
@@ -31,6 +31,7 @@ const icons: Record<Axis, IconType> = {
 	x: FaArrowsAltH,
 	y: FaArrowsAltV,
 	xy: FaArrowsAlt,
+	'x-or-y': FaArrowsAlt,
 };
 
 const CSSProperty: Record<Direction, string> = {
@@ -55,6 +56,9 @@ function Resizer({
 	const scaleRef = useRef<number>(scale);
 	const axisRef = useRef<Axis>(axis);
 	const onResizeEndRef = useRef<undefined | (() => void)>(onResizeEnd);
+	const onSizeChangeRef = useRef<undefined | ((newSize: Point) => void)>(
+		onSizeChange
+	);
 
 	const ref = useRef<HTMLDivElement | null>(null);
 	const [listeningToDoc, setListeningToDoc] = useState(false);
@@ -75,6 +79,10 @@ function Resizer({
 	useEffect(() => {
 		onResizeEndRef.current = onResizeEnd;
 	}, [onResizeEnd]);
+
+	useEffect(() => {
+		onSizeChangeRef.current = onSizeChange;
+	}, [onSizeChange]);
 
 	useEffect(() => {
 		scaleRef.current = scale;
@@ -105,6 +113,13 @@ function Resizer({
 				icon.style.setProperty(CSSProperty.x, `${xDiff}px`);
 				icon.style.setProperty(CSSProperty.y, `${yDiff}px`);
 				break;
+			case 'x-or-y':
+				if (Math.abs(xDiff) > Math.abs(yDiff)) {
+					icon.style.setProperty(CSSProperty.x, `${xDiff}px`);
+				} else {
+					icon.style.setProperty(CSSProperty.y, `${yDiff}px`);
+				}
+				break;
 		}
 
 		const incrementX = typeof increment === 'number' ? increment : increment.x;
@@ -116,17 +131,23 @@ function Resizer({
 		const yDelta = yFloorCeil(yDiff / incrementY);
 
 		if (axisRef.current === 'x' && xDelta !== 0) {
-			onSizeChange({ x: sizeRef.current.x + xDelta, y: sizeRef.current.y });
+			onSizeChangeRef.current!({
+				x: sizeRef.current.x + xDelta,
+				y: sizeRef.current.y,
+			});
 			start.current.x = inputs.x;
 		}
 
 		if (axisRef.current === 'y' && yDelta !== 0) {
-			onSizeChange({ x: sizeRef.current.x, y: sizeRef.current.y + yDelta });
+			onSizeChangeRef.current!({
+				x: sizeRef.current.x,
+				y: sizeRef.current.y + yDelta,
+			});
 			start.current.y = inputs.y;
 		}
 
 		if (axisRef.current === 'xy' && (xDelta !== 0 || yDelta !== 0)) {
-			onSizeChange({
+			onSizeChangeRef.current!({
 				x: sizeRef.current.x + xDelta,
 				y: sizeRef.current.y + yDelta,
 			});
@@ -136,6 +157,22 @@ function Resizer({
 			}
 
 			if (yDelta !== 0) {
+				start.current.y = inputs.y;
+			}
+		}
+
+		if (axisRef.current === 'x-or-y' && (xDelta !== 0 || yDelta !== 0)) {
+			if (Math.abs(xDiff) > Math.abs(yDiff)) {
+				onSizeChangeRef.current!({
+					x: sizeRef.current.x + xDelta,
+					y: sizeRef.current.y,
+				});
+				start.current.x = inputs.x;
+			} else {
+				onSizeChangeRef.current!({
+					x: sizeRef.current.x,
+					y: sizeRef.current.y + yDelta,
+				});
 				start.current.y = inputs.y;
 			}
 		}

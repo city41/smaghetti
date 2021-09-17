@@ -493,6 +493,60 @@ function getTransports(
 		]);
 	}, transportsHeader);
 }
+const BLOCK_PATH_RIGHT = 0;
+const BLOCK_PATH_LEFT = 1;
+const BLOCK_PATH_UP = 2;
+const BLOCK_PATH_DOWN = 3;
+const DEFAULT_SNAKE_SPEED = 2;
+
+function getDirection(cur: Point, prev: Point): number {
+	if (cur.x > prev.x) {
+		return BLOCK_PATH_RIGHT;
+	}
+
+	if (cur.x < prev.x) {
+		return BLOCK_PATH_LEFT;
+	}
+
+	if (cur.y > prev.y) {
+		return BLOCK_PATH_DOWN;
+	}
+
+	return BLOCK_PATH_UP;
+}
+
+function getBlockPathMovementData(room: RoomData): number[] {
+	const snake = room.actors.entities.find((e) => e.type === 'SnakeBlock');
+
+	if (!snake || !snake.settings?.path?.length) {
+		return [0xff];
+	}
+
+	const blockPathData = [];
+
+	const path = snake.settings.path as Point[];
+
+	let curDirection = BLOCK_PATH_RIGHT;
+	let curDistance = 1;
+
+	for (let i = 1; i < path.length; ++i) {
+		const cellDirection = getDirection(path[i], path[i - 1]);
+
+		if (cellDirection === curDirection) {
+			++curDistance;
+		} else {
+			blockPathData.push((curDistance << 2) | curDirection);
+			curDistance = 1;
+			curDirection = cellDirection;
+		}
+	}
+
+	blockPathData.push((curDistance << 2) | curDirection);
+
+	const headerByte =
+		BLOCK_PATH_RIGHT | ((snake.settings.width ?? 5) << 3) | DEFAULT_SNAKE_SPEED;
+	return [headerByte].concat(blockPathData, [0xff]);
+}
 
 function getRoom(
 	levelSettings: LevelSettings,
@@ -524,7 +578,7 @@ function getRoom(
 		levelSettings: levelSettingsData,
 		transportData,
 		sprites: spriteHeader.concat(sprites, [0xff]),
-		blockPathMovementData: [0xff],
+		blockPathMovementData: getBlockPathMovementData(currentRoom),
 		autoScrollMovementData: [0xff],
 	};
 }

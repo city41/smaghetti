@@ -1,0 +1,7 @@
+.cell {
+	/* background-color: rgba(16, 185, 129); */
+	@apply bg-green-600;
+	border: 1px solid white;
+	border-radius: 2px;
+	/* mix-blend-mode: multiply; */
+}

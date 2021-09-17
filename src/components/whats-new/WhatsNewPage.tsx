@@ -86,6 +86,17 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-09-16">
+					<ul>
+						<li>Snake Block</li>
+					</ul>
+					<p>
+						Snake Block is in the unfinished section because there are still a
+						few things to figure out with it yet. But it is currently usable, so
+						check it out, it&apos;s a fun entity. I hope to get Snake Block
+						totally finished by this weekend.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-09-15">
 					<ul>
 						<li>Platform - Wood, Moves Left, Fall on Touch</li>
