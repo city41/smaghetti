@@ -143,7 +143,7 @@ const SnakeBlock: Entity = {
 		const snakes = room.actors.entities.filter((e) => e.type === 'SnakeBlock');
 
 		if (snakes.length > 1) {
-			return 'A room can only have one snake';
+			return 'Only the first snake will work properly';
 		} else if (snakes[0].settings?.width > snakes[0].settings?.path?.length) {
 			return `Must travel at least ${snakes[0].settings?.width} blocks`;
 		}
