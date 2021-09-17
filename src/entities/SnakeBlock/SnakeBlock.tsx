@@ -92,7 +92,7 @@ const SnakeBlock: Entity = {
 			>
 				{!!entity && (
 					<>
-						{settings.path.length > 1 && (
+						{settings.path.length > 0 && (
 							<div
 								className="absolute top-0 right-0 flex flex-row"
 								style={{ width: TILE_SIZE, height: TILE_SIZE }}

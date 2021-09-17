@@ -56,7 +56,10 @@ function SnakePath({
 
 		return (
 			<div
-				className={clsx(styles.cell, 'absolute grid place-items-center')}
+				className={clsx(
+					styles.cell,
+					'absolute grid place-items-center pointer-events-none'
+				)}
 				key={`${i}-${c.x}-${c.y}`}
 				style={{
 					...cellStyle,
