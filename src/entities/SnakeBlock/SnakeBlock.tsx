@@ -8,6 +8,8 @@ import styles from '../../components/Resizer/ResizingStyles.module.css';
 import { SnakePath } from './SnakePath';
 import { Resizer } from '../../components/Resizer';
 import clamp from 'lodash/clamp';
+import { EyeButton } from '../detailPanes/EyeButton';
+import { BombButton } from '../detailPanes/BombButton';
 
 const SnakeBlock: Entity = {
 	// paletteCategory: 'gizmo',
@@ -23,7 +25,7 @@ const SnakeBlock: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	settingsType: 'single',
-	defaultSettings: { path: [], width: 5 },
+	defaultSettings: { path: [], width: 5, hidePath: false },
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y, 0];
@@ -90,15 +92,35 @@ const SnakeBlock: Entity = {
 			>
 				{!!entity && (
 					<>
-						<SnakePath
-							className="absolute top-0 right-0"
-							path={settings.path ?? []}
-							onNewPath={(newPath) => {
-								onSettingsChange({ path: newPath });
-							}}
-							onResizeStart={() => onSettingsChange({ resizing: true })}
-							onResizeEnd={() => onSettingsChange({ resizing: false })}
-						/>
+						{settings.path.length > 1 && (
+							<div
+								className="absolute top-0 right-0 flex flex-row"
+								style={{ width: TILE_SIZE, height: TILE_SIZE }}
+							>
+								<EyeButton
+									isHidden={settings.hidePath}
+									onHideToggle={(hidden) => {
+										onSettingsChange({ hidePath: hidden });
+									}}
+								/>
+								<BombButton
+									onClick={() => {
+										onSettingsChange({ path: [] });
+									}}
+								/>
+							</div>
+						)}
+						{!settings.hidePath && (
+							<SnakePath
+								className="absolute top-0 right-0"
+								path={settings.path ?? []}
+								onNewPath={(newPath) => {
+									onSettingsChange({ path: newPath });
+								}}
+								onResizeStart={() => onSettingsChange({ resizing: true })}
+								onResizeEnd={() => onSettingsChange({ resizing: false })}
+							/>
+						)}
 						<Resizer
 							className="absolute bottom-0 right-0"
 							style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
