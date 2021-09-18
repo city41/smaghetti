@@ -289,6 +289,7 @@ import { SnowPlateau } from './SnowPlateau';
 import { Spike } from './Spike';
 import { SpikeBall } from './SpikeBall';
 import { SpikeTop } from './SpikeTop';
+import { SpinPlatform } from './SpinPlatform';
 import { Spiny } from './Spiny';
 import { SpinyCheepCheepGenerator } from './SpinyCheepCheepGenerator';
 import { SpringBoard } from './SpringBoard';
@@ -632,6 +633,7 @@ const entityMap = {
 	Spike,
 	SpikeBall,
 	SpikeTop,
+	SpinPlatform,
 	Spiny,
 	SpinyCheepCheepGenerator,
 	SpringBoard,

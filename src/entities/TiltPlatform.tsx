@@ -31,7 +31,7 @@ const TiltPlatform: Entity = {
 			height: (size / 5) * 2,
 		};
 		return (
-			<div className="flex flex-row items-center" style={style}>
+			<div className="relative flex flex-row items-center" style={style}>
 				<div
 					className="TiltPlatformBall-bg bg-cover bg-no-repeat"
 					style={ballStyle}
@@ -60,6 +60,9 @@ const TiltPlatform: Entity = {
 					className="TiltPlatformBall-bg bg-cover bg-no-repeat"
 					style={ballStyle}
 				/>
+				<div className="absolute bottom-0 left-0 w-full text-center bg-black text-white text-xs">
+					tilt
+				</div>
 			</div>
 		);
 	},
@@ -107,12 +110,10 @@ const TiltPlatform: Entity = {
 					className="TiltPlatformBall-bg bg-cover bg-no-repeat"
 					style={ballStyle}
 				/>
-				<div
+				<TileSpace
 					className="absolute top-0 left-0"
 					style={{ width: TILE_SIZE, height: TILE_SIZE }}
-				>
-					<TileSpace />
-				</div>
+				/>
 			</div>
 		);
 	},

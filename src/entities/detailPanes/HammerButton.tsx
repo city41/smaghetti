@@ -1,19 +1,24 @@
 import React, { CSSProperties } from 'react';
+import { IconType } from 'react-icons';
 import { FaHammer } from 'react-icons/fa';
 
-type HammerButtonProps<T> = {
+type HammerButtonProps<T extends string | number | symbol> = {
 	values: readonly T[];
 	currentValue: T;
 	onNewValue: (newValue: T) => void;
+	valueToIcon?: Record<T, IconType>;
 	style?: CSSProperties;
 };
 
-function HammerButton<T>({
+function HammerButton<T extends string | number | symbol>({
 	values,
 	currentValue,
 	onNewValue,
+	valueToIcon,
 	style,
 }: HammerButtonProps<T>) {
+	const Icon = valueToIcon?.[currentValue] ?? FaHammer;
+
 	return (
 		<div
 			style={style}
@@ -30,7 +35,7 @@ function HammerButton<T>({
 					onNewValue(nextValue);
 				}}
 			>
-				<FaHammer
+				<Icon
 					style={{ borderRadius: '10%' }}
 					className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
 				/>

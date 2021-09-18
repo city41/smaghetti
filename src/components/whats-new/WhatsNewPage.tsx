@@ -86,6 +86,11 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-09-16">
+					<ul>
+						<li>Spin Platform (in gizmos)</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="Moved Snake Block out of unfinished" date="2021-09-17">
 					<p>
 						Snake Block still needs to let you choose how fast it is and what
