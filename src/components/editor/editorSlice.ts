@@ -1063,7 +1063,13 @@ const editorSlice = createSlice({
 				(p) => p !== newEntry
 			);
 
-			currentRoom.paletteEntries.unshift(newEntry);
+			const entryIndex =
+				newEntry === 'PlayerGhost' ||
+				currentRoom.paletteEntries[0] !== 'PlayerGhost'
+					? 0
+					: 1;
+
+			currentRoom.paletteEntries.splice(entryIndex, 0, newEntry);
 
 			currentRoom.currentPaletteEntry = newEntry;
 			state.mouseMode = 'draw';
