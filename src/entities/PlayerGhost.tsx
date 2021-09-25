@@ -93,6 +93,10 @@ const PlayerGhost: Entity = {
 		],
 	},
 
+	parseSprite() {
+		return undefined;
+	},
+
 	simpleRender(size) {
 		return (
 			<div
