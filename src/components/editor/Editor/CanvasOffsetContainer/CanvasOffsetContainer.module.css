@@ -5,3 +5,7 @@
 .pan.panning {
 	cursor: grabbing;
 }
+
+.copying {
+	cursor: copy;
+}

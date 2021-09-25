@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
 import { EditorFocusRect, MouseMode } from '../../editorSlice';
@@ -37,6 +37,7 @@ function CanvasOffsetContainer({
 	onDragComplete,
 	children,
 }: CanvasOffsetContainerProps) {
+	const [shiftDown, setShiftDown] = useState(false);
 	const startingMousePoint = useRef<Point | null>(null);
 	const lastMousePoint = useRef<Point | null>(null);
 	const mouseDownRef = useRef(false);
@@ -62,6 +63,28 @@ function CanvasOffsetContainer({
 		}
 
 		document.addEventListener('keydown', handleKeyDown);
+
+		return () => {
+			document.removeEventListener('keydown', handleKeyDown);
+			document.removeEventListener('keyup', handleKeyUp);
+		};
+	}, []);
+
+	useEffect(() => {
+		function handleKeyDown(e: KeyboardEvent) {
+			if (e.shiftKey || e.key === 'Shift') {
+				setShiftDown(true);
+			}
+		}
+
+		function handleKeyUp(e: KeyboardEvent) {
+			if (e.shiftKey || e.key === 'Shift') {
+				setShiftDown(false);
+			}
+		}
+
+		document.addEventListener('keydown', handleKeyDown);
+		document.addEventListener('keyup', handleKeyUp);
 
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown);
@@ -224,6 +247,7 @@ function CanvasOffsetContainer({
 				{
 					[styles.pan]: mouseMode === 'pan',
 					[styles.panning]: mouseDownRef.current,
+					[styles.copying]: shiftDown && mouseDownRef.current,
 				}
 			)}
 			onMouseDown={handleMouseDown}
