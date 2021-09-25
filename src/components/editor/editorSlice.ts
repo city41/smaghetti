@@ -1662,6 +1662,9 @@ const editorSlice = createSlice({
 				}
 			}
 		},
+		cancelDrag(state: InternalEditorState) {
+			state.dragOffset = null;
+		},
 		dragComplete(state: InternalEditorState, action: PayloadAction<boolean>) {
 			if (state.dragOffset) {
 				const shouldCopy = action.payload;
@@ -2024,6 +2027,7 @@ const {
 	deleteFocused,
 	pan,
 	selectDrag,
+	cancelDrag,
 	dragComplete,
 	editorVisibleWindowChanged,
 	scaleIncreased,
@@ -2094,6 +2098,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		clearFocusedEntity.toString(),
 		selectDrag.toString(),
 		editorVisibleWindowChanged.toString(),
+		cancelDrag.toString(),
 		'editor/savingLevel',
 		'editor/saveLevel',
 		'editor/saveLevelCopy',
@@ -2263,6 +2268,7 @@ export {
 	deleteFocused,
 	pan,
 	selectDrag,
+	cancelDrag,
 	dragComplete,
 	editorVisibleWindowChanged,
 	scaleIncreased,

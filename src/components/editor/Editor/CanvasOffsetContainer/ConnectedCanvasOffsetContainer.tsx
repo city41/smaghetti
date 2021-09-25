@@ -10,6 +10,7 @@ import {
 	pan,
 	popPan,
 	pushPan,
+	cancelDrag,
 } from '../../editorSlice';
 
 import {
@@ -25,6 +26,7 @@ const actions = bindActionCreators(
 		onPan: pan,
 		onPressForPan: pushPan,
 		onLiftFromPan: popPan,
+		onCancelDrag: cancelDrag,
 	},
 	dispatch
 );

@@ -13,6 +13,7 @@ type CanvasOffsetContainerProps = {
 	mouseMode: MouseMode;
 	dragOffset: Point | null;
 	onSelectDrag: (arg: { bounds: Bounds; startingPoint: Point }) => void;
+	onCancelDrag: () => void;
 	onDragComplete: (shiftPressed: boolean) => void;
 	onPan: (delta: Point) => void;
 	onPressForPan: () => void;
@@ -34,6 +35,7 @@ function CanvasOffsetContainer({
 	onPressForPan,
 	onLiftFromPan,
 	onEditorVisibleWindowChanged,
+	onCancelDrag,
 	onDragComplete,
 	children,
 }: CanvasOffsetContainerProps) {
@@ -74,6 +76,11 @@ function CanvasOffsetContainer({
 		function handleKeyDown(e: KeyboardEvent) {
 			if (e.shiftKey || e.key === 'Shift') {
 				setShiftDown(true);
+			}
+
+			if (e.key === 'Escape') {
+				onCancelDrag();
+				mouseDownRef.current = false;
 			}
 		}
 
