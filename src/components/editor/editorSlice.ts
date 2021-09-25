@@ -1689,7 +1689,7 @@ const editorSlice = createSlice({
 
 						actorEntities.forEach((e) => {
 							// don't copy the player, but do move it
-							if (e.type === 'Player') {
+							if (e.type === 'Player' || e.type === 'PlayerGhost') {
 								e.x += tileXOffset * TILE_SIZE;
 								e.y += tileYOffset * TILE_SIZE;
 								return;
