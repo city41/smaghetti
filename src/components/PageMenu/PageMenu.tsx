@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { FaDiscord, FaReddit } from 'react-icons/fa';
+import { FaDiscord } from 'react-icons/fa';
 
 import styles from './PageMenu.module.css';
 
@@ -70,11 +70,6 @@ function PageMenu({
 			<Link href="/help" passHref>
 				<a target="_blank" rel="noreferrer">
 					help
-				</a>
-			</Link>
-			<Link href="https://www.reddit.com/r/smaghetti" passHref>
-				<a target="_blank" rel="noreferrer" title="reddit">
-					<FaReddit className="w-5 h-5" />
 				</a>
 			</Link>
 			<Link href="https://discord.gg/wBVE4yyWhM" passHref>
