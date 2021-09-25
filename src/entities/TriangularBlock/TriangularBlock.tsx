@@ -5,7 +5,7 @@ import { TILE_SIZE } from '../../tiles/constants';
 import { AngleEditDetails } from '../detailPanes/AngleEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
-import { encodeObjectSets } from '../util';
+import { encodeObjectSets, parseObjectIdMapObject } from '../util';
 
 const angleToObjectId: Record<number, number> = {
 	0: 0x50,
@@ -13,6 +13,17 @@ const angleToObjectId: Record<number, number> = {
 	180: 0x53,
 	270: 0x52,
 };
+
+const objectIdToAngle = Object.entries(angleToObjectId).reduce<
+	Record<number, number>
+>((building, entry) => {
+	const value = Number(entry[0]);
+	const newKey = entry[1];
+
+	building[newKey] = value;
+
+	return building;
+}, {});
 
 const TriangularBlock: Entity = {
 	paletteCategory: 'gizmo',
@@ -62,6 +73,17 @@ const TriangularBlock: Entity = {
 	toObjectBinary({ x, y, settings }) {
 		const angle = (settings.angle ?? 0) % 360;
 		return [0, y, x, angleToObjectId[angle]];
+	},
+
+	parseObject(data, offset) {
+		return parseObjectIdMapObject(
+			data,
+			offset,
+			0,
+			objectIdToAngle,
+			'angle',
+			this
+		);
 	},
 
 	simpleRender(size) {

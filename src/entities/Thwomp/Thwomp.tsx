@@ -4,6 +4,8 @@ import { TILE_SIZE } from '../../tiles/constants';
 import { TileSpace } from '../TileSpace';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from '../constants';
 import { Pursuit, pursuitToIcon, ThwompEditDetails } from './ThwompEditDetails';
+import invert from 'lodash/invert';
+import { parseObjectIdMapSprite } from '../util';
 
 const pursuitToObjectId: Record<Pursuit, number> = {
 	down: 0x8a,
@@ -13,6 +15,8 @@ const pursuitToObjectId: Record<Pursuit, number> = {
 	'up-left': 0x8e,
 	'down-left': 0x8f,
 };
+
+const objectIdToPursuit = invert(pursuitToObjectId) as Record<number, Pursuit>;
 
 const Thwomp: Entity = {
 	paletteCategory: 'enemy',
@@ -66,6 +70,17 @@ const Thwomp: Entity = {
 			this.defaultSettings!.pursuit) as Pursuit;
 		const objectId = pursuitToObjectId[pursuit];
 		return [0, objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseObjectIdMapSprite(
+			data,
+			offset,
+			0,
+			objectIdToPursuit,
+			'pursuit',
+			this
+		);
 	},
 
 	simpleRender(size) {

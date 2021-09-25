@@ -2,7 +2,9 @@ import React from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
-import { encodeObjectSets } from './util';
+import { encodeObjectSets, parseObjectIdMapSprite } from './util';
+import invert from 'lodash/invert';
+import { directionToObjectId } from './ArrowSign';
 
 const directions = ['left', 'right'];
 type Direction = typeof directions[number];
@@ -13,6 +15,11 @@ const directionToSpriteId: Record<Direction, number> = {
 	left: 0x97,
 	right: 0xa1,
 };
+
+const spriteIdToDirection = invert(directionToObjectId) as Record<
+	number,
+	Direction
+>;
 
 const GiantCannonBall: Entity = {
 	paletteCategory: 'enemy',
@@ -79,6 +86,17 @@ const GiantCannonBall: Entity = {
 		const spriteId = directionToSpriteId[direction];
 
 		return [1, spriteId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseObjectIdMapSprite(
+			data,
+			offset,
+			1,
+			spriteIdToDirection,
+			'direction',
+			this
+		);
 	},
 
 	simpleRender(size) {

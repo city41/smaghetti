@@ -7,6 +7,8 @@ import { IconType } from 'react-icons/lib';
 import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
 import { MdRotateLeft, MdRotateRight } from 'react-icons/md';
 import { HammerButton } from './detailPanes/HammerButton';
+import { parseObjectIdMapSprite } from './util';
+import invert from 'lodash/invert';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -24,6 +26,8 @@ const spinToObjectId: Record<Spin, number> = {
 	counterclockwise: 0xfb,
 	'counterclockwise-pause': 0x93,
 };
+
+const objectIdToSpin = invert(spinToObjectId) as Record<number, Spin>;
 
 const spinToIcon: Record<Spin, IconType> = {
 	clockwise: GiClockwiseRotation,
@@ -56,6 +60,17 @@ const SpinPlatform: Entity = {
 		const objectId = spinToObjectId[spin];
 
 		return [0, objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseObjectIdMapSprite(
+			data,
+			offset,
+			0,
+			objectIdToSpin,
+			'spin',
+			this
+		);
 	},
 
 	simpleRender(size) {

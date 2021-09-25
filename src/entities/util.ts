@@ -234,6 +234,59 @@ export function parseSimpleSprite(
 	}
 }
 
+export function parseObjectIdMapSprite(
+	data: Uint8Array,
+	offset: number,
+	bank: number,
+	objectIdToSetting: Record<number, string>,
+	settingKey: string,
+	target: Entity
+): ReturnType<Required<Entity>['parseSprite']> {
+	const settingValue = objectIdToSetting[data[offset + 1]];
+
+	if (data[offset] === bank && settingValue !== undefined) {
+		return {
+			entity: {
+				type: getType(target),
+				x: data[offset + 2] * TILE_SIZE,
+				y: data[offset + 3] * TILE_SIZE,
+				settings: {
+					[settingKey]: settingValue,
+				},
+			},
+			offset: offset + 4,
+		};
+	}
+}
+
+export function parseObjectIdMapObject(
+	data: Uint8Array,
+	offset: number,
+	bankByte: number,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	objectIdToSetting: Record<number, any>,
+	settingKey: string,
+	target: Entity
+): ReturnType<Required<Entity>['parseObject']> {
+	const settingValue = objectIdToSetting[data[offset + 3]];
+
+	if (data[offset] === bankByte && settingValue !== undefined) {
+		const entity = {
+			type: getType(target),
+			x: data[offset + 2],
+			y: data[offset + 1],
+			settings: {
+				[settingKey]: settingValue,
+			},
+		};
+
+		return {
+			entities: [entity],
+			offset: offset + 4,
+		};
+	}
+}
+
 export function parseSimpleObject(
 	data: Uint8Array,
 	offset: number,

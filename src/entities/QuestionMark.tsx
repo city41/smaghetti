@@ -2,6 +2,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 /**
  * A question mark icon that once touched, completes the level.
@@ -61,6 +62,10 @@ const QuestionMark: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

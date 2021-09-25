@@ -8,12 +8,20 @@ import {
 } from '../detailPanes/CardinalDirectionEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
-import { encodeObjectSets } from '../util';
+import { encodeObjectSets, parseObjectIdMapObject } from '../util';
+import invert from 'lodash/invert';
 
-const directionToObjectId = {
+type Direction = 'left' | 'right';
+
+const directionToObjectId: Record<Direction, number> = {
 	left: 0x4c,
 	right: 0x4b,
 };
+
+const objectIdToDirection = invert(directionToObjectId) as Record<
+	number,
+	Direction
+>;
 
 const ArrowSign: Entity = {
 	paletteCategory: 'decoration',
@@ -66,14 +74,22 @@ const ArrowSign: Entity = {
 	},
 
 	toObjectBinary({ x, y, settings }) {
-		const direction = settings?.direction ?? this.defaultSettings!.direction;
+		const direction = (settings?.direction ??
+			this.defaultSettings!.direction) as Direction;
+		const objectId = directionToObjectId[direction];
 
-		return [
+		return [0, y, x, objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseObjectIdMapObject(
+			data,
+			offset,
 			0,
-			y,
-			x,
-			directionToObjectId[direction as keyof typeof directionToObjectId],
-		];
+			objectIdToDirection,
+			'direction',
+			this
+		);
 	},
 
 	simpleRender(size) {

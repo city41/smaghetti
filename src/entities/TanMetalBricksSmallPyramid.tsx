@@ -1,5 +1,5 @@
 import type { Entity } from './types';
-import { encodeObjectSets } from './util';
+import { encodeObjectSets, parseSimpleObject } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
@@ -980,6 +980,23 @@ const TanMetalBricksSmallPyramid: Entity = {
 
 	toObjectBinary({ x, y }) {
 		return [0, y, x + 4, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		const result = parseSimpleObject(data, offset, 0, this);
+
+		if (result) {
+			const entity = result.entities[0];
+			const patchedEntity = {
+				...entity,
+				x: entity.x - 4,
+			};
+
+			return {
+				...result,
+				entities: [patchedEntity],
+			};
+		}
 	},
 
 	simpleRender(size) {

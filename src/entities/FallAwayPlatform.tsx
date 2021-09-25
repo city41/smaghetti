@@ -3,6 +3,7 @@ import { FaArrowDown } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const FallAwayPlatform: Entity = {
 	paletteCategory: 'gizmo',
@@ -46,6 +47,10 @@ const FallAwayPlatform: Entity = {
 
 	toSpriteBinary({ x, y }) {
 		return [0, this.objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {
