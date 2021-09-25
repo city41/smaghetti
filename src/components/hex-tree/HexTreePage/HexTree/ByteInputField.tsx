@@ -53,4 +53,4 @@ function ByteInputField({
 	);
 }
 
-export { ByteInputField };
+export { ByteInputField, bytesToHexString };

@@ -26,6 +26,7 @@ import clsx from 'clsx';
 import tabStyles from '../../../styles/tabs.module.css';
 import { RenderLevel } from './RenderLevel';
 import { HexEditor } from './HexEditor';
+import { ECoin } from './ECoin';
 import { PlainIconButton } from '../../PlainIconButton';
 import cloneDeep from 'lodash/cloneDeep';
 import { InGameLevel, inGameLevels } from '../inGameLevels';
@@ -89,7 +90,7 @@ function HexTreePage({
 }: HexTreePageProps) {
 	const tabs =
 		mode === 'e-reader'
-			? ['Outline', 'Hex (current)', 'Hex (original)']
+			? ['Outline', 'Hex (current)', 'Hex (original)', 'e-coin']
 			: ['Outline'];
 
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -158,6 +159,9 @@ function HexTreePage({
 			break;
 		case 'Hex (original)':
 			tabBody = <HexEditor data={originalData} />;
+			break;
+		case 'e-coin':
+			tabBody = <ECoin data={originalData} />;
 			break;
 	}
 
