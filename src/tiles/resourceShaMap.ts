@@ -120,6 +120,7 @@ export const resourceShaMap: Record<string, string> = {
   "DonutLiftSurprise": "3f65b552123eb030cb6f4a0dfa65e7c357ccbca9",
   "DownFortressSpike": "5b7abdb3d58f69daeab9744827e5265f8107d32f",
   "DryBones": "0282499d59b44152281ad7c1fb67018eab94d9bd",
+  "ECoin": "1c40835a09268da28505b6bcc4fbac92a1244f91",
   "EndOfLevelBackdrop": "f169d5550bf346d8ac0c8899aa0b5609d5887a07",
   "EyeBallBlock": "29bc00e180962082c46a9bf8c98ce8fb0d98469c",
   "FallAwayPlatform": "a2145124ada342a33e9e99240a66bd893fbe562f",

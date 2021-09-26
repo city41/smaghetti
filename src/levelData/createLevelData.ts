@@ -9,6 +9,7 @@ import {
 	INITIAL_ROOM_TILE_HEIGHT,
 	ROOM_WIDTH_INCREMENT,
 } from '../components/editor/constants';
+import _ from 'lodash';
 
 type Room = {
 	objects: number[];
@@ -35,10 +36,10 @@ const exitTypeToByte: Record<EditorTransport['exitType'], number> = {
 	'horizontal-travel-left-pipe': 4,
 };
 
-function getHeader(aceCoinCount: number): Tuple<number, 5> {
+function getHeader(eCoinIndex: number, aceCoinCount: number): Tuple<number, 5> {
 	// copying the values from classic 1-2 for now
 	return [
-		0, // whether it has an ecoin
+		eCoinIndex, // zero means no e-coin
 		aceCoinCount, // number of ace coins
 		0x17, // eLevel class
 		0, // eLevel number
@@ -637,16 +638,25 @@ function createLevelData(level: LevelToLoadInGBA): Uint8Array {
 			(e) => e.type === 'Bubble' && e.settings?.payload === 'AceCoin'
 		).length;
 
-	const header = getHeader(aceCoinCount);
+	const hasECoin = !!allNonCellEntities.find((e) => e.type === 'ECoin');
+
+	const header = getHeader(hasECoin ? 1 : 0, aceCoinCount);
 	// four rooms, each with six pointers, pointers are two bytes
 	const pointers: Tuple<number, 48> = new Array(4 * 6 * 2);
 	// empty bytes between pointer and name so that name starts at 0x40
 	const nullBytes = new Array(11).fill(0);
 
+	const eCoin = allNonCellEntities.find((e) => e.type === 'ECoin');
+	const eCoinData = eCoin ? entityMap.ECoin.getECoinData!(eCoin) : [];
+
 	const name = getLevelName(level.name);
 
 	const pointerOffset =
-		header.length + pointers.length + nullBytes.length + name.length;
+		header.length +
+		pointers.length +
+		nullBytes.length +
+		eCoinData.length +
+		name.length;
 
 	// kick off pointers by setting room0's object pointer
 	let pointer = setPointer(pointers, 0, pointerOffset);
@@ -714,7 +724,13 @@ function createLevelData(level: LevelToLoadInGBA): Uint8Array {
 		setPointer(pointers, base + 5, fullDataLength);
 	}
 
-	const fullData = header.concat(pointers, nullBytes, name, presentRoomsData);
+	const fullData = header.concat(
+		pointers,
+		nullBytes,
+		eCoinData,
+		name,
+		presentRoomsData
+	);
 
 	return Uint8Array.from(fullData);
 }

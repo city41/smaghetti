@@ -113,6 +113,7 @@ import { DonutBlock } from './DonutBlock';
 import { DonutLiftSurprise } from './DonutLiftSurprise';
 import { DownFortressSpike } from './DownFortressSpike';
 import { DryBones } from './DryBones';
+import { ECoin } from './ECoin';
 import { EndOfLevelBackdrop } from './EndOfLevelBackdrop';
 import { EyeBallBlock } from './EyeBallBlock';
 import { FallAwayPlatform } from './FallAwayPlatform';
@@ -457,6 +458,7 @@ const entityMap = {
 	DonutLiftSurprise,
 	DownFortressSpike,
 	DryBones,
+	ECoin,
 	EndOfLevelBackdrop,
 	EyeBallBlock,
 	FallAwayPlatform,
