@@ -74,6 +74,11 @@ const aceCoinSlotStyle = {
 	height: TILE_SIZE * 2 * SCALE,
 };
 
+const eCoinStyle = {
+	width: TILE_SIZE * 1.5 * SCALE,
+	height: TILE_SIZE * 1.5 * SCALE,
+};
+
 function isValidTag(tag: string | undefined): boolean {
 	return tag !== '-' && tag !== undefined && LEVEL_TAGS.includes(tag);
 }
@@ -122,6 +127,10 @@ function LevelRow({
 			<div key={i} className="AceCoin-bg bg-cover" style={aceCoinSlotStyle} />
 		);
 	}
+
+	const hasECoin = level.data.rooms.some((r) =>
+		r.stage.entities.some((e) => e.type === 'ECoin')
+	);
 
 	const VoteIcon = isVoting
 		? RiLoaderFill
@@ -210,7 +219,7 @@ function LevelRow({
 				>
 					{level.name}
 				</a>
-				{(aceCoinCount > 0 || tag0Valid || tag1Valid) && (
+				{(aceCoinCount > 0 || tag0Valid || tag1Valid || hasECoin) && (
 					<div className="flex flex-row justify-between">
 						<div className="flex flex-row gap-x-2 items-center">
 							{aceCoinCount > 0 && (
@@ -226,6 +235,9 @@ function LevelRow({
 										<div className="text-xs">{aceCoinCount}</div>
 									</div>
 								</>
+							)}
+							{hasECoin && (
+								<div className="ECoin-bg bg-cover" style={eCoinStyle} />
 							)}
 							{tag0Valid && (
 								<div className="bg-yellow-700 text-white p-1 text-xs">
