@@ -4,6 +4,7 @@ import { AiFillWarning } from 'react-icons/ai';
 import { entityMap } from '../../entities/entityMap';
 
 import focusedStyles from '../../styles/focused.module.css';
+import { TILE_SIZE } from '../../tiles/constants';
 
 type EntityProps = {
 	className?: string;
@@ -94,7 +95,7 @@ function Entity({
 			{showWarning && warning && (
 				<div
 					className="absolute top-1 left-1 w-full z-10 p-0.5 bg-red-600 text-white flex flex-col break-words"
-					style={{ fontSize: 2.5 }}
+					style={{ fontSize: 2.5, maxWidth: TILE_SIZE * 4 }}
 				>
 					<div>{warning}</div>
 					<a
