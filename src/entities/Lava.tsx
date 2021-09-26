@@ -111,6 +111,12 @@ const Lava: Entity = {
 			></ResizableRect>
 		);
 	},
+
+	getWarning({ entity }) {
+		if (entity.x < 0) {
+			return 'Needs to be inside the level';
+		}
+	},
 };
 
 export { Lava };
