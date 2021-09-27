@@ -408,6 +408,7 @@ function ECoinEditor({
 							const file = e.target.files?.[0];
 
 							if (file && canvasRef.current) {
+								e.target.value = '';
 								importImage(canvasRef.current, file);
 							}
 						}}
