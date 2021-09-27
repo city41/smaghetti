@@ -4,6 +4,7 @@ import { Root } from '../layout/Root';
 import typographyStyles from '../../styles/typography.module.css';
 import { toId } from '../whats-new/WhatsNewPage';
 
+import eCoinTemplateWPalettePng from './eCoinTemplateWPalette.png';
 import styles from './TipsPage.module.css';
 
 function TipEntry({ title, children }: { title: string; children: ReactNode }) {
@@ -121,6 +122,31 @@ function TipsPage() {
 						</li>
 						<li>Whenever you save your level, all ghosts are removed.</li>
 					</ul>
+				</TipEntry>
+				<TipEntry title="E-Coin Photos">
+					<p>
+						You can use an image file for your E-Coin. The image will get scaled
+						to 24x24, so smaller images work better. The image&apos;s colors
+						will also be converted to the E-Coin palette.
+					</p>
+					<img
+						src={eCoinTemplateWPalettePng}
+						className="w-24 h-24"
+						alt="E-Coin template image"
+					/>
+					<p>
+						If you want to design a coin in the same style as Nintendo&apos;s,
+						you can use this template image as your starting point. The e-coin
+						palette is in the upper corner for reference. No need to delete the
+						palette, when you use the image it will ignore all pixels outside
+						the coin area.
+					</p>
+					<h3>Offensive images warning</h3>
+					<p>
+						if you publish your level with an offensive coin image, you may find
+						your level unpublished. Repeat offenders will be banned from
+						publishing levels. Crude, dumb, immature, etc images are fine.
+					</p>
 				</TipEntry>
 			</div>
 		</Root>

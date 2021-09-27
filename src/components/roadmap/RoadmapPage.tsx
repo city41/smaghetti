@@ -67,7 +67,7 @@ const finalChecklist: MilestoneChecklistItem[] = [
 		description: 'All known bugs fixed and editor is very stable',
 	},
 	{ status: 'in-progress', description: 'Save many levels to one save file' },
-	{ status: 'not-started', description: 'E-Coin editor' },
+	{ status: 'completed', description: 'E-Coin editor' },
 ];
 
 function RoadmapPage() {

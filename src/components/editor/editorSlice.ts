@@ -74,6 +74,7 @@ const scales: number[] = [
 	playerScale / 2,
 	playerScale,
 	playerScale * 2,
+	playerScale * 2.5,
 ];
 
 type EditorRoomLayer = RoomLayer & {

@@ -86,6 +86,16 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="E-Coin image editor" date="2021-09-27">
+					<p>
+						You can now design your own e-coins. You can either use the built in
+						drawing pad to draw a simple coin, or import an image file.{' '}
+						<a href="/tips#e-coin-photos" target="_blank">
+							Here are some tips on using image files
+						</a>
+						.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-09-25">
 					<ul>
 						<li>E-Coin (in objects)</li>

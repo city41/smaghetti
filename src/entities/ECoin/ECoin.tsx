@@ -2,7 +2,9 @@ import React from 'react';
 import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
-import { smaghettiLogoECoinData } from './smaghettiLogoECoinData';
+import { PaintBrushButton } from './PaintBrushButton';
+import { ECoinEditor } from './ECoinEditor/index';
+import { ECoinPaletteData, ECoinTileData } from './ECoinData';
 
 const ECoin: Entity = {
 	paletteCategory: 'object',
@@ -52,8 +54,9 @@ const ECoin: Entity = {
 		return [0, this.objectId, x, y, 1];
 	},
 
-	getECoinData(_entity: EditorEntity) {
-		return smaghettiLogoECoinData;
+	getECoinData(entity: EditorEntity) {
+		const coinData = (entity.settings?.coinData ?? ECoinTileData) as number[];
+		return ECoinPaletteData.concat(coinData);
 	},
 
 	simpleRender(size) {
@@ -65,13 +68,33 @@ const ECoin: Entity = {
 		);
 	},
 
-	render() {
+	render({ entity, onSettingsChange, settings }) {
 		const style = {
 			width: 2 * TILE_SIZE,
 			height: 2 * TILE_SIZE,
 		};
 
-		return <div style={style} className="ECoin-bg bg-center bg-no-repeat" />;
+		return (
+			<div style={style} className="relative ECoin-bg bg-center bg-no-repeat">
+				{!!entity && (
+					<PaintBrushButton
+						onClick={() => {
+							onSettingsChange({ showEditor: true });
+						}}
+					/>
+				)}
+				{settings.showEditor && (
+					<ECoinEditor
+						className="absolute"
+						style={{ zIndex: 20 }}
+						coinData={settings.coinData}
+						onCoinData={(coinData) => {
+							onSettingsChange({ coinData, showEditor: false });
+						}}
+					/>
+				)}
+			</div>
+		);
 	},
 };
 
