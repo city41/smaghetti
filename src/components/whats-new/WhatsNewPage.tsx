@@ -90,7 +90,7 @@ function WhatsNewPage() {
 					<p>
 						You can now design your own e-coins. You can either use the built in
 						drawing pad to draw a simple coin, or import an image file.{' '}
-						<a href="/tips#e-coin-photos" target="_blank">
+						<a href="/tips#e-coin-photos">
 							Here are some tips on using image files
 						</a>
 						.
