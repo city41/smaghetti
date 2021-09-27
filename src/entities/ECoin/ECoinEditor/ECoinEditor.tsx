@@ -402,6 +402,7 @@ function ECoinEditor({
 					<input
 						style={{ width: 0.01, height: 0.01 }}
 						type="file"
+						accept="image/*"
 						onChange={(e) => {
 							e.preventDefault();
 							e.stopPropagation();
