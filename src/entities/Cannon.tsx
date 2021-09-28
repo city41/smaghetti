@@ -241,7 +241,7 @@ const Cannon: Entity = {
 				/>
 
 				{!!entity && (
-					<div className="w-full h-full flex flex-row justify-start items-end border absolute top-0 left-0">
+					<div className="w-full h-full flex flex-row justify-start items-end absolute top-0 left-0">
 						<button
 							className="hidden group-hover:block"
 							onMouseDown={(e) => {
