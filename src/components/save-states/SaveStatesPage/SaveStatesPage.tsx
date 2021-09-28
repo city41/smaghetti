@@ -81,6 +81,7 @@ function SaveStatesPage({ allFilesReady }: SaveStatesPageProps) {
 		if (isPlaying) {
 			window._gba.pause();
 		} else {
+			window._gba.pause();
 			window._gba.runStable();
 		}
 		setIsPlaying((p) => !p);
