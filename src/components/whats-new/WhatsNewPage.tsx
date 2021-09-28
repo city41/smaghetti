@@ -9,6 +9,7 @@ import airshipExamplesPng from './AirshipPlatformExamples.png';
 import badWaterExamplePng from './BadBodyOfWaterExample.png';
 import goodWaterExamplePng from './GoodBodyOfWaterExample.png';
 import convertedButNotFixedPng from './convertedButNotFixed.png';
+import castleCorruptECoinPng from './castleCorruptECoin.png';
 import { AiFillHeart } from 'react-icons/ai';
 
 function dateToHumanString(input: string): string {
@@ -86,6 +87,26 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="E-Coins don't work in the castle ... yet"
+					date="2021-09-28"
+				>
+					<p>
+						After collecting an e-coin in a Smaghetti level, if you go to the
+						castle, it will look like this
+					</p>
+					<img
+						width={480}
+						height={320}
+						src={castleCorruptECoinPng}
+						alt="Screenshot showing Smaghetti not creating water correctly"
+					/>
+					<p>
+						I think I know why and I am working on a fix. I can&apos;t promise
+						I&apos;ll pull this off, but I think seeing Smaghetti e-coins in the
+						castle should be doable.
+					</p>
+				</NewEntry>
 				<NewEntry title="E-Coin image editor" date="2021-09-27">
 					<p>
 						You can now design your own e-coins. You can either use the built in
