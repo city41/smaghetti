@@ -218,8 +218,8 @@ function getCanvasPoint(canvas: HTMLCanvasElement, e: React.MouseEvent): Point {
 	const scale = bounds.width / COIN_SIZE;
 
 	return {
-		x: Math.round((e.clientX - bounds.left) / scale),
-		y: Math.round((e.clientY - bounds.top) / scale),
+		x: Math.floor((e.clientX - bounds.left) / scale),
+		y: Math.floor((e.clientY - bounds.top) / scale),
 	};
 }
 
