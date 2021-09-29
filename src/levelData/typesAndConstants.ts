@@ -3,12 +3,12 @@ export const MAX_LEVEL_DATA = 33; // Maximum number of level data
 export const MAX_DATA_SIZE = 2024; // Max compressed level data size
 export const MAX_SAVE_SIZE = 0x20000; // Max save data size
 export const MAX_ECOIN_TABLE = 24; // e-coin tale size
-export const MAX_ECOIN_A_SIZE = 0x120; // e-coin data A size
-export const MAX_ECOIN_B_SIZE = 0x20; // e-coin data B size
+export const ECOIN_PALETTE_SIZE = 0x20; // e-coin data B size
+export const ECOIN_TILE_SIZE = 0x120; // e-coin data A size
 export const MAX_NAME_SIZE = 21;
 export const OFFSET_ECOIN = 0x668; // e-coins available/collected flag
-export const OFFSET_ECOIN_A = 0x4040; // e-coin data A (0x120)
-export const OFFSET_ECOIN_B = 0x5b40; // e-coin data B (0x20)
+export const OFFSET_ECOIN_PALETTE_DATA = 0x5b40; // e-coin data B (0x20)
+export const OFFSET_ECOIN_TILE_DATA = 0x4040; // e-coin data A (0x120)
 
 export const OFFSET_CLEARED_MARIO = 0x6b9; // Level completed by Mario flag
 export const OFFSET_CLEARED_LUIGI = 0x6c3; // Level completed by Luigi flag

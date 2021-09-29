@@ -7,8 +7,8 @@ import type {
 } from './typesAndConstants';
 import {
 	MAX_NAME_SIZE,
-	MAX_ECOIN_A_SIZE,
-	MAX_ECOIN_B_SIZE,
+	ECOIN_TILE_SIZE,
+	ECOIN_PALETTE_SIZE,
 	MAX_DATA_SIZE,
 	MAX_SAVE_SIZE,
 	OFFSET_ECOIN,
@@ -34,8 +34,8 @@ import { parseSaveFile } from './parseSaveFile';
 
 function loadECoinData(level: ELevelData, inputData: Uint8Array) {
 	if (level.info.eCoinID !== 0) {
-		level.ecoinB = inputData.slice(0x40, 0x40 + MAX_ECOIN_B_SIZE);
-		level.ecoinA = inputData.slice(0x60, 0x60 + MAX_ECOIN_A_SIZE);
+		level.ecoinB = inputData.slice(0x40, 0x40 + ECOIN_PALETTE_SIZE);
+		level.ecoinA = inputData.slice(0x60, 0x60 + ECOIN_TILE_SIZE);
 	}
 }
 
@@ -438,8 +438,8 @@ function injectLevelIntoSave(
 			icon: inputData[4],
 		},
 		recordID: 1,
-		ecoinB: new Uint8Array(MAX_ECOIN_B_SIZE),
-		ecoinA: new Uint8Array(MAX_ECOIN_A_SIZE),
+		ecoinB: new Uint8Array(ECOIN_PALETTE_SIZE),
+		ecoinA: new Uint8Array(ECOIN_TILE_SIZE),
 		data: Uint8Array.from([]),
 	};
 
