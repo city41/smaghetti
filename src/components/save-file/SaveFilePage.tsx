@@ -4,6 +4,7 @@ import {
 	ECOIN_PALETTE_SIZE,
 	ECOIN_TILE_SIZE,
 	MAX_ECOIN_TABLE,
+	OFFSET_ECOIN,
 	OFFSET_ECOIN_PALETTE_DATA,
 	OFFSET_ECOIN_TILE_DATA,
 	SaveFile,
@@ -78,11 +79,27 @@ function SaveFilePage() {
 					onChange={handleSaveFile}
 				/>
 			</div>
-			<h1 className="my-4 text-lg font-bold">
-				E-Coin table at 0x{OFFSET_ECOIN_PALETTE_DATA.toString(16)} (palettes) /
-				0x
-				{OFFSET_ECOIN_TILE_DATA.toString(16)} (tiles)
-			</h1>
+			{saveFile && (
+				<>
+					<h1 className="my-4 text-lg font-bold">
+						E-Coin status table at 0x{OFFSET_ECOIN.toString(16)}
+					</h1>
+					<div className="flex flex-row gap-x-1">
+						{saveFile.ecoinArray.map((b, i) => (
+							<div key={i} className="bg-gray-600">
+								{b.toString(16)}
+							</div>
+						))}
+					</div>
+				</>
+			)}
+			{eCoins.length > 0 && (
+				<h1 className="my-4 text-lg font-bold">
+					E-Coin graphics table at 0x{OFFSET_ECOIN_PALETTE_DATA.toString(16)}{' '}
+					(palettes) / 0x
+					{OFFSET_ECOIN_TILE_DATA.toString(16)} (tiles)
+				</h1>
+			)}
 			<div className="grid grid-cols-8 gap-4 p-4">
 				{eCoins.map((e, i) => {
 					const data = new Uint8Array(e.tiles);

@@ -57,6 +57,7 @@ type ELevelData = {
 type SaveFile = {
 	records: ELevelRecord[];
 	data: ELevelData[];
+	ecoinArray: number[];
 };
 
 export type { ELevelInfo, ELevelRecord, ELevelData, SaveFile };

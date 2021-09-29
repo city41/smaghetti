@@ -160,9 +160,15 @@ function parseSaveFile(saveData: Uint8Array): SaveFile {
 	const recordIDs = getRecordIDs(saveData);
 	const records = getLevelRecords(saveData, recordIDs);
 	const data = getLevelData(saveData, records, recordIDs);
+
+	const ecoinArray = Array.from(
+		saveData.slice(OFFSET_ECOIN, OFFSET_ECOIN + MAX_ECOIN_TABLE)
+	);
+
 	return {
 		records,
 		data,
+		ecoinArray,
 	};
 }
 
