@@ -1,14 +1,14 @@
 import { compress } from './compress';
-import type {
+import {
 	ELevelInfo,
 	ELevelData,
 	ELevelRecord,
 	SaveFile,
-} from './typesAndConstants';
-import {
-	MAX_NAME_SIZE,
-	ECOIN_TILE_SIZE,
+	OFFSET_ECOIN_PALETTE_DATA,
+	OFFSET_ECOIN_TILE_DATA,
 	ECOIN_PALETTE_SIZE,
+	ECOIN_TILE_SIZE,
+	MAX_NAME_SIZE,
 	MAX_DATA_SIZE,
 	MAX_SAVE_SIZE,
 	OFFSET_ECOIN,
@@ -24,6 +24,8 @@ import {
 	MAX_LEVEL_RECORDS,
 	MAX_LEVEL_DATA,
 	MAX_ECOIN_TABLE,
+	LEVEL_ECOIN_PALETTE_OFFSET,
+	LEVEL_ECOIN_TILE_OFFSET,
 } from './typesAndConstants';
 import {
 	convertLevelNameToASCII,
@@ -31,13 +33,6 @@ import {
 	getLevelDataAddress,
 } from './util';
 import { parseSaveFile } from './parseSaveFile';
-
-function loadECoinData(level: ELevelData, inputData: Uint8Array) {
-	if (level.info.eCoinID !== 0) {
-		level.ecoinB = inputData.slice(0x40, 0x40 + ECOIN_PALETTE_SIZE);
-		level.ecoinA = inputData.slice(0x60, 0x60 + ECOIN_TILE_SIZE);
-	}
-}
 
 function loadCompressedLevelData(level: ELevelData, inputData: Uint8Array) {
 	// TODO: compress is wrong I think, need to go over it again
@@ -203,6 +198,22 @@ function saveLevelData(saveData: Uint8Array, saveFile: SaveFile) {
 			saveData[OFFSET_DATAIDLIST + i] = levelData[i].recordID;
 		}
 	}
+}
+
+function setECoinData(
+	saveData: Uint8Array,
+	eCoinPalette: number[],
+	eCoinTiles: number[],
+	recordId: number
+) {
+	const index = recordId - 1;
+
+	saveData.set(
+		eCoinPalette,
+		OFFSET_ECOIN_PALETTE_DATA + index * ECOIN_PALETTE_SIZE
+	);
+
+	saveData.set(eCoinTiles, OFFSET_ECOIN_TILE_DATA + index * ECOIN_TILE_SIZE);
 }
 
 /* Calculate and fix checksum and region code */
@@ -443,7 +454,6 @@ function injectLevelIntoSave(
 		data: Uint8Array.from([]),
 	};
 
-	loadECoinData(level, inputData);
 	loadCompressedLevelData(level, inputData);
 
 	const newRecord: ELevelRecord = {
@@ -504,6 +514,23 @@ function injectLevelIntoSave(
 
 	saveLevelData(saveData, saveFile);
 	saveLevelRecords(saveData, saveFile);
+
+	if (eCoinID > 0) {
+		const eCoinPalette = Array.from(
+			inputData.slice(
+				LEVEL_ECOIN_PALETTE_OFFSET,
+				LEVEL_ECOIN_PALETTE_OFFSET + ECOIN_PALETTE_SIZE
+			)
+		);
+		const eCoinTiles = Array.from(
+			inputData.slice(
+				LEVEL_ECOIN_TILE_OFFSET,
+				LEVEL_ECOIN_TILE_OFFSET + ECOIN_TILE_SIZE
+			)
+		);
+		setECoinData(saveData, eCoinPalette, eCoinTiles, level.recordID);
+	}
+
 	fixAllChecksum(saveData);
 
 	return saveData;

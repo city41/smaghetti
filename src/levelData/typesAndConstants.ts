@@ -7,8 +7,8 @@ export const ECOIN_PALETTE_SIZE = 0x20; // e-coin data B size
 export const ECOIN_TILE_SIZE = 0x120; // e-coin data A size
 export const MAX_NAME_SIZE = 21;
 export const OFFSET_ECOIN = 0x668; // e-coins available/collected flag
-export const OFFSET_ECOIN_PALETTE_DATA = 0x5b40; // e-coin data B (0x20)
 export const OFFSET_ECOIN_TILE_DATA = 0x4040; // e-coin data A (0x120)
+export const OFFSET_ECOIN_PALETTE_DATA = 0x5b40; // e-coin data B (0x20)
 
 export const OFFSET_CLEARED_MARIO = 0x6b9; // Level completed by Mario flag
 export const OFFSET_CLEARED_LUIGI = 0x6c3; // Level completed by Luigi flag
@@ -19,6 +19,8 @@ export const OFFSET_LEVELINFO = 0x740; // Level info (Class, level number, and i
 export const OFFSET_NAME = 0x80; // Level name table
 export const OFFSET_UNFINISHED = 0x29; // Current unfinished level record ID
 export const OFFSET_DATAIDLIST = 0x6d4; // Level data ID list
+export const LEVEL_ECOIN_PALETTE_OFFSET = 0x40;
+export const LEVEL_ECOIN_TILE_OFFSET = 0x60;
 
 type ELevelInfo = {
 	name: Uint8Array;

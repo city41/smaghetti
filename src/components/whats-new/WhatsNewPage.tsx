@@ -87,6 +87,23 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="E-Coins now work in the castle" date="2021-09-30">
+					<p>
+						After you collect the E-coin in your level, it will now show up
+						correctly in the E-coin castle.
+					</p>
+					<p>
+						<span className="inline-block px-2 bg-red-600 text-white">
+							NOTE:
+						</span>{' '}
+						When testing your level inside Smaghetti, you can only go into the
+						E-coin castle once. If you go into it again, the game will glitch
+						out. This bug only happens in Smaghetti. If you take your save file
+						and play it on a real GBA or in a normal emulator, this problem
+						doesn&apos;t happen. I will see if I can get this fixed, but at
+						least it only happens inside Smaghetti.
+					</p>
+				</NewEntry>
 				<NewEntry
 					title="E-Coins don't work in the castle ... yet"
 					date="2021-09-28"
