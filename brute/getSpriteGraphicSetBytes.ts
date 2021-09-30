@@ -50,11 +50,7 @@ function getGbaScreen(
 ): Promise<{ buffer: Buffer; data: Uint8ClampedArray }> {
 	return new Promise((resolve, reject) => {
 		const patchedLevelData = applySpriteGraphicSet(levelData, spriteGraphicSet);
-		const saveFileWithLevel = injectLevelIntoSave(
-			emptySave,
-			patchedLevelData,
-			true
-		);
+		const saveFileWithLevel = injectLevelIntoSave(emptySave, patchedLevelData);
 
 		// @ts-ignore
 		const gba: any = new GameBoyAdvance();

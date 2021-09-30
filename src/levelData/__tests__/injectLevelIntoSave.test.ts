@@ -14,8 +14,7 @@ describe('injectLevelIntoSave', () => {
 
 		const saveFileWithInjectedLevel = injectLevelIntoSave(
 			emptySaveFile,
-			levelFile,
-			true
+			levelFile
 		);
 
 		fs.writeFileSync(

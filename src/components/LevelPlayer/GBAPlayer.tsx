@@ -42,8 +42,7 @@ function GBAPlayer({
 			if (status === 'ready-to-inject') {
 				const saveFileWithInjectedLevel = injectLevelIntoSave(
 					emptySaveFile,
-					levelData,
-					true
+					levelData
 				);
 				window._gba.injectSaveFile(saveFileWithInjectedLevel.buffer);
 			}
@@ -64,7 +63,6 @@ function GBAPlayer({
 
 			window._gba.setRom(romFile.buffer);
 			window._gba.defrost(cloneDeep(saveState));
-			window._gba.setSavedata(emptySaveFile.buffer);
 			window._gba.runStable();
 		} else {
 			setHasCrashed(false);

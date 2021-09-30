@@ -96,7 +96,7 @@ function getGbaScreen(
 
 		// @ts-ignore
 		const levelData = createLevelData([getRoom(objectSet, graphicSet)]);
-		const saveFileWithLevel = injectLevelIntoSave(emptySave, levelData, true);
+		const saveFileWithLevel = injectLevelIntoSave(emptySave, levelData);
 
 		// @ts-ignore
 		const gba: any = new GameBoyAdvance();

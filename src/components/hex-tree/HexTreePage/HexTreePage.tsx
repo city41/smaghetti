@@ -112,7 +112,7 @@ function HexTreePage({
 
 	function handleDownloadSave() {
 		if (data.length) {
-			const saveFile = injectLevelIntoSave(getEmptySave()!, data, true);
+			const saveFile = injectLevelIntoSave(getEmptySave()!, data);
 			const fileBlob = new Blob([saveFile.buffer], {
 				type: 'application/octet-stream',
 			});

@@ -41,7 +41,7 @@ function downloadSetOfLevelsAsSaveFile(
 		nameMap[croppedName] = (nameMap[croppedName] ?? 1) + 1;
 
 		const levelSaveData = createLevelData({ ...level, name });
-		fullSaveData = injectLevelIntoSave(fullSaveData, levelSaveData, false);
+		fullSaveData = injectLevelIntoSave(fullSaveData, levelSaveData);
 	});
 
 	const fileBlob = new Blob([fullSaveData.buffer], {
