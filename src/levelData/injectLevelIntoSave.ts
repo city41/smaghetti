@@ -26,6 +26,7 @@ import {
 	MAX_ECOIN_TABLE,
 	LEVEL_ECOIN_PALETTE_OFFSET,
 	LEVEL_ECOIN_TILE_OFFSET,
+	ECoinInfo,
 } from './typesAndConstants';
 import {
 	convertLevelNameToASCII,
@@ -33,6 +34,7 @@ import {
 	getLevelDataAddress,
 } from './util';
 import { parseSaveFile } from './parseSaveFile';
+import { ROOM_SPRITE_POINTERS } from './constants';
 
 function loadCompressedLevelData(level: ELevelData, inputData: Uint8Array) {
 	// TODO: compress is wrong I think, need to go over it again
@@ -418,6 +420,30 @@ function findSameInfoRecord(saveFile: SaveFile, info: ELevelInfo): number {
 	return 0;
 }
 
+const ECOIN_OBJECT_ID = 0xf9;
+
+function patchECoinIDOnEntity(
+	level: Uint8Array,
+	ecoinId: number,
+	info: ECoinInfo
+) {
+	const view = new DataView(level.buffer);
+
+	const spriteOffset = view.getUint16(ROOM_SPRITE_POINTERS[info.room], true);
+
+	for (let b = spriteOffset; b < level.byteLength && level[b] !== 0xff; ++b) {
+		if (
+			level[b] === 0 &&
+			level[b + 1] === ECOIN_OBJECT_ID &&
+			level[b + 2] === info.x &&
+			level[b + 4] === info.param
+		) {
+			level[b + 4] = ecoinId;
+			return;
+		}
+	}
+}
+
 /**
  * injects a binary ereader level (a *.level file) into
  * a save file. Ported over from sma4savtool.cpp which was written by purplebridge001.
@@ -430,7 +456,8 @@ function findSameInfoRecord(saveFile: SaveFile, info: ELevelInfo): number {
  */
 function injectLevelIntoSave(
 	saveDataInput: Uint8Array,
-	inputData: Uint8Array
+	inputData: Uint8Array,
+	ecoinInfo: ECoinInfo | null
 ): Uint8Array {
 	const saveData = new Uint8Array(Array.from(saveDataInput));
 
@@ -453,8 +480,6 @@ function injectLevelIntoSave(
 		ecoinA: new Uint8Array(ECOIN_TILE_SIZE),
 		data: Uint8Array.from([]),
 	};
-
-	loadCompressedLevelData(level, inputData);
 
 	const newRecord: ELevelRecord = {
 		info: level.info,
@@ -496,6 +521,29 @@ function injectLevelIntoSave(
 
 	level.recordID = recordID;
 
+	// a temporary way to ensure all levels in the save file have a different level number
+	// TODO: a better way to do this
+	level.info.levelNumber = recordID;
+
+	// same deal here, temporarily spread the e-coins out
+	if (level.info.eCoinID > 0) {
+		level.info.eCoinID = recordID;
+	}
+
+	// used up all the ecoin slots? oh well, this level cant participate
+	if (level.info.eCoinID > 24) {
+		level.info.eCoinID = 0;
+	}
+
+	// need to set the same ecoin id on the ecoin entity itself
+	// TODO: this is nasty, there has to be a much better way to handle
+	// multiple e-coins. Just brute forcing through for now...
+	if (level.info.eCoinID > 0) {
+		patchECoinIDOnEntity(inputData, level.info.eCoinID, ecoinInfo!);
+	}
+
+	loadCompressedLevelData(level, inputData);
+
 	newRecord.info = level.info;
 	newRecord.playable = dataID < 32 ? 1 : 0;
 	newRecord.dataID = dataID;
@@ -515,7 +563,7 @@ function injectLevelIntoSave(
 	saveLevelData(saveData, saveFile);
 	saveLevelRecords(saveData, saveFile);
 
-	if (eCoinID > 0) {
+	if (level.info.eCoinID > 0) {
 		const eCoinPalette = Array.from(
 			inputData.slice(
 				LEVEL_ECOIN_PALETTE_OFFSET,

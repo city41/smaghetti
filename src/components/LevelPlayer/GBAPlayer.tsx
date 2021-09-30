@@ -5,6 +5,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { injectLevelIntoSave } from '../../levelData/injectLevelIntoSave';
 
 import styles from './GBAPlayer.module.css';
+import { ECoinInfo } from '../../levelData/typesAndConstants';
 
 type GBAPlayerProps = {
 	className?: string;
@@ -13,6 +14,7 @@ type GBAPlayerProps = {
 	emptySaveFile: Uint8Array;
 	saveState: Record<string, unknown>;
 	levelData: Uint8Array;
+	ecoinInfo: ECoinInfo | null;
 	isPlaying: boolean;
 	scale?: number;
 	canvasRef: RefObject<HTMLCanvasElement>;
@@ -25,6 +27,7 @@ function GBAPlayer({
 	emptySaveFile,
 	saveState,
 	levelData,
+	ecoinInfo,
 	isPlaying,
 	scale = 3,
 	canvasRef,
@@ -42,7 +45,8 @@ function GBAPlayer({
 			if (status === 'ready-to-inject') {
 				const saveFileWithInjectedLevel = injectLevelIntoSave(
 					emptySaveFile,
-					levelData
+					levelData,
+					ecoinInfo
 				);
 				window._gba.injectSaveFile(saveFileWithInjectedLevel.buffer);
 			}

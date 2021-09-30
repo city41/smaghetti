@@ -1,5 +1,6 @@
-import { MAX_NAME_SIZE } from './typesAndConstants';
+import { ECoinInfo, MAX_NAME_SIZE } from './typesAndConstants';
 import { asciiToEReader } from './asciiToEReader';
+import { TILE_SIZE } from '../tiles/constants';
 
 export function getLevelDataAddress(dataID: number): number {
 	const isEven = dataID % 2 === 0;
@@ -140,4 +141,23 @@ export function flattenCells(matrix: EditorEntityMatrix): EditorEntity[] {
 
 		return building.concat(rowTiles);
 	}, []);
+}
+
+export function getECoinInfo(level: LevelToLoadInGBA): ECoinInfo | null {
+	for (let i = 0; i < level.data.rooms.length; ++i) {
+		const ecoin = level.data.rooms[i].stage.entities.find(
+			(e) => e.type === 'ECoin'
+		);
+
+		if (ecoin) {
+			return {
+				room: i,
+				x: ecoin.x / TILE_SIZE,
+				y: ecoin.y / TILE_SIZE,
+				param: 1,
+			};
+		}
+	}
+
+	return null;
 }

@@ -112,7 +112,7 @@ function HexTreePage({
 
 	function handleDownloadSave() {
 		if (data.length) {
-			const saveFile = injectLevelIntoSave(getEmptySave()!, data);
+			const saveFile = injectLevelIntoSave(getEmptySave()!, data, null);
 			const fileBlob = new Blob([saveFile.buffer], {
 				type: 'application/octet-stream',
 			});
@@ -221,6 +221,7 @@ function HexTreePage({
 										emptySaveFile={getEmptySave()!}
 										saveState={getSaveState()!}
 										levelData={data}
+										ecoinInfo={null}
 										isPlaying={editState === 'running' || immediateMode}
 										scale={1.5}
 										canvasRef={canvasRef}

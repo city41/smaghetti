@@ -10,6 +10,7 @@ import { GBAPlayer } from './GBAPlayer';
 import { createLevelData } from '../../levelData/createLevelData';
 import { ControlsBanner } from '../ControlsBanner';
 import { PlainIconButton } from '../PlainIconButton';
+import { getECoinInfo } from '../../levelData/util';
 
 type LevelPlayerProps = {
 	className?: string;
@@ -84,6 +85,7 @@ function LevelPlayer({
 						emptySaveFile={emptySaveFile}
 						saveState={saveState}
 						levelData={createLevelData(level)}
+						ecoinInfo={getECoinInfo(level)}
 						isPlaying={isPlaying}
 						canvasRef={canvasRef}
 					/>

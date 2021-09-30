@@ -22,6 +22,13 @@ export const OFFSET_DATAIDLIST = 0x6d4; // Level data ID list
 export const LEVEL_ECOIN_PALETTE_OFFSET = 0x40;
 export const LEVEL_ECOIN_TILE_OFFSET = 0x60;
 
+type ECoinInfo = {
+	room: number;
+	x: number;
+	y: number;
+	param: number;
+};
+
 type ELevelInfo = {
 	name: Uint8Array;
 	// this is for convenience/debugging and is never added to a save file
@@ -62,4 +69,4 @@ type SaveFile = {
 	ecoinArray: number[];
 };
 
-export type { ELevelInfo, ELevelRecord, ELevelData, SaveFile };
+export type { ECoinInfo, ELevelInfo, ELevelRecord, ELevelData, SaveFile };

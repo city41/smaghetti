@@ -1,6 +1,7 @@
 import { getEmptySave } from '../components/FileLoader/files';
 import { createLevelData } from './createLevelData';
 import { injectLevelIntoSave } from './injectLevelIntoSave';
+import { getECoinInfo } from './util';
 
 function sendBlobToAnchorTag(fileBlob: Blob, fileName: string) {
 	// stupid browser hack needed to download the file with a usable name
@@ -36,12 +37,13 @@ function downloadSetOfLevelsAsSaveFile(
 	const nameMap: Record<string, number> = {};
 
 	levels.forEach((level) => {
+		const ecoinInfo = getECoinInfo(level);
 		const croppedName = level.name.substr(0, 19);
 		const name = `${nameMap[croppedName] ?? ''}${croppedName}`;
 		nameMap[croppedName] = (nameMap[croppedName] ?? 1) + 1;
 
 		const levelSaveData = createLevelData({ ...level, name });
-		fullSaveData = injectLevelIntoSave(fullSaveData, levelSaveData);
+		fullSaveData = injectLevelIntoSave(fullSaveData, levelSaveData, ecoinInfo);
 	});
 
 	const fileBlob = new Blob([fullSaveData.buffer], {
