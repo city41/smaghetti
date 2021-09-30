@@ -3,19 +3,14 @@ import clsx from 'clsx';
 import { FaBomb, FaCheck } from 'react-icons/fa';
 import { RiEraserFill } from 'react-icons/ri';
 import { MdPhotoSizeSelectActual } from 'react-icons/md';
-import {
-	documentCanvasGenerator,
-	extractResourceTileData,
-	gba16ToRgb,
-	tileToCanvas,
-} from '../../../tiles/extractResourcesToStylesheet';
+import { gba16ToRgb } from '../../../tiles/extractResourcesToStylesheet';
 
 import eCoinTemplatePng from './eCoinTemplate.png';
 import eCoinTemplateBorderPng from './eCoinTemplateBorder.png';
 import smaghettiECoinPng from './smaghettiECoin.png';
 import smaghettiLogoPng from '../../../images/logo.png';
 import { canvasToCoinData } from './canvasToCoinData';
-import { ECoinPalette } from '../ECoinData';
+import { COIN_SIZE, setCoinData } from '../util';
 
 type ECoinEditorProps = {
 	className?: string;
@@ -23,16 +18,6 @@ type ECoinEditorProps = {
 	coinData?: number[];
 	onCoinData: (data: number[]) => void;
 };
-
-const COIN_SIZE = 24;
-
-const ECOIN_TILES = [
-	[0, 1, 2],
-	[3, 4, 5],
-	[6, 7, 8],
-].map((row) => {
-	return row.map((c) => ({ tileIndex: c, uncompressed: true }));
-});
 
 // The standard e-coin palette in gba16 form,
 // except it has been sorted from dark to light manually.
@@ -127,25 +112,6 @@ function Palette({ curIndex, onIndexChange }: PaletteProps) {
 			{entries}
 		</div>
 	);
-}
-
-function setCoinData(canvas: HTMLCanvasElement, coinData: number[]) {
-	const data = new Uint8Array(coinData);
-
-	const extractedPixelData = extractResourceTileData(data, {
-		palettes: [],
-		romOffset: 0,
-		tiles: ECOIN_TILES,
-	});
-
-	const dataInCanvas = tileToCanvas(
-		extractedPixelData,
-		[ECoinPalette],
-		documentCanvasGenerator,
-		false
-	);
-
-	canvas.getContext('2d')!.drawImage(dataInCanvas, 0, 0, COIN_SIZE, COIN_SIZE);
 }
 
 function paintCanvasPixel(

@@ -4,6 +4,7 @@ import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { PaintBrushButton } from './PaintBrushButton';
 import { ECoinEditor } from './ECoinEditor/index';
+import { ECoinView } from './ECoinView';
 import { ECoinPaletteData, ECoinTileData } from './ECoinData';
 
 const ECoin: Entity = {
@@ -77,11 +78,21 @@ const ECoin: Entity = {
 		return (
 			<div style={style} className="relative ECoin-bg bg-center bg-no-repeat">
 				{!!entity && (
-					<PaintBrushButton
-						onClick={() => {
-							onSettingsChange({ showEditor: true });
-						}}
-					/>
+					<>
+						<ECoinView
+							className="absolute"
+							style={{
+								top: TILE_SIZE / 4,
+								left: TILE_SIZE / 4,
+							}}
+							data={settings.coinData}
+						/>
+						<PaintBrushButton
+							onClick={() => {
+								onSettingsChange({ showEditor: true });
+							}}
+						/>
+					</>
 				)}
 				{settings.showEditor && (
 					<ECoinEditor
