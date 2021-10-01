@@ -6,8 +6,10 @@ export function getEntityTileBounds(entity: NewEditorEntity): Bounds {
 	const tileWidth = entity.settings?.width ?? entityDef.width ?? 1;
 	const tileHeight = entity.settings?.height ?? entityDef.height ?? 1;
 
-	const minX = Math.floor(entity.x / TILE_SIZE);
-	const minY = Math.floor(entity.y / TILE_SIZE);
+	const tileDivisor = entityDef.editorType === 'cell' ? 1 : TILE_SIZE;
+
+	const minX = Math.floor(entity.x / tileDivisor);
+	const minY = Math.floor(entity.y / tileDivisor);
 
 	const maxX = minX + tileWidth - 1;
 	const maxY = minY + tileHeight - 1;

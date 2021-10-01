@@ -5,6 +5,7 @@ import { entityMap } from '../../entities/entityMap';
 
 import focusedStyles from '../../styles/focused.module.css';
 import { TILE_SIZE } from '../../tiles/constants';
+import { getEntityTileBounds } from '../editor/util';
 
 type EntityProps = {
 	className?: string;
@@ -72,12 +73,25 @@ function Entity({
 		(entityDef.getWarning?.({ settings, entity, room, allRooms: rooms }) ||
 			getTwoColumnWarning(entity, room));
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const focusedVars: any = {};
+
+	if (focused) {
+		const bounds = getEntityTileBounds(entity);
+		focusedVars['--focused-width'] = `${
+			(bounds.lowerRight.x - bounds.upperLeft.x + 1) * TILE_SIZE
+		}px`;
+		focusedVars['--focused-height'] = `${
+			(bounds.lowerRight.y - bounds.upperLeft.y + 1) * TILE_SIZE
+		}px`;
+	}
+
 	return (
 		<div
 			className={clsx(className, {
 				[focusedStyles.focused]: focused,
 			})}
-			style={style}
+			style={{ ...style, ...focusedVars }}
 		>
 			{body}
 			{warning && (

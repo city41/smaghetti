@@ -7,6 +7,7 @@ import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { Resizer } from '../components/Resizer';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
+import { TileSpace } from './TileSpace';
 
 function getTileSize(len: number): Point {
 	const riserCount = len & 1 ? Math.ceil(len / 2) : len / 2 + 1;
@@ -186,28 +187,34 @@ const StairsDownRight: Entity = {
 			>
 				{cells}
 				{!!entity && (
-					<Resizer
-						className="absolute bottom-0 right-0"
-						style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
-						size={{ x: tileWidth, y: tileHeight }}
-						increment={TILE_SIZE}
-						axis="xy"
-						onSizeChange={(newSizePoint) => {
-							let newLength;
+					<>
+						<TileSpace
+							className="absolute top-0 left-0"
+							style={{ width: TILE_SIZE, height: TILE_SIZE }}
+						/>
+						<Resizer
+							className="absolute bottom-0 right-0"
+							style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
+							size={{ x: tileWidth, y: tileHeight }}
+							increment={TILE_SIZE}
+							axis="xy"
+							onSizeChange={(newSizePoint) => {
+								let newLength;
 
-							if (newSizePoint.x > tileWidth || newSizePoint.y > tileHeight) {
-								newLength = length + 1;
-							} else {
-								newLength = Math.max(1, length - 1);
-							}
+								if (newSizePoint.x > tileWidth || newSizePoint.y > tileHeight) {
+									newLength = length + 1;
+								} else {
+									newLength = Math.max(1, length - 1);
+								}
 
-							onSettingsChange({
-								length: newLength,
-							});
-						}}
-						onResizeStart={() => onSettingsChange({ resizing: true })}
-						onResizeEnd={() => onSettingsChange({ resizing: false })}
-					/>
+								onSettingsChange({
+									length: newLength,
+								});
+							}}
+							onResizeStart={() => onSettingsChange({ resizing: true })}
+							onResizeEnd={() => onSettingsChange({ resizing: false })}
+						/>
+					</>
 				)}
 			</div>
 		);
