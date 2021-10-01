@@ -13,6 +13,7 @@ import {
 import { TILE_SIZE } from '../../../../tiles/constants';
 
 import styles from './LevelRow.module.css';
+import { entityMap } from '../../../../entities/entityMap';
 
 type PublicLevelRowProps = {
 	className?: string;
@@ -128,8 +129,12 @@ function LevelRow({
 		);
 	}
 
-	const hasECoin = level.data.rooms.some((r) =>
-		r.stage.entities.some((e) => e.type === 'ECoin')
+	const hasECoin = level.data.rooms.some(
+		(r) =>
+			r.stage.entities.some((e) => entityMap[e.type].getECoinData?.(e)) ||
+			r.stage.matrix.some((r) =>
+				r?.some((c) => c && entityMap[c.type].getECoinData?.(c))
+			)
 	);
 
 	const VoteIcon = isVoting

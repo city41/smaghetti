@@ -619,9 +619,14 @@ function getFullRoomData(rooms: Room[]): number[] {
 	}, []);
 }
 
-function getAllNonCellEntities(rooms: RoomData[]): EditorEntity[] {
+function getAllEntities(rooms: RoomData[]): EditorEntity[] {
 	return rooms.reduce<EditorEntity[]>((building, room) => {
-		return building.concat(room.actors.entities, room.stage.entities);
+		return building.concat(
+			room.actors.entities,
+			room.stage.entities,
+			flattenCells(room.actors.matrix),
+			flattenCells(room.stage.matrix)
+		);
 	}, []);
 }
 
@@ -630,24 +635,27 @@ function createLevelData(level: LevelToLoadInGBA): Uint8Array {
 		getRoom(level.data.settings, i, arr)
 	);
 
-	const allNonCellEntities = getAllNonCellEntities(level.data.rooms);
+	const allEntities = getAllEntities(level.data.rooms);
 
 	const aceCoinCount =
-		allNonCellEntities.filter((e) => e.type === 'AceCoin').length +
-		allNonCellEntities.filter(
+		allEntities.filter((e) => e.type === 'AceCoin').length +
+		allEntities.filter(
 			(e) => e.type === 'Bubble' && e.settings?.payload === 'AceCoin'
 		).length;
 
-	const hasECoin = !!allNonCellEntities.find((e) => e.type === 'ECoin');
+	const eCoinDataProvider = allEntities.find((e) =>
+		entityMap[e.type].getECoinData?.(e)
+	);
 
-	const header = getHeader(hasECoin ? 1 : 0, aceCoinCount);
+	const header = getHeader(eCoinDataProvider ? 1 : 0, aceCoinCount);
 	// four rooms, each with six pointers, pointers are two bytes
 	const pointers: Tuple<number, 48> = new Array(4 * 6 * 2);
 	// empty bytes between pointer and name so that name starts at 0x40
 	const nullBytes = new Array(11).fill(0);
 
-	const eCoin = allNonCellEntities.find((e) => e.type === 'ECoin');
-	const eCoinData = eCoin ? entityMap.ECoin.getECoinData!(eCoin) : [];
+	const eCoinData = eCoinDataProvider
+		? entityMap[eCoinDataProvider.type].getECoinData!(eCoinDataProvider)!
+		: [];
 
 	const name = getLevelName(level.name);
 

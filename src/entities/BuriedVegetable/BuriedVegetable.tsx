@@ -7,6 +7,8 @@ import { ResourceType } from '../../resources/resourceMap';
 import { PayloadEditDetails } from '../detailPanes/PayloadEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
+import { ECoinPaintBrushButton } from '../ECoin/ECoinPaintBrushButton';
+import { ECoinPaletteData, ECoinTileData } from '../ECoin/ECoinData';
 
 const BuriedVegetable: Entity = {
 	paletteCategory: 'terrain',
@@ -78,6 +80,21 @@ const BuriedVegetable: Entity = {
 		return [getBankParam1(1, 0), y, x, objectId];
 	},
 
+	toSpriteBinary({ x, y, settings }) {
+		if (settings.payload === 'ECoin') {
+			return [0, 0xf9, x, y, 1];
+		} else {
+			return [];
+		}
+	},
+
+	getECoinData(entity) {
+		if (entity.settings?.payload === 'ECoin') {
+			const coinData = (entity.settings?.coinData ?? ECoinTileData) as number[];
+			return ECoinPaletteData.concat(coinData);
+		}
+	},
+
 	simpleRender(size) {
 		return (
 			<div
@@ -90,9 +107,19 @@ const BuriedVegetable: Entity = {
 	render({ showDetails, settings, onSettingsChange }) {
 		const body = (
 			<div
-				className="BuriedVegetable-bg bg-cover relative cursor-pointer"
+				className="relative BuriedVegetable-bg bg-cover cursor-pointer"
 				style={{ width: TILE_SIZE, height: TILE_SIZE }}
 			>
+				{settings.payload === 'ECoin' && !showDetails && (
+					<ECoinPaintBrushButton
+						className="absolute"
+						style={{ top: 1, right: 1 }}
+						coinData={settings.coinData}
+						onCoinData={(coinData) => {
+							onSettingsChange({ coinData });
+						}}
+					/>
+				)}
 				<PayloadViewDetails payload={settings.payload} />
 			</div>
 		);

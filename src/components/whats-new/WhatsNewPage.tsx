@@ -90,6 +90,7 @@ function WhatsNewPage() {
 				<NewEntry title="New/Changed Entities" date="2021-10-01">
 					<ul>
 						<li>Bubble: Hammer Bro Suit and Boomerang payloads</li>
+						<li>Buried Vegetable: E-Coin payload</li>
 						<li>Buried Vegetable - Monty Mole (in terrain)</li>
 						<li>Stalagmite (in terrain)</li>
 					</ul>

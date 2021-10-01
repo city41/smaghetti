@@ -1,6 +1,7 @@
 import { ECoinInfo, MAX_NAME_SIZE } from './typesAndConstants';
 import { asciiToEReader } from './asciiToEReader';
 import { TILE_SIZE } from '../tiles/constants';
+import { entityMap } from '../entities/entityMap';
 
 export function getLevelDataAddress(dataID: number): number {
 	const isEven = dataID % 2 === 0;
@@ -145,15 +146,23 @@ export function flattenCells(matrix: EditorEntityMatrix): EditorEntity[] {
 
 export function getECoinInfo(level: LevelToLoadInGBA): ECoinInfo | null {
 	for (let i = 0; i < level.data.rooms.length; ++i) {
-		const ecoin = level.data.rooms[i].stage.entities.find(
-			(e) => e.type === 'ECoin'
+		const room = level.data.rooms[i];
+		const roomEntities = flattenCells(room.stage.matrix).concat(
+			room.stage.entities
 		);
 
-		if (ecoin) {
+		const eCoinDataProvider = roomEntities.find((e) =>
+			entityMap[e.type].getECoinData?.(e)
+		);
+
+		if (eCoinDataProvider) {
+			const tileDiviser =
+				entityMap[eCoinDataProvider.type].editorType === 'cell' ? 1 : TILE_SIZE;
+
 			return {
 				room: i,
-				x: ecoin.x / TILE_SIZE,
-				y: ecoin.y / TILE_SIZE,
+				x: eCoinDataProvider.x / tileDiviser,
+				y: eCoinDataProvider.y / tileDiviser,
 				param: 1,
 			};
 		}

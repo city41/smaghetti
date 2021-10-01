@@ -2,8 +2,7 @@ import React from 'react';
 import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
-import { PaintBrushButton } from './PaintBrushButton';
-import { ECoinEditor } from './ECoinEditor/index';
+import { ECoinPaintBrushButton } from './ECoinPaintBrushButton';
 import { ECoinView } from './ECoinView';
 import { ECoinPaletteData, ECoinTileData } from './ECoinData';
 
@@ -87,22 +86,14 @@ const ECoin: Entity = {
 							}}
 							data={settings.coinData}
 						/>
-						<PaintBrushButton
-							onClick={() => {
-								onSettingsChange({ showEditor: true });
+						<ECoinPaintBrushButton
+							className="absolute bottom-1 left-1 z-10"
+							coinData={settings.coinData}
+							onCoinData={(coinData) => {
+								onSettingsChange({ coinData });
 							}}
 						/>
 					</>
-				)}
-				{settings.showEditor && (
-					<ECoinEditor
-						className="absolute"
-						style={{ zIndex: 20 }}
-						coinData={settings.coinData}
-						onCoinData={(coinData) => {
-							onSettingsChange({ coinData, showEditor: false });
-						}}
-					/>
 				)}
 			</div>
 		);
