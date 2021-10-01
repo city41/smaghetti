@@ -7,7 +7,7 @@ import { parseSimpleSprite } from './util';
 const BulletBillTargeting: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		title: 'Bill Blaster - Targeting',
+		title: 'Bullet Bill - Targeting',
 		description:
 			'A Bullet Bill that seeks out Mario and flies towards him. This is an enemy on the SMA4 ROM that Nintendo never ended up using.',
 	},
