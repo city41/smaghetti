@@ -5,9 +5,10 @@ import { getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { Resizer } from '../components/Resizer';
+import { TileSpace } from './TileSpace';
+import clamp from 'lodash/clamp';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
-import { TileSpace } from './TileSpace';
 
 function getTileSize(len: number): Point {
 	const riserCount = Math.ceil(len / 2);
@@ -210,9 +211,9 @@ const StairsUpRight: Entity = {
 								let newLength;
 
 								if (newSizePoint.x > tileWidth || newSizePoint.y < tileHeight) {
-									newLength = length + 1;
+									newLength = clamp(length + 1, 1, 64);
 								} else {
-									newLength = Math.max(1, length - 1);
+									newLength = clamp(length - 1, 1, 64);
 								}
 
 								onSettingsChange({
