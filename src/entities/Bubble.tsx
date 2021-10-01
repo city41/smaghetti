@@ -42,10 +42,10 @@ const Bubble: Entity = {
 		StarMan: 4,
 		TanookiSuit: 5,
 		FrogSuit: 6,
-		// HammerBrosSuit: 7
+		HammerBroSuit: 7,
 		Shoe: 8,
 		// 9 is half of an ace coin? seems like a bug
-		// Boomerang: 10
+		Boomerang: 10,
 		// 11 is the other half of an ace coin?
 		// 12 is some kind of wing?
 		Key: 13,
