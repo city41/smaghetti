@@ -42,6 +42,20 @@ function TipsPage() {
 					Really simple so far. I plan to expand this page into nice advanced
 					usage docs. Stay tuned.
 				</p>
+				<TipEntry title="You can't trust the editor">
+					<p>
+						What you see in the editor might not match what happens in the real
+						game. You should always test your level out thoroughly to make sure
+						it is doing what you expect.
+					</p>
+					<p>
+						Smaghetti&apos;s editor tries its best to mimick the real game. But
+						there are just way too many combinations of entities. Most of the
+						time, things work out just fine. But sometimes if you put two
+						certain entities together in a new way, they may behave strangely in
+						game, maybe even cause a crash.
+					</p>
+				</TipEntry>
 				<TipEntry title="Mario's position and the camera">
 					<p>
 						Where Mario starts in a room has an influence on the camera. If you
