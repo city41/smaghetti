@@ -282,6 +282,8 @@ export const resourceShaMap: Record<string, string> = {
   "Spiny": "b21dd9011491a654fc6b551d2a5b5a4712654172",
   "SpinyCheepCheepGenerator": "06155465d10ea5a1724e4bdf6314c5363d5151ff",
   "SpringBoard": "ad64b27c2ec1dfe5628d746e4e91ade2d40f3b62",
+  "StairsDownRightBack": "8b34480bcbf3ef1f7f6c3d4de92ee8119c499bc7",
+  "StairsDownRightTread": "8d79d17ed7f53315f6e1bb53d96f6b4ae889798a",
   "Stalactite": "fd8d097de842abd0b083316ca80feb4196fe9c07",
   "StalactiteFallingStationary": "bef4168f7b0a4285b1162aa2d62eed8cb769a8c8",
   "StalactiteFallingLoose": "568409b9e04ddbd14ac9d7f75c7b70825f8fadad",
