@@ -117,8 +117,8 @@ const StairsDownRight: Entity = {
 		const { x: tileWidth, y: tileHeight } = getTileSize(length);
 
 		const style = {
-			width: tileWidth * TILE_SIZE,
-			height: tileHeight * TILE_SIZE,
+			width: TILE_SIZE,
+			height: TILE_SIZE,
 		};
 
 		const baseCellStyle = { width: TILE_SIZE, height: TILE_SIZE };
@@ -194,7 +194,12 @@ const StairsDownRight: Entity = {
 						/>
 						<Resizer
 							className="absolute bottom-0 right-0"
-							style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
+							style={{
+								top: tileHeight * TILE_SIZE,
+								left: tileWidth * TILE_SIZE,
+								marginLeft: '-0.12rem',
+								marginBottom: '-0.12rem',
+							}}
 							size={{ x: tileWidth, y: tileHeight }}
 							increment={TILE_SIZE}
 							axis="xy"

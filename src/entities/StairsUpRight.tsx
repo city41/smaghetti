@@ -10,10 +10,13 @@ import styles from '../components/Resizer/ResizingStyles.module.css';
 import { TileSpace } from './TileSpace';
 
 function getTileSize(len: number): Point {
-	const riserCount = len & 1 ? Math.ceil(len / 2) : len / 2 + 1;
+	const riserCount = Math.ceil(len / 2);
+
+	const height = Math.ceil(len / 2);
+
 	return {
 		x: riserCount,
-		y: Math.round(riserCount * 0.75),
+		y: height,
 	};
 }
 
@@ -117,8 +120,8 @@ const StairsUpRight: Entity = {
 		const { x: tileWidth, y: tileHeight } = getTileSize(length);
 
 		const style = {
-			width: tileWidth * TILE_SIZE,
-			height: tileHeight * TILE_SIZE,
+			width: TILE_SIZE,
+			height: TILE_SIZE,
 		};
 
 		const baseCellStyle = { width: TILE_SIZE, height: TILE_SIZE };
@@ -183,6 +186,7 @@ const StairsUpRight: Entity = {
 					[styles.resizing]: settings?.resizing,
 				})}
 				style={style}
+				data-length={length}
 			>
 				{cells}
 				{!!entity && (
@@ -195,6 +199,7 @@ const StairsUpRight: Entity = {
 							className="absolute right-0"
 							style={{
 								top: -(tileHeight - 1) * TILE_SIZE,
+								left: tileWidth * TILE_SIZE,
 								marginLeft: '-0.12rem',
 								marginBottom: '-0.12rem',
 							}}

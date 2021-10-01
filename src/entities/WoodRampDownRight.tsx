@@ -131,13 +131,13 @@ const WoodRampDownRight: Entity = {
 
 		return (
 			<div className="grid grid-cols-2 grid-rows-2" style={style}>
+				<div style={cellStyle} className="WoodRampDownRightTop-bg bg-cover" />
 				<div />
-				<div style={cellStyle} className="WoodRampDownRightTop-bg bg-cover" />
-				<div style={cellStyle} className="WoodRampDownRightTop-bg bg-cover" />
 				<div
 					style={cellStyle}
 					className="WoodRampDownRightBottom-bg bg-cover"
 				/>
+				<div style={cellStyle} className="WoodRampDownRightTop-bg bg-cover" />
 			</div>
 		);
 	},
