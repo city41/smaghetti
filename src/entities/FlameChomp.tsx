@@ -7,7 +7,7 @@ import { parseSimpleSprite } from './util';
 const FlameChomp: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		title: 'FlameChomp',
+		title: 'Flame Chomp',
 	},
 
 	objectSets: ANY_OBJECT_SET,
