@@ -329,6 +329,8 @@ export const resourceShaMap: Record<string, string> = {
   "WoodFloorSnowCovered": "5720d3afc0e9d2592478f5ec012a0103a22ec334",
   "WoodFloorSnowCoveredRight": "b7887e603ad44b92e1d5f5407c08c43037bd2dd3",
   "WoodFloorSnowCoveredThumbnail": "7a58747fecbbd63c9a76fa63fa3fe473fa9fd634",
+  "WoodRampUpRightBottom": "3c351247ba8d98d9f8c99f8f5900c344b8ee3bdf",
+  "WoodRampUpRightTop": "09a1a514741b80cd2cf5d0ccd3d6e8f3f7e07103",
   "WoodSupport": "f3f0605cbba7518454f4e467843390187f1a1692",
   "WoodWalkway": "063c83628db00c278e967e873cdafc812b95477d",
   "WoodWindowFrame": "07c2c7202f351ca5e6c0fa343d37158b352b6f7d",

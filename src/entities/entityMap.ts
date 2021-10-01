@@ -340,6 +340,7 @@ import { WoodFloorGiant } from './WoodFloorGiant';
 import { WoodPlatform } from './WoodPlatform';
 import { WoodPlatformGiant } from './WoodPlatformGiant';
 import { WoodFloorSnowCovered } from './WoodFloorSnowCovered';
+import { WoodRampUpRight } from './WoodRampUpRight';
 import { WoodSupport } from './WoodSupport';
 import { WoodWalkway } from './WoodWalkway';
 import { WoodWindowFrame } from './WoodWindowFrame';
@@ -689,6 +690,7 @@ const entityMap = {
 	WoodPlatform,
 	WoodPlatformGiant,
 	WoodFloorSnowCovered,
+	WoodRampUpRight,
 	WoodSupport,
 	WoodWalkway,
 	WoodWindowFrame,
