@@ -59,6 +59,7 @@ import { BulletBillTargeting } from './BulletBillTargeting';
 import { Bumpty } from './Bumpty';
 import { BumptyAggressive } from './BumptyAggressive';
 import { BuriedVegetable } from './BuriedVegetable';
+import { BuriedVegetableMontyMole } from './BuriedVegetable/BuriedVegetableMontyMole';
 import { Burner } from './Burner';
 import { BusterBeetle } from './BusterBeetle';
 import { BuzzyBeetle } from './BuzzyBeetle';
@@ -405,6 +406,7 @@ const entityMap = {
 	Bumpty,
 	BumptyAggressive,
 	BuriedVegetable,
+	BuriedVegetableMontyMole,
 	Burner,
 	BusterBeetle,
 	BuzzyBeetle,

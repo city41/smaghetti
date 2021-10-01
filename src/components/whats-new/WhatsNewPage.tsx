@@ -90,8 +90,14 @@ function WhatsNewPage() {
 				<NewEntry title="New/Changed Entities" date="2021-10-01">
 					<ul>
 						<li>Bubble: Hammer Bro Suit and Boomerang payloads</li>
+						<li>Buried Vegetable - Monty Mole (in terrain)</li>
 						<li>Stalagmite (in terrain)</li>
 					</ul>
+					<p>
+						Monty Mole as a Buried Vegetable payload was separated out into its
+						own entity because it has different compatibility from all other
+						Buried Vegetable payloads.
+					</p>
 				</NewEntry>
 				<NewEntry title="E-Coins now work in the castle" date="2021-09-30">
 					<p>

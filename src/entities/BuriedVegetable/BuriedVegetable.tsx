@@ -31,12 +31,13 @@ const BuriedVegetable: Entity = {
 		CoinCache: 0x64,
 		GiantVegetable: 0x5a,
 		KoopaShell: 0x7e,
-		// does not work with underground graphic set
+		// monty mole is now its own entity, BuriedVegetableMontyMole
 		// MontyMole: 0x69,
 		OneUpMushroom: 0x65,
 		PoisonMushroom: 0x67,
 		RegularVegetable: 0x5b,
 		SmallVegetable: 0x5c,
+		ECoin: 0x66,
 	},
 
 	resource: {

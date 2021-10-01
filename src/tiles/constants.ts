@@ -16,6 +16,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	BoltUp: 'Bltu',
 	BowserBrick: 'Bbr',
 	BuriedVegetable: 'Bu',
+	BuriedVegetableMontyMole: 'BuMM',
 	Burner: 'Brn',
 	Brick: 'Br',
 	Brick2: 'Br2',
