@@ -95,6 +95,7 @@ function WhatsNewPage() {
 						<li>Stairs - Down Right (in terrain)</li>
 						<li>Stairs - Up Right (in terrain)</li>
 						<li>Stalagmite (in terrain)</li>
+						<li>Wood Ramp - Down Right (in terrain)</li>
 						<li>Wood Ramp - Up Right (in terrain)</li>
 					</ul>
 					<p>
