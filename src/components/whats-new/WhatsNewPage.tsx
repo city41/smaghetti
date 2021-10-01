@@ -93,6 +93,7 @@ function WhatsNewPage() {
 						<li>Buried Vegetable: E-Coin payload</li>
 						<li>Buried Vegetable - Monty Mole (in terrain)</li>
 						<li>Stairs - Down Right (in terrain)</li>
+						<li>Stairs - Up Right (in terrain)</li>
 						<li>Stalagmite (in terrain)</li>
 					</ul>
 					<p>
