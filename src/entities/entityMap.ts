@@ -297,6 +297,7 @@ import { SpringBoard } from './SpringBoard';
 import { Stalactite } from './Stalactite';
 import { StalactiteFalling } from './StalactiteFalling';
 import { StalactiteSingle } from './StalactiteSingle';
+import { Stalagmite } from './Stalagmite';
 import { StarMan } from './StarMan';
 import { StoneFloor } from './StoneFloor';
 import { StonePlateau } from './StonePlateau';
@@ -642,6 +643,7 @@ const entityMap = {
 	Stalactite,
 	StalactiteFalling,
 	StalactiteSingle,
+	Stalagmite,
 	StarMan,
 	StoneFloor,
 	StonePlateau,
