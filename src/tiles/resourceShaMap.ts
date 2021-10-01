@@ -145,6 +145,8 @@ export const resourceShaMap: Record<string, string> = {
   "FortressLampRope": "539f2c2e1672277b142c05e5c8ea6bfac4cbea19",
   "FortressLamp": "6d255aa1de3b1a46b6d53c589ab285be30ac4ef3",
   "FullerFlowerBush": "26412c6bc97c538d6003c023f748b7853af9647c",
+  "FullerFlowerBushLeft": "eb03fbbc70cbde36ee447f3db1bc3bb7153d99fc",
+  "FullerFlowerBushRight": "78216af029e8e2dfed8821696a8b5ba65dd7d16b",
   "Galoomba": "e147c89d4b70d92c7300c77e0eafe1fffc22726a",
   "GaloombaWithParachute": "c761fadcbdb788498ab30787f326f5e5452a7852",
   "GiantCannonBall": "42c8045208656f82d5da85c19fc7dfd268d0eabd",
