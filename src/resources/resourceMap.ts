@@ -63,6 +63,7 @@ import { KoopaWing } from './KoopaWing';
 import { MetalBrickBackground } from './MetalBrickBackground';
 import { MontyMoleJumpingOut } from './MontyMoleJumpingOut';
 import { MountainsBackground } from './MountainsBackground';
+import { MusicBox } from './MusicBox';
 import { NightSkyBackground } from './NightSkyBackground';
 import { OneNumberBlock } from './OneNumberBlock';
 import { OneWayDoorHorizontalFlipper } from './OneWayDoorHorizontalFlipper';
@@ -194,6 +195,7 @@ const resourceMap = {
 	MetalBrickBackground,
 	MontyMoleJumpingOut,
 	MountainsBackground,
+	MusicBox,
 	NightSkyBackground,
 	OneNumberBlock,
 	OneWayDoorHorizontalFlipper,

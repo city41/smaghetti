@@ -89,9 +89,12 @@ function WhatsNewPage() {
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
 				<NewEntry title="New/Changed Entities" date="2021-10-01">
 					<ul>
-						<li>Bubble: Hammer Bro Suit and Boomerang payloads</li>
+						<li>Bubble, new payloads: Hammer Bro Suit and Boomerang</li>
 						<li>Buried Vegetable: E-Coin payload</li>
 						<li>Buried Vegetable - Monty Mole (in terrain)</li>
+						<li>
+							Chest, new payloads: Hammer Bro Suit, Music Box, One Up, Three Up
+						</li>
 						<li>Stairs - Down Right (in terrain)</li>
 						<li>Stairs - Up Right (in terrain)</li>
 						<li>Stalagmite (in terrain)</li>

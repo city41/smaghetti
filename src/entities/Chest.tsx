@@ -26,18 +26,18 @@ const Chest: Entity = {
 		FireFlower: 2,
 		FrogSuit: 4,
 		TanookiSuit: 5,
-		//HammerBrosSuit: 6
+		HammerBroSuit: 6,
 		LakituCloud: 7,
 		PWing: 8,
 		StarMan: 9,
 		// Anchor: 0xa,
 		// Hammer: 0xb,
 		// Flute: 0xc,
-		// MusicBox: 0xd,
+		MusicBox: 0xd,
 		CapeFeather: 0xe,
 		Boomerang: 0xf,
-		// OneUp: 0x10 // note this is not a 1up mushroom, just an immediate 1up
-		// ThreeUp: 0x11 // note this is not a 3up moon, just an immediate 3up
+		OneUpMushroom: 0x10, // note this is not a 1up mushroom, just an immediate 1up
+		ThreeUpMoon: 0x11, // note this is not a 3up moon, just an immediate 3up
 	},
 
 	resource: {
