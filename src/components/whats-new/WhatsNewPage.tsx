@@ -95,6 +95,7 @@ function WhatsNewPage() {
 						<li>
 							Chest, new payloads: Hammer Bro Suit, Music Box, One Up, Three Up
 						</li>
+						<li>Classic Column (in decorations)</li>
 						<li>Stairs - Down Right (in terrain)</li>
 						<li>Stairs - Up Right (in terrain)</li>
 						<li>Stalagmite (in terrain)</li>

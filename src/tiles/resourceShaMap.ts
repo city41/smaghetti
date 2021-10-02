@@ -104,6 +104,8 @@ export const resourceShaMap: Record<string, string> = {
   "Chest": "ad9c257d5d49807bf01a21a28529a5f9cc972f82",
   "ChoppyWater": "0696223630ab80dad9b2a395607d829cebd00bcd",
   "ClassicBowser": "26bb64f95d49bf77e0d33666fb6d4b112a696145",
+  "ClassicColumnSilverCap": "36b0f3644cfbd570bc93971b629e11cc893edb6d",
+  "ClassicColumnSilverBody": "3c18e9f9d4c67975e9ed2605cbc211bf7c8e2476",
   "Clock": "b7018f7d0b1d718f852dc1a960040dae1f8f7998",
   "CloudFloorTop": "cd07a66c1d0444b2745fc2f9ac1b0dee3a024558",
   "CloudFloorBottom": "fbe647a1fb12d9dff0ce74cf744a15d0243b9bcd",
