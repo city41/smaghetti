@@ -1,9 +1,21 @@
 import React from 'react';
+import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { encodeObjectSets, parseSimpleObject } from './util';
+import { encodeObjectSets } from './util';
 import { getEntityTileBounds, pointIsInside } from '../components/editor/util';
+import { HammerButton } from './detailPanes/HammerButton';
+import { TileSpace } from './TileSpace';
+
+const colors = ['silver', 'blue'] as const;
+
+type Color = typeof colors[number];
+
+const colorToObjectId: Record<Color, number> = {
+	silver: 1,
+	blue: 0,
+};
 
 function getHeight(
 	entity: EditorEntity | undefined,
@@ -49,7 +61,12 @@ const ClassicColumn: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x1,
+	alternateObjectIds: Object.values(colorToObjectId),
 	emptyBank: 1,
+	settingsType: 'single',
+	defaultSettings: {
+		color: 'silver',
+	},
 
 	resources: {
 		ClassicColumnSilverCap: {
@@ -130,17 +147,91 @@ const ClassicColumn: Entity = {
 				[70, 71],
 			],
 		},
+		ClassicColumnBlueCap: {
+			palettes: [
+				[
+					0x7f96,
+					0x7fff,
+					0x0,
+					0x460c,
+					0x5a91,
+					0x6f35,
+					0x7fdb,
+					0x0,
+					0x0,
+					0x0,
+					0x20ba,
+					0x15bf,
+					0x2a9f,
+					0x435f,
+					0x0,
+					0x0,
+				],
+			],
+			romOffset: 0x167674,
+			tiles: [
+				[68, 69],
+				[72, 73],
+			],
+		},
+		ClassicColumnBlueBody: {
+			palettes: [
+				[
+					0x7f96,
+					0x7fff,
+					0x0,
+					0x460c,
+					0x5a91,
+					0x6f35,
+					0x7fdb,
+					0x0,
+					0x0,
+					0x0,
+					0x20ba,
+					0x15bf,
+					0x2a9f,
+					0x435f,
+					0x0,
+					0x0,
+				],
+			],
+			romOffset: 0x167674,
+			tiles: [[72, 73]],
+		},
+		ClassicColumnBlueBase: {
+			palettes: [
+				[
+					0x7f96,
+					0x7fff,
+					0x0,
+					0x460c,
+					0x5a91,
+					0x6f35,
+					0x7fdb,
+					0x0,
+					0x0,
+					0x0,
+					0x20ba,
+					0x15bf,
+					0x2a9f,
+					0x435f,
+					0x0,
+					0x0,
+				],
+			],
+			romOffset: 0x167674,
+			tiles: [
+				[72, 73],
+				[70, 71],
+			],
+		},
 	},
 
-	toObjectBinary({ x, y }) {
-		return [0x40, y, x, this.objectId];
-	},
+	toObjectBinary({ x, y, settings }) {
+		const color = (settings.color ?? this.defaultSettings!.color) as Color;
+		const objectId = colorToObjectId[color];
 
-	parseObject(data, offset) {
-		// TODO: this will only work for Smaghetti levels
-		// for full compatibility, need to account for the parameter
-		// which is "number of columns"
-		return parseSimpleObject(data, offset, 0x40, this);
+		return [0x40, y, x, objectId];
 	},
 
 	simpleRender(size) {
@@ -152,7 +243,9 @@ const ClassicColumn: Entity = {
 		);
 	},
 
-	render({ entity, room }) {
+	render({ entity, room, settings, onSettingsChange }) {
+		const color = (settings.color ?? this.defaultSettings!.color) as Color;
+
 		const height = getHeight(entity, room);
 		const touchesBottomOfRoom = !!(
 			entity &&
@@ -168,7 +261,10 @@ const ClassicColumn: Entity = {
 		const cap = (
 			<div
 				style={{ width: TILE_SIZE, height: TILE_SIZE }}
-				className="ClassicColumnSilverCap-bg bg-cover"
+				className={clsx('bg-cover', {
+					'ClassicColumnSilverCap-bg': color === 'silver',
+					'ClassicColumnBlueCap-bg': color === 'blue',
+				})}
 			/>
 		);
 
@@ -177,21 +273,42 @@ const ClassicColumn: Entity = {
 		const body = (
 			<div
 				style={{ width: TILE_SIZE, height: bodyHeight * TILE_SIZE }}
-				className="ClassicColumnSilverBody-bg bg-repeat-y"
+				className={clsx('bg-repeat-y', {
+					'ClassicColumnSilverBody-bg': color === 'silver',
+					'ClassicColumnBlueBody-bg': color === 'blue',
+				})}
 			/>
 		);
 		const base = (
 			<div
 				style={{ width: TILE_SIZE, height: TILE_SIZE }}
-				className="ClassicColumnSilverBase-bg bg-cover"
+				className={clsx('bg-cover', {
+					'ClassicColumnSilverBase-bg': color === 'silver',
+					'ClassicColumnBlueBase-bg': color === 'blue',
+				})}
 			/>
 		);
 
 		return (
-			<div style={style}>
-				{cap}
+			<div style={style} className="relative">
+				{!!entity && (
+					<>
+						<TileSpace
+							className="absolute top-0 left-0"
+							style={{ width: TILE_SIZE, height: TILE_SIZE }}
+						/>
+						<HammerButton
+							values={colors}
+							currentValue={color}
+							onNewValue={(newColor) => {
+								onSettingsChange({ color: newColor });
+							}}
+						/>
+					</>
+				)}
+				{(height > 1 || !entity) && cap}
 				{height > 2 && body}
-				{height > 1 && !touchesBottomOfRoom && base}
+				{!touchesBottomOfRoom && entity && base}
 			</div>
 		);
 	},
