@@ -6,39 +6,28 @@ import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { encodeObjectSets } from './util';
 import { objectSets } from './QuestionBlock/objectSets';
+import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
-const HiddenBlock: Entity = {
+const HiddenBlockWithoutNote: Entity = {
 	paletteCategory: 'object',
 	paletteInfo: {
-		title: 'Hidden Block',
-		description: 'Basically an invisible question block',
+		title: 'Hidden Block - Without Note',
+		description:
+			'Same as the other hidden block, but without note block as an option. Why? Due to compatibility issues, this allows hidden blocks to be used in more levels.',
 	},
 
 	objectId: 0,
 	objectSets: encodeObjectSets(objectSets),
-	spriteGraphicSets: [-1, 0, -1, -1, -1, 1],
+	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'cell',
 	settingsType: 'single',
-	defaultSettings: { payload: 'MusicBlock' },
+	defaultSettings: { payload: 'Coin' },
 	dimensions: 'none',
 	payloadBank: 0,
 	payloadToObjectId: {
-		MusicBlock: 0x20,
 		OneUpMushroom: 0x1f,
 		Coin: 0x1e,
-	},
-
-	resource: {
-		palettes: [],
-		romOffset: 0x16ea40,
-		tiles: [
-			// HACK: since this block is hidden, it doesn't actually
-			// have any graphics, so these are empty tiles, just to
-			// satisfy the current constraints
-			[250, 250],
-			[250, 250],
-		],
 	},
 
 	toObjectBinary({ x, y, settings }) {
@@ -93,4 +82,4 @@ const HiddenBlock: Entity = {
 	},
 };
 
-export { HiddenBlock };
+export { HiddenBlockWithoutNote };
