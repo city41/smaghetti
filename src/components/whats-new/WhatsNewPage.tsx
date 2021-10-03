@@ -87,6 +87,16 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Bug fix: buried veggies with e-coins"
+					date="2021-10-03"
+				>
+					<p>
+						If your level has a buried veggy with an e-coin inside of it, it
+						could cause sprites (enemies, power ups, etc) to not spawn. This has
+						now been fixed. Those dang e-coins :)
+					</p>
+				</NewEntry>
 				<NewEntry title="Did your E-coin get stuck?" date="2021-10-02">
 					<p>
 						The E-coin editor had a bug in it that could cause it to be totally

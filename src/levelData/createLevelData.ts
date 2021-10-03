@@ -404,7 +404,13 @@ function getObjects(layer: RoomLayer, room: RoomData): number[] {
 
 function getSprites(entities: EditorEntity[], room: RoomData): number[] {
 	const sortedEntities = [...entities].sort((a, b) => {
-		return a.x - b.x;
+		// this is needed due to some cell entities emiting sprites. They are in the cell
+		// coordinate system, but the sprite they emit will be in the pixel coordinate system
+		// just another fallout of having two coordinate systems... ugh.
+		const aDivisor = entityMap[a.type].editorType === 'cell' ? 1 : TILE_SIZE;
+		const bDivisor = entityMap[b.type].editorType === 'cell' ? 1 : TILE_SIZE;
+
+		return a.x / aDivisor - b.x / bDivisor;
 	});
 
 	return sortedEntities.reduce<number[]>((building, entity) => {
