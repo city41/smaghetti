@@ -11,6 +11,7 @@ import smaghettiECoinPng from './smaghettiECoin.png';
 import smaghettiLogoPng from '../../../images/logo.png';
 import { canvasToCoinData } from './canvasToCoinData';
 import { COIN_SIZE, setCoinData } from '../util';
+import { PlainIconButton } from '../../../components/PlainIconButton';
 
 type ECoinEditorProps = {
 	className?: string;
@@ -234,6 +235,7 @@ function ECoinEditor({
 	coinData,
 	onCoinData,
 }: ECoinEditorProps) {
+	const [loading, setLoading] = useState(false);
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const lastPoint = useRef<Point | null>(null);
 
@@ -241,10 +243,13 @@ function ECoinEditor({
 
 	useEffect(() => {
 		if (canvasRef.current) {
-			if (coinData) {
+			if (coinData && coinData.some((b) => b !== 0)) {
 				setCoinData(canvasRef.current, coinData);
 			} else {
-				placeImage(canvasRef.current, eCoinTemplatePng);
+				setLoading(true);
+				placeImage(canvasRef.current, eCoinTemplatePng).finally(() => {
+					setLoading(false);
+				});
 			}
 		}
 	}, [coinData]);
@@ -327,7 +332,10 @@ function ECoinEditor({
 					e.stopPropagation();
 
 					if (canvasRef.current) {
-						placeImage(canvasRef.current, smaghettiECoinPng);
+						setLoading(true);
+						placeImage(canvasRef.current, smaghettiECoinPng).finally(() => {
+							setLoading(false);
+						});
 					}
 				}}
 			>
@@ -348,7 +356,10 @@ function ECoinEditor({
 						e.stopPropagation();
 
 						if (canvasRef.current) {
-							placeImage(canvasRef.current, eCoinTemplatePng);
+							setLoading(true);
+							placeImage(canvasRef.current, eCoinTemplatePng).finally(() => {
+								setLoading(false);
+							});
 						}
 					}}
 				>
@@ -381,22 +392,20 @@ function ECoinEditor({
 						}}
 					/>
 				</label>
-				<button
-					title="ok"
+				<PlainIconButton
+					loading={loading}
+					icon={FaCheck}
+					label="ok"
+					size="editor"
 					onMouseDown={(e) => {
 						e.preventDefault();
 						e.stopPropagation();
 
-						if (canvasRef.current) {
+						if (canvasRef.current && !loading) {
 							onCoinData(canvasToCoinData(canvasRef.current));
 						}
 					}}
-				>
-					<FaCheck
-						style={{ borderRadius: '10%' }}
-						className="w-1 h-1 bg-gray-700 hover:bg-gray-600 text-white"
-					/>
-				</button>
+				/>
 			</div>
 			<a
 				style={{ fontSize: 2, marginTop: 1 }}

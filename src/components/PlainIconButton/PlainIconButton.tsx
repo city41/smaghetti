@@ -11,7 +11,7 @@ type PlainIconButtonProps = Omit<
 	className?: string;
 	label: string;
 	icon: ElementType;
-	size?: 'small' | 'medium' | 'large';
+	size?: 'editor' | 'small' | 'medium' | 'large';
 	toggled?: boolean;
 	loading?: boolean;
 	disabled?: boolean;
@@ -35,17 +35,19 @@ function PlainIconButton({
 			aria-label={label}
 			title={label}
 			disabled={disabled}
-			className={clsx(className, 'text-white py-0.5 px-1 border-b-2', {
+			className={clsx(className, 'text-white ', {
 				'bg-blue-400 text-gray-700 border-white': toggled && !disabled,
 				'border-transparent': !toggled || disabled,
 				'opacity-50 cursor-default': disabled,
 				'cursor-pointer': !disabled,
 				[styles.hover]: !disabled,
+				'py-0.5 px-1 border-b-2': size !== 'editor',
 			})}
 			{...rest}
 		>
 			<Icon
 				className={clsx({
+					'w-1 h-1': size === 'editor',
 					'text-l': size === 'small',
 					'text-xl': size === 'medium',
 					'text-2xl': size === 'large',

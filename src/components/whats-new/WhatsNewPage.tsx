@@ -87,6 +87,16 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Did your E-coin get stuck?" date="2021-10-02">
+					<p>
+						The E-coin editor had a bug in it that could cause it to be totally
+						blank. That has now been fixed.
+					</p>
+					<p>
+						If you still find your E-coin is blank, deleting it then re-adding
+						it again will fix it.
+					</p>
+				</NewEntry>
 				<NewEntry title="New/Changed Entities" date="2021-10-01">
 					<ul>
 						<li>Bubble, new payloads: Hammer Bro Suit and Boomerang</li>
