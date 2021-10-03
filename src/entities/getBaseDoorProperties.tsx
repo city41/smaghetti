@@ -184,6 +184,8 @@ function getBaseDoorProperties(bgClass: string, objectId: number) {
 						return 'The exit should be at the top of the door';
 					}
 				}
+			} else {
+				return 'Goes nowhere, will cause a black screen if player enters';
 			}
 		},
 	} as const;
