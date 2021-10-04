@@ -69,6 +69,21 @@ function TipsPage() {
 						good while.
 					</p>
 				</TipEntry>
+				<TipEntry title="The actors and stage layers">
+					<p>
+						At the top of the editor, towards the right are two padlocks labeled
+						&quot;actors&quot; and &quot;stage&quot;. Actors are things like
+						enemies, items, gizmos, etc. The stage is things like terrain,
+						pipes, etc.
+					</p>
+					<p>
+						Sometimes you need to have two things overlap, like putting a
+						piranha plant inside a pipe. Once they are both laid down, they
+						become hard to work with. That is where the locks come in. If you
+						click the stage lock, the pipe will get locked down and you can work
+						on the piranha, and vice-versa with the actors lock.
+					</p>
+				</TipEntry>
 				<TipEntry title="Keyboard shortcuts">
 					<p>
 						In the editor press &apos;?&apos; to see all the shortcuts
