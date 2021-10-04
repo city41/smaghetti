@@ -17,6 +17,8 @@ const orientationToObjectId: Record<Orientation, number> = {
 	down: 0x6e,
 };
 
+const allBut1 = [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
 const BillBlaster: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
@@ -26,7 +28,7 @@ const BillBlaster: Entity = {
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [-1, -1, -1, -1, -1, ANY_BELOW_0x16],
+	spriteGraphicSets: [-1, -1, -1, allBut1, -1, ANY_BELOW_0x16],
 	layer: 'stage',
 	editorType: 'entity',
 	objectId: 0x20,
