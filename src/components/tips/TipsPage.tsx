@@ -177,6 +177,37 @@ function TipsPage() {
 						publishing levels. Crude, dumb, immature, etc images are fine.
 					</p>
 				</TipEntry>
+				<TipEntry title="Level size meter">
+					<p>
+						The meter at the bottom of the editor shows your level&apos;s
+						current size in bytes. If your level is too big, it may cause
+						problems when playing it:
+						<ul>
+							<li>
+								<span className="p-1 font-bold bg-green-500">
+									Under 2024 bytes:
+								</span>{' '}
+								You are fine, no problems
+							</li>
+							<li>
+								<span className="p-1 font-bold bg-yellow-500 text-black">
+									2025 to 2070 bytes:
+								</span>{' '}
+								Your level will probably still work but might experience issues.
+								If you can&apos;t get it down under 2024, you should test it
+								thoroughly, especially warping between rooms.
+							</li>
+							<li>
+								<span className="p-1 font-bold bg-red-500 text-white">
+									Greater than 2070 bytes:
+								</span>{' '}
+								If it is above 2070 bytes, you will almost certainly hit issues
+								such as the level not loading at all, or crashing when warping
+								to another room.
+							</li>
+						</ul>
+					</p>
+				</TipEntry>
 			</div>
 		</Root>
 	);

@@ -57,7 +57,7 @@ const betaChecklist: MilestoneChecklistItem[] = [
 ];
 
 const finalChecklist: MilestoneChecklistItem[] = [
-	{ status: 'not-started', description: 'Warning if level gets too full' },
+	{ status: 'completed', description: 'Warning if level gets too full' },
 	{
 		status: 'not-started',
 		description: 'All entities in SMA4 are available to build levels with',

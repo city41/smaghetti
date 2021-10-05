@@ -13,6 +13,7 @@ import { CanvasOffsetContainer } from './CanvasOffsetContainer';
 import { ManageLevel } from './ManageLevel';
 import { LevelPlayer } from './LevelPlayer';
 import { Toolbox } from './Toolbox';
+import { Footer } from './Footer';
 import { KeyboardHelpModal } from './KeyboardHelpModal';
 import { Warning } from '../../Warning';
 import { MetadataMenu } from './MetadataMenu';
@@ -251,6 +252,7 @@ function Editor({
 					</div>
 				</>
 			)}
+			{!isPlaying && <Footer className="fixed left-0 bottom-0 w-full" />}
 		</>
 	);
 }
