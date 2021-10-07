@@ -159,10 +159,10 @@ function getBaseDoorProperties(bgClass: string, objectId: number) {
 			settings,
 			allRooms,
 		}: {
-			settings: EditorEntitySettings;
+			settings: EditorEntitySettings | undefined;
 			allRooms: RoomData[];
 		}) {
-			if (settings.destination) {
+			if (settings?.destination) {
 				const destination = settings.destination as DestinationSetProps;
 				const destRoom = allRooms[destination.room];
 

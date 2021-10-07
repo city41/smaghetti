@@ -83,7 +83,7 @@ const PSwitchDoor: Entity = {
 	},
 
 	getWarning({ settings, allRooms }) {
-		if (settings.destination) {
+		if (settings?.destination) {
 			const destination = settings.destination as DestinationSetProps;
 			const destRoom = allRooms[destination.room];
 
@@ -105,6 +105,8 @@ const PSwitchDoor: Entity = {
 					return 'The exit should be at the top of the door';
 				}
 			}
+		} else {
+			return 'Goes nowhere, will cause a black screen if player enters';
 		}
 	},
 

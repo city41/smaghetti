@@ -41,7 +41,7 @@ type renderProps = {
 };
 
 type getWarningProps = {
-	settings: EditorEntitySettings;
+	settings: EditorEntitySettings | undefined;
 	entity: EditorEntity;
 	room: RoomData;
 	allRooms: RoomData[];

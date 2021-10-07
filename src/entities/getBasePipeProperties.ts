@@ -123,10 +123,10 @@ export function getBasePipeProperties(type: EntityType) {
 			settings,
 			allRooms,
 		}: {
-			settings: EditorEntitySettings;
+			settings: EditorEntitySettings | undefined;
 			allRooms: RoomData[];
 		}) {
-			if (settings.destination) {
+			if (settings?.destination) {
 				const exitType = getPipeExitType(
 					settings.destination as DestinationSetProps,
 					allRooms

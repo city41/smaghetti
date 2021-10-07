@@ -24,6 +24,7 @@ import { useFirstRender } from '../../../hooks/useFirstRender';
 import styles from './Editor.module.css';
 import { LoadingBar } from '../../LoadingBar';
 import { EarlyStarburst } from '../../EarlyStarburst';
+import { WarningList } from './WarningList';
 
 type EditorProps = {
 	publishedLevelToLoad?: string;
@@ -58,6 +59,8 @@ function Editor({
 	const [isChoosingLevel, setIsChoosingLevel] = useState(false);
 	const [isPlaying, setPlaying] = useState(false);
 	const [showKeyboardHelpModal, setShowKeyboardHelpModal] = useState(false);
+	const [showWarnings, setShowWarnings] = useState(false);
+
 	const dispatch = useDispatch();
 
 	const firstRender = useFirstRender();
@@ -177,7 +180,7 @@ function Editor({
 						'fixed z-10 top-0 left-0 w-full h-full grid pointer-events-none'
 					)}
 				>
-					<div className="flex flex-col pointer-events-auto shadow-lg">
+					<div className="flex flex-col pointer-events-auto shadow-lg col-span-2">
 						<div className="flex flex-row">
 							<Toolbox
 								className="flex-1"
@@ -211,13 +214,29 @@ function Editor({
 								</div>
 							)}
 					</div>
-					<div
-						className={clsx('fixed right-0 top-40 pointer-events-auto z-10', {
-							hidden: isPlaying,
-						})}
-					>
-						<EarlyStarburst />
-					</div>
+					{showWarnings && (
+						<WarningList
+							className="pointer-events-auto w-60"
+							style={{ gridColumn: '1', gridRow: '2', maxWidth: '33vw' }}
+							onClose={() => setShowWarnings(false)}
+						/>
+					)}
+					{!isPlaying && (
+						<Footer
+							style={{ gridColumn: '1 / -1', gridRow: '3' }}
+							className="w-full pointer-events-auto"
+							onWarningClick={() => {
+								setShowWarnings((sw) => !sw);
+							}}
+						/>
+					)}
+				</div>
+				<div
+					className={clsx('fixed right-0 top-40 pointer-events-auto z-10', {
+						hidden: isPlaying,
+					})}
+				>
+					<EarlyStarburst />
 				</div>
 			</div>
 			{loadLevelState === 'loading' && (
@@ -252,7 +271,6 @@ function Editor({
 					</div>
 				</>
 			)}
-			{!isPlaying && <Footer className="fixed left-0 bottom-0 w-full" />}
 		</>
 	);
 }

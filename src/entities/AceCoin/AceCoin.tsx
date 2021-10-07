@@ -154,7 +154,11 @@ const AceCoin: Entity = {
 	},
 
 	getWarning({ settings, allRooms }) {
-		const { aceCoinIndex } = settings;
+		const aceCoinIndex = settings?.aceCoinIndex;
+
+		if (aceCoinIndex === undefined) {
+			return 'Position not set';
+		}
 
 		const allAceCoins = getAllAceCoinEntities(allRooms);
 		const allBubbles = getAllAceCoinBubbleEntities(allRooms);

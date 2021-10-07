@@ -615,23 +615,6 @@ function snapEntityCoordToGrid(inputX: number): number {
 	return Math.floor(inputX / TILE_SIZE) * TILE_SIZE;
 }
 
-// function ensurePlayerIsInView(state: InternalEditorState, offsetDelta: Point) {
-// 	const player = getCurrentRoom(state).entities.find(
-// 		(e) => e.type === 'Player'
-// 	)!;
-//
-// 	player.x = clamp(
-// 		player.x + offsetDelta.x,
-// 		0,
-// 		(getCurrentRoom(state).roomTileWidth - 1) * TILE_SIZE
-// 	);
-// 	player.y = clamp(
-// 		player.y + offsetDelta.y,
-// 		0,
-// 		(getCurrentRoom(state).roomTileHeight - 1) * TILE_SIZE
-// 	);
-// }
-
 /**
  * Ensures that scrollOffset doesn't get too far out, which would cause the level
  * to completely not show up in the browser window
@@ -1739,8 +1722,7 @@ const editorSlice = createSlice({
 			state.mouseMode = 'pan';
 		},
 		popPan(state: InternalEditorState) {
-			// the draw fallback should never happen...
-			state.mouseMode = state.storedMouseMode || 'draw';
+			state.mouseMode = state.storedMouseMode ?? 'draw';
 		},
 		toggleGrid(state: InternalEditorState) {
 			state.showGrid = !state.showGrid;
@@ -1761,6 +1743,33 @@ const editorSlice = createSlice({
 		},
 		clearFocusedEntity(state: InternalEditorState) {
 			state.focused = {};
+		},
+		scrollToEntity(
+			state: InternalEditorState,
+			action: PayloadAction<{ room: number; id: number }>
+		) {
+			const { room, id } = action.payload;
+
+			state.currentRoomIndex = room;
+
+			const currentRoom = getCurrentRoom(state);
+			const entities = currentRoom.actors.entities.concat(
+				flattenCells(currentRoom.actors.matrix),
+				currentRoom.stage.entities,
+				flattenCells(currentRoom.stage.matrix)
+			);
+
+			const entity = entities.find((e) => e.id === id);
+			const scale = currentRoom.scale;
+
+			if (entity) {
+				const multiplier =
+					entityMap[entity.type].editorType === 'cell' ? TILE_SIZE : 1;
+				currentRoom.scrollOffset.x =
+					(entity.x * multiplier * scale - window.innerWidth / 2) / scale;
+				currentRoom.scrollOffset.y =
+					(entity.y * multiplier * scale - window.innerHeight / 2) / scale;
+			}
 		},
 		setEntitySettings(
 			state: InternalEditorState,
@@ -2050,6 +2059,7 @@ const {
 	removePaletteEntry,
 	setCurrentPaletteEntryByIndex,
 	clearFocusedEntity,
+	scrollToEntity,
 	setEntitySettings,
 	eraseLevel,
 } = editorSlice.actions;
@@ -2097,6 +2107,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		removePaletteEntry.toString(),
 		setCurrentPaletteEntryByIndex.toString(),
 		clearFocusedEntity.toString(),
+		scrollToEntity.toString(),
 		selectDrag.toString(),
 		editorVisibleWindowChanged.toString(),
 		cancelDrag.toString(),
@@ -2291,6 +2302,7 @@ export {
 	removePaletteEntry,
 	setCurrentPaletteEntryByIndex,
 	clearFocusedEntity,
+	scrollToEntity,
 	setEntitySettings,
 	saveLevel,
 	saveLevelCopy,

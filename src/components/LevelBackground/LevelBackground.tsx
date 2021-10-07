@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import clsx from 'clsx';
 import { BACKGROUND_GRAPHIC_VALUES } from '../../levelData/constants';
 
 type LevelBackgroundProps = {
@@ -270,7 +271,7 @@ const bgToComponent: Record<number, ReactNode> = {
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {
 	const bg = bgToComponent[bgNumber] ?? null;
-	return <div className={className}>{bg}</div>;
+	return <div className={clsx(className, 'pointer-events-none')}>{bg}</div>;
 }
 
 export { LevelBackground };

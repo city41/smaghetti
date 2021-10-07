@@ -530,8 +530,14 @@ const Canvas = memo(function Canvas({
 						})}
 					</div>
 				)}
-				<div className={styles.grid} style={tileGridStyles} />
-				<div className={styles.grid} style={viewportGridStyles} />
+				<div
+					className={clsx(styles.grid, 'pointer-events-none')}
+					style={tileGridStyles}
+				/>
+				<div
+					className={clsx(styles.grid, 'pointer-events-none')}
+					style={viewportGridStyles}
+				/>
 				{stageMatrixRows}
 				<Entities
 					entities={stage.entities}
