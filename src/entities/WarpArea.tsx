@@ -84,6 +84,12 @@ const WarpArea: Entity = {
 			</div>
 		);
 	},
+
+	getWarning({ settings }) {
+		if (!settings?.destination) {
+			return 'Goes nowhere, will cause a black screen if player enters';
+		}
+	},
 };
 
 export { WarpArea };
