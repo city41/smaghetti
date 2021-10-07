@@ -1753,6 +1753,8 @@ const editorSlice = createSlice({
 			state.currentRoomIndex = room;
 
 			const currentRoom = getCurrentRoom(state);
+			currentRoom.scale = initialScale;
+
 			const entities = currentRoom.actors.entities.concat(
 				flattenCells(currentRoom.actors.matrix),
 				currentRoom.stage.entities,
