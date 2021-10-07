@@ -87,6 +87,29 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New footer in the editor" date="2021-10-07">
+					<p>
+						There is now a footer at the bottom of the editor. It shows two
+						things:
+						<ul>
+							<li>
+								A warning count. If you have warnings, click on this to see them
+								in detail. You can then click on an individual warning to be
+								taken to the entity causing the warning.
+							</li>
+							<li>
+								Level size meter. If your level gets too big, it will crash the
+								game, more info <a href="/tips#level-size-meter">here</a>.
+							</li>
+						</ul>
+					</p>
+					<p>
+						Soon, some types of warnings will show up as errors instead. An
+						error is something that will definitely cause a problem in your
+						level and should be fixed, where as a warning might cause a problem
+						or it might not.
+					</p>
+				</NewEntry>
 				<NewEntry
 					title="Bug fix: buried veggies with e-coins"
 					date="2021-10-03"
