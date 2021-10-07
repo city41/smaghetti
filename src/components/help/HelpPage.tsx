@@ -107,6 +107,10 @@ function HelpPage() {
 						on an entity that is causing problems. Click on that symbol to see
 						what can be done to fix the problem.
 					</p>
+					<p>
+						You can see all warnings in a list by clicking on the warning link
+						down in the footer of the editor.
+					</p>
 				</HelpEntry>
 				<HelpEntry title="I added an entity to my level but it is not showing up">
 					<p>
