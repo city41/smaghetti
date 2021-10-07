@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { AiFillWarning } from 'react-icons/ai';
 import { entityMap } from '../../../../entities/entityMap';
 import { flattenCells } from '../../../../levelData/util';
 
@@ -36,13 +37,17 @@ function Warnings({ className, rooms, onWarningClick }: WarningProps) {
 	}, 0);
 
 	if (warningCount === 0) {
-		return <div className={clsx(className, 'text-sm')}>0 warnings</div>;
+		return (
+			<div className={clsx(className, 'text-sm flex flex-row')}>
+				no warnings
+			</div>
+		);
 	} else {
 		return (
 			<a
 				className={clsx(
 					className,
-					'text-sm text-blue-400 hover:underline cursor-pointer'
+					'text-sm text-blue-400 hover:underline cursor-pointer flex flex-row items-center gap-x-1'
 				)}
 				onClick={(e) => {
 					e.preventDefault();
@@ -50,7 +55,8 @@ function Warnings({ className, rooms, onWarningClick }: WarningProps) {
 					onWarningClick();
 				}}
 			>
-				{warningCount} warning{warningCount === 1 ? '' : 's'}
+				<AiFillWarning className="text-yellow-300" /> {warningCount} warning
+				{warningCount === 1 ? '' : 's'}
 			</a>
 		);
 	}
