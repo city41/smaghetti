@@ -112,6 +112,19 @@ function Entity({
 					style={{ fontSize: 2.5, maxWidth: TILE_SIZE * 4 }}
 				>
 					<div>{typeof problem === 'string' ? problem : problem.message}</div>
+					{typeof problem !== 'string' && problem.tipId && (
+						<>
+							{' '}
+							<a
+								className="text-red-300 mt-0.5"
+								target="_blank"
+								rel="noreferrer noopener"
+								href={`/tips#${problem.tipId}`}
+							>
+								more info
+							</a>
+						</>
+					)}
 					<a
 						onMouseDown={(e) => {
 							e.stopPropagation();
