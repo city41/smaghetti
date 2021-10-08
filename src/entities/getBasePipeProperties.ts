@@ -135,7 +135,7 @@ export function getBasePipeProperties(type: EntityType) {
 				if (!exitType) {
 					return {
 						severity: 'warning',
-						message: 'Warp must be placed at exit end of a destination pipe',
+						message: 'Warp should be placed at exit end of a destination pipe',
 						tipId: 'pipe-warp-exits',
 					} as const;
 				}
