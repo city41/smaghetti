@@ -112,9 +112,12 @@ const Lava: Entity = {
 		);
 	},
 
-	getWarning({ entity }) {
+	getProblem({ entity }) {
 		if (entity.x < 0) {
-			return 'Needs to be inside the level';
+			return {
+				severity: 'error',
+				message: 'Needs to be inside the level',
+			} as const;
 		}
 	},
 };

@@ -4,19 +4,19 @@ import { bindActionCreators } from 'redux';
 import { AppState, dispatch } from '../../../../store';
 import { scrollToEntity } from '../../editorSlice';
 
-import { WarningList, PublicWarningListProps } from './WarningList';
+import { ProblemList, PublicProblemListProps } from './ProblemList';
 
 const actions = bindActionCreators(
 	{
-		onWarningClick: scrollToEntity,
+		onProblemClick: scrollToEntity,
 	},
 	dispatch
 );
 
-function ConnectedWarningList(props: PublicWarningListProps) {
+function ConnectedProblemList(props: PublicProblemListProps) {
 	const { rooms } = useSelector((state: AppState) => state.editor.present);
 
-	return <WarningList {...props} rooms={rooms} {...actions} />;
+	return <ProblemList {...props} rooms={rooms} {...actions} />;
 }
 
-export { ConnectedWarningList };
+export { ConnectedProblemList };

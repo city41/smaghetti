@@ -117,7 +117,7 @@ const Chest: Entity = {
 		}
 	},
 
-	getWarning({ room }) {
+	getProblem({ room }) {
 		const chests = room.actors.entities.filter((e) => e.type === 'Chest');
 		const firstChestPayload = chests[0].settings!.payload as EntityType;
 

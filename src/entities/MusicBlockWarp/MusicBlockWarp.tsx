@@ -128,7 +128,7 @@ const MusicBlockWarp: Entity = {
 		}
 	},
 
-	getWarning({ room }) {
+	getProblem({ room }) {
 		const allNoteWarps = room.stage.entities.filter(
 			(e) => e.type === 'MusicBlockWarp'
 		);
@@ -136,7 +136,10 @@ const MusicBlockWarp: Entity = {
 		const noDest = allNoteWarps.every((n) => !n.settings?.destination);
 
 		if (noDest) {
-			return 'No warp set, game will crash if warp is used';
+			return {
+				severity: 'error',
+				message: 'No warp set, game will crash if warp is used',
+			} as const;
 		}
 
 		if (allNoteWarps.length > 1) {

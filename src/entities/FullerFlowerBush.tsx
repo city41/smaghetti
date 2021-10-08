@@ -178,12 +178,15 @@ const FullerFlowerBush: Entity = {
 		);
 	},
 
-	getWarning({ entity, room }) {
+	getProblem({ entity, room }) {
 		const hasBushToLeft = isBushToLeft(entity, room);
 		const hasBushToRight = isBushToRight(entity, room);
 
 		if (!hasBushToLeft && !hasBushToRight) {
-			return 'Needs to be at least 2 tiles wide';
+			return {
+				severity: 'error',
+				message: 'Needs to be at least 2 tiles wide',
+			} as const;
 		}
 	},
 };

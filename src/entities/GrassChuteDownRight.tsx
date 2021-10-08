@@ -56,7 +56,7 @@ const GrassChuteDownRight: Entity = {
 		);
 	},
 
-	getWarning({ entity }) {
+	getProblem({ entity }) {
 		if (entity.x < 0) {
 			return "Can't extend outside the front of the level";
 		}

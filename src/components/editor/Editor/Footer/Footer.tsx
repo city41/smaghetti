@@ -4,12 +4,12 @@ import { createLevelData } from '../../../../levelData/createLevelData';
 import { compress } from '../../../../levelData/compress';
 import { LevelSizeMeter } from './LevelSizeMeter';
 import memoize from 'lodash/memoize';
-import { Warnings } from './Warnings';
+import { Problems } from './Problems';
 
 type PublicFooterProps = {
 	className?: string;
 	style?: CSSProperties;
-	onWarningClick: () => void;
+	onProblemClick: () => void;
 };
 
 type InternalFooterProps = {
@@ -22,7 +22,7 @@ function Footer({
 	className,
 	style,
 	level,
-	onWarningClick,
+	onProblemClick,
 }: PublicFooterProps & InternalFooterProps) {
 	const levelData = createLevelData(level);
 	const compressedA = memoCompress(levelData, 0);
@@ -37,7 +37,7 @@ function Footer({
 			)}
 			style={style}
 		>
-			<Warnings rooms={level.data.rooms} onWarningClick={onWarningClick} />
+			<Problems rooms={level.data.rooms} onProblemClick={onProblemClick} />
 			<div className="flex-1" />
 			<LevelSizeMeter
 				className="w-1/3"

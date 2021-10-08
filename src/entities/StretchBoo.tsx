@@ -115,7 +115,7 @@ const StretchBoo: Entity = {
 		);
 	},
 
-	getWarning({ entity, room }) {
+	getProblem({ entity, room }) {
 		const attached = isAttached(entity, room);
 
 		if (!attached) {

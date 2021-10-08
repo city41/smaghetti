@@ -148,7 +148,7 @@ const QuestionBlock: Entity = {
 		}
 	},
 
-	getWarning({ settings }) {
+	getProblem({ settings }) {
 		if (settings?.payload === 'PWing') {
 			return `${settings.payload} might look garbled when playing. Smaghetti isn't smart enough yet to prevent this.`;
 		}

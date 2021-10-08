@@ -207,12 +207,15 @@ const WoodFloorSnowCovered: Entity = {
 		);
 	},
 
-	getWarning({ entity, room }) {
+	getProblem({ entity, room }) {
 		const platformToLeft = isFloorToLeft(entity, room);
 		const platformToRight = isFloorToRight(entity, room);
 
 		if (!platformToRight && !platformToLeft) {
-			return 'Needs to be at least 2 tiles wide';
+			return {
+				severity: 'error',
+				message: 'Needs to be at least 2 tiles wide',
+			} as const;
 		}
 	},
 };

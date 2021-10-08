@@ -153,7 +153,7 @@ const AceCoin: Entity = {
 		}
 	},
 
-	getWarning({ settings, allRooms }) {
+	getProblem({ settings, allRooms }) {
 		const aceCoinIndex = settings?.aceCoinIndex;
 
 		if (aceCoinIndex === undefined) {

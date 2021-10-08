@@ -96,7 +96,7 @@ const ScrollStopHorizontal: Entity = {
 		);
 	},
 
-	getWarning({ settings, entity }) {
+	getProblem({ settings, entity }) {
 		const tx = entity.x / TILE_SIZE;
 		const delta = 15 - tx;
 

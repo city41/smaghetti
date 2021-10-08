@@ -155,7 +155,7 @@ function getBaseDoorProperties(bgClass: string, objectId: number) {
 			}
 		},
 
-		getWarning({
+		getProblem({
 			settings,
 			allRooms,
 		}: {
@@ -166,7 +166,6 @@ function getBaseDoorProperties(bgClass: string, objectId: number) {
 				const destination = settings.destination as DestinationSetProps;
 				const destRoom = allRooms[destination.room];
 
-				// the dest should be on top of a pipe
 				const destEntity = destRoom.stage.entities.find((e) => {
 					return pointIsInside(destination, getEntityTileBounds(e));
 				});
@@ -185,7 +184,10 @@ function getBaseDoorProperties(bgClass: string, objectId: number) {
 					}
 				}
 			} else {
-				return 'Goes nowhere, will cause a black screen if player enters';
+				return {
+					severity: 'error',
+					message: 'Goes nowhere, will cause a black screen if player enters',
+				} as const;
 			}
 		},
 	} as const;

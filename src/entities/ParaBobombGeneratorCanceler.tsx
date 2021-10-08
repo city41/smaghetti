@@ -54,7 +54,7 @@ const ParaBobombGeneratorCanceler: Entity = {
 		return this.simpleRender(TILE_SIZE);
 	},
 
-	getWarning({ entity }) {
+	getProblem({ entity }) {
 		const tx = entity.x / TILE_SIZE;
 
 		if (tx % 2 === 0) {

@@ -82,7 +82,7 @@ const PSwitchDoor: Entity = {
 		}
 	},
 
-	getWarning({ settings, allRooms }) {
+	getProblem({ settings, allRooms }) {
 		if (settings?.destination) {
 			const destination = settings.destination as DestinationSetProps;
 			const destRoom = allRooms[destination.room];
@@ -106,7 +106,10 @@ const PSwitchDoor: Entity = {
 				}
 			}
 		} else {
-			return 'Goes nowhere, will cause a black screen if player enters';
+			return {
+				severity: 'error',
+				message: 'Goes nowhere, will cause a black screen if player enters',
+			} as const;
 		}
 	},
 

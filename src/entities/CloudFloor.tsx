@@ -211,7 +211,7 @@ const CloudFloor: Entity = {
 		);
 	},
 
-	getWarning({ room, entity }) {
+	getProblem({ room, entity }) {
 		if (isCloudFloorBelow(entity, room)) {
 			return 'Gets corrupted when a cloud floor is directly below';
 		}

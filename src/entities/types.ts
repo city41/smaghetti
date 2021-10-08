@@ -40,11 +40,17 @@ type renderProps = {
 	allRooms?: RoomData[];
 };
 
-type getWarningProps = {
+type getProblemProps = {
 	settings: EditorEntitySettings | undefined;
 	entity: EditorEntity;
 	room: RoomData;
 	allRooms: RoomData[];
+};
+
+type EntityProblem = {
+	severity: 'warning' | 'error';
+	message: string;
+	tipId?: string;
 };
 
 type SpriteGraphicSet = number | number[];
@@ -237,7 +243,7 @@ type Entity = {
 	 * If they have a warning, they will get rendered with a warning
 	 * icon and a red border, clicking the icon shows the warning.
 	 */
-	getWarning?: (arg: getWarningProps) => string | null | void;
+	getProblem?: (arg: getProblemProps) => string | EntityProblem | null | void;
 };
 
 export type {
@@ -246,4 +252,5 @@ export type {
 	SpriteGraphicSets,
 	PaletteCategory,
 	PaletteSubcategory,
+	EntityProblem,
 };

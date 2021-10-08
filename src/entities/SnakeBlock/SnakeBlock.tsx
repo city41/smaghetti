@@ -150,7 +150,7 @@ const SnakeBlock: Entity = {
 		);
 	},
 
-	getWarning({ room }) {
+	getProblem({ room }) {
 		const snakes = room.actors.entities.filter((e) => e.type === 'SnakeBlock');
 
 		if (snakes.length > 1) {

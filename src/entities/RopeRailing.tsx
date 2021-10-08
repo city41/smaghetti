@@ -112,9 +112,12 @@ const RopeRailing: Entity = {
 		return <div className="RopeRailing-bg bg-no-repeat" style={style} />;
 	},
 
-	getWarning({ entity, room }) {
+	getProblem({ entity, room }) {
 		if (isOneWide(entity, room)) {
-			return 'Must be at least 2 tiles wide';
+			return {
+				severity: 'error',
+				message: 'Must be at least 2 tiles wide',
+			} as const;
 		}
 	},
 };

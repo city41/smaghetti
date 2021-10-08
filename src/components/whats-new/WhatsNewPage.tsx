@@ -87,6 +87,31 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Now distinguishing errors and warnings"
+					date="2021-10-08"
+				>
+					<p>
+						The warning list now shows errors and warnings.
+						<ul>
+							<li>
+								<b>Errors:</b> This really breaks your level in a significant
+								way, such as very garbled graphics, soft locks or crashes the
+								game. You definitely want to fix these.
+							</li>
+							<li>
+								<b>Warnings:</b> These likely mess up your level and cause
+								strangeness, but you can still play for the most part. These
+								should be fixed too, but if you miss one, it&apos;s not the end
+								of the world.
+							</li>
+						</ul>
+					</p>
+					<p>
+						I am considering not allow publishing levels that have errors, but
+						still debating on that one.
+					</p>
+				</NewEntry>
 				<NewEntry title="New footer in the editor" date="2021-10-07">
 					<p>
 						There is now a footer at the bottom of the editor. It shows two

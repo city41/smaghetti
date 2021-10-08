@@ -123,7 +123,7 @@ const CoinChallenge: Entity = {
 		}
 	},
 
-	getWarning({ room }) {
+	getProblem({ room }) {
 		const coinChallenges = room.actors.entities.filter(
 			(e) => e.type === 'CoinChallenge'
 		);

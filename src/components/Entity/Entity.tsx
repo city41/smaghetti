@@ -54,12 +54,12 @@ function Entity({
 	dragging,
 	onEntitySettingsChange,
 }: EntityProps) {
-	const [showWarning, setShowWarning] = useState(false);
+	const [showProblem, setShowProblem] = useState(false);
 	const entityDef = entityMap[entity.type];
 
 	const body =
 		entityDef?.render({
-			showDetails: !!soleFocused && !dragging && !showWarning,
+			showDetails: !!soleFocused && !dragging && !showProblem,
 			settings,
 			onSettingsChange: onEntitySettingsChange,
 			entity,
@@ -67,10 +67,10 @@ function Entity({
 			allRooms: rooms,
 		}) ?? null;
 
-	const warning =
+	const problem =
 		room &&
 		rooms &&
-		(entityDef.getWarning?.({ settings, entity, room, allRooms: rooms }) ||
+		(entityDef.getProblem?.({ settings, entity, room, allRooms: rooms }) ||
 			getTwoColumnWarning(entity, room));
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -94,29 +94,29 @@ function Entity({
 			style={{ ...style, ...focusedVars }}
 		>
 			{body}
-			{warning && (
+			{problem && (
 				<button
 					onMouseDown={(e) => {
 						e.stopPropagation();
 						e.preventDefault();
-						setShowWarning((w) => !w);
+						setShowProblem((w) => !w);
 					}}
 					className="w-1 h-1 bg-white text-red-700 bottom-0 left-0 absolute cursor-pointer z-10"
 				>
 					<AiFillWarning className="w-full h-full" />
 				</button>
 			)}
-			{showWarning && warning && (
+			{showProblem && problem && (
 				<div
 					className="absolute top-1 left-1 w-full z-10 p-0.5 bg-red-600 text-white flex flex-col break-words"
 					style={{ fontSize: 2.5, maxWidth: TILE_SIZE * 4 }}
 				>
-					<div>{warning}</div>
+					<div>{typeof problem === 'string' ? problem : problem.message}</div>
 					<a
 						onMouseDown={(e) => {
 							e.stopPropagation();
 							e.preventDefault();
-							setShowWarning(false);
+							setShowProblem(false);
 						}}
 						style={{ fontSize: 3 }}
 						className="text-blue-700 w-full text-center block mt-0.5"

@@ -85,9 +85,12 @@ const WarpArea: Entity = {
 		);
 	},
 
-	getWarning({ settings }) {
+	getProblem({ settings }) {
 		if (!settings?.destination) {
-			return 'Goes nowhere, will cause a black screen if player enters';
+			return {
+				severity: 'error',
+				message: 'Goes nowhere, will cause a black screen if player enters',
+			} as const;
 		}
 	},
 };

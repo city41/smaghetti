@@ -119,7 +119,7 @@ export function getBasePipeProperties(type: EntityType) {
 			return [];
 		},
 
-		getWarning({
+		getProblem({
 			settings,
 			allRooms,
 		}: {

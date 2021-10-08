@@ -24,7 +24,7 @@ import { useFirstRender } from '../../../hooks/useFirstRender';
 import styles from './Editor.module.css';
 import { LoadingBar } from '../../LoadingBar';
 import { EarlyStarburst } from '../../EarlyStarburst';
-import { WarningList } from './WarningList';
+import { ProblemList } from './ProblemList';
 
 type EditorProps = {
 	publishedLevelToLoad?: string;
@@ -59,7 +59,7 @@ function Editor({
 	const [isChoosingLevel, setIsChoosingLevel] = useState(false);
 	const [isPlaying, setPlaying] = useState(false);
 	const [showKeyboardHelpModal, setShowKeyboardHelpModal] = useState(false);
-	const [showWarnings, setShowWarnings] = useState(false);
+	const [showProblems, setShowProblems] = useState(false);
 
 	const dispatch = useDispatch();
 
@@ -214,19 +214,19 @@ function Editor({
 								</div>
 							)}
 					</div>
-					{showWarnings && (
-						<WarningList
+					{showProblems && (
+						<ProblemList
 							className="pointer-events-auto w-60"
 							style={{ gridColumn: '1', gridRow: '2', maxWidth: '33vw' }}
-							onClose={() => setShowWarnings(false)}
+							onClose={() => setShowProblems(false)}
 						/>
 					)}
 					{!isPlaying && (
 						<Footer
 							style={{ gridColumn: '1 / -1', gridRow: '3' }}
 							className="w-full pointer-events-auto"
-							onWarningClick={() => {
-								setShowWarnings((sw) => !sw);
+							onProblemClick={() => {
+								setShowProblems((sw) => !sw);
 							}}
 						/>
 					)}

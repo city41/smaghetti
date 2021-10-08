@@ -195,7 +195,7 @@ const CheckeredFloorPerspective: Entity = {
 		}
 	},
 
-	getWarning({ entity, room }) {
+	getProblem({ entity, room }) {
 		const moreThanOneAbove = isMoreThanOneAbove(entity, room);
 
 		if (moreThanOneAbove) {

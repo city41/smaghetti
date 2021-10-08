@@ -119,12 +119,15 @@ const WoodPlatform: Entity = {
 		);
 	},
 
-	getWarning({ entity, room }) {
+	getProblem({ entity, room }) {
 		const platformToLeft = isPlatformToLeft(entity, room);
 		const platformToRight = isPlatformToRight(entity, room);
 
 		if (!platformToRight && !platformToLeft) {
-			return 'Needs to be at least 2 tiles wide';
+			return {
+				severity: 'error',
+				message: 'Needs to be at least 2 tiles wide',
+			} as const;
 		}
 	},
 };
