@@ -101,6 +101,7 @@ import { Clock } from './Clock';
 import { CloudFloor } from './CloudFloor';
 import { CloudPlatformAero } from './CloudPlatformAero';
 import { CloudPlatformAeroMoving } from './CloudPlatformAeroMoving';
+import { CloudPlatformThick } from './CloudPlatformThick';
 import { CloudPlatformThin } from './CloudPlatformThin';
 import { Coin } from './Coin';
 import { Coin2 } from './Coin/Coin2';
@@ -454,6 +455,7 @@ const entityMap = {
 	CloudFloor,
 	CloudPlatformAero,
 	CloudPlatformAeroMoving,
+	CloudPlatformThick,
 	CloudPlatformThin,
 	Coin,
 	Coin2,
