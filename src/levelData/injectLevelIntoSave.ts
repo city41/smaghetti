@@ -538,8 +538,8 @@ function injectLevelIntoSave(
 	// need to set the same ecoin id on the ecoin entity itself
 	// TODO: this is nasty, there has to be a much better way to handle
 	// multiple e-coins. Just brute forcing through for now...
-	if (level.info.eCoinID > 0) {
-		patchECoinIDOnEntity(inputData, level.info.eCoinID, ecoinInfo!);
+	if (level.info.eCoinID > 0 && ecoinInfo) {
+		patchECoinIDOnEntity(inputData, level.info.eCoinID, ecoinInfo);
 	}
 
 	loadCompressedLevelData(level, inputData);
