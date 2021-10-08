@@ -37,11 +37,26 @@ function Problem({
 
 	return (
 		<div
-			className="cursor-pointer hover:bg-gray-500 grid grid-cols-5 items-center pb-1 pt-4 -mx-2 px-2 border-b border-gray-500 last:border-b-0 bg-gray-800"
+			className="cursor-pointer hover:bg-gray-600 grid grid-cols-5 items-center pb-1 pt-4 -mx-2 px-2 border-b border-gray-500 last:border-b-0 bg-gray-800"
 			onClick={onClick}
 		>
 			<div>{entityDef.simpleRender(30)}</div>
-			<div className="col-span-4 text-xs">{problem.message}</div>
+			<div className="col-span-4 text-xs">
+				{problem.message}
+				{problem.tipId && (
+					<>
+						{' '}
+						<a
+							className="text-blue-500 hover:underline"
+							target="_blank"
+							rel="noreferrer noopener"
+							href={`/tips#${problem.tipId}`}
+						>
+							more info
+						</a>
+					</>
+				)}
+			</div>
 			<div
 				style={{ fontSize: 10 }}
 				className="col-span-5 text-right text-gray-400"

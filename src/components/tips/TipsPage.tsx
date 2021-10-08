@@ -5,6 +5,8 @@ import typographyStyles from '../../styles/typography.module.css';
 import { toId } from '../whats-new/WhatsNewPage';
 
 import eCoinTemplateWPalettePng from './eCoinTemplateWPalette.png';
+import pipeWarpsPng from './pipeWarps.png';
+
 import styles from './TipsPage.module.css';
 
 function TipEntry({ title, children }: { title: string; children: ReactNode }) {
@@ -206,6 +208,22 @@ function TipsPage() {
 								to another room.
 							</li>
 						</ul>
+					</p>
+				</TipEntry>
+				<TipEntry title="Pipe warp exits">
+					<p>
+						When making a pipe warp, you need to set the destination on the
+						correct part of the exit pipe in order for the warp animation to
+						look correct in game.
+					</p>
+					<p>Here are the correct exit locations for all pipe orientations:</p>
+					<img
+						src={pipeWarpsPng}
+						className="h-24"
+						alt="Correct pipe exit locations"
+					/>
+					<p className="bg-red-200 text-red-900 -mx-2 p-2">
+						Making this easier and less error prone is on the TODO list.
 					</p>
 				</TipEntry>
 			</div>
