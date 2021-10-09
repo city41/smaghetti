@@ -61,7 +61,8 @@ type EditorFocusRect = {
 	height: number;
 };
 
-const ROUGH_TOOLBAR_HEIGHT = 210;
+const ROUGH_TOOLBAR_HEIGHT = 200;
+const ROUGH_FOOTER_HEIGHT = 32;
 
 const nonDeletableEntityTypes = ['Player'];
 
@@ -317,7 +318,7 @@ function calcYForScrollToBottom(roomTileHeight: number, scale: number) {
 	const levelHeight = roomTileHeight * TILE_SIZE * scale;
 	const windowHeight = window.innerHeight;
 
-	return (levelHeight - windowHeight) / scale;
+	return (levelHeight - windowHeight + ROUGH_FOOTER_HEIGHT) / scale;
 }
 
 let idCounter = 10;
@@ -706,7 +707,8 @@ function scaleTo(state: InternalEditorState, newScale: number) {
 
 function calcScaleToFit(tileWidth: number, tileHeight: number): number {
 	const availWidth = window.innerWidth - 10;
-	const availHeight = window.innerHeight - ROUGH_TOOLBAR_HEIGHT;
+	const availHeight =
+		window.innerHeight - ROUGH_TOOLBAR_HEIGHT - ROUGH_FOOTER_HEIGHT;
 
 	const widthScale = availWidth / (tileWidth * TILE_SIZE);
 	const heightScale = availHeight / (tileHeight * TILE_SIZE);
@@ -721,7 +723,7 @@ function setScaleAndOffsetForManageLevel(state: InternalEditorState) {
 	currentRoom.scrollOffset = {
 		// stick it about in the upper left corner-ish, accounting for the upper toolbar area
 		x: -100,
-		y: -ROUGH_TOOLBAR_HEIGHT,
+		y: -(ROUGH_TOOLBAR_HEIGHT - ROUGH_FOOTER_HEIGHT),
 	};
 }
 
@@ -1237,9 +1239,10 @@ const editorSlice = createSlice({
 
 			const scaledHeightInPx = roomTileHeight * TILE_SIZE * scale;
 			const yOffset =
-				(window.innerHeight - ROUGH_TOOLBAR_HEIGHT) / 2 -
+				(window.innerHeight - ROUGH_TOOLBAR_HEIGHT - ROUGH_FOOTER_HEIGHT) / 2 -
 				scaledHeightInPx / 2 +
-				ROUGH_TOOLBAR_HEIGHT;
+				ROUGH_TOOLBAR_HEIGHT -
+				ROUGH_FOOTER_HEIGHT;
 
 			const scaledWidthInPx = roomTileWidth * TILE_SIZE * scale;
 			const xOffset = window.innerWidth / 2 - scaledWidthInPx / 2;
