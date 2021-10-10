@@ -106,6 +106,7 @@ import { CloudPlatformThin } from './CloudPlatformThin';
 import { Coin } from './Coin';
 import { Coin2 } from './Coin/Coin2';
 import { CoinChallenge } from './CoinChallenge';
+import { CoinWater } from './Coin/CoinWater';
 import { ColorfulMetalBox } from './ColorfulMetalBox';
 import { ConveyorBelt } from './ConveyorBelt';
 import { CoralDonutBlock } from './CoralDonutBlock';
@@ -460,6 +461,7 @@ const entityMap = {
 	Coin,
 	Coin2,
 	CoinChallenge,
+	CoinWater,
 	ColorfulMetalBox,
 	ConveyorBelt,
 	CoralDonutBlock,

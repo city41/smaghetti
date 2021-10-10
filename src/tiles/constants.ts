@@ -45,6 +45,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	CloudPlatformThin: 'Cpth',
 	Coin: '$',
 	Coin2: '$2',
+	CoinWater: '$w',
 	CoralDonutBlock: 'Cdb',
 	DeleteBlock: 'Del',
 	DiggableSand: 'Ds',
