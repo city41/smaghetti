@@ -24,7 +24,7 @@ const UpwardWaterCurrentNarrow: Entity = {
 	paletteInfo: {
 		title: 'Upward Water Current - Narrow',
 		description:
-			'Usually placed at the mouth of an underwater pipe to cause an upward water pressure',
+			'Usually placed at the mouth of an underwater pipe to cause an upward water flow',
 	},
 
 	objectSets: ANY_OBJECT_SET,
