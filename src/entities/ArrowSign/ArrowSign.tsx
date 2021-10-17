@@ -2,16 +2,14 @@ import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { TileSpace } from '../TileSpace';
 import React from 'react';
-import {
-	CardinalDirection,
-	CardinalDirectionEditDetails,
-} from '../detailPanes/CardinalDirectionEditDetails';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
 import { encodeObjectSets, parseObjectIdMapObject } from '../util';
 import invert from 'lodash/invert';
+import { HammerButton } from '../detailPanes/HammerButton';
 
-type Direction = 'left' | 'right';
+const directions = ['left', 'right'] as const;
+type Direction = typeof directions[number];
 
 const directionToObjectId: Record<Direction, number> = {
 	left: 0x4c,
@@ -104,42 +102,37 @@ const ArrowSign: Entity = {
 		);
 	},
 
-	render({ showDetails, settings, onSettingsChange }) {
-		const baseStyle = {
+	render({ settings, onSettingsChange }) {
+		const style = {
 			width: TILE_SIZE * 2,
 			height: TILE_SIZE * 2,
-			backgroundSize: '75%',
 		};
 		const transformStyle =
 			settings.direction === 'left' ? { transform: 'scale(-1, 1)' } : {};
 
-		const body = (
-			<div
-				className="ArrowSign-bg bg-cover bg-no-repeat relative cursor-pointer"
-				style={{ ...transformStyle, ...baseStyle }}
-			>
+		return (
+			<div className="relative" style={style}>
+				<div
+					className="absolute top-0 left-0 w-full h-full ArrowSign-bg bg-no-repeat"
+					style={{ ...transformStyle, backgroundSize: '75%' }}
+				/>
+				<HammerButton
+					style={{
+						bottom: 0,
+						left: 0,
+						top: 'initial',
+						width: 'auto',
+						height: 'auto',
+					}}
+					values={directions}
+					currentValue={settings.direction}
+					onNewValue={(newDirection) => {
+						onSettingsChange({ direction: newDirection });
+					}}
+				/>
 				<TileSpace />
 			</div>
 		);
-
-		if (showDetails) {
-			const directions = Object.keys(
-				directionToObjectId
-			) as CardinalDirection[];
-
-			return (
-				<CardinalDirectionEditDetails
-					directions={directions}
-					width={TILE_SIZE * 2}
-					height={TILE_SIZE * 2}
-					onDirectionChange={(direction) => onSettingsChange({ direction })}
-				>
-					{body}
-				</CardinalDirectionEditDetails>
-			);
-		} else {
-			return body;
-		}
 	},
 };
 
