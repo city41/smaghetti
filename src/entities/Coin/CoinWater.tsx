@@ -11,7 +11,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 const CoinWater: Entity = {
 	paletteInfo: {
 		title: 'Coin - Water',
-		description:
+		warning:
 			'Causes crashes if used outside of water levels, needs more research',
 	},
 
