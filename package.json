@@ -19,7 +19,8 @@
 		"dump-graphic-set-bytes": "brute/getSpriteGraphicSetBytes_parallel.sh",
 		"dump-object-set-bytes": "brute/getObjectSetBytes_parallel.sh",
 		"run-prettier": "yarn prettier --config .prettierrc --write src/**/*.ts*",
-		"generate-resource-sha-map": "TS_NODE_FILES=true yarn run-ts-node scripts/generateResourceShas.ts ../sma4/sma4.gba ./src/tiles/resourceShaMap.ts"
+		"generate-resource-sha-map": "TS_NODE_FILES=true yarn run-ts-node scripts/generateResourceShas.ts ../sma4/sma4.gba ./src/tiles/resourceShaMap.ts",
+		"parse-progress": "TS_NODE_FILES=true yarn run-ts-node scripts/parseProgress"
 	},
 	"dependencies": {
 		"@material-ui/core": "^4.11.3",
