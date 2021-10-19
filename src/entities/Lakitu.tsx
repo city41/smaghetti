@@ -6,8 +6,20 @@ import { ANY_OBJECT_SET } from './constants';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
 import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
+import invert from 'lodash/invert';
+import { parseSimpleSpriteWithByteParam } from './util';
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+const payloadToObjectId = {
+	GreenSpinyEgg: 1,
+	OrangeSpinyEgg: 0,
+};
+
+const objectIdToPayload = invert(payloadToObjectId) as Record<
+	number,
+	ResourceType
+>;
 
 const Lakitu: Entity = {
 	paletteCategory: 'enemy',
@@ -17,10 +29,7 @@ const Lakitu: Entity = {
 		description: "Dammit, it's lakitu...",
 	},
 
-	payloadToObjectId: {
-		GreenSpinyEgg: 1,
-		OrangeSpinyEgg: 0,
-	},
+	payloadToObjectId,
 	defaultSettings: { payload: 'OrangeSpinyEgg' },
 
 	objectSets: ANY_OBJECT_SET,
@@ -79,9 +88,21 @@ const Lakitu: Entity = {
 	},
 
 	toSpriteBinary({ x, y, settings }) {
-		const payload = settings.payload ?? this.defaultSettings!.payload;
-		const eggId = this.payloadToObjectId![payload as ResourceType]!;
+		const payload = (settings.payload ??
+			this.defaultSettings!.payload) as ResourceType;
+		const eggId = payloadToObjectId[payload as keyof typeof payloadToObjectId]!;
 		return [1, this.objectId, x, y, eggId];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSpriteWithByteParam(
+			data,
+			offset,
+			1,
+			this,
+			objectIdToPayload,
+			'payload'
+		);
 	},
 
 	simpleRender(size) {

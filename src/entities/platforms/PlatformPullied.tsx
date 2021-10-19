@@ -1,10 +1,10 @@
 import React from 'react';
-import type { Entity } from './types';
-import { TILE_SIZE } from '../tiles/constants';
-import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { Resizer } from '../components/Resizer';
+import type { Entity } from '../types';
+import { TILE_SIZE } from '../../tiles/constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
+import { Resizer } from '../../components/Resizer';
+import { TileSpace } from '../TileSpace';
 import clamp from 'lodash/clamp';
-import { TileSpace } from './TileSpace';
 
 type Settings = {
 	pulleyDistance: number;

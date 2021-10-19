@@ -3,6 +3,8 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { parseObjectIdMapSprite } from './util';
+import invert from 'lodash/invert';
 
 type Direction = 'left' | 'right';
 
@@ -10,6 +12,11 @@ const directionToObjectId: Record<Direction, number> = {
 	right: 0xea,
 	left: 0xc7,
 };
+
+const objectIdToDirection = invert(directionToObjectId) as Record<
+	number,
+	Direction
+>;
 
 const ScrollStopHorizontal: Entity = {
 	paletteCategory: 'meta',
@@ -35,6 +42,17 @@ const ScrollStopHorizontal: Entity = {
 		const objectId = directionToObjectId[direction];
 
 		return [0, objectId, x, y, 0];
+	},
+
+	parseSprite(data, offset) {
+		return parseObjectIdMapSprite(
+			data,
+			offset,
+			0,
+			objectIdToDirection,
+			'direction',
+			this
+		);
 	},
 
 	simpleRender(size) {

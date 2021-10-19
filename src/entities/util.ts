@@ -5,6 +5,7 @@ import intersection from 'lodash/intersection';
 import { Entity } from './types';
 import { isStaticResource } from '../resources/util';
 import { ResourceType } from '../resources/resourceMap';
+import { getNearestSpeed, speedToRangeAdjustment } from './platforms/common';
 
 export function getBankParam1(bank: 0 | 1, param: number): number {
 	return (bank << 6) | param;
@@ -234,6 +235,27 @@ export function parseSimpleSprite(
 	}
 }
 
+export function parseSimpleSpriteWithByteParam(
+	data: Uint8Array,
+	offset: number,
+	bank: number,
+	target: Entity,
+	objectIdToSetting: Record<number, string>,
+	settingKey: string
+) {
+	const result = parseSimpleSprite(data, offset, bank, target);
+
+	if (result) {
+		result.offset += 1;
+
+		result.entity.settings = {
+			[settingKey]: objectIdToSetting[data[result.offset]],
+		};
+
+		return result;
+	}
+}
+
 export function parseObjectIdMapSprite(
 	data: Uint8Array,
 	offset: number,
@@ -342,7 +364,8 @@ export function parseSimpleObjectWithWidth(
 export function parseParam1WidthEntityObject(
 	data: Uint8Array,
 	offset: number,
-	target: Entity
+	target: Entity,
+	widhtPropName = 'width'
 ): ReturnType<Required<Entity>['parseObject']> {
 	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
 		const width = parseParamFromBank(data[offset]);
@@ -356,7 +379,7 @@ export function parseParam1WidthEntityObject(
 					x: x * TILE_SIZE,
 					y: y * TILE_SIZE,
 					settings: {
-						width: width + 1,
+						[widhtPropName]: width + 1,
 					},
 				},
 			],
@@ -612,5 +635,38 @@ export function parsePotentialPayloadObject(
 			objectIdToPayload,
 			target
 		);
+	}
+}
+
+export function parsePlatformSprite(
+	data: Uint8Array,
+	offset: number,
+	target: Entity
+): ReturnType<Required<Entity>['parseSprite']> {
+	if (data[offset] === 1 && data[offset + 1] === target.objectId) {
+		const x = data[offset + 2] * TILE_SIZE;
+		const y = data[offset + 3] * TILE_SIZE;
+
+		const rawSpeed = data[offset + 4];
+		const width = rawSpeed >= 0x80 ? 4 : 3;
+		const speedValue = rawSpeed >= 0x80 ? rawSpeed - 0x80 : rawSpeed;
+		const speed = getNearestSpeed(speedValue);
+
+		const rawRange = data[offset + 5];
+		const range = rawRange / speedToRangeAdjustment[speed];
+
+		return {
+			entity: {
+				type: 'PlatformUpDown',
+				x,
+				y,
+				settings: {
+					range,
+					width,
+					speed,
+				},
+			},
+			offset: offset + 6,
+		};
 	}
 }

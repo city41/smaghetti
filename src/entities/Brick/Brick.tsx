@@ -78,8 +78,6 @@ const Brick: Entity = {
 	},
 
 	toObjectBinary({ x, y, w, h, settings }) {
-		const payloadToObjectId = this.payloadToObjectId!;
-
 		if (settings.payload in payloadToObjectId) {
 			// if there is a payload then need to split this up into individual brick objects
 

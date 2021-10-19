@@ -2,14 +2,14 @@ import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import { RiArrowGoForwardFill } from 'react-icons/ri';
-import type { Entity } from './types';
-import { TILE_SIZE } from '../tiles/constants';
-import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import type { Entity } from '../types';
+import { TILE_SIZE } from '../../tiles/constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
 
-import styles from '../components/Resizer/ResizingStyles.module.css';
+import styles from '../../components/Resizer/ResizingStyles.module.css';
 import { IconType } from 'react-icons/lib';
-import { PlatformWidthButton } from './detailPanes/PlatformWidthButton';
-import { NumberButton } from './detailPanes/NumberButton';
+import { PlatformWidthButton } from './PlatformWidthButton';
+import { NumberButton } from '../detailPanes/NumberButton';
 
 const directions = ['up', 'down'] as const;
 type Direction = typeof directions[number];

@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import type { Entity } from './types';
-import { getBankParam1 } from './util';
+import { getBankParam1, parseParam1WidthEntityObject } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { Resizer } from '../components/Resizer';
@@ -111,6 +111,10 @@ const WoodRampUpRight: Entity = {
 		const length = settings.length ?? 1;
 
 		return [getBankParam1(1, length - 1), y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseParam1WidthEntityObject(data, offset, this, 'length');
 	},
 
 	simpleRender(size) {

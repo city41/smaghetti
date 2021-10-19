@@ -1,13 +1,10 @@
 import React from 'react';
-import clsx from 'clsx';
-import type { Entity } from './types';
-import { TILE_SIZE } from '../tiles/constants';
-import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import type { Entity } from '../types';
+import { TILE_SIZE } from '../../tiles/constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
 
-import styles from '../components/Resizer/ResizingStyles.module.css';
-import { PlatformWidthButton } from './detailPanes/PlatformWidthButton';
-
-type Width = 3 | 4;
+import { PlatformWidthButton } from './PlatformWidthButton';
+import { Width } from './common';
 
 const PlatformStatic: Entity = {
 	paletteCategory: 'gizmo',
@@ -81,12 +78,7 @@ const PlatformStatic: Entity = {
 
 		const style = { width: TILE_SIZE * width, height: TILE_SIZE / 2 };
 		return (
-			<div
-				className={clsx('relative', {
-					[styles.resizing]: settings?.resizing,
-				})}
-				style={style}
-			>
+			<div className="relative" style={style}>
 				<div className="top-0 left-0 w-full z-10">{platform}</div>
 				<></>
 				{!!entity && (

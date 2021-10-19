@@ -4,6 +4,8 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { HammerButton } from './detailPanes/HammerButton';
+import { parseSimpleSpriteWithByteParam } from './util';
+import invert from 'lodash/invert';
 
 const falls = ['left', 'right'] as const;
 type Fall = typeof falls[number];
@@ -12,6 +14,8 @@ const fallToParam: Record<Fall, number> = {
 	left: 0,
 	right: 1,
 };
+
+const paramToFall = invert(fallToParam) as Record<number, Fall>;
 
 const StalactiteFalling: Entity = {
 	paletteCategory: 'terrain',
@@ -86,6 +90,17 @@ const StalactiteFalling: Entity = {
 		const fallValue = fallToParam[fall];
 
 		return [0, this.objectId, x, y, fallValue];
+	},
+
+	parseSprite(data, offset) {
+		return parseSimpleSpriteWithByteParam(
+			data,
+			offset,
+			0,
+			this,
+			paramToFall,
+			'fall'
+		);
 	},
 
 	simpleRender(size) {

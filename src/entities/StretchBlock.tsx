@@ -5,12 +5,21 @@ import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { OrientationEditDetails } from './detailPanes/OrientationEditDetails';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { parseObjectIdMapSprite } from './util';
+import invert from 'lodash/invert';
 
 const orientationToObjectId = {
 	vertical: 0xbd,
 	horizontal: 0xbe,
 	both: 0xbc,
 };
+
+type Orientation = keyof typeof orientationToObjectId;
+
+const objectIdToOrientation = invert(orientationToObjectId) as Record<
+	number,
+	Orientation
+>;
 
 const StretchBlock: Entity = {
 	paletteCategory: 'gizmo',
@@ -62,6 +71,17 @@ const StretchBlock: Entity = {
 			orientationToObjectId[orientation as keyof typeof orientationToObjectId];
 
 		return [0, objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseObjectIdMapSprite(
+			data,
+			offset,
+			0,
+			objectIdToOrientation,
+			'orientation',
+			this
+		);
 	},
 
 	simpleRender(size) {

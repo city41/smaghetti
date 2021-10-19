@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { HammerButton } from './detailPanes/HammerButton';
+import { parseSimpleObject } from './util';
 
 const sides = ['left', 'right'] as const;
 type Side = typeof sides[number];
@@ -61,6 +62,10 @@ const StalactiteSingle: Entity = {
 		const objectId = sideToObjectId[side];
 
 		return [0, y, x, objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseSimpleObject(data, offset, 0, this);
 	},
 
 	simpleRender(size) {
