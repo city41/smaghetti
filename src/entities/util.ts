@@ -260,7 +260,7 @@ export function parseObjectIdMapSprite(
 	data: Uint8Array,
 	offset: number,
 	bank: number,
-	objectIdToSetting: Record<number, string>,
+	objectIdToSetting: Record<number, any>,
 	settingKey: string,
 	target: Entity
 ): ReturnType<Required<Entity>['parseSprite']> {
@@ -777,4 +777,17 @@ export function parseSimpleCheckeredTerrainObject(
 			offset: result.offset + 1,
 		};
 	}
+}
+
+export function invertNumeric(
+	obj: Record<number, number>
+): Record<number, number> {
+	return Object.entries(obj).reduce<Record<number, number>>(
+		(building, entry) => {
+			building[entry[1]] = Number(entry[0]);
+
+			return building;
+		},
+		{}
+	);
 }

@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const BowserFireStatue: Entity = {
 	paletteCategory: 'terrain',
@@ -27,6 +28,17 @@ const BowserFireStatue: Entity = {
 		// TODO: allow choosing zero with a details pane
 		// 2 is a separate entity, HoppingBowserStatue
 		return [0, this.objectId, x, y, 1];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 0, this);
+
+		if (result && data[result.offset] === 1) {
+			return {
+				...result,
+				offset: result.offset + 1,
+			};
+		}
 	},
 
 	simpleRender(size) {

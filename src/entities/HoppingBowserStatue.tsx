@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const HoppingBowserStatue: Entity = {
 	paletteCategory: 'enemy',
@@ -25,6 +26,17 @@ const HoppingBowserStatue: Entity = {
 		// 1 - statute that shoots fire
 		// 2 - hops and attacks
 		return [0, this.objectId, x, y, 2];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 0, this);
+
+		if (result && data[result.offset] === 2) {
+			return {
+				...result,
+				offset: result.offset + 1,
+			};
+		}
 	},
 
 	simpleRender(size) {

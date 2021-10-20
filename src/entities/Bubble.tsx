@@ -6,8 +6,34 @@ import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { ANY_OBJECT_SET } from './constants';
+import invert from 'lodash/invert';
 
 const graphicSets = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+const payloadToObjectId = {
+	OneUpMushroom: 0,
+	Mushroom: 1,
+	FireFlower: 2,
+	Leaf: 3,
+	StarMan: 4,
+	TanookiSuit: 5,
+	FrogSuit: 6,
+	HammerBroSuit: 7,
+	Shoe: 8,
+	// 9 is half of an ace coin? seems like a bug
+	Boomerang: 10,
+	// 11 is the other half of an ace coin?
+	// 12 is some kind of wing?
+	Key: 13,
+	SpringBoard: 14,
+	AceCoin: 15,
+	// 16 is some kind of lettering? possibly need a diff graphic set
+};
+
+const objectIdToPayload = invert(payloadToObjectId) as Record<
+	number,
+	ResourceType
+>;
 
 const Bubble: Entity = {
 	paletteCategory: 'object',
@@ -34,25 +60,7 @@ const Bubble: Entity = {
 	width: 2,
 	height: 2,
 
-	payloadToObjectId: {
-		OneUpMushroom: 0,
-		Mushroom: 1,
-		FireFlower: 2,
-		Leaf: 3,
-		StarMan: 4,
-		TanookiSuit: 5,
-		FrogSuit: 6,
-		HammerBroSuit: 7,
-		Shoe: 8,
-		// 9 is half of an ace coin? seems like a bug
-		Boomerang: 10,
-		// 11 is the other half of an ace coin?
-		// 12 is some kind of wing?
-		Key: 13,
-		SpringBoard: 14,
-		AceCoin: 15,
-		// 16 is some kind of lettering? possibly need a diff graphic set
-	},
+	payloadToObjectId,
 
 	resource: {
 		palettes: [
@@ -87,14 +95,34 @@ const Bubble: Entity = {
 	toSpriteBinary({ x, y, settings }) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
-		if (settings.payload in payloadToObjectId) {
-			const payloadId = payloadToObjectId[
-				settings.payload as keyof typeof payloadToObjectId
-			]!;
-			return [0, this.objectId, x, y, payloadId, 0];
-		} else {
-			// TODO: figure out what the bytes are for empty bubble
-			return [0, this.objectId, x, y, 0, 0];
+		const payloadId = payloadToObjectId[
+			settings.payload as keyof typeof payloadToObjectId
+		]!;
+		return [0, this.objectId, x, y, payloadId, 0];
+	},
+
+	parseSprite(data, offset) {
+		if (
+			data[offset] === 0 &&
+			data[offset + 1] === this.objectId &&
+			data[offset + 5] === 0
+		) {
+			const x = data[offset + 2] * TILE_SIZE;
+			const y = data[offset + 3] * TILE_SIZE;
+			const payloadId = data[offset + 4];
+			const payload = objectIdToPayload[payloadId];
+
+			return {
+				entity: {
+					type: 'Bubble',
+					x,
+					y,
+					settings: {
+						payload,
+					},
+				},
+				offset: offset + 6,
+			};
 		}
 	},
 

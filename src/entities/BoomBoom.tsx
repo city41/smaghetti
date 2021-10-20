@@ -3,6 +3,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -75,6 +76,17 @@ const BoomBoom: Entity = {
 		// 3 and 5 are likely the same params as koopalings have
 		// TODO: details pain for those params
 		return [1, this.objectId, x, y, 3, 5];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 1, this);
+
+		if (result) {
+			return {
+				...result,
+				offset: result.offset + 2,
+			};
+		}
 	},
 
 	simpleRender(size) {

@@ -5,6 +5,8 @@ import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import clsx from 'clsx';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { GeneratorFrame } from './components/GeneratorFrame';
+import { parseObjectIdMapSprite } from './util';
+import invert from 'lodash/invert';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -14,6 +16,11 @@ const directionToObjectId: Record<Direction, number> = {
 	left: 0x94,
 	right: 0x95,
 };
+
+const objectIdToDirection = invert(directionToObjectId) as Record<
+	number,
+	Direction
+>;
 
 const GoombaGenerator: Entity = {
 	paletteCategory: 'enemy',
@@ -41,6 +48,17 @@ const GoombaGenerator: Entity = {
 		const objectId = directionToObjectId[direction];
 
 		return [1, objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseObjectIdMapSprite(
+			data,
+			offset,
+			1,
+			objectIdToDirection,
+			'direction',
+			this
+		);
 	},
 
 	simpleRender(size) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Entity } from '../types';
-import { encodeObjectSets, getBankParam1 } from '../util';
+import { encodeObjectSets, parseSimpleObject } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_BELOW_0x16 } from '../constants';
 import { objectSets } from './objectSets';
@@ -51,7 +51,11 @@ const BuriedVegetableMontyMole: Entity = {
 	},
 
 	toObjectBinary({ x, y }) {
-		return [getBankParam1(1, 0), y, x, this.objectId];
+		return [0x40, y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseSimpleObject(data, offset, 0x40, this);
 	},
 
 	simpleRender(size) {

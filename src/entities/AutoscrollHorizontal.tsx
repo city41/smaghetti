@@ -3,6 +3,7 @@ import { FaArrowRight } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const AutoscrollHorizontal: Entity = {
 	paletteInfo: {
@@ -20,6 +21,17 @@ const AutoscrollHorizontal: Entity = {
 	toSpriteBinary({ x, y }) {
 		// so far it seems like the param has to always be zero
 		return [1, this.objectId, x, y, 0];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 1, this);
+
+		if (result && data[result.offset] === 0) {
+			return {
+				...result,
+				offset: result.offset + 1,
+			};
+		}
 	},
 
 	simpleRender(size) {

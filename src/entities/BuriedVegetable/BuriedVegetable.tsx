@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Entity } from '../types';
-import { encodeObjectSets, getBankParam1 } from '../util';
+import { encodeObjectSets, parseSimpleObject } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { PayloadViewDetails } from '../detailPanes/PayloadViewDetails';
 import { ResourceType } from '../../resources/resourceMap';
@@ -77,8 +77,14 @@ const BuriedVegetable: Entity = {
 			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId]! ??
 			this.objectId;
 
-		return [getBankParam1(1, 0), y, x, objectId];
+		return [0x40, y, x, objectId];
 	},
+
+	parseObject(data, offset) {
+		return parseSimpleObject(data, offset, 0x40, this);
+	},
+
+	// TODO: parseSprite for e-coin
 
 	toSpriteBinary({ x, y, settings }) {
 		if (settings.payload === 'ECoin') {

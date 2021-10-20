@@ -2,7 +2,11 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { encodeObjectSets, parseObjectIdMapObject } from './util';
+import {
+	encodeObjectSets,
+	invertNumeric,
+	parseObjectIdMapObject,
+} from './util';
 import { AngleEditDetails } from './detailPanes/AngleEditDetails';
 
 const angleToObjectId: Record<number, number> = {
@@ -14,13 +18,7 @@ const angleToObjectId: Record<number, number> = {
 
 // since the keys are strings, can't use lodash/invert as need to convert the strings
 // back to numbers
-const objectIdToAngle = Object.entries(angleToObjectId).reduce<
-	Record<number, number>
->((building, entry) => {
-	building[entry[1]] = Number(entry[0]);
-
-	return building;
-}, {});
+const objectIdToAngle = invertNumeric(angleToObjectId);
 
 const PipeCornerTransition: Entity = {
 	paletteCategory: 'terrain',

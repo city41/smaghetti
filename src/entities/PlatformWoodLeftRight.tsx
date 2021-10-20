@@ -4,6 +4,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 import { HammerButton } from './detailPanes/HammerButton';
+import { invertNumeric, parseObjectIdMapSprite } from './util';
 
 const ranges = [4, 6] as const;
 type Range = typeof ranges[number];
@@ -12,6 +13,8 @@ const travelRangeToObjectId: Record<Range, number> = {
 	4: 0x37,
 	6: 0x27,
 };
+
+const objectIdToTravelRange = invertNumeric(travelRangeToObjectId);
 
 const PlatformWoodLeftRight: Entity = {
 	paletteCategory: 'gizmo',
@@ -37,6 +40,17 @@ const PlatformWoodLeftRight: Entity = {
 		const range = (settings.range ?? this.defaultSettings!.range) as Range;
 		const objectId = travelRangeToObjectId[range];
 		return [0, objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseObjectIdMapSprite(
+			data,
+			offset,
+			0,
+			objectIdToTravelRange,
+			'range',
+			this
+		);
 	},
 
 	simpleRender(size) {

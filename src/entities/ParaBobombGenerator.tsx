@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 import { GeneratorFrame } from './components/GeneratorFrame';
+import { parseSimpleSprite } from './util';
 
 const ParaBobombGenerator: Entity = {
 	paletteCategory: 'enemy',
@@ -58,6 +59,17 @@ const ParaBobombGenerator: Entity = {
 		}
 
 		return [1, this.objectId, x, y, 5];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 1, this);
+
+		if (result && result.entity.x % 2 === 1 && data[result.offset] === 5) {
+			return {
+				...result,
+				offset: result.offset + 1,
+			};
+		}
 	},
 
 	simpleRender(size) {

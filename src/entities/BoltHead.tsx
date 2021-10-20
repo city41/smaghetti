@@ -1,10 +1,11 @@
 import React from 'react';
 import type { Entity } from './types';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { encodeObjectSets } from './util';
+import { encodeObjectSets, parseObjectIdMapObject } from './util';
 import clsx from 'clsx';
 import { HammerButton } from './detailPanes/HammerButton';
 import { TILE_SIZE } from '../tiles/constants';
+import invert from 'lodash/invert';
 
 const directions = ['right', 'up'] as const;
 type Direction = typeof directions[number];
@@ -13,6 +14,11 @@ const directionToObjectId: Record<Direction, number> = {
 	right: 0,
 	up: 5,
 };
+
+const objectIdToDirection = invert(directionToObjectId) as Record<
+	number,
+	Direction
+>;
 
 const BoltHead: Entity = {
 	paletteCategory: 'decoration',
@@ -94,6 +100,17 @@ const BoltHead: Entity = {
 			this.defaultSettings!.direction) as Direction;
 		const objectId = directionToObjectId[direction];
 		return [0, y, x, objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseObjectIdMapObject(
+			data,
+			offset,
+			0,
+			objectIdToDirection,
+			'direction',
+			this
+		);
 	},
 
 	simpleRender(size) {
