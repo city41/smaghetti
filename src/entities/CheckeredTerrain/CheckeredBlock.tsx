@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Entity } from '../types';
-import { encodeObjectSets } from '../util';
+import { encodeObjectSets, parseSimpleObject } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 
@@ -63,6 +63,10 @@ const CheckeredBlock: Entity = {
 		// in the entire game
 		// docs: https://github.com/city41/smaghetti/wiki/Checkered-terrain
 		return [7, y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseSimpleObject(data, offset, 7, this);
 	},
 
 	simpleRender(size) {

@@ -678,3 +678,103 @@ export function parsePlatformSprite(
 		};
 	}
 }
+
+export function parseCheckeredTerrainCellObjectParamHeight(
+	data: Uint8Array,
+	offset: number,
+	bankByte: number,
+	target: Entity
+) {
+	if (data[offset] === bankByte && data[offset + 3] === target.objectId) {
+		const y = data[offset + 1];
+		const x = data[offset + 2];
+		const height = data[offset + 4];
+
+		const cells = [];
+		for (let i = 0; i < height - 1; ++i) {
+			cells.push({
+				type: getType(target),
+				x,
+				y: y + i,
+			} as const);
+		}
+
+		return {
+			entities: cells,
+			offset: offset + 5,
+		};
+	}
+}
+
+export function parseCheckeredTerrainCellObjectParamWidth(
+	data: Uint8Array,
+	offset: number,
+	bankByte: number,
+	target: Entity
+) {
+	if (data[offset] === bankByte && data[offset + 3] === target.objectId) {
+		const y = data[offset + 1];
+		const x = data[offset + 2];
+		const width = data[offset + 4];
+
+		const cells = [];
+		for (let i = 0; i < width - 1; ++i) {
+			cells.push({
+				type: getType(target),
+				x: x + i,
+				y,
+			} as const);
+		}
+
+		return {
+			entities: cells,
+			offset: offset + 5,
+		};
+	}
+}
+
+export function parseCheckeredTerrainCellObjectParam1WidthParam2Height(
+	data: Uint8Array,
+	offset: number,
+	bankByte: number,
+	target: Entity
+) {
+	if (data[offset] === bankByte && data[offset + 3] === target.objectId) {
+		const y = data[offset + 1];
+		const x = data[offset + 2];
+		const width = data[offset + 4];
+		const height = data[offset + 5];
+
+		const cells = [];
+		for (let h = 0; h < height; ++h) {
+			for (let w = 0; w < width - 1; ++w) {
+				cells.push({
+					type: getType(target),
+					x: x + w,
+					y: y + h,
+				} as const);
+			}
+		}
+
+		return {
+			entities: cells,
+			offset: offset + 6,
+		};
+	}
+}
+
+export function parseSimpleCheckeredTerrainObject(
+	data: Uint8Array,
+	offset: number,
+	bankByte: number,
+	target: Entity
+): ReturnType<Required<Entity>['parseObject']> {
+	const result = parseSimpleObject(data, offset, bankByte, target);
+
+	if (result && data[result.offset] === 1) {
+		return {
+			...result,
+			offset: result.offset + 1,
+		};
+	}
+}

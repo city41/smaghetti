@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Entity } from '../types';
-import { encodeObjectSets } from '../util';
+import { encodeObjectSets, parseSimpleCheckeredTerrainObject } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 
@@ -65,6 +65,10 @@ const CheckeredInnerCornerLowerRight: Entity = {
 		// in the entire game
 		// docs: https://github.com/city41/smaghetti/wiki/Checkered-terrain
 		return [0x48, y, x, this.objectId, 1];
+	},
+
+	parseObject(data, offset) {
+		return parseSimpleCheckeredTerrainObject(data, offset, 0x48, this);
 	},
 
 	simpleRender(size) {
