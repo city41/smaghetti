@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { encodeObjectSets } from './util';
+import { encodeObjectSets, parseSimpleObject } from './util';
 
 const GrassUpperRightCorner: Entity = {
 	paletteCategory: 'terrain',
@@ -54,6 +54,10 @@ const GrassUpperRightCorner: Entity = {
 
 	toObjectBinary({ x, y }) {
 		return [0, y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseSimpleObject(data, offset, 0, this);
 	},
 
 	simpleRender(size) {

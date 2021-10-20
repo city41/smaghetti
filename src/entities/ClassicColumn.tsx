@@ -3,10 +3,11 @@ import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { encodeObjectSets } from './util';
+import { encodeObjectSets, parseObjectIdMapObject } from './util';
 import { getEntityTileBounds, pointIsInside } from '../components/editor/util';
 import { HammerButton } from './detailPanes/HammerButton';
 import { TileSpace } from './TileSpace';
+import invert from 'lodash/invert';
 
 const colors = ['silver', 'blue'] as const;
 
@@ -16,6 +17,8 @@ const colorToObjectId: Record<Color, number> = {
 	silver: 1,
 	blue: 0,
 };
+
+const objectIdToColor = invert(colorToObjectId) as Record<number, Color>;
 
 function getHeight(
 	entity: EditorEntity | undefined,
@@ -232,6 +235,17 @@ const ClassicColumn: Entity = {
 		const objectId = colorToObjectId[color];
 
 		return [0x40, y, x, objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseObjectIdMapObject(
+			data,
+			offset,
+			0x40,
+			objectIdToColor,
+			'color',
+			this
+		);
 	},
 
 	simpleRender(size) {

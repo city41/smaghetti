@@ -3,6 +3,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const ChargingChuck: Entity = {
 	paletteCategory: 'enemy',
@@ -18,7 +19,19 @@ const ChargingChuck: Entity = {
 	objectId: 0x9b,
 
 	toSpriteBinary({ x, y }) {
+		// last byte: 0 = charging, 1 = clapping
 		return [0, this.objectId, x, y, 0];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 0, this);
+
+		if (result && data[result.offset] === 0) {
+			return {
+				...result,
+				offset: result.offset + 1,
+			};
+		}
 	},
 
 	simpleRender(size) {

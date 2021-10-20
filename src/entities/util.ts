@@ -365,7 +365,7 @@ export function parseParam1WidthEntityObject(
 	data: Uint8Array,
 	offset: number,
 	target: Entity,
-	widhtPropName = 'width'
+	widthPropName = 'width'
 ): ReturnType<Required<Entity>['parseObject']> {
 	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
 		const width = parseParamFromBank(data[offset]);
@@ -379,7 +379,7 @@ export function parseParam1WidthEntityObject(
 					x: x * TILE_SIZE,
 					y: y * TILE_SIZE,
 					settings: {
-						[widhtPropName]: width + 1,
+						[widthPropName]: width + 1,
 					},
 				},
 			],
