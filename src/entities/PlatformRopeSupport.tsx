@@ -2,8 +2,9 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { encodeObjectSets } from './util';
+import { encodeObjectSets, parseObjectIdMapObject } from './util';
 import { HammerButton } from './detailPanes/HammerButton';
+import invert from 'lodash/invert';
 
 const sides = ['right', 'left'] as const;
 type Side = typeof sides[number];
@@ -12,6 +13,8 @@ const sideToObjectId: Record<Side, number> = {
 	right: 2,
 	left: 3,
 };
+
+const objectIdToSide = invert(sideToObjectId) as Record<number, Side>;
 
 const PlatformRopeSupport: Entity = {
 	paletteCategory: 'decoration',
@@ -149,6 +152,17 @@ const PlatformRopeSupport: Entity = {
 		const objectId = sideToObjectId[side];
 
 		return [0, y, x, objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseObjectIdMapObject(
+			data,
+			offset,
+			0,
+			objectIdToSide,
+			'side',
+			this
+		);
 	},
 
 	simpleRender(size) {

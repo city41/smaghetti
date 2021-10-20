@@ -4,6 +4,8 @@ import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
 import { HammerButton } from './detailPanes/HammerButton';
+import { parseObjectIdMapSprite } from './util';
+import invert from 'lodash/invert';
 
 const pipes = ['giant', 'regular'] as const;
 type Pipe = typeof pipes[number];
@@ -12,6 +14,8 @@ const pipeToObjectId: Record<Pipe, number> = {
 	giant: 0x7f,
 	regular: 0x7d,
 };
+
+const objectIdToPipe = invert(pipeToObjectId) as Record<number, Pipe>;
 
 const graphicSetValues = [
 	0xb,
@@ -166,6 +170,17 @@ const PiranhaPlantGiant: Entity = {
 		const pipe = (settings.pipe ?? this.defaultSettings!.pipe) as Pipe;
 		const objectId = pipeToObjectId[pipe];
 		return [0, objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseObjectIdMapSprite(
+			data,
+			offset,
+			0,
+			objectIdToPipe,
+			'pipe',
+			this
+		);
 	},
 
 	simpleRender(size) {

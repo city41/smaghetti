@@ -3,6 +3,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { TileSpace } from './TileSpace';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -54,6 +55,17 @@ const PiranhaPlantRedFacingLeftFire: Entity = {
 		// 0 -- face right
 		// 1 -- face left
 		return [0, this.objectId, x, y, 1];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 0, this);
+
+		if (result && data[result.offset] === 1) {
+			return {
+				...result,
+				offset: result.offset + 1,
+			};
+		}
 	},
 
 	simpleRender(size) {

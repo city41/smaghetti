@@ -6,6 +6,23 @@ import { TileSpace } from './TileSpace';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
+import { parseObjectIdMapSprite } from './util';
+import invert from 'lodash/invert';
+
+const payloadToObjectId = {
+	OneUpMushroom: 0x94,
+	Mushroom: 0x95,
+	FireFlower: 0x96,
+	Leaf: 0x97,
+	TanookiSuit: 0x98,
+	FrogSuit: 0x99,
+	HammerBroSuit: 0x9a,
+};
+
+const objectIdToPayload = invert(payloadToObjectId) as Record<
+	number,
+	ResourceType
+>;
 
 const QuestionBlockGiant: Entity = {
 	paletteCategory: 'object',
@@ -18,15 +35,7 @@ const QuestionBlockGiant: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
-	payloadToObjectId: {
-		OneUpMushroom: 0x94,
-		Mushroom: 0x95,
-		FireFlower: 0x96,
-		Leaf: 0x97,
-		TanookiSuit: 0x98,
-		FrogSuit: 0x99,
-		HammerBroSuit: 0x9a,
-	},
+	payloadToObjectId,
 	objectId: 0x94,
 	settingsType: 'single',
 	defaultSettings: { payload: 'Mushroom' },
@@ -69,6 +78,17 @@ const QuestionBlockGiant: Entity = {
 			this.objectId;
 
 		return [0, objectId, x, y];
+	},
+
+	parseSprite(data, offset) {
+		return parseObjectIdMapSprite(
+			data,
+			offset,
+			0,
+			objectIdToPayload,
+			'payload',
+			this
+		);
 	},
 
 	simpleRender(size) {

@@ -388,6 +388,14 @@ export function parseParam1WidthEntityObject(
 	}
 }
 
+export function parseParam1HeightEntityObject(
+	data: Uint8Array,
+	offset: number,
+	target: Entity
+): ReturnType<Required<Entity>['parseObject']> {
+	return parseParam1WidthEntityObject(data, offset, target, 'height');
+}
+
 export function parseParam1WidthParam2HeightEntityObject(
 	data: Uint8Array,
 	offset: number,

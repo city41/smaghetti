@@ -1,7 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
 import type { Entity } from './types';
-import { encodeObjectSets, getBankParam1 } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseParam1HeightEntityObject,
+} from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { Resizer } from '../components/Resizer';
@@ -202,6 +206,10 @@ const PipeVerticalGiant: Entity = {
 		const height = settings.height ?? 1;
 
 		return [getBankParam1(1, height - 1), y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseParam1HeightEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {
