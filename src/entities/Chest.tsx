@@ -5,6 +5,32 @@ import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
 import { ResourceType } from '../resources/resourceMap';
 import { ANY_OBJECT_SET } from './constants';
+import { parseSimpleSprite } from './util';
+import invert from 'lodash/invert';
+
+const payloadToObjectId = {
+	Mushroom: 1,
+	FireFlower: 2,
+	FrogSuit: 4,
+	TanookiSuit: 5,
+	HammerBroSuit: 6,
+	LakituCloud: 7,
+	PWing: 8,
+	StarMan: 9,
+	// Anchor: 0xa,
+	// Hammer: 0xb,
+	// Flute: 0xc,
+	MusicBox: 0xd,
+	CapeFeather: 0xe,
+	Boomerang: 0xf,
+	OneUpMushroom: 0x10, // note this is not a 1up mushroom, just an immediate 1up
+	ThreeUpMoon: 0x11, // note this is not a 3up moon, just an immediate 3up
+};
+
+const objectIdToPayload = invert(payloadToObjectId) as Record<
+	number,
+	ResourceType
+>;
 
 const Chest: Entity = {
 	paletteCategory: 'object',
@@ -21,24 +47,7 @@ const Chest: Entity = {
 	settingsType: 'single',
 	defaultSettings: { payload: 'Mushroom' },
 	objectId: 0x8,
-	payloadToObjectId: {
-		Mushroom: 1,
-		FireFlower: 2,
-		FrogSuit: 4,
-		TanookiSuit: 5,
-		HammerBroSuit: 6,
-		LakituCloud: 7,
-		PWing: 8,
-		StarMan: 9,
-		// Anchor: 0xa,
-		// Hammer: 0xb,
-		// Flute: 0xc,
-		MusicBox: 0xd,
-		CapeFeather: 0xe,
-		Boomerang: 0xf,
-		OneUpMushroom: 0x10, // note this is not a 1up mushroom, just an immediate 1up
-		ThreeUpMoon: 0x11, // note this is not a 3up moon, just an immediate 3up
-	},
+	payloadToObjectId,
 
 	resource: {
 		palettes: [
@@ -76,6 +85,23 @@ const Chest: Entity = {
 		const payloadId = payloadToObjectId[payload];
 
 		return [1, this.objectId, x, y, payloadId!];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 1, this);
+
+		if (result) {
+			const payload = objectIdToPayload[result.offset];
+
+			return {
+				...result,
+				entity: {
+					...result.entity,
+					settings: { payload },
+				},
+				offset: result.offset + 1,
+			};
+		}
 	},
 
 	simpleRender(size) {
