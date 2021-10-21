@@ -1,9 +1,9 @@
 import React from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { parseObjectIdMapSprite } from './util';
+import { IconArrowLeft, IconArrowRight } from '../icons';
 import invert from 'lodash/invert';
 
 type Direction = 'left' | 'right';
@@ -69,7 +69,7 @@ const ScrollStopHorizontal: Entity = {
 				className="relative bg-red-500 text-white flex flex-col items-center justify-around p-0.5"
 			>
 				<div>scroll stop</div>
-				<FaArrowLeft className="w-1/2 h-1/2" />
+				<IconArrowLeft className="w-1/2 h-1/2" />
 			</div>
 		);
 	},
@@ -86,7 +86,7 @@ const ScrollStopHorizontal: Entity = {
 			borderRadius: '10%',
 		};
 
-		const Icon = direction === 'left' ? FaArrowLeft : FaArrowRight;
+		const Icon = direction === 'left' ? IconArrowLeft : IconArrowRight;
 
 		return (
 			<div

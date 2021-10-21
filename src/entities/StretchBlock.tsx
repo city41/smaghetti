@@ -3,18 +3,19 @@ import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
-import { OrientationEditDetails } from './detailPanes/OrientationEditDetails';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { parseObjectIdMapSprite } from './util';
 import invert from 'lodash/invert';
+import { HammerButton } from './detailPanes/HammerButton';
 
-const orientationToObjectId = {
+const orientations = ['horizontal', 'vertical', 'both'] as const;
+type Orientation = typeof orientations[number];
+
+const orientationToObjectId: Record<Orientation, number> = {
 	vertical: 0xbd,
 	horizontal: 0xbe,
 	both: 0xbc,
 };
-
-type Orientation = keyof typeof orientationToObjectId;
 
 const objectIdToOrientation = invert(orientationToObjectId) as Record<
 	number,
@@ -97,7 +98,10 @@ const StretchBlock: Entity = {
 	},
 
 	// TODO: this is such a mess...
-	render({ showDetails, settings, onSettingsChange }) {
+	render({ entity, settings, onSettingsChange }) {
+		const orientation = (settings.orientation ??
+			this.defaultSettings!.orientation) as Orientation;
+
 		const singleBlockStyle = {
 			width: TILE_SIZE,
 			height: TILE_SIZE,
@@ -124,7 +128,7 @@ const StretchBlock: Entity = {
 						/>
 					);
 					const tile =
-						showDetails && i == 2 ? (
+						!!entity && i == 2 ? (
 							<div
 								className="absolute z-10"
 								style={{
@@ -133,16 +137,14 @@ const StretchBlock: Entity = {
 									top: 0,
 								}}
 							>
-								<OrientationEditDetails
-									width={TILE_SIZE}
-									height={TILE_SIZE}
-									includeBoth
-									onOrientationChange={(newOrientation) =>
-										onSettingsChange({ orientation: newOrientation })
-									}
-								>
-									<div className="StretchBlock-bg" style={singleBlockStyle} />
-								</OrientationEditDetails>
+								<HammerButton
+									values={orientations}
+									currentValue={orientation}
+									onNewValue={(newOrientation) => {
+										onSettingsChange({ orientation: newOrientation });
+									}}
+								/>
+								<div className="StretchBlock-bg" style={singleBlockStyle} />
 							</div>
 						) : (
 							tileBody
@@ -182,7 +184,7 @@ const StretchBlock: Entity = {
 						/>
 					);
 					const tile =
-						showDetails && i == 2 ? (
+						!!entity && i == 2 ? (
 							<div
 								className="absolute z-10"
 								style={{
@@ -191,16 +193,14 @@ const StretchBlock: Entity = {
 									left: 0,
 								}}
 							>
-								<OrientationEditDetails
-									width={TILE_SIZE}
-									height={TILE_SIZE}
-									includeBoth
-									onOrientationChange={(newOrientation) =>
-										onSettingsChange({ orientation: newOrientation })
-									}
-								>
-									<div className="StretchBlock-bg" style={singleBlockStyle} />
-								</OrientationEditDetails>
+								<HammerButton
+									values={orientations}
+									currentValue={orientation}
+									onNewValue={(newOrientation) => {
+										onSettingsChange({ orientation: newOrientation });
+									}}
+								/>
+								<div className="StretchBlock-bg" style={singleBlockStyle} />
 							</div>
 						) : (
 							tileBody
@@ -246,7 +246,7 @@ const StretchBlock: Entity = {
 						/>
 					);
 					const tile =
-						showDetails && i == 2 ? (
+						!!entity && i == 2 ? (
 							<div
 								className="absolute z-10"
 								style={{
@@ -255,16 +255,14 @@ const StretchBlock: Entity = {
 									left: TILE_SIZE * 2,
 								}}
 							>
-								<OrientationEditDetails
-									width={TILE_SIZE}
-									height={TILE_SIZE}
-									includeBoth
-									onOrientationChange={(newOrientation) =>
-										onSettingsChange({ orientation: newOrientation })
-									}
-								>
-									<div className="StretchBlock-bg" style={singleBlockStyle} />
-								</OrientationEditDetails>
+								<HammerButton
+									values={orientations}
+									currentValue={orientation}
+									onNewValue={(newOrientation) => {
+										onSettingsChange({ orientation: newOrientation });
+									}}
+								/>
+								<div className="StretchBlock-bg" style={singleBlockStyle} />
 							</div>
 						) : (
 							tileBody

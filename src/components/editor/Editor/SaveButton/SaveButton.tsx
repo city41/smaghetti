@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import clsx from 'clsx';
-import { AiFillSave } from 'react-icons/ai';
+import { IconSave } from '../../../../icons';
 
 import { PlainIconButton } from '../../../PlainIconButton';
 
@@ -49,7 +49,7 @@ const SaveButton = memo(function SaveButton({
 						: 'save this level'
 				}
 				onClick={onSaveClick}
-				icon={AiFillSave}
+				icon={IconSave}
 				loading={saveLevelState === 'saving'}
 				disabled={disabled || disabledExplicitly}
 			>

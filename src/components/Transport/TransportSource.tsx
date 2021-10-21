@@ -1,7 +1,5 @@
 import React, { CSSProperties, useState } from 'react';
 import clsx from 'clsx';
-import { FaDoorClosed } from 'react-icons/fa';
-import { GiWarpPipe } from 'react-icons/gi';
 
 import styles from './transportStyles.module.css';
 import focusedStyles from '../../styles/focused.module.css';
@@ -9,7 +7,9 @@ import focusedStyles from '../../styles/focused.module.css';
 import { TILE_SIZE } from '../../tiles/constants';
 import { TransportDestinationModal } from './TransportDestinationModal';
 import { DestinationSetProps } from './TransportDestinationModal/TransportDestinationModal';
-import { IconType } from 'react-icons';
+
+import { IconDoorClosed, IconWarpPipe } from '../../icons';
+import type { IconType } from '../../icons';
 
 type ExitCategory = 'door' | 'pipe';
 
@@ -26,8 +26,8 @@ type TransportSourceProps = {
 };
 
 const exitCategoryIconMap: Record<ExitCategory, IconType> = {
-	door: FaDoorClosed,
-	pipe: GiWarpPipe,
+	door: IconDoorClosed,
+	pipe: IconWarpPipe,
 };
 
 function TransportSource({

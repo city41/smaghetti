@@ -1,6 +1,6 @@
 import React from 'react';
-import { IconType } from 'react-icons/lib';
-import { BiPlay, BiFastForward } from 'react-icons/bi';
+import { IconPlay, IconFastForward } from '../../icons';
+import type { IconType } from '../../icons';
 
 const speeds = ['slow', 'fast'] as const;
 type Speed = typeof speeds[number];
@@ -12,8 +12,8 @@ type PlatformSpeedButtonProps = {
 };
 
 const speedToIcon: Record<Speed, IconType> = {
-	slow: BiPlay,
-	fast: BiFastForward,
+	slow: IconPlay,
+	fast: IconFastForward,
 };
 
 function PlatformSpeedButton({

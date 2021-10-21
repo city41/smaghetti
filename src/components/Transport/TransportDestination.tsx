@@ -1,12 +1,11 @@
 import React, { CSSProperties, useState } from 'react';
 import clsx from 'clsx';
-import { FaDoorOpen } from 'react-icons/fa';
-import { GiWarpPipe } from 'react-icons/gi';
 
 import styles from './transportStyles.module.css';
 import { TransportDestinationModal } from './TransportDestinationModal';
 import { DestinationSetProps } from './TransportDestinationModal/TransportDestinationModal';
 import { MouseMode } from '../editor/editorSlice';
+import { IconDoorOpen, IconWarpPipe } from '../../icons';
 
 type TransportDestinationProps = {
 	style?: CSSProperties;
@@ -28,7 +27,7 @@ function TransportDestination({
 	onDestinationChange,
 }: TransportDestinationProps) {
 	const [modalOpen, setModalOpen] = useState(false);
-	const Icon = exitType === 'door' ? FaDoorOpen : GiWarpPipe;
+	const Icon = exitType === 'door' ? IconDoorOpen : IconWarpPipe;
 
 	const finalStyle = {
 		...style,

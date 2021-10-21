@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
-import { RiLockFill, RiLockUnlockFill } from 'react-icons/ri';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { PlainIconButton } from '../../../PlainIconButton';
+import { IconLock, IconUnlock } from '../../../../icons';
 
 type InternalLayersProps = {
 	actors: {
@@ -32,7 +32,7 @@ function LayerEntry({
 	locked,
 	onToggleLayerLock,
 }: LayerEntryProps) {
-	const LockIcon = locked ? RiLockFill : RiLockUnlockFill;
+	const LockIcon = locked ? IconLock : IconUnlock;
 
 	return (
 		<div

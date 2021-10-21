@@ -1,11 +1,11 @@
 import React, { CSSProperties, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
-import { RiCloseFill } from 'react-icons/ri';
 import { entityMap } from '../../../../entities/entityMap';
 import { flattenCells } from '../../../../levelData/util';
 import { PlainIconButton } from '../../../PlainIconButton';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { EntityProblem } from '../../../../entities/types';
+import { IconClose } from '../../../../icons';
 
 type PublicProblemListProps = {
 	className?: string;
@@ -132,7 +132,7 @@ function ProblemList({
 			<div className="relative w-full h-full">
 				<PlainIconButton
 					className="absolute top-1.5 -right-1"
-					icon={RiCloseFill}
+					icon={IconClose}
 					label="close"
 					onMouseDown={(e) => {
 						e.stopPropagation();

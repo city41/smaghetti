@@ -2,12 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 import styles from './Root.module.css';
 import logoPng from '../../images/logo.png';
-import Link from 'next/link';
-import { ImPointUp } from 'react-icons/im';
 
 type HeaderProps = {
 	className?: string;
-	highlightEditor?: boolean;
 };
 
 function MenuLink(props: JSX.IntrinsicElements['a']) {
@@ -22,18 +19,7 @@ function MenuLink(props: JSX.IntrinsicElements['a']) {
 	);
 }
 
-function HighlightEditor() {
-	return (
-		<Link href="/editor">
-			<div className="hidden sm:flex absolute -bottom-16 -left-4 p-2 bg-green-500 rounded-lg flex-row items-center space-x-2">
-				<ImPointUp className="w-8 h-8" />
-				<div className="w-20 text-sm text-center">try it here</div>
-			</div>
-		</Link>
-	);
-}
-
-function Header({ className, highlightEditor }: HeaderProps) {
+function Header({ className }: HeaderProps) {
 	return (
 		<header className={clsx(className, 'bg-gray-900 w-full')}>
 			<div className="mx-auto max-w-7xl w-full">
@@ -52,10 +38,7 @@ function Header({ className, highlightEditor }: HeaderProps) {
 							<a href="/">Smaghetti</a>
 						</div>
 					</div>
-					<div className={clsx({ relative: highlightEditor })}>
-						<MenuLink href="/editor">editor</MenuLink>
-						{highlightEditor && <HighlightEditor />}
-					</div>
+					<MenuLink href="/editor">editor</MenuLink>
 					<MenuLink href="/levels">levels</MenuLink>
 					<MenuLink href="/whats-new">what&apos;s new</MenuLink>
 					<MenuLink href="/roadmap">roadmap</MenuLink>

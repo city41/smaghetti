@@ -1,10 +1,10 @@
 import React from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { encodeObjectSets, parseObjectIdMapSprite } from './util';
 import invert from 'lodash/invert';
 import { directionToObjectId } from './ArrowSign';
+import { IconArrowLeft, IconArrowRight } from '../icons';
 
 const directions = ['left', 'right'];
 type Direction = typeof directions[number];
@@ -114,7 +114,7 @@ const GiantCannonBall: Entity = {
 
 		const style = { width: TILE_SIZE * 2, height: TILE_SIZE * 2 };
 
-		const Icon = direction === 'left' ? FaArrowLeft : FaArrowRight;
+		const Icon = direction === 'left' ? IconArrowLeft : IconArrowRight;
 
 		return (
 			<div style={style} className="relative">

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
-import { BsCaretUpFill } from 'react-icons/bs';
+import { IconCaretUp } from '../../../icons';
 
 type MilestoneProps = {
 	className?: string;
@@ -23,7 +23,7 @@ function Milestone({ className, isCurrent, children }: MilestoneProps) {
 			<div>{children}</div>
 			{isCurrent && (
 				<div className="absolute left-0 -bottom-5 w-full grid place-items-center">
-					<BsCaretUpFill className="w-12 h-12 text-white" />
+					<IconCaretUp className="w-12 h-12 text-white" />
 				</div>
 			)}
 		</div>

@@ -1,23 +1,22 @@
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
-import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
-import { RiArrowGoForwardFill } from 'react-icons/ri';
 import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
 
 import styles from '../../components/Resizer/ResizingStyles.module.css';
-import { IconType } from 'react-icons/lib';
 import { PlatformWidthButton } from './PlatformWidthButton';
 import { NumberButton } from '../detailPanes/NumberButton';
+import { IconArrowDown, IconArrowUp, IconUTurn } from '../../icons';
+import type { IconType } from '../../icons';
 
 const directions = ['up', 'down'] as const;
 type Direction = typeof directions[number];
 type Width = 2 | 3;
 
 const directionToIcon: Record<Direction, IconType> = {
-	up: FaArrowUp,
-	down: FaArrowDown,
+	up: IconArrowUp,
+	down: IconArrowDown,
 };
 
 function getDirectionBoxStyle(
@@ -80,8 +79,8 @@ const PlatformWrapAround: Entity = {
 				className="FallAwayPlatform-bg bg-center bg-no-repeat flex flex-col items-center justify-between"
 				style={style}
 			>
-				<RiArrowGoForwardFill className="transform rotate-90" />
-				<RiArrowGoForwardFill className="transform -rotate-90" />
+				<IconUTurn className="transform rotate-90" />
+				<IconUTurn className="transform -rotate-90" />
 			</div>
 		);
 	},

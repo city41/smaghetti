@@ -1,10 +1,10 @@
 import React from 'react';
-import { FaArrowUp } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
 import { parseSimpleSprite } from './util';
+import { IconArrowUp } from '../icons';
 
 const DonutLiftSurprise: Entity = {
 	paletteCategory: 'gizmo',
@@ -75,9 +75,9 @@ const DonutLiftSurprise: Entity = {
 				className="DonutLiftSurprise-bg bg-center bg-repeat-x flex flex-row items-start"
 				style={style}
 			>
-				<FaArrowUp style={arrowStyle} />
-				<FaArrowUp style={arrowStyle} />
-				<FaArrowUp style={arrowStyle} />
+				<IconArrowUp style={arrowStyle} />
+				<IconArrowUp style={arrowStyle} />
+				<IconArrowUp style={arrowStyle} />
 			</div>
 		);
 	},

@@ -3,12 +3,16 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
-import { IconType } from 'react-icons/lib';
-import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
-import { MdRotateLeft, MdRotateRight } from 'react-icons/md';
 import { HammerButton } from './detailPanes/HammerButton';
 import { parseObjectIdMapSprite } from './util';
 import invert from 'lodash/invert';
+import {
+	IconCounterClockwiseRotation,
+	IconClockwiseRotation,
+	IconRotateLeftWithPause,
+	IconRotateRightWithPause,
+} from '../icons';
+import type { IconType } from '../icons';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -30,10 +34,10 @@ const spinToObjectId: Record<Spin, number> = {
 const objectIdToSpin = invert(spinToObjectId) as Record<number, Spin>;
 
 const spinToIcon: Record<Spin, IconType> = {
-	clockwise: GiClockwiseRotation,
-	'clockwise-pause': MdRotateRight,
-	counterclockwise: GiAnticlockwiseRotation,
-	'counterclockwise-pause': MdRotateLeft,
+	clockwise: IconClockwiseRotation,
+	'clockwise-pause': IconRotateRightWithPause,
+	counterclockwise: IconCounterClockwiseRotation,
+	'counterclockwise-pause': IconRotateLeftWithPause,
 };
 
 const SpinPlatform: Entity = {

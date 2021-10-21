@@ -2,7 +2,7 @@ import React, { ElementType, ReactNode } from 'react';
 import clsx from 'clsx';
 
 import styles from './PlainIconButton.module.css';
-import { RiLoaderFill } from 'react-icons/ri';
+import { IconLoading } from '../../icons';
 
 type PlainIconButtonProps = Omit<
 	JSX.IntrinsicElements['button'],
@@ -29,7 +29,7 @@ function PlainIconButton({
 	children,
 	...rest
 }: PlainIconButtonProps) {
-	const Icon = loading ? RiLoaderFill : icon;
+	const Icon = loading ? IconLoading : icon;
 	return (
 		<button
 			aria-label={label}

@@ -1,10 +1,10 @@
 import React from 'react';
-import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 import { HammerButton } from './detailPanes/HammerButton';
 import { invertNumeric, parseObjectIdMapSprite } from './util';
+import { IconArrowDown, IconArrowUp } from '../icons';
 
 const ranges = [4, 6] as const;
 type Range = typeof ranges[number];
@@ -58,7 +58,7 @@ const PlatformWoodUpDown: Entity = {
 
 		return (
 			<div className="flex flex-col items-center">
-				<FaArrowUp />
+				<IconArrowUp />
 				<div
 					className="flex flex-row items-center"
 					style={{ width: size, height: size / 3 }}
@@ -67,7 +67,7 @@ const PlatformWoodUpDown: Entity = {
 					<div className="WoodPlatform-bg bg-cover" style={cellStyle} />
 					<div className="WoodPlatformRight-bg bg-cover" style={cellStyle} />
 				</div>
-				<FaArrowDown />
+				<IconArrowDown />
 			</div>
 		);
 	},

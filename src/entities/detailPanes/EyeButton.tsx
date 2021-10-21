@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
-import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
+import { IconEye, IconEyeSlash } from '../../icons';
 
 type EyeButtonProps = {
 	className?: string;
@@ -15,7 +15,7 @@ function EyeButton({
 	isHidden,
 	onHideToggle,
 }: EyeButtonProps) {
-	const Icon = isHidden ? BsEyeSlashFill : BsEyeFill;
+	const Icon = isHidden ? IconEyeSlash : IconEye;
 
 	return (
 		<div

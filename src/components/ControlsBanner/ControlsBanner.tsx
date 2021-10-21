@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 import clsx from 'clsx';
-import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 import { ControlsHelpModal } from './ControlsHelpModal';
+import { IconGamepad, IconKeyboard } from '../../icons';
 
 type ControlsBannerProps = {
 	className?: string;
@@ -25,9 +25,9 @@ function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 				)}
 			>
 				<div>use</div>
-				<FaGamepad className="text-2xl" />
+				<IconGamepad className="text-2xl" />
 				<div>or</div>
-				<FaKeyboard className="text-xl" />
+				<IconKeyboard className="text-xl" />
 				<a
 					className="text-blue-300 underline cursor-pointer"
 					onClick={() => setShowHelp((h) => !h)}

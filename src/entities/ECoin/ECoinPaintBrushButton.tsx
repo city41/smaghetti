@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState } from 'react';
 import clsx from 'clsx';
-import { FaPaintBrush } from 'react-icons/fa';
 import { ECoinEditor } from './ECoinEditor';
+import { IconPaintBrush } from '../../icons';
 
 type ECoinPaintBrushButtonProps = {
 	className?: string;
@@ -29,7 +29,7 @@ function ECoinPaintBrushButton({
 						setShowEditor(true);
 					}}
 				>
-					<FaPaintBrush
+					<IconPaintBrush
 						style={{ borderRadius: '10%' }}
 						className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
 					/>

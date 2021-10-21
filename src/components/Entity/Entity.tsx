@@ -1,11 +1,11 @@
 import React, { CSSProperties, Ref, RefObject, useState } from 'react';
 import clsx from 'clsx';
-import { AiFillWarning } from 'react-icons/ai';
 import { entityMap } from '../../entities/entityMap';
 
 import focusedStyles from '../../styles/focused.module.css';
 import { TILE_SIZE } from '../../tiles/constants';
 import { getEntityTileBounds } from '../editor/util';
+import { IconAlert } from '../../icons';
 
 type EntityProps = {
 	className?: string;
@@ -103,7 +103,7 @@ function Entity({
 					}}
 					className="w-1 h-1 bg-white text-red-700 bottom-0 left-0 absolute cursor-pointer z-10"
 				>
-					<AiFillWarning className="w-full h-full" />
+					<IconAlert className="w-full h-full" />
 				</button>
 			)}
 			{showProblem && problem && (

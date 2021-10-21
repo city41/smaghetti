@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import ReactModal, { Props as ReactModalProps } from 'react-modal';
-import { RiCloseFill } from 'react-icons/ri';
+import { IconClose } from '../../icons';
 
 import { Button } from '../Button';
 
@@ -75,7 +75,7 @@ function Modal({
 					className="absolute top-1 right-1 text-xl text-white outline-none"
 					onClick={onXClick}
 				>
-					<RiCloseFill />
+					<IconClose />
 				</button>
 			)}
 		</ReactModal>

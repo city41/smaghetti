@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiOutlineColumnWidth } from 'react-icons/ai';
+import { IconPlatformWidth } from '../../icons';
 
 type PlatformSizeButtonProps = {
 	className?: string;
@@ -27,7 +27,7 @@ function PlatformWidthButton({
 				onWidthChange(newWidth);
 			}}
 		>
-			<AiOutlineColumnWidth
+			<IconPlatformWidth
 				style={{ borderRadius: '10%', padding: 0.5 }}
 				className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
 			/>

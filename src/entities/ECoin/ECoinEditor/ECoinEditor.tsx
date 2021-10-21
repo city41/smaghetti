@@ -1,8 +1,5 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { FaBomb, FaCheck } from 'react-icons/fa';
-import { RiEraserFill } from 'react-icons/ri';
-import { MdPhotoSizeSelectActual } from 'react-icons/md';
 import { gba16ToRgb } from '../../../tiles/extractResourcesToStylesheet';
 
 import eCoinTemplatePng from './eCoinTemplate.png';
@@ -12,6 +9,8 @@ import smaghettiLogoPng from '../../../images/logo.png';
 import { canvasToCoinData } from './canvasToCoinData';
 import { COIN_SIZE, setCoinData } from '../util';
 import { PlainIconButton } from '../../../components/PlainIconButton';
+
+import { IconBomb, IconCheck, IconEraser, IconPhoto } from '../../../icons';
 
 type ECoinEditorProps = {
 	className?: string;
@@ -72,7 +71,7 @@ function Palette({ curIndex, onIndexChange }: PaletteProps) {
 						}
 					}}
 				>
-					<RiEraserFill className="w-1 h-1" />
+					<IconEraser className="w-1 h-1" />
 				</div>
 			);
 		} else {
@@ -363,7 +362,7 @@ function ECoinEditor({
 						}
 					}}
 				>
-					<FaBomb
+					<IconBomb
 						style={{ borderRadius: '10%' }}
 						className="w-1 h-1 bg-gray-700 hover:bg-gray-600 text-white"
 					/>
@@ -372,7 +371,7 @@ function ECoinEditor({
 					title="use image"
 					className="cursor-pointer w-1 h-1 bg-gray-700 hover:bg-gray-600 text-white"
 				>
-					<MdPhotoSizeSelectActual
+					<IconPhoto
 						style={{ borderRadius: '10%' }}
 						className="w-1 h-1 bg-gray-700 hover:bg-gray-600 text-white"
 					/>
@@ -394,7 +393,7 @@ function ECoinEditor({
 				</label>
 				<PlainIconButton
 					loading={loading}
-					icon={FaCheck}
+					icon={IconCheck}
 					label="ok"
 					size="editor"
 					onMouseDown={(e) => {

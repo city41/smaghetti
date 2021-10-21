@@ -1,9 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import { ImCheckboxUnchecked } from 'react-icons/im';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { RiLoaderFill } from 'react-icons/ri';
-import { FaCheck } from 'react-icons/fa';
 import { RoomThumbnail } from '../../../RoomThumbnail';
 import {
 	LEVEL_TAGS,
@@ -14,6 +10,13 @@ import { TILE_SIZE } from '../../../../tiles/constants';
 
 import styles from './LevelRow.module.css';
 import { entityMap } from '../../../../entities/entityMap';
+import {
+	IconUnchecked,
+	IconHeart,
+	IconHeartOutline,
+	IconLoading,
+	IconCheck,
+} from '../../../../icons';
 
 type PublicLevelRowProps = {
 	className?: string;
@@ -107,7 +110,7 @@ function LevelRow({
 		}
 	}
 
-	const CheckIcon = isChosen ? FaCheck : ImCheckboxUnchecked;
+	const CheckIcon = isChosen ? IconCheck : IconUnchecked;
 
 	const aceCoinCount = level.data.rooms.reduce<number>((building, room) => {
 		const aceCoins = room.stage.entities.filter((e) => {
@@ -138,10 +141,10 @@ function LevelRow({
 	);
 
 	const VoteIcon = isVoting
-		? RiLoaderFill
+		? IconLoading
 		: currentUserVoted
-		? AiFillHeart
-		: AiOutlineHeart;
+		? IconHeart
+		: IconHeartOutline;
 
 	const tag0Valid = isValidTag(level.data.settings.tag0);
 	const tag1Valid = isValidTag(level.data.settings.tag1);

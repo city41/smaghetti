@@ -8,9 +8,9 @@ import {
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { RoomThumbnail } from '../../../RoomThumbnail';
 import { PlainIconButton } from '../../../PlainIconButton';
-import { FaTrash } from 'react-icons/fa';
 import { Button } from '../../../Button';
 import { isBrokenLevel } from './util';
+import { IconTrash } from '../../../../icons';
 
 type SavedLevelsProps = {
 	className?: string;
@@ -44,7 +44,7 @@ function DeleteLevel({ onDeleteLevel }: { onDeleteLevel: () => void }) {
 		<div className="relative justify-self-end">
 			<PlainIconButton
 				label="delete"
-				icon={FaTrash}
+				icon={IconTrash}
 				onClick={() => setShowAreYouSure(true)}
 			/>
 			{showAreYouSure && (

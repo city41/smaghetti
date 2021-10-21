@@ -1,13 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
-import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
-import type { IconType } from 'react-icons';
 import type { Entity } from '../types';
 import { encodeObjectSets, getBankParam1 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { Resizer } from '../../components/Resizer';
 import { objectSets } from './objectSets';
+import { IconArrowRight, IconArrowLeft } from '../../icons';
+import type { IconType } from '../../icons';
 
 import styles from '../../components/Resizer/ResizingStyles.module.css';
 import { TransportSource } from '../../components/Transport/TransportSource';
@@ -26,8 +26,8 @@ const nonTransportDirectionToObjectId: Record<PipeDirection, number> = {
 };
 
 const directionIcons: Record<PipeDirection, IconType> = {
-	right: FaArrowRight,
-	left: FaArrowLeft,
+	right: IconArrowRight,
+	left: IconArrowLeft,
 };
 
 const directions = ['right', 'left'];

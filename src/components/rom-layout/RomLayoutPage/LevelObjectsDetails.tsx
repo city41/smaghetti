@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { AiFillSave } from 'react-icons/ai';
 import { ANY_OBJECT_SET } from '../../../entities/constants';
 import { entityMap } from '../../../entities/entityMap';
 import { decodeObjectSet } from '../../../entities/util';
@@ -8,6 +7,7 @@ import { PLAY_WINDOW_TILE_WIDTH } from '../../editor/constants';
 import { getRom } from '../../FileLoader/files';
 import { PlainIconButton } from '../../PlainIconButton';
 import { RoomThumbnail } from '../../RoomThumbnail';
+import { IconSave } from '../../../icons';
 
 type LevelObjectsDetailsProps = {
 	offset: number;
@@ -125,7 +125,7 @@ function LevelObjectsDetails({ offset, size }: LevelObjectsDetailsProps) {
 	let body;
 
 	if (loading) {
-		body = <PlainIconButton loading icon={AiFillSave} label="loading" />;
+		body = <PlainIconButton loading icon={IconSave} label="loading" />;
 	} else {
 		const rom = getRom()!;
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { AiFillSave } from 'react-icons/ai';
 import { ANY_OBJECT_SET } from '../../../entities/constants';
 import { entityMap } from '../../../entities/entityMap';
 import { decodeObjectSet } from '../../../entities/util';
 import { getRom } from '../../FileLoader/files';
 import { PlainIconButton } from '../../PlainIconButton';
+import { IconSave } from '../../../icons';
 
 type LevelObjectsPreviewProps = {
 	offset: number;
@@ -98,7 +98,7 @@ function LevelObjectsPreview({ offset, size }: LevelObjectsPreviewProps) {
 	let body;
 
 	if (loading) {
-		body = <PlainIconButton loading icon={AiFillSave} label="loading" />;
+		body = <PlainIconButton loading icon={IconSave} label="loading" />;
 	} else {
 		body = entities.map((e, i) => {
 			return <div key={i}>{entityMap[e.type].simpleRender(40)}</div>;

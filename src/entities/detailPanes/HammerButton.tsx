@@ -1,28 +1,34 @@
 import React, { CSSProperties } from 'react';
-import { IconType } from 'react-icons';
-import { FaHammer } from 'react-icons/fa';
+import clsx from 'clsx';
+import { IconHammer } from '../../icons';
+import type { IconType } from '../../icons';
 
 type HammerButtonProps<T extends string | number | symbol> = {
+	className?: string;
+	style?: CSSProperties;
 	values: readonly T[];
 	currentValue: T;
 	onNewValue: (newValue: T) => void;
 	valueToIcon?: Record<T, IconType>;
-	style?: CSSProperties;
 };
 
 function HammerButton<T extends string | number | symbol>({
+	className,
+	style,
 	values,
 	currentValue,
 	onNewValue,
 	valueToIcon,
-	style,
 }: HammerButtonProps<T>) {
-	const Icon = valueToIcon?.[currentValue] ?? FaHammer;
+	const Icon = valueToIcon?.[currentValue] ?? IconHammer;
 
 	return (
 		<div
 			style={style}
-			className="absolute top-0 left-0 w-full h-full grid place-items-center z-10"
+			className={clsx(
+				className,
+				'absolute top-0 left-0 w-full h-full grid place-items-center z-10'
+			)}
 		>
 			<button
 				onMouseDown={(e) => {

@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from 'react';
-import { FaDoorOpen, FaLock, FaUnlock } from 'react-icons/fa';
 import { TransportDestinationModal } from '../../components/Transport/TransportDestinationModal';
 import { DestinationSetProps } from '../../components/Transport/TransportDestinationModal/TransportDestinationModal';
+import { IconDoorOpen, IconLock, IconUnlock } from '../../icons';
 
 type TransportEditDetailsProps = {
 	width: number;
@@ -36,7 +36,7 @@ function TransportEditDetails({
 		padding: PADDING,
 	};
 
-	const LockIcon = locked ? FaUnlock : FaLock;
+	const LockIcon = locked ? IconUnlock : IconLock;
 
 	return (
 		<>
@@ -50,7 +50,7 @@ function TransportEditDetails({
 							setShowDestModal(true);
 						}}
 					>
-						<FaDoorOpen className="w-1 h-1 hover:bg-gray-500" />
+						<IconDoorOpen className="w-1 h-1 hover:bg-gray-500" />
 					</button>
 					{!hideLock && (
 						<button

@@ -1,8 +1,12 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
-import { GiClockwiseRotation, GiAnticlockwiseRotation } from 'react-icons/gi';
-import { FaLongArrowAltRight, FaArrowsAltH } from 'react-icons/fa';
 import { TILE_SIZE } from '../../tiles/constants';
+import {
+	IconLongArrowRight,
+	IconArrowHorizontal,
+	IconClockwiseRotation,
+	IconCounterClockwiseRotation,
+} from '../../icons';
 
 type Rotation = 'clockwise' | 'counter-clockwise';
 type Pivot = 'center' | 'end';
@@ -155,7 +159,7 @@ function FireBarDetails({
 							});
 						}}
 					>
-						<GiClockwiseRotation className="w-1 h-1" />
+						<IconClockwiseRotation className="w-1 h-1" />
 					</button>
 					<button
 						className={clsx({
@@ -174,7 +178,7 @@ function FireBarDetails({
 							});
 						}}
 					>
-						<GiAnticlockwiseRotation className="w-1 h-1" />
+						<IconCounterClockwiseRotation className="w-1 h-1" />
 					</button>
 				</div>
 				<div className="grid grid-cols-2 w-full items-center justify-items-center">
@@ -192,7 +196,7 @@ function FireBarDetails({
 							});
 						}}
 					>
-						<FaArrowsAltH className="w-1 h-1" />
+						<IconArrowHorizontal className="w-1 h-1" />
 					</button>
 					<button
 						className={clsx({
@@ -208,7 +212,7 @@ function FireBarDetails({
 							});
 						}}
 					>
-						<FaLongArrowAltRight className="w-1 h-1" />
+						<IconLongArrowRight className="w-1 h-1" />
 					</button>
 				</div>
 				<div className="flex flex-row flex-wrap items-center justify-around">

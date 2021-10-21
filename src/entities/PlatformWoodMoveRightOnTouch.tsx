@@ -1,10 +1,9 @@
 import React from 'react';
-import { FaArrowRight } from 'react-icons/fa';
-import { RiFootprintFill } from 'react-icons/ri';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 import { parseSimpleSprite } from './util';
+import { IconArrowRight, IconFootprint } from '../icons';
 
 const PlatformWoodMoveRightOnTouch: Entity = {
 	paletteCategory: 'gizmo',
@@ -40,8 +39,8 @@ const PlatformWoodMoveRightOnTouch: Entity = {
 				style={{ width: size, height: size }}
 			>
 				<div className="flex flex-row items-center justify-center">
-					<RiFootprintFill />
-					<FaArrowRight />
+					<IconFootprint />
+					<IconArrowRight />
 				</div>
 				<div
 					className="flex flex-row items-center"

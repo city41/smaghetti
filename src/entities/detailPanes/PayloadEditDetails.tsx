@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
-import { MdClear } from 'react-icons/md';
+import { IconClear } from '../../icons';
 
 import { ResourceType } from '../../resources/resourceMap';
 
@@ -58,7 +58,7 @@ function PayloadEditDetails({
 					/>
 				))}
 				{canClear && (
-					<MdClear
+					<IconClear
 						className="hover:bg-gray-500"
 						style={{ fontSize: '0.25rem' }}
 						onMouseDown={(e) => {

@@ -1,9 +1,9 @@
 import React from 'react';
-import { FaArrowDown } from 'react-icons/fa';
 import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { parseSimpleSprite } from '../util';
+import { IconArrowDown } from '../../icons';
 
 const FallAwayPlatform: Entity = {
 	paletteCategory: 'gizmo',
@@ -60,9 +60,9 @@ const FallAwayPlatform: Entity = {
 				className="FallAwayPlatform-bg bg-center bg-no-repeat flex flex-row items-end"
 				style={style}
 			>
-				<FaArrowDown />
-				<FaArrowDown />
-				<FaArrowDown />
+				<IconArrowDown />
+				<IconArrowDown />
+				<IconArrowDown />
 			</div>
 		);
 	},
@@ -74,9 +74,9 @@ const FallAwayPlatform: Entity = {
 				className="relative FallAwayPlatform-bg bg-no-repeat flex flex-row items-end justify-between"
 				style={style}
 			>
-				<FaArrowDown className="w-2 h-2" />
-				<FaArrowDown className="w-2 h-2" />
-				<FaArrowDown className="w-2 h-2" />
+				<IconArrowDown className="w-2 h-2" />
+				<IconArrowDown className="w-2 h-2" />
+				<IconArrowDown className="w-2 h-2" />
 			</div>
 		);
 	},

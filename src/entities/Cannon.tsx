@@ -1,11 +1,11 @@
 import React from 'react';
+import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { encodeObjectSets } from './util';
-import { AiOutlineRotateRight } from 'react-icons/ai';
 import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
-import clsx from 'clsx';
+import { HammerButton } from './detailPanes/HammerButton';
 
 const directions = ['up-left', 'up-right', 'down-right', 'down-left'] as const;
 type Direction = typeof directions[number];
@@ -242,15 +242,11 @@ const Cannon: Entity = {
 
 				{!!entity && (
 					<div className="w-full h-full flex flex-row justify-start items-end absolute top-0 left-0">
-						<button
+						<HammerButton
 							className="hidden group-hover:block"
-							onMouseDown={(e) => {
-								e.preventDefault();
-								e.stopPropagation();
-								const curDirIndex = directions.indexOf(direction);
-								const nextDirIndex = (curDirIndex + 1) % directions.length;
-								const nextDir = directions[nextDirIndex];
-
+							values={directions}
+							currentValue={direction}
+							onNewValue={(nextDir) => {
 								onSettingsChange({
 									direction: nextDir,
 								});
@@ -263,12 +259,7 @@ const Cannon: Entity = {
 									});
 								}
 							}}
-						>
-							<AiOutlineRotateRight
-								style={{ borderRadius: '10%' }}
-								className="w-1.5 h-1.5 bg-gray-700 text-white"
-							/>
-						</button>
+						/>
 						<PayloadViewDetails
 							size={TILE_SIZE / 3}
 							payload={settings.payload}

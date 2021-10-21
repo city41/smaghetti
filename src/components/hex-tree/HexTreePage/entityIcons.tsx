@@ -1,7 +1,7 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import clsx from 'clsx';
 import { TILE_SIZE } from '../../../tiles/constants';
-import { FaCheck, FaQuestion } from 'react-icons/fa';
+import { IconCheck, IconQuestion } from '../../../icons';
 
 type EntityIconProps = {
 	className?: string;
@@ -28,7 +28,7 @@ function BaseIcon({
 	const bgClass = `${entityType}-bg`;
 
 	const KnownIcon =
-		isKnown === 'yes' ? FaCheck : isKnown === 'no' ? FaQuestion : null;
+		isKnown === 'yes' ? IconCheck : isKnown === 'no' ? IconQuestion : null;
 
 	return (
 		<div

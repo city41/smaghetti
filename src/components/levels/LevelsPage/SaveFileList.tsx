@@ -1,9 +1,9 @@
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
-import { MdFileDownload } from 'react-icons/md';
 import { Button } from '../../Button';
 import { LoadingBar } from '../../LoadingBar';
 import { MAX_LEVELS_IN_SAVE } from './LevelsPage';
+import { IconDownload } from '../../../icons';
 
 type SaveFileListProps = {
 	className?: string;
@@ -55,7 +55,7 @@ function SaveFileList({
 						className="h-full flex items-center justify-center"
 						onClick={onSaveClick}
 					>
-						<MdFileDownload className="w-6 h-6" />
+						<IconDownload className="w-6 h-6" />
 					</Button>
 					<Button
 						variant="destructive"

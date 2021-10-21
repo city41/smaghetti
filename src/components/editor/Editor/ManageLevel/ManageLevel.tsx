@@ -1,6 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { FaTrash, FaHammer } from 'react-icons/fa';
 import { RoomState } from '../../editorSlice';
 import { RoomThumbnail } from '../../../RoomThumbnail';
 
@@ -14,6 +13,7 @@ import {
 	LEVEL_TAGS,
 	ROOM_WIDTH_INCREMENT,
 } from '../../constants';
+import { IconTrash, IconHammer } from '../../../../icons';
 import _ from 'lodash';
 
 type Help = {
@@ -262,7 +262,7 @@ function ManageLevel({
 								<div>Room {i + 1}</div>
 								<div className="flex-1" />
 								<PlainIconButton
-									icon={FaHammer}
+									icon={IconHammer}
 									size="small"
 									label="edit room"
 									onClick={() => {
@@ -271,7 +271,7 @@ function ManageLevel({
 									}}
 								/>
 								<PlainIconButton
-									icon={FaTrash}
+									icon={IconTrash}
 									size="small"
 									label="delete room"
 									disabled={rooms.length === 1}

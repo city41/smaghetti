@@ -1,6 +1,5 @@
 import React, { CSSProperties, ReactNode, useRef } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { AiFillCamera } from 'react-icons/ai';
 import ReactDOM from 'react-dom';
 import clsx from 'clsx';
 
@@ -11,6 +10,7 @@ import { createLevelData } from '../../levelData/createLevelData';
 import { ControlsBanner } from '../ControlsBanner';
 import { PlainIconButton } from '../PlainIconButton';
 import { getECoinInfo } from '../../levelData/util';
+import { IconCamera } from '../../icons';
 
 type LevelPlayerProps = {
 	className?: string;
@@ -92,7 +92,7 @@ function LevelPlayer({
 					<div className="fixed left-0 bottom-0 w-full flex flex-row gap-x-4 justify-center items-center pointer-events-auto">
 						<PlainIconButton
 							className="bg-green-500"
-							icon={AiFillCamera}
+							icon={IconCamera}
 							label="take screenshot (t)"
 							onClick={downloadScreenshot}
 							size="large"

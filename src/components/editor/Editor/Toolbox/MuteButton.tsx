@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { FaVolumeDown, FaVolumeMute } from 'react-icons/fa';
-
 import { PlainIconButton } from '../../../PlainIconButton';
+import { IconVolumeDown, IconVolumeMute } from '../../../../icons';
 
 type MuteButtonProps = {
 	className?: string;
@@ -32,7 +31,7 @@ function MuteButton({ className }: MuteButtonProps) {
 		localStorage.setItem(LOCALSTORAGE_KEY, isMuted.toString());
 	}, [isMuted]);
 
-	const icon = isMuted ? FaVolumeMute : FaVolumeDown;
+	const icon = isMuted ? IconVolumeMute : IconVolumeDown;
 
 	return (
 		<PlainIconButton

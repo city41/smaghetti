@@ -5,9 +5,13 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
-import { FaArrowsAltH, FaArrowsAltV, FaArrowsAlt } from 'react-icons/fa';
 import clsx from 'clsx';
-import { IconType } from 'react-icons';
+import {
+	IconArrowHorizontal,
+	IconArrowVertical,
+	IconArrowCross,
+} from '../../icons';
+import type { IconType } from '../../icons';
 
 type Axis = 'x' | 'y' | 'xy' | 'x-or-y';
 type Direction = 'x' | 'y';
@@ -28,10 +32,10 @@ type InternalResizerProps = {
 };
 
 const icons: Record<Axis, IconType> = {
-	x: FaArrowsAltH,
-	y: FaArrowsAltV,
-	xy: FaArrowsAlt,
-	'x-or-y': FaArrowsAlt,
+	x: IconArrowHorizontal,
+	y: IconArrowVertical,
+	xy: IconArrowCross,
+	'x-or-y': IconArrowCross,
 };
 
 const CSSProperty: Record<Direction, string> = {

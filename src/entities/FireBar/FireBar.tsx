@@ -1,5 +1,4 @@
 import React from 'react';
-import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
 
 import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
@@ -12,6 +11,10 @@ import type {
 	FireballCount,
 	FireBarSettings,
 } from './FireBarDetails';
+import {
+	IconCounterClockwiseRotation,
+	IconClockwiseRotation,
+} from '../../icons';
 
 const FireBar: Entity = {
 	paletteCategory: 'enemy',
@@ -94,8 +97,8 @@ const FireBar: Entity = {
 
 		const RotationIcon =
 			actualSettings.rotation === 'clockwise'
-				? GiClockwiseRotation
-				: GiAnticlockwiseRotation;
+				? IconClockwiseRotation
+				: IconCounterClockwiseRotation;
 
 		const shiftOffset =
 			actualSettings.pivot === 'end'

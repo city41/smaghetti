@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import type { Entity } from '../types';
 import {
 	encodeObjectSets,
@@ -10,6 +9,7 @@ import {
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { Resizer } from '../../components/Resizer';
+import { IconArrowLeft, IconArrowRight } from '../../icons';
 
 import styles from '../../components/Resizer/ResizingStyles.module.css';
 
@@ -107,7 +107,7 @@ const ConveyorBelt: Entity = {
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
 
-		const DirectionIcon = direction === 'left' ? FaArrowLeft : FaArrowRight;
+		const DirectionIcon = direction === 'left' ? IconArrowLeft : IconArrowRight;
 
 		const style = {
 			width: width * TILE_SIZE,

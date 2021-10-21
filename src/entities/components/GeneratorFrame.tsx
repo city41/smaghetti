@@ -1,6 +1,6 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import clsx from 'clsx';
-import { GiFactory, GiStopSign } from 'react-icons/gi';
+import { IconFactory, IconStopSign } from '../../icons';
 
 type GeneratorFrameProps = {
 	className?: string;
@@ -29,7 +29,7 @@ function GeneratorFrame({
 		padding: '4%',
 	};
 
-	const Icon = canceler ? GiStopSign : GiFactory;
+	const Icon = canceler ? IconStopSign : IconFactory;
 
 	return (
 		<div

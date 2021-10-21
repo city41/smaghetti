@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
-import { ImCheckboxUnchecked } from 'react-icons/im';
-import { FaCheck, FaHammer } from 'react-icons/fa';
+import { IconCheck, IconUnchecked, IconHammer } from '../../../icons';
 
 type ItemStatus = 'not-started' | 'in-progress' | 'completed';
 
@@ -12,12 +11,12 @@ type CheckistItemProps = {
 };
 
 const itemIconMap: Record<ItemStatus, ReactNode> = {
-	'not-started': <ImCheckboxUnchecked className="w-8 h-8" />,
+	'not-started': <IconUnchecked className="w-8 h-8" />,
 	'in-progress': (
-		<FaHammer className="bg-yellow-600 text-white w-8 h-8 p-1 rounded-lg" />
+		<IconHammer className="bg-yellow-600 text-white w-8 h-8 p-1 rounded-lg" />
 	),
 	completed: (
-		<FaCheck className="bg-green-700 text-white w-8 h-8 p-1 rounded-lg" />
+		<IconCheck className="bg-green-700 text-white w-8 h-8 p-1 rounded-lg" />
 	),
 };
 

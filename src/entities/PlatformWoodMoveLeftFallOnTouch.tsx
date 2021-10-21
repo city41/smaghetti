@@ -1,10 +1,9 @@
 import React from 'react';
-import { FaArrowLeft, FaArrowDown } from 'react-icons/fa';
-import { RiFootprintFill } from 'react-icons/ri';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 import { parseSimpleSprite } from './util';
+import { IconArrowLeft, IconArrowDown, IconFootprint } from '../icons';
 
 const PlatformWoodMoveLeftFallOnTouch: Entity = {
 	paletteCategory: 'gizmo',
@@ -40,9 +39,9 @@ const PlatformWoodMoveLeftFallOnTouch: Entity = {
 				style={{ width: size, height: size }}
 			>
 				<div className="flex flex-row items-center justify-center">
-					<FaArrowLeft />
-					<RiFootprintFill />
-					<FaArrowDown />
+					<IconArrowLeft />
+					<IconFootprint />
+					<IconArrowDown />
 				</div>
 				<div
 					className="flex flex-row items-center"

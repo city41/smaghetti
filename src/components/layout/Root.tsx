@@ -11,7 +11,6 @@ type RootProps = {
 	title: string;
 	metaDescription: string;
 	socialMediaImg?: string;
-	highlightEditor?: boolean;
 	children: React.ReactNode;
 };
 
@@ -20,7 +19,6 @@ function Root({
 	title,
 	metaDescription,
 	socialMediaImg,
-	highlightEditor,
 	children,
 }: RootProps) {
 	return (
@@ -37,7 +35,7 @@ function Root({
 				metaDescription={metaDescription}
 				metaImg={socialMediaImg}
 			/>
-			<Header highlightEditor={highlightEditor} />
+			<Header />
 			<main role="main" className={clsx(styles.main, 'flex-1 w-full mx-auto')}>
 				{children}
 			</main>

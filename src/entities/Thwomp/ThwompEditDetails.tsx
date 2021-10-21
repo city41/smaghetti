@@ -1,15 +1,15 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import {
-	ImArrowDown,
-	ImArrowDownLeft,
-	ImArrowLeft,
-	ImArrowRight,
-	ImArrowUp,
-	ImArrowUpLeft,
-} from 'react-icons/im';
+	IconArrowDown,
+	IconArrowDownLeft,
+	IconArrowLeft,
+	IconArrowRight,
+	IconArrowUp,
+	IconArrowUpLeft,
+} from '../../icons';
+import type { IconType } from '../../icons';
 import { TILE_SIZE } from '../../tiles/constants';
-import { IconType } from 'react-icons';
 
 const PADDING = 1;
 
@@ -25,12 +25,12 @@ const pursuits = [
 type Pursuit = typeof pursuits[number];
 
 const pursuitToIcon: Record<Pursuit, IconType> = {
-	down: ImArrowDown,
-	left: ImArrowLeft,
-	right: ImArrowRight,
-	up: ImArrowUp,
-	'up-left': ImArrowUpLeft,
-	'down-left': ImArrowDownLeft,
+	down: IconArrowDown,
+	left: IconArrowLeft,
+	right: IconArrowRight,
+	up: IconArrowUp,
+	'up-left': IconArrowUpLeft,
+	'down-left': IconArrowDownLeft,
 };
 
 type ThwompEditDetailsProps = {

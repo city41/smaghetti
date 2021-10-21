@@ -1,9 +1,9 @@
 import React from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import { parseSimpleSprite } from './util';
+import { IconArrowLeft } from '../icons';
 
 const CloudPlatformAeroMoving: Entity = {
 	paletteCategory: 'terrain',
@@ -67,7 +67,7 @@ const CloudPlatformAeroMoving: Entity = {
 				style={{ width: size, height: size }}
 			>
 				<div className="flex flex-row items-center justify-center">
-					<FaArrowLeft />
+					<IconArrowLeft />
 				</div>
 				<div className="CloudPlatformAeroMoving-bg bg-cover" style={style} />
 			</div>

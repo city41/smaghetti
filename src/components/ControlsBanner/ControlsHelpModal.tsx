@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode, useEffect } from 'react';
-import { FaGamepad, FaKeyboard } from 'react-icons/fa';
 
 import { Modal } from '../Modal';
+import { IconGamepad, IconKeyboard } from '../../icons';
 
 type ControlsHelpModalProps = {
 	isOpen: boolean;
@@ -49,7 +49,7 @@ function ControlsHelpModal({
 		>
 			<div className="grid grid-cols-2 gap-x-4">
 				<div className="bg-gray-600 p-4">
-					<FaGamepad className="text-4xl mx-auto mb-4" />
+					<IconGamepad className="text-4xl mx-auto mb-4" />
 					<div className="space-y-4">
 						<p>Press a button on your USB gamepad to register it.</p>
 						<p>
@@ -60,7 +60,7 @@ function ControlsHelpModal({
 					</div>
 				</div>
 				<div className="bg-gray-600 p-4">
-					<FaKeyboard className="text-4xl mx-auto mb-4" />
+					<IconKeyboard className="text-4xl mx-auto mb-4" />
 					<ul className="space-y-2 text-center">
 						<li>
 							<Kbd>arrow keys</Kbd> - move

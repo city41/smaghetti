@@ -1,13 +1,14 @@
-import React, { CSSProperties, ReactNode, ElementType } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { RiLoaderFill } from 'react-icons/ri';
+import { IconLoading } from '../../icons';
+import type { IconType } from '../../icons';
 
 type IconButtonProps = {
 	className?: string;
 	style?: CSSProperties;
 	anchor?: 'top' | 'left' | 'right' | 'bottom' | 'top-right' | 'top-left';
-	icon?: ElementType;
+	icon?: IconType;
 	label?: ReactNode;
 	alternate?: boolean;
 	toggled?: boolean;
@@ -30,7 +31,7 @@ function IconButton({
 	onClick,
 	href,
 }: IconButtonProps) {
-	const Icon = loading ? RiLoaderFill : icon;
+	const Icon = loading ? IconLoading : icon;
 
 	return (
 		<button

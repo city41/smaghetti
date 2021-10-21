@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
@@ -9,6 +8,7 @@ import { PlatformWidthButton } from './PlatformWidthButton';
 import clamp from 'lodash/clamp';
 import { speedToRangeAdjustment, speedToValue, Width } from './common';
 import { parsePlatformSprite } from '../util';
+import { IconArrowLeft, IconArrowRight } from '../../icons';
 
 const PlatformLeftRight: Entity = {
 	paletteCategory: 'gizmo',
@@ -57,8 +57,8 @@ const PlatformLeftRight: Entity = {
 				className="FallAwayPlatform-bg bg-center bg-no-repeat flex flex-row items-start justify-center"
 				style={style}
 			>
-				<FaArrowLeft />
-				<FaArrowRight />
+				<IconArrowLeft />
+				<IconArrowRight />
 			</div>
 		);
 	},

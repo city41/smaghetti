@@ -1,9 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { MdEdit } from 'react-icons/md';
 import { PlainIconButton } from '../../../PlainIconButton';
 import { Button } from '../../../Button';
+import { IconPencil } from '../../../../icons';
 
 type PublicMetadataMenuProps = {
 	className?: string;
@@ -104,7 +104,7 @@ function MetadataMenu({
 			</div>
 			<PlainIconButton
 				className={clsx({ invisible: isManagingLevel })}
-				icon={MdEdit}
+				icon={IconPencil}
 				label="manage level"
 				onClick={onManageLevelClick}
 				disabled={disabled}

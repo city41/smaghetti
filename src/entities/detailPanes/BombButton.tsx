@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
-import { FaBomb } from 'react-icons/fa';
+import { IconBomb } from '../../icons';
 
 type BombButtonProps = {
 	className?: string;
@@ -22,7 +22,7 @@ function BombButton({ className, style, onClick }: BombButtonProps) {
 					onClick();
 				}}
 			>
-				<FaBomb
+				<IconBomb
 					style={{ borderRadius: '10%' }}
 					className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
 				/>

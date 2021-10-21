@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { AiOutlineRotateRight } from 'react-icons/ai';
+import { IconHammer } from '../../icons';
 
 type AngleEditDetailsProps = {
 	currentAngle?: number;
@@ -10,6 +10,8 @@ type AngleEditDetailsProps = {
 	disabled?: boolean;
 	children: ReactNode;
 };
+
+// TODO: get rid of this in favor of HammerButton
 
 function AngleEditDetails({
 	currentAngle = 0,
@@ -39,7 +41,7 @@ function AngleEditDetails({
 							onAngleChange(newAngle);
 						}}
 					>
-						<AiOutlineRotateRight
+						<IconHammer
 							style={{ borderRadius: '10%' }}
 							className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600"
 						/>

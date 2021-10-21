@@ -3,12 +3,6 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 
-import { FaBomb } from 'react-icons/fa';
-import { MdGridOn, MdPanTool } from 'react-icons/md';
-import { GiArrowCursor } from 'react-icons/gi';
-import { RiPencilFill, RiPaintFill, RiEraserFill } from 'react-icons/ri';
-import { ImUndo2, ImRedo2 } from 'react-icons/im';
-
 import { MouseMode } from '../../editorSlice';
 import { PlainIconButton } from '../../../PlainIconButton';
 import { isMac } from '../../../../util/isMac';
@@ -19,14 +13,26 @@ import { PlayButton } from '../PlayButton';
 import { SaveButton } from '../SaveButton';
 import { DownloadButton } from '../DownloadButton';
 
+import {
+	IconUndo,
+	IconRedo,
+	IconPencil,
+	IconEraser,
+	IconPaintBucket,
+	IconPan,
+	IconGrid,
+	IconArrow,
+	IconBomb,
+} from '../../../../icons';
+
 import styles from './Toolbox.module.css';
 
 const icons: Record<MouseMode, ElementType> = {
-	select: GiArrowCursor,
-	draw: RiPencilFill,
-	fill: RiPaintFill,
-	erase: RiEraserFill,
-	pan: MdPanTool,
+	select: IconArrow,
+	draw: IconPencil,
+	fill: IconPaintBucket,
+	erase: IconEraser,
+	pan: IconPan,
 };
 
 type PublicToolboxProps = {
@@ -142,7 +148,7 @@ const Toolbox = memo(function Toolbox({
 			<PlainIconButton
 				label="toggle grid (g)"
 				size="large"
-				icon={MdGridOn}
+				icon={IconGrid}
 				toggled={showGrid}
 				disabled={disabled}
 				onClick={() => onToggleGrid()}
@@ -163,14 +169,14 @@ const Toolbox = memo(function Toolbox({
 			<div className="flex flex-row items-center space-x-2">
 				<PlainIconButton
 					label={`undo (${isMac ? 'cmnd' : 'ctrl'}-z)`}
-					icon={ImUndo2}
+					icon={IconUndo}
 					onClick={() => onUndo()}
 					// still allow undo in manage mode
 					disabled={!canUndo || isPlaying}
 				/>
 				<PlainIconButton
 					label={`redo (${isMac ? 'cmnd' : 'ctrl'}-shift-z)`}
-					icon={ImRedo2}
+					icon={IconRedo}
 					onClick={() => onRedo()}
 					// still allow redo in manage mode
 					disabled={!canRedo || isPlaying}
@@ -180,7 +186,7 @@ const Toolbox = memo(function Toolbox({
 			<PlainIconButton
 				disabled={disabled}
 				label="erase entire level"
-				icon={FaBomb}
+				icon={IconBomb}
 				onClick={() => onEraseLevel()}
 			/>
 			<Link href="/" passHref>

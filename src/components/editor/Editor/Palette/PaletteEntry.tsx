@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-import { IoMdAddCircle, IoMdRemoveCircle } from 'react-icons/io';
+import { IconAddCircle, IconRemoveCircle } from '../../../../icons';
 
 import styles from './PaletteEntry.module.css';
 import { entityMap, EntityType } from '../../../../entities/entityMap';
@@ -63,7 +63,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 						onAddClick?.(e.shiftKey);
 					}}
 				>
-					<IoMdAddCircle className="text-green-500 bg-white rounded-full w-full h-full" />
+					<IconAddCircle className="text-green-500 bg-white rounded-full w-full h-full" />
 				</button>
 			)}
 			{showRemove && !incompatible && (
@@ -71,7 +71,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 					className="absolute -top-2 -right-2 w-5 h-5 hidden group-hover:block"
 					onClick={onRemoveClick}
 				>
-					<IoMdRemoveCircle className="text-red-500 bg-white rounded-full w-full h-full" />
+					<IconRemoveCircle className="text-red-500 bg-white rounded-full w-full h-full" />
 				</button>
 			)}
 			{incompatible && (

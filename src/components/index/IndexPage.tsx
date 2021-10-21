@@ -8,7 +8,6 @@ function IndexPage() {
 		<Root
 			title="Smaghetti"
 			metaDescription="A level editor for Super Mario Advance 4"
-			highlightEditor
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<div className="space-y-8 pt-4 pb-16">

@@ -3,12 +3,12 @@ import clsx from 'clsx';
 import { Resizer } from '../../components/Resizer';
 import { TILE_SIZE } from '../../tiles/constants';
 import {
-	FaArrowUp,
-	FaArrowRight,
-	FaArrowDown,
-	FaArrowLeft,
-} from 'react-icons/fa';
-import { IconType } from 'react-icons/lib';
+	IconArrowUp,
+	IconArrowRight,
+	IconArrowDown,
+	IconArrowLeft,
+} from '../../icons';
+import type { IconType } from '../../icons';
 import isEqual from 'lodash/isEqual';
 import clamp from 'lodash/clamp';
 
@@ -24,10 +24,10 @@ type SnakePathProps = {
 };
 
 const directionToIcon: Record<string, IconType> = {
-	'1,0': FaArrowRight,
-	'0,1': FaArrowDown,
-	'-1,0': FaArrowLeft,
-	'0,-1': FaArrowUp,
+	'1,0': IconArrowRight,
+	'0,1': IconArrowDown,
+	'-1,0': IconArrowLeft,
+	'0,-1': IconArrowUp,
 };
 
 function getDirection(cell: Point, prev: Point): string {
@@ -52,7 +52,7 @@ function SnakePath({
 
 	const pathCells = path.map((c, i, a) => {
 		const Icon =
-			i === 0 ? FaArrowRight : directionToIcon[getDirection(c, a[i - 1])];
+			i === 0 ? IconArrowRight : directionToIcon[getDirection(c, a[i - 1])];
 
 		return (
 			<div

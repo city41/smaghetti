@@ -4,10 +4,10 @@ import type { Entity } from './types';
 import { encodeObjectSets, getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { FaHammer } from 'react-icons/fa';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
 import { Resizer } from '../components/Resizer';
+import { HammerButton } from './detailPanes/HammerButton';
 
 /**
  * This is essentially the same entity as AirshipPlatform except:
@@ -163,27 +163,15 @@ const AirshipPlatform2: Entity = {
 				{entity && (
 					<>
 						<div className="absolute w-full h-full flex flex-row justify-center align-center gap-x-0.5 z-10">
-							<button
-								onMouseDown={(e) => {
-									e.preventDefault();
-									e.stopPropagation();
-
-									const capArray = width === 2 ? twoWideCaps : caps;
-
-									// @ts-ignore
-									const capIndex = capArray.indexOf(cap);
-									const newCapIndex = (capIndex + 1) % capArray.length;
-									const newCap = capArray[newCapIndex];
+							<HammerButton
+								values={width === 2 ? twoWideCaps : caps}
+								currentValue={cap}
+								onNewValue={(newCap) => {
 									onSettingsChange({
 										cap: newCap,
 									});
 								}}
-							>
-								<FaHammer
-									style={{ borderRadius: '10%', padding: 0.5 }}
-									className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
-								/>
-							</button>
+							/>
 						</div>
 						<Resizer
 							className="absolute bottom-0 right-0"

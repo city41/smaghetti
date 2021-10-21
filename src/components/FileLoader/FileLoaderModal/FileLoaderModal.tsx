@@ -2,8 +2,8 @@ import React, { useEffect, useState, ReactNode } from 'react';
 import clsx from 'clsx';
 import { Modal } from '../../Modal';
 import { LoadingBar } from '../../LoadingBar';
-import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 import localForage from 'localforage';
+import { IconCheckCircle, IconExclamationCircle } from '../../../icons';
 
 type PublicFileLoaderModalProps = {
 	isOpen: boolean;
@@ -119,7 +119,7 @@ function BaseFiles({
 		case 'success':
 			romBody = (
 				<div className="flex flex-row items-center justify-center">
-					<FaCheckCircle className="text-2xl text-green-200" />
+					<IconCheckCircle className="text-2xl text-green-200" />
 					<div className="ml-2">ROM loaded!</div>
 				</div>
 			);
@@ -128,7 +128,7 @@ function BaseFiles({
 			romBody = (
 				<DropZone onFileChosen={cacheRomThenOnChosen}>
 					<div className="flex flex-row">
-						<FaExclamationCircle className="text-2xl text-red-200" />
+						<IconExclamationCircle className="text-2xl text-red-200" />
 						<div className="ml-2">
 							Checksum failed,
 							<br /> wrong ROM?
@@ -155,7 +155,7 @@ function BaseFiles({
 		case 'error':
 			romBody = (
 				<div className="flex flex-row items-center justify-center">
-					<FaExclamationCircle className="text-2xl text-red-200" />
+					<IconExclamationCircle className="text-2xl text-red-200" />
 					<div className="ml-2">Failed to load the ROM</div>
 				</div>
 			);
@@ -176,7 +176,7 @@ function BaseFiles({
 		case 'success':
 			otherFilesBody = (
 				<div className="flex flex-row items-center justify-center">
-					<FaCheckCircle className="text-2xl text-green-200" />
+					<IconCheckCircle className="text-2xl text-green-200" />
 					<div className="ml-2">All supporting files loaded!</div>
 				</div>
 			);
@@ -184,7 +184,7 @@ function BaseFiles({
 		case 'error':
 			otherFilesBody = (
 				<div className="flex flex-row items-center justify-center">
-					<FaExclamationCircle className="text-2xl text-red-200" />
+					<IconExclamationCircle className="text-2xl text-red-200" />
 					<div className="ml-2">Failed to load supporting files</div>
 				</div>
 			);

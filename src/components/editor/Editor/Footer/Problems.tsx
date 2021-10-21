@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
-import { AiFillWarning } from 'react-icons/ai';
 import { entityMap } from '../../../../entities/entityMap';
 import { flattenCells } from '../../../../levelData/util';
+import { IconAlert } from '../../../../icons';
 
 type ProblemProps = {
 	className?: string;
@@ -71,13 +71,13 @@ function Problems({ className, rooms, onProblemClick }: ProblemProps) {
 			>
 				{warningCount > 0 && (
 					<>
-						<AiFillWarning className="text-yellow-300" /> {warningCount} warning
+						<IconAlert className="text-yellow-300" /> {warningCount} warning
 						{warningCount === 1 ? '' : 's'}
 					</>
 				)}
 				{errorCount > 0 && (
 					<>
-						<AiFillWarning className="text-red-500" /> {errorCount} error
+						<IconAlert className="text-red-500" /> {errorCount} error
 						{errorCount === 1 ? '' : 's'}
 					</>
 				)}

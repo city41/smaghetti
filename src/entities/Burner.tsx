@@ -3,15 +3,15 @@ import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { encodeObjectSets } from './util';
-import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
-import type { IconType } from 'react-icons';
+import { IconArrowUp, IconArrowDown } from '../icons';
+import type { IconType } from '../icons';
 
 const directions = ['up', 'down'] as const;
 type Direction = typeof directions[number];
 
 const directionIcons: Record<Direction, IconType> = {
-	up: FaArrowUp,
-	down: FaArrowDown,
+	up: IconArrowUp,
+	down: IconArrowDown,
 };
 
 function isBurner(

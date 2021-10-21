@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta } from '@storybook/react';
 
 import { PlainIconButton } from './PlainIconButton';
-import { FaPencilAlt } from 'react-icons/fa';
+import { IconPencil } from '../../icons';
 
 const meta: Meta = {
 	title: 'PlainIconButton',
@@ -14,7 +14,7 @@ export default meta;
 export const Basic = () => {
 	return (
 		<div className="p-4 bg-blue-300">
-			<PlainIconButton icon={FaPencilAlt} label="undo" />
+			<PlainIconButton icon={IconPencil} label="undo" />
 		</div>
 	);
 };
@@ -22,7 +22,7 @@ export const Basic = () => {
 export const Loading = () => {
 	return (
 		<div className="p-4 bg-blue-300">
-			<PlainIconButton icon={FaPencilAlt} label="undo" loading />
+			<PlainIconButton icon={IconPencil} label="undo" loading />
 		</div>
 	);
 };

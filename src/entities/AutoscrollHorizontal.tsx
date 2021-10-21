@@ -1,9 +1,9 @@
 import React from 'react';
-import { FaArrowRight } from 'react-icons/fa';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { parseSimpleSprite } from './util';
+import { IconArrowRight } from '../icons';
 
 const AutoscrollHorizontal: Entity = {
 	paletteInfo: {
@@ -48,7 +48,7 @@ const AutoscrollHorizontal: Entity = {
 				className="relative bg-green-500 text-white flex flex-col items-center justify-around p-0.5"
 			>
 				<div>autoscroll</div>
-				<FaArrowRight className="w-1/2 h-1/2" />
+				<IconArrowRight className="w-1/2 h-1/2" />
 			</div>
 		);
 	},

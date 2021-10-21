@@ -3,10 +3,10 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import clsx from 'clsx';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { GeneratorFrame } from './components/GeneratorFrame';
 import { parseObjectIdMapSprite } from './util';
 import invert from 'lodash/invert';
+import { IconArrowLeft, IconArrowRight } from '../icons';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -81,7 +81,7 @@ const GoombaGenerator: Entity = {
 		const direction = (settings.direction ??
 			this.defaultSettings!.direction) as Direction;
 
-		const DirectionIcon = direction === 'left' ? FaArrowLeft : FaArrowRight;
+		const DirectionIcon = direction === 'left' ? IconArrowLeft : IconArrowRight;
 
 		const buttonStyle = {
 			top: 0,

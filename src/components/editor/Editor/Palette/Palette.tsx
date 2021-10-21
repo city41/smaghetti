@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 import isEqual from 'lodash/isEqual';
-import { FaPlus } from 'react-icons/fa';
+import { IconPlus } from '../../../../icons';
 
 import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
 import { PaletteChoiceModal } from './PaletteChoiceModal';
@@ -96,7 +96,7 @@ function Palette({
 				}}
 				disabled={disabled}
 			>
-				<FaPlus className="w-6 h-6" />
+				<IconPlus className="w-6 h-6" />
 				<div className="text-xs">add</div>
 			</button>
 			<div className="thinScrollbar overflow-x-auto h-full flex flex-row items-center flex-1 pb-1 ml-1">

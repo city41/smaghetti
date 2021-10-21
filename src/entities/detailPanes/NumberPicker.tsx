@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import clsx from 'clsx';
-import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
+import { IconCaretDown, IconCaretUp } from '../../icons';
 
 const DELTA_TIMEOUT = 70;
 
@@ -75,7 +75,7 @@ function NumberPicker({
 					}
 				}}
 			>
-				<FaCaretDown className="w-1 h-1" />
+				<IconCaretDown className="w-1 h-1" />
 			</button>
 			<div style={{ fontSize: 4 }} className="w-1.5 text-center">
 				{value}
@@ -116,7 +116,7 @@ function NumberPicker({
 					}
 				}}
 			>
-				<FaCaretUp className="w-1 h-1" />
+				<IconCaretUp className="w-1 h-1" />
 			</button>
 		</div>
 	);

@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
-import { AiFillWarning } from 'react-icons/ai';
 import { Root } from '../layout/Root';
 import typographyStyles from '../../styles/typography.module.css';
 import { toId } from '../whats-new/WhatsNewPage';
+import { IconAlert } from '../../icons';
 
 function HelpEntry({
 	title,
@@ -103,7 +103,7 @@ function HelpPage() {
 					<p>
 						Smaghetti can often detect if your level is going to have a problem.
 						When it does, it will put this symbol
-						<AiFillWarning className="inline-block w-5 h-5 bg-white text-red-700 mx-2" />
+						<IconAlert className="inline-block w-5 h-5 bg-white text-red-700 mx-2" />
 						on an entity that is causing problems. Click on that symbol to see
 						what can be done to fix the problem.
 					</p>

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { FaPlay, FaHammer } from 'react-icons/fa';
 import { PlainIconButton } from '../../../PlainIconButton';
+import { IconPlayLarge, IconHammer } from '../../../../icons';
 
 type PlayButtonProps = {
 	className?: string;
@@ -16,7 +16,7 @@ function PlayButton({
 	disabled,
 	onClick,
 }: PlayButtonProps) {
-	const Icon = isPlaying ? FaHammer : FaPlay;
+	const Icon = isPlaying ? IconHammer : IconPlayLarge;
 	const title = isPlaying ? 'edit your level' : 'preview your level';
 
 	return (

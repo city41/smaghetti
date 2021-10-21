@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { FaDiscord } from 'react-icons/fa';
+import { IconDiscord } from '../../icons';
 
 import styles from './PageMenu.module.css';
 
@@ -74,7 +74,7 @@ function PageMenu({
 			</Link>
 			<Link href="https://discord.gg/wBVE4yyWhM" passHref>
 				<a target="_blank" rel="noreferrer" title="discord">
-					<FaDiscord className="w-5 h-5" />
+					<IconDiscord className="w-5 h-5" />
 				</a>
 			</Link>
 		</nav>

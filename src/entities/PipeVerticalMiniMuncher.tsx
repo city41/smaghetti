@@ -1,11 +1,11 @@
 import React from 'react';
-import { FaHammer } from 'react-icons/fa';
 import clsx from 'clsx';
 import type { Entity } from './types';
 import { encodeObjectSets, getBankParam1 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { Resizer } from '../components/Resizer';
+import { IconHammer } from '../icons';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
 
@@ -185,7 +185,7 @@ const PipeVerticalMiniMuncher: Entity = {
 							});
 						}}
 					>
-						<FaHammer
+						<IconHammer
 							style={{ borderRadius: '10%', padding: 0.5 }}
 							className="w-1.5 h-1.5 bg-gray-700 hover:bg-gray-600 text-white"
 						/>

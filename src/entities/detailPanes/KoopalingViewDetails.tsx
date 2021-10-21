@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { GiBootStomp } from 'react-icons/gi';
+import { IconBootStomp } from '../../icons';
 
 type KoopalingViewDetailsProps = {
 	className?: string;
@@ -29,7 +29,7 @@ function KoopalingViewDetails({
 				<div className="justify-self-start">{fireballCount}</div>
 			</div>
 			<div className="grid grid-cols-2 items-center justify-items-center w-full">
-				<GiBootStomp className="w-1 h-1" />
+				<IconBootStomp className="w-1 h-1" />
 				<div className="justify-self-start">{stompCount}</div>
 			</div>
 		</div>

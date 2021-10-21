@@ -2,13 +2,13 @@ import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 
-import { TiZoomIn, TiZoomOut } from 'react-icons/ti';
-import {
-	MdPhotoSizeSelectLarge,
-	MdPhotoSizeSelectActual,
-} from 'react-icons/md';
-
 import { PlainIconButton } from '../../../PlainIconButton';
+import {
+	IconPhoto,
+	IconPhotoScaled,
+	IconZoomIn,
+	IconZoomOut,
+} from '../../../../icons';
 
 type ZoomProps = {
 	className?: string;
@@ -58,28 +58,28 @@ const Zoom: FunctionComponent<ZoomProps> = ({
 			<PlainIconButton
 				size="large"
 				label="zoom out (-)"
-				icon={TiZoomOut}
+				icon={IconZoomOut}
 				onClick={onScaleDecreased}
 				disabled={!canDecreaseScale || disabled}
 			/>
 			<PlainIconButton
 				size="large"
 				label="zoom in (+)"
-				icon={TiZoomIn}
+				icon={IconZoomIn}
 				onClick={onScaleIncreased}
 				disabled={!canIncreaseScale || disabled}
 			/>
 			<PlainIconButton
 				size="large"
 				label="reset viewport"
-				icon={MdPhotoSizeSelectLarge}
+				icon={IconPhotoScaled}
 				onClick={onResetViewport}
 				disabled={disabled}
 			/>
 			<PlainIconButton
 				size="large"
 				label="show entire room"
-				icon={MdPhotoSizeSelectActual}
+				icon={IconPhoto}
 				onClick={onShowEntireRoom}
 				disabled={disabled}
 			/>

@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
-import { GoAlert } from 'react-icons/go';
 import { Root } from '../layout/Root';
 
 import typographyStyles from '../../styles/typography.module.css';
@@ -10,7 +9,7 @@ import badWaterExamplePng from './BadBodyOfWaterExample.png';
 import goodWaterExamplePng from './GoodBodyOfWaterExample.png';
 import convertedButNotFixedPng from './convertedButNotFixed.png';
 import castleCorruptECoinPng from './castleCorruptECoin.png';
-import { AiFillHeart } from 'react-icons/ai';
+import { IconHeart, IconAlert } from '../../icons';
 
 function dateToHumanString(input: string): string {
 	const date = new Date(input);
@@ -60,7 +59,7 @@ function NewEntry({
 					<div className="flex-1">
 						<div className="text-gray-400 flex flex-row gap-x-2 items-center">
 							{alertingChange && (
-								<GoAlert className="w-8 h-8 text-yellow-300" />
+								<IconAlert className="w-8 h-8 text-yellow-300" />
 							)}
 							{title}
 						</div>
@@ -551,7 +550,7 @@ function WhatsNewPage() {
 					<p>
 						Found a level on the <a href="/levels">levels</a> page you liked?
 						Click on the heart!{' '}
-						<AiFillHeart className="text-red-600 inline-block w-6 h-6" />
+						<IconHeart className="text-red-600 inline-block w-6 h-6" />
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-08-08" alertingChange>
