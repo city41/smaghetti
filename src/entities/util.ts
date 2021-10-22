@@ -260,7 +260,7 @@ export function parseObjectIdMapSprite(
 	data: Uint8Array,
 	offset: number,
 	bank: number,
-	objectIdToSetting: Record<number, any>,
+	objectIdToSetting: Record<number, unknown>,
 	settingKey: string,
 	target: Entity
 ): ReturnType<Required<Entity>['parseSprite']> {
@@ -285,8 +285,7 @@ export function parseObjectIdMapObject(
 	data: Uint8Array,
 	offset: number,
 	bankByte: number,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	objectIdToSetting: Record<number, any>,
+	objectIdToSetting: Record<number, unknown>,
 	settingKey: string,
 	target: Entity
 ): ReturnType<Required<Entity>['parseObject']> {

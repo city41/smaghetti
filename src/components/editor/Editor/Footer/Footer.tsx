@@ -5,6 +5,8 @@ import { compress } from '../../../../levelData/compress';
 import { LevelSizeMeter } from './LevelSizeMeter';
 import memoize from 'lodash/memoize';
 import { Problems } from './Problems';
+import { PlainIconButton } from '../../../PlainIconButton';
+import { IconExperiment } from '../../../../icons';
 
 type PublicFooterProps = {
 	className?: string;
@@ -14,6 +16,7 @@ type PublicFooterProps = {
 
 type InternalFooterProps = {
 	level: LevelToLoadInGBA;
+	onExperimentsClick: () => void;
 };
 
 const memoCompress = memoize(compress);
@@ -23,6 +26,7 @@ function Footer({
 	style,
 	level,
 	onProblemClick,
+	onExperimentsClick,
 }: PublicFooterProps & InternalFooterProps) {
 	const levelData = createLevelData(level);
 	const compressedA = memoCompress(levelData, 0);
@@ -43,6 +47,13 @@ function Footer({
 				className="w-1/3"
 				byteSize={byteSize}
 				ranges={[2024, 2070, 2110]}
+			/>
+			<PlainIconButton
+				className="ml-4"
+				size="small"
+				icon={IconExperiment}
+				label="show experiments"
+				onClick={onExperimentsClick}
 			/>
 		</div>
 	);

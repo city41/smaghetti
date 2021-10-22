@@ -64,9 +64,20 @@ function downloadLevelAsJson(level: LevelToLoadInGBA | SerializedLevel) {
 	sendBlobToAnchorTag(fileBlob, getSafeFileName(level.name, 'json'));
 }
 
+function downloadLevelAsLevelFile(level: LevelToLoadInGBA) {
+	const binaryLevel = createLevelData(level);
+
+	const fileBlob = new Blob([binaryLevel.buffer], {
+		type: 'application/octet-stream',
+	});
+
+	sendBlobToAnchorTag(fileBlob, getSafeFileName(level.name, 'level'));
+}
+
 export {
 	downloadLevelAsSaveFile,
 	downloadSetOfLevelsAsSaveFile,
 	downloadLevelAsJson,
+	downloadLevelAsLevelFile,
 	sendBlobToAnchorTag,
 };

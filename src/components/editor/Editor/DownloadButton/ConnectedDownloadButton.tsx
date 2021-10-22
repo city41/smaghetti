@@ -14,9 +14,7 @@ import { serialize } from '../../../../level/serialize';
 import { CURRENT_VERSION } from '../../../../level/versioning/convertLevelToLatestVersion';
 
 function ConnectedDownloadButton(props: PublicDownloadButtonProps) {
-	const { rooms } = useSelector((state: AppState) => state.editor.present);
-
-	const { settings, name } = useSelector(
+	const { rooms, settings, name } = useSelector(
 		(state: AppState) => state.editor.present
 	);
 

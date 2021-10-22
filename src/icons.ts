@@ -9,6 +9,7 @@ export {
 	AiOutlineHeart as IconHeartOutline,
 	AiFillSave as IconSave,
 	AiFillCamera as IconCamera,
+	AiTwotoneExperiment as IconExperiment,
 } from 'react-icons/ai';
 
 export {

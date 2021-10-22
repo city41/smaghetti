@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import clsx from 'clsx';
 
 type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'ref'> & {
@@ -42,5 +42,24 @@ function Button({
 	);
 }
 
-export { Button };
+function ButtonMimickLabel({
+	className,
+	children,
+}: {
+	className?: string;
+	children?: ReactNode;
+}) {
+	return (
+		<label
+			className={clsx(
+				className,
+				'px-2 py-1 bg-green-400 hover:bg-green-300 hover:text-green-900 border-b-4 border-green-700 cursor-pointer'
+			)}
+		>
+			{children}
+		</label>
+	);
+}
+
+export { Button, ButtonMimickLabel };
 export type { ButtonProps };
