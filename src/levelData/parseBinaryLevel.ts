@@ -2,6 +2,7 @@ import { ROOM_WIDTH_INCREMENT } from '../components/editor/constants';
 import { entityMap } from '../entities/entityMap';
 import {
 	ROOM_BACKGROUND_SETTINGS,
+	ROOM_BLOCKPATH_POINTERS,
 	ROOM_OBJECT_POINTERS,
 	ROOM_SPRITE_POINTERS,
 } from './constants';
@@ -42,6 +43,24 @@ function parseSpriteEntity(
 	return null;
 }
 
+function getRemainingSpriteBytes(
+	levelBytes: Uint8Array,
+	index: number,
+	lastOffset: number
+): string {
+	const view = new DataView(levelBytes.buffer);
+	const blockPathPointer = ROOM_BLOCKPATH_POINTERS[index];
+	const blockPathOffset = view.getUint16(blockPathPointer, true);
+
+	const bytes = [];
+
+	for (let i = lastOffset; i < blockPathOffset; ++i) {
+		bytes.push(levelBytes[i]);
+	}
+
+	return bytes.map((b) => b.toString(16)).join(', ');
+}
+
 function parseSprites(
 	levelBytes: Uint8Array,
 	index: number
@@ -51,7 +70,8 @@ function parseSprites(
 
 	const spriteOffset = view.getUint16(spritePointer, true);
 
-	let offset = spriteOffset;
+	// sprites always have an opening zero for some reason
+	let offset = spriteOffset + 1;
 
 	const entities: NewEditorEntity[] = [];
 
@@ -61,7 +81,15 @@ function parseSprites(
 		if (result) {
 			entities.push(result.entity), (offset = result.offset);
 		} else {
-			offset += 1;
+			// eslint-disable-next-line no-console
+			console.warn('unknown sprite encountered');
+			// eslint-disable-next-line no-console
+			console.warn(
+				'remaining bytes',
+				getRemainingSpriteBytes(levelBytes, index, offset)
+			);
+
+			return entities;
 		}
 	}
 
