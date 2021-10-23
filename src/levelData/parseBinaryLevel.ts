@@ -1,5 +1,9 @@
 import { entityMap } from '../entities/entityMap';
-import { ROOM_SPRITE_POINTERS } from './constants';
+import {
+	ROOM_BACKGROUND_SETTINGS,
+	ROOM_OBJECT_POINTERS,
+	ROOM_SPRITE_POINTERS,
+} from './constants';
 import {
 	ECOIN_TILE_SIZE,
 	LEVEL_ECOIN_TILE_OFFSET,
@@ -63,6 +67,35 @@ function parseSprites(
 	return entities;
 }
 
+function parseRoomSettings(
+	levelBytes: Uint8Array,
+	index: number
+): RoomSettings {
+	const view = new DataView(levelBytes.buffer);
+	const objectPointer = ROOM_OBJECT_POINTERS[index];
+	const objectOffset = view.getUint16(objectPointer, true);
+
+	const bgGraphic = levelBytes[objectOffset + 10];
+
+	const bgValues = Object.values(ROOM_BACKGROUND_SETTINGS).find((s) => {
+		return s.bgGraphic === bgGraphic;
+	});
+
+	if (bgValues) {
+		return {
+			...bgValues,
+			music: 0,
+		};
+	}
+
+	return {
+		bgColor: 0,
+		bgExtraColorAndEffect: 0,
+		bgGraphic: 0,
+		music: 0,
+	};
+}
+
 function parseRoom(
 	levelBytes: Uint8Array,
 	index: number,
@@ -100,12 +133,7 @@ function parseRoom(
 
 	return {
 		roomData: {
-			settings: {
-				bgColor: 0,
-				bgExtraColorAndEffect: 0,
-				bgGraphic: 0,
-				music: 0,
-			},
+			settings: parseRoomSettings(levelBytes, index),
 			paletteEntries: [],
 			actors: {
 				entities: actorSpriteEntities,
