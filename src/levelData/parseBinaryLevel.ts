@@ -132,14 +132,26 @@ function parseRoomWidth(levelBytes: Uint8Array, index: number): number {
 
 	const levelLength = levelBytes[objectOffset + 4];
 
-	return levelLength & (0xf * ROOM_WIDTH_INCREMENT);
+	return (levelLength & 0xf) * ROOM_WIDTH_INCREMENT;
+}
+
+function hasRoomData(levelBytes: Uint8Array, index: number): boolean {
+	const view = new DataView(levelBytes.buffer);
+	const objectPointer = ROOM_OBJECT_POINTERS[index];
+	const objectOffset = view.getUint16(objectPointer, true);
+
+	return objectOffset < levelBytes.byteLength;
 }
 
 function parseRoom(
 	levelBytes: Uint8Array,
 	index: number,
 	idCounter: number
-): { roomData: RoomData; idCounter: number } {
+): { roomData: RoomData; idCounter: number } | null {
+	if (!hasRoomData(levelBytes, index)) {
+		return null;
+	}
+
 	const spriteEntities = parseSprites(levelBytes, index);
 
 	const actorSpriteEntities = spriteEntities.reduce<EditorEntity[]>(
@@ -197,12 +209,20 @@ function parseBinaryLevel(
 
 	let idCounter = 1;
 
-	const room0Result = parseRoom(levelBytes, 0, idCounter);
-	idCounter = room0Result.idCounter;
+	const rooms = [0, 1, 2, 3].reduce<RoomData[]>((building, index) => {
+		const roomResult = parseRoom(levelBytes, index, idCounter);
+
+		if (roomResult) {
+			idCounter = roomResult.idCounter;
+			return building.concat(roomResult.roomData);
+		} else {
+			return building;
+		}
+	}, []);
 
 	return {
 		levelData: {
-			rooms: [room0Result.roomData],
+			rooms,
 			settings: {
 				timer: 300,
 			},
