@@ -1,3 +1,4 @@
+import { ROOM_WIDTH_INCREMENT } from '../components/editor/constants';
 import { entityMap } from '../entities/entityMap';
 import {
 	ROOM_BACKGROUND_SETTINGS,
@@ -96,6 +97,16 @@ function parseRoomSettings(
 	};
 }
 
+function parseRoomWidth(levelBytes: Uint8Array, index: number): number {
+	const view = new DataView(levelBytes.buffer);
+	const objectPointer = ROOM_OBJECT_POINTERS[index];
+	const objectOffset = view.getUint16(objectPointer, true);
+
+	const levelLength = levelBytes[objectOffset + 4];
+
+	return levelLength & (0xf * ROOM_WIDTH_INCREMENT);
+}
+
 function parseRoom(
 	levelBytes: Uint8Array,
 	index: number,
@@ -145,7 +156,7 @@ function parseRoom(
 			},
 
 			roomTileHeight: 30,
-			roomTileWidth: 32,
+			roomTileWidth: parseRoomWidth(levelBytes, index),
 		},
 		idCounter,
 	};
