@@ -108,7 +108,7 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
 	onEntitySettingsChange,
 }) {
 	const tileEls = cells.map((c, x) => {
-		const isFocused = !dragOffset && c !== null && focused[c.id];
+		const isFocused = !dragOffset && !!c && focused[c.id];
 		const focusCount = Object.keys(focused).length;
 
 		let opacity = 1;

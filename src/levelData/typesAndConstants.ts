@@ -22,6 +22,8 @@ export const OFFSET_DATAIDLIST = 0x6d4; // Level data ID list
 export const LEVEL_ECOIN_PALETTE_OFFSET = 0x40;
 export const LEVEL_ECOIN_TILE_OFFSET = 0x60;
 
+export const OBJECT_HEADER_SIZE = 11;
+
 type ECoinInfo = {
 	room: number;
 	x: number;

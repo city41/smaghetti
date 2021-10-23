@@ -40,8 +40,8 @@ type EditorTransport = {
 		| 'horizontal-travel-right-pipe';
 };
 
-type EditorEntityRow = Array<EditorEntity | null>;
-type EditorEntityMatrix = Array<EditorEntityRow | null>;
+type EditorEntityRow = Array<EditorEntity | null | undefined>;
+type EditorEntityMatrix = Array<EditorEntityRow | null | undefined>;
 
 // the string is the short id for the entity type, ie "Brick" -> "Br"
 type SerializedEditorEntityMatrix = Array<string | Array<string>>;

@@ -21,7 +21,7 @@ type RoomThumbnailProps = {
 };
 
 type MatrixRowProps = {
-	entities: Array<EditorEntity | null>;
+	entities: Array<EditorEntity | null | undefined>;
 	room: RoomData;
 	startingX: number;
 	y: number;

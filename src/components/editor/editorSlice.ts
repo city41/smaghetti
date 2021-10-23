@@ -731,7 +731,7 @@ function setScaleAndOffsetForManageLevel(state: InternalEditorState) {
 function findCellEntity(
 	matrix: EditorEntityMatrix,
 	id: number
-): EditorEntity | null {
+): EditorEntity | null | undefined {
 	for (let y = 0; y < matrix.length; ++y) {
 		for (let x = 0; !!matrix[y] && x < matrix[y]!.length; ++x) {
 			if (matrix[y]![x]?.id === id) {
