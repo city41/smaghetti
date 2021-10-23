@@ -578,9 +578,9 @@ export function parseCellObjectsParam1Width(
 	target: Entity
 ): ReturnType<Required<Entity>['parseObject']> {
 	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
-		const width = parseParamFromBank(data[offset++]);
-		const y = data[offset++];
-		const x = data[offset++];
+		const width = parseParamFromBank(data[offset]);
+		const y = data[offset + 1];
+		const x = data[offset + 2];
 
 		const entities = [];
 		const type = getType(target);
@@ -593,7 +593,7 @@ export function parseCellObjectsParam1Width(
 			});
 		}
 
-		return { entities, offset };
+		return { entities, offset: offset + 4 };
 	}
 }
 
