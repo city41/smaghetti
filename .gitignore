@@ -47,4 +47,6 @@ yarn-error.log*
 /brute/*.json
 /pngsForResources
 
+# binary files
+/binaryLevels
 

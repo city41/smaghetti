@@ -21,7 +21,7 @@ function ExperimentsModal({ isOpen, onRequestClose }: ExperimentsModalProps) {
 					<IconAlert />
 					This stuff is buggy!
 				</p>
-				<BinaryLevels />
+				<BinaryLevels onRequestClose={onRequestClose} />
 			</div>
 		</Modal>
 	);

@@ -52,6 +52,7 @@ import {
 import { flattenCells } from '../../levelData/util';
 import { getEntityTileBounds, pointIsInside } from './util';
 import { logError } from '../../reporting/logError';
+import { parseBinaryLevel } from '../../levelData/parseBinaryLevel';
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
 
@@ -1921,6 +1922,29 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 	}
 };
 
+const loadBinaryLevel = (levelFile: File): LevelThunk => async (dispatch) => {
+	try {
+		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
+		dispatch(editorSlice.actions.setLevelName(''));
+		dispatch(editorSlice.actions.setLoadLevelState('loading'));
+
+		const reader = new FileReader();
+
+		reader.onloadend = () => {
+			const data = new Uint8Array(reader.result as ArrayBuffer);
+
+			const result = parseBinaryLevel(data);
+			dispatch(editorSlice.actions.setLevelDataFromLoad(result.levelData));
+			dispatch(editorSlice.actions.setLevelName(result.name));
+			dispatch(editorSlice.actions.setLoadLevelState('success'));
+		};
+
+		reader.readAsArrayBuffer(levelFile);
+	} catch (e) {
+		dispatch(editorSlice.actions.setLoadLevelState('error'));
+	}
+};
+
 const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 	try {
 		const rawJson = window.localStorage[LOCALSTORAGE_KEY];
@@ -2121,6 +2145,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		'editor/saveLevelCopy',
 		'editor/saveLevelError',
 		'editor/loadLevel',
+		'editor/loadBinaryLevel',
 		'editor/loadingLevel',
 		'editor/loadLevelError',
 		'editor/setLevelDataFromLoad',
@@ -2312,6 +2337,7 @@ export {
 	saveLevel,
 	saveLevelCopy,
 	loadLevel,
+	loadBinaryLevel,
 	loadFromLocalStorage,
 	loadExampleLevel,
 	loadBlankLevel,
