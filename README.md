@@ -28,7 +28,9 @@ Proper documentation and tutorial videos will come later, but for now just start
 
 ## License
 
-Smaghetti is MIT licensed. See the LICENSE file. Also see the licenses directory for third party licenses.
+Smaghetti is Affero GPL licensed. See the LICENSE file. Since Smaghetti is based on someone else's IP, keeping it fully open sourced as much as possible seems like the right thing to do.
+
+Also see the licenses directory for third party licenses.
 
 # Contributing
 
