@@ -1,5 +1,5 @@
 import { ROOM_SPRITE_POINTERS } from '../levelData/constants';
-import { spriteLengths } from './spriteLengths';
+import { getSpriteLength } from './spriteLengths';
 import { entityMap } from '../entities/entityMap';
 
 type LevelSprite = {
@@ -39,15 +39,7 @@ function getRawByteLength(bank: number, id: number): number {
 		}).length;
 	}
 
-	const fullId = id ^ (bank << 8);
-
-	if (fullId < spriteLengths.length) {
-		return spriteLengths[fullId];
-	} else if (fullId === 0x1ab) {
-		return 5;
-	} else {
-		return 4;
-	}
+	return getSpriteLength(id, bank);
 }
 
 function parseSprite(

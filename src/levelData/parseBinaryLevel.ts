@@ -3,7 +3,6 @@ import { entityMap } from '../entities/entityMap';
 import { Entity } from '../entities/types';
 import {
 	ROOM_BACKGROUND_SETTINGS,
-	ROOM_BLOCKPATH_POINTERS,
 	ROOM_LEVELSETTING_POINTERS,
 	ROOM_OBJECT_POINTERS,
 	ROOM_SPRITE_POINTERS,
@@ -18,6 +17,7 @@ import { convertLevelNameToASCII } from './util';
 import isEqual from 'lodash/isEqual';
 import { encodeObjectSets } from '../entities/util';
 import { TILE_SIZE } from '../tiles/constants';
+import { getSpriteLength } from './spriteLengths';
 
 const ENTITIES = Object.freeze(Object.values(entityMap));
 
@@ -47,24 +47,6 @@ function parseSpriteEntity(
 	}
 
 	return null;
-}
-
-function getRemainingSpriteBytes(
-	levelBytes: Uint8Array,
-	index: number,
-	lastOffset: number
-): string {
-	const view = new DataView(levelBytes.buffer);
-	const blockPathPointer = ROOM_BLOCKPATH_POINTERS[index];
-	const blockPathOffset = view.getUint16(blockPathPointer, true);
-
-	const bytes = [];
-
-	for (let i = lastOffset; i < blockPathOffset; ++i) {
-		bytes.push(levelBytes[i]);
-	}
-
-	return bytes.map((b) => b.toString(16)).join(', ');
 }
 
 function getRemainingObjectBytes(
@@ -103,19 +85,26 @@ function parseSprites(
 		const result = parseSpriteEntity(levelBytes, offset);
 
 		if (result) {
-			entities.push(result.entity), (offset = result.offset);
+			entities.push(result.entity);
+			offset = result.offset;
 		} else {
-			// eslint-disable-next-line no-console
-			console.warn(
-				`unknown sprite encountered after ${entities.length} successes`
-			);
-			// eslint-disable-next-line no-console
-			console.warn(
-				'remaining bytes',
-				getRemainingSpriteBytes(levelBytes, index, offset)
-			);
+			const objectId = levelBytes[offset + 1];
+			const bank = levelBytes[offset];
+			const length = getSpriteLength(objectId, bank);
+			const x = levelBytes[offset + 2];
+			const y = levelBytes[offset + 3];
 
-			return entities;
+			entities.push({
+				type: 'Unknown',
+				x: x * TILE_SIZE,
+				y: y * TILE_SIZE,
+				settings: {
+					type: 'sprite',
+					objectId,
+					rawBytes: Array.from(levelBytes.subarray(offset, offset + length)),
+				},
+			});
+			offset += length;
 		}
 	}
 

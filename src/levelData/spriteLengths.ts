@@ -356,3 +356,15 @@ export const spriteLengths: number[] = [
 	5,
 	5,
 ];
+
+export function getSpriteLength(id: number, bank: number) {
+	const fullId = id ^ (bank << 8);
+
+	if (fullId < spriteLengths.length) {
+		return spriteLengths[fullId];
+	} else if (fullId === 0x1ab) {
+		return 5;
+	} else {
+		return 4;
+	}
+}

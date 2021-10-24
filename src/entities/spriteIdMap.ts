@@ -6,7 +6,7 @@ const bank1SpriteIdToEntityType: Record<number, EntityType> = (function () {
 		(building, key) => {
 			const s = entityMap[key as EntityType];
 
-			if (!s.toSpriteBinary) {
+			if (!s.toSpriteBinary || key === 'Unknown') {
 				return building;
 			}
 
@@ -29,7 +29,7 @@ const bank0SpriteIdToEntityType: Record<number, EntityType> = (function () {
 		(building, key) => {
 			const s = entityMap[key as EntityType];
 
-			if (!s.toSpriteBinary) {
+			if (!s.toSpriteBinary || key === 'Unknown') {
 				return building;
 			}
 
