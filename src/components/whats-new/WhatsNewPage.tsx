@@ -92,6 +92,7 @@ function WhatsNewPage() {
 						<li>Bullet Bill - Targeting Generator</li>
 						<li>Nipper Plant - Shooting</li>
 						<li>Nipper Plant - Walking</li>
+						<li>P-Wing</li>
 						<li>Para Beetle Generator</li>
 						<li>Platform Wood - Bobs</li>
 					</ul>

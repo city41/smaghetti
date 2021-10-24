@@ -274,6 +274,7 @@ import { Porthole } from './Porthole';
 import { PowerUpSlotMachine } from './PowerUpSlotMachine';
 import { PtooiePottedPiranhaPlant } from './PtooiePottedPiranhaPlant';
 import { PtooieWalkingPiranhaPlant } from './PtooieWalkingPiranhaPlant';
+import { PWing } from './PWing';
 import { QuestionBlock } from './QuestionBlock';
 import { QuestionBlockGiant } from './QuestionBlockGiant';
 import { QuestionMark } from './QuestionMark';
@@ -636,6 +637,7 @@ const entityMap = {
 	PowerUpSlotMachine,
 	PtooiePottedPiranhaPlant,
 	PtooieWalkingPiranhaPlant,
+	PWing,
 	QuestionBlock,
 	QuestionBlockGiant,
 	QuestionMark,
