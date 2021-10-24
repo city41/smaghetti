@@ -86,6 +86,16 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Background" date="2021-10-23">
+					<ul>
+						<li>Hills in Clouds</li>
+					</ul>
+					<p>
+						Despite the lack of updates, I have been working on Smaghetti. But
+						lately it has been a lot of behind the scenes stuff. Eventually this
+						work will allow for some cool things.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-10-08">
 					<ul>
 						<li>Cloud Platform - Thicc</li>

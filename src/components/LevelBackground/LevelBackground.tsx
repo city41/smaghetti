@@ -84,6 +84,20 @@ function Plains() {
 	);
 }
 
+function HillsInClouds() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#b5e7ff' }}
+		>
+			<div
+				className="HillsInCloudsBackground-bg w-full bg-repeat-x"
+				style={{ height: 144 }}
+			/>
+		</div>
+	);
+}
+
 function GreenMountains() {
 	return (
 		<div
@@ -267,6 +281,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['bowser-castle']]: <BowserCastle />,
 	[BACKGROUND_GRAPHIC_VALUES.pipes]: <Pipes />,
 	[BACKGROUND_GRAPHIC_VALUES['green-mountains']]: <GreenMountains />,
+	[BACKGROUND_GRAPHIC_VALUES['hills-in-clouds']]: <HillsInClouds />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

@@ -72,6 +72,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'bowser-castle': 0x1b,
 	pipes: 0x35,
 	'green-mountains': 0xc,
+	'hills-in-clouds': 0xf,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -215,5 +216,10 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['green-mountains'],
 		bgColor: 0x4,
 		bgExtraColorAndEffect: 0,
+	},
+	'hills-in-clouds': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['hills-in-clouds'],
+		bgColor: 0x98,
+		bgExtraColorAndEffect: 0x22,
 	},
 };
