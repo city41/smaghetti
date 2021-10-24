@@ -208,6 +208,7 @@ import { MusicBlock } from './MusicBlock';
 import { MusicBlockThreeWay } from './MusicBlockThreeWay';
 import { MusicBlockWarp } from './MusicBlockWarp';
 import { NipperPlant } from './NipperPlant';
+import { NipperPlantShooting } from './NipperPlantShooting';
 import { NipperPlantWalking } from './NipperPlantWalking';
 import { NumberBlock } from './NumberBlock';
 import { OneUpMushroom } from './OneUpMushroom';
@@ -565,6 +566,7 @@ const entityMap = {
 	MusicBlockThreeWay,
 	MusicBlockWarp,
 	NipperPlant,
+	NipperPlantShooting,
 	NipperPlantWalking,
 	NumberBlock,
 	OneUpMushroom,
