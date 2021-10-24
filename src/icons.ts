@@ -23,6 +23,7 @@ export {
 } from 'react-icons/bs';
 
 export {
+	FaWater as IconWater,
 	FaQuestion as IconQuestion,
 	FaGamepad as IconGamepad,
 	FaKeyboard as IconKeyboard,

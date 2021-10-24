@@ -92,6 +92,7 @@ function WhatsNewPage() {
 						<li>Nipper Plant - Shooting</li>
 						<li>Nipper Plant - Walking</li>
 						<li>Para Beetle Generator</li>
+						<li>Platform Wood - Bobs</li>
 					</ul>
 					<p>
 						Thanks to Bryce for finding these! The Para Beetle generator
