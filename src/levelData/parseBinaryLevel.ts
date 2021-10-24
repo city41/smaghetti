@@ -238,6 +238,15 @@ function parseRoomWidth(levelBytes: Uint8Array, index: number): number {
 	return (levelLength & 0xf) * ROOM_WIDTH_INCREMENT;
 }
 
+function parseRoomHeight(levelBytes: Uint8Array, index: number): number {
+	const view = new DataView(levelBytes.buffer);
+	const levelSettingsPointer = ROOM_LEVELSETTING_POINTERS[index];
+	const levelSettingsOffset = view.getUint16(levelSettingsPointer, true);
+
+	const heightInPixels = view.getUint16(levelSettingsOffset, true);
+	return Math.ceil(heightInPixels / TILE_SIZE);
+}
+
 function hasRoomData(levelBytes: Uint8Array, index: number): boolean {
 	const view = new DataView(levelBytes.buffer);
 	const objectPointer = ROOM_OBJECT_POINTERS[index];
@@ -348,7 +357,7 @@ function parseRoom(
 				matrix: stageMatrixResult.matrix,
 			},
 
-			roomTileHeight: 30,
+			roomTileHeight: parseRoomHeight(levelBytes, index),
 			roomTileWidth: parseRoomWidth(levelBytes, index),
 		},
 		idCounter,
