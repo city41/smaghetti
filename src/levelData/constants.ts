@@ -200,7 +200,10 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	waterfalls: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.waterfalls,
 		bgColor: 0x98,
-		bgExtraColorAndEffect: 0x71,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+		// this byte causes the strip of water to not be added to the level
+		// so far unable to use that strip, it always shows up invisible
+		unknownThirdHeaderByte: 0xa,
 	},
 	'bowser-castle': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['bowser-castle'],

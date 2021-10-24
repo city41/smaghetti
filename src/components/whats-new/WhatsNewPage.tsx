@@ -86,6 +86,12 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Bug fix: Waterfall background" date="2021-10-24">
+					<p>
+						The waterfall background no longer has the invisible water nor the
+						weird blue tint. It is now just a normal background.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Background" date="2021-10-23">
 					<ul>
 						<li>Hills in Clouds</li>

@@ -114,7 +114,7 @@ function getObjectHeader(
 	return [
 		...getTimerBytes(levelSettings.timer),
 		0x00, // 16 bit value that is unknown, copied from classic 1-2
-		0x02, // ----
+		room.settings.unknownThirdHeaderByte ?? 0x02, // ----
 		width & 0xf, // bottom nibble is length of level, top is unknown
 		room.settings.bgColor, // background color
 		0xa1, // top nibble is scroll settings, bottom unknown, copied from 1-2

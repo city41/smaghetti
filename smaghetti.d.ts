@@ -84,6 +84,7 @@ type RoomBackgroundSettings = {
 	bgGraphic: number;
 	bgColor: number;
 	bgExtraColorAndEffect: number;
+	unknownThirdHeaderByte?: number;
 };
 
 type MusicTrack =
