@@ -50,11 +50,14 @@ function getRoomType(settings: RoomSettings): string {
 	});
 
 	if (!entry) {
-		throw new Error(
+		// eslint-disable-next-line no-console
+		console.warn(
 			`ConnectedManageLevel: failed to get a room type for: ${JSON.stringify(
 				settings
 			)}`
 		);
+
+		return 'plains';
 	}
 
 	return entry[0];
