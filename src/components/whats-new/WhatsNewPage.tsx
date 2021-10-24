@@ -86,6 +86,12 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-10-24">
+					<ul>
+						<li>Nipper Plant - Walking</li>
+					</ul>
+					<p>Thanks to Bryce for finding this one!</p>
+				</NewEntry>
 				<NewEntry title="Bug fix: Waterfall background" date="2021-10-24">
 					<p>
 						The waterfall background no longer has the invisible water nor the
