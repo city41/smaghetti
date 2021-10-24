@@ -88,6 +88,7 @@ function WhatsNewPage() {
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
 				<NewEntry title="New Entities" date="2021-10-24">
 					<ul>
+						<li>Boomerang Bro - Drops Boomerang</li>
 						<li>Bullet Bill - Targeting Generator</li>
 						<li>Nipper Plant - Shooting</li>
 						<li>Nipper Plant - Walking</li>
