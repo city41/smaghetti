@@ -346,7 +346,7 @@ export function parseSimpleObjectWithWidth(
 		const width = data[offset + 4];
 
 		const entities = [];
-		for (let x = seedEntity.x; x < seedEntity.x + width; ++x) {
+		for (let x = seedEntity.x; x <= seedEntity.x + width; ++x) {
 			entities.push({
 				...seedEntity,
 				x,
