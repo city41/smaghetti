@@ -67,8 +67,8 @@ const SpinyCheepCheepGenerator: Entity = {
 		return (
 			<GeneratorFrame
 				size={size}
-				className="SpinyCheepCheepGenerator-bg"
-				style={style}
+				resourceClassName="SpinyCheepCheepGenerator-bg bg-no-repeat"
+				resourceStyle={style}
 			/>
 		);
 	},

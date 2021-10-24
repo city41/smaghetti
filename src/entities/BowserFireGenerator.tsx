@@ -98,8 +98,8 @@ const BowserFireGenerator: Entity = {
 		return (
 			<GeneratorFrame
 				size={size}
-				className="BowserFireGenerator-bg"
-				style={style}
+				resourceClassName="BowserFireGenerator-bg bg-no-repeat"
+				resourceStyle={style}
 			/>
 		);
 	},

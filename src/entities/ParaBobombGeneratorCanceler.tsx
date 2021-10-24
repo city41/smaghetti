@@ -53,8 +53,8 @@ const ParaBobombGeneratorCanceler: Entity = {
 			<GeneratorFrame
 				canceler
 				size={size}
-				className="ParaBobombGenerator-bg"
-				style={style}
+				resourceClassName="ParaBobombGenerator-bg bg-no-repeat"
+				resourceStyle={style}
 			/>
 		);
 	},

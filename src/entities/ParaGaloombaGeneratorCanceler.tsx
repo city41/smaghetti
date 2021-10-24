@@ -53,8 +53,8 @@ const ParaGaloombaGeneratorCanceler: Entity = {
 			<GeneratorFrame
 				canceler
 				size={size}
-				className="GaloombaWithParachute-bg"
-				style={style}
+				resourceClassName="GaloombaWithParachute-bg bg-no-repeat"
+				resourceStyle={style}
 			/>
 		);
 	},

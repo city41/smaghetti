@@ -73,8 +73,8 @@ const BulletBillGeneratorDiagonal: Entity = {
 		return (
 			<GeneratorFrame
 				size={size}
-				className="BulletBillGeneratorDiagonal-bg"
-				style={style}
+				resourceClassName="BulletBillGeneratorDiagonal-bg bg-no-repeat"
+				resourceStyle={style}
 			/>
 		);
 	},

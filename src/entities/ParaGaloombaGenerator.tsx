@@ -52,8 +52,8 @@ const ParaGaloombaGenerator: Entity = {
 		return (
 			<GeneratorFrame
 				size={size}
-				className="GaloombaWithParachute-bg"
-				style={style}
+				resourceClassName="GaloombaWithParachute-bg bg-no-repeat"
+				resourceStyle={style}
 			/>
 		);
 	},

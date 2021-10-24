@@ -68,7 +68,13 @@ const GoombaGenerator: Entity = {
 			backgroundSize: '60%',
 		};
 
-		return <GeneratorFrame size={size} className="Goomba-bg" style={style} />;
+		return (
+			<GeneratorFrame
+				size={size}
+				resourceClassName="Goomba-bg bg-no-repeat"
+				resourceStyle={style}
+			/>
+		);
 	},
 
 	render({ settings, onSettingsChange, entity }) {
@@ -91,8 +97,8 @@ const GoombaGenerator: Entity = {
 		return (
 			<GeneratorFrame
 				size={TILE_SIZE}
-				className="relative Goomba-bg overflow-hidden"
-				style={style}
+				resourceClassName="relative Goomba-bg bg-no-repeat overflow-hidden"
+				resourceStyle={style}
 			>
 				{!!entity && (
 					<button

@@ -73,8 +73,8 @@ const BulletBillGeneratorCardinal: Entity = {
 		return (
 			<GeneratorFrame
 				size={size}
-				className="BulletBillGeneratorCardinal-bg"
-				style={style}
+				resourceClassName="BulletBillGeneratorCardinal-bg bg-no-repeat"
+				resourceStyle={style}
 			/>
 		);
 	},

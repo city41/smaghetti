@@ -4,16 +4,18 @@ import { IconFactory, IconStopSign } from '../../icons';
 
 type GeneratorFrameProps = {
 	className?: string;
+	resourceClassName: string;
 	canceler?: boolean;
-	style?: CSSProperties;
+	resourceStyle?: CSSProperties;
 	size: number;
 	children?: ReactNode;
 };
 
 function GeneratorFrame({
 	className,
+	resourceClassName,
 	canceler,
-	style,
+	resourceStyle,
 	size,
 	children,
 }: GeneratorFrameProps) {
@@ -33,12 +35,20 @@ function GeneratorFrame({
 
 	return (
 		<div
-			style={{ ...rootStyle, ...style }}
+			style={rootStyle}
 			className={clsx(className, 'relative bg-no-repeat', {
 				'bg-green-600': !canceler,
 				'bg-red-500': canceler,
 			})}
 		>
+			<div
+				style={resourceStyle}
+				className={clsx(
+					resourceClassName,
+					'absolute top-0 left-0 w-full h-full'
+				)}
+			/>
+
 			{children}
 			<Icon
 				style={iconStyle}

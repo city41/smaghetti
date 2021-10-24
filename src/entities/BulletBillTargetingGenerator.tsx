@@ -2,33 +2,32 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
-import { GeneratorFrame } from './components/GeneratorFrame';
 import { parseSimpleSprite } from './util';
+import { GeneratorFrame } from './components/GeneratorFrame';
 
-const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-
-const FlyingCheepCheepGenerator: Entity = {
+const BulletBillTargetingGenerator: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-generator',
-		title: 'Flying Cheep Cheep Generator',
+		title: 'Bullet Bill - Targeting Generator',
 		description:
-			'Once added to a level, there will be flying cheep cheeps jumping everywhere.',
+			'Shoots targeting bullet bills. You can stick it inside a mini pipe.',
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [-1, -1, -1, graphicSetValues, -1, ANY_BELOW_0x16],
-	layer: 'actor',
+	spriteGraphicSets: [-1, -1, -1, -1, 4, ANY_BELOW_0x16],
+	layer: 'stage',
 	editorType: 'entity',
+	objectId: 0x5,
+	emptyBank: 0,
 	dimensions: 'none',
-	objectId: 0x60,
 
 	toSpriteBinary({ x, y }) {
-		return [1, this.objectId, x, y];
+		return [0, this.objectId, x, y];
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 1, this);
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {
@@ -36,12 +35,14 @@ const FlyingCheepCheepGenerator: Entity = {
 			backgroundPositionX: '20%',
 			backgroundPositionY: '25%',
 			backgroundSize: '60%',
+			transform: 'rotate(15deg)',
+			transformOrigin: 'center center',
 		};
 
 		return (
 			<GeneratorFrame
 				size={size}
-				resourceClassName="RedCheepCheep-bg bg-no-repeat"
+				resourceClassName="BulletBill-bg bg-no-repeat"
 				resourceStyle={style}
 			/>
 		);
@@ -52,4 +53,4 @@ const FlyingCheepCheepGenerator: Entity = {
 	},
 };
 
-export { FlyingCheepCheepGenerator };
+export { BulletBillTargetingGenerator };

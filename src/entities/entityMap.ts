@@ -56,6 +56,7 @@ import { BulletBillGeneratorCanceler } from './BulletBillGeneratorCanceler';
 import { BulletBillGeneratorCardinal } from './BulletBillGeneratorCardinal';
 import { BulletBillGeneratorDiagonal } from './BulletBillGeneratorDiagonal';
 import { BulletBillTargeting } from './BulletBillTargeting';
+import { BulletBillTargetingGenerator } from './BulletBillTargetingGenerator';
 import { Bumpty } from './Bumpty';
 import { BumptyAggressive } from './BumptyAggressive';
 import { BuriedVegetable } from './BuriedVegetable';
@@ -414,6 +415,7 @@ const entityMap = {
 	BulletBillGeneratorCardinal,
 	BulletBillGeneratorDiagonal,
 	BulletBillTargeting,
+	BulletBillTargetingGenerator,
 	Bumpty,
 	BumptyAggressive,
 	BuriedVegetable,

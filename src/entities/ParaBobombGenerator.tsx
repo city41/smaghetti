@@ -82,8 +82,8 @@ const ParaBobombGenerator: Entity = {
 		return (
 			<GeneratorFrame
 				size={size}
-				className="ParaBobombGenerator-bg"
-				style={style}
+				resourceClassName="ParaBobombGenerator-bg bg-no-repeat"
+				resourceStyle={style}
 			/>
 		);
 	},

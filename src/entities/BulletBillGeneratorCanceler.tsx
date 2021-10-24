@@ -74,8 +74,8 @@ const BulletBillGeneratorCanceler: Entity = {
 			<GeneratorFrame
 				canceler
 				size={size}
-				className="BulletBillGeneratorCanceler-bg"
-				style={style}
+				resourceClassName="BulletBillGeneratorCanceler-bg bg-no-repeat"
+				resourceStyle={style}
 			/>
 		);
 	},
