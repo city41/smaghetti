@@ -17,6 +17,7 @@ import {
 import { convertLevelNameToASCII } from './util';
 import isEqual from 'lodash/isEqual';
 import { encodeObjectSets } from '../entities/util';
+import { TILE_SIZE } from '../tiles/constants';
 
 const ENTITIES = Object.freeze(Object.values(entityMap));
 
@@ -262,6 +263,23 @@ function cellsToMatrix(
 	return { idCounter, matrix };
 }
 
+function parsePlayer(levelBytes: Uint8Array, index: number): NewEditorEntity {
+	const view = new DataView(levelBytes.buffer);
+	const levelSettingsPointer = ROOM_LEVELSETTING_POINTERS[index];
+	const levelSettingsOffset = view.getUint16(levelSettingsPointer, true);
+
+	const playerY = levelBytes[levelSettingsOffset + 8];
+	const playerX = levelBytes[levelSettingsOffset + 9];
+
+	return {
+		type: 'Player',
+		x: playerX * TILE_SIZE,
+		// +1 because nintendo stores mario's position as if he is super Mario,
+		// but Smaghetti stores it as if he is normal Mario
+		y: (playerY + 1) * TILE_SIZE,
+	};
+}
+
 function parseRoom(
 	levelBytes: Uint8Array,
 	index: number,
@@ -271,9 +289,10 @@ function parseRoom(
 		return null;
 	}
 
+	const player = parsePlayer(levelBytes, index);
 	const spriteEntities = parseSprites(levelBytes, index);
 	const { objectEntities, cellEntities } = parseObjects(levelBytes, index);
-	const allNonCellEntities = spriteEntities.concat(objectEntities);
+	const allNonCellEntities = spriteEntities.concat(objectEntities, player);
 
 	const actorSpriteEntities = allNonCellEntities.reduce<EditorEntity[]>(
 		(building, e) => {
