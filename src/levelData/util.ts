@@ -90,8 +90,16 @@ function convertASCIIToNumber(c: string): number {
 }
 
 export function convertLevelNameToASCII(levelName: Uint8Array): string {
+	let terminatorHit = false;
+
 	return levelName.reduce<string>((building, letter) => {
-		return building + convertCharacterToASCII(letter);
+		terminatorHit = terminatorHit || letter === 0xff;
+
+		if (terminatorHit) {
+			return building;
+		} else {
+			return building + convertCharacterToASCII(letter);
+		}
 	}, '');
 }
 
