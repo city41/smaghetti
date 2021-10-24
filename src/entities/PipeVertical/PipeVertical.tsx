@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import type { Entity } from '../types';
-import { encodeObjectSets, getBankParam1 } from '../util';
+import { encodeObjectSets, getBankParam1, parseParamFromBank } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { Resizer } from '../../components/Resizer';
@@ -12,6 +12,7 @@ import { TransportSource } from '../../components/Transport/TransportSource';
 import { getBasePipeProperties } from '../getBasePipeProperties';
 import { IconArrowUp, IconArrowDown } from '../../icons';
 import type { IconType } from '../../icons';
+import invert from 'lodash/invert';
 
 type PipeDirection = 'up' | 'down';
 
@@ -20,10 +21,18 @@ const transportDirectionToObjectId: Record<PipeDirection, number> = {
 	down: 0x1a,
 };
 
+const objectIdToTransportDirection = invert(
+	transportDirectionToObjectId
+) as Record<number, PipeDirection>;
+
 const nonTransportDirectionToObjectId: Record<PipeDirection, number> = {
 	up: 0x18,
 	down: 0x1b,
 };
+
+const objectIdToNonTransportDirection = invert(
+	nonTransportDirectionToObjectId
+) as Record<number, PipeDirection>;
 
 const directionIcons: Record<PipeDirection, IconType> = {
 	up: IconArrowUp,
@@ -64,6 +73,36 @@ const PipeVertical: Entity = {
 		const objectId = objectIdMap[direction];
 
 		return [getBankParam1(1, height - 1), y, x, objectId];
+	},
+
+	parseObject(data, offset) {
+		const objectId = data[offset + 3];
+		if (
+			data[offset] >= 0x40 &&
+			(objectIdToTransportDirection[objectId] ||
+				objectIdToNonTransportDirection[objectId])
+		) {
+			const height = parseParamFromBank(data[offset]) + 1;
+			const y = data[offset + 1] * TILE_SIZE;
+			const x = data[offset + 2] * TILE_SIZE;
+
+			return {
+				entities: [
+					{
+						type: 'PipeVertical',
+						x,
+						y,
+						settings: {
+							height,
+							direction:
+								objectIdToTransportDirection[objectId] ??
+								objectIdToNonTransportDirection[objectId],
+						},
+					},
+				],
+				offset: offset + 4,
+			};
+		}
 	},
 
 	simpleRender(size) {
