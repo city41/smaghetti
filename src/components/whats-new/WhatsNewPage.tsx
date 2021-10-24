@@ -91,8 +91,12 @@ function WhatsNewPage() {
 						<li>Bullet Bill - Targeting Generator</li>
 						<li>Nipper Plant - Shooting</li>
 						<li>Nipper Plant - Walking</li>
+						<li>Para Beetle Generator</li>
 					</ul>
-					<p>Thanks to Bryce for finding these!</p>
+					<p>
+						Thanks to Bryce for finding these! The Para Beetle generator
+						generates &quot;green&quot; para beetles! Except they are brown...
+					</p>
 				</NewEntry>
 				<NewEntry title="Bug fix: Waterfall background" date="2021-10-24">
 					<p>

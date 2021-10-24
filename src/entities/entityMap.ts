@@ -220,6 +220,7 @@ import { POWBlockSprite } from './POWBlock/POWBlockSprite';
 import { PSwitch } from './PSwitch';
 import { PSwitchDoor } from './PSwitchDoor';
 import { ParaBeetle } from './ParaBeetle';
+import { ParaBeetleGenerator } from './ParaBeetleGenerator';
 import { ParaBobombGenerator } from './ParaBobombGenerator';
 import { ParaBobombGeneratorCanceler } from './ParaBobombGeneratorCanceler';
 import { ParaBomberGoomba } from './ParaBomberGoomba';
@@ -579,6 +580,7 @@ const entityMap = {
 	PSwitch,
 	PSwitchDoor,
 	ParaBeetle,
+	ParaBeetleGenerator,
 	ParaBobombGenerator,
 	ParaBobombGeneratorCanceler,
 	ParaBomberGoomba,
