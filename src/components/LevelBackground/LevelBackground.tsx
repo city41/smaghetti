@@ -256,6 +256,20 @@ function StormyClouds() {
 	);
 }
 
+function Jungle() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#004200' }}
+		>
+			<div
+				className="JungleBackground-bg w-full bg-repeat-x"
+				style={{ height: 224 }}
+			/>
+		</div>
+	);
+}
+
 const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.underground]: <Underground />,
 	[BACKGROUND_GRAPHIC_VALUES.fortress]: <Fortress />,
@@ -282,6 +296,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.pipes]: <Pipes />,
 	[BACKGROUND_GRAPHIC_VALUES['green-mountains']]: <GreenMountains />,
 	[BACKGROUND_GRAPHIC_VALUES['hills-in-clouds']]: <HillsInClouds />,
+	[BACKGROUND_GRAPHIC_VALUES.jungle]: <Jungle />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

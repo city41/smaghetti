@@ -73,6 +73,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	pipes: 0x35,
 	'green-mountains': 0xc,
 	'hills-in-clouds': 0xf,
+	jungle: 0x1c,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -224,5 +225,10 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['hills-in-clouds'],
 		bgColor: 0x98,
 		bgExtraColorAndEffect: 0x22,
+	},
+	jungle: {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES.jungle,
+		bgColor: 0x0,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 };

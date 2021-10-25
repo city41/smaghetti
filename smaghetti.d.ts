@@ -71,7 +71,8 @@ type BackgroundGraphic =
 	| 'bowser-castle'
 	| 'pipes'
 	| 'green-mountains'
-	| 'hills-in-clouds';
+	| 'hills-in-clouds'
+	| 'jungle';
 
 type BackgroundExtraColorAndEffect =
 	| 'none'

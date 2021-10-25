@@ -86,6 +86,12 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Background" date="2021-10-25">
+					<ul>
+						<li>Jungle</li>
+					</ul>
+					<p>Again thanks to Bryce for locating this one.</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-10-24">
 					<ul>
 						<li>Boomerang Bro - Drops Boomerang</li>
