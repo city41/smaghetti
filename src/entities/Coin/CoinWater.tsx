@@ -7,12 +7,14 @@ import {
 import { TILE_SIZE } from '../../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
+import { IconWater } from '../../icons';
 
 const CoinWater: Entity = {
+	paletteCategory: 'object',
 	paletteInfo: {
 		title: 'Coin - Water',
-		warning:
-			'Causes crashes if used outside of water levels, needs more research',
+		description:
+			'A coin for water levels, Mario keeps swimming when touching these coins',
 	},
 
 	objectSets: encodeObjectSets([
@@ -50,12 +52,37 @@ const CoinWater: Entity = {
 
 	simpleRender(size) {
 		return (
-			<div className="Coin-bg bg-cover" style={{ width: size, height: size }} />
+			<div
+				className="relative Coin-bg bg-cover"
+				style={{ width: size, height: size }}
+			>
+				<IconWater className="absolute -bottom-1 -right-1 w-4 h-4 text-blue-300" />
+			</div>
 		);
 	},
 
 	render() {
-		return this.simpleRender(TILE_SIZE);
+		return (
+			<div
+				className="relative Coin-bg bg-cover"
+				style={{ width: TILE_SIZE, height: TILE_SIZE }}
+			>
+				<IconWater
+					style={{ borderRadius: '10%' }}
+					className="absolute bottom-0 right-0 w-1 h-1 text-blue-200 bg-gray-800"
+				/>
+			</div>
+		);
+	},
+
+	getProblem({ room }) {
+		const hasChoppyWater = room.stage.entities.some(
+			(e) => e.type === 'ChoppyWater'
+		);
+
+		if (!hasChoppyWater) {
+			return 'Must add Choppy Water to this room, or the game will crash';
+		}
 	},
 };
 

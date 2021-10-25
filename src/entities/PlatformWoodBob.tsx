@@ -39,7 +39,7 @@ const PlatformWoodBob: Entity = {
 				style={{ width: size, height: size }}
 			>
 				<div className="flex flex-row items-center justify-center">
-					<IconWater />
+					<IconWater className="text-blue-300" />
 				</div>
 				<div
 					className="flex flex-row items-center"
@@ -69,7 +69,10 @@ const PlatformWoodBob: Entity = {
 		return (
 			<div style={style} className="relative">
 				<div className="absolute top-0 left-0 w-full h-full grid place-items-center">
-					<IconWater className="w-2 h-2" />
+					<IconWater
+						style={{ borderRadius: '10%' }}
+						className="w-2 h-2 bg-gray-800 text-blue-200"
+					/>
 				</div>
 				{platform}
 			</div>
