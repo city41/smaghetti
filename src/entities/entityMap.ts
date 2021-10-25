@@ -350,6 +350,7 @@ import { WoodBlock } from './WoodBlock';
 import { WoodColumn } from './WoodColumn';
 import { WoodColumnWide } from './WoodColumnWide';
 import { WoodDoor } from './WoodDoor';
+import { WoodDoor2 } from './WoodDoor2';
 import { WoodFloor } from './WoodFloor';
 import { WoodFloorGiant } from './WoodFloorGiant';
 import { WoodPlatform } from './WoodPlatform';
@@ -716,6 +717,7 @@ const entityMap = {
 	WoodColumn,
 	WoodColumnWide,
 	WoodDoor,
+	WoodDoor2,
 	WoodFloor,
 	WoodFloorGiant,
 	WoodPlatform,

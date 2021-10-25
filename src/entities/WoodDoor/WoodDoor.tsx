@@ -7,6 +7,8 @@ const WoodDoor: Entity = {
 	...getBaseDoorProperties('WoodDoor-bg', 0xf),
 	paletteInfo: {
 		title: 'Wood Door',
+		description:
+			'Both wood doors behave the same, they just have different compatibilities.',
 	},
 
 	objectSets: encodeObjectSets(objectSets),
