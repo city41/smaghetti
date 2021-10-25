@@ -1,15 +1,15 @@
 import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
-import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
 import { parseSimpleSprite } from './util';
+import { GeneratorFrame } from './components/GeneratorFrame';
 
 const DolphinPod: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		subCategory: 'enemy-water',
-		title: 'Dolphin Pod',
+		subCategory: 'enemy-generator',
+		title: 'Dolphin - Horizontal Generator',
 		description: 'These need some water to play in',
 	},
 
@@ -29,25 +29,23 @@ const DolphinPod: Entity = {
 	},
 
 	simpleRender(size) {
-		const style = { width: size, height: size, backgroundSize: '100% 50%' };
+		const style = {
+			backgroundPositionX: '30%',
+			backgroundPositionY: '25%',
+			backgroundSize: '80%',
+		};
+
 		return (
-			<div
-				className="HorizontalDolphin-bg bg-center bg-no-repeat"
-				style={style}
+			<GeneratorFrame
+				size={size}
+				resourceClassName="HorizontalDolphin-bg bg-no-repeat"
+				resourceStyle={style}
 			/>
 		);
 	},
 
 	render() {
-		const width = TILE_SIZE * 2.5;
-		const height = TILE_SIZE;
-
-		const style = { width, height, paddingRight: TILE_SIZE * 1.5 };
-		return (
-			<div className="HorizontalDolphin-bg bg-cover bg-no-repeat" style={style}>
-				<TileSpace />
-			</div>
-		);
+		return this.simpleRender(TILE_SIZE);
 	},
 };
 
