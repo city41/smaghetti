@@ -2,7 +2,6 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
-import { TileSpace } from './TileSpace';
 import { parseSimpleSprite } from './util';
 
 const BlooperNannyFourWay: Entity = {

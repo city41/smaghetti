@@ -72,7 +72,8 @@ type BackgroundGraphic =
 	| 'pipes'
 	| 'green-mountains'
 	| 'hills-in-clouds'
-	| 'jungle';
+	| 'jungle'
+	| 'toad-house';
 
 type BackgroundExtraColorAndEffect =
 	| 'none'

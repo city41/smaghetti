@@ -97,8 +97,13 @@ function WhatsNewPage() {
 				<NewEntry title="New Background" date="2021-10-25">
 					<ul>
 						<li>Jungle</li>
+						<li>Toad House</li>
 					</ul>
-					<p>Again thanks to Bryce for locating this one.</p>
+					<p>
+						For Toad House, it is only big enough for a single screen room. So a
+						bit limiting, but with a scroll stop in place it can be used.
+					</p>
+					<p>Again thanks to Bryce for locating these</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2021-10-24">
 					<ul>

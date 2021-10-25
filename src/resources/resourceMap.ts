@@ -106,6 +106,8 @@ import { TetrisRoomBackground } from './TetrisRoomBackground';
 import { ThreeNumberBlock } from './ThreeNumberBlock';
 import { TiltPlatformBall } from './TiltPlatformBall';
 import { TiltPlatformPivot } from './TiltPlatformPivot';
+import { ToadHouseBackground } from './ToadHouseBackground';
+import { ToadHouseNullBackground } from './ToadHouseNullBackground';
 import { TwoNumberBlock } from './TwoNumberBlock';
 import { UndergroundBackground } from './UndergroundBackground';
 import { UnderwaterBackground } from './UnderwaterBackground';
@@ -240,6 +242,8 @@ const resourceMap = {
 	ThreeNumberBlock,
 	TiltPlatformBall,
 	TiltPlatformPivot,
+	ToadHouseBackground,
+	ToadHouseNullBackground,
 	TwoNumberBlock,
 	UndergroundBackground,
 	UnderwaterBackground,

@@ -74,6 +74,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'green-mountains': 0xc,
 	'hills-in-clouds': 0xf,
 	jungle: 0x1c,
+	'toad-house': 0x17,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -228,6 +229,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	jungle: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.jungle,
+		bgColor: 0x0,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'toad-house': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['toad-house'],
 		bgColor: 0x0,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
