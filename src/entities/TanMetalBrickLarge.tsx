@@ -4,11 +4,11 @@ import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
-const TanMetalBrickMedium: Entity = {
+const TanMetalBrickLarge: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-desert',
-		title: 'Tan Metal Brick - Medium',
+		title: 'Tan Metal Brick - Large',
 	},
 
 	objectSets: encodeObjectSets([[9, 9]]),
@@ -16,10 +16,11 @@ const TanMetalBrickMedium: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x42,
+	objectId: 0x43,
 	emptyBank: 0,
-	width: 6,
-	height: 3,
+	width: 8,
+	height: 4,
+
 	resource: {
 		palettes: [
 			[
@@ -89,6 +90,22 @@ const TanMetalBrickMedium: Entity = {
 				},
 				{
 					romOffset: 1501760,
+					tileIndex: 14,
+				},
+				{
+					romOffset: 1501760,
+					tileIndex: 14,
+				},
+				{
+					romOffset: 1501760,
+					tileIndex: 14,
+				},
+				{
+					romOffset: 1501760,
+					tileIndex: 14,
+				},
+				{
+					romOffset: 1501760,
 					tileIndex: 17,
 				},
 			],
@@ -107,22 +124,6 @@ const TanMetalBrickMedium: Entity = {
 				510,
 				510,
 				510,
-				{
-					romOffset: 1501760,
-					tileIndex: 21,
-				},
-			],
-			[
-				{
-					romOffset: 1501760,
-					tileIndex: 18,
-				},
-				510,
-				510,
-				510,
-				510,
-				510,
-				510,
 				510,
 				510,
 				510,
@@ -147,6 +148,10 @@ const TanMetalBrickMedium: Entity = {
 				510,
 				510,
 				510,
+				510,
+				510,
+				510,
+				510,
 				{
 					romOffset: 1501760,
 					tileIndex: 21,
@@ -157,6 +162,82 @@ const TanMetalBrickMedium: Entity = {
 					romOffset: 1501760,
 					tileIndex: 18,
 				},
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				{
+					romOffset: 1501760,
+					tileIndex: 21,
+				},
+			],
+			[
+				{
+					romOffset: 1501760,
+					tileIndex: 18,
+				},
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				{
+					romOffset: 1501760,
+					tileIndex: 21,
+				},
+			],
+			[
+				{
+					romOffset: 1501760,
+					tileIndex: 18,
+				},
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				{
+					romOffset: 1501760,
+					tileIndex: 21,
+				},
+			],
+			[
+				{
+					romOffset: 1501760,
+					tileIndex: 18,
+				},
+				510,
+				510,
+				510,
+				510,
 				510,
 				510,
 				510,
@@ -219,6 +300,22 @@ const TanMetalBrickMedium: Entity = {
 				},
 				{
 					romOffset: 1501760,
+					tileIndex: 12,
+				},
+				{
+					romOffset: 1501760,
+					tileIndex: 12,
+				},
+				{
+					romOffset: 1501760,
+					tileIndex: 12,
+				},
+				{
+					romOffset: 1501760,
+					tileIndex: 12,
+				},
+				{
+					romOffset: 1501760,
 					tileIndex: 23,
 				},
 			],
@@ -237,7 +334,7 @@ const TanMetalBrickMedium: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="TanMetalBrickMedium-bg bg-center bg-no-repeat"
+				className="TanMetalBrickLarge-bg bg-center bg-no-repeat"
 				style={{
 					width: size,
 					height: size,
@@ -245,7 +342,7 @@ const TanMetalBrickMedium: Entity = {
 				}}
 			>
 				<div className="absolute bottom-0 left-0 w-full text-center bg-black text-white text-xs">
-					medium
+					large
 				</div>
 			</div>
 		);
@@ -253,12 +350,12 @@ const TanMetalBrickMedium: Entity = {
 
 	render() {
 		const style = {
-			width: TILE_SIZE * 6,
-			height: TILE_SIZE * 3,
+			width: TILE_SIZE * 8,
+			height: TILE_SIZE * 4,
 		};
 
-		return <div className="TanMetalBrickMedium-bg bg-cover" style={style} />;
+		return <div className="TanMetalBrickLarge-bg bg-cover" style={style} />;
 	},
 };
 
-export { TanMetalBrickMedium };
+export { TanMetalBrickLarge };
