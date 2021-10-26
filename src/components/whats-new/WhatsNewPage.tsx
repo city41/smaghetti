@@ -91,8 +91,9 @@ function WhatsNewPage() {
 						<li>Blooper Nanny - Four Way</li>
 						<li>Dolphin - Horizontal</li>
 						<li>Dolphin - Vertical</li>
+						<li>Snow Covered Grass Floor</li>
 					</ul>
-					<p>Props to Bryce yet again</p>
+					<p>Props to Bryce yet again, and Maikli Messes as well</p>
 				</NewEntry>
 				<NewEntry title="New Background" date="2021-10-25">
 					<ul>

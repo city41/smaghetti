@@ -301,6 +301,7 @@ import { SilverPSwitch } from './SilverPSwitch';
 import { SimpleBlackDoor } from './SimpleBlackDoor';
 import { SledgeBro } from './SledgeBro';
 import { SnakeBlock } from './SnakeBlock';
+import { SnowCoveredGrassFloor } from './SnowCoveredGrassFloor';
 import { SnowPlateau } from './SnowPlateau';
 import { Spike } from './Spike';
 import { SpikeBall } from './SpikeBall';
@@ -668,6 +669,7 @@ const entityMap = {
 	SimpleBlackDoor,
 	SledgeBro,
 	SnakeBlock,
+	SnowCoveredGrassFloor,
 	SnowPlateau,
 	Spike,
 	SpikeBall,
