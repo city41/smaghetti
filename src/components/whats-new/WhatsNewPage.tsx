@@ -92,6 +92,8 @@ function WhatsNewPage() {
 						<li>Dolphin - Horizontal</li>
 						<li>Dolphin - Vertical</li>
 						<li>Snow Covered Grass Floor</li>
+						<li>Wood Floor - Giant Left End Cap</li>
+						<li>Wood Floor - Giant Right End Cap</li>
 					</ul>
 					<p>Props to Bryce yet again, and Maikli Messes as well</p>
 				</NewEntry>
