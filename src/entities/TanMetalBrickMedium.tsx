@@ -1,14 +1,13 @@
 import type { Entity } from './types';
-import { encodeObjectSets } from './util';
+import { encodeObjectSets, parseSimpleObject } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { TileSpace } from './TileSpace';
 
-const TanMetalBricksSmallPyramid: Entity = {
+const TanMetalBrickMedium: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-large',
+		subCategory: 'terrain-desert',
 		title: 'Tan Metal Brick - Medium',
 	},
 
@@ -17,11 +16,10 @@ const TanMetalBricksSmallPyramid: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x2,
+	objectId: 0x42,
 	emptyBank: 0,
-	width: 12,
-	height: 6,
-
+	width: 6,
+	height: 3,
 	resource: {
 		palettes: [
 			[
@@ -42,950 +40,204 @@ const TanMetalBricksSmallPyramid: Entity = {
 				0,
 				0,
 			],
-			[
-				31744,
-				0,
-				32767,
-				24035,
-				31400,
-				5278,
-				607,
-				9055,
-				8973,
-				0,
-				0,
-				0,
-				25535,
-				0,
-				0,
-				0,
-			],
 		],
 		tiles: [
 			[
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 16,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 14,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 14,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 14,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 14,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 14,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 14,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				16,
-				14,
-				14,
-				14,
-				14,
-				14,
-				14,
-				17,
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 14,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 14,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 14,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 14,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 17,
 				},
 			],
 			[
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 18,
 				},
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				18,
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				21,
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 21,
 				},
 			],
 			[
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 18,
 				},
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				18,
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				21,
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 21,
 				},
 			],
 			[
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 18,
 				},
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				22,
-				12,
-				12,
-				12,
-				12,
-				12,
-				12,
-				23,
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 21,
 				},
 			],
 			[
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 18,
 				},
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
+				510,
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				16,
-				14,
-				14,
-				14,
-				14,
-				14,
-				14,
-				17,
-				16,
-				14,
-				14,
-				14,
-				14,
-				14,
-				14,
-				17,
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 21,
 				},
 			],
 			[
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 22,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 12,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 12,
 				},
 				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
+					romOffset: 1501760,
+					tileIndex: 12,
 				},
-				18,
 				{
-					romOffset: 1486172,
-					tileIndex: 510,
+					romOffset: 1501760,
+					tileIndex: 12,
 				},
 				{
-					romOffset: 1486172,
-					tileIndex: 510,
+					romOffset: 1501760,
+					tileIndex: 12,
 				},
 				{
-					romOffset: 1486172,
-					tileIndex: 510,
+					romOffset: 1501760,
+					tileIndex: 12,
 				},
 				{
-					romOffset: 1486172,
-					tileIndex: 510,
+					romOffset: 1501760,
+					tileIndex: 12,
 				},
 				{
-					romOffset: 1486172,
-					tileIndex: 510,
+					romOffset: 1501760,
+					tileIndex: 12,
 				},
 				{
-					romOffset: 1486172,
-					tileIndex: 510,
+					romOffset: 1501760,
+					tileIndex: 12,
 				},
-				21,
-				18,
 				{
-					romOffset: 1486172,
-					tileIndex: 510,
+					romOffset: 1501760,
+					tileIndex: 12,
 				},
 				{
-					romOffset: 1486172,
-					tileIndex: 510,
+					romOffset: 1501760,
+					tileIndex: 23,
 				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				21,
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-			],
-			[
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				18,
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				21,
-				18,
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				21,
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-			],
-			[
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				22,
-				12,
-				12,
-				12,
-				12,
-				12,
-				12,
-				23,
-				22,
-				12,
-				12,
-				12,
-				12,
-				12,
-				12,
-				23,
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-				{
-					romOffset: 1253344,
-					tileIndex: 255,
-					palette: 1,
-				},
-			],
-			[
-				16,
-				14,
-				14,
-				14,
-				14,
-				14,
-				14,
-				17,
-				16,
-				14,
-				14,
-				14,
-				14,
-				14,
-				14,
-				17,
-				16,
-				14,
-				14,
-				14,
-				14,
-				14,
-				14,
-				17,
-			],
-			[
-				18,
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				21,
-				18,
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				21,
-				18,
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				21,
-			],
-			[
-				18,
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				21,
-				18,
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				21,
-				18,
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				{
-					romOffset: 1486172,
-					tileIndex: 510,
-				},
-				21,
-			],
-			[
-				22,
-				12,
-				12,
-				12,
-				12,
-				12,
-				12,
-				23,
-				22,
-				12,
-				12,
-				12,
-				12,
-				12,
-				12,
-				23,
-				22,
-				12,
-				12,
-				12,
-				12,
-				12,
-				12,
-				23,
 			],
 		],
-		romOffset: 0x16ea40,
+		romOffset: 1486172,
 	},
 
 	toObjectBinary({ x, y }) {
-		return [0, y, x + 4, this.objectId];
+		return [0x40, y, x, this.objectId];
+	},
+
+	parseObject(data, offset) {
+		return parseSimpleObject(data, offset, 0x40, this);
 	},
 
 	simpleRender(size) {
 		return (
 			<div
-				className="TanMetalBricksSmallPyramid-bg bg-center bg-no-repeat"
+				className="TanMetalBrickMedium-bg bg-center bg-no-repeat"
 				style={{
 					width: size,
 					height: size,
@@ -997,16 +249,12 @@ const TanMetalBricksSmallPyramid: Entity = {
 
 	render() {
 		const style = {
-			width: TILE_SIZE * 12,
-			height: TILE_SIZE * 6,
+			width: TILE_SIZE * 6,
+			height: TILE_SIZE * 3,
 		};
 
-		return (
-			<div className="TanMetalBricksSmallPyramid-bg bg-cover" style={style}>
-				<TileSpace />
-			</div>
-		);
+		return <div className="TanMetalBrickMedium-bg bg-cover" style={style} />;
 	},
 };
 
-export { TanMetalBricksSmallPyramid };
+export { TanMetalBrickMedium };

@@ -8,7 +8,7 @@ import { TileSpace } from './TileSpace';
 const TanMetalBricksSmallPyramid: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-large',
+		subCategory: 'terrain-desert',
 		title: 'Tan Metal Brick - Pyramid',
 	},
 
