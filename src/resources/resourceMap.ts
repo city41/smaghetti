@@ -101,6 +101,7 @@ import { StormyCloudsBackground } from './StormyCloudsBackground';
 import { StretchBooPlatformLeft } from './StretchBooPlatformLeft';
 import { StretchBooPlatformRight } from './StretchBooPlatformRight';
 import { TallHillsBackground } from './TallHillsBackground';
+import { TanMetalBrickSmall } from './TanMetalBrickSmall';
 import { TanookiSuit } from './TanookiSuit';
 import { TetrisRoomBackground } from './TetrisRoomBackground';
 import { ThreeNumberBlock } from './ThreeNumberBlock';
@@ -237,6 +238,7 @@ const resourceMap = {
 	StretchBooPlatformLeft,
 	StretchBooPlatformRight,
 	TallHillsBackground,
+	TanMetalBrickSmall,
 	TanookiSuit,
 	TetrisRoomBackground,
 	ThreeNumberBlock,
