@@ -387,6 +387,7 @@ export const resourceShaMap: Record<string, string> = {
   "ColorfulMetalBoxUpperRight": "f51eea6fbffda25ddf26c5d24e30f49e9009007a",
   "CrystalUndergroundBackground": "cabf029b32d48b13a01f91e6226d56bad1a14c5b",
   "DesertBackground": "2b513ecb154dcefed2d313537b94fb824968771a",
+  "DesertBrickBackground": "513761982f5a7b1f6c52bf4969105173cb965a35",
   "DoorLock": "faed37aeb0ee40a60b0618cee5ba7823df2ffe05",
   "FlagPoleBall": "8355063e55cc4414e297c5888484669b9c0b0728",
   "FlagPoleShaft": "23d4a6c61952986fb675b0c462c40be413538e56",

@@ -86,6 +86,11 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Backgrounds" date="2021-10-26">
+					<ul>
+						<li>Desert Brick Wall</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-10-26">
 					<ul>
 						<li>Pipe Vertical - Double Ended</li>
@@ -105,7 +110,7 @@ function WhatsNewPage() {
 					</ul>
 					<p>Props to Bryce yet again, and Maikli Messes as well</p>
 				</NewEntry>
-				<NewEntry title="New Background" date="2021-10-25">
+				<NewEntry title="New Backgrounds" date="2021-10-25">
 					<ul>
 						<li>Jungle</li>
 						<li>Toad House</li>

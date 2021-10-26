@@ -39,6 +39,10 @@ function StoneWall() {
 	return <div className="StoneWallBackground-bg bg-black w-full h-full" />;
 }
 
+function DesertBrickBackground() {
+	return <div className="DesertBrickBackground-bg w-full h-full" />;
+}
+
 function BasementDungeon() {
 	return <div className="BasementDungeon-bg bg-black w-full h-full" />;
 }
@@ -309,6 +313,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['hills-in-clouds']]: <HillsInClouds />,
 	[BACKGROUND_GRAPHIC_VALUES.jungle]: <Jungle />,
 	[BACKGROUND_GRAPHIC_VALUES['toad-house']]: <ToadHouse />,
+	[BACKGROUND_GRAPHIC_VALUES['desert-brick-wall']]: <DesertBrickBackground />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

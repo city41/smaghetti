@@ -73,7 +73,8 @@ type BackgroundGraphic =
 	| 'green-mountains'
 	| 'hills-in-clouds'
 	| 'jungle'
-	| 'toad-house';
+	| 'toad-house'
+	| 'desert-brick-wall';
 
 type BackgroundExtraColorAndEffect =
 	| 'none'

@@ -75,6 +75,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'hills-in-clouds': 0xf,
 	jungle: 0x1c,
 	'toad-house': 0x17,
+	'desert-brick-wall': 0x28,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -234,6 +235,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'toad-house': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['toad-house'],
+		bgColor: 0x0,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'desert-brick-wall': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['desert-brick-wall'],
 		bgColor: 0x0,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
