@@ -17,9 +17,7 @@ const PipeAirshipVertical: Entity = {
 	...getBasePipeProperties('PipeAirshipVertical'),
 	paletteCategory: 'transport',
 	paletteInfo: {
-		title: 'Airship Pipe - Vertical',
-		description:
-			'Like normal pipes but with a smaller lip and only available in one direction.',
+		title: 'Pipe Airship - Vertical',
 	},
 
 	objectSets: encodeObjectSets([[10, 10]]),

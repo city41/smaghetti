@@ -33,9 +33,10 @@ function getPipeExitType(
 
 	// if this is a down or up-down pipe, are we at its lower left corner?
 	if (
-		destPipe.type === 'PipeVertical' &&
-		(destPipe.settings?.direction === 'down' ||
-			destPipe.settings?.direction === 'up-down') &&
+		((destPipe.type === 'PipeVertical' &&
+			(destPipe.settings?.direction === 'down' ||
+				destPipe.settings?.direction === 'up-down')) ||
+			destPipe.type === 'PipeAirshipDown') &&
 		// TODO: stop using pixel coords for entities
 		destPipe.x / TILE_SIZE === destination.x &&
 		destPipe.y / TILE_SIZE + (destPipe.settings?.height ?? 1) - 1 ===

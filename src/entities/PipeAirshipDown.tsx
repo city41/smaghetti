@@ -13,11 +13,11 @@ import { Resizer } from '../components/Resizer';
 import styles from '../components/Resizer/ResizingStyles.module.css';
 
 const PipeAirshipDown: Entity = {
-	paletteCategory: 'terrain',
+	paletteCategory: 'transport',
 	paletteInfo: {
-		subCategory: 'terrain-airship',
 		title: 'Pipe - Airship Down',
-		description: 'This pipe can not be used as a warp',
+		description:
+			'You can not use this pipe as the start of a warp, but it can be a warp destination.',
 	},
 
 	objectSets: encodeObjectSets([[10, 10]]),

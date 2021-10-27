@@ -86,6 +86,17 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Airship pipe update" date="2021-10-27">
+					<p>
+						You can&apos;t use downward airship pipes to start a warp to
+						someplace else, but you can use them as a warp destination.
+						Yesterday Smaghetti didn&apos;t quite support that, but now it does.
+					</p>
+					<p>
+						The downward airship pipe is now in the &quote;Warps&quote; section
+						in the entity chooser.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-10-26">
 					<ul>
 						<li>Desert Brick Wall</li>
