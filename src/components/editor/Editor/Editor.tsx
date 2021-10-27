@@ -42,6 +42,8 @@ type EditorProps = {
 	creatorName?: string;
 };
 
+const FOOTER_STYLE = { gridColumn: '1 / -1', gridRow: '3' };
+
 function toFreshEditor() {
 	window.location.replace('/editor');
 }
@@ -231,7 +233,7 @@ function Editor({
 					)}
 					{!isPlaying && (
 						<Footer
-							style={{ gridColumn: '1 / -1', gridRow: '3' }}
+							style={FOOTER_STYLE}
 							className="w-full pointer-events-auto"
 							onProblemClick={handleProblemClick}
 						/>
