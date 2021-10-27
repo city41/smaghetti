@@ -25,7 +25,7 @@ const PipeAirshipDown: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	settingsType: 'single',
-	defaultSettings: { height: 3 },
+	defaultSettings: { height: 2 },
 	dimensions: 'none',
 	param1: 'height',
 	objectId: 0x3a,
