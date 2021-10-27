@@ -11,7 +11,7 @@ import { TransportSource } from '../components/Transport/TransportSource';
 import { getBasePipeProperties } from './getBasePipeProperties';
 
 const transportObjectId = 0x17;
-const nonTransportObjectId = 0x3a;
+const nonTransportObjectId = 0x18;
 
 const PipeAirshipVertical: Entity = {
 	...getBasePipeProperties('PipeAirshipVertical'),
