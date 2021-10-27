@@ -46,7 +46,7 @@ export const resourceShaMap: Record<string, string> = {
   "BillBlasterBurnerFlame": "4b4de7054d9642ee35b887f3ef45a084cfed9b2f",
   "Blooper": "eb81f134ca7d46f0415af061bf2a92680d3e714a",
   "BlueCoin": "261f6473b1e9300ecff46b8d3fbfbe3198dfbcbd",
-  "Bobomb": "1d4fd085c9196d38cccc423f3116cbc5dc789d84",
+  "Bobomb": "7f7d879b069d5fe733886bf8edabd6e8829aa1ae",
   "BoltHeadRight": "032921119b8dea6d6ba323b32b3f50e12a19e230",
   "BoltHeadUp": "be7e0c7235077f867c490b7a0f432876ff79704f",
   "Bomb": "4151367f06d294cafc89db772793cdfc94ccaf25",

@@ -41,7 +41,7 @@ const Bobomb: Entity = {
 		],
 		romOffset: 0x163768,
 		tiles: [
-			[744, 745],
+			[746, 747],
 			[762, 763],
 		],
 	},
