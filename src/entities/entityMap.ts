@@ -124,7 +124,6 @@ import { DownFortressSpike } from './DownFortressSpike';
 import { DryBones } from './DryBones';
 import { ECoin } from './ECoin';
 import { EndOfLevelBackdrop } from './EndOfLevelBackdrop';
-import { EyeBallBlock } from './EyeBallBlock';
 import { FallAwayPlatform } from './platforms/FallAwayPlatform';
 import { FallAwaySpike } from './FallAwaySpike';
 import { FireBar } from './FireBar';
@@ -497,7 +496,6 @@ const entityMap = {
 	DryBones,
 	ECoin,
 	EndOfLevelBackdrop,
-	EyeBallBlock,
 	FallAwayPlatform,
 	FallAwaySpike,
 	FireBar,
