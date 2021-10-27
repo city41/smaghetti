@@ -11,6 +11,7 @@ type CanvasOffsetContainerProps = {
 	offset: Point;
 	scale: number;
 	mouseMode: MouseMode;
+	preventPanClicks?: boolean;
 	dragOffset: Point | null;
 	onSelectDrag: (arg: { bounds: Bounds; startingPoint: Point }) => void;
 	onCancelDrag: () => void;
@@ -29,6 +30,7 @@ function CanvasOffsetContainer({
 	offset,
 	scale,
 	mouseMode,
+	preventPanClicks,
 	dragOffset,
 	onSelectDrag,
 	onPan,
@@ -239,6 +241,14 @@ function CanvasOffsetContainer({
 		onSelectDrag({ bounds, startingPoint: startingMousePoint.current });
 	};
 
+	const handleMouseDownCapture = (e: React.MouseEvent) => {
+		if (mouseMode === 'pan' && preventPanClicks) {
+			e.stopPropagation();
+			e.preventDefault();
+			handleMouseDown(e);
+		}
+	};
+
 	const absoluteStyle = {
 		position: 'absolute' as const,
 		left: -offset.x * scale,
@@ -258,6 +268,7 @@ function CanvasOffsetContainer({
 				}
 			)}
 			onMouseDown={handleMouseDown}
+			onMouseDownCapture={handleMouseDownCapture}
 		>
 			<div style={absoluteStyle}>{children}</div>
 			<div

@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, memo } from 'react';
 import clsx from 'clsx';
 import { createLevelData } from '../../../../levelData/createLevelData';
 import { compress } from '../../../../levelData/compress';
@@ -21,7 +21,7 @@ type InternalFooterProps = {
 
 const memoCompress = memoize(compress);
 
-function Footer({
+const Footer = memo(function Footer({
 	className,
 	style,
 	level,
@@ -57,7 +57,7 @@ function Footer({
 			/>
 		</div>
 	);
-}
+});
 
 export { Footer };
 export type { PublicFooterProps };
