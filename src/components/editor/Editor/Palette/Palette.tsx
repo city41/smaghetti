@@ -102,16 +102,18 @@ function Palette({
 			<div className="thinScrollbar overflow-x-auto h-full flex flex-row items-center flex-1 pb-1 ml-1">
 				{entries}
 			</div>
-			<PaletteChoiceModal
-				isOpen={modalOpen && !disabled}
-				validEntityTypes={validEntityTypes}
-				onEntryAdded={(addedEntry, keepOpen) => {
-					onPaletteEntryAdded(addedEntry);
-					setModalOpen(keepOpen);
-				}}
-				onEntryRemoved={onPaletteEntryRemove}
-				onCancel={() => setModalOpen(false)}
-			/>
+			{modalOpen && !disabled && (
+				<PaletteChoiceModal
+					isOpen
+					validEntityTypes={validEntityTypes}
+					onEntryAdded={(addedEntry, keepOpen) => {
+						onPaletteEntryAdded(addedEntry);
+						setModalOpen(keepOpen);
+					}}
+					onEntryRemoved={onPaletteEntryRemove}
+					onCancel={() => setModalOpen(false)}
+				/>
+			)}
 		</div>
 	);
 }

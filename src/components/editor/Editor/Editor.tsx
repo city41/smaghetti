@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -142,16 +142,24 @@ function Editor({
 		}
 	}
 
+	const handleProblemClick = useCallback(() => {
+		setShowProblems((sw) => !sw);
+	}, [setShowProblems]);
+
 	return (
 		<>
-			<LevelChooserModal
-				isOpen={isChoosingLevel}
-				onRequestClose={() => setIsChoosingLevel(false)}
-			/>
-			<KeyboardHelpModal
-				isOpen={showKeyboardHelpModal}
-				onRequestClose={() => setShowKeyboardHelpModal(false)}
-			/>
+			{isChoosingLevel && (
+				<LevelChooserModal
+					isOpen
+					onRequestClose={() => setIsChoosingLevel(false)}
+				/>
+			)}
+			{showKeyboardHelpModal && (
+				<KeyboardHelpModal
+					isOpen
+					onRequestClose={() => setShowKeyboardHelpModal(false)}
+				/>
+			)}
 			<div className="hidden sm:block select-none w-full h-full">
 				{noScript && (
 					<Warning>
@@ -225,9 +233,7 @@ function Editor({
 						<Footer
 							style={{ gridColumn: '1 / -1', gridRow: '3' }}
 							className="w-full pointer-events-auto"
-							onProblemClick={() => {
-								setShowProblems((sw) => !sw);
-							}}
+							onProblemClick={handleProblemClick}
 						/>
 					)}
 				</div>
