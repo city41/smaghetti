@@ -10,7 +10,7 @@ const Water: Entity = {
 		title: 'Water',
 		description:
 			'Adds water to a level going right and down from its location. Want a full on water level? This is what you want.',
-		warning: 'Just found this entity, more research and experimenting needed',
+		warning: 'This entity needs object priorities to work properly',
 	},
 
 	objectSets: encodeObjectSets([[6, 6]]),
