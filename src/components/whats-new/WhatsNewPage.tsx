@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { Root } from '../layout/Root';
+import { IconHeart, IconAlert } from '../../icons';
 
 import typographyStyles from '../../styles/typography.module.css';
 
@@ -9,7 +10,8 @@ import badWaterExamplePng from './BadBodyOfWaterExample.png';
 import goodWaterExamplePng from './GoodBodyOfWaterExample.png';
 import convertedButNotFixedPng from './convertedButNotFixed.png';
 import castleCorruptECoinPng from './castleCorruptECoin.png';
-import { IconHeart, IconAlert } from '../../icons';
+import exitingAGiantPipePng from './exitingAGiantPipe.png';
+import giantPipeExitPointPng from './giantPipeExitPoint.png';
 
 function dateToHumanString(input: string): string {
 	const date = new Date(input);
@@ -86,6 +88,22 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Giant pipes as warp exits" date="2021-10-27">
+					<p>
+						It is possible to set a giant pipe as an exit. When you do this,
+						Mario exits a bit on the left side.
+						<img
+							className="mt-4"
+							src={exitingAGiantPipePng}
+							alt="Mario exiting a giant pipe"
+						/>
+					</p>
+					<p>
+						Smaghetti now allows this, be sure to set the exit point here on a
+						giant pipe
+						<img src={giantPipeExitPointPng} alt="giant pipe exit point" />
+					</p>
+				</NewEntry>
 				<NewEntry title="Airship pipe update" date="2021-10-27">
 					<p>
 						You can&apos;t use downward airship pipes to start a warp to

@@ -23,7 +23,8 @@ function getPipeExitType(
 		((destPipe.type === 'PipeVertical' &&
 			(destPipe.settings?.direction === 'up' ||
 				destPipe.settings?.direction === 'up-down')) ||
-			destPipe.type === 'PipeAirshipVertical') &&
+			destPipe.type === 'PipeAirshipVertical' ||
+			destPipe.type === 'PipeVerticalGiant') &&
 		// TODO: stop using pixel coords for entities
 		destPipe.x / TILE_SIZE === destination.x &&
 		destPipe.y / TILE_SIZE === destination.y
