@@ -1,25 +1,23 @@
 import React from 'react';
 import clsx from 'clsx';
 import type { Entity } from './types';
-import { encodeObjectSets, getBankParam1 } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseParam1HeightEntityObject,
+} from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { Resizer } from '../components/Resizer';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
-import { TransportSource } from '../components/Transport/TransportSource';
-import { getBasePipeProperties } from './getBasePipeProperties';
 
-const transportObjectId = 0x17;
-const nonTransportObjectId = 0x3a;
-
-const PipeAirshipVertical: Entity = {
-	...getBasePipeProperties('PipeAirshipVertical'),
-	paletteCategory: 'transport',
+const PipeAirshipDown: Entity = {
+	paletteCategory: 'terrain',
 	paletteInfo: {
-		title: 'Airship Pipe - Vertical',
-		description:
-			'Like normal pipes but with a smaller lip and only available in one direction.',
+		subCategory: 'terrain-airship',
+		title: 'Pipe - Airship Down',
+		description: 'This pipe can not be used as a warp',
 	},
 
 	objectSets: encodeObjectSets([[10, 10]]),
@@ -27,42 +25,45 @@ const PipeAirshipVertical: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	settingsType: 'single',
-	defaultSettings: { width: 2, height: 2 },
+	defaultSettings: { height: 3 },
 	dimensions: 'none',
 	param1: 'height',
-	objectId: transportObjectId,
-	alternateObjectIds: [nonTransportObjectId],
+	objectId: 0x3a,
 	emptyBank: 1,
+	width: 2,
 
 	toObjectBinary({ x, y, settings }) {
 		const height = settings.height ?? 1;
 
-		const objectId = settings.destination
-			? transportObjectId
-			: nonTransportObjectId;
+		return [getBankParam1(1, height - 1), y, x, this.objectId];
+	},
 
-		return [getBankParam1(1, height - 1), y, x, objectId];
+	parseObject(data, offset) {
+		return parseParam1HeightEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {
 		const style = { width: size, height: size };
-		const lipStyle = { width: size, height: size / 2 };
-		const bodyStyle = { width: size, height: size / 2, backgroundSize: '100%' };
+		const lipStyle = { width: size, height: size / 4 };
+		const bodyStyle = {
+			width: size,
+			height: size - size / 4,
+			backgroundSize: '100%',
+		};
 
 		return (
-			<div className="flex flex-col" style={style}>
-				<div className="PipeAirshipVerticalLip-bg bg-cover" style={lipStyle} />
+			<div className="flex flex-col items-center" style={style}>
 				<div
 					className="PipeAirshipVerticalBody-bg bg-repeat-y"
 					style={bodyStyle}
 				/>
+				<div className="PipeAirshipVerticalLip-bg bg-cover" style={lipStyle} />
 			</div>
 		);
 	},
 
 	render({ settings, onSettingsChange, entity }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
-		const destination = settings.destination;
 
 		const style = {
 			width: 2 * TILE_SIZE,
@@ -71,37 +72,22 @@ const PipeAirshipVertical: Entity = {
 
 		const lipStyle = {
 			width: 2 * TILE_SIZE,
-			height: TILE_SIZE,
+			height: TILE_SIZE / 2,
 		};
 
-		const bodyHeight = height - 1;
+		const bodyHeight = Math.max(height - 0.5, 0);
 		const bodyStyle = {
 			width: 2 * TILE_SIZE,
 			height: bodyHeight * TILE_SIZE,
-			backgroundSize: '100%',
 		};
 
 		const size = { x: 1, y: height };
 
-		const upperLip = (
+		const lip = (
 			<div
-				className="PipeAirshipVerticalLip-bg flex flex-row items-center justify-around"
+				className="PipeAirshipVerticalLip-bg bg-cover"
 				style={lipStyle}
-			>
-				{!!entity && (
-					<>
-						<TransportSource
-							destRoom={destination?.room}
-							destX={destination?.x}
-							destY={destination?.y}
-							exitCategory="pipe"
-							onDestinationSet={(newDestination) => {
-								onSettingsChange({ destination: newDestination });
-							}}
-						/>
-					</>
-				)}
-			</div>
+			></div>
 		);
 
 		const body = (
@@ -118,9 +104,9 @@ const PipeAirshipVertical: Entity = {
 					[styles.resizing]: settings?.resizing,
 				})}
 			>
-				{upperLip}
 				{body}
-				{entity && (
+				{lip}
+				{!!entity && (
 					<Resizer
 						className="absolute bottom-0 right-0"
 						style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
@@ -139,4 +125,4 @@ const PipeAirshipVertical: Entity = {
 	},
 };
 
-export { PipeAirshipVertical };
+export { PipeAirshipDown };

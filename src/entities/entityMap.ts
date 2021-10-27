@@ -231,6 +231,7 @@ import { ParaGaloombaGenerator } from './ParaGaloombaGenerator';
 import { ParaGaloombaGeneratorCanceler } from './ParaGaloombaGeneratorCanceler';
 import { ParaGoomba } from './ParaGoomba';
 import { PileDriverMiniGoomba } from './PileDriverMiniGoomba';
+import { PipeAirshipDown } from './PipeAirshipDown';
 import { PipeAirshipVertical } from './PipeAirshipVertical';
 import { PipeCannonMini } from './PipeCannonMini';
 import { PipeCornerTransition } from './PipeCornerTransition';
@@ -608,6 +609,7 @@ const entityMap = {
 	PipeHorizontal,
 	PipeHorizontalMini,
 	PipeHorizontalMiniDoubleEnded,
+	PipeAirshipDown,
 	PipeAirshipVertical,
 	PipeVertical,
 	PipeVerticalDoubleEnded,
