@@ -127,7 +127,8 @@ function HexTreePage({
 			setTimeout(() => {
 				window._gba.setRom(getRom()!.buffer);
 				window._gba.defrost(cloneDeep(getSaveState()!));
-				window._gba.setSavedata(getEmptySave()!.buffer);
+				const saveFile = injectLevelIntoSave(getEmptySave()!, data, null);
+				window._gba.setSavedata(saveFile.buffer);
 				window._gba.runStable();
 			}, 10);
 		}
