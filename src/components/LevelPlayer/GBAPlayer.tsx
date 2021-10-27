@@ -18,6 +18,7 @@ type GBAPlayerProps = {
 	isPlaying: boolean;
 	scale?: number;
 	canvasRef: RefObject<HTMLCanvasElement>;
+	neverShowCrashScreen?: boolean;
 };
 
 function GBAPlayer({
@@ -31,6 +32,7 @@ function GBAPlayer({
 	isPlaying,
 	scale = 3,
 	canvasRef,
+	neverShowCrashScreen,
 }: GBAPlayerProps) {
 	const [gbaStatus, setGbaStatus] = useState<GBAStatus>('reset');
 	const [hasCrashed, setHasCrashed] = useState(false);
@@ -93,7 +95,7 @@ function GBAPlayer({
 					</div>
 				</>
 			)}
-			{hasCrashed && (
+			{hasCrashed && !neverShowCrashScreen && (
 				<>
 					<div className="absolute top-0 left-0 w-full h-full opacity-75 bg-red-700 z-10" />
 					<div className="absolute top-0 left-0 w-full h-full text-white z-10 p-3 space-y-2">

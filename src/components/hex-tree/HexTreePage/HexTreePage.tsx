@@ -226,6 +226,7 @@ function HexTreePage({
 										isPlaying={editState === 'running' || immediateMode}
 										scale={1.5}
 										canvasRef={canvasRef}
+										neverShowCrashScreen
 									/>
 									<PlainIconButton
 										className="absolute -left-12 -bottom-2 w-8 h-8 grid place-items-center"
