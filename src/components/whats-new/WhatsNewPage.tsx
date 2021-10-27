@@ -111,8 +111,8 @@ function WhatsNewPage() {
 						Yesterday Smaghetti didn&apos;t quite support that, but now it does.
 					</p>
 					<p>
-						The downward airship pipe is now in the &quote;Warps&quote; section
-						in the entity chooser.
+						The downward airship pipe is now in the &quot;Warps&quot; section in
+						the entity chooser.
 					</p>
 				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-10-26">
