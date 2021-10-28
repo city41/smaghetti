@@ -33,7 +33,8 @@ GameBoyAdvanceKeypad = function GameBoyAdvanceKeypad() {
 	this.R = 8;
 	this.L = 9;
 
-	this._currentDown = 0x03ff;
+	this._currentKeyDown = 0x03ff;
+	this._currentGamePadDown = 0x03ff;
 	this.ignoreInput = false;
 	this.eatInput = false;
 
@@ -50,14 +51,15 @@ GameBoyAdvanceKeypad = function GameBoyAdvanceKeypad() {
 			} else if (this.ignoreInput) {
 				return 0x03ff;
 			} else {
-				return this._currentDown;
+				return this._currentKeyDown & this._currentGamePadDown;
 			}
 		},
 	});
 };
 
 GameBoyAdvanceKeypad.prototype.reset = function () {
-	this._currentDown = 0x03ff;
+	this._currentKeyDown = 0x03ff;
+	this._currentGamePadDown = 0x03ff;
 };
 
 GameBoyAdvanceKeypad.prototype.feed = function (inputValue) {
@@ -106,9 +108,9 @@ GameBoyAdvanceKeypad.prototype.keyboardHandler = function (e) {
 
 	toggle = 1 << toggle;
 	if (e.type == 'keydown') {
-		this._currentDown &= ~toggle;
+		this._currentKeyDown &= ~toggle;
 	} else {
-		this._currentDown |= toggle;
+		this._currentKeyDown |= toggle;
 	}
 
 	if (this.eatInput) {
@@ -153,7 +155,7 @@ GameBoyAdvanceKeypad.prototype.gamepadHandler = function (gamepad) {
 		value |= 1 << this.R;
 	}
 
-	this._currentDown = ~value & 0x3ff;
+	this._currentGamePadDown = ~value & 0x3ff;
 };
 
 GameBoyAdvanceKeypad.prototype.gamepadConnectHandler = function () {
