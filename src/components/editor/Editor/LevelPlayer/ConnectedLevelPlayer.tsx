@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { LevelPlayer } from '../../../LevelPlayer';
@@ -19,8 +19,20 @@ type LevelPlayerProps = {
 };
 
 function ConnectedLevelPlayer(props: LevelPlayerProps) {
-	const { name, settings, rooms, currentRoomIndex } = useSelector(
+	const { mouseMode, name, settings, rooms, currentRoomIndex } = useSelector(
 		(state: AppState) => state.editor.present
+	);
+
+	const level = useMemo(
+		() => ({
+			name,
+			data: { settings, rooms: moveRoomToFront(rooms, currentRoomIndex) },
+		}),
+		[
+			mouseMode !== 'pan' && settings,
+			mouseMode !== 'pan' && rooms,
+			mouseMode !== 'pan' && currentRoomIndex,
+		]
 	);
 
 	const romFile = getRom();
@@ -37,11 +49,6 @@ function ConnectedLevelPlayer(props: LevelPlayerProps) {
 			return null;
 		}
 	}
-
-	const level = {
-		name,
-		data: { settings, rooms: moveRoomToFront(rooms, currentRoomIndex) },
-	};
 
 	return (
 		<LevelPlayer

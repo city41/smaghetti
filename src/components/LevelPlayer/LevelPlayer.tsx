@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode, useRef } from 'react';
+import React, { CSSProperties, ReactNode, useRef, memo } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import ReactDOM from 'react-dom';
 import clsx from 'clsx';
@@ -32,7 +32,7 @@ function BodyPortal({ children }: { children: ReactNode }) {
 	return ReactDOM.createPortal(children, document.body);
 }
 
-function LevelPlayer({
+const LevelPlayer = memo(function LevelPlayer({
 	isPlaying,
 	level,
 	biosFile,
@@ -103,7 +103,7 @@ function LevelPlayer({
 			</BodyPortal>
 		</div>
 	);
-}
+});
 
 export { LevelPlayer };
 export type { LevelPlayerProps };
