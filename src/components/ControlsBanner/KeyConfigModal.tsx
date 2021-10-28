@@ -3,7 +3,7 @@ import React, { ReactElement, ReactNode, useEffect } from 'react';
 import { Modal } from '../Modal';
 import { IconGamepad, IconKeyboard } from '../../icons';
 
-type ControlsHelpModalProps = {
+type KeyConfigModalProps = {
 	isOpen: boolean;
 	onRequestClose: () => void;
 };
@@ -24,10 +24,10 @@ function GamePadButton({ children }: { children: ReactNode }) {
 	);
 }
 
-function ControlsHelpModal({
+function KeyConfigModal({
 	isOpen,
 	onRequestClose,
-}: ControlsHelpModalProps): ReactElement {
+}: KeyConfigModalProps): ReactElement {
 	useEffect(() => {
 		if (isOpen) {
 			window._gba?.pause();
@@ -81,4 +81,4 @@ function ControlsHelpModal({
 	);
 }
 
-export { ControlsHelpModal };
+export { KeyConfigModal };
