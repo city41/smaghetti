@@ -76,6 +76,7 @@ type BackgroundGraphic =
 	| 'jungle'
 	| 'toad-house'
 	| 'desert-brick-wall'
+	| 'colorful-brick-wall'
 	| 'blue-and-green-stars';
 
 type BackgroundExtraColorAndEffect =

@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { BACKGROUND_GRAPHIC_VALUES } from '../../levelData/constants';
-import { FarAwayHillsInCloudsBackground } from '../../resources/FarAwayHillsInCloudsBackground';
 
 type LevelBackgroundProps = {
 	className?: string;
@@ -304,6 +303,17 @@ function ToadHouse() {
 	);
 }
 
+function ColorfulBrickWall() {
+	return (
+		<div className="w-full h-full flex flex-col justify-end ToadHouseNullBackground-bg">
+			<div
+				className="ColorfulBricksBackground-bg w-full bg-repeat"
+				style={{ height: 272, width: 256 }}
+			/>
+		</div>
+	);
+}
+
 const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.underground]: <Underground />,
 	[BACKGROUND_GRAPHIC_VALUES.fortress]: <Fortress />,
@@ -337,6 +347,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['far-away-hills-in-clouds']]: (
 		<FarAwayHillsInClouds />
 	),
+	[BACKGROUND_GRAPHIC_VALUES['colorful-brick-wall']]: <ColorfulBrickWall />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

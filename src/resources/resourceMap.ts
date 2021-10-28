@@ -21,6 +21,7 @@ import { ChargingChuckHead } from './ChargingChuckHead';
 import { ClimbingVineHead } from './ClimbingVineHead';
 import { CoinCache } from './CoinCache';
 import { CoinSnake } from './CoinSnake';
+import { ColorfulBricksBackground } from './ColorfulBricksBackground';
 import { ColorfulMetalBoxBottom } from './ColorfulMetalBoxBottom';
 import { ColorfulMetalBoxLeft } from './ColorfulMetalBoxLeft';
 import { ColorfulMetalBoxLowerLeft } from './ColorfulMetalBoxLowerLeft';
@@ -161,6 +162,7 @@ const resourceMap = {
 	ClimbingVineHead,
 	CoinCache,
 	CoinSnake,
+	ColorfulBricksBackground,
 	ColorfulMetalBoxBottom,
 	ColorfulMetalBoxLeft,
 	ColorfulMetalBoxLowerLeft,
