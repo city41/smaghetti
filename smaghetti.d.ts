@@ -72,6 +72,7 @@ type BackgroundGraphic =
 	| 'pipes'
 	| 'green-mountains'
 	| 'hills-in-clouds'
+	| 'far-away-hills-in-clouds'
 	| 'jungle'
 	| 'toad-house'
 	| 'desert-brick-wall'

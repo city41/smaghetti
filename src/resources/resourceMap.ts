@@ -33,6 +33,7 @@ import { CrystalUndergroundBackground } from './CrystalUndergroundBackground';
 import { DesertBackground } from './DesertBackground';
 import { DesertBrickBackground } from './DesertBrickBackground';
 import { DoorLock } from './DoorLock';
+import { FarAwayHillsInCloudsBackground } from './FarAwayHillsInCloudsBackground';
 import { FlagPoleBall } from './FlagPoleBall';
 import { FlagPoleShaft } from './FlagPoleShaft';
 import { FlutterBody } from './FlutterBody';
@@ -172,6 +173,7 @@ const resourceMap = {
 	DesertBackground,
 	DesertBrickBackground,
 	DoorLock,
+	FarAwayHillsInCloudsBackground,
 	FlagPoleBall,
 	FlagPoleShaft,
 	FlutterBody,

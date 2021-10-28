@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { BACKGROUND_GRAPHIC_VALUES } from '../../levelData/constants';
+import { FarAwayHillsInCloudsBackground } from '../../resources/FarAwayHillsInCloudsBackground';
 
 type LevelBackgroundProps = {
 	className?: string;
@@ -101,6 +102,20 @@ function HillsInClouds() {
 			<div
 				className="HillsInCloudsBackground-bg w-full bg-repeat-x"
 				style={{ height: 144 }}
+			/>
+		</div>
+	);
+}
+
+function FarAwayHillsInClouds() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#b5e7ff' }}
+		>
+			<div
+				className="FarAwayHillsInCloudsBackground-bg w-full bg-repeat-x"
+				style={{ height: 128 }}
 			/>
 		</div>
 	);
@@ -319,6 +334,9 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['toad-house']]: <ToadHouse />,
 	[BACKGROUND_GRAPHIC_VALUES['desert-brick-wall']]: <DesertBrickBackground />,
 	[BACKGROUND_GRAPHIC_VALUES['blue-and-green-stars']]: <BlueAndGreenStars />,
+	[BACKGROUND_GRAPHIC_VALUES['far-away-hills-in-clouds']]: (
+		<FarAwayHillsInClouds />
+	),
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {
