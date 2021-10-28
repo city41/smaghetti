@@ -88,6 +88,11 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Backgrounds" date="2021-10-28">
+					<ul>
+						<li>Blue and Green Stars</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="Giant pipes as warp exits" date="2021-10-27">
 					<p>
 						It is possible to set a giant pipe as an exit. When you do this,

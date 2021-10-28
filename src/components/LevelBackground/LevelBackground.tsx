@@ -27,6 +27,10 @@ function MetalBrick() {
 	return <div className="MetalBrickBackground-bg w-full h-full" />;
 }
 
+function BlueAndGreenStars() {
+	return <div className="BlueAndGreenStarsBackground-bg w-full h-full" />;
+}
+
 function CrystalUnderground() {
 	return <div className="CrystalUndergroundBackground-bg w-full h-full" />;
 }
@@ -314,6 +318,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.jungle]: <Jungle />,
 	[BACKGROUND_GRAPHIC_VALUES['toad-house']]: <ToadHouse />,
 	[BACKGROUND_GRAPHIC_VALUES['desert-brick-wall']]: <DesertBrickBackground />,
+	[BACKGROUND_GRAPHIC_VALUES['blue-and-green-stars']]: <BlueAndGreenStars />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {
