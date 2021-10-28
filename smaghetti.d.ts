@@ -53,6 +53,7 @@ type BackgroundGraphic =
 	| 'desert'
 	| 'ghost-house'
 	| 'tall-hills'
+	| 'tall-hills-but-shorter'
 	| 'tetris-room'
 	| 'metal-brick'
 	| 'winter'

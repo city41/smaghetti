@@ -93,7 +93,9 @@ function WhatsNewPage() {
 						<li>Blue and Green Stars</li>
 						<li>Colorful Brick Wall</li>
 						<li>Far Away Hills in Clouds</li>
+						<li>Tall Hills But Shorter</li>
 					</ul>
+					<p>Thanks again, Bryce</p>
 				</NewEntry>
 				<NewEntry title="Giant pipes as warp exits" date="2021-10-27">
 					<p>

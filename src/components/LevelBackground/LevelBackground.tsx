@@ -176,6 +176,20 @@ function TallHills() {
 	);
 }
 
+function TallHillsButShorter() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#8cb5ff' }}
+		>
+			<div
+				className="TallHillsBackground-bg w-full bg-repeat-x"
+				style={{ height: 192 }}
+			/>
+		</div>
+	);
+}
+
 function Winter() {
 	return (
 		<div
@@ -324,6 +338,9 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['bonus-room']]: <BonusRoom />,
 	[BACKGROUND_GRAPHIC_VALUES['tetris-room']]: <TetrisRoom />,
 	[BACKGROUND_GRAPHIC_VALUES['tall-hills']]: <TallHills />,
+	[BACKGROUND_GRAPHIC_VALUES['tall-hills-but-shorter']]: (
+		<TallHillsButShorter />
+	),
 	[BACKGROUND_GRAPHIC_VALUES['metal-brick']]: <MetalBrick />,
 	[BACKGROUND_GRAPHIC_VALUES.underwater]: <Underwater />,
 	[BACKGROUND_GRAPHIC_VALUES['crystal-underground']]: <CrystalUnderground />,

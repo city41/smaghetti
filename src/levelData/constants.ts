@@ -56,6 +56,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'bonus-room': 0x13,
 	'tetris-room': 0x33,
 	'tall-hills': 0x36,
+	'tall-hills-but-shorter': 0xa,
 	'metal-brick': 0x20,
 	winter: 0x8,
 	underwater: 0x25,
@@ -137,6 +138,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'tall-hills': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['tall-hills'],
+		bgColor: 0x84,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'tall-hills-but-shorter': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['tall-hills-but-shorter'],
 		bgColor: 0x84,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
