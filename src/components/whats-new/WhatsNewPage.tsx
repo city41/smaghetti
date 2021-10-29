@@ -102,7 +102,8 @@ function WhatsNewPage() {
 				<NewEntry title="Configurable GBA buttons" date="2021-10-29">
 					<p>
 						You can now configure your keyboard and gamepad when testing your
-						level in the GBA emulator.
+						level in the GBA emulator. When playing your level, click on
+						&quot;configure&quot; down at the bottom.
 					</p>
 					<p>
 						The config is saved to your browser, so if you later use Smaghetti
