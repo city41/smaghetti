@@ -165,7 +165,7 @@ function ManageLevel({
 				)}
 			>
 				<div
-					className="grid gap-x-4 gap-y-2 bg-gray-700 p-4"
+					className="grid gap-x-4 gap-y-2 bg-gray-700 p-4 max-w-3xl"
 					style={{ gridTemplateColumns: 'max-content 1fr' }}
 				>
 					<SettingsKey>Level Name</SettingsKey>
