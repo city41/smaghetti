@@ -11,6 +11,7 @@ import invert from 'lodash/invert';
 const payloadToObjectId = {
 	Mushroom: 1,
 	FireFlower: 2,
+	Leaf: 3,
 	FrogSuit: 4,
 	TanookiSuit: 5,
 	HammerBroSuit: 6,
