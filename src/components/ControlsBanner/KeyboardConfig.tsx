@@ -40,6 +40,8 @@ function keyCodeToString(keyCode: number): ReactNode {
 			return '=';
 		case 189:
 			return '-';
+		case 220:
+			return '\\';
 		default:
 			return String.fromCharCode(keyCode);
 	}
@@ -60,6 +62,10 @@ const keycodeToName = {
 	GBA_KEYCODE_DOWN: 'down',
 	GBA_KEYCODE_A: 'A (jump)',
 	GBA_KEYCODE_B: 'B (run)',
+	GBA_KEYCODE_L: 'L trigger',
+	GBA_KEYCODE_R: 'R trigger',
+	GBA_KEYCODE_SELECT: 'Select',
+	GBA_KEYCODE_START: 'Start',
 };
 
 const keySteps = Object.keys(keycodeToName) as Array<
@@ -101,32 +107,38 @@ function KeyboardConfig() {
 		body = (
 			<>
 				<div
-					className="grid gap-x-2 gap-y-2 items-center mx-auto"
-					style={{ gridTemplateColumns: 'repeat(3, min-content)' }}
+					className="grid gap-x-4 gap-y-2 items-center mx-auto"
+					style={{ gridTemplateColumns: 'repeat(2, max-content)' }}
 				>
 					<Kbd>{keyCodeToString(window.GBA_KEYCODE_LEFT)}</Kbd>
-					<div>-</div>
 					<div>left</div>
 					<Kbd>{keyCodeToString(window.GBA_KEYCODE_RIGHT)}</Kbd>
-					<div>-</div>
 					<div>right</div>
 					<Kbd>{keyCodeToString(window.GBA_KEYCODE_UP)}</Kbd>
-					<div>-</div>
 					<div>up</div>
 					<Kbd>{keyCodeToString(window.GBA_KEYCODE_DOWN)}</Kbd>
-					<div>-</div>
 					<div>down</div>
 				</div>
 				<div
-					className="grid gap-x-2 gap-y-2 items-center mx-auto"
-					style={{ gridTemplateColumns: 'repeat(3, min-content)' }}
+					className="grid gap-x-4 gap-y-2 items-center mx-auto"
+					style={{ gridTemplateColumns: 'repeat(2, max-content)' }}
 				>
 					<Kbd>{keyCodeToString(window.GBA_KEYCODE_A)}</Kbd>
-					<div>-</div>
-					<div>jump</div>
+					<div>
+						A <span className="text-xs text-gray-400">(jump)</span>
+					</div>
 					<Kbd>{keyCodeToString(window.GBA_KEYCODE_B)}</Kbd>
-					<div>-</div>
-					<div>run</div>
+					<div>
+						B <span className="text-xs text-gray-400">(run)</span>
+					</div>
+					<Kbd>{keyCodeToString(window.GBA_KEYCODE_L)}</Kbd>
+					<div>L</div>
+					<Kbd>{keyCodeToString(window.GBA_KEYCODE_R)}</Kbd>
+					<div>R</div>
+					<Kbd>{keyCodeToString(window.GBA_KEYCODE_SELECT)}</Kbd>
+					<div>Select</div>
+					<Kbd>{keyCodeToString(window.GBA_KEYCODE_START)}</Kbd>
+					<div>Start</div>
 				</div>
 			</>
 		);

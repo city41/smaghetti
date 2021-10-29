@@ -4,6 +4,8 @@ import { Modal } from '../Modal';
 import { KeyboardConfig } from './KeyboardConfig';
 import { GamepadConfig } from './GamepadConfig';
 
+import styles from './KeyConfigModal.module.css';
+
 type KeyConfigModalProps = {
 	isOpen: boolean;
 	onRequestClose: () => void;
@@ -31,6 +33,7 @@ function KeyConfigModal({
 			onOkClick={onRequestClose}
 			onRequestClose={onRequestClose}
 			title="Controls"
+			className={styles.modal}
 		>
 			<div className="grid grid-cols-2 gap-x-4">
 				<GamepadConfig />

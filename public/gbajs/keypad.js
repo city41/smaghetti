@@ -129,9 +129,6 @@ GameBoyAdvanceKeypad.prototype.feed = function (inputValue) {
 GameBoyAdvanceKeypad.prototype.keyboardHandler = function (e) {
 	var toggle = 0;
 	switch (e.keyCode) {
-		// purposely not letting users press start, to help ensure
-		// the automation doesn't get off track
-
 		case window.GBA_KEYCODE_START:
 			toggle = this.START;
 			break;
@@ -167,6 +164,7 @@ GameBoyAdvanceKeypad.prototype.keyboardHandler = function (e) {
 	}
 
 	toggle = 1 << toggle;
+
 	if (e.type == 'keydown') {
 		this._currentKeyDown &= ~toggle;
 	} else {
@@ -181,11 +179,9 @@ GameBoyAdvanceKeypad.prototype.keyboardHandler = function (e) {
 GameBoyAdvanceKeypad.prototype.gamepadHandler = function (gamepad) {
 	let value = 0;
 
-	// purposely not letting users press start, to help ensure
-	// the automation doesn't get off track
-	// if (gamepad.buttons[window.GBA_GAMEPAD_START].pressed) {
-	// 	value |= 1 << this.START;
-	// }
+	if (gamepad.buttons[window.GBA_GAMEPAD_START].pressed) {
+		value |= 1 << this.START;
+	}
 
 	if (gamepad.buttons[window.GBA_GAMEPAD_LEFT].pressed) {
 		value |= 1 << this.LEFT;

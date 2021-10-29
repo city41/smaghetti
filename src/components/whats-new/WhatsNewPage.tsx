@@ -88,6 +88,17 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Configurable GBA buttons" date="2021-10-29">
+					<p>
+						You can now configure your keyboard and gamepad when testing your
+						level in the GBA emulator.
+					</p>
+					<p>
+						The config is saved to your browser, so if you later use Smaghetti
+						on a different computer, you may need to configure your buttons
+						again.
+					</p>
+				</NewEntry>
 				<NewEntry title="New 'Music' Track" date="2021-10-28">
 					<p>You can now choose &quot;silence&quot; for a room&apos;s music.</p>
 				</NewEntry>

@@ -29,6 +29,10 @@ const buttonCodeToName = {
 	GBA_GAMEPAD_DOWN: 'down',
 	GBA_GAMEPAD_A: 'A (jump)',
 	GBA_GAMEPAD_B: 'B (run)',
+	GBA_GAMEPAD_L: 'L trigger',
+	GBA_GAMEPAD_R: 'R trigger',
+	GBA_GAMEPAD_SELECT: 'Select',
+	GBA_GAMEPAD_START: 'Start',
 };
 
 const buttonSteps = Object.keys(buttonCodeToName) as Array<
@@ -80,44 +84,58 @@ function GamepadConfig() {
 		body = (
 			<>
 				<div
-					className="grid gap-x-2 gap-y-2 items-center mx-auto"
-					style={{ gridTemplateColumns: 'repeat(3, min-content)' }}
+					className="grid gap-x-4 gap-y-2 items-center mx-auto"
+					style={{ gridTemplateColumns: 'repeat(2, max-content)' }}
 				>
 					<GamepadButton>
 						{gameCodeToString(window.GBA_GAMEPAD_LEFT)}
 					</GamepadButton>
-					<div>-</div>
 					<div>left</div>
 					<GamepadButton>
 						{gameCodeToString(window.GBA_GAMEPAD_RIGHT)}
 					</GamepadButton>
-					<div>-</div>
 					<div>right</div>
 					<GamepadButton>
 						{gameCodeToString(window.GBA_GAMEPAD_UP)}
 					</GamepadButton>
-					<div>-</div>
 					<div>up</div>
 					<GamepadButton>
 						{gameCodeToString(window.GBA_GAMEPAD_DOWN)}
 					</GamepadButton>
-					<div>-</div>
 					<div>down</div>
 				</div>
 				<div
-					className="grid gap-x-2 gap-y-2 items-center mx-auto"
-					style={{ gridTemplateColumns: 'repeat(3, min-content)' }}
+					className="grid gap-x-4 gap-y-2 items-center mx-auto"
+					style={{ gridTemplateColumns: 'repeat(2, max-content)' }}
 				>
 					<GamepadButton>
 						{gameCodeToString(window.GBA_GAMEPAD_A)}
 					</GamepadButton>
-					<div>-</div>
-					<div>jump</div>
+					<div>
+						A <span className="text-xs text-gray-400">(jump)</span>
+					</div>
 					<GamepadButton>
 						{gameCodeToString(window.GBA_GAMEPAD_B)}
 					</GamepadButton>
-					<div>-</div>
-					<div>run</div>
+					<div>
+						B <span className="text-xs text-gray-400">(run)</span>
+					</div>
+					<GamepadButton>
+						{gameCodeToString(window.GBA_GAMEPAD_L)}
+					</GamepadButton>
+					<div>L</div>
+					<GamepadButton>
+						{gameCodeToString(window.GBA_GAMEPAD_R)}
+					</GamepadButton>
+					<div>R</div>
+					<GamepadButton>
+						{gameCodeToString(window.GBA_GAMEPAD_SELECT)}
+					</GamepadButton>
+					<div>Select</div>
+					<GamepadButton>
+						{gameCodeToString(window.GBA_GAMEPAD_START)}
+					</GamepadButton>
+					<div>Start</div>
 				</div>
 			</>
 		);
@@ -137,7 +155,7 @@ function GamepadConfig() {
 					{body}
 				</div>
 				{hasGamepad && (
-					<p className="text-xs italic text-gray-400 text-center px-2">
+					<p className="text-xs italic text-gray-400 text-center px-6">
 						browsers don&apos;t tell what the button names are :( eventually I
 						will fix this
 					</p>

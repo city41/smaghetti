@@ -40,6 +40,10 @@ interface Window {
 	GBA_KEYCODE_DOWN: number;
 	GBA_KEYCODE_A: number;
 	GBA_KEYCODE_B: number;
+	GBA_KEYCODE_START: number;
+	GBA_KEYCODE_SELECT: number;
+	GBA_KEYCODE_L: number;
+	GBA_KEYCODE_R: number;
 
 	GBA_GAMEPAD_LEFT: number;
 	GBA_GAMEPAD_RIGHT: number;
@@ -47,4 +51,8 @@ interface Window {
 	GBA_GAMEPAD_DOWN: number;
 	GBA_GAMEPAD_A: number;
 	GBA_GAMEPAD_B: number;
+	GBA_GAMEPAD_START: number;
+	GBA_GAMEPAD_SELECT: number;
+	GBA_GAMEPAD_L: number;
+	GBA_GAMEPAD_R: number;
 }
