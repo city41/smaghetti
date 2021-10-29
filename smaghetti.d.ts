@@ -114,6 +114,7 @@ type MusicTrack =
 	| 'Classic Underwater'
 	| 'Classic Castle'
 	| 'Ghost House'
+	| 'Silence'
 	| 'Game Select Menu'
 	| 'Bonus Room'
 	| 'Credits'

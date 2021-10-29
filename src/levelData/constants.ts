@@ -35,6 +35,7 @@ export const MUSIC_VALUES: Record<MusicTrack, number> = {
 	'Classic Underwater': 0xe,
 	'Classic Castle': 0xf,
 	'Ghost House': 0x10,
+	Silence: 0x11,
 	'Game Select Menu': 0x14,
 	'Bonus Room': 0x1b,
 	Credits: 0x27,
