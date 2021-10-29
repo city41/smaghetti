@@ -80,7 +80,6 @@ type PaletteSubcategory =
 	| 'terrain-water'
 	| 'terrain-sky'
 	| 'terrain-damaging'
-	| 'terrain-statues'
 	| 'terrain-winter'
 	| 'terrain-large'
 	| 'terrain-checkered'

@@ -9,7 +9,6 @@ const LASER_OBJECT_ID = 0xa4;
 const BowserLaserStatue: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-statues',
 		title: 'Bowser Laser Statue',
 	},
 

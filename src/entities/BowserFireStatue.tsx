@@ -8,7 +8,6 @@ import { parseSimpleSprite } from './util';
 const BowserFireStatue: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-statues',
 		title: 'Bowser Fire Statue',
 	},
 
