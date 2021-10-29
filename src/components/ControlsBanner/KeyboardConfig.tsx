@@ -9,6 +9,10 @@ import {
 import { Button } from '../Button';
 
 function keyCodeToString(keyCode: number): ReactNode {
+	if (keyCode >= 112 && keyCode <= 123) {
+		return 'F' + (keyCode - 111);
+	}
+
 	switch (keyCode) {
 		case 37:
 			return <IconArrowLeft />;
@@ -18,6 +22,24 @@ function keyCodeToString(keyCode: number): ReactNode {
 			return <IconArrowRight />;
 		case 40:
 			return <IconArrowDown />;
+		case 17:
+			return 'CTRL';
+		case 92:
+			return 'meta';
+		case 16:
+			return 'shift';
+		case 32:
+			return 'space';
+		case 13:
+			return 'enter';
+		case 27:
+			return 'del';
+		case 9:
+			return 'tab';
+		case 187:
+			return '=';
+		case 189:
+			return '-';
 		default:
 			return String.fromCharCode(keyCode);
 	}
