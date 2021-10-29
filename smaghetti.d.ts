@@ -47,6 +47,7 @@ type EditorEntityMatrix = Array<EditorEntityRow | null | undefined>;
 type SerializedEditorEntityMatrix = Array<string | Array<string>>;
 
 type BackgroundGraphic =
+	| 'blank'
 	| 'underground'
 	| 'underground-cave'
 	| 'fortress'

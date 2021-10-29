@@ -48,6 +48,7 @@ export const MUSIC_VALUES: Record<MusicTrack, number> = {
 };
 
 export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
+	blank: 0x0,
 	// 0x1 - underwater with added terrain (repeat of 0x21)
 	'stormy-clouds': 0x2,
 	'inside-airship': 0x3,
@@ -129,6 +130,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	string,
 	RoomBackgroundSettings
 > = {
+	blank: {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES.blank,
+		bgColor: 0x0,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
 	underground: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.underground,
 		bgColor: 0x1,

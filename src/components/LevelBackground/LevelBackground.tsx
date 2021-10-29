@@ -342,6 +342,10 @@ function ColorfulBrickWall() {
 	);
 }
 
+function Blank() {
+	return <div className="w-full h-full bg-white" />;
+}
+
 const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES.underground]: <Underground />,
 	[BACKGROUND_GRAPHIC_VALUES.fortress]: <Fortress />,
@@ -380,6 +384,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	),
 	[BACKGROUND_GRAPHIC_VALUES['colorful-brick-wall']]: <ColorfulBrickWall />,
 	[BACKGROUND_GRAPHIC_VALUES['underground-cave']]: <UndergroundCave />,
+	[BACKGROUND_GRAPHIC_VALUES.blank]: <Blank />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {
