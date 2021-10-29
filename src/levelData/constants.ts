@@ -48,38 +48,40 @@ export const MUSIC_VALUES: Record<MusicTrack, number> = {
 };
 
 export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
-	underground: 0x37,
-	fortress: 0x6,
-	plains: 0x5,
-	desert: 0xd,
-	'ghost-house': 0x2c,
-	'bonus-room': 0x13,
-	'tetris-room': 0x33,
-	'tall-hills': 0x36,
-	'tall-hills-but-shorter': 0xa,
-	'metal-brick': 0x20,
-	winter: 0x8,
-	underwater: 0x25,
-	'crystal-underground': 0x14,
-	'hills-at-night': 0x1d,
-	'night-sky': 0x2a,
+	// 1 - underwater
 	'stormy-clouds': 0x2,
-	'stone-wall': 0x3a,
-	'basement-dungeon': 0x1f,
-	pyramids: 0xe,
 	'inside-airship': 0x3,
-	mountains: 0x11,
-	waterfalls: 0x16,
-	'bowser-castle': 0x1b,
-	pipes: 0x35,
+	'underground-cave': 0x4,
+	plains: 0x5,
+	fortress: 0x6,
+	winter: 0x8,
+	'tall-hills-but-shorter': 0xa,
 	'green-mountains': 0xc,
 	'hills-in-clouds': 0xf,
-	'far-away-hills-in-clouds': 0x39,
-	jungle: 0x1c,
+	desert: 0xd,
+	pyramids: 0xe,
+	mountains: 0x11,
+	'bonus-room': 0x13,
+	'crystal-underground': 0x14,
+	waterfalls: 0x16,
 	'toad-house': 0x17,
+	'bowser-castle': 0x1b,
+	jungle: 0x1c,
+	'hills-at-night': 0x1d,
+	'basement-dungeon': 0x1f,
+	'metal-brick': 0x20,
+	underwater: 0x25,
 	'desert-brick-wall': 0x28,
-	'blue-and-green-stars': 0x32,
+	'night-sky': 0x2a,
+	'ghost-house': 0x2c,
 	'colorful-brick-wall': 0x31,
+	'blue-and-green-stars': 0x32,
+	'tetris-room': 0x33,
+	pipes: 0x35,
+	'tall-hills': 0x36,
+	underground: 0x37,
+	'far-away-hills-in-clouds': 0x39,
+	'stone-wall': 0x3a,
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
@@ -93,9 +95,6 @@ export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
 	'lava-shimmer': 0x49,
 };
 
-// setting a room's background is several settings that generally should be bundled
-// together. It doesn't make sense to combine the cave background with the bgExtraColorAndEffect
-// from fortress (which is columns further in the background) for example
 export const ROOM_BACKGROUND_SETTINGS: Record<
 	string,
 	RoomBackgroundSettings
@@ -104,6 +103,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.underground,
 		bgColor: 0x1,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'underground-cave': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['underground-cave'],
+		bgColor: 0x84,
+		bgExtraColorAndEffect: 0x5a,
 	},
 	fortress: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.fortress,

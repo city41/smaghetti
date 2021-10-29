@@ -114,6 +114,7 @@ import { TiltPlatformPivot } from './TiltPlatformPivot';
 import { ToadHouseBackground } from './ToadHouseBackground';
 import { ToadHouseNullBackground } from './ToadHouseNullBackground';
 import { TwoNumberBlock } from './TwoNumberBlock';
+import { UndergroundCaveBackground } from './UndergroundCaveBackground';
 import { UndergroundBackground } from './UndergroundBackground';
 import { UnderwaterBackground } from './UnderwaterBackground';
 import { UnderwaterFloorBottom } from './UnderwaterFloorBottom';
@@ -255,6 +256,7 @@ const resourceMap = {
 	ToadHouseBackground,
 	ToadHouseNullBackground,
 	TwoNumberBlock,
+	UndergroundCaveBackground,
 	UndergroundBackground,
 	UnderwaterBackground,
 	UnderwaterFloorBottom,

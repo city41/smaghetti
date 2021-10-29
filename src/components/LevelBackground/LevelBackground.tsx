@@ -306,6 +306,20 @@ function Jungle() {
 	);
 }
 
+function UndergroundCave() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#8cbdff' }}
+		>
+			<div
+				className="UndergroundCaveBackground-bg w-full bg-repeat-x"
+				style={{ height: 320 }}
+			/>
+		</div>
+	);
+}
+
 function ToadHouse() {
 	return (
 		<div className="w-full h-full flex flex-col justify-end ToadHouseNullBackground-bg">
@@ -365,6 +379,7 @@ const bgToComponent: Record<number, ReactNode> = {
 		<FarAwayHillsInClouds />
 	),
 	[BACKGROUND_GRAPHIC_VALUES['colorful-brick-wall']]: <ColorfulBrickWall />,
+	[BACKGROUND_GRAPHIC_VALUES['underground-cave']]: <UndergroundCave />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

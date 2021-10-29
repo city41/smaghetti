@@ -48,6 +48,7 @@ type SerializedEditorEntityMatrix = Array<string | Array<string>>;
 
 type BackgroundGraphic =
 	| 'underground'
+	| 'underground-cave'
 	| 'fortress'
 	| 'plains'
 	| 'desert'

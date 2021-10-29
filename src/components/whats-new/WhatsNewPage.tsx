@@ -94,6 +94,7 @@ function WhatsNewPage() {
 						<li>Colorful Brick Wall</li>
 						<li>Far Away Hills in Clouds</li>
 						<li>Tall Hills But Shorter</li>
+						<li>Underground Cave</li>
 					</ul>
 					<p>Thanks again, Bryce</p>
 				</NewEntry>
