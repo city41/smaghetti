@@ -33,4 +33,11 @@ interface _GameBoyAdvance {
 interface Window {
 	GameBoyAdvance: _GameBoyAdvance;
 	_gba: InstanceType<_GameBoyAdvance>;
+
+	GBA_KEYCODE_LEFT: number;
+	GBA_KEYCODE_RIGHT: number;
+	GBA_KEYCODE_UP: number;
+	GBA_KEYCODE_DOWN: number;
+	GBA_KEYCODE_A: number;
+	GBA_KEYCODE_B: number;
 }

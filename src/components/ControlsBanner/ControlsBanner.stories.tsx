@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react';
 import { Meta } from '@storybook/react';
 
 import { ControlsBanner } from './ControlsBanner';
-import { ControlsHelpModal } from './ControlsHelpModal';
 
 const meta: Meta = {
 	title: 'ControlsBanner',
@@ -17,8 +16,4 @@ export const Basic = (): ReactElement => {
 			<ControlsBanner />
 		</div>
 	);
-};
-
-export const HelpModal = (): ReactElement => {
-	return <ControlsHelpModal isOpen onRequestClose={() => {}} />;
 };

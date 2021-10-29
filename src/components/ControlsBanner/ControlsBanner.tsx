@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import clsx from 'clsx';
-import { ControlsHelpModal } from './ControlsHelpModal';
+import { KeyConfigModal } from './KeyConfigModal';
 import { IconGamepad, IconKeyboard } from '../../icons';
 
 type ControlsBannerProps = {
@@ -13,7 +13,7 @@ function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 	return (
 		<div className="flex flex-col">
 			{showHelp && (
-				<ControlsHelpModal
+				<KeyConfigModal
 					isOpen={showHelp}
 					onRequestClose={() => setShowHelp(false)}
 				/>
@@ -32,7 +32,7 @@ function ControlsBanner({ className }: ControlsBannerProps): ReactElement {
 					className="text-blue-300 underline cursor-pointer"
 					onClick={() => setShowHelp((h) => !h)}
 				>
-					help
+					configure
 				</a>
 			</div>
 		</div>

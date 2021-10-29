@@ -1,26 +1,86 @@
 GameBoyAdvanceKeypad = function GameBoyAdvanceKeypad() {
-	this.KEYCODE_LEFT = 37;
-	this.KEYCODE_UP = 38;
-	this.KEYCODE_RIGHT = 39;
-	this.KEYCODE_DOWN = 40;
-	this.KEYCODE_START = 13;
-	this.KEYCODE_SELECT = 220;
-	this.KEYCODE_A = 88;
-	this.KEYCODE_B = 90;
-	this.KEYCODE_L = 65;
-	this.KEYCODE_R = 83;
+	window.GBA_KEYCODE_LEFT =
+		typeof localStorage.GBA_KEYCODE_LEFT === 'string'
+			? Number(localStorage.GBA_KEYCODE_LEFT)
+			: 37;
+	window.GBA_KEYCODE_UP =
+		typeof localStorage.GBA_KEYCODE_UP === 'string'
+			? Number(localStorage.GBA_KEYCODE_UP)
+			: 38;
+	window.GBA_KEYCODE_RIGHT =
+		typeof localStorage.GBA_KEYCODE_RIGHT === 'string'
+			? Number(localStorage.GBA_KEYCODE_RIGHT)
+			: 39;
+	window.GBA_KEYCODE_DOWN =
+		typeof localStorage.GBA_KEYCODE_DOWN === 'string'
+			? Number(localStorage.GBA_KEYCODE_DOWN)
+			: 40;
+	window.GBA_KEYCODE_START =
+		typeof localStorage.GBA_KEYCODE_START === 'string'
+			? Number(localStorage.GBA_KEYCODE_START)
+			: 13;
+	window.GBA_KEYCODE_SELECT =
+		typeof localStorage.GBA_KEYCODE_SELECT === 'string'
+			? Number(localStorage.GBA_KEYCODE_SELECT)
+			: 220;
+	window.GBA_KEYCODE_A =
+		typeof localStorage.GBA_KEYCODE_A === 'string'
+			? Number(localStorage.GBA_KEYCODE_A)
+			: 88;
+	window.GBA_KEYCODE_B =
+		typeof localStorage.GBA_KEYCODE_B === 'string'
+			? Number(localStorage.GBA_KEYCODE_B)
+			: 90;
+	window.GBA_KEYCODE_L =
+		typeof localStorage.GBA_KEYCODE_L === 'string'
+			? Number(localStorage.GBA_KEYCODE_L)
+			: 65;
+	window.GBA_KEYCODE_R =
+		typeof localStorage.GBA_KEYCODE_R === 'string'
+			? Number(localStorage.GBA_KEYCODE_R)
+			: 83;
 
-	this.GAMEPAD_LEFT = 14;
-	this.GAMEPAD_UP = 12;
-	this.GAMEPAD_RIGHT = 15;
-	this.GAMEPAD_DOWN = 13;
-	this.GAMEPAD_START = 9;
-	this.GAMEPAD_SELECT = 8;
-	this.GAMEPAD_A = 0; // A on an XB1 controller
-	this.GAMEPAD_B = 2; // X on an XB1 controller
-	this.GAMEPAD_L = 4;
-	this.GAMEPAD_R = 5;
-	this.GAMEPAD_THRESHOLD = 0.2;
+	window.GBA_GAMEPAD_LEFT =
+		typeof localStorage.GBA_GAMEPAD_LEFT === 'string'
+			? Number(localStorage.GBA_GAMEPAD_LEFT)
+			: 14;
+	window.GBA_GAMEPAD_UP =
+		typeof localStorage.GBA_GAMEPAD_UP === 'string'
+			? Number(localStorage.GBA_GAMEPAD_UP)
+			: 12;
+	window.GBA_GAMEPAD_RIGHT =
+		typeof localStorage.GBA_GAMEPAD_RIGHT === 'string'
+			? Number(localStorage.GBA_GAMEPAD_RIGHT)
+			: 15;
+	window.GBA_GAMEPAD_DOWN =
+		typeof localStorage.GBA_GAMEPAD_DOWN === 'string'
+			? Number(localStorage.GBA_GAMEPAD_DOWN)
+			: 13;
+	window.GBA_GAMEPAD_START =
+		typeof localStorage.GBA_GAMEPAD_START === 'string'
+			? Number(localStorage.GBA_GAMEPAD_START)
+			: 9;
+	window.GBA_GAMEPAD_SELECT =
+		typeof localStorage.GBA_GAMEPAD_SELECT === 'string'
+			? Number(localStorage.GBA_GAMEPAD_SELECT)
+			: 8;
+	window.GBA_GAMEPAD_A =
+		typeof localStorage.GBA_GAMEPAD_A === 'string'
+			? Number(localStorage.GBA_GAMEPAD_A)
+			: 0; // A on an XB1 controller
+	window.GBA_GAMEPAD_B =
+		typeof localStorage.GBA_GAMEPAD_B === 'string'
+			? Number(localStorage.GBA_GAMEPAD_B)
+			: 2; // X on an XB1 controller
+	window.GBA_GAMEPAD_L =
+		typeof localStorage.GBA_GAMEPAD_L === 'string'
+			? Number(localStorage.GBA_GAMEPAD_L)
+			: 4;
+	window.GBA_GAMEPAD_R =
+		typeof localStorage.GBA_GAMEPAD_R === 'string'
+			? Number(localStorage.GBA_GAMEPAD_R)
+			: 5;
+	window.GBA_GAMEPAD_THRESHOLD = 0.2;
 
 	this.A = 0;
 	this.B = 1;
@@ -72,34 +132,34 @@ GameBoyAdvanceKeypad.prototype.keyboardHandler = function (e) {
 		// purposely not letting users press start, to help ensure
 		// the automation doesn't get off track
 
-		case this.KEYCODE_START:
+		case window.GBA_KEYCODE_START:
 			toggle = this.START;
 			break;
-		case this.KEYCODE_SELECT:
+		case window.GBA_KEYCODE_SELECT:
 			toggle = this.SELECT;
 			break;
-		case this.KEYCODE_A:
+		case window.GBA_KEYCODE_A:
 			toggle = this.A;
 			break;
-		case this.KEYCODE_B:
+		case window.GBA_KEYCODE_B:
 			toggle = this.B;
 			break;
-		case this.KEYCODE_L:
+		case window.GBA_KEYCODE_L:
 			toggle = this.L;
 			break;
-		case this.KEYCODE_R:
+		case window.GBA_KEYCODE_R:
 			toggle = this.R;
 			break;
-		case this.KEYCODE_UP:
+		case window.GBA_KEYCODE_UP:
 			toggle = this.UP;
 			break;
-		case this.KEYCODE_RIGHT:
+		case window.GBA_KEYCODE_RIGHT:
 			toggle = this.RIGHT;
 			break;
-		case this.KEYCODE_DOWN:
+		case window.GBA_KEYCODE_DOWN:
 			toggle = this.DOWN;
 			break;
-		case this.KEYCODE_LEFT:
+		case window.GBA_KEYCODE_LEFT:
 			toggle = this.LEFT;
 			break;
 		default:
@@ -123,35 +183,35 @@ GameBoyAdvanceKeypad.prototype.gamepadHandler = function (gamepad) {
 
 	// purposely not letting users press start, to help ensure
 	// the automation doesn't get off track
-	// if (gamepad.buttons[this.GAMEPAD_START].pressed) {
+	// if (gamepad.buttons[window.GBA_GAMEPAD_START].pressed) {
 	// 	value |= 1 << this.START;
 	// }
 
-	if (gamepad.buttons[this.GAMEPAD_LEFT].pressed) {
+	if (gamepad.buttons[window.GBA_GAMEPAD_LEFT].pressed) {
 		value |= 1 << this.LEFT;
 	}
-	if (gamepad.buttons[this.GAMEPAD_UP].pressed) {
+	if (gamepad.buttons[window.GBA_GAMEPAD_UP].pressed) {
 		value |= 1 << this.UP;
 	}
-	if (gamepad.buttons[this.GAMEPAD_RIGHT].pressed) {
+	if (gamepad.buttons[window.GBA_GAMEPAD_RIGHT].pressed) {
 		value |= 1 << this.RIGHT;
 	}
-	if (gamepad.buttons[this.GAMEPAD_DOWN].pressed) {
+	if (gamepad.buttons[window.GBA_GAMEPAD_DOWN].pressed) {
 		value |= 1 << this.DOWN;
 	}
-	if (gamepad.buttons[this.GAMEPAD_SELECT].pressed) {
+	if (gamepad.buttons[window.GBA_GAMEPAD_SELECT].pressed) {
 		value |= 1 << this.SELECT;
 	}
-	if (gamepad.buttons[this.GAMEPAD_A].pressed) {
+	if (gamepad.buttons[window.GBA_GAMEPAD_A].pressed) {
 		value |= 1 << this.A;
 	}
-	if (gamepad.buttons[this.GAMEPAD_B].pressed) {
+	if (gamepad.buttons[window.GBA_GAMEPAD_B].pressed) {
 		value |= 1 << this.B;
 	}
-	if (gamepad.buttons[this.GAMEPAD_L].pressed) {
+	if (gamepad.buttons[window.GBA_GAMEPAD_L].pressed) {
 		value |= 1 << this.L;
 	}
-	if (gamepad.buttons[this.GAMEPAD_R].pressed) {
+	if (gamepad.buttons[window.GBA_GAMEPAD_R].pressed) {
 		value |= 1 << this.R;
 	}
 

@@ -1,20 +1,13 @@
 import React, { ReactElement, ReactNode, useEffect } from 'react';
 
 import { Modal } from '../Modal';
-import { IconGamepad, IconKeyboard } from '../../icons';
+import { IconGamepad } from '../../icons';
+import { KeyboardConfig } from './KeyboardConfig';
 
-type ControlsHelpModalProps = {
+type KeyConfigModalProps = {
 	isOpen: boolean;
 	onRequestClose: () => void;
 };
-
-function Kbd({ children }: { children: ReactNode }) {
-	return (
-		<kbd className="px-2 py-1 bg-gray-500 text-white font-bold rounded-md">
-			{children}
-		</kbd>
-	);
-}
 
 function GamePadButton({ children }: { children: ReactNode }) {
 	return (
@@ -24,10 +17,10 @@ function GamePadButton({ children }: { children: ReactNode }) {
 	);
 }
 
-function ControlsHelpModal({
+function KeyConfigModal({
 	isOpen,
 	onRequestClose,
-}: ControlsHelpModalProps): ReactElement {
+}: KeyConfigModalProps): ReactElement {
 	useEffect(() => {
 		if (isOpen) {
 			window._gba?.pause();
@@ -57,28 +50,15 @@ function ControlsHelpModal({
 							jump and <GamePadButton>X</GamePadButton> is run. Other
 							controllers should be similar.
 						</p>
+						<p className="bg-green-600 text-white p-1 text-center text-sm">
+							Configuring gamepads is coming!
+						</p>
 					</div>
 				</div>
-				<div className="bg-gray-600 p-4">
-					<IconKeyboard className="text-4xl mx-auto mb-4" />
-					<ul className="space-y-2 text-center">
-						<li>
-							<Kbd>arrow keys</Kbd> - move
-						</li>
-						<li>
-							<Kbd>X</Kbd> - jump
-						</li>
-						<li>
-							<Kbd>Z</Kbd> - run
-						</li>
-					</ul>
-				</div>
-				<div className="mt-4 px-4 py-2 bg-green-500 text-white col-span-2 text-center">
-					Allowing controls to be configured is on the todo list!
-				</div>
+				<KeyboardConfig />
 			</div>
 		</Modal>
 	);
 }
 
-export { ControlsHelpModal };
+export { KeyConfigModal };
