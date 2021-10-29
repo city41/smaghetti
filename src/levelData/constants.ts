@@ -48,40 +48,70 @@ export const MUSIC_VALUES: Record<MusicTrack, number> = {
 };
 
 export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
-	// 1 - underwater
+	// 0x1 - underwater with added terrain (repeat of 0x21)
 	'stormy-clouds': 0x2,
 	'inside-airship': 0x3,
 	'underground-cave': 0x4,
 	plains: 0x5,
 	fortress: 0x6,
+	// 'outside-castle-wall': 0x7,
 	winter: 0x8,
 	'tall-hills-but-shorter': 0xa,
+	// 0xb: underground (repeat)
 	'green-mountains': 0xc,
-	'hills-in-clouds': 0xf,
 	desert: 0xd,
+	'hills-in-clouds': 0xf,
 	pyramids: 0xe,
+	// basement dungeon (repeat)
 	mountains: 0x11,
+	// 'up-in-the-clouds': 0x12,
 	'bonus-room': 0x13,
 	'crystal-underground': 0x14,
+	// 0x15: underground (repeat)
 	waterfalls: 0x16,
 	'toad-house': 0x17,
+	// 0x18: just the tips of some hills. mostly blank
+	// 0x19: pyramids and inside pyramids split bg
+	// 0x1a: plains (repeat)
 	'bowser-castle': 0x1b,
 	jungle: 0x1c,
 	'hills-at-night': 0x1d,
+	// 0x1e: up in the clouds of the waterfalls bg, but has some garbage tiles in it
 	'basement-dungeon': 0x1f,
 	'metal-brick': 0x20,
+	// 0x21: underwater but with more terrain and some red plants
+	// 0x22: bowser's castle, but its only about one screen wide
+	// 0x23: stormy clouds (repeat)
+	// 0x24: inside airship but with lots of garbled graphics
 	underwater: 0x25,
+	// 0x26: underwater but with only red plants and no wave effect
+	// 0x27: long/narrow clouds in the sky
 	'desert-brick-wall': 0x28,
+	// 0x29: bowser's castle (repeat)
 	'night-sky': 0x2a,
+	// 0x2b: basement dungeon (repeat)
 	'ghost-house': 0x2c,
+	// 0x2d: a sparse ghost house, has beams and cobwebs but no windows
+	// 0x2e: a simpler bowser's castle that has no paintings
+	// 0x2f: looks to be mostly garbage, but some hints of clouds up high
+	// 0x30: bonus game wall with embossed power ups, only one screen in size
 	'colorful-brick-wall': 0x31,
 	'blue-and-green-stars': 0x32,
 	'tetris-room': 0x33,
+	// 0x34: underground cave but it repeats the cave pattern twice, as noted on TCRF
 	pipes: 0x35,
 	'tall-hills': 0x36,
 	underground: 0x37,
+	// 0x38: hills in the clouds (repeat)
 	'far-away-hills-in-clouds': 0x39,
 	'stone-wall': 0x3a,
+	// 0x3b: tall waterfalls, but the clouds above have some garbage tiles
+	// 0x3c: a stone wall with even bricks that pulsate red
+	// 0x3d: jungle but it never breaks, there is no sky above, just jungle
+	// 0x3e: repeat of 0x3b
+	// 0x3f: more waterfalls, also with garbled sky tiles
+
+	// 0x40 and greater all seem to crash the game
 };
 
 export const BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES: Record<
