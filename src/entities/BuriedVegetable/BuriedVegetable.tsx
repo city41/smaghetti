@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { Entity } from '../types';
 import { encodeObjectSets, parseSimpleObject } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
@@ -113,7 +114,7 @@ const BuriedVegetable: Entity = {
 	render({ showDetails, settings, onSettingsChange }) {
 		const body = (
 			<div
-				className="relative BuriedVegetable-bg bg-cover cursor-pointer"
+				className="relative BuriedVegetable-bg bg-cover selectable"
 				style={{ width: TILE_SIZE, height: TILE_SIZE }}
 			>
 				{settings.payload === 'ECoin' && !showDetails && (

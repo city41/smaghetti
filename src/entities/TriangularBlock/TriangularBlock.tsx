@@ -105,7 +105,7 @@ const TriangularBlock: Entity = {
 				disabled={!entity}
 			>
 				<div
-					className="TriangularBlock-bg bg-cover relative cursor-pointer transform transition-all"
+					className="TriangularBlock-bg bg-cover relative transform transition-all selectable"
 					style={{
 						width: TILE_SIZE,
 						height: TILE_SIZE,

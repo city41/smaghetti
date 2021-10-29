@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { Entity } from '../types';
 import {
 	encodeObjectSets,
@@ -120,7 +121,7 @@ const QuestionBlock: Entity = {
 	render({ showDetails, settings, onSettingsChange }) {
 		const body = (
 			<div
-				className="QuestionBlock-bg bg-cover relative cursor-pointer"
+				className="QuestionBlock-bg bg-cover relative selectable"
 				style={{ width: TILE_SIZE, height: TILE_SIZE }}
 			>
 				<PayloadViewDetails payload={settings.payload} />

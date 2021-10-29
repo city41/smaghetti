@@ -82,7 +82,7 @@ const NumberBlock: Entity = {
 
 		const body = (
 			<div
-				className={clsx(`${payload}-bg`, 'bg-cover relative cursor-pointer')}
+				className={clsx(`${payload}-bg`, 'bg-cover relative selectable')}
 				style={{ width: TILE_SIZE, height: TILE_SIZE }}
 			/>
 		);

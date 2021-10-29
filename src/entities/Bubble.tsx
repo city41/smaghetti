@@ -1,6 +1,7 @@
+import React from 'react';
+
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
-import React from 'react';
 import { TileSpace } from './TileSpace';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
 import { ResourceType } from '../resources/resourceMap';
@@ -146,7 +147,7 @@ const Bubble: Entity = {
 		};
 
 		const body = (
-			<div className="Bubble-bg bg-cover relative cursor-pointer" style={style}>
+			<div className="Bubble-bg bg-cover relative selectable" style={style}>
 				<TileSpace />
 				<PayloadViewDetails
 					className="bottom-3 right-3"

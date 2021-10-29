@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
@@ -54,7 +55,7 @@ const HiddenBlockWithoutNote: Entity = {
 	render({ showDetails, settings, onSettingsChange }) {
 		const body = (
 			<div
-				className="relative border-green-400 border-2 border-dashed grid place-items-center font-bold cursor-pointer"
+				className="relative border-green-400 border-2 border-dashed grid place-items-center font-bold selectable"
 				style={{ width: TILE_SIZE, height: TILE_SIZE }}
 			>
 				<PayloadViewDetails payload={settings.payload} />

@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Entity } from '../types';
 import {
 	encodeObjectSets,
@@ -5,7 +6,6 @@ import {
 	parsePotentialPayloadObject,
 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
-import React from 'react';
 import { PayloadViewDetails } from '../detailPanes/PayloadViewDetails';
 import { ResourceType } from '../../resources/resourceMap';
 import { PayloadEditDetails } from '../detailPanes/PayloadEditDetails';
@@ -120,7 +120,7 @@ const Brick: Entity = {
 	render({ showDetails, settings, onSettingsChange }) {
 		const body = (
 			<div
-				className="Brick-bg bg-cover relative cursor-pointer"
+				className="Brick-bg bg-cover relative selectable"
 				style={{ width: TILE_SIZE, height: TILE_SIZE }}
 			>
 				<PayloadViewDetails payload={settings.payload} />

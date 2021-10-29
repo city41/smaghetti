@@ -1,4 +1,5 @@
 import React from 'react';
+
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
@@ -134,7 +135,7 @@ const PipeCornerTransition: Entity = {
 				disabled={!entity}
 			>
 				<div
-					className="PipeCornerTransition-bg bg-cover relative cursor-pointer transform transition-all w-full h-full"
+					className="PipeCornerTransition-bg bg-cover relative transform transition-all w-full h-full selectable"
 					style={{
 						transform: `rotate(${settings.angle ?? 0}deg)`,
 					}}

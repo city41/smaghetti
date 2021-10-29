@@ -96,7 +96,7 @@ function getCellIdsForKey(y: number, cells: EditorEntityRow): string {
 	return `y${y}-${keyStr || 'null-row'}`;
 }
 
-const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function TileRow({
+const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function MatrixRow({
 	cells,
 	locked,
 	room,
@@ -459,6 +459,7 @@ const Canvas = memo(function Canvas({
 					'cursor-crosshair': mouseMode === 'draw' || mouseMode === 'fill',
 					[styles.erase]: mouseMode === 'erase',
 					[styles.hideTileSpace]: !showGrid,
+					[styles.canSelectThings]: mouseMode === 'select',
 				})}
 				ref={(div) => {
 					setDivRef(div);

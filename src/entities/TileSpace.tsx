@@ -12,7 +12,7 @@ function TileSpace({ className, style }: TileSpaceProps) {
 			style={style}
 			className={clsx(
 				className,
-				'thumbnail-hide cursor-move border border-blue-300 border-dashed w-full h-full pointer-events-none'
+				'thumbnail-hide border border-blue-300 border-dashed w-full h-full pointer-events-none'
 			)}
 		/>
 	);
