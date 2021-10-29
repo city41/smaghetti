@@ -159,7 +159,7 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	desert: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.desert,
-		bgColor: 0x84,
+		bgColor: 0xc,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 	'ghost-house': {
@@ -210,7 +210,7 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'hills-at-night': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['hills-at-night'],
-		bgColor: 0x4,
+		bgColor: 0,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 	'night-sky': {

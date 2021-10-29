@@ -88,6 +88,17 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Bug fix: desert and hills at night backgrounds"
+					date="2021-10-29"
+				>
+					<p>
+						These two backgrounds had the wrong background color set. This has
+						now been fixed. If your level uses these backgrounds, to get the fix
+						you need to change the background to something else, then back
+						again.
+					</p>
+				</NewEntry>
 				<NewEntry title="Configurable GBA buttons" date="2021-10-29">
 					<p>
 						You can now configure your keyboard and gamepad when testing your
