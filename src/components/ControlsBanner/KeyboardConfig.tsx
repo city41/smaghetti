@@ -136,12 +136,15 @@ function KeyboardConfig() {
 
 	return (
 		<div className="bg-gray-600 p-4 flex flex-col gap-y-4 items-center">
-			<IconKeyboard className="text-4xl mx-auto mb-4" />
+			<IconKeyboard className="text-4xl mx-auto" />
 			<div className="flex flex-row gap-x-4 items-center justify-center">
 				{body}
 			</div>
 			{keyConfigStep === null && (
-				<Button onClick={() => setKeyConfigStep(0)}>reassign</Button>
+				<>
+					<div className="flex-1" />
+					<Button onClick={() => setKeyConfigStep(0)}>reassign</Button>
+				</>
 			)}
 		</div>
 	);
