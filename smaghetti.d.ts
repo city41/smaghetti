@@ -80,7 +80,8 @@ type BackgroundGraphic =
 	| 'toad-house'
 	| 'desert-brick-wall'
 	| 'colorful-brick-wall'
-	| 'blue-and-green-stars';
+	| 'blue-and-green-stars'
+	| 'embossed-bonus-wall';
 
 type BackgroundExtraColorAndEffect =
 	| 'none'

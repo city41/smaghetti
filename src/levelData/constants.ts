@@ -96,7 +96,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	// 0x2d: a sparse ghost house, has beams and cobwebs but no windows
 	// 0x2e: a simpler bowser's castle that has no paintings
 	// 0x2f: looks to be mostly garbage, but some hints of clouds up high
-	// 0x30: bonus game wall with embossed power ups, only one screen in size
+	'embossed-bonus-wall': 0x30,
 	'colorful-brick-wall': 0x31,
 	'blue-and-green-stars': 0x32,
 	'tetris-room': 0x33,
@@ -305,6 +305,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'blue-and-green-stars': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['blue-and-green-stars'],
+		bgColor: 0x0,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'embossed-bonus-wall': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['embossed-bonus-wall'],
 		bgColor: 0x0,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},

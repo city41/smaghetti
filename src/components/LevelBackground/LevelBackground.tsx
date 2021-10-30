@@ -342,6 +342,14 @@ function ColorfulBrickWall() {
 	);
 }
 
+function EmbossedBonusWall() {
+	return (
+		<div className="w-full h-full flex flex-col justify-end ToadHouseNullBackground-bg">
+			<div className="EmbossedBonusBackground-bg w-full h-full bg-repeat" />
+		</div>
+	);
+}
+
 function Blank() {
 	return <div className="w-full h-full bg-white" />;
 }
@@ -385,6 +393,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['colorful-brick-wall']]: <ColorfulBrickWall />,
 	[BACKGROUND_GRAPHIC_VALUES['underground-cave']]: <UndergroundCave />,
 	[BACKGROUND_GRAPHIC_VALUES.blank]: <Blank />,
+	[BACKGROUND_GRAPHIC_VALUES['embossed-bonus-wall']]: <EmbossedBonusWall />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

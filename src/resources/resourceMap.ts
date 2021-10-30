@@ -34,6 +34,7 @@ import { CrystalUndergroundBackground } from './CrystalUndergroundBackground';
 import { DesertBackground } from './DesertBackground';
 import { DesertBrickBackground } from './DesertBrickBackground';
 import { DoorLock } from './DoorLock';
+import { EmbossedBonusBackground } from './EmbossedBonusBackground';
 import { FarAwayHillsInCloudsBackground } from './FarAwayHillsInCloudsBackground';
 import { FlagPoleBall } from './FlagPoleBall';
 import { FlagPoleShaft } from './FlagPoleShaft';
@@ -176,6 +177,7 @@ const resourceMap = {
 	DesertBackground,
 	DesertBrickBackground,
 	DoorLock,
+	EmbossedBonusBackground,
 	FarAwayHillsInCloudsBackground,
 	FlagPoleBall,
 	FlagPoleShaft,
