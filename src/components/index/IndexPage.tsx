@@ -26,11 +26,11 @@ function IndexPage() {
 						<figcaption className="w-full text-center mt-1.5 text-sm">
 							<a
 								className="underline text-blue-400"
-								href="/editor/HTCbl1q6/Invaded-Beach/"
+								href="/editor/GsQhiP-V/A-Plumber-s-Nightmare/"
 							>
-								Invaded Beach
+								A Plumber&apos;s Nightmare
 							</a>{' '}
-							by Nauts
+							by adelani
 						</figcaption>
 					</figure>
 				</div>
