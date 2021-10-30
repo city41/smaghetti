@@ -79,7 +79,7 @@ const FullerFlowerBush: Entity = {
 			romOffset: 0x163768,
 			tiles: [
 				[596, 594],
-				[593, 595],
+				[597, 595],
 			],
 		},
 		FullerFlowerBushLeft: {
@@ -135,7 +135,7 @@ const FullerFlowerBush: Entity = {
 			romOffset: 0x163768,
 			tiles: [
 				[596, 598],
-				[593, 595],
+				[597, 595],
 			],
 		},
 	},

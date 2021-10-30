@@ -48,7 +48,7 @@ const FlowerBush: Entity = {
 		romOffset: 0x163768,
 		tiles: [
 			[592, 598],
-			[593, 595],
+			[593, 599],
 		],
 	},
 
