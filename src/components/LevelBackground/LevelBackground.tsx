@@ -309,10 +309,7 @@ function JungleNoSky() {
 			className="w-full h-full flex flex-col justify-end"
 			style={{ backgroundColor: '#004200' }}
 		>
-			<div
-				className="JungleNoSkyBackground-bg w-full bg-repeat-x"
-				style={{ height: 512 }}
-			/>
+			<div className="JungleBackground-bg w-full h-full bg-repeat" />
 		</div>
 	);
 }
