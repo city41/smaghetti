@@ -237,7 +237,7 @@ const TanMetalBrickMedium: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="TanMetalBrickMedium-bg bg-center bg-no-repeat"
+				className="relative TanMetalBrickMedium-bg bg-center bg-no-repeat"
 				style={{
 					width: size,
 					height: size,
