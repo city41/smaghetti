@@ -26,8 +26,28 @@ function gbaPaletteToRgb(gbaPalette: number[]): RGBPalette {
 	return gbaPalette.map((p) => gba16ToRgb(p));
 }
 
-function areSameColorLossy(a: RGBColor, b: RGBColor): boolean {
-	return a.every((c, i) => Math.abs(c - b[i]) <= 1);
+function colorDistance([r1, g1, b1]: RGBColor, [r2, g2, b2]: RGBColor): number {
+	return Math.sqrt((r2 - r1) ** 2 + (g2 - g1) ** 2 + (b2 - b1) ** 2);
+}
+
+function findBestMatch(color: RGBColor, palette: RGBColor[]): RGBColor | null {
+	let bestSoFar = palette[0];
+	let bestDistanceSoFar = colorDistance(color, palette[0]);
+
+	for (let i = 0; i < palette.length; ++i) {
+		const distance = colorDistance(color, palette[i]);
+
+		if (distance < bestDistanceSoFar) {
+			bestDistanceSoFar = distance;
+			bestSoFar = palette[i];
+		}
+	}
+
+	if (bestDistanceSoFar > 2) {
+		return null;
+	}
+
+	return bestSoFar;
 }
 
 function convertToIndexed(
@@ -39,7 +59,13 @@ function convertToIndexed(
 
 	for (let i = 0; i < rgbTileData.length; i += 4) {
 		const color: RGBColor = Array.from(rgbTileData.slice(i, i + 3)) as RGBColor;
-		const index = rgbPalette.findIndex((p) => areSameColorLossy(color, p));
+		const bestMatchColor = findBestMatch(color, rgbPalette);
+
+		if (bestMatchColor === null) {
+			return null;
+		}
+
+		const index = rgbPalette.indexOf(bestMatchColor);
 
 		if (index < 0) {
 			return null;
