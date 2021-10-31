@@ -294,10 +294,7 @@ function StormyClouds() {
 
 function Jungle() {
 	return (
-		<div
-			className="w-full h-full flex flex-col justify-end"
-			style={{ backgroundColor: '#004200' }}
-		>
+		<div className="w-full h-full flex flex-col justify-end bg-black">
 			<div
 				className="JungleBackground-bg w-full bg-repeat-x"
 				style={{ height: 224 }}
