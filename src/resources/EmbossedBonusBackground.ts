@@ -114,10 +114,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -133,10 +145,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -152,10 +176,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -217,10 +253,22 @@ const EmbossedBonusBackground: StaticResource = {
 				flip: 'h',
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -236,10 +284,22 @@ const EmbossedBonusBackground: StaticResource = {
 				flip: 'h',
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -372,10 +432,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -397,10 +469,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -422,10 +506,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -487,10 +583,22 @@ const EmbossedBonusBackground: StaticResource = {
 				flip: 'h',
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -512,10 +620,22 @@ const EmbossedBonusBackground: StaticResource = {
 				flip: 'h',
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -660,10 +780,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -679,10 +811,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -698,10 +842,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -757,10 +913,22 @@ const EmbossedBonusBackground: StaticResource = {
 				flip: 'h',
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -776,10 +944,22 @@ const EmbossedBonusBackground: StaticResource = {
 				flip: 'h',
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -912,10 +1092,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -937,10 +1129,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -962,10 +1166,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -1027,10 +1243,22 @@ const EmbossedBonusBackground: StaticResource = {
 				flip: 'h',
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -1052,10 +1280,22 @@ const EmbossedBonusBackground: StaticResource = {
 				flip: 'h',
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -1200,10 +1440,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -1219,10 +1471,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -1238,10 +1502,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -1297,10 +1573,22 @@ const EmbossedBonusBackground: StaticResource = {
 				flip: 'h',
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -1316,10 +1604,22 @@ const EmbossedBonusBackground: StaticResource = {
 				flip: 'h',
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -1452,10 +1752,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -1477,10 +1789,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -1502,10 +1826,22 @@ const EmbossedBonusBackground: StaticResource = {
 				tileIndex: 16,
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -1567,10 +1903,22 @@ const EmbossedBonusBackground: StaticResource = {
 				flip: 'h',
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
@@ -1592,10 +1940,22 @@ const EmbossedBonusBackground: StaticResource = {
 				flip: 'h',
 			},
 			null,
-			null,
-			null,
-			null,
-			null,
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
+			{
+				romOffset: 2405816,
+				tileIndex: 18,
+			},
 			null,
 			{
 				romOffset: 2405816,
