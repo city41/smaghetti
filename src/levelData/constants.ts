@@ -109,7 +109,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'stone-wall': 0x3a,
 	// 0x3b: tall waterfalls, but the clouds above have some garbage tiles
 	// 0x3c: a stone wall with even bricks that pulsate red
-	// 0x3d: jungle but it never breaks, there is no sky above, just jungle
+	'jungle-no-sky': 0x3d,
 	// 0x3e: repeat of 0x3b
 	// 0x3f: more waterfalls, also with garbled sky tiles
 
@@ -305,6 +305,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'blue-and-green-stars': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['blue-and-green-stars'],
+		bgColor: 0x0,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'jungle-no-sky': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['jungle-no-sky'],
 		bgColor: 0x0,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},

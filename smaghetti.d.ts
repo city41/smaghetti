@@ -77,6 +77,7 @@ type BackgroundGraphic =
 	| 'hills-in-clouds'
 	| 'far-away-hills-in-clouds'
 	| 'jungle'
+	| 'jungle-no-sky'
 	| 'toad-house'
 	| 'desert-brick-wall'
 	| 'colorful-brick-wall'

@@ -88,6 +88,11 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Backgrounds" date="2021-10-31">
+					<ul>
+						<li>Jungle No Sky</li>
+					</ul>
+				</NewEntry>
 				<NewEntry
 					title="Bug fix: Allow double ended pipes to be warp destinations"
 					date="2021-10-30"

@@ -306,6 +306,20 @@ function Jungle() {
 	);
 }
 
+function JungleNoSky() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#004200' }}
+		>
+			<div
+				className="JungleNoSkyBackground-bg w-full bg-repeat-x"
+				style={{ height: 512 }}
+			/>
+		</div>
+	);
+}
+
 function UndergroundCave() {
 	return (
 		<div
@@ -376,6 +390,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['green-mountains']]: <GreenMountains />,
 	[BACKGROUND_GRAPHIC_VALUES['hills-in-clouds']]: <HillsInClouds />,
 	[BACKGROUND_GRAPHIC_VALUES.jungle]: <Jungle />,
+	[BACKGROUND_GRAPHIC_VALUES['jungle-no-sky']]: <JungleNoSky />,
 	[BACKGROUND_GRAPHIC_VALUES['toad-house']]: <ToadHouse />,
 	[BACKGROUND_GRAPHIC_VALUES['desert-brick-wall']]: <DesertBrickBackground />,
 	[BACKGROUND_GRAPHIC_VALUES['blue-and-green-stars']]: <BlueAndGreenStars />,
