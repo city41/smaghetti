@@ -314,7 +314,7 @@ function UndergroundCave() {
 		>
 			<div
 				className="UndergroundCaveBackground-bg w-full bg-repeat-x"
-				style={{ height: 320 }}
+				style={{ height: 320, backgroundColor: '#402800' }}
 			/>
 		</div>
 	);
