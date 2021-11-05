@@ -88,6 +88,11 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2021-11-05">
+					<ul>
+						<li>Boo - Speedy</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="New Experiment: game audio" date="2021-11-05">
 					<p>
 						Down in the lower right of the editor is this beaker icon{' '}
