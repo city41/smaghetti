@@ -18,6 +18,8 @@ const PipeVerticalDoubleEnded: Entity = {
 	paletteInfo: {
 		title: 'Pipe - Vertical Double Ended',
 		description: 'Always warps Mario to the other end',
+		warning:
+			'These can do unexpected things sometimes. If you use them, be sure to test them out, especially going back down after going up.',
 	},
 
 	objectSets: encodeObjectSets(objectSets),
