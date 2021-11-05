@@ -40,7 +40,6 @@ import { BoltUp } from './BoltUp';
 import { Bomb } from './Bomb';
 import { BonyBeetle } from './BonyBeetle';
 import { Boo } from './Boo';
-import { BooFast } from './BooFast';
 import { BoomBoom } from './BoomBoom';
 import { Boomerang } from './Boomerang';
 import { BoomerangBro } from './BoomerangBro';
@@ -415,7 +414,6 @@ const entityMap = {
 	Bomb,
 	BonyBeetle,
 	Boo,
-	BooFast,
 	BoomBoom,
 	Boomerang,
 	BoomerangBro,
