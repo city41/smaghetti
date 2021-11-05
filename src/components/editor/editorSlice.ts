@@ -142,6 +142,7 @@ type InternalEditorState = {
 		| 'missing'
 		| 'success'
 		| 'legacy';
+	unmute: boolean;
 };
 
 const initialScale = playerScale;
@@ -422,6 +423,7 @@ const defaultInitialState: InternalEditorState = {
 	hasSelectionRectangle: false,
 	rooms: [initialRoomState],
 	currentRoomIndex: 0,
+	unmute: false,
 };
 
 const initialState = defaultInitialState;
@@ -1807,6 +1809,9 @@ const editorSlice = createSlice({
 				}
 			}
 		},
+		toggleAudio(state: InternalEditorState) {
+			state.unmute = !state.unmute;
+		},
 	},
 });
 
@@ -2091,6 +2096,7 @@ const {
 	scrollToEntity,
 	setEntitySettings,
 	eraseLevel,
+	toggleAudio,
 } = editorSlice.actions;
 
 const reducer = editorSlice.reducer;
@@ -2344,6 +2350,7 @@ export {
 	setLevel,
 	saveToLocalStorage,
 	eraseLevel,
+	toggleAudio,
 	LOCALSTORAGE_KEY,
 	FLOOR_SO_PLAYER_DOESNT_FALL,
 	pointIsInside,

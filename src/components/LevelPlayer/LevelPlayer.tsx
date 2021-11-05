@@ -26,6 +26,7 @@ type LevelPlayerProps = {
 	checkeredBackground?: boolean;
 	editUrl?: string;
 	showEarlyPreviewStarburst?: boolean;
+	unmute?: boolean;
 };
 
 function BodyPortal({ children }: { children: ReactNode }) {
@@ -40,6 +41,7 @@ const LevelPlayer = memo(function LevelPlayer({
 	emptySaveFile,
 	saveState,
 	checkeredBackground,
+	unmute,
 }: LevelPlayerProps) {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const screenshotIndexRef = useRef(1);
@@ -88,6 +90,7 @@ const LevelPlayer = memo(function LevelPlayer({
 						ecoinInfo={getECoinInfo(level)}
 						isPlaying={isPlaying}
 						canvasRef={canvasRef}
+						unmute={unmute}
 					/>
 					<div className="fixed left-0 bottom-0 w-full flex flex-row gap-x-4 justify-center items-center pointer-events-auto">
 						<PlainIconButton
