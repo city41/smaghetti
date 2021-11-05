@@ -28,11 +28,6 @@ function PlayButton({
 			icon={Icon}
 			onClick={() => {
 				onClick?.();
-
-				// modern browsers only allow audio after the user has indicated they want it, ie via a button click
-				// so need to resume the context here in order to allow the GBA audio to play, no worries if the user chose
-				// to mute it, it would still be muted in that case
-				window._gba.audio.context.resume();
 			}}
 		/>
 	);

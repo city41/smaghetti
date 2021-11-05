@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { Root } from '../layout/Root';
-import { IconHeart, IconAlert } from '../../icons';
+import { IconHeart, IconAlert, IconExperiment } from '../../icons';
 
 import typographyStyles from '../../styles/typography.module.css';
 
@@ -88,6 +88,19 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Experiment: game audio" date="2021-11-05">
+					<p>
+						Down in the lower right of the editor is this beaker icon{' '}
+						<IconExperiment className="inline-block w-6 h-6" />. If you click it
+						you can try out some experimental and unfinished features.
+					</p>
+					<p>
+						A new experiment is game audio. If you turn it on, when testing your
+						level you&apos;ll get sound effects and music. But it will probably
+						be scratchy, slow and kinda junky. That is why it is experimental
+						for now.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Backgrounds" date="2021-10-31">
 					<ul>
 						<li>Jungle No Sky</li>

@@ -19,9 +19,14 @@ type LevelPlayerProps = {
 };
 
 function ConnectedLevelPlayer(props: LevelPlayerProps) {
-	const { mouseMode, name, settings, rooms, currentRoomIndex } = useSelector(
-		(state: AppState) => state.editor.present
-	);
+	const {
+		mouseMode,
+		name,
+		settings,
+		rooms,
+		currentRoomIndex,
+		unmute,
+	} = useSelector((state: AppState) => state.editor.present);
 
 	const level = useMemo(
 		() => ({
@@ -58,6 +63,7 @@ function ConnectedLevelPlayer(props: LevelPlayerProps) {
 			biosFile={biosFile}
 			emptySaveFile={emptySaveFile}
 			saveState={saveState}
+			unmute={unmute}
 		/>
 	);
 }

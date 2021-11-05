@@ -19,6 +19,7 @@ type GBAPlayerProps = {
 	scale?: number;
 	canvasRef: RefObject<HTMLCanvasElement>;
 	neverShowCrashScreen?: boolean;
+	unmute?: boolean;
 };
 
 function GBAPlayer({
@@ -33,6 +34,7 @@ function GBAPlayer({
 	scale = 3,
 	canvasRef,
 	neverShowCrashScreen,
+	unmute,
 }: GBAPlayerProps) {
 	const [gbaStatus, setGbaStatus] = useState<GBAStatus>('reset');
 	const [hasCrashed, setHasCrashed] = useState(false);
@@ -69,12 +71,13 @@ function GBAPlayer({
 
 			window._gba.setRom(romFile.buffer);
 			window._gba.defrost(cloneDeep(saveState));
+			window._gba.audio.pause(!unmute);
 			window._gba.runStable();
 		} else {
 			setHasCrashed(false);
 			window._gba.pause();
 		}
-	}, [isPlaying]);
+	}, [isPlaying, unmute]);
 
 	return (
 		<div

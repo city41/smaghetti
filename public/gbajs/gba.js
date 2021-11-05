@@ -484,10 +484,10 @@ GameBoyAdvance.prototype.freeze = function () {
 GameBoyAdvance.prototype.defrost = function (frost) {
 	this.cpu.defrost(frost.cpu);
 	this.mmu.defrost(frost.mmu);
-	this.audio.defrost(frost.audio);
 	this.video.defrost(frost.video);
 	this.irq.defrost(frost.irq);
 	this.io.defrost(frost.io);
+	this.audio.defrost(frost.audio);
 
 	if (this.statusCallback) {
 		this.statusCallback('ready-to-inject');

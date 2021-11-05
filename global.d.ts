@@ -13,6 +13,7 @@ interface _GameBoyAdvance {
 	audio: {
 		masterVolume: number;
 		context: AudioContext;
+		pause: (paused: boolean) => void;
 	};
 	rom: ArrayBuffer | undefined;
 	statusCallback: ((status: GBAStatus) => void) | undefined;

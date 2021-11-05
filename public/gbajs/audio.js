@@ -2,7 +2,7 @@ GameBoyAdvanceAudio = function GameBoyAdvanceAudio() {
 	window.AudioContext = window.AudioContext || window.webkitAudioContext;
 	if (window.AudioContext) {
 		var self = this;
-		this.context = new AudioContext();
+		// this.context = new AudioContext();
 		this.bufferSize = 0;
 		this.bufferSize = 4096;
 		this.maxSamples = this.bufferSize << 2;
@@ -11,14 +11,14 @@ GameBoyAdvanceAudio = function GameBoyAdvanceAudio() {
 			new Float32Array(this.maxSamples),
 		];
 		this.sampleMask = this.maxSamples - 1;
-		if (this.context.createScriptProcessor) {
-			this.jsAudio = this.context.createScriptProcessor(this.bufferSize);
-		} else {
-			this.jsAudio = this.context.createJavaScriptNode(this.bufferSize);
-		}
-		this.jsAudio.onaudioprocess = function (e) {
-			self.audioProcess(e);
-		};
+		// if (this.context.createScriptProcessor) {
+		// 	this.jsAudio = this.context.createScriptProcessor(this.bufferSize);
+		// } else {
+		// 	this.jsAudio = this.context.createJavaScriptNode(this.bufferSize);
+		// }
+		// this.jsAudio.onaudioprocess = function (e) {
+		// 	self.audioProcess(e);
+		// };
 	} else {
 		this.context = null;
 	}
@@ -148,27 +148,52 @@ GameBoyAdvanceAudio.prototype.clear = function () {
 };
 
 GameBoyAdvanceAudio.prototype.freeze = function () {
+	const clone = _.cloneDeep(this);
+	delete clone.cpu;
+	delete clone.core;
+
 	return {
-		nextSample: this.nextSample,
+		clone,
 	};
 };
 
 GameBoyAdvanceAudio.prototype.defrost = function (frost) {
-	this.nextSample = frost.nextSample;
+	if (frost.clone) {
+		const self = this;
+		Object.keys(frost.clone).forEach(function (key) {
+			self[key] = frost.clone[key];
+		});
+
+		this.writeEnable(this.enabled);
+	}
 };
 
 GameBoyAdvanceAudio.prototype.pause = function (paused) {
-	if (this.context) {
-		if (paused) {
-			try {
-				this.jsAudio.disconnect(this.context.destination);
-			} catch (e) {
-				// Sigh
-			}
-		} else if (this.enabled) {
-			this.jsAudio.connect(this.context.destination);
-		}
-	}
+	this.paused = paused;
+	this.writeEnable(!this.paused);
+	// if (this.context) {
+	// 	if (paused) {
+	// 		try {
+	// 			this.jsAudio.disconnect(this.context.destination);
+	// 		} catch (e) {
+	// 			// Sigh
+	// 		}
+	// 	} else if (this.enabled) {
+	// 		this.context = new AudioContext();
+
+	// 		if (this.context.createScriptProcessor) {
+	// 			this.jsAudio = this.context.createScriptProcessor(this.bufferSize);
+	// 		} else {
+	// 			this.jsAudio = this.context.createJavaScriptNode(this.bufferSize);
+	// 		}
+	// 		const self = this;
+	// 		this.jsAudio.onaudioprocess = function (e) {
+	// 			self.audioProcess(e);
+	// 		};
+
+	// 		this.jsAudio.connect(this.context.destination);
+	// 	}
+	// }
 };
 
 GameBoyAdvanceAudio.prototype.updateTimers = function () {
@@ -255,16 +280,37 @@ GameBoyAdvanceAudio.prototype.writeEnable = function (value) {
 	this.nextEvent = this.cpu.cycles;
 	this.nextSample = this.nextEvent;
 	this.updateTimers();
-	this.core.irq.pollNextEvent();
-	if (this.context) {
-		if (value) {
-			this.jsAudio.connect(this.context.destination);
-		} else {
-			try {
-				this.jsAudio.disconnect(this.context.destination);
-			} catch (e) {}
-		}
+
+	if (
+		this.core &&
+		this.core.irq &&
+		this.core.irq.dma &&
+		this.core.irq.dma.length
+	) {
+		this.core.irq.pollNextEvent();
 	}
+
+	// if (this.context) {
+	if (this.enabled && !this.paused) {
+		this.context = new AudioContext();
+
+		if (this.context.createScriptProcessor) {
+			this.jsAudio = this.context.createScriptProcessor(this.bufferSize);
+		} else {
+			this.jsAudio = this.context.createJavaScriptNode(this.bufferSize);
+		}
+		const self = this;
+		this.jsAudio.onaudioprocess = function (e) {
+			self.audioProcess(e);
+		};
+
+		this.jsAudio.connect(this.context.destination);
+	} else if (this.context) {
+		try {
+			this.jsAudio.disconnect(this.context.destination);
+		} catch (e) {}
+	}
+	// }
 };
 
 GameBoyAdvanceAudio.prototype.writeSoundControlLo = function (value) {
