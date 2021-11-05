@@ -161,15 +161,17 @@ GameBoyAdvanceAudio.prototype.freeze = function () {
 };
 
 GameBoyAdvanceAudio.prototype.defrost = function (frost) {
-	const self = this;
-	Object.keys(frost.clone).forEach(function (key) {
-		self[key] = frost.clone[key];
-	});
+	if (frost.clone) {
+		const self = this;
+		Object.keys(frost.clone).forEach(function (key) {
+			self[key] = frost.clone[key];
+		});
 
-	console.log('this.buffers', this.buffers);
-	console.log('this.enabled', this.enabled);
+		console.log('this.buffers', this.buffers);
+		console.log('this.enabled', this.enabled);
 
-	this.writeEnable(this.enabled);
+		this.writeEnable(this.enabled);
+	}
 };
 
 GameBoyAdvanceAudio.prototype.pause = function (paused) {
