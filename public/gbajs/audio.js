@@ -148,13 +148,28 @@ GameBoyAdvanceAudio.prototype.clear = function () {
 };
 
 GameBoyAdvanceAudio.prototype.freeze = function () {
+	const clone = _.cloneDeep(this);
+	delete clone.cpu;
+	delete clone.core;
+
+	console.log('clone.buffers', clone.buffers);
+	console.log('clone.enabled', clone.enabled);
+
 	return {
-		nextSample: this.nextSample,
+		clone,
 	};
 };
 
 GameBoyAdvanceAudio.prototype.defrost = function (frost) {
-	this.nextSample = frost.nextSample;
+	const self = this;
+	Object.keys(frost.clone).forEach(function (key) {
+		self[key] = frost.clone[key];
+	});
+
+	console.log('this.buffers', this.buffers);
+	console.log('this.enabled', this.enabled);
+
+	this.writeEnable(this.enabled);
 };
 
 GameBoyAdvanceAudio.prototype.pause = function (paused) {
@@ -268,27 +283,27 @@ GameBoyAdvanceAudio.prototype.writeEnable = function (value) {
 	this.nextSample = this.nextEvent;
 	this.updateTimers();
 	this.core.irq.pollNextEvent();
-	if (this.context) {
-		if (value) {
-			this.context = new AudioContext();
+	// if (this.context) {
+	if (value) {
+		this.context = new AudioContext();
 
-			if (this.context.createScriptProcessor) {
-				this.jsAudio = this.context.createScriptProcessor(this.bufferSize);
-			} else {
-				this.jsAudio = this.context.createJavaScriptNode(this.bufferSize);
-			}
-			const self = this;
-			this.jsAudio.onaudioprocess = function (e) {
-				self.audioProcess(e);
-			};
-
-			this.jsAudio.connect(this.context.destination);
+		if (this.context.createScriptProcessor) {
+			this.jsAudio = this.context.createScriptProcessor(this.bufferSize);
 		} else {
-			try {
-				this.jsAudio.disconnect(this.context.destination);
-			} catch (e) {}
+			this.jsAudio = this.context.createJavaScriptNode(this.bufferSize);
 		}
+		const self = this;
+		this.jsAudio.onaudioprocess = function (e) {
+			self.audioProcess(e);
+		};
+
+		this.jsAudio.connect(this.context.destination);
+	} else if (this.context) {
+		try {
+			this.jsAudio.disconnect(this.context.destination);
+		} catch (e) {}
 	}
+	// }
 };
 
 GameBoyAdvanceAudio.prototype.writeSoundControlLo = function (value) {
