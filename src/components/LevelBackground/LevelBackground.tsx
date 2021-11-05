@@ -238,14 +238,13 @@ function HillsAtNight() {
 
 function InsideAirship() {
 	return (
-		<div
-			className="w-full h-full flex flex-col justify-end"
-			style={{ backgroundColor: '#422121' }}
-		>
+		<div className="w-full h-full" style={{ backgroundColor: '#000028' }}>
 			<div
-				className="InsideAirship-bg w-full bg-repeat-x"
-				style={{ height: 176 }}
-			/>
+				className="h-full flex flex-col justify-end"
+				style={{ width: 256, backgroundColor: '#422121' }}
+			>
+				<div className="InsideAirship-bg w-full" style={{ height: 176 }} />
+			</div>
 		</div>
 	);
 }
