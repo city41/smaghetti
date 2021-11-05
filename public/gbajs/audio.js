@@ -166,6 +166,18 @@ GameBoyAdvanceAudio.prototype.pause = function (paused) {
 				// Sigh
 			}
 		} else if (this.enabled) {
+			this.context = new AudioContext();
+
+			if (this.context.createScriptProcessor) {
+				this.jsAudio = this.context.createScriptProcessor(this.bufferSize);
+			} else {
+				this.jsAudio = this.context.createJavaScriptNode(this.bufferSize);
+			}
+			const self = this;
+			this.jsAudio.onaudioprocess = function (e) {
+				self.audioProcess(e);
+			};
+
 			this.jsAudio.connect(this.context.destination);
 		}
 	}
@@ -258,6 +270,18 @@ GameBoyAdvanceAudio.prototype.writeEnable = function (value) {
 	this.core.irq.pollNextEvent();
 	if (this.context) {
 		if (value) {
+			this.context = new AudioContext();
+
+			if (this.context.createScriptProcessor) {
+				this.jsAudio = this.context.createScriptProcessor(this.bufferSize);
+			} else {
+				this.jsAudio = this.context.createJavaScriptNode(this.bufferSize);
+			}
+			const self = this;
+			this.jsAudio.onaudioprocess = function (e) {
+				self.audioProcess(e);
+			};
+
 			this.jsAudio.connect(this.context.destination);
 		} else {
 			try {
