@@ -51,6 +51,13 @@ type InternalManageLevelProps = {
 	onDescriptionChange: (desc: string) => void;
 };
 
+function sortMusicEntries(
+	[aName, _aVal]: [string, unknown],
+	[bName, _bVal]: [string, unknown]
+): number {
+	return aName.localeCompare(bName);
+}
+
 /**
  * converts "bonus-room" to "Bonus Room"
  */
@@ -302,13 +309,7 @@ function ManageLevel({
 										</select>
 									</div>
 									<div className="grid grid-cols-2 gap-x-4">
-										<SettingsKey>
-											<HelpButton>
-												Smaghetti has no sound (yet), but you can play your
-												level on a Game Boy or emulator to hear the music
-											</HelpButton>
-											Music
-										</SettingsKey>
+										<SettingsKey>Music</SettingsKey>
 
 										<select
 											className="text-black"
@@ -327,11 +328,13 @@ function ManageLevel({
 												})
 											}
 										>
-											{Object.entries(MUSIC_VALUES).map((me) => (
-												<option key={me[0]} value={me[1]}>
-													{me[0]}
-												</option>
-											))}
+											{Object.entries(MUSIC_VALUES)
+												.sort(sortMusicEntries)
+												.map((me) => (
+													<option key={me[0]} value={me[1]}>
+														{me[0]}
+													</option>
+												))}
 										</select>
 									</div>
 									<div className="grid grid-cols-2 gap-x-4">

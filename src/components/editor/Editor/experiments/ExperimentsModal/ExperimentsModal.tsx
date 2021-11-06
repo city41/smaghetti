@@ -2,7 +2,6 @@ import React from 'react';
 import { IconAlert } from '../../../../../icons';
 import { Modal } from '../../../../Modal';
 import { BinaryLevels } from '../BinaryLevels';
-import { EmulatorAudio } from '../EmulatorAudio';
 
 type ExperimentsModalProps = {
 	isOpen: boolean;
@@ -23,7 +22,6 @@ function ExperimentsModal({ isOpen, onRequestClose }: ExperimentsModalProps) {
 					This stuff is buggy!
 				</p>
 				<BinaryLevels onRequestClose={onRequestClose} />
-				<EmulatorAudio />
 			</div>
 		</Modal>
 	);

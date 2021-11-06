@@ -64,9 +64,23 @@ function HelpPage() {
 						fastest.
 					</p>
 					<p>
+						Try turning off audio, as that will require the emulator to do less
+						work.
+					</p>
+					<p>
 						There isn&apos;t much that can be done about this for the time being
-						I am sorry to say. But there are some possibilities coming in the
-						future that might help 🤞
+						I am sorry to say. In the future Smaghetti may be able to switch to
+						a different, and better, emulator that should help with speed
+						issues. future that might help 🤞
+					</p>
+				</HelpEntry>
+				<HelpEntry title="The game audio is slow, lags, or is glitchy">
+					<p>
+						The audio will sound best in Chrome but even there is not perfect.
+						Emulating audio in a web browser is challenging. There isn&apos;t
+						too much that can be done about this for now. But eventually
+						Smaghetti may be able to switch to a different, and better, emulator
+						that should help with audio issues.
 					</p>
 				</HelpEntry>
 				<HelpEntry title="Some weird glitch is happening in my level">

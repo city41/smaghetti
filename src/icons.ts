@@ -53,6 +53,7 @@ export {
 	FaPlus as IconPlus,
 	FaPlay as IconPlayLarge,
 	FaVolumeMute as IconVolumeMute,
+	FaVolumeUp as IconVolumeUnmute,
 	FaVolumeDown as IconVolumeDown,
 	FaVolumeUp as IconVolumeUp,
 	FaCheckCircle as IconCheckCircle,

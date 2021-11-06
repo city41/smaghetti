@@ -11,6 +11,7 @@ import { ControlsBanner } from '../ControlsBanner';
 import { PlainIconButton } from '../PlainIconButton';
 import { getECoinInfo } from '../../levelData/util';
 import { IconCamera } from '../../icons';
+import { AudioToggle } from './AudioToggle';
 
 type LevelPlayerProps = {
 	className?: string;
@@ -26,7 +27,6 @@ type LevelPlayerProps = {
 	checkeredBackground?: boolean;
 	editUrl?: string;
 	showEarlyPreviewStarburst?: boolean;
-	unmute?: boolean;
 };
 
 function BodyPortal({ children }: { children: ReactNode }) {
@@ -41,7 +41,6 @@ const LevelPlayer = memo(function LevelPlayer({
 	emptySaveFile,
 	saveState,
 	checkeredBackground,
-	unmute,
 }: LevelPlayerProps) {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const screenshotIndexRef = useRef(1);
@@ -90,9 +89,9 @@ const LevelPlayer = memo(function LevelPlayer({
 						ecoinInfo={getECoinInfo(level)}
 						isPlaying={isPlaying}
 						canvasRef={canvasRef}
-						unmute={unmute}
 					/>
 					<div className="fixed left-0 bottom-0 w-full flex flex-row gap-x-4 justify-center items-center pointer-events-auto">
+						<AudioToggle key={isPlaying.toString()} />
 						<PlainIconButton
 							className="bg-green-500"
 							icon={IconCamera}

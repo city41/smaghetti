@@ -310,7 +310,6 @@ GameBoyAdvance.prototype.runStable = function () {
 	var runFunc;
 	var start = Date.now();
 	this.paused = false;
-	this.audio.pause(false);
 
 	if (this.reportFPS) {
 		runFunc = function () {

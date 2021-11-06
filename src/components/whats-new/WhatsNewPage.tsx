@@ -1,7 +1,12 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { Root } from '../layout/Root';
-import { IconHeart, IconAlert, IconExperiment } from '../../icons';
+import {
+	IconHeart,
+	IconAlert,
+	IconExperiment,
+	IconVolumeMute,
+} from '../../icons';
 
 import typographyStyles from '../../styles/typography.module.css';
 
@@ -88,6 +93,17 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Emulator audio" date="2021-11-06">
+					<p>
+						When testing your level, you can now turn the audio on with the{' '}
+						<IconVolumeMute className="bg-green-500 inline-block p-1 w-6 h-6" />{' '}
+						button at the bottom of the screen.
+					</p>
+					<p>
+						Audio works best in Chrome, but that is true of the emulator in
+						general.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-11-06">
 					<ul>
 						<li>Boo - Choose its speed</li>

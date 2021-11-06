@@ -150,7 +150,32 @@ GameBoyAdvanceAudio.prototype.freeze = function () {
 	};
 };
 
+GameBoyAdvanceAudio.prototype.establishAudioContext = function () {
+	if (this.enabled && !this.paused) {
+		if (!this.context) {
+			this.context = new AudioContext();
+
+			if (this.context.createScriptProcessor) {
+				this.jsAudio = this.context.createScriptProcessor(this.bufferSize);
+			} else {
+				this.jsAudio = this.context.createJavaScriptNode(this.bufferSize);
+			}
+			const self = this;
+			this.jsAudio.onaudioprocess = function (e) {
+				self.audioProcess(e);
+			};
+		}
+		this.jsAudio.connect(this.context.destination);
+	} else if (this.context) {
+		try {
+			this.jsAudio.disconnect(this.context.destination);
+		} catch (e) {}
+	}
+};
+
 GameBoyAdvanceAudio.prototype.defrost = function (frost) {
+	delete frost.paused;
+
 	if (frost.clone) {
 		const self = this;
 		Object.keys(frost.clone).forEach(function (key) {
@@ -158,12 +183,14 @@ GameBoyAdvanceAudio.prototype.defrost = function (frost) {
 		});
 
 		delete this.context;
-		this.writeEnable(this.enabled);
+		this.establishAudioContext();
 	}
 };
 
 GameBoyAdvanceAudio.prototype.pause = function (paused) {
 	this.paused = paused;
+
+	this.establishAudioContext();
 };
 
 GameBoyAdvanceAudio.prototype.updateTimers = function () {
@@ -260,26 +287,7 @@ GameBoyAdvanceAudio.prototype.writeEnable = function (value) {
 		this.core.irq.pollNextEvent();
 	}
 
-	if (this.enabled && !this.paused) {
-		if (!this.context) {
-			this.context = new AudioContext();
-
-			if (this.context.createScriptProcessor) {
-				this.jsAudio = this.context.createScriptProcessor(this.bufferSize);
-			} else {
-				this.jsAudio = this.context.createJavaScriptNode(this.bufferSize);
-			}
-			const self = this;
-			this.jsAudio.onaudioprocess = function (e) {
-				self.audioProcess(e);
-			};
-		}
-		this.jsAudio.connect(this.context.destination);
-	} else if (this.context) {
-		try {
-			this.jsAudio.disconnect(this.context.destination);
-		} catch (e) {}
-	}
+	this.establishAudioContext();
 };
 
 GameBoyAdvanceAudio.prototype.writeSoundControlLo = function (value) {
