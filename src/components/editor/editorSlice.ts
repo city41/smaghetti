@@ -56,12 +56,6 @@ import { parseBinaryLevel } from '../../levelData/parseBinaryLevel';
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
 
-type EditorFocusRect = {
-	offset: Point;
-	width: number;
-	height: number;
-};
-
 const ROUGH_TOOLBAR_HEIGHT = 200;
 const ROUGH_FOOTER_HEIGHT = 32;
 
@@ -94,7 +88,6 @@ type RoomState = {
 	scale: number;
 	canIncreaseScale: boolean;
 	canDecreaseScale: boolean;
-	editorVisibleWindow: EditorFocusRect;
 	scrollOffset: Point;
 	currentPaletteEntry?: EntityType;
 };
@@ -379,11 +372,6 @@ const initialRoomState: RoomState = {
 	scale: initialScale,
 	canIncreaseScale: scales.indexOf(initialScale) < scales.length - 1,
 	canDecreaseScale: scales.indexOf(initialScale) > 0,
-	editorVisibleWindow: {
-		offset: { x: 0, y: 0 },
-		width: 0,
-		height: 0,
-	},
 	scrollOffset: {
 		x: 0,
 		y: calcYForScrollToBottom(INITIAL_ROOM_TILE_HEIGHT, initialScale),
@@ -1258,15 +1246,6 @@ const editorSlice = createSlice({
 			currentRoom.canIncreaseScale = scale < scales[scales.length - 1];
 			currentRoom.canDecreaseScale = scale > scales[0];
 		},
-		editorVisibleWindowChanged(
-			state: InternalEditorState,
-			action: PayloadAction<EditorFocusRect>
-		) {
-			const currentRoom = getCurrentRoom(state);
-
-			currentRoom.editorVisibleWindow = action.payload;
-			currentRoom.scrollOffset = action.payload.offset;
-		},
 		scaleDecreased(state: InternalEditorState) {
 			const currentScale = getCurrentRoom(state).scale;
 
@@ -1449,11 +1428,6 @@ const editorSlice = createSlice({
 					scale: initialScale,
 					canIncreaseScale: scales.indexOf(initialScale) < scales.length - 1,
 					canDecreaseScale: scales.indexOf(initialScale) > 0,
-					editorVisibleWindow: {
-						offset: { x: 0, y: 0 },
-						width: 0,
-						height: 0,
-					},
 					scrollOffset: {
 						x: 0,
 						y: calcYForScrollToBottom(r.roomTileHeight, initialScale),
@@ -2073,7 +2047,6 @@ const {
 	selectDrag,
 	cancelDrag,
 	dragComplete,
-	editorVisibleWindowChanged,
 	scaleIncreased,
 	scaleDecreased,
 	toggleManageLevelMode,
@@ -2127,7 +2100,6 @@ const undoableReducer = undoable(cleanUpReducer, {
 		setTimer.toString(),
 		setCurrentRoomIndex.toString(),
 		mouseModeChanged.toString(),
-		editorVisibleWindowChanged.toString(),
 		resetViewport.toString(),
 		viewportToEntireRoom.toString(),
 		scaleIncreased.toString(),
@@ -2144,7 +2116,6 @@ const undoableReducer = undoable(cleanUpReducer, {
 		clearFocusedEntity.toString(),
 		scrollToEntity.toString(),
 		selectDrag.toString(),
-		editorVisibleWindowChanged.toString(),
 		cancelDrag.toString(),
 		'editor/savingLevel',
 		'editor/saveLevel',
@@ -2204,7 +2175,6 @@ const NonUndoableRoomState: Array<keyof RoomState> = [
 	'scale',
 	'canIncreaseScale',
 	'canDecreaseScale',
-	'editorVisibleWindow',
 	'scrollOffset',
 	'paletteEntries',
 	'currentPaletteEntry',
@@ -2295,13 +2265,7 @@ function currentRoomReducer(state: EditorState | undefined, action: Action) {
 	};
 }
 
-export type {
-	EditorState,
-	InternalEditorState,
-	EditorFocusRect,
-	MouseMode,
-	RoomState,
-};
+export type { EditorState, InternalEditorState, MouseMode, RoomState };
 
 export {
 	currentRoomReducer as reducer,
@@ -2318,7 +2282,6 @@ export {
 	selectDrag,
 	cancelDrag,
 	dragComplete,
-	editorVisibleWindowChanged,
 	scaleIncreased,
 	scaleDecreased,
 	toggleManageLevelMode,

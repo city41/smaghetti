@@ -41,14 +41,6 @@ const EMPTY_ROOM: RoomState = {
 	scale: 1,
 	paletteEntries: [],
 	validEntityTypes: [],
-	editorVisibleWindow: {
-		height: 0,
-		width: 0,
-		offset: {
-			x: 0,
-			y: 0,
-		},
-	},
 	scrollOffset: { x: 0, y: 0 },
 };
 

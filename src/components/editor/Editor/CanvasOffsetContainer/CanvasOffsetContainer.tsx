@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-import { EditorFocusRect, MouseMode } from '../../editorSlice';
+import { MouseMode } from '../../editorSlice';
 
 import checkerboardStyles from '../../../../styles/checkerboard.module.css';
 import styles from './CanvasOffsetContainer.module.css';
@@ -19,7 +19,6 @@ type CanvasOffsetContainerProps = {
 	onPan: (delta: Point) => void;
 	onPressForPan: () => void;
 	onLiftFromPan: () => void;
-	onEditorVisibleWindowChanged: (rect: EditorFocusRect) => void;
 	children?: ReactNode;
 };
 
@@ -36,7 +35,6 @@ function CanvasOffsetContainer({
 	onPan,
 	onPressForPan,
 	onLiftFromPan,
-	onEditorVisibleWindowChanged,
 	onCancelDrag,
 	onDragComplete,
 	children,
@@ -99,24 +97,6 @@ function CanvasOffsetContainer({
 			document.removeEventListener('keydown', handleKeyDown);
 			document.removeEventListener('keyup', handleKeyUp);
 		};
-	}, []);
-
-	useEffect(() => {
-		function onWindowSizeChange() {
-			onEditorVisibleWindowChanged({
-				offset,
-				width: window.innerWidth,
-				height: window.innerHeight,
-			});
-		}
-
-		// set it right away
-		onWindowSizeChange();
-
-		// and whenever the window size changes
-		window.addEventListener('resize', onWindowSizeChange);
-
-		return () => window.removeEventListener('resize', onWindowSizeChange);
 	}, []);
 
 	useEffect(() => {

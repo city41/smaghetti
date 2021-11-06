@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 
 import { AppState, dispatch } from '../../../../store';
 import {
-	editorVisibleWindowChanged,
 	selectDrag,
 	dragComplete,
 	pan,
@@ -20,7 +19,6 @@ import {
 
 const actions = bindActionCreators(
 	{
-		onEditorVisibleWindowChanged: editorVisibleWindowChanged,
 		onSelectDrag: selectDrag,
 		onDragComplete: dragComplete,
 		onPan: pan,
