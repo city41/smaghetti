@@ -13,6 +13,7 @@ export {
 } from 'react-icons/ai';
 
 export {
+	BiRun as IconRun,
 	BiPlay as IconPlay,
 	BiFastForward as IconFastForward,
 } from 'react-icons/bi';
@@ -42,6 +43,8 @@ export {
 	FaHammer as IconHammer,
 	FaCaretUp as IconCaretUp,
 	FaCaretDown as IconCaretDown,
+	FaCaretLeft as IconCaretLeft,
+	FaCaretRight as IconCaretRight,
 	FaDoorOpen as IconDoorOpen,
 	FaDoorClosed as IconDoorClosed,
 	FaLock as IconLock,

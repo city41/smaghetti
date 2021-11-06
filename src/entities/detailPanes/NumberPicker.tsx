@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import clsx from 'clsx';
-import { IconCaretDown, IconCaretUp } from '../../icons';
+import { IconCaretLeft, IconCaretRight } from '../../icons';
 
 const DELTA_TIMEOUT = 70;
 
@@ -37,9 +37,13 @@ function NumberPicker({
 
 	return (
 		<div
-			className={clsx(className, 'flex flex-row items-center justify-around')}
+			className={clsx(
+				className,
+				'flex flex-row items-center justify-around bg-gray-800 thumbnail-hide'
+			)}
 		>
 			<button
+				className="selectable"
 				onMouseDown={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
@@ -75,12 +79,13 @@ function NumberPicker({
 					}
 				}}
 			>
-				<IconCaretDown className="w-1 h-1" />
+				<IconCaretLeft className="w-1 h-1" />
 			</button>
-			<div style={{ fontSize: 4 }} className="w-1.5 text-center">
+			<div style={{ fontSize: 3 }} className="w-1.5 text-center font-bold">
 				{value}
 			</div>
 			<button
+				className="selectable"
 				onMouseDown={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
@@ -116,7 +121,7 @@ function NumberPicker({
 					}
 				}}
 			>
-				<IconCaretUp className="w-1 h-1" />
+				<IconCaretRight className="w-1 h-1" />
 			</button>
 		</div>
 	);

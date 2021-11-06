@@ -256,6 +256,26 @@ export function parseSimpleSpriteWithByteParam(
 	}
 }
 
+export function parseSimpleSpriteWithNumericByteParam(
+	data: Uint8Array,
+	offset: number,
+	bank: number,
+	target: Entity,
+	settingKey: string
+) {
+	const result = parseSimpleSprite(data, offset, bank, target);
+
+	if (result) {
+		result.offset += 1;
+
+		result.entity.settings = {
+			[settingKey]: data[result.offset],
+		};
+
+		return result;
+	}
+}
+
 export function parseObjectIdMapSprite(
 	data: Uint8Array,
 	offset: number,

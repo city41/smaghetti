@@ -31,6 +31,10 @@
 	background-repeat: repeat, repeat, repeat;
 }
 
-.canSelectThings :global(.selectable) {
+.root :global(.selectable) {
+	cursor: default !important;
+}
+
+.root.canSelectThings :global(.selectable) {
 	cursor: pointer !important;
 }

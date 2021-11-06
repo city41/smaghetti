@@ -2,8 +2,8 @@ import React from 'react';
 import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
-import { NumberPickerEditDetails } from '../detailPanes/NumberPickerEditDetails';
 import { parseSimpleSprite } from '../util';
+import { NumberPicker } from '../detailPanes/NumberPicker';
 
 /**
  * This is the weird thing at the beginning of mushroom05, Bombarded by Bob-ombs.
@@ -90,37 +90,23 @@ const CoinChallenge: Entity = {
 		);
 	},
 
-	render({ showDetails, settings, onSettingsChange }) {
+	render({ settings, onSettingsChange }) {
 		const count = settings.count ?? this.defaultSettings!.count;
 		const style = { width: TILE_SIZE, height: TILE_SIZE };
 
-		const body = (
+		return (
 			<div className="relative CoinChallenge-bg bg-cover" style={style}>
-				<div
-					style={{ fontSize: 3 }}
-					className="thumbnail-hide absolute bottom-0 right-0 w-1.5 h-1 bg-black text-white rounded-xs text-center"
-				>
-					{count}
-				</div>
-			</div>
-		);
-
-		if (showDetails) {
-			return (
-				<NumberPickerEditDetails
-					min={1}
-					max={255}
+				<NumberPicker
+					className="absolute bottom-0 left-0 w-full"
+					min={0}
+					max={0xff}
 					value={count}
 					onValueChange={(newCount) => {
 						onSettingsChange({ count: newCount });
 					}}
-				>
-					{body}
-				</NumberPickerEditDetails>
-			);
-		} else {
-			return body;
-		}
+				/>
+			</div>
+		);
 	},
 
 	getProblem({ room }) {
