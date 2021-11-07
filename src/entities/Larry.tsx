@@ -15,7 +15,7 @@ const Larry: Entity = {
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [-1, -1, 2, -1, -1, 2],
+	spriteGraphicSets: [0, -1, 2, -1, -1, 2],
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',

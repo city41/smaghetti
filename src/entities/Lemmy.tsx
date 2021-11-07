@@ -15,7 +15,7 @@ const Lemmy: Entity = {
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [-1, -1, 2, -1, -1, 4],
+	spriteGraphicSets: [0, -1, 2, -1, -1, 4],
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
