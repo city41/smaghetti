@@ -24,7 +24,7 @@ const FlagPole: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x1c,
-	settingsType: 'single',
+
 	defaultSettings: { height: MIN_HEIGHT + 1 },
 
 	resource: {

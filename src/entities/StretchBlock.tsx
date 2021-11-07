@@ -34,7 +34,7 @@ const StretchBlock: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { orientation: 'horizontal' },
 
 	resource: {

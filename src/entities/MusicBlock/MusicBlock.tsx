@@ -36,7 +36,7 @@ const MusicBlock: Entity = {
 	spriteGraphicSets: [-1, 0, -1, -1, -1, -1],
 	layer: 'stage',
 	editorType: 'cell',
-	settingsType: 'single',
+
 	defaultSettings: {},
 	dimensions: 'x',
 	objectId: 0x14,

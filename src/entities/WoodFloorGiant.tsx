@@ -27,7 +27,7 @@ const WoodFloorGiant: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
-	settingsType: 'single',
+
 	defaultSettings: { logicalWidth: 1, width: 2 },
 	dimensions: 'none',
 	param1: 'width',

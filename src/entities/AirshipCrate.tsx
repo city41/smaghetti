@@ -38,7 +38,7 @@ const AirshipCrate: Entity = {
 	param2: 'height',
 	objectId: 0x31,
 	emptyBank: 1,
-	settingsType: 'single',
+
 	defaultSettings: { width: 2, height: 4 },
 
 	resources: {

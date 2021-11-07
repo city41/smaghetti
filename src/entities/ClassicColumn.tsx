@@ -66,7 +66,7 @@ const ClassicColumn: Entity = {
 	objectId: 0x1,
 	alternateObjectIds: Object.values(colorToObjectId),
 	emptyBank: 1,
-	settingsType: 'single',
+
 	defaultSettings: {
 		color: 'silver',
 	},

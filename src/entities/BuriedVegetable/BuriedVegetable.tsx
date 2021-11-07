@@ -22,7 +22,7 @@ const BuriedVegetable: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'cell',
-	settingsType: 'single',
+
 	defaultSettings: { payload: 'SmallVegetable' },
 	dimensions: 'none',
 	// empty veggie, nothing comes up

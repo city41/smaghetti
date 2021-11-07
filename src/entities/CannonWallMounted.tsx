@@ -99,7 +99,7 @@ const CannonWallMounted: Entity = {
 	objectId: 0xd,
 	alternateObjectIds: Object.values(cannonBallDirectionToObjectId),
 	emptyBank: 0,
-	settingsType: 'single',
+
 	defaultSettings: { cannonBallDirection: 'down-left' },
 	width: 2,
 	height: 2,

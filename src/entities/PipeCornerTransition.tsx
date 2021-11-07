@@ -43,7 +43,7 @@ const PipeCornerTransition: Entity = {
 	objectId: 0x0,
 	alternateObjectIds: Object.values(angleToObjectId),
 	emptyBank: 0,
-	settingsType: 'single',
+
 	defaultSettings: { angle: 0 },
 	width: 2,
 	height: 2,

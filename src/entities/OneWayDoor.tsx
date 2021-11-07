@@ -37,7 +37,7 @@ const OneWayDoor: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { direction: 'proceed-right' },
 
 	resource: {

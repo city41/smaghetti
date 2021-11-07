@@ -26,7 +26,7 @@ const PlatformPullied: Entity = {
 	dimensions: 'none',
 	objectId: 0xdf,
 	rotationGraphicSet: 1,
-	settingsType: 'single',
+
 	defaultSettings: { pulleyDistance: 4, leftHeight: 0x38, rightHeight: 0x60 },
 
 	resources: {

@@ -38,7 +38,7 @@ const GoombaGenerator: Entity = {
 	dimensions: 'none',
 	objectId: 0x94,
 	alternateObjectIds: [0x95],
-	settingsType: 'single',
+
 	defaultSettings: { direction: 'right' },
 
 	toSpriteBinary({ x, y, settings }) {

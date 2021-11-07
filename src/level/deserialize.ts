@@ -64,7 +64,7 @@ function deserializeMatrix(
 			const objectDef = entityMap[type];
 			let settings = tileSettings?.s;
 
-			if (!settings && objectDef.settingsType === 'single') {
+			if (!settings && objectDef.defaultSettings) {
 				settings = { ...objectDef.defaultSettings };
 			}
 

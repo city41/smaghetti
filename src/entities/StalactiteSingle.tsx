@@ -29,7 +29,7 @@ const StalactiteSingle: Entity = {
 	dimensions: 'x',
 	emptyBank: 1,
 	param1: 'width',
-	settingsType: 'single',
+
 	defaultSettings: { side: 'left' },
 
 	resource: {

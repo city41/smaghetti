@@ -33,7 +33,7 @@ const ScrollStopHorizontal: Entity = {
 	dimensions: 'none',
 	objectId: 0xc7,
 	alternateObjectIds: Object.values(directionToObjectId),
-	settingsType: 'single',
+
 	defaultSettings: { direction: 'left' },
 
 	toSpriteBinary({ x, y, settings }) {

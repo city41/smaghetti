@@ -22,7 +22,7 @@ const HiddenBlockWithoutNote: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'cell',
-	settingsType: 'single',
+
 	defaultSettings: { payload: 'Coin' },
 	dimensions: 'none',
 	payloadBank: 0,

@@ -54,7 +54,7 @@ const SpinPlatform: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: {
 		spin: 'clockwise',
 	},

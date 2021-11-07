@@ -35,7 +35,7 @@ const BoltHead: Entity = {
 	objectId: 0x0,
 	alternateObjectIds: Object.values(directionToObjectId),
 	emptyBank: 0,
-	settingsType: 'single',
+
 	defaultSettings: { direction: 'right' },
 
 	resources: {

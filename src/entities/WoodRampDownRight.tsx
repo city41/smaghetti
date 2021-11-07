@@ -41,7 +41,7 @@ const WoodRampDownRight: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
-	settingsType: 'single',
+
 	defaultSettings: { length: 3 },
 	dimensions: 'none',
 	param1: 'width',

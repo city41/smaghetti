@@ -33,7 +33,7 @@ const CloudFloor: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'cell',
-	settingsType: 'single',
+
 	dimensions: 'x',
 	objectId: 0x2d,
 	param2: 'width',

@@ -24,7 +24,7 @@ const SnakeBlock: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { path: [], width: 5, hidePath: false, speed: 2 },
 
 	toSpriteBinary({ x, y }) {

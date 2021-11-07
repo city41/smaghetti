@@ -30,7 +30,7 @@ const Thwomp: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { pursuit: 'down' },
 	objectId: 0x8a,
 	alternateObjectIds: Object.values(pursuitToObjectId),

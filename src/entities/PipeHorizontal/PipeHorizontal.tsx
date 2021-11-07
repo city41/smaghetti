@@ -43,7 +43,7 @@ const PipeHorizontal: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
-	settingsType: 'single',
+
 	defaultSettings: { width: 2, height: 2, direction: 'left' },
 	dimensions: 'none',
 	param1: 'width',

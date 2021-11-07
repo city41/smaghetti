@@ -46,7 +46,7 @@ const UnderwaterFloor: Entity = {
 	param2: 'width',
 	objectId: 0x31,
 	emptyBank: 1,
-	settingsType: 'single',
+
 	defaultSettings: { width: 2, height: 2 },
 
 	resource: {

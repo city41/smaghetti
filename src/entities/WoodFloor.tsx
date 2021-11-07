@@ -25,7 +25,7 @@ const WoodFloor: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
-	settingsType: 'single',
+
 	defaultSettings: { width: 2, height: 1 },
 	dimensions: 'none',
 	objectId: 0xb,

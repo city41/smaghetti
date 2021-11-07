@@ -32,7 +32,7 @@ const ChoppyWater: Entity = {
 	param1: 'height',
 	param2: 'width',
 	emptyBank: 1,
-	settingsType: 'single',
+
 	defaultSettings: { width: 2, height: 1 },
 
 	resource: {

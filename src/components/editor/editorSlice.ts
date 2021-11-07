@@ -855,25 +855,19 @@ function drawAt(
 	const entityDef = entityMap[type];
 
 	if (entityDef.editorType === 'cell') {
-		const existingTile = layer.matrix[y]?.[x];
+		// paint a new tile, possibly clobbering an existing tile (which is fine)
+		layer.matrix[y] = layer.matrix[y] || [];
+		layer.matrix[y]![x] = {
+			id: idCounter++,
+			x,
+			y,
+			type,
+		};
 
-		if (existingTile) {
-			existingTile.type = type;
-		} else {
-			// paint a new tile
-			layer.matrix[y] = layer.matrix[y] || [];
-			layer.matrix[y]![x] = {
-				id: idCounter++,
-				x,
-				y,
-				type,
+		if (entityDef.defaultSettings) {
+			layer.matrix[y]![x]!.settings = {
+				...entityDef.defaultSettings,
 			};
-
-			if (entityDef.settingsType === 'single') {
-				layer.matrix[y]![x]!.settings = {
-					...entityDef.defaultSettings,
-				};
-			}
 		}
 	} else if (entityDef.editorType === 'entity') {
 		const newEntity: NewEditorEntity = {

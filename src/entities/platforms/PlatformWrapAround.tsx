@@ -56,7 +56,6 @@ const PlatformWrapAround: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
 	defaultSettings: { width: 2, direction: 'down', count: 3 },
 
 	toSpriteBinary({ x, y, settings }) {

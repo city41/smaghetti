@@ -58,7 +58,7 @@ const ColorfulMetalBox: Entity = {
 	objectId: 0x4,
 	alternateObjectIds: Object.values(colorToObjectId),
 	emptyBank: 1,
-	settingsType: 'single',
+
 	defaultSettings: { width: 2, height: 2, color: 'white' },
 
 	resource: {

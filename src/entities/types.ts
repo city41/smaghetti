@@ -185,9 +185,6 @@ type Entity = {
 	 */
 	payloadToObjectId?: Partial<Record<EntityType | ResourceType, number>>;
 
-	// TODO: this isn't really needed. The presence of defaultSettings indicates
-	// an entity is configurable
-	settingsType?: 'single';
 	defaultSettings?: EditorEntitySettings;
 
 	/**

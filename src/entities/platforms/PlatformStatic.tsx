@@ -20,7 +20,7 @@ const PlatformStatic: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { width: 3 },
 
 	toSpriteBinary({ x, y, settings }) {

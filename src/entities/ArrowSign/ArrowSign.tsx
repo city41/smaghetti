@@ -34,7 +34,7 @@ const ArrowSign: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
-	settingsType: 'single',
+
 	dimensions: 'none',
 	defaultSettings: { direction: 'right' },
 	width: 2,

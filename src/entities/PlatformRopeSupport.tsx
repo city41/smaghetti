@@ -34,7 +34,7 @@ const PlatformRopeSupport: Entity = {
 	objectId: 0x2,
 	alternateObjectIds: Object.values(sideToObjectId),
 	emptyBank: 0,
-	settingsType: 'single',
+
 	defaultSettings: { side: 'right' },
 
 	resources: {

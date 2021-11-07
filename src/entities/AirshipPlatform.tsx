@@ -43,7 +43,7 @@ const AirshipPlatform: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { width: 3, cap: 'flat-flat' },
 	param1: 'ignored',
 	param2: 'width',

@@ -18,7 +18,7 @@ const StonePlateau: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
-	settingsType: 'single',
+
 	defaultSettings: { width: 3 },
 	dimensions: 'none',
 	param1: 'width',

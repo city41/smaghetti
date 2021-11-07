@@ -36,7 +36,7 @@ const BillBlaster: Entity = {
 	emptyBank: 1,
 	param1: 'height',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { height: 2, orientation: 'up' },
 
 	resources: {

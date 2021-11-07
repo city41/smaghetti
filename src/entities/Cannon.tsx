@@ -77,7 +77,7 @@ const Cannon: Entity = {
 	dimensions: 'none',
 	objectId: 0x7,
 	alternateObjectIds: Object.values(directionToObjectId),
-	settingsType: 'single',
+
 	defaultSettings: { direction: 'up-left', payload: 'CannonBall' },
 	emptyBank: 0,
 

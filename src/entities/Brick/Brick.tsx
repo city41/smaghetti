@@ -40,7 +40,7 @@ const Brick: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'cell',
-	settingsType: 'single',
+
 	dimensions: 'xy',
 	objectId: 0xf,
 	payloadToObjectId,

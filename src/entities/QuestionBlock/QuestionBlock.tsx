@@ -40,7 +40,7 @@ const QuestionBlock: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'cell',
-	settingsType: 'single',
+
 	defaultSettings: {},
 	dimensions: 'x',
 	objectId: 0x10,

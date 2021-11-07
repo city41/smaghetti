@@ -33,7 +33,7 @@ const PlatformWoodUpDown: Entity = {
 	alternateObjectIds: Object.values(travelRangeToObjectId),
 	width: 3,
 	height: 1,
-	settingsType: 'single',
+
 	defaultSettings: { range: 6 },
 
 	toSpriteBinary({ x, y, settings }) {

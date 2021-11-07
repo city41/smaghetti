@@ -31,7 +31,7 @@ const PipeVerticalMiniMuncher: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
-	settingsType: 'single',
+
 	defaultSettings: { height: 2, muncherStartsOut: true },
 	dimensions: 'none',
 	param1: 'height',

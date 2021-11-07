@@ -19,7 +19,7 @@ const BooChooseSpeed: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x2a,
-	settingsType: 'single',
+
 	defaultSettings: { speed: 10 },
 
 	toSpriteBinary({ x, y, settings }) {

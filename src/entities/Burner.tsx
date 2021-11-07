@@ -43,7 +43,7 @@ const Burner: Entity = {
 	dimensions: 'none',
 	objectId: 0x2,
 	emptyBank: 0,
-	settingsType: 'single',
+
 	defaultSettings: { direction: 'up' },
 
 	resource: {

@@ -26,7 +26,7 @@ const PlatformUpDown: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { width: 3, speed: 'slow', range: 0x10 },
 
 	resources: {

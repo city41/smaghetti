@@ -52,7 +52,7 @@ const PipeVertical: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
-	settingsType: 'single',
+
 	defaultSettings: { width: 2, height: 2, direction: 'up' },
 	dimensions: 'none',
 	param1: 'height',

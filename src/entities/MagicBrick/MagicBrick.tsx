@@ -18,7 +18,7 @@ const MagicBrick: Entity = {
 
 	layer: 'stage',
 	editorType: 'cell',
-	settingsType: 'single',
+
 	dimensions: 'xy',
 	objectId: 0x2b,
 	param1: 'width',

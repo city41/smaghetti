@@ -45,7 +45,7 @@ const Chest: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { payload: 'Mushroom' },
 	objectId: 0x8,
 	payloadToObjectId,

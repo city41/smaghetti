@@ -24,7 +24,7 @@ const PipeAirshipDown: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
-	settingsType: 'single',
+
 	defaultSettings: { height: 2 },
 	dimensions: 'none',
 	param1: 'height',

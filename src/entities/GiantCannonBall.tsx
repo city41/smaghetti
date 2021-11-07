@@ -44,7 +44,7 @@ const GiantCannonBall: Entity = {
 	dimensions: 'none',
 	objectId: 0x97,
 	alternateObjectIds: Object.values(directionToSpriteId),
-	settingsType: 'single',
+
 	defaultSettings: { direction: 'left' },
 	emptyBank: 0,
 	width: 2,

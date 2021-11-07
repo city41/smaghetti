@@ -19,7 +19,7 @@ const Wendy: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { stompCount: 3, fireballCount: 10 },
 	objectId: 0x14,
 	koopalingId: 3,

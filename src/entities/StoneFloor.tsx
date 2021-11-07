@@ -30,7 +30,7 @@ const StoneFloor: Entity = {
 	param2: 'width',
 	objectId: 0x3f,
 	emptyBank: 1,
-	settingsType: 'single',
+
 	defaultSettings: { width: 2, height: 2 },
 
 	resource: {

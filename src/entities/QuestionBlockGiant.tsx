@@ -37,7 +37,7 @@ const QuestionBlockGiant: Entity = {
 	dimensions: 'none',
 	payloadToObjectId,
 	objectId: 0x94,
-	settingsType: 'single',
+
 	defaultSettings: { payload: 'Mushroom' },
 
 	resource: {

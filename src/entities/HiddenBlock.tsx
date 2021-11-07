@@ -20,7 +20,7 @@ const HiddenBlock: Entity = {
 	spriteGraphicSets: [-1, 0, -1, -1, -1, 1],
 	layer: 'stage',
 	editorType: 'cell',
-	settingsType: 'single',
+
 	defaultSettings: { payload: 'MusicBlock' },
 	dimensions: 'none',
 	payloadBank: 0,

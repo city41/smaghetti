@@ -26,7 +26,7 @@ const CoinChallenge: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { count: 10 },
 	objectId: 0xfd,
 	param1: 'other',

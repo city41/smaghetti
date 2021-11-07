@@ -42,7 +42,7 @@ const AirshipMetalPanel: Entity = {
 	param2: 'width',
 	objectId: 0x30,
 	emptyBank: 1,
-	settingsType: 'single',
+
 	defaultSettings: { width: 3, height: 3 },
 
 	resources: {

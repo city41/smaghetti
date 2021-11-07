@@ -29,7 +29,7 @@ const FireBar: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { rotation: 'counter-clockwise', pivot: 'end', count: 4 },
 	objectId: 0xb9,
 

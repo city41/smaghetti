@@ -24,7 +24,7 @@ const FluffyCloud: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { width: 3 },
 	param1: 'width',
 	objectId: 0xb,

@@ -23,7 +23,7 @@ const GrassFloor: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
-	settingsType: 'single',
+
 	defaultSettings: { width: 2 },
 	dimensions: 'none',
 	objectId: 0x2f,

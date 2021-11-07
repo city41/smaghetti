@@ -26,7 +26,7 @@ const NumberBlock: Entity = {
 	emptyBank: 1,
 	param1: 'width',
 	param2: 'height',
-	settingsType: 'single',
+
 	payloadToObjectId: {
 		OneNumberBlock: 0x52,
 		TwoNumberBlock: 0x53,

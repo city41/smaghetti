@@ -31,7 +31,7 @@ const StalactiteFalling: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xd3,
-	settingsType: 'single',
+
 	defaultSettings: { fall: 'left' },
 
 	resources: {

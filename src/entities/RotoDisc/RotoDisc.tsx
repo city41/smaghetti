@@ -18,7 +18,7 @@ const RotoDisc: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	settingsType: 'single',
+
 	defaultSettings: { rotation: 'counter-clockwise', pivot: 'end', count: 4 },
 	objectId: 0x5a,
 

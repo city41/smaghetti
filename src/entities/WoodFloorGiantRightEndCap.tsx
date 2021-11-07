@@ -19,7 +19,7 @@ const WoodFloorGiantRightEndCap: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
-	settingsType: 'single',
+
 	dimensions: 'none',
 	objectId: 0x34,
 	emptyBank: 1,
