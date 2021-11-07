@@ -64,6 +64,7 @@ import { BulletBillTargetingGenerator } from './BulletBillTargetingGenerator';
 import { Bumpty } from './Bumpty';
 import { BumptyAggressive } from './BumptyAggressive';
 import { BuriedVegetable } from './BuriedVegetable';
+import { BuriedVegetableKoopaShell } from './BuriedVegetable/BuriedVegetableKoopaShell';
 import { BuriedVegetableMontyMole } from './BuriedVegetable/BuriedVegetableMontyMole';
 import { Burner } from './Burner';
 import { BusterBeetle } from './BusterBeetle';
@@ -440,6 +441,7 @@ const entityMap = {
 	Bumpty,
 	BumptyAggressive,
 	BuriedVegetable,
+	BuriedVegetableKoopaShell,
 	BuriedVegetableMontyMole,
 	Burner,
 	BusterBeetle,
