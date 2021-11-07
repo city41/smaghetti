@@ -90,19 +90,27 @@ function LevelRow({
 	const thumbnail = isBrokenLevel(level) ? (
 		<BrokenThumbnail scale={scale} />
 	) : (
-		<button className="relative border-2 border-white" onClick={onLevelChosen}>
-			<div className="absolute top-0 left-0 w-full h-full block group-hover:hidden bg-white opacity-25" />
-			<RoomThumbnail
-				upperLeftTile={{
-					x: 0,
-					y: level.data.rooms[0].roomTileHeight - PLAY_WINDOW_TILE_HEIGHT,
-				}}
-				widthInTiles={PLAY_WINDOW_TILE_WIDTH * 1.5}
-				heightInTiles={PLAY_WINDOW_TILE_HEIGHT}
-				scale={scale}
-				room={level.data.rooms[0]}
-			/>
-		</button>
+		<div
+			className="flex flex-col items-end"
+			style={{ width: PLAY_WINDOW_TILE_WIDTH * 1.5 * TILE_SIZE * scale + 4 }}
+		>
+			<button
+				className="relative border-2 border-white"
+				onClick={onLevelChosen}
+			>
+				<div className="absolute top-0 left-0 w-full h-full block group-hover:hidden bg-white opacity-25" />
+				<RoomThumbnail
+					upperLeftTile={{
+						x: 0,
+						y: level.data.rooms[0].roomTileHeight - PLAY_WINDOW_TILE_HEIGHT,
+					}}
+					widthInTiles={PLAY_WINDOW_TILE_WIDTH * 1.5}
+					heightInTiles={PLAY_WINDOW_TILE_HEIGHT}
+					scale={scale}
+					room={level.data.rooms[0]}
+				/>
+			</button>
+		</div>
 	);
 
 	const repeatCount = isAdmin ? 3 : 2;

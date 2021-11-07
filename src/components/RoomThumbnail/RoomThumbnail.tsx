@@ -166,11 +166,11 @@ const RoomThumbnail = React.memo(function RoomThumbnail({
 	showPlayer,
 	showEntireEntityRender,
 }: RoomThumbnailProps) {
-	const canvasWidth = widthInTiles * TILE_SIZE;
-	const canvasHeight = heightInTiles * TILE_SIZE;
+	const canvasWidth = Math.min(widthInTiles, room.roomTileWidth) * TILE_SIZE;
+	const canvasHeight = Math.min(heightInTiles, room.roomTileHeight) * TILE_SIZE;
 
-	const outerWidth = widthInTiles * TILE_SIZE * scale;
-	const outerHeight = heightInTiles * TILE_SIZE * scale;
+	const outerWidth = canvasWidth * scale;
+	const outerHeight = canvasHeight * scale;
 
 	const stageMatrix = (
 		<Matrix
