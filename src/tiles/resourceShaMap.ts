@@ -198,6 +198,7 @@ export const resourceShaMap: Record<string, string> = {
   "Leaf": "3b7c748cd9a99d9e180bb2b49d7ebfee553c1339",
   "Lemmy": "c3b277c053dc82f9ad2e16deeca53a2bd22780f1",
   "LilSparky": "d2ba322cc704bd6b5f0b1e829d148a7bf4b7027a",
+  "LineTrackPulley": "ae88fffa8bbfb3da31274711135458479c239454",
   "LogBridge": "3d4848f7adc227ae8009dd9ebcbfbafb1f36f49b",
   "Ludwig": "ffc32be9407a10f0395f3e8afc681927232645df",
   "MagicBrick": "e64b11ca5b205271ab71b986a07e34cefad6198e",

@@ -199,6 +199,7 @@ import { LavaLotus } from './LavaLotus';
 import { Leaf } from './Leaf';
 import { Lemmy } from './Lemmy';
 import { LilSparky } from './LilSparky';
+import { LineTrackPulley } from './LineTrackPulley';
 import { LogBridge } from './LogBridge';
 import { Ludwig } from './Ludwig';
 import { MagicBrick } from './MagicBrick';
@@ -574,6 +575,7 @@ const entityMap = {
 	Leaf,
 	Lemmy,
 	LilSparky,
+	LineTrackPulley,
 	LogBridge,
 	Ludwig,
 	MagicBrick,
