@@ -6,6 +6,7 @@ import { injectLevelIntoSave } from '../../levelData/injectLevelIntoSave';
 
 import styles from './GBAPlayer.module.css';
 import { ECoinInfo } from '../../levelData/typesAndConstants';
+import { overwriteLevel1_1 } from '../editor/Editor/experiments/Overwrite1_1';
 
 type GBAPlayerProps = {
 	className?: string;
@@ -67,6 +68,11 @@ function GBAPlayer({
 		if (isPlaying) {
 			canvasRef.current!.getContext('2d')!.imageSmoothingEnabled = false;
 
+			// @ts-ignore
+			if (window.overwrite1_1) {
+				romFile = overwriteLevel1_1(romFile, levelData);
+			}
+
 			window._gba.setRom(romFile.buffer);
 			window._gba.defrost(cloneDeep(saveState));
 			window._gba.runStable();
@@ -74,7 +80,8 @@ function GBAPlayer({
 			setHasCrashed(false);
 			window._gba.pause();
 		}
-	}, [isPlaying]);
+		// @ts-ignore
+	}, [isPlaying, window.overwrite1_1 && levelData]);
 
 	return (
 		<div
