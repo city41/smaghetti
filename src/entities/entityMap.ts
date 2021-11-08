@@ -343,6 +343,7 @@ import { TiltPlatform } from './TiltPlatform';
 import { Tornado } from './Tornado';
 import { TriangularBlock } from './TriangularBlock';
 import { UnderwaterFloor } from './UnderwaterFloor';
+import { UnderwaterWater } from './ChoppyWater/UnderwaterWater';
 import { Unknown } from './Unknown';
 import { UpFortressSpike } from './UpFortressSpike';
 import { UpwardWaterCurrentNarrow } from './UpwardWaterCurrentNarrow';
@@ -720,6 +721,7 @@ const entityMap = {
 	Tornado,
 	TriangularBlock,
 	UnderwaterFloor,
+	UnderwaterWater,
 	Unknown,
 	UpFortressSpike,
 	UpwardWaterCurrentNarrow,

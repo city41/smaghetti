@@ -151,6 +151,7 @@ type Entity = {
 		description?: ReactNode;
 		warning?: ReactNode;
 		subCategory?: PaletteSubcategory;
+		helpId?: string;
 	};
 
 	dimensions: 'none' | 'x' | 'y' | 'xy';

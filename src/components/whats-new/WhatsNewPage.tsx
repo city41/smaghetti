@@ -93,6 +93,18 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Making underwater rooms" date="2021-11-08">
+					<p>
+						A new entity, <b>Underwater Water</b>, was just added. This makes it
+						a bit easier to make an underwater level. Truthfully making
+						underwater levels is pretty painful,{' '}
+						<a href="/tips#underwater-water">here are some tips to help out</a>.
+					</p>
+					<p>
+						Making underwater levels much easier to build is on the todo list.
+						But at least it is possible!
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2021-11-07">
 					<ul>
 						<li>Line Track Pulley (in decorations)</li>

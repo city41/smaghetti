@@ -6,6 +6,8 @@ import { toId } from '../whats-new/WhatsNewPage';
 
 import eCoinTemplateWPalettePng from './eCoinTemplateWPalette.png';
 import pipeWarpsPng from './pipeWarps.png';
+import seaToSkyScreenshotPng from './seaToSkyScreenshot.png';
+import eraseForFloorPng from './eraseForFloor.png';
 
 import styles from './TipsPage.module.css';
 
@@ -224,6 +226,61 @@ function TipsPage() {
 					/>
 					<p className="bg-red-200 text-red-900 -mx-2 p-2">
 						Making this easier and less error prone is on the TODO list.
+					</p>
+				</TipEntry>
+				<TipEntry title="Underwater Water">
+					<p>
+						Underwater Water is a normal tile entity. If you use it in a regular
+						room, it will look and behave just like Choppy Water.
+					</p>
+					<p>
+						But if you choose the underwater background, then Underwater Water
+						will be invisible, but maintain the swimming mechanic. So you can
+						create an underwater level by choosing this background, and filling
+						it up with Underwater Water (the paint bucket tool is handy for
+						this). For coins, be sure to use the water version (it has a little
+						water icon in the lower corner). The water version of coins allow
+						Mario to keep swimming when he collects them.
+					</p>
+					<p>
+						This is how Nintendo made some underwater e-reader rooms. For
+						example, the second room of Sea to Sky was built this way
+						<img
+							className="my-4 mx-auto"
+							src={seaToSkyScreenshotPng}
+							alt="Sea to Sky level screenshot"
+						/>
+					</p>
+					<p className="-mx-2 p-2 bg-red-200 text-red-900">
+						There are some downsides to this approach:
+						<ul>
+							<li>
+								Mario will make an &quot;enter water splash&quot; animation
+								right when the level starts if you have him just sitting in the
+								water. To avoid that, you can make him enter the room via a
+								pipe. If you have him start out standing on something, the
+								splash is less noticable.
+							</li>
+							<li>
+								Filling a huge room with Underwater Water might slow the editor
+								down. Hopefully I can make improvements here.
+							</li>
+						</ul>
+						Also the Underwater Floor is a bit of a pain to use. You need to
+						make sure there are no Underwater Water tiles behind any floors. The
+						easiest way to do that is to fill the whole level with water. Then
+						use the eraser to clear out areas you want the floor to go, then
+						drop in the floors.
+						<img
+							src={eraseForFloorPng}
+							alt="erasing water to make room for the floor"
+						/>
+						If you don&apos;t do this, your floors will show up corrupted when
+						playing your level.
+						<span className="block mt-4 font-bold">
+							Currently underwater levels are a pain to make! Making this easier
+							is on the todo list!
+						</span>
 					</p>
 				</TipEntry>
 			</div>

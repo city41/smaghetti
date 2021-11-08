@@ -300,7 +300,22 @@ function PaletteChoiceModal({
 						<h2 className="font-bold mb-4">{currentEntry.info.title}</h2>
 					)}
 					{currentEntry && (
-						<div className="space-y-4">{currentEntry.info.description}</div>
+						<div className="space-y-4">
+							{currentEntry.info.description}
+							{currentEntry && currentEntry.info.helpId && (
+								<>
+									{' '}
+									<a
+										className="text-blue-500 hover:underline"
+										href={`/tips#${currentEntry.info.helpId}`}
+										target="_blank"
+										rel="noreferrer"
+									>
+										more info
+									</a>
+								</>
+							)}
+						</div>
 					)}
 					{currentEntry?.info?.warning && (
 						<div className="mt-4 bg-red-100 text-red-700 p-2 text-xs">
@@ -313,7 +328,7 @@ function PaletteChoiceModal({
 								Incompatible with other added entities
 							</div>
 							<a
-								className="text-xs text-blue-500"
+								className="text-xs text-blue-500 hover:underline"
 								href={`/compatibility/${currentEntry.entry}`}
 								target="_blank"
 								rel="noreferrer"
@@ -326,7 +341,7 @@ function PaletteChoiceModal({
 						<>
 							<div className="flex-1" />
 							<a
-								className="text-xs text-blue-500"
+								className="text-xs text-blue-500 hover:underline"
 								href={`/compatibility/${currentEntry.entry}`}
 								target="_blank"
 								rel="noreferrer"
