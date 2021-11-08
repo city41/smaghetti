@@ -90,6 +90,7 @@ const WoodFloor: Entity = {
 				width={width}
 				height={height}
 				minW={2}
+				maxW={0xfe}
 				minH={1}
 				styles={RECT_CLASSES}
 				hideResizer={!entity}

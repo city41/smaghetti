@@ -95,7 +95,7 @@ const ChoppyWater: Entity = {
 				hideResizer={!entity}
 				minW={1}
 				minH={1}
-				maxW={26}
+				maxW={0xfe}
 				onSizeChange={(width, height) => onSettingsChange({ width, height })}
 			></ResizableRect>
 		);
