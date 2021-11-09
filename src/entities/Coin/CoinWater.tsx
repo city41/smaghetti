@@ -80,9 +80,15 @@ const CoinWater: Entity = {
 			(e) => e.type === 'ChoppyWater'
 		);
 
-		if (!hasChoppyWater) {
-			return 'Must add Choppy Water to this room, or the game will crash';
+		const hasUnderwaterWater = room.stage.matrix.some((row) => {
+			return row?.some((cell) => cell?.type === 'UnderwaterWater');
+		});
+
+		if (hasChoppyWater || hasUnderwaterWater) {
+			return;
 		}
+
+		return 'Must add Choppy Water or Underwater Water to this room, or the game will crash';
 	},
 };
 
