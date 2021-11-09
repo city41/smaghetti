@@ -56,7 +56,7 @@ const CoinWater: Entity = {
 				className="relative Coin-bg bg-cover"
 				style={{ width: size, height: size }}
 			>
-				<IconWater className="absolute -bottom-1 -right-1 w-4 h-4 text-blue-300" />
+				<IconWater className="absolute bottom-0 right-0 w-4 h-4 text-blue-300 bg-gray-800" />
 			</div>
 		);
 	},

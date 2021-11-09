@@ -4,6 +4,7 @@ import { encodeObjectSets, getBankParam1 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
+import { IconWater } from '../../icons';
 
 const WATER_COLOR = 'rgb(24, 104, 200)';
 
@@ -32,22 +33,30 @@ const UnderwaterWater: Entity = {
 
 	simpleRender(size) {
 		return (
-			<div
-				style={{ width: size, height: size, backgroundColor: WATER_COLOR }}
-			/>
+			<div style={{ width: size, height: size, backgroundColor: WATER_COLOR }}>
+				<IconWater
+					style={{ borderRadius: '10%' }}
+					className="absolute bottom-1 right-1 w-4 h-4 text-blue-200"
+				/>
+			</div>
 		);
 	},
 
 	render() {
 		return (
 			<div
-				className="opacity-30"
+				className="opacity-25"
 				style={{
 					width: TILE_SIZE,
 					height: TILE_SIZE,
 					backgroundColor: WATER_COLOR,
 				}}
-			/>
+			>
+				<IconWater
+					style={{ borderRadius: '10%' }}
+					className="absolute bottom-0 right-0 w-1 h-1 text-blue-200"
+				/>
+			</div>
 		);
 	},
 };
