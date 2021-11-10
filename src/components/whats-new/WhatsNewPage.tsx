@@ -17,6 +17,7 @@ import convertedButNotFixedPng from './convertedButNotFixed.png';
 import castleCorruptECoinPng from './castleCorruptECoin.png';
 import exitingAGiantPipePng from './exitingAGiantPipe.png';
 import giantPipeExitPointPng from './giantPipeExitPoint.png';
+import ripVanFishSleepsPng from './ripVanFishSleeps.png';
 
 function dateToHumanString(input: string): string {
 	const date = new Date(input);
@@ -93,6 +94,29 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Taking a break..." date="2021-11-10" alertingChange>
+					<p>
+						I am going to take a break from Smaghetti. Not sure how long,
+						thinking I&apos;ll hop back on sometime in December. I&apos;ll be
+						back for sure. Finishing Smaghetti and making it super awesome is
+						important to me.
+					</p>
+					<p>
+						Want to keep chatting Smaghetti? Check out the{' '}
+						<a
+							href="https://discord.gg/wBVE4yyWhM"
+							rel="noreferrer noopener"
+							target="_blank"
+						>
+							Discord server
+						</a>
+					</p>
+					<img
+						className="block mx-auto pt-4"
+						src={ripVanFishSleepsPng}
+						alt="Rip Van Fish sleeping"
+					/>
+				</NewEntry>
 				<NewEntry title="Making underwater rooms" date="2021-11-08">
 					<p>
 						A new entity, <b>Underwater Water</b>, was just added. This makes it
