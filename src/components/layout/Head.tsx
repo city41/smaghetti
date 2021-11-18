@@ -46,8 +46,8 @@ function Head({ title, metaDescription, metaImg }: HeadProps) {
 			<meta name="description" content={metaDescription} />
 
 			{/* Twitter */}
-			<meta name="twitter:creator" content="mattgreer.dev" />
-			<meta name="twitter:site" content="mattgreer.dev" />
+			<meta name="twitter:creator" content="smaghetti.com" />
+			<meta name="twitter:site" content="smaghetti.com" />
 			<meta name="twitter:title" content={title} />
 			<meta name="twitter:card" content="summary" />
 			<meta name="twitter:image" content={finalMetaImg} />
