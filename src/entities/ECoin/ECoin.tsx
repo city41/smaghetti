@@ -98,6 +98,21 @@ const ECoin: Entity = {
 			</div>
 		);
 	},
+
+	getProblem({ allRooms }) {
+		const coinCount = allRooms.reduce<number>((building, room) => {
+			return (
+				building + room.stage.entities.filter((e) => e.type === 'ECoin').length
+			);
+		}, 0);
+
+		if (coinCount > 1) {
+			return {
+				severity: 'warning',
+				message: 'All E-Coins will have the same graphic',
+			};
+		}
+	},
 };
 
 export { ECoin };
