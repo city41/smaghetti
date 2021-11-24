@@ -32,9 +32,13 @@
 }
 
 .root :global(.selectable) {
-	cursor: default !important;
+	cursor: initial !important;
 }
 
 .root.canSelectThings :global(.selectable) {
 	cursor: pointer !important;
+}
+
+.root.panning :global(.selectable) {
+	cursor: grab !important;
 }

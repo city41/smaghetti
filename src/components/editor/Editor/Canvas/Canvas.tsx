@@ -460,6 +460,7 @@ const Canvas = memo(function Canvas({
 					[styles.erase]: mouseMode === 'erase',
 					[styles.hideTileSpace]: !showGrid,
 					[styles.canSelectThings]: mouseMode === 'select',
+					[styles.panning]: mouseMode === 'pan',
 				})}
 				ref={(div) => {
 					setDivRef(div);

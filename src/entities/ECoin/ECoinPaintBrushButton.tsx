@@ -22,6 +22,7 @@ function ECoinPaintBrushButton({
 		<>
 			<div style={style} className={clsx(className, 'grid place-items-center')}>
 				<button
+					className="selectable"
 					onMouseDown={(e) => {
 						e.preventDefault();
 						e.stopPropagation();
