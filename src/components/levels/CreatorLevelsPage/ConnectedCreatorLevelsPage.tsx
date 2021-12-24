@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-
-import { LevelsPage } from './LevelsPage';
 import { AppState, dispatch } from '../../../store';
-import { loadPublishedLevels } from '../levelsSlice';
+import { useSelector } from 'react-redux';
 import memoize from 'lodash/memoize';
+import { loadPublishedLevels } from '../levelsSlice';
+import { LevelsPage } from '../LevelsPage/LevelsPage';
+
+type ConnectedCreatorLevelsPageProps = {
+	creator: string;
+};
 
 type SortType = 'likes' | 'new';
 
@@ -45,7 +48,9 @@ function sortLevels(
 	}
 }
 
-function ConnectedLevelsPage() {
+function ConnectedCreatorLevelsPage({
+	creator,
+}: ConnectedCreatorLevelsPageProps) {
 	const { allFilesReady, emptySaveFileState } = useSelector(
 		(state: AppState) => state.fileLoader
 	);
@@ -56,8 +61,12 @@ function ConnectedLevelsPage() {
 	);
 
 	useEffect(() => {
-		dispatch(loadPublishedLevels());
-	}, []);
+		if (creator) {
+			dispatch(loadPublishedLevels(creator));
+		}
+	}, [creator]);
+
+	const title = loadState === 'success' ? `${creator}'s levels` : 'loading...';
 
 	return (
 		<LevelsPage
@@ -66,21 +75,17 @@ function ConnectedLevelsPage() {
 			loadState={loadState}
 			levels={sortLevels(levels, votes, sortType)}
 			sortType={sortType}
-			headerTitle="Levels"
-			pageTitle="Community Made Levels"
+			headerTitle={title}
+			pageTitle={title}
+			hideHelpCallout
 			onSortTypeChange={() =>
 				setSortType(sortType === 'likes' ? 'new' : 'likes')
 			}
 			noPublishedLevelsNode={
-				<>
-					No published levels yet, why not{' '}
-					<a className="text-blue-300 hover:underline" href="/editor">
-						be the first?
-					</a>
-				</>
+				<>This creator hasn&apos;t created a level yet :(</>
 			}
 		/>
 	);
 }
 
-export { ConnectedLevelsPage };
+export { ConnectedCreatorLevelsPage };

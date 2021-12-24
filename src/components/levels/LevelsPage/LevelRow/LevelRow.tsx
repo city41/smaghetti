@@ -221,7 +221,7 @@ function LevelRow({
 				style={{ gridTemplateRows: 'max-content 1fr max-content' }}
 			>
 				<a
-					className="inline-block text-2xl font-bold cursor-pointer pt-1 truncate"
+					className="inline-block text-2xl font-bold cursor-pointer pt-1 truncate hover:underline"
 					href={href}
 					onClick={chooseDontNavIfBuilding}
 				>
@@ -267,7 +267,12 @@ function LevelRow({
 				>
 					<p className="text-xs pb-2">{level.data.settings.description}</p>
 					<div className="text-sm self-end">
-						by <span className="font-bold">{level.user?.username}</span>
+						by{' '}
+						<a href={`/creator/${level.user?.username}`}>
+							<span className="font-bold hover:underline">
+								{level.user?.username}
+							</span>
+						</a>
 					</div>
 				</div>
 			</div>

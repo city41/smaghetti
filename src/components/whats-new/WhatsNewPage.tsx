@@ -94,6 +94,16 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Creator pages" date="2021-12-24">
+					<p>Happy holidays everyone!</p>
+					<p>
+						{' '}
+						I just added simple creator pages. On the{' '}
+						<a href="/levels">levels page</a>, click on a user&apos;s name to go
+						to their page. It will show a listing of their levels. For example,{' '}
+						<a href="/creator/matt">here are my levels</a>.
+					</p>
+				</NewEntry>
 				<NewEntry title="Taking a break..." date="2021-11-10" alertingChange>
 					<p>
 						I am going to take a break from Smaghetti. Not sure how long,

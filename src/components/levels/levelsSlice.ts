@@ -70,14 +70,16 @@ const levelsSlice = createSlice({
 
 type LevelsSliceThunk = ThunkAction<void, AppState, null, Action>;
 
-const loadPublishedLevels = (): LevelsSliceThunk => async (dispatch) => {
+const loadPublishedLevels = (username?: string): LevelsSliceThunk => async (
+	dispatch
+) => {
 	dispatch(levelsSlice.actions.setLoadState('loading'));
 
 	try {
 		const [rawLevels, votes] = await Promise.all<
 			SerializedLevel[],
 			LevelVote[]
-		>([getPublishedLevelsQuery(), getAllVotesQuery()]);
+		>([getPublishedLevelsQuery(username), getAllVotesQuery()]);
 
 		const convertedLevels = rawLevels.reduce<Level[]>((building, rawLevel) => {
 			const convertedLevel = convertLevelToLatestVersion(rawLevel);

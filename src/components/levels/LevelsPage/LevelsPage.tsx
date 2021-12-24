@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { Root } from '../../layout/Root';
 import { LoadingBar } from '../../LoadingBar';
@@ -16,6 +16,10 @@ type InternalLevelsPageProps = {
 	loadState: 'dormant' | 'loading' | 'success' | 'error';
 	levels: Level[];
 	sortType: 'likes' | 'new';
+	headerTitle: string;
+	pageTitle: string;
+	hideHelpCallout?: boolean;
+	noPublishedLevelsNode: ReactNode;
 	onSortTypeChange: () => void;
 };
 
@@ -27,6 +31,10 @@ function LevelsPage({
 	loadState,
 	levels,
 	sortType,
+	headerTitle,
+	pageTitle,
+	hideHelpCallout,
+	noPublishedLevelsNode,
 	onSortTypeChange,
 }: InternalLevelsPageProps) {
 	const [showFileLoaderModal, setShowFileLoaderModal] = useState(false);
@@ -43,29 +51,33 @@ function LevelsPage({
 		setChosenLevels([]);
 	}
 
-	const newestLevel = levels.reduce<Level>((champ, contender) => {
-		if (champ.created_at > contender.created_at) {
-			return champ;
-		} else {
-			return contender;
-		}
-	}, levels[0]);
+	const newestLevel =
+		levels.length > 2 &&
+		levels.reduce<Level>((champ, contender) => {
+			if (champ.created_at > contender.created_at) {
+				return champ;
+			} else {
+				return contender;
+			}
+		}, levels[0]);
 
-	const mostRecentlyUpdatedLevel = levels.reduce<Level>((champ, contender) => {
-		if (!contender.updated_at) {
-			return champ;
-		}
+	const mostRecentlyUpdatedLevel =
+		levels.length > 2 &&
+		levels.reduce<Level>((champ, contender) => {
+			if (!contender.updated_at) {
+				return champ;
+			}
 
-		if (!champ.updated_at) {
-			return contender;
-		}
+			if (!champ.updated_at) {
+				return contender;
+			}
 
-		if (champ.updated_at > contender.updated_at) {
-			return champ;
-		} else {
-			return contender;
-		}
-	}, levels[0]);
+			if (champ.updated_at > contender.updated_at) {
+				return champ;
+			} else {
+				return contender;
+			}
+		}, levels[0]);
 
 	const restOfLevels = levels.filter(
 		(l) => l !== newestLevel && l !== mostRecentlyUpdatedLevel
@@ -216,14 +228,7 @@ function LevelsPage({
 					</>
 				);
 			} else {
-				body = (
-					<div className="text-center mt-32">
-						No published levels yet, why not{' '}
-						<a className="text-blue-300 hover:underline" href="/editor">
-							be the first?
-						</a>
-					</div>
-				);
+				body = <div className="text-center mt-32">{noPublishedLevelsNode}</div>;
 			}
 			break;
 	}
@@ -234,15 +239,15 @@ function LevelsPage({
 				isOpen={showFileLoaderModal && !allFilesReady}
 				onRequestClose={() => setShowFileLoaderModal(false)}
 			/>
-			<Root title="Levels" metaDescription="">
+			<Root title={headerTitle} metaDescription="">
 				<div className="max-w-2xl mx-auto pt-16">
-					<h1 className="font-bold text-5xl text-center mb-8">
-						Community made levels
-					</h1>
-					<p className="mt-4 mb-8 px-8 text-sm text-gray-400">
-						Want your level to show up here? Click on the &quot;publish&quot;
-						button when looking at all your levels in the editor.
-					</p>
+					<h1 className="font-bold text-5xl text-center mb-8">{pageTitle}</h1>
+					{!hideHelpCallout && (
+						<p className="mt-4 mb-8 px-8 text-sm text-gray-400">
+							Want your level to show up here? Click on the &quot;publish&quot;
+							button when looking at all your levels in the editor.
+						</p>
+					)}
 					{body}
 				</div>
 			</Root>
