@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
 import { Root } from '../../layout/Root';
 import { LoadingBar } from '../../LoadingBar';
-import { LevelRow } from '../LevelsPage/LevelRow';
+import { LevelRow } from '../LevelsPage/LevelRow/LevelRow';
+import { LevelWithVoting } from './ConnectedLevels2Page';
 import { Menu, MenuEntry } from './Menu';
 import { Pagination } from './Pagination';
 
@@ -24,10 +25,11 @@ type PublicLevels2PageProps = {
 type InternalLevels2PageProps = {
 	allFilesReady: boolean;
 	loadingState: 'loading' | 'error' | 'success';
-	levels: Level[];
+	levels: LevelWithVoting[];
 	currentPage: number;
 	onNextClick: () => void;
 	onPreviousClick: () => void;
+	onVoteClick: (level: LevelWithVoting) => void;
 };
 
 function Levels2Page({
@@ -39,6 +41,7 @@ function Levels2Page({
 	currentPage,
 	onNextClick,
 	onPreviousClick,
+	onVoteClick,
 }: PublicLevels2PageProps & InternalLevels2PageProps) {
 	const [showFileLoaderModal, setShowFileLoaderModal] = useState(false);
 
@@ -80,6 +83,10 @@ function Levels2Page({
 										onLoadRomClick={() => {
 											setShowFileLoaderModal(true);
 										}}
+										currentUserVoted={l.currentUserVoted}
+										voteCount={l.voteCount}
+										onVoteClick={() => onVoteClick(l)}
+										isVoting={!!l.loading}
 									/>
 								))}
 							</>
