@@ -16,6 +16,16 @@ module.exports = withPlugins(
 		redirects() {
 			return [
 				{
+					source: '/levels2',
+					destination: '/levels2/newest',
+					permanent: true,
+				},
+				{
+					source: '/levels2/',
+					destination: '/levels2/newest',
+					permanent: true,
+				},
+				{
 					source: '/make',
 					destination: '/editor',
 					permanent: true,
