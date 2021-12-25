@@ -17,9 +17,12 @@ function MenuEntry({ current, onClick, children }: MenuEntryProps) {
 		<li
 			className={clsx('text-center p-4', {
 				'bg-green-600': current,
+				'hover:bg-gray-600': !current,
 			})}
 		>
-			<button onClick={onClick}>{children}</button>
+			<button className={clsx({ 'font-bold': current })} onClick={onClick}>
+				{children}
+			</button>
 		</li>
 	);
 }
@@ -29,7 +32,7 @@ function Menu({ className, children }: MenuProps) {
 
 	return (
 		<ul
-			className={clsx(className, 'grid', {
+			className={clsx(className, 'grid items-center', {
 				'grid-cols-3': childCount === 3,
 				'grid-cols-4': childCount === 4,
 				'grid-cols-5': childCount === 5,

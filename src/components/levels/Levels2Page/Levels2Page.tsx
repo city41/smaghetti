@@ -1,5 +1,7 @@
 import React from 'react';
 import { Root } from '../../layout/Root';
+import { LoadingBar } from '../../LoadingBar';
+import { LevelRow } from '../LevelsPage/LevelRow';
 import { Menu, MenuEntry } from './Menu';
 import { Pagination } from './Pagination';
 
@@ -19,12 +21,16 @@ type PublicLevels2PageProps = {
 };
 
 type InternalLevels2PageProps = {
+	loadingState: 'loading' | 'error' | 'success';
+	levels: Level[];
 	currentPage: number;
 	onNextClick: () => void;
 	onPreviousClick: () => void;
 };
 
 function Levels2Page({
+	loadingState,
+	levels,
 	currentSlug,
 	onSlugClick,
 	currentPage,
@@ -33,7 +39,7 @@ function Levels2Page({
 }: PublicLevels2PageProps & InternalLevels2PageProps) {
 	return (
 		<Root metaDescription="" title="Levels">
-			<div className="max-w-2xl mx-auto pt-16">
+			<div className="max-w-2xl mx-auto pt-16 flex flex-col h-full">
 				<Menu>
 					{categories.map((c) => {
 						return (
@@ -49,11 +55,33 @@ function Levels2Page({
 						);
 					})}
 				</Menu>
-				<Pagination
-					currentPage={currentPage}
-					onNextClick={onNextClick}
-					onPreviousClick={onPreviousClick}
-				/>
+				<div className="flex-1 py-8 flex flex-col gap-y-8">
+					{loadingState === 'loading' && <LoadingBar percent={100} />}
+					{loadingState === 'success' && (
+						<>
+							{levels.map((l) => (
+								<LevelRow
+									key={l.id}
+									level={l}
+									isBuildingSave={false}
+									isChosen={false}
+									areFilesReady={true}
+									onChosenChange={(newChosen) => {}}
+									onLoadRomClick={() => {
+										/*setShowFileLoaderModal(true) */
+									}}
+								/>
+							))}
+						</>
+					)}
+				</div>
+				{loadingState === 'success' && (
+					<Pagination
+						currentPage={currentPage}
+						onNextClick={onNextClick}
+						onPreviousClick={onPreviousClick}
+					/>
+				)}
 			</div>
 		</Root>
 	);
