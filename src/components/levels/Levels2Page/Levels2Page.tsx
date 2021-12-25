@@ -11,7 +11,7 @@ const categories = [
 	{ title: 'Newest', slug: 'newest' },
 	{ title: 'Popular', slug: 'popular' },
 	// { title: 'By Tag', slug: 'by-tag' },
-	{ title: 'E-Coins', slug: 'e-coin' },
+	{ title: 'Coins', slug: 'coins' },
 	{ title: "Dev's Favs", slug: 'dev-favs' },
 ] as const;
 

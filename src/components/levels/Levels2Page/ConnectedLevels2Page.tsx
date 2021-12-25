@@ -40,8 +40,11 @@ async function getLevels(
 		case 'popular':
 			query = client.rpc('get_most_popular_published_levels', params);
 			break;
-		case 'e-coin':
-			query = client.rpc('get_published_levels_that_have_ecoins', params);
+		case 'coins':
+			query = client.rpc(
+				'get_published_levels_that_have_special_coins',
+				params
+			);
 			break;
 		default:
 			break;
