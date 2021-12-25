@@ -46,6 +46,9 @@ async function getLevels(
 				params
 			);
 			break;
+		case 'dev-favs':
+			query = client.rpc('get_devs_favs_published_levels', params);
+			break;
 		default:
 			break;
 	}
