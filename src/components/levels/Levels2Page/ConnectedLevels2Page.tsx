@@ -84,6 +84,12 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 	}, []);
 
 	useEffect(() => {
+		setPage(0);
+		setLevels([]);
+		setLoadingState('loading');
+	}, [props.currentSlug]);
+
+	useEffect(() => {
 		setLoadingState('loading');
 		getLevels(props.currentSlug, page, userId)
 			.then((retrievedLevels) => {
