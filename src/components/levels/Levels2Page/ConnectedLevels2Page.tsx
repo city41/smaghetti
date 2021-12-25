@@ -31,17 +31,17 @@ async function getLevels(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let query: any;
 
+	const params = { current_user_id: userId ?? '' };
+
 	switch (slug) {
 		case 'newest':
-			query = client.rpc('get_newest_published_levels', {
-				current_user_id: userId ?? '',
-			});
+			query = client.rpc('get_newest_published_levels', params);
 			break;
 		case 'popular':
-			query = client.rpc('get_most_popular_published_levels');
+			query = client.rpc('get_most_popular_published_levels', params);
 			break;
 		case 'e-coin':
-			query = client.rpc('get_published_levels_that_have_ecoins');
+			query = client.rpc('get_published_levels_that_have_ecoins', params);
 			break;
 		default:
 			break;
