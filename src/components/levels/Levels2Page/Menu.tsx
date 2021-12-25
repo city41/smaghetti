@@ -16,7 +16,7 @@ function MenuEntry({ current, onClick, children }: MenuEntryProps) {
 	return (
 		<li
 			className={clsx('text-center p-4', {
-				'bg-green-600 outline-none': current,
+				'bg-green-600': current,
 			})}
 		>
 			<button onClick={onClick}>{children}</button>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Root } from '../../layout/Root';
 import { Menu, MenuEntry } from './Menu';
+import { Pagination } from './Pagination';
 
 const categories = [
 	{ title: 'Newest', slug: 'newest' },
@@ -17,7 +18,19 @@ type PublicLevels2PageProps = {
 	onSlugClick: (newSlug: CategorySlug) => void;
 };
 
-function Levels2Page({ currentSlug, onSlugClick }: PublicLevels2PageProps) {
+type InternalLevels2PageProps = {
+	currentPage: number;
+	onNextClick: () => void;
+	onPreviousClick: () => void;
+};
+
+function Levels2Page({
+	currentSlug,
+	onSlugClick,
+	currentPage,
+	onNextClick,
+	onPreviousClick,
+}: PublicLevels2PageProps & InternalLevels2PageProps) {
 	return (
 		<Root metaDescription="" title="Levels">
 			<div className="max-w-2xl mx-auto pt-16">
@@ -36,6 +49,11 @@ function Levels2Page({ currentSlug, onSlugClick }: PublicLevels2PageProps) {
 						);
 					})}
 				</Menu>
+				<Pagination
+					currentPage={currentPage}
+					onNextClick={onNextClick}
+					onPreviousClick={onPreviousClick}
+				/>
 			</div>
 		</Root>
 	);
