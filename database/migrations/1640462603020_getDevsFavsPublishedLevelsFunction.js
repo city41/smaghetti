@@ -40,11 +40,26 @@ exports.up = (pgm) => {
       on
         u.id = l.user_id
       where
-        l.published = true 
+        l.published = true and l.id in (
+          select 
+            l2.id 
+          from 
+            levels l2
+          left join 
+            level_votes lv2
+          on 
+            lv2.level_id = l2.id
+          left join 
+            users u2
+          on 
+            u2.id = lv2.user_id
+          where 
+            u2.role = 'admin'
+        )
       group by
         l.id, l.name, l.data, l.version, u.username, l.created_at, l.updated_at
       order by
-        l.updated_at desc;
+        total_vote_count desc;
       end;
     `
 	);
