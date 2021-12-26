@@ -15,12 +15,15 @@ type MenuEntryProps = {
 function MenuEntry({ current, onClick, children }: MenuEntryProps) {
 	return (
 		<li
-			className={clsx('text-center p-4', {
+			className={clsx('text-center', {
 				'bg-green-600': current,
 				'hover:bg-gray-600': !current,
 			})}
 		>
-			<button className={clsx({ 'font-bold': current })} onClick={onClick}>
+			<button
+				className={clsx('p-4 w-full h-full', { 'font-bold': current })}
+				onClick={onClick}
+			>
 				{children}
 			</button>
 		</li>
