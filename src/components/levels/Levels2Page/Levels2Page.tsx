@@ -11,7 +11,7 @@ import { Pagination } from './Pagination';
 const categories = [
 	{ title: 'Newest', subtitle: null, slug: 'newest' },
 	{ title: 'Popular', subtitle: null, slug: 'popular' },
-	// { title: 'By Tag', slug: 'by-tag' },
+	{ title: 'By Tag', subtitle: 'not implemented yet', slug: 'by-tag' },
 	{
 		title: 'Coins',
 		subtitle: 'These levels have ace coins and/or e-coins for you to seek out',
