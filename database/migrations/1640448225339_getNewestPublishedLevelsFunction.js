@@ -26,29 +26,25 @@ exports.up = (pgm) => {
         u.username,
         l.created_at,
         l.updated_at,
-        coalesce(count(v.user_id), 0) as total_vote_count,
-        coalesce(count(cuv.user_id), 0) = 1 as current_user_voted
+        coalesce(count(lv.user_id), 0) as total_vote_count,
+        coalesce(count(case lv.user_id::text when current_user_id then 1 else null end), 0) = 1 as current_user_voted
       from
         public.levels l
       left join
-        public.level_votes v
+        public.level_votes lv
       on
-        v.level_id = l.id
-      left join
-        public.level_votes cuv
-      on
-        cuv.level_id = l.id and cuv.user_id::text = current_user_id
+        lv.level_id = l.id 
       left join
         public.users u
       on
         u.id = l.user_id
       where
-        l.published = true
+        l.published = true 
       group by
         l.id, l.name, l.data, l.version, u.username, l.created_at, l.updated_at
       order by
         l.updated_at desc;
-    end;
+      end;
     `
 	);
 };
