@@ -59,7 +59,7 @@ exports.up = (pgm) => {
       group by
         l.id, l.name, l.data, l.version, u.username, l.created_at, l.updated_at
       order by
-        total_vote_count desc;
+        l.updated_at desc;
       end;
     `
 	);
