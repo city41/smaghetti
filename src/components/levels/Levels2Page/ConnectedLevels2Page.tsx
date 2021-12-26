@@ -23,6 +23,8 @@ type FlatSerializedLevel = Omit<SerializedLevel, 'user'> & {
 	current_user_voted: boolean;
 };
 
+const PAGE_SIZE = 20;
+
 async function getLevels(
 	slug: CategorySlug,
 	page: number,
@@ -53,7 +55,10 @@ async function getLevels(
 			break;
 	}
 
-	const { data, error } = await query.range(page * 10, (page + 1) * 10 - 1);
+	const { data, error } = await query.range(
+		page * PAGE_SIZE,
+		(page + 1) * PAGE_SIZE - 1
+	);
 
 	if (error) {
 		throw error;
