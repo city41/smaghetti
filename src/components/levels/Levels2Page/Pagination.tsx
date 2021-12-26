@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { LevelsButton } from './LevelsButton';
 
 type PaginationProps = {
 	className?: string;
@@ -21,11 +22,15 @@ function Pagination({
 				'w-full p-4 flex flex-row items-center justify-around'
 			)}
 		>
-			<button onClick={onPreviousClick}>Previous</button>
+			<LevelsButton className="w-1/3" onClick={onPreviousClick}>
+				Previous
+			</LevelsButton>
 			<div>
 				{currentPage * 10 + 1} - {(currentPage + 1) * 10}
 			</div>
-			<button onClick={onNextClick}>Next</button>
+			<LevelsButton className="w-1/3" onClick={onNextClick}>
+				Next
+			</LevelsButton>
 		</div>
 	);
 }

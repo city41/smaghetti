@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
+import { LevelsButton } from './LevelsButton';
 
 type MenuProps = {
 	className?: string;
@@ -14,18 +15,10 @@ type MenuEntryProps = {
 
 function MenuEntry({ current, onClick, children }: MenuEntryProps) {
 	return (
-		<li
-			className={clsx('text-center', {
-				'bg-green-600': current,
-				'hover:bg-gray-600': !current,
-			})}
-		>
-			<button
-				className={clsx('p-4 w-full h-full', { 'font-bold': current })}
-				onClick={onClick}
-			>
+		<li>
+			<LevelsButton className="w-full" toggled={current} onClick={onClick}>
 				{children}
-			</button>
+			</LevelsButton>
 		</li>
 	);
 }
