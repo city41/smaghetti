@@ -33,7 +33,6 @@ function LevelsPage({
 	sortType,
 	headerTitle,
 	pageTitle,
-	hideHelpCallout,
 	noPublishedLevelsNode,
 	onSortTypeChange,
 }: InternalLevelsPageProps) {
@@ -242,12 +241,21 @@ function LevelsPage({
 			<Root title={headerTitle} metaDescription="">
 				<div className="max-w-2xl mx-auto pt-16">
 					<h1 className="font-bold text-5xl text-center mb-8">{pageTitle}</h1>
-					{!hideHelpCallout && (
-						<p className="mt-4 mb-8 px-8 text-sm text-gray-400">
-							Want your level to show up here? Click on the &quot;publish&quot;
-							button when looking at all your levels in the editor.
-						</p>
-					)}
+					<p className="mx-auto max-w-lg text-sm my-6 py-2 px-4 bg-yellow-100 text-yellow-900">
+						I am remaking this page, check out the new version{' '}
+						<a className="text-blue-600 underline" href="/levels2">
+							here
+						</a>
+						. Have feedback? Hit me up on{' '}
+						<a
+							href="https://discord.gg/wBVE4yyWhM"
+							target="_blank"
+							rel="noreferrer"
+							className="text-blue-600 underline"
+						>
+							Discord
+						</a>
+					</p>
 					{body}
 				</div>
 			</Root>
