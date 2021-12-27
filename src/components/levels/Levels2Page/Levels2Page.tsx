@@ -1,12 +1,18 @@
 import clsx from 'clsx';
 import React, { useState } from 'react';
+import { downloadSetOfLevelsAsSaveFile } from '../../../levelData/downloadLevelAsSaveFile';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
+import { OtherFilesState } from '../../FileLoader/fileLoaderSlice';
+import { HowToUseDownloadModal } from '../../HowToUseDownloadModal';
 import { Root } from '../../layout/Root';
 import { LoadingBar } from '../../LoadingBar';
 import { LevelRow } from '../LevelsPage/LevelRow/LevelRow';
+import { SaveFileList } from './SaveFileList';
 import { LevelWithVoting } from './ConnectedLevels2Page';
 import { Menu, MenuEntry } from './Menu';
 import { Pagination } from './Pagination';
+
+export const MAX_LEVELS_IN_SAVE = 32;
 
 const categories = [
 	{ title: 'Newest', subtitle: null, slug: 'newest' },
@@ -34,6 +40,7 @@ type PublicLevels2PageProps = {
 
 type InternalLevels2PageProps = {
 	allFilesReady: boolean;
+	emptySaveFileState: OtherFilesState;
 	loadingState: 'loading' | 'error' | 'success';
 	levels: LevelWithVoting[];
 	currentPage: number;
@@ -44,6 +51,7 @@ type InternalLevels2PageProps = {
 
 function Levels2Page({
 	allFilesReady,
+	emptySaveFileState,
 	loadingState,
 	levels,
 	currentSlug,
@@ -54,14 +62,28 @@ function Levels2Page({
 	onVoteClick,
 }: PublicLevels2PageProps & InternalLevels2PageProps) {
 	const [showFileLoaderModal, setShowFileLoaderModal] = useState(false);
+	const [isBuildingSave, setIsBuildingSave] = useState(false);
+	const [chosenLevels, setChosenLevels] = useState<Level[]>([]);
+	const [showDownloadHelp, setShowDownloadHelp] = useState(false);
 
 	const currentCategory = categories.find((c) => c.slug === currentSlug);
+
+	function downloadSave(levels: Level[]) {
+		downloadSetOfLevelsAsSaveFile(levels, 'smaghetti');
+		setShowDownloadHelp(true);
+		setIsBuildingSave(false);
+		setChosenLevels([]);
+	}
 
 	return (
 		<>
 			<FileLoaderModal
 				isOpen={showFileLoaderModal && !allFilesReady}
 				onRequestClose={() => setShowFileLoaderModal(false)}
+			/>
+			<HowToUseDownloadModal
+				isOpen={showDownloadHelp}
+				onRequestClose={() => setShowDownloadHelp(false)}
 			/>
 			<Root metaDescription="" title="Levels">
 				<div className="max-w-2xl mx-auto pt-16 flex flex-col h-full">
@@ -103,10 +125,19 @@ function Levels2Page({
 									<LevelRow
 										key={l.id}
 										level={l}
-										isBuildingSave={false}
-										isChosen={false}
+										isBuildingSave={isBuildingSave}
+										isChosen={chosenLevels.includes(l)}
 										areFilesReady={allFilesReady}
-										onChosenChange={(_newChosen) => {}}
+										onChosenChange={(newChosen) => {
+											if (
+												newChosen &&
+												chosenLevels.length < MAX_LEVELS_IN_SAVE
+											) {
+												setChosenLevels((cl) => cl.concat(l));
+											} else {
+												setChosenLevels((cl) => cl.filter((cll) => cll !== l));
+											}
+										}}
 										onLoadRomClick={() => {
 											setShowFileLoaderModal(true);
 										}}
@@ -128,6 +159,21 @@ function Levels2Page({
 					)}
 				</div>
 			</Root>
+			<SaveFileList
+				emptySaveFileState={emptySaveFileState}
+				className="ml-12 fixed bottom-0"
+				style={{ minHeight: '3rem' }}
+				chosenLevelCount={chosenLevels.length}
+				onStartClick={() => {
+					setIsBuildingSave(true);
+				}}
+				onCancelClick={() => {
+					setIsBuildingSave(false);
+					setChosenLevels([]);
+				}}
+				onSaveClick={() => downloadSave(chosenLevels)}
+				isBuilding={isBuildingSave}
+			/>
 		</>
 	);
 }

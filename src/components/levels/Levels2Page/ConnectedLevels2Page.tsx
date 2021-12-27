@@ -80,7 +80,9 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 		setPendingLevelVote,
 	] = useState<LevelWithVoting | null>(null);
 
-	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
+	const { allFilesReady, emptySaveFileState } = useSelector(
+		(state: AppState) => state.fileLoader
+	);
 
 	useEffect(() => {
 		client.auth.onAuthStateChange(() => {
@@ -207,6 +209,7 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 			<Levels2Page
 				{...props}
 				allFilesReady={allFilesReady}
+				emptySaveFileState={emptySaveFileState}
 				loadingState={loadingState}
 				levels={levels}
 				currentPage={page}
