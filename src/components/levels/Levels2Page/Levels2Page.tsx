@@ -43,6 +43,7 @@ type InternalLevels2PageProps = {
 	emptySaveFileState: OtherFilesState;
 	loadingState: 'loading' | 'error' | 'success';
 	levels: LevelWithVoting[];
+	totalCount: number;
 	currentPage: number;
 	onNextClick: () => void;
 	onPreviousClick: () => void;
@@ -54,6 +55,7 @@ function Levels2Page({
 	emptySaveFileState,
 	loadingState,
 	levels,
+	totalCount,
 	currentSlug,
 	onSlugClick,
 	currentPage,
@@ -155,6 +157,7 @@ function Levels2Page({
 							currentPage={currentPage}
 							onNextClick={onNextClick}
 							onPreviousClick={onPreviousClick}
+							totalCount={totalCount}
 						/>
 					)}
 				</div>

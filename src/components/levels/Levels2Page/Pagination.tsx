@@ -5,6 +5,7 @@ import { LevelsButton } from './LevelsButton';
 type PaginationProps = {
 	className?: string;
 	currentPage: number;
+	totalCount: number;
 	onNextClick: () => void;
 	onPreviousClick: () => void;
 };
@@ -12,6 +13,7 @@ type PaginationProps = {
 function Pagination({
 	className,
 	currentPage,
+	totalCount,
 	onNextClick,
 	onPreviousClick,
 }: PaginationProps) {
@@ -26,7 +28,8 @@ function Pagination({
 				Previous
 			</LevelsButton>
 			<div>
-				{currentPage * 10 + 1} - {(currentPage + 1) * 10}
+				{currentPage * 10 + 1} - {Math.min((currentPage + 1) * 10, totalCount)}{' '}
+				of {totalCount}
 			</div>
 			<LevelsButton className="w-1/3" onClick={onNextClick}>
 				Next

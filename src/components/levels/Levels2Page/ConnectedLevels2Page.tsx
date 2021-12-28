@@ -29,48 +29,43 @@ async function getLevels(
 	slug: CategorySlug,
 	page: number,
 	userId: string | undefined
-): Promise<FlatSerializedLevel[]> {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	let query: any;
-
+): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
 	const params = { current_user_id: userId ?? '' };
 
+	let rpcFunc;
+
 	switch (slug) {
-		case 'newest':
-			query = client.rpc('get_newest_published_levels', params);
-			break;
 		case 'popular':
-			query = client.rpc('get_most_popular_published_levels', params);
+			rpcFunc = 'get_most_popular_published_levels';
 			break;
 		case 'coins':
-			query = client.rpc(
-				'get_published_levels_that_have_special_coins',
-				params
-			);
+			rpcFunc = 'get_published_levels_that_have_special_coins';
 			break;
 		case 'dev-favs':
-			query = client.rpc('get_devs_favs_published_levels', params);
+			rpcFunc = 'get_devs_favs_published_levels';
 			break;
 		default:
+		case 'newest':
+			rpcFunc = 'get_newest_published_levels';
 			break;
 	}
 
-	const { data, error } = await query.range(
-		page * PAGE_SIZE,
-		(page + 1) * PAGE_SIZE - 1
-	);
+	const { data, error, count } = await client
+		.rpc(rpcFunc, params, { count: 'exact' })
+		.range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
 
 	if (error) {
 		throw error;
 	}
 
-	return data ?? [];
+	return { levels: data ?? [], totalCount: count ?? 0 };
 }
 
 function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 	const [page, setPage] = useState(0);
 	const [loadingState, setLoadingState] = useState<LoadingState>('loading');
 	const [levels, setLevels] = useState<LevelWithVoting[]>([]);
+	const [totalCount, setTotalCount] = useState(0);
 	const [userId, setUserId] = useState<string | undefined>(
 		client.auth.user()?.id
 	);
@@ -99,7 +94,7 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 	useEffect(() => {
 		setLoadingState('loading');
 		getLevels(props.currentSlug, page, userId)
-			.then((retrievedLevels) => {
+			.then(({ levels: retrievedLevels, totalCount: retrievedTotalCount }) => {
 				const convertedLevels = retrievedLevels.reduce<LevelWithVoting[]>(
 					(building, rawLevel) => {
 						const serializedLevel = {
@@ -127,6 +122,7 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 				);
 
 				setLevels(convertedLevels);
+				setTotalCount(retrievedTotalCount);
 				setLoadingState('success');
 			})
 			.catch(() => {
@@ -212,6 +208,7 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 				emptySaveFileState={emptySaveFileState}
 				loadingState={loadingState}
 				levels={levels}
+				totalCount={totalCount}
 				currentPage={page}
 				onPreviousClick={() => {
 					setPage((p) => Math.max(0, p - 1));
