@@ -11,6 +11,7 @@ import { TILE_SIZE } from '../tiles/constants';
 import { Resizer } from '../components/Resizer';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
+import clamp from 'lodash/clamp';
 
 const GrassFloor: Entity = {
 	paletteCategory: 'terrain',
@@ -109,7 +110,7 @@ const GrassFloor: Entity = {
 						increment={TILE_SIZE}
 						axis="x"
 						onSizeChange={(newSizePoint) => {
-							onSettingsChange({ width: Math.max(1, newSizePoint.x) });
+							onSettingsChange({ width: clamp(newSizePoint.x, 1, 62) });
 						}}
 						onResizeStart={() => onSettingsChange({ resizing: true })}
 						onResizeEnd={() => onSettingsChange({ resizing: false })}
