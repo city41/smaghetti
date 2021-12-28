@@ -44,6 +44,7 @@ type InternalLevels2PageProps = {
 	loadingState: 'loading' | 'error' | 'success';
 	levels: LevelWithVoting[];
 	totalCount: number;
+	pageSize: number;
 	currentPage: number;
 	onNextClick: () => void;
 	onPreviousClick: () => void;
@@ -56,6 +57,7 @@ function Levels2Page({
 	loadingState,
 	levels,
 	totalCount,
+	pageSize,
 	currentSlug,
 	onSlugClick,
 	currentPage,
@@ -158,6 +160,7 @@ function Levels2Page({
 							onNextClick={onNextClick}
 							onPreviousClick={onPreviousClick}
 							totalCount={totalCount}
+							pageSize={pageSize}
 						/>
 					)}
 				</div>

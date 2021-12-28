@@ -25,6 +25,14 @@ type FlatSerializedLevel = Omit<SerializedLevel, 'user'> & {
 
 const PAGE_SIZE = 20;
 
+const slugToRpc: Record<CategorySlug, string> = {
+	popular: 'get_most_popular_published_levels',
+	coins: 'get_published_levels_that_have_special_coins',
+	'dev-favs': 'get_devs_favs_published_levels',
+	newest: 'get_newest_published_levels',
+	'by-tag': '',
+};
+
 async function getLevels(
 	slug: CategorySlug,
 	page: number,
@@ -32,23 +40,7 @@ async function getLevels(
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
 	const params = { current_user_id: userId ?? '' };
 
-	let rpcFunc;
-
-	switch (slug) {
-		case 'popular':
-			rpcFunc = 'get_most_popular_published_levels';
-			break;
-		case 'coins':
-			rpcFunc = 'get_published_levels_that_have_special_coins';
-			break;
-		case 'dev-favs':
-			rpcFunc = 'get_devs_favs_published_levels';
-			break;
-		default:
-		case 'newest':
-			rpcFunc = 'get_newest_published_levels';
-			break;
-	}
+	const rpcFunc = slugToRpc[slug];
 
 	const { data, error, count } = await client
 		.rpc(rpcFunc, params, { count: 'exact' })
@@ -209,6 +201,7 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 				loadingState={loadingState}
 				levels={levels}
 				totalCount={totalCount}
+				pageSize={PAGE_SIZE}
 				currentPage={page}
 				onPreviousClick={() => {
 					setPage((p) => Math.max(0, p - 1));
