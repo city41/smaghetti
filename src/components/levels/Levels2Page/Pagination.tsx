@@ -19,6 +19,7 @@ function Pagination({
 	onNextClick,
 	onPreviousClick,
 }: PaginationProps) {
+	const endingRecord = Math.min((currentPage + 1) * pageSize, totalCount);
 	return (
 		<div
 			className={clsx(
@@ -26,14 +27,21 @@ function Pagination({
 				'w-full p-4 flex flex-row items-center justify-around'
 			)}
 		>
-			<LevelsButton className="w-1/3" onClick={onPreviousClick}>
+			<LevelsButton
+				className="w-1/3"
+				onClick={onPreviousClick}
+				disabled={currentPage === 0}
+			>
 				Previous
 			</LevelsButton>
 			<div>
-				{currentPage * pageSize + 1} -{' '}
-				{Math.min((currentPage + 1) * pageSize, totalCount)} of {totalCount}
+				{currentPage * pageSize + 1} - {endingRecord} of {totalCount}
 			</div>
-			<LevelsButton className="w-1/3" onClick={onNextClick}>
+			<LevelsButton
+				className="w-1/3"
+				onClick={onNextClick}
+				disabled={endingRecord === totalCount}
+			>
 				Next
 			</LevelsButton>
 		</div>
