@@ -26,6 +26,36 @@ module.exports = withPlugins(
 					permanent: true,
 				},
 				{
+					source: '/levels2/by-tag',
+					destination: '/levels2/by-tag/newest',
+					permanent: true,
+				},
+				{
+					source: '/levels2/by-tag/',
+					destination: '/levels2/by-tag/newest',
+					permanent: true,
+				},
+				{
+					source: '/levels2/coins',
+					destination: '/levels2/coins/newest',
+					permanent: true,
+				},
+				{
+					source: '/levels2/coins/',
+					destination: '/levels2/coins/newest',
+					permanent: true,
+				},
+				{
+					source: '/levels2/dev-favs',
+					destination: '/levels2/dev-favs/newest',
+					permanent: true,
+				},
+				{
+					source: '/levels2/dev-favs/',
+					destination: '/levels2/dev-favs/newest',
+					permanent: true,
+				},
+				{
 					source: '/make',
 					destination: '/editor',
 					permanent: true,

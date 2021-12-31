@@ -42,9 +42,7 @@ exports.up = (pgm) => {
       where
         l.published = true and (l.data::text like '%"type": "ECoin"%' or l.data::text like '%"type": "AceCoin"%')
       group by
-        l.id, l.name, l.data, l.version, u.username, l.created_at, l.updated_at
-      order by
-        total_vote_count desc;
+        l.id, l.name, l.data, l.version, u.username, l.created_at, l.updated_at;
       end;
     `
 	);

@@ -11,31 +11,20 @@ import { SaveFileList } from './SaveFileList';
 import { LevelWithVoting } from './ConnectedLevels2Page';
 import { Menu, MenuEntry } from './Menu';
 import { Pagination } from './Pagination';
+import {
+	categories,
+	CategorySlug,
+	CategoryUserOrder,
+	userOrders,
+} from './categories';
 
 export const MAX_LEVELS_IN_SAVE = 32;
 
-const categories = [
-	{ title: 'Newest', subtitle: null, slug: 'newest' },
-	{ title: 'Popular', subtitle: null, slug: 'popular' },
-	{ title: 'By Tag', subtitle: 'not implemented yet', slug: 'by-tag' },
-	{
-		title: 'Coins',
-		subtitle: 'These levels have ace coins and/or e-coins for you to seek out',
-		slug: 'coins',
-	},
-	{
-		title: "Dev's Favs",
-		subtitle:
-			"Hi I'm Matt and I am making Smaghetti. These are some of my favorite levels.",
-		slug: 'dev-favs',
-	},
-] as const;
-
-type CategorySlug = typeof categories[number]['slug'];
-
 type PublicLevels2PageProps = {
 	currentSlug: CategorySlug;
+	currentOrder?: CategoryUserOrder;
 	onSlugClick: (newSlug: CategorySlug) => void;
+	onUserOrderClick?: (newOrder: CategoryUserOrder) => void;
 };
 
 type InternalLevels2PageProps = {
@@ -59,7 +48,9 @@ function Levels2Page({
 	totalCount,
 	pageSize,
 	currentSlug,
+	currentOrder,
 	onSlugClick,
+	onUserOrderClick,
 	currentPage,
 	onNextClick,
 	onPreviousClick,
@@ -112,9 +103,26 @@ function Levels2Page({
 						})}
 					</Menu>
 					{!!currentCategory?.subtitle && (
-						<p className="mt-12 text-center text-sm w-full">
+						<p className="my-8 text-center text-sm w-full">
 							{currentCategory.subtitle}
 						</p>
+					)}
+					{!!currentOrder && (
+						<Menu className="grid grid-cols-2 w-1/2 mx-auto">
+							{userOrders.map((c) => {
+								return (
+									<MenuEntry
+										key={c}
+										current={currentOrder === c}
+										onClick={() => {
+											onUserOrderClick?.(c);
+										}}
+									>
+										{c}
+									</MenuEntry>
+								);
+							})}
+						</Menu>
 					)}
 					<div
 						className={clsx('flex-1 mb-8 flex flex-col gap-y-8', {
@@ -184,5 +192,5 @@ function Levels2Page({
 	);
 }
 
-export { Levels2Page, categories };
-export type { PublicLevels2PageProps, CategorySlug };
+export { Levels2Page };
+export type { PublicLevels2PageProps };

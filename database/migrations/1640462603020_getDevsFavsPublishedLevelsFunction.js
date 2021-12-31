@@ -57,9 +57,7 @@ exports.up = (pgm) => {
             u2.role = 'admin'
         )
       group by
-        l.id, l.name, l.data, l.version, u.username, l.created_at, l.updated_at
-      order by
-        l.updated_at desc;
+        l.id, l.name, l.data, l.version, u.username, l.created_at, l.updated_at;
       end;
     `
 	);

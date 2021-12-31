@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { CategorySlug, Levels2Page } from './Levels2Page';
+import { Levels2Page } from './Levels2Page';
+import { categories, CategorySlug, CategoryUserOrder } from './categories';
 import type { PublicLevels2PageProps } from './Levels2Page';
 import { client } from '../../../remoteData/client';
 import { convertLevelToLatestVersion } from '../../../level/versioning/convertLevelToLatestVersion';
@@ -33,8 +34,14 @@ const slugToRpc: Record<CategorySlug, string> = {
 	'by-tag': '',
 };
 
+const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
+	newest: 'updated_at',
+	popular: 'total_vote_count',
+};
+
 async function getLevels(
 	slug: CategorySlug,
+	order: CategoryUserOrder | undefined,
 	page: number,
 	userId: string | undefined
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
@@ -42,9 +49,15 @@ async function getLevels(
 
 	const rpcFunc = slugToRpc[slug];
 
-	const { data, error, count } = await client
+	let query = client
 		.rpc(rpcFunc, params, { count: 'exact' })
 		.range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
+
+	if (categories.find((c) => c.slug === slug)?.userOrder && !!order) {
+		query = query.order(userOrderToOrderColumn[order], { ascending: false });
+	}
+
+	const { error, data, count } = await query;
 
 	if (error) {
 		throw error;
@@ -85,7 +98,7 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 
 	useEffect(() => {
 		setLoadingState('loading');
-		getLevels(props.currentSlug, page, userId)
+		getLevels(props.currentSlug, props.currentOrder, page, userId)
 			.then(({ levels: retrievedLevels, totalCount: retrievedTotalCount }) => {
 				const convertedLevels = retrievedLevels.reduce<LevelWithVoting[]>(
 					(building, rawLevel) => {
@@ -120,7 +133,7 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 			.catch(() => {
 				setLoadingState('error');
 			});
-	}, [page, props.currentSlug, setLoadingState, userId]);
+	}, [page, props.currentSlug, props.currentOrder, setLoadingState, userId]);
 
 	async function handleVoteClick(level: LevelWithVoting) {
 		setLevels((levels) => {

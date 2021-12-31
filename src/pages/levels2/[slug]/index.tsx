@@ -2,9 +2,12 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Provider } from 'react-redux';
 
-import { Levels2Page, categories } from '../../components/levels/Levels2Page';
-import { store } from '../../store';
-import { CategorySlug } from '../../components/levels/Levels2Page/Levels2Page';
+import {
+	Levels2Page,
+	categories,
+} from '../../../components/levels/Levels2Page';
+import { store } from '../../../store';
+import type { CategorySlug } from '../../../components/levels/Levels2Page/categories';
 import {
 	GetStaticPathsResult,
 	GetStaticPropsContext,
@@ -43,6 +46,12 @@ function NextLevels2Page({ slug }: NextLevels2PageProps) {
 	useEffect(() => {
 		if (typeof slug !== 'string') {
 			router.replace('/levels2/newest');
+		}
+
+		const matchingCategory = categories.find((c) => c.slug === slug);
+
+		if (matchingCategory?.userOrder) {
+			router.replace(`/levels2/${slug}/newest`);
 		}
 	}, [slug]);
 
