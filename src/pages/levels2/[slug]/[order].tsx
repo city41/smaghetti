@@ -26,6 +26,7 @@ type NextLevels2PageProps = {
 export function getStaticPaths(): GetStaticPathsResult {
 	return {
 		paths: categories
+			.filter((c) => c.slug !== 'by-tag')
 			.map((c) => {
 				return userOrders.map((order) => {
 					return {

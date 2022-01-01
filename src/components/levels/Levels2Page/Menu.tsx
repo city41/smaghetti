@@ -16,7 +16,7 @@ type MenuEntryProps = {
 function MenuEntry({ current, onClick, children }: MenuEntryProps) {
 	return (
 		<li>
-			<LevelsButton className="w-full" toggled={current} onClick={onClick}>
+			<LevelsButton className="w-full p-4" toggled={current} onClick={onClick}>
 				{children}
 			</LevelsButton>
 		</li>

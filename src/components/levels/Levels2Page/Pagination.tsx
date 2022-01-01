@@ -28,7 +28,7 @@ function Pagination({
 			)}
 		>
 			<LevelsButton
-				className="w-1/3"
+				className="w-1/3 p-4"
 				onClick={onPreviousClick}
 				disabled={currentPage === 0}
 			>
@@ -38,7 +38,7 @@ function Pagination({
 				{currentPage * pageSize + 1} - {endingRecord} of {totalCount}
 			</div>
 			<LevelsButton
-				className="w-1/3"
+				className="w-1/3 p-4"
 				onClick={onNextClick}
 				disabled={endingRecord === totalCount}
 			>

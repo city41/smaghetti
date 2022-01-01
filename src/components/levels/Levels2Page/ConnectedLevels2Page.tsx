@@ -30,7 +30,7 @@ const slugToRpc: Record<CategorySlug, string> = {
 	coins: 'get_published_levels_that_have_special_coins',
 	'dev-favs': 'get_devs_favs_published_levels',
 	all: 'get_all_published_levels',
-	'by-tag': '',
+	'by-tag': 'get_published_levels_with_tags',
 };
 
 const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
@@ -41,10 +41,19 @@ const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
 async function getLevels(
 	slug: CategorySlug,
 	order: CategoryUserOrder,
+	tags: string[] | undefined,
 	page: number,
 	userId: string | undefined
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
-	const params = { current_user_id: userId ?? '' };
+	const params: Record<string, any> = { current_user_id: userId ?? '' };
+
+	if (slug === 'by-tag') {
+		if (!tags || tags.length === 0) {
+			tags = ['all'];
+		}
+
+		params.matching_tags = tags;
+	}
 
 	const rpcFunc = slugToRpc[slug];
 
@@ -88,11 +97,11 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 		setPage(0);
 		setLevels([]);
 		setLoadingState('loading');
-	}, [props.currentSlug]);
+	}, [props.currentSlug, props.currentOrder, props.tags]);
 
 	useEffect(() => {
 		setLoadingState('loading');
-		getLevels(props.currentSlug, props.currentOrder, page, userId)
+		getLevels(props.currentSlug, props.currentOrder, props.tags, page, userId)
 			.then(({ levels: retrievedLevels, totalCount: retrievedTotalCount }) => {
 				const convertedLevels = retrievedLevels.reduce<LevelWithVoting[]>(
 					(building, rawLevel) => {
@@ -127,7 +136,14 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 			.catch(() => {
 				setLoadingState('error');
 			});
-	}, [page, props.currentSlug, props.currentOrder, setLoadingState, userId]);
+	}, [
+		page,
+		props.currentSlug,
+		props.currentOrder,
+		props.tags,
+		setLoadingState,
+		userId,
+	]);
 
 	async function handleVoteClick(level: LevelWithVoting) {
 		setLevels((levels) => {

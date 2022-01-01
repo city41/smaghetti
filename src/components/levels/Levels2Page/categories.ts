@@ -6,7 +6,7 @@ export const categories = [
 	},
 	{
 		title: 'By Tag',
-		subtitle: 'not implemented yet',
+		subtitle: 'Find levels by a certain style',
 		slug: 'by-tag',
 	},
 	{

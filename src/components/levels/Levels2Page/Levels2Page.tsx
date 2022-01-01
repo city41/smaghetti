@@ -17,14 +17,17 @@ import {
 	CategoryUserOrder,
 	userOrders,
 } from './categories';
+import { TagPicker } from './TagPicker';
 
 export const MAX_LEVELS_IN_SAVE = 32;
 
 type PublicLevels2PageProps = {
 	currentSlug: CategorySlug;
 	currentOrder: CategoryUserOrder;
+	tags?: string[];
 	onSlugClick: (newSlug: CategorySlug) => void;
-	onUserOrderClick?: (newOrder: CategoryUserOrder) => void;
+	onUserOrderClick: (newOrder: CategoryUserOrder) => void;
+	onTagClick?: (clickedTag: string) => void;
 };
 
 type InternalLevels2PageProps = {
@@ -49,8 +52,10 @@ function Levels2Page({
 	pageSize,
 	currentSlug,
 	currentOrder,
+	tags,
 	onSlugClick,
 	onUserOrderClick,
+	onTagClick,
 	currentPage,
 	onNextClick,
 	onPreviousClick,
@@ -107,8 +112,15 @@ function Levels2Page({
 							{currentCategory.subtitle}
 						</p>
 					)}
-					{!!currentOrder && (
-						<Menu className="grid grid-cols-2 w-1/2 mx-auto">
+					{onTagClick && (
+						<TagPicker
+							className="mb-8"
+							chosenTags={tags ?? []}
+							onTagClick={onTagClick}
+						/>
+					)}
+					{!!currentOrder && levels.length > 0 && (
+						<Menu className="grid grid-cols-2 w-1/2 mx-auto mb-4">
 							{userOrders.map((c) => {
 								return (
 									<MenuEntry
@@ -159,10 +171,17 @@ function Levels2Page({
 										isVoting={!!l.loading}
 									/>
 								))}
+								{levels.length === 0 && (
+									<p className="text-center">
+										{currentSlug === 'by-tag' && (!tags || tags.length === 0)
+											? 'Please choose some tags above'
+											: 'No matching levels found'}
+									</p>
+								)}
 							</>
 						)}
 					</div>
-					{loadingState === 'success' && (
+					{loadingState === 'success' && levels.length > 0 && (
 						<Pagination
 							currentPage={currentPage}
 							onNextClick={onNextClick}
