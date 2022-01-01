@@ -49,7 +49,7 @@ async function getLevels(
 
 	if (slug === 'by-tag') {
 		if (!tags || tags.length === 0) {
-			tags = ['all'];
+			return { levels: [], totalCount: 0 };
 		}
 
 		params.matching_tags = tags;
