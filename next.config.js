@@ -17,42 +17,52 @@ module.exports = withPlugins(
 			return [
 				{
 					source: '/levels2',
-					destination: '/levels2/all/newest',
+					destination: '/levels/all/newest',
 					permanent: true,
 				},
 				{
 					source: '/levels2/',
-					destination: '/levels2/all/newest',
+					destination: '/levels/all/newest',
 					permanent: true,
 				},
 				{
-					source: '/levels2/by-tag',
-					destination: '/levels2/by-tag/newest',
+					source: '/levels',
+					destination: '/levels/all/newest',
 					permanent: true,
 				},
 				{
-					source: '/levels2/by-tag/',
-					destination: '/levels2/by-tag/newest',
+					source: '/levels/',
+					destination: '/levels/all/newest',
 					permanent: true,
 				},
 				{
-					source: '/levels2/coins',
-					destination: '/levels2/coins/newest',
+					source: '/levels/by-tag',
+					destination: '/levels/by-tag/newest',
 					permanent: true,
 				},
 				{
-					source: '/levels2/coins/',
-					destination: '/levels2/coins/newest',
+					source: '/levels/by-tag/',
+					destination: '/levels/by-tag/newest',
+					permanent: true,
+				},
+				{
+					source: '/levels/coins',
+					destination: '/levels/coins/newest',
+					permanent: true,
+				},
+				{
+					source: '/levels/coins/',
+					destination: '/levels/coins/newest',
 					permanent: true,
 				},
 				/*  */ {
-					source: '/levels2/dev-favs',
-					destination: '/levels2/dev-favs/newest',
+					source: '/levels/dev-favs',
+					destination: '/levels/dev-favs/newest',
 					permanent: true,
 				},
 				{
-					source: '/levels2/dev-favs/',
-					destination: '/levels2/dev-favs/newest',
+					source: '/levels/dev-favs/',
+					destination: '/levels/dev-favs/newest',
 					permanent: true,
 				},
 				{

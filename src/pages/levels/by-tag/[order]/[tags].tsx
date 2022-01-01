@@ -31,10 +31,10 @@ function NextLevels2ByTagPage() {
 				currentOrder={(order ?? 'newest') as CategoryUserOrder}
 				tags={currentTags}
 				onSlugClick={(newSlug) => {
-					router.push(`/levels2/${newSlug}/newest`);
+					router.push(`/levels/${newSlug}/newest`);
 				}}
 				onUserOrderClick={(newOrder) => {
-					router.push(`/levels2/by-tag/${newOrder}/${tags}`);
+					router.push(`/levels/by-tag/${newOrder}/${tags}`);
 				}}
 				onTagClick={(tag) => {
 					let newTagString: string;
@@ -48,7 +48,7 @@ function NextLevels2ByTagPage() {
 							.join('_');
 					}
 
-					router.push(`/levels2/by-tag/${order}/${newTagString}`);
+					router.push(`/levels/by-tag/${order}/${newTagString}`);
 				}}
 			/>
 		</Provider>
