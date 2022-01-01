@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Levels2Page } from './Levels2Page';
-import { categories, CategorySlug, CategoryUserOrder } from './categories';
+import type { CategorySlug, CategoryUserOrder } from './categories';
 import type { PublicLevels2PageProps } from './Levels2Page';
 import { client } from '../../../remoteData/client';
 import { convertLevelToLatestVersion } from '../../../level/versioning/convertLevelToLatestVersion';
@@ -40,7 +40,7 @@ const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
 
 async function getLevels(
 	slug: CategorySlug,
-	order: CategoryUserOrder | undefined,
+	order: CategoryUserOrder,
 	page: number,
 	userId: string | undefined
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
@@ -48,15 +48,10 @@ async function getLevels(
 
 	const rpcFunc = slugToRpc[slug];
 
-	let query = client
+	const { error, data, count } = await client
 		.rpc(rpcFunc, params, { count: 'exact' })
-		.range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
-
-	if (categories.find((c) => c.slug === slug)?.userOrder && !!order) {
-		query = query.order(userOrderToOrderColumn[order], { ascending: false });
-	}
-
-	const { error, data, count } = await query;
+		.range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
+		.order(userOrderToOrderColumn[order], { ascending: false });
 
 	if (error) {
 		throw error;

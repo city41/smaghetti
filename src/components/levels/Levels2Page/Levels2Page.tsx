@@ -22,7 +22,7 @@ export const MAX_LEVELS_IN_SAVE = 32;
 
 type PublicLevels2PageProps = {
 	currentSlug: CategorySlug;
-	currentOrder?: CategoryUserOrder;
+	currentOrder: CategoryUserOrder;
 	onSlugClick: (newSlug: CategorySlug) => void;
 	onUserOrderClick?: (newOrder: CategoryUserOrder) => void;
 };

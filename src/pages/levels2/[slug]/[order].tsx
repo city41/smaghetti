@@ -7,9 +7,10 @@ import {
 	categories,
 } from '../../../components/levels/Levels2Page';
 import { store } from '../../../store';
-import type {
+import {
 	CategorySlug,
 	CategoryUserOrder,
+	userOrders,
 } from '../../../components/levels/Levels2Page/categories';
 import {
 	GetStaticPathsResult,
@@ -25,16 +26,15 @@ type NextLevels2PageProps = {
 export function getStaticPaths(): GetStaticPathsResult {
 	return {
 		paths: categories
-			.filter((c) => c.userOrder)
 			.map((c) => {
-				return [
-					{
-						params: { slug: c.slug, order: 'newest' },
-					},
-					{
-						params: { slug: c.slug, order: 'popular' },
-					},
-				];
+				return userOrders.map((order) => {
+					return {
+						params: {
+							slug: c.slug,
+							order,
+						},
+					};
+				});
 			})
 			.flat(1),
 		fallback: false,
