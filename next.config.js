@@ -17,12 +17,12 @@ module.exports = withPlugins(
 			return [
 				{
 					source: '/levels2',
-					destination: '/levels2/newest',
+					destination: '/levels2/all/newest',
 					permanent: true,
 				},
 				{
 					source: '/levels2/',
-					destination: '/levels2/newest',
+					destination: '/levels2/all/newest',
 					permanent: true,
 				},
 				{
@@ -45,7 +45,7 @@ module.exports = withPlugins(
 					destination: '/levels2/coins/newest',
 					permanent: true,
 				},
-				{
+				/*  */ {
 					source: '/levels2/dev-favs',
 					destination: '/levels2/dev-favs/newest',
 					permanent: true,

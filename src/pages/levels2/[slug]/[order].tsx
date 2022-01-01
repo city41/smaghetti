@@ -58,9 +58,8 @@ function NextLevels2Page({ slug, order }: NextLevels2PageProps) {
 
 	useEffect(() => {
 		if (typeof slug !== 'string') {
-			router.replace('/levels2/newest');
-		}
-		if (typeof order !== 'string') {
+			router.replace('/levels2/all/newest');
+		} else if (typeof order !== 'string') {
 			router.replace(`/levels2/${slug}/newest`);
 		}
 	}, [slug, order]);
@@ -71,13 +70,7 @@ function NextLevels2Page({ slug, order }: NextLevels2PageProps) {
 				currentSlug={slug as CategorySlug}
 				currentOrder={order as CategoryUserOrder}
 				onSlugClick={(newSlug) => {
-					const matchingCategory = categories.find((c) => c.slug === newSlug);
-
-					if (matchingCategory?.userOrder) {
-						router.push('/levels2/' + newSlug + '/newest');
-					} else {
-						router.push('/levels2/' + newSlug);
-					}
+					router.push(`/levels2/${newSlug}/newest`);
 				}}
 				onUserOrderClick={(newOrder) => {
 					router.push(`/levels2/${slug}/${newOrder}`);

@@ -1,6 +1,10 @@
 export const categories = [
-	{ title: 'Newest', subtitle: null, slug: 'newest', userOrder: false },
-	{ title: 'Popular', subtitle: null, slug: 'popular', userOrder: false },
+	{
+		title: 'All',
+		subtitle: 'Every level that has been published',
+		slug: 'all',
+		userOrder: true,
+	},
 	{
 		title: 'By Tag',
 		subtitle: 'not implemented yet',

@@ -1,4 +1,4 @@
-const GET_NEWEST_PUBLISHED_LEVELS_FUNCTION_NAME = 'get_newest_published_levels';
+const GET_NEWEST_PUBLISHED_LEVELS_FUNCTION_NAME = 'get_all_published_levels';
 const GET_NEWEST_PUBLISHED_LEVELS_FUNCTION_PARAMS = [
 	'current_user_id varchar(50)',
 ];
@@ -41,9 +41,7 @@ exports.up = (pgm) => {
       where
         l.published = true 
       group by
-        l.id, l.name, l.data, l.version, u.username, l.created_at, l.updated_at
-      order by
-        l.updated_at desc;
+        l.id, l.name, l.data, l.version, u.username, l.created_at, l.updated_at;
       end;
     `
 	);

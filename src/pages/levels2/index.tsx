@@ -5,7 +5,7 @@ function NextLevels2IndexPage() {
 	const router = useRouter();
 
 	useEffect(() => {
-		router.replace('/levels2/newest');
+		router.replace('/levels2/all/newest');
 	}, []);
 
 	return null;

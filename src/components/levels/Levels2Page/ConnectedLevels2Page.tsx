@@ -27,10 +27,9 @@ type FlatSerializedLevel = Omit<SerializedLevel, 'user'> & {
 const PAGE_SIZE = 20;
 
 const slugToRpc: Record<CategorySlug, string> = {
-	popular: 'get_most_popular_published_levels',
 	coins: 'get_published_levels_that_have_special_coins',
 	'dev-favs': 'get_devs_favs_published_levels',
-	newest: 'get_newest_published_levels',
+	all: 'get_all_published_levels',
 	'by-tag': '',
 };
 
