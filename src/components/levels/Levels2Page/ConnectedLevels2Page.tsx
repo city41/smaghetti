@@ -45,6 +45,7 @@ async function getLevels(
 	page: number,
 	userId: string | undefined
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const params: Record<string, any> = { current_user_id: userId ?? '' };
 
 	if (slug === 'by-tag') {
