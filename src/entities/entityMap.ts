@@ -189,6 +189,7 @@ import { IceBlockSmall } from './IceBlockSmall';
 import { Iggy } from './Iggy';
 import { IndestructibleBrick } from './IndestructibleBrick';
 import { Jelectro } from './Jelectro';
+import { JelectroStill } from './JelectroStill';
 import { JumpingCheepCheep } from './JumpingCheepCheep';
 import { Key } from './Key';
 import { Lakitu } from './Lakitu';
@@ -567,6 +568,7 @@ const entityMap = {
 	Iggy,
 	IndestructibleBrick,
 	Jelectro,
+	JelectroStill,
 	JumpingCheepCheep,
 	Key,
 	Lakitu,

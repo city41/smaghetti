@@ -70,6 +70,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	IceBlockMuncher: 'Ibm',
 	IceBlockSmall: 'Ibs',
 	IndestructibleBrick: 'In',
+	JelectroStill: 'Js',
 	LakituCloud: 'Lc',
 	LakituCloudAlternate: 'Lc*',
 	LineTrackPulley: 'Ltp',
