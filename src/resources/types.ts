@@ -4,7 +4,6 @@ type TileExtractionSpec = {
 	romOffset?: number;
 	palette?: number;
 	tileIndex: number;
-	paletteIndex?: number;
 	flip?: 'h' | 'v' | 'hv';
 	uncompressed?: boolean;
 	shift?: number;

@@ -221,7 +221,7 @@ export const resourceShaMap: Record<string, string> = {
   "POWBlock": "b7ebe957f1e7436e787b06f612e134d085b5d589",
   "PSwitch": "9c2c6c2de0e03f4782d16e81519aa7959f49c727",
   "ParaBeetle": "e29aa6de6a11f1b3479c91b8505ad080e548534f",
-  "ParaBobombGenerator": "4421de38c57f1403034b356ac51ed7402fc20eee",
+  "ParaBobombGenerator": "235d7a2ecee84b2e39562b2f66166056d28a7229",
   "ParaBomberGoomba": "e632aa124de55707f6a2594bdf7c2ac83cc0c358",
   "ParaGoomba": "690651f4801f76e96ccd260beebcda0c20700cb3",
   "PileDriverMiniGoomba": "94bf3247e6bc2c151e20295f77f5609fe07a9d62",
