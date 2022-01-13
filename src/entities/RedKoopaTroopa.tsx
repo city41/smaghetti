@@ -42,12 +42,12 @@ const RedKoopaTroopa: Entity = {
 				0x25f,
 			],
 		],
-		romOffset: 0x2282e4,
+		romOffset: 0x134104,
 		tiles: [
+			[258, 259],
+			[290, 291],
 			[322, 323],
 			[354, 355],
-			[386, 387],
-			[418, 419],
 		],
 	},
 
