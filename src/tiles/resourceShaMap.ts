@@ -158,7 +158,7 @@ export const resourceShaMap: Record<string, string> = {
   "FullerFlowerBush": "360a5fb6d7ac7c68a63cd17ac905a0e8626ac21c",
   "FullerFlowerBushLeft": "eb03fbbc70cbde36ee447f3db1bc3bb7153d99fc",
   "FullerFlowerBushRight": "5d37f9f765043fbc7e2d1ccbc78e6114757333de",
-  "Galoomba": "e147c89d4b70d92c7300c77e0eafe1fffc22726a",
+  "Galoomba": "219d379db64311a7e6dcfc5260be4dfc7beafae4",
   "GaloombaWithParachute": "c761fadcbdb788498ab30787f326f5e5452a7852",
   "GiantCannonBall": "42c8045208656f82d5da85c19fc7dfd268d0eabd",
   "GiantGreenKoopa": "cc598e788b84e2c23e89ab887eabe87a26a0bacf",
