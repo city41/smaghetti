@@ -6,7 +6,7 @@ import { parseSimpleSprite } from './util';
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-const GreenSpinyEgg: Entity = {
+const SpinyEggGreen: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-common',
@@ -49,4 +49,4 @@ const GreenSpinyEgg: Entity = {
 	},
 };
 
-export { GreenSpinyEgg };
+export { SpinyEggGreen };
