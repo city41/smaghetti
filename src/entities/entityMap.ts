@@ -173,6 +173,7 @@ import { GrassVerticalRight } from './GrassVerticalRight';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
 import { GreenParaTroopaPatrolling } from './GreenParaTroopaPatrolling';
+import { GreenSpinyEgg } from './GreenSpinyEgg';
 import { HammerBro } from './HammerBro';
 import { Herbert } from './Herbert';
 import { HiddenBlock } from './HiddenBlock';
@@ -552,6 +553,7 @@ const entityMap = {
 	GreenKoopaTroopa,
 	GreenParaTroopa,
 	GreenParaTroopaPatrolling,
+	GreenSpinyEgg,
 	HammerBro,
 	Herbert,
 	HiddenBlock,
