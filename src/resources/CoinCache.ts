@@ -6,7 +6,7 @@ import {
 import { DerivedResource, StaticResource } from './types';
 
 const CoinCache: DerivedResource = {
-	extract(rom, canvasGenerator): string {
+	extract(rom, canvasGenerator) {
 		const coinResource = Coin.resource as StaticResource;
 
 		const extractedTileData = extractResourceTileData(rom, coinResource);
@@ -23,7 +23,7 @@ const CoinCache: DerivedResource = {
 		context.drawImage(coinCanvas, 0, -1);
 		context.drawImage(coinCanvas, 4, 1);
 
-		return coinCacheCanvas.toDataURL();
+		return coinCacheCanvas;
 	},
 };
 

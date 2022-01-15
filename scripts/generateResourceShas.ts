@@ -8,12 +8,20 @@ import { resourceMap } from '../src/resources/resourceMap';
 import sha1 from 'js-sha1';
 import { isStaticResource } from '../src/resources/util';
 import { Resource } from '../src/resources/types';
-import { extractResourceToDataUrl } from '../src/tiles/extractResourcesToStylesheet';
+import { extractResourceToCanvas } from '../src/tiles/extractResourcesToStylesheet';
 
 type ShaMap = Partial<Record<string, string>>;
 
 function canvasGenerator(width: number, height: number) {
 	return createCanvas(width, height);
+}
+
+function toByteString(canvas: HTMLCanvasElement): string {
+	const data = canvas
+		.getContext('2d')!
+		.getImageData(0, 0, canvas.width, canvas.height);
+
+	return Array.from(data.data).join(',');
 }
 
 function buildShaMap(rom: Uint8Array): ShaMap {
@@ -53,17 +61,19 @@ function buildShaMap(rom: Uint8Array): ShaMap {
 			);
 		}
 
-		let dataUrl;
+		let canvas;
 
 		if (isStaticResource(resource)) {
 			// @ts-ignore canvasGenerator wants an HTMLCanvasElement
-			dataUrl = extractResourceToDataUrl(rom, resource, canvasGenerator);
+			canvas = extractResourceToCanvas(rom, resource, canvasGenerator);
 		} else {
 			// @ts-ignore canvasGenerator wants an HTMLCanvasElement
-			dataUrl = resource.extract(rom, canvasGenerator);
+			canvas = resource.extract(rom, canvasGenerator);
 		}
 
-		const sha = sha1(dataUrl);
+		const byteString = toByteString(canvas);
+
+		const sha = sha1(byteString);
 
 		shaMap[resourceName] = sha;
 	}

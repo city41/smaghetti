@@ -6,7 +6,7 @@ import {
 import { DerivedResource } from './types';
 
 const OneWayDoorVerticalFlipper: DerivedResource = {
-	extract(rom, canvasGenerator): string {
+	extract(rom, canvasGenerator) {
 		const extractedTileData = extractResourceTileData(
 			rom,
 			OneWayDoorHorizontalFlipper
@@ -31,7 +31,7 @@ const OneWayDoorVerticalFlipper: DerivedResource = {
 			-horizontalCanvas.height / 2
 		);
 
-		return verticalCanvas.toDataURL();
+		return verticalCanvas;
 	},
 };
 

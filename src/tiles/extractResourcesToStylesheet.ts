@@ -236,11 +236,11 @@ function extractResourceTileData(
 	return tileData;
 }
 
-function extractResourceToDataUrl(
+function extractResourceToCanvas(
 	rom: Uint8Array,
 	resource: StaticResource,
 	canvasGenerator: CanvasGenerator
-): string {
+): HTMLCanvasElement {
 	const tileData = extractResourceTileData(rom, resource);
 	const canvas = tileToCanvas(
 		tileData,
@@ -249,7 +249,15 @@ function extractResourceToDataUrl(
 		resource.firstColorOpaque
 	);
 
-	return canvas.toDataURL();
+	return canvas;
+}
+
+function extractResourceToDataUrl(
+	rom: Uint8Array,
+	resource: StaticResource,
+	canvasGenerator: CanvasGenerator
+): string {
+	return extractResourceToCanvas(rom, resource, canvasGenerator).toDataURL();
 }
 
 type LocalItem = {
@@ -291,7 +299,7 @@ async function extractResourcesToStylesheet(
 			);
 			localForage.setItem<LocalItem>(storageKey, { sha: currentSha!, dataUrl });
 		} else {
-			dataUrl = resource.extract(rom, documentCanvasGenerator);
+			dataUrl = resource.extract(rom, documentCanvasGenerator).toDataURL();
 			localForage.setItem<LocalItem>(storageKey, { sha: currentSha!, dataUrl });
 		}
 
@@ -309,7 +317,7 @@ async function extractResourcesToStylesheet(
 
 export {
 	extractResourcesToStylesheet,
-	extractResourceToDataUrl,
+	extractResourceToCanvas,
 	gba16ToRgb,
 	rgbToGBA16,
 	drawTile,

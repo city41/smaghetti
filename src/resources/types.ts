@@ -17,7 +17,10 @@ type StaticResource = {
 };
 
 type DerivedResource = {
-	extract: (rom: Uint8Array, canvasGenerator: CanvasGenerator) => string;
+	extract: (
+		rom: Uint8Array,
+		canvasGenerator: CanvasGenerator
+	) => HTMLCanvasElement;
 };
 
 type Resource = StaticResource | DerivedResource;
