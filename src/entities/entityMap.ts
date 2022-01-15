@@ -173,7 +173,6 @@ import { GrassVerticalRight } from './GrassVerticalRight';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
 import { GreenParaTroopa } from './GreenParaTroopa';
 import { GreenParaTroopaPatrolling } from './GreenParaTroopaPatrolling';
-import { GreenSpinyEgg } from './GreenSpinyEgg';
 import { HammerBro } from './HammerBro';
 import { Herbert } from './Herbert';
 import { HiddenBlock } from './HiddenBlock';
@@ -316,6 +315,7 @@ import { SpikeTop } from './SpikeTop';
 import { SpinPlatform } from './SpinPlatform';
 import { Spiny } from './Spiny';
 import { SpinyCheepCheepGenerator } from './SpinyCheepCheepGenerator';
+import { SpinyEggGreen } from './SpinyEggGreen';
 import { SpringBoard } from './SpringBoard';
 import { StairsDownRight } from './StairsDownRight';
 import { StairsUpRight } from './StairsUpRight';
@@ -553,7 +553,6 @@ const entityMap = {
 	GreenKoopaTroopa,
 	GreenParaTroopa,
 	GreenParaTroopaPatrolling,
-	GreenSpinyEgg,
 	HammerBro,
 	Herbert,
 	HiddenBlock,
@@ -696,6 +695,7 @@ const entityMap = {
 	SpinPlatform,
 	Spiny,
 	SpinyCheepCheepGenerator,
+	SpinyEggGreen,
 	SpringBoard,
 	StairsDownRight,
 	StairsUpRight,

@@ -94,6 +94,12 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2022-01-15">
+					<ul>
+						<li>Spiny Egg - Green</li>
+					</ul>
+					<p>Thanks to Bryce for adding this one</p>
+				</NewEntry>
 				<NewEntry title="Extracting Graphics issue" date="2022-01-03">
 					<p>
 						Next time you launch the editor, you may notice it sits on
