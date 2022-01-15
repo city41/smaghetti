@@ -15,7 +15,7 @@
 		"lint": "yarn type-check && yarn eslint --max-warnings 1 src",
 		"migrations-up": "node-pg-migrate up -m database/migrations",
 		"migrations-down": "node-pg-migrate down -m database/migrations",
-		"run-ts-node": "yarn ts-node --compiler-options '{ \"module\": \"commonjs\", \"jsx\": \"react\" }'",
+		"run-ts-node": "yarn ts-node --project ./tsconfig.tsnode.json",
 		"dump-graphic-set-bytes": "brute/getSpriteGraphicSetBytes_parallel.sh",
 		"dump-object-set-bytes": "brute/getObjectSetBytes_parallel.sh",
 		"run-prettier": "yarn prettier --config .prettierrc --write src/**/*.ts*",
