@@ -94,7 +94,10 @@ const PiranhaPlantRed: Entity = {
 			],
 		],
 		tiles: [
-			[992, { tileIndex: 992, flip: 'h' }],
+			[
+				{ tileIndex: 992, palette: 1 },
+				{ tileIndex: 992, flip: 'h', palette: 1 },
+			],
 			[
 				{ tileIndex: 1008, palette: 1 },
 				{ tileIndex: 1008, flip: 'h', palette: 1 },

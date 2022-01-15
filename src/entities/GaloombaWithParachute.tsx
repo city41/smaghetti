@@ -19,6 +19,7 @@ const GaloombaWithParachute: Entity = {
 	dimensions: 'none',
 	objectId: 0x15,
 
+	// idk if this works exactly but it might possibly
 	resource: {
 		romOffset: 0x18c914,
 		palettes: [
@@ -40,35 +41,17 @@ const GaloombaWithParachute: Entity = {
 				0x7b98,
 				0x7bdd,
 			],
-			[
-				0x7f96,
-				0x7fff,
-				0x18c6,
-				0x11dc,
-				0x169e,
-				0x1b5f,
-				0x25fd,
-				0x369e,
-				0x475f,
-				0x111d,
-				0x1a1f,
-				0x329f,
-				0x4b7f,
-				0x7bda,
-				0x6b55,
-				0x56b1,
-			],
 		],
 		tiles: [
 			[64, 65],
 			[96, 97],
 			[
-				{ tileIndex: 68, palette: 1 },
-				{ tileIndex: 68, flip: 'h', palette: 1 },
+				{ tileIndex: 68 },
+				{ tileIndex: 68, flip: 'h', },
 			],
 			[
-				{ tileIndex: 100, palette: 1 },
-				{ tileIndex: 100, flip: 'h', palette: 1 },
+				{ tileIndex: 100, },
+				{ tileIndex: 100, flip: 'h', },
 			],
 		],
 	},

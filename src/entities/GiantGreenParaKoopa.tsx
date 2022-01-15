@@ -47,7 +47,7 @@ const GiantGreenParaKoopa: Entity = {
 			[839, 840, 840],
 			[855, 856, { romOffset: 0x18a6e4, tileIndex: 37 }],
 			[871, 872, { romOffset: 0x18a6e4, tileIndex: 53 }],
-			[884, 885, 886],
+			[887, 888, 889],
 		],
 	},
 
