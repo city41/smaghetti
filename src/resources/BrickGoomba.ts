@@ -1,6 +1,6 @@
 import { StaticResource } from './types';
 
-const GoombaBrick: StaticResource = {
+const BrickGoomba: StaticResource = {
 	palettes: [
 		[
 			0x7f96,
@@ -28,4 +28,4 @@ const GoombaBrick: StaticResource = {
 	],
 };
 
-export { GoombaBrick };
+export { BrickGoomba };

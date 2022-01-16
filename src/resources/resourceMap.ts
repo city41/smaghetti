@@ -14,6 +14,7 @@ import { BonusRoomBackground } from './BonusRoomBackground';
 import { BowserCastleBackground } from './BowserCastleBackground';
 import { BowserFireStatueBody } from './BowserFireStatueBody';
 import { BowserFireStatueHead } from './BowserFireStatueHead';
+import { BrickGoomba } from './BrickGoomba';
 import { BulletBill } from './BulletBill';
 import { CannonBall } from './CannonBall';
 import { ChargingChuckBody } from './ChargingChuckBody';
@@ -45,7 +46,6 @@ import { FortressBackground } from './FortressBackground';
 import { FrogSuit } from './FrogSuit';
 import { GhostHouseBackground } from './GhostHouseBackground';
 import { GiantVegetable } from './GiantVegetable';
-import { GoombaBrick } from './GoombaBrick';
 import { GreenCheepCheep } from './GreenCheepCheep';
 import { GreenSpinyEgg } from './GreenSpinyEgg';
 import { GrassChuteDownLeft } from './GrassChuteDownLeft';
@@ -157,6 +157,7 @@ const resourceMap = {
 	BowserCastleBackground,
 	BowserFireStatueBody,
 	BowserFireStatueHead,
+	BrickGoomba,
 	BulletBill,
 	CannonBall,
 	ChargingChuckBody,
@@ -188,7 +189,6 @@ const resourceMap = {
 	FrogSuit,
 	GhostHouseBackground,
 	GiantVegetable,
-	GoombaBrick,
 	GrassChuteDownLeft,
 	GrassChuteDownRight,
 	GrassHorizontalDirt,
