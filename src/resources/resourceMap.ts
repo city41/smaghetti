@@ -45,6 +45,7 @@ import { FortressBackground } from './FortressBackground';
 import { FrogSuit } from './FrogSuit';
 import { GhostHouseBackground } from './GhostHouseBackground';
 import { GiantVegetable } from './GiantVegetable';
+import { GoombaBrick } from './GoombaBrick';
 import { GreenCheepCheep } from './GreenCheepCheep';
 import { GreenSpinyEgg } from './GreenSpinyEgg';
 import { GrassChuteDownLeft } from './GrassChuteDownLeft';
@@ -187,6 +188,7 @@ const resourceMap = {
 	FrogSuit,
 	GhostHouseBackground,
 	GiantVegetable,
+	GoombaBrick,
 	GrassChuteDownLeft,
 	GrassChuteDownRight,
 	GrassHorizontalDirt,
