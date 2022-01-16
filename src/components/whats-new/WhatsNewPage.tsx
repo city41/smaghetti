@@ -100,7 +100,7 @@ function WhatsNewPage() {
 					</ul>
 					<p>Thanks to Bryce for adding this one</p>
 				</NewEntry>
-				<NewEntry title="Extracting Graphics issue" date="2022-01-03">
+				<NewEntry title="Extracting Graphics issue" date="2022-01-15">
 					<p>
 						Next time you launch the editor, you may notice it sits on
 						&quot;extracting graphics&quot; for a long time. This could be from
