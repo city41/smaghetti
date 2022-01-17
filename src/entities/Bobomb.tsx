@@ -8,7 +8,7 @@ const Bobomb: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-common',
-		title: 'Bobomb',
+		title: 'Bob-omb',
 	},
 
 	objectSets: ANY_OBJECT_SET,

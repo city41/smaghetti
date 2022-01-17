@@ -9,9 +9,9 @@ const ParaBobombGeneratorCanceler: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-generator',
-		title: 'Para Bobomb Canceler',
+		title: 'Bob-omb - Parachute, Canceler',
 		description:
-			'Once Mario goes to the right and above it, any active Para Bobomb generators will stop. They will turn on again if he goes back left of the canceler.',
+			'Once Mario goes to the right and above it, any active Para Bob-omb generators will stop. They will turn on again if he goes back left of the canceler.',
 	},
 
 	objectSets: ANY_OBJECT_SET,

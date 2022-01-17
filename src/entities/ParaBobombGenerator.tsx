@@ -9,7 +9,7 @@ const ParaBobombGenerator: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-generator',
-		title: 'Para Bobomb Generator',
+		title: 'Bob-omb - Parachute, Generator',
 		description: 'Will turn on when Mario is to the right and above it',
 	},
 

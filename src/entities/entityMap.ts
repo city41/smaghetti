@@ -31,6 +31,7 @@ import { BlooperNanny } from './BlooperNanny';
 import { BlooperNannyFourWay } from './BlooperNannyFourWay';
 import { BlueCoin } from './BlueCoin';
 import { Bobomb } from './Bobomb';
+import { BobombWithParachute } from './BobombWithParachute';
 import { BoltDown } from './BoltDown';
 import { BoltHead } from './BoltHead';
 import { BoltLeft } from './BoltLeft';
@@ -411,6 +412,7 @@ const entityMap = {
 	BlooperNannyFourWay,
 	BlueCoin,
 	Bobomb,
+	BobombWithParachute,
 	BoltDown,
 	BoltHead,
 	BoltLeft,
