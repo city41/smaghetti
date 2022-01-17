@@ -9,7 +9,7 @@ const ParaGaloombaGenerator: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-generator',
-		title: 'Para Galoomba Generator',
+		title: 'Galoomba - Parachute, Generator',
 		description: 'Will turn on when Mario is to the right and above it',
 	},
 

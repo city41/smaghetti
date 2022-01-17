@@ -9,7 +9,7 @@ const ParaGaloombaGeneratorCanceler: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-generator',
-		title: 'Para Galoomba Canceler',
+		title: 'Galoomba - Parachute, Canceler',
 		description:
 			'Once Mario goes to the right and above it, any active Para Galoomba generators will stop. They will turn on again if he goes back left of the canceler.',
 	},
