@@ -68,7 +68,7 @@ const PileDriverMiniGoomba: Entity = {
 					}}
 				/>
 				<div
-					className="absolute Brick-bg bg-cover bg-no-repeat w-full h-full left-0"
+					className="absolute BrickGoomba-bg bg-cover bg-no-repeat w-full h-full left-0"
 					style={{ top: '-8%' }}
 				/>
 				<div
@@ -97,7 +97,7 @@ const PileDriverMiniGoomba: Entity = {
 					}}
 				/>
 				<div
-					className="absolute Brick-bg w-full h-full left-0"
+					className="absolute BrickGoomba-bg w-full h-full left-0"
 					style={{ top: -2 }}
 				/>
 				<div

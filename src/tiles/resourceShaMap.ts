@@ -372,6 +372,7 @@ export const resourceShaMap: Record<string, string> = {
   "BowserCastleBackground": "2564cbbfc53ca199a607a32140f22cdcb664f27f",
   "BowserFireStatueBody": "7d4343bb7e0a2021a8268d04a95a97bb7f1db1a7",
   "BowserFireStatueHead": "abd1be0b0d54f3d0cede5d4ac0f7526f44d82a96",
+  "BrickGoomba": "333ff2d12d1872cf41aa22b8fe4a6b1be29fdd1f",
   "BulletBill": "ef20e0446d992d2acb5194738140276caffc06d1",
   "CannonBall": "cdd345b6e163937c53dec105f0bffaec38f8f52c",
   "ChargingChuckBody": "9e50fe56d51a22834699e77023e20f9df6c3587b",

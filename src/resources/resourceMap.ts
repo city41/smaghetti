@@ -14,6 +14,7 @@ import { BonusRoomBackground } from './BonusRoomBackground';
 import { BowserCastleBackground } from './BowserCastleBackground';
 import { BowserFireStatueBody } from './BowserFireStatueBody';
 import { BowserFireStatueHead } from './BowserFireStatueHead';
+import { BrickGoomba } from './BrickGoomba';
 import { BulletBill } from './BulletBill';
 import { CannonBall } from './CannonBall';
 import { ChargingChuckBody } from './ChargingChuckBody';
@@ -156,6 +157,7 @@ const resourceMap = {
 	BowserCastleBackground,
 	BowserFireStatueBody,
 	BowserFireStatueHead,
+	BrickGoomba,
 	BulletBill,
 	CannonBall,
 	ChargingChuckBody,
