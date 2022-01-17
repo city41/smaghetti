@@ -11,7 +11,7 @@ const FlyingPiranhaPlant: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-piranha',
-		title: 'Flying Piranha Plant',
+		title: 'Jumping Piranha Plant',
 	},
 
 	objectSets: ANY_OBJECT_SET,
