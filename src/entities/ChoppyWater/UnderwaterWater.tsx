@@ -33,7 +33,10 @@ const UnderwaterWater: Entity = {
 
 	simpleRender(size) {
 		return (
-			<div style={{ width: size, height: size, backgroundColor: WATER_COLOR }}>
+			<div
+				className="relative"
+				style={{ width: size, height: size, backgroundColor: WATER_COLOR }}
+			>
 				<IconWater
 					style={{ borderRadius: '10%' }}
 					className="absolute bottom-1 right-1 w-4 h-4 text-blue-200"
