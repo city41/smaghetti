@@ -71,7 +71,7 @@ const JelectroStill: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="Jelectro-bg bg-cover"
+				className="relative Jelectro-bg bg-cover"
 				style={{ width: size, height: size }}
 			>
 				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
