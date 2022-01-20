@@ -150,6 +150,10 @@ function TipsPage() {
 							ghost wherever you are working in your room.
 						</li>
 						<li>
+							The Ghost Player always stays in slot 1 in the palette. So you can
+							quickly switch to it by pressing 1 on your keyboard.
+						</li>
+						<li>
 							When testing a room, if it has a ghost, that is where Mario will
 							start the level, otherwise he starts in his real position.
 						</li>
