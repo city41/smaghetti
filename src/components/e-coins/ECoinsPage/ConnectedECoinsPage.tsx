@@ -4,6 +4,8 @@ import { client } from '../../../remoteData/client';
 import { convertLevelToLatestVersion } from '../../../level/versioning/convertLevelToLatestVersion';
 import { deserialize } from '../../../level/deserialize';
 import { CategoryUserOrder } from '../../levels/Levels2Page/categories';
+import { ECoinTileData } from '../../../entities/ECoin/ECoinData';
+import isEqual from 'lodash/isEqual';
 
 type LoadingState = 'loading' | 'error' | 'success';
 
@@ -19,13 +21,14 @@ const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
 	popular: 'total_vote_count',
 };
 
+// for now, not paging, need to figure out how to only get custom coins from the db
 async function getLevels(
-	page: number,
+	_page: number,
 	order: CategoryUserOrder
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
 	const { error, data, count } = await client
 		.rpc('get_published_levels_that_have_ecoins', {}, { count: 'exact' })
-		.range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
+		// .range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
 		.order(userOrderToOrderColumn[order], { ascending: false });
 
 	if (error) {
@@ -33,6 +36,32 @@ async function getLevels(
 	}
 
 	return { levels: data ?? [], totalCount: count ?? 0 };
+}
+
+function isCustomECoin(data: number[] | undefined): boolean {
+	if (!data) {
+		return false;
+	}
+
+	return !isEqual(data, ECoinTileData);
+}
+
+function hasCustomECoin(level: Level): boolean {
+	let eCoinEntity;
+
+	for (let i = 0; i < level.data.rooms.length; ++i) {
+		eCoinEntity = level.data.rooms[i].stage.entities.find(
+			(e) => e.type === 'ECoin'
+		);
+
+		if (eCoinEntity) {
+			return isCustomECoin(
+				eCoinEntity?.settings?.coinData as number[] | undefined
+			);
+		}
+	}
+
+	return false;
 }
 
 function ConnectedECoinsPage(props: PublicECoinsPageProps) {
@@ -67,7 +96,12 @@ function ConnectedECoinsPage(props: PublicECoinsPageProps) {
 								...convertedLevel,
 								data: deserialize(convertedLevel.data),
 							};
-							return building.concat(level);
+
+							if (hasCustomECoin(level)) {
+								return building.concat(level);
+							} else {
+								return building;
+							}
 						} else {
 							return building;
 						}
