@@ -85,9 +85,9 @@ function decompress(
 
 	if (rom[offset] !== 0x10) {
 		throw new Error(
-			`decompress called, but this offset is not the start of a compression run. offset: ${offset.toString(
+			`decompress called, but this offset is not the start of a compression run. offset: 0x${offset.toString(
 				16
-			)}, value: ${rom[offset].toString(16)}`
+			)} (${offset}), value: ${rom[offset].toString(16)}`
 		);
 	} else {
 		offset++;

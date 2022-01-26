@@ -8,7 +8,7 @@ const CheckeredInnerCornerLowerRightBottomEdge: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-checkered',
-		title: 'Checkered InnerCorner- Lower Right, Bottom Edge',
+		title: 'Checkered Inner Corner - Lower Right, Bottom Edge',
 	},
 
 	layer: 'stage',
