@@ -123,7 +123,6 @@ import { ConveyorBelt } from './ConveyorBelt';
 import { CoralDonutBlock } from './CoralDonutBlock';
 import { DeleteBlock } from './DeleteBlock';
 import { DiggableSand } from './DiggableSand';
-import { DirectionalLiftUp } from './DirectionalLiftUp';
 import { DolphinHorizontal } from './DolphinHorizontal';
 import { DolphinPod } from './DolphinPod';
 import { DolphinVertical } from './DolphinVertical';
@@ -509,7 +508,6 @@ const entityMap = {
 	CoralDonutBlock,
 	DeleteBlock,
 	DiggableSand,
-	DirectionalLiftUp,
 	DolphinHorizontal,
 	DolphinPod,
 	DolphinVertical,

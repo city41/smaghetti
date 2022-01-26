@@ -115,7 +115,6 @@ function WhatsNewPage() {
 						<li>Checkered Inner Corner - Lower Right, Bottom Edge</li>
 						<li>Checkered Inner Corner - Upper Left, Left Edge</li>
 						<li>Checkered Inner Corner - Upper Right, Top Edge</li>
-						<li>Directional Lift - Up</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2022-01-16">
