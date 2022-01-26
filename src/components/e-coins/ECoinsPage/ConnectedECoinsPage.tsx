@@ -3,8 +3,6 @@ import { ECoinsPage, PublicECoinsPageProps } from './ECoinsPage';
 import { client } from '../../../remoteData/client';
 import { convertLevelToLatestVersion } from '../../../level/versioning/convertLevelToLatestVersion';
 import { deserialize } from '../../../level/deserialize';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../../store';
 import { CategoryUserOrder } from '../../levels/Levels2Page/categories';
 
 type LoadingState = 'loading' | 'error' | 'success';
@@ -27,7 +25,7 @@ async function getLevels(
 	order: CategoryUserOrder
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
 	const { error, data, count } = await client
-		.rpc('get_published_levels_that_have_ecoins', { count: 'exact' })
+		.rpc('get_published_levels_that_have_ecoins', {}, { count: 'exact' })
 		.range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
 		.order(userOrderToOrderColumn[order], { ascending: false });
 
@@ -44,8 +42,6 @@ function ConnectedECoinsPage(props: PublicECoinsPageProps) {
 	const [levels, setLevels] = useState<Level[]>([]);
 	const [totalCount, setTotalCount] = useState(0);
 
-	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
-
 	useEffect(() => {
 		setPage(0);
 		setLevels([]);
@@ -58,7 +54,14 @@ function ConnectedECoinsPage(props: PublicECoinsPageProps) {
 			.then(({ levels: retrievedLevels, totalCount: retrievedTotalCount }) => {
 				const convertedLevels = retrievedLevels.reduce<Level[]>(
 					(building, rawLevel) => {
-						const convertedLevel = convertLevelToLatestVersion(rawLevel);
+						const serializedLevel = {
+							...rawLevel,
+							user: {
+								username: rawLevel.username,
+							},
+						};
+
+						const convertedLevel = convertLevelToLatestVersion(serializedLevel);
 
 						if (convertedLevel) {
 							const level: Level = {
@@ -85,7 +88,6 @@ function ConnectedECoinsPage(props: PublicECoinsPageProps) {
 	return (
 		<ECoinsPage
 			{...props}
-			allFilesReady={allFilesReady}
 			loadingState={loadingState}
 			levels={levels}
 			totalCount={totalCount}
