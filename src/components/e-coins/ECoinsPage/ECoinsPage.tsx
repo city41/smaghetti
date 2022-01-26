@@ -37,7 +37,7 @@ function ECoinsPage({
 	onPreviousClick,
 }: PublicECoinsPageProps & InternalECoinsPageProps) {
 	return (
-		<Root metaDescription="" title="Levels">
+		<Root metaDescription="Smaghetti\'s art gallery :)" title="Custom E-Coins">
 			<div className="max-w-2xl mx-auto pt-16 flex flex-col h-full">
 				<h1 className="font-bold text-2xl text-center">Community E-Coins</h1>
 				<p className="mt-2 mb-16 text-gray-400 text-sm text-center mx-24">
@@ -64,10 +64,12 @@ function ECoinsPage({
 				)}
 				<div
 					className={clsx(
-						'flex-1 mb-8 flex flex-row flex-wrap gap-x-4 gap-y-4'
+						'flex-1 mb-8 flex flex-row flex-wrap gap-x-4 gap-y-4 w-full'
 					)}
 				>
-					{loadingState === 'loading' && <LoadingBar percent={100} />}
+					{loadingState === 'loading' && (
+						<LoadingBar className="flex-1" percent={100} />
+					)}
 					{loadingState === 'success' && (
 						<>
 							{levels.length === 0 && (
