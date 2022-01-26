@@ -17,6 +17,7 @@ import {
 	IconLoading,
 	IconCheck,
 } from '../../../../icons';
+import { makeSlug } from '../../../util';
 
 type PublicLevelRowProps = {
 	className?: string;
@@ -34,10 +35,6 @@ type InternalLevelRowProps = {
 	isVoting: boolean;
 	onVoteClick: () => void;
 };
-
-function makeSlug(name: string): string {
-	return name.replace(/[^a-zA-Z0-9]/g, '-').substr(0, 30);
-}
 
 function BlankThumbnail({
 	scale,

@@ -4,6 +4,7 @@ import { ECoinView } from '../../../entities/ECoin/ECoinView';
 import { isEqual } from 'lodash';
 import { ECoinTileData } from '../../../entities/ECoin/ECoinData';
 import { COIN_SIZE } from '../../../entities/ECoin/util';
+import { makeSlug } from '../../util';
 
 const SCALE = 4;
 
@@ -46,8 +47,10 @@ function ECoinEntry({ className, level }: ECoinEntryProps) {
 		return null;
 	}
 
+	const href = `/editor/${level.id}/${makeSlug(level.name)}`;
+
 	return (
-		<a href="/">
+		<a href={href}>
 			<div
 				className={clsx(className, 'flex flex-col gap-y-2')}
 				style={{ width: COIN_SIZE * SCALE, minHeight: COIN_SIZE * SCALE }}
