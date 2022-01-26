@@ -16,6 +16,16 @@ module.exports = withPlugins(
 		redirects() {
 			return [
 				{
+					source: '/e-coins',
+					destination: '/e-coins/newest',
+					permanent: true,
+				},
+				{
+					source: '/e-coins/',
+					destination: '/e-coins/newest',
+					permanent: true,
+				},
+				{
 					source: '/levels2',
 					destination: '/levels/all/newest',
 					permanent: true,
