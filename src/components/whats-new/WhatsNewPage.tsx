@@ -96,7 +96,7 @@ function WhatsNewPage() {
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
 				<NewEntry title="E-Coin Gallery" date="2022-01-26">
 					<p>
-						All custom e-coins gathered into one <a href="/ecoins">spot</a>.
+						All custom e-coins gathered into one <a href="/e-coins">spot</a>.
 					</p>
 				</NewEntry>
 				<NewEntry title="Wrap Around Rooms" date="2022-01-26">
