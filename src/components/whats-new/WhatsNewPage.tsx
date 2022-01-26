@@ -94,6 +94,16 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Wrap Around Rooms" date="2022-01-26">
+					<p>
+						You can now make a room wrap around. Set it in the same place you
+						set a room&apos;s width and height.
+					</p>
+					<p>
+						Wrap around rooms are one screen wide, and if you walk off the edge
+						of the screen you appear on the other side.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2022-01-26">
 					<ul>
 						<li>Checkered Inner Corner - Lower Left, Left Edge</li>

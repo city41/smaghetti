@@ -73,6 +73,25 @@ function cleanUpRoomTypeString(rt: string): string {
 
 const SCALE = 0.5;
 
+function Warning({
+	className,
+	children,
+}: {
+	className?: string;
+	children: ReactNode;
+}) {
+	return (
+		<div
+			className={clsx(
+				className,
+				'absolute bg-red-200 text-red-900 text-left text-xs p-3 w-40 z-2'
+			)}
+		>
+			{children}{' '}
+		</div>
+	);
+}
+
 function HelpButton({
 	className,
 	children,
@@ -286,107 +305,138 @@ function ManageLevel({
 								/>
 							</h2>
 							<div className="flex flex-col items-stretch h-full bg-gray-700">
-								<div className="grid grid-rows-2 grid-flow-col items-center p-4 gap-x-16 gap-y-2 w-full max-w-lg">
-									<div className="grid grid-cols-2 gap-x-4">
-										<SettingsKey>Background</SettingsKey>
-										<select
-											className="text-black"
-											value={r.type}
-											onMouseDown={(e) => {
-												// this is needed for onChange to work correctly in firefox
-												// https://github.com/facebook/react/issues/12584
-												e.stopPropagation();
-											}}
-											onChange={(e) => {
-												onRoomTypeChange(i, e.target.value);
-											}}
-										>
-											{roomTypes.map((rt) => (
-												<option key={rt} value={rt}>
-													{cleanUpRoomTypeString(rt)}
-												</option>
-											))}
-										</select>
-									</div>
-									<div className="grid grid-cols-2 gap-x-4">
-										<SettingsKey>Music</SettingsKey>
-
-										<select
-											className="text-black"
-											value={r.settings.music}
-											onMouseDown={(e) => {
-												// this is needed for onChange to work correctly in firefox
-												// https://github.com/facebook/react/issues/12584
-												e.stopPropagation();
-											}}
-											onChange={(e) =>
-												onRoomSettingsChange({
-													index: i,
-													settings: {
-														music: Number(e.target.value),
-													},
-												})
-											}
-										>
-											{Object.entries(MUSIC_VALUES)
-												.sort(sortMusicEntries)
-												.map((me) => (
-													<option key={me[0]} value={me[1]}>
-														{me[0]}
+								<div className="flex flex-row gap-x-4 p-2">
+									<div className="flex flex-col gap-y-2">
+										<div className="grid grid-cols-2 gap-y-2 gap-x-2">
+											<SettingsKey>Background</SettingsKey>
+											<select
+												className="text-black"
+												value={r.type}
+												onMouseDown={(e) => {
+													// this is needed for onChange to work correctly in firefox
+													// https://github.com/facebook/react/issues/12584
+													e.stopPropagation();
+												}}
+												onChange={(e) => {
+													onRoomTypeChange(i, e.target.value);
+												}}
+											>
+												{roomTypes.map((rt) => (
+													<option key={rt} value={rt}>
+														{cleanUpRoomTypeString(rt)}
 													</option>
 												))}
-										</select>
-									</div>
-									<div className="grid grid-cols-2 gap-x-4">
-										<SettingsKey>
-											<HelpButton>
-												Width is in chunks of 16 tiles, one tile wider than the
-												screen
-											</HelpButton>
-											Width
-										</SettingsKey>
-										<input
-											className="w-16"
-											type="number"
-											value={Math.ceil(r.roomTileWidth / 16)}
-											min={1}
-											max={16}
-											onChange={(e) => {
-												const value = Number(e.target.value);
-												const newWidth = value * ROOM_WIDTH_INCREMENT;
-												onRoomSizeChange({ index: i, width: newWidth });
-											}}
-										/>
-									</div>
-									<div className="relative grid grid-cols-2 gap-x-4">
-										<SettingsKey>
-											<HelpButton>Height is in single tiles</HelpButton>
-											Height
-										</SettingsKey>
-										<input
-											className="w-16"
-											type="number"
-											value={r.roomTileHeight}
-											onChange={(e) => {
-												const newHeight = Number(e.target.value);
-												onRoomSizeChange({ index: i, height: newHeight });
-											}}
-										/>
-										{r.roomTileHeight > INITIAL_ROOM_TILE_HEIGHT && (
-											<div
-												className="absolute -bottom-2 text-xs w-32 z-10 bg-gray-700 p-1"
-												style={{ right: -140 }}
+											</select>
+										</div>
+										<div className="grid grid-cols-2 gap-x-4">
+											<SettingsKey>Music</SettingsKey>
+
+											<select
+												className="text-black"
+												value={r.settings.music}
+												onMouseDown={(e) => {
+													// this is needed for onChange to work correctly in firefox
+													// https://github.com/facebook/react/issues/12584
+													e.stopPropagation();
+												}}
+												onChange={(e) =>
+													onRoomSettingsChange({
+														index: i,
+														settings: {
+															music: Number(e.target.value),
+														},
+													})
+												}
 											>
-												<a
-													className="text-blue-300 hover:underline"
-													target="_blank"
-													href="https://www.youtube.com/watch?v=RLU6TSxuKQM"
-													rel="noreferrer noopener"
+												{Object.entries(MUSIC_VALUES)
+													.sort(sortMusicEntries)
+													.map((me) => (
+														<option key={me[0]} value={me[1]}>
+															{me[0]}
+														</option>
+													))}
+											</select>
+										</div>
+									</div>
+									<div className="flex flex-col gap-y-2">
+										<div className="grid grid-cols-2 gap-x-4">
+											<SettingsKey>
+												<HelpButton>
+													Width is in chunks of 16 tiles, one tile wider than
+													the screen
+												</HelpButton>
+												Width
+											</SettingsKey>
+											<input
+												className="w-16"
+												type="number"
+												value={Math.ceil(r.roomTileWidth / 16)}
+												min={1}
+												max={16}
+												disabled={r.settings.wrapAround}
+												onChange={(e) => {
+													const value = Number(e.target.value);
+													const newWidth = value * ROOM_WIDTH_INCREMENT;
+													onRoomSizeChange({ index: i, width: newWidth });
+												}}
+											/>
+										</div>
+										<div className="relative grid grid-cols-2 gap-x-4">
+											<SettingsKey>
+												<HelpButton>Height is in single tiles</HelpButton>
+												Height
+											</SettingsKey>
+											<input
+												className="w-16"
+												type="number"
+												value={r.roomTileHeight}
+												onChange={(e) => {
+													const newHeight = Number(e.target.value);
+													onRoomSizeChange({ index: i, height: newHeight });
+												}}
+											/>
+											{r.roomTileHeight > INITIAL_ROOM_TILE_HEIGHT && (
+												<div
+													className="absolute -bottom-2 text-xs w-32 z-10 bg-gray-700 p-1"
+													style={{ right: -140 }}
 												>
-													quick tip on making taller rooms
-												</a>
-											</div>
-										)}
+													<a
+														className="text-blue-300 hover:underline"
+														target="_blank"
+														href="https://www.youtube.com/watch?v=RLU6TSxuKQM"
+														rel="noreferrer noopener"
+													>
+														quick tip on making taller rooms
+													</a>
+												</div>
+											)}
+										</div>
+										<div className="relative grid grid-cols-2 gap-x-4 items-center">
+											<SettingsKey>
+												<HelpButton>
+													Makes the room one screen wide. If you walk off the
+													left side you appear on the right.
+												</HelpButton>
+												Wrap Around
+											</SettingsKey>
+											<input
+												type="checkbox"
+												checked={r.settings.wrapAround!!}
+												onChange={(e) => {
+													onRoomSettingsChange({
+														index: i,
+														settings: {
+															wrapAround: !r.settings.wrapAround,
+														},
+													});
+												}}
+											/>
+											{r.settings.wrapAround && (
+												<Warning className="-bottom-16">
+													This is a new feature. Might be buggy.
+												</Warning>
+											)}
+										</div>
 									</div>
 								</div>
 								<div

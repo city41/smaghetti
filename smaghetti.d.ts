@@ -129,6 +129,7 @@ type MusicTrack =
 
 type RoomSettings = RoomBackgroundSettings & {
 	music: number;
+	wrapAround?: boolean;
 };
 
 type RoomLayer = {

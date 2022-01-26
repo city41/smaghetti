@@ -117,7 +117,7 @@ function getObjectHeader(
 		room.settings.unknownThirdHeaderByte ?? 0x02, // ----
 		width & 0xf, // bottom nibble is length of level, top is unknown
 		room.settings.bgColor, // background color
-		0xa1, // top nibble is scroll settings, bottom unknown, copied from 1-2
+		room.settings.wrapAround ? 0xb1 : 0xa1, // top nibble is scroll settings, bottom unknown, copied from 1-2
 		objectGraphicSet, // top 3 bits: level entry action, bottom 5: graphics set
 		0x08, // top nibble: graphics set, bottom: unknown
 		room.settings.bgExtraColorAndEffect ?? 0,
@@ -363,10 +363,14 @@ function getObjects(layer: RoomLayer, room: RoomData): number[] {
 			const length = endXTile.x - tile.x;
 			const height = bestY - tile.y;
 
+			// for some reason, wrap around rooms bring all objects
+			// up by one tile. so compenstate by pushing them down one
+			const yIncrement = room.settings.wrapAround ? 2 : 1;
+
 			objects.push(
 				...objectDef.toObjectBinary({
 					x,
-					y: y + 1,
+					y: y + yIncrement,
 					w: length,
 					h: height,
 					settings: tile.settings ?? {},

@@ -23,6 +23,7 @@ import {
 	MAX_ROOM_TILE_WIDTH,
 	MIN_ROOM_TILE_HEIGHT,
 	MAX_ROOM_TILE_HEIGHT,
+	PLAY_WINDOW_TILE_WIDTH,
 } from './constants';
 import { getPlayerScaleFromWindow } from '../../util/getPlayerScaleFromWindow';
 import { saveLevel as saveLevelMutation } from '../../remoteData/saveLevel';
@@ -1326,6 +1327,12 @@ const editorSlice = createSlice({
 			const { index, settings } = action.payload;
 			const room = state.rooms[index];
 			room.settings = { ...room.settings, ...settings };
+
+			if (settings.wrapAround) {
+				room.roomTileWidth = PLAY_WINDOW_TILE_WIDTH;
+			} else {
+				room.roomTileWidth = Math.max(room.roomTileWidth, ROOM_WIDTH_INCREMENT);
+			}
 		},
 		tagChange(
 			state: InternalEditorState,
