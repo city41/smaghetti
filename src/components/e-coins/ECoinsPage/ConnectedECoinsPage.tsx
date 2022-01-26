@@ -17,14 +17,17 @@ type FlatSerializedLevel = Omit<SerializedLevel, 'user'> & {
 
 const PAGE_SIZE = 20;
 
+const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
+	newest: 'updated_at',
+	popular: 'total_vote_count',
+};
+
 async function getLevels(
 	page: number,
 	order: CategoryUserOrder
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
-	const rpcFunc = slugToRpc[slug];
-
 	const { error, data, count } = await client
-		.rpc(rpcFunc, params, { count: 'exact' })
+		.rpc('get_published_levels_that_have_ecoins', { count: 'exact' })
 		.range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
 		.order(userOrderToOrderColumn[order], { ascending: false });
 
@@ -58,7 +61,11 @@ function ConnectedECoinsPage(props: PublicECoinsPageProps) {
 						const convertedLevel = convertLevelToLatestVersion(rawLevel);
 
 						if (convertedLevel) {
-							return building.concat(convertedLevel);
+							const level: Level = {
+								...convertedLevel,
+								data: deserialize(convertedLevel.data),
+							};
+							return building.concat(level);
 						} else {
 							return building;
 						}
