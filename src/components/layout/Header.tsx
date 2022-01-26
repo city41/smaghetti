@@ -40,6 +40,7 @@ function Header({ className }: HeaderProps) {
 					</div>
 					<MenuLink href="/editor">editor</MenuLink>
 					<MenuLink href="/levels">levels</MenuLink>
+					<MenuLink href="/e-coins">e-coins</MenuLink>
 					<MenuLink href="/whats-new">what&apos;s new</MenuLink>
 					<MenuLink href="/roadmap">roadmap</MenuLink>
 					<MenuLink href="/tips">tips</MenuLink>
