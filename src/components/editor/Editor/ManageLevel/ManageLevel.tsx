@@ -422,7 +422,7 @@ function ManageLevel({
 											<input
 												type="checkbox"
 												checked={r.settings.wrapAround!!}
-												onChange={(e) => {
+												onChange={() => {
 													onRoomSettingsChange({
 														index: i,
 														settings: {
