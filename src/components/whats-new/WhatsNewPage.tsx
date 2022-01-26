@@ -96,6 +96,7 @@ function WhatsNewPage() {
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
 				<NewEntry title="New Entities" date="2022-01-26">
 					<ul>
+						<li>Checkered InnerCorner- Lower Left, Left Edge</li>
 						<li>Checkered InnerCorner- Lower Right, Bottom Edge</li>
 					</ul>
 				</NewEntry>
