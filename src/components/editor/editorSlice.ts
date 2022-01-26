@@ -660,28 +660,38 @@ function removeOutOfBoundsEntities(state: InternalEditorState) {
 		},
 	};
 
-	currentRoom.actors.entities = currentRoom.actors.entities.filter((e) => {
-		if (nonDeletableEntityTypes.includes(e.type)) {
-			return true;
-		}
+	function removeEntities(entities: EditorEntity[]): EditorEntity[] {
+		return entities.filter((e) => {
+			if (nonDeletableEntityTypes.includes(e.type)) {
+				return true;
+			}
 
-		const pixelBounds = getEntityPixelBounds(e);
+			const pixelBounds = getEntityPixelBounds(e);
 
-		return overlap(pixelBounds, levelBounds);
-	});
+			// this removes any entity that is completely out of the level bounds
+			// if an entity has at least part of itself inside the level, it stays
+			return overlap(pixelBounds, levelBounds);
+		});
+	}
+
+	currentRoom.actors.entities = removeEntities(currentRoom.actors.entities);
+	currentRoom.stage.entities = removeEntities(currentRoom.stage.entities);
 }
 
 function removeOutOfBoundsCells(state: InternalEditorState) {
 	const currentRoom = getCurrentRoom(state);
 
-	currentRoom.stage.matrix = currentRoom.stage.matrix.map((row) => {
-		return row?.slice(0, currentRoom.roomTileWidth) ?? null;
-	});
+	function trimMatrix(matrix: EditorEntityMatrix): EditorEntityMatrix {
+		const widthTrimmed = matrix.map((row) => {
+			return row?.slice(0, currentRoom.roomTileWidth) ?? null;
+		});
 
-	currentRoom.stage.matrix = currentRoom.stage.matrix.slice(
-		0,
-		currentRoom.roomTileHeight
-	);
+		const heightTrimmed = widthTrimmed.slice(0, currentRoom.roomTileHeight);
+		return heightTrimmed;
+	}
+
+	currentRoom.stage.matrix = trimMatrix(currentRoom.stage.matrix);
+	currentRoom.actors.matrix = trimMatrix(currentRoom.actors.matrix);
 }
 
 function scaleTo(state: InternalEditorState, newScale: number) {
