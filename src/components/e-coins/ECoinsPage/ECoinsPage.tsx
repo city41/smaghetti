@@ -46,7 +46,7 @@ function ECoinsPage({
 					button when looking at all your levels in the editor.
 				</p>
 				{!!currentOrder && levels.length > 0 && (
-					<Menu className="grid grid-cols-2 w-1/2 mx-auto mb-4">
+					<Menu className="grid grid-cols-2 w-1/2 mx-auto mb-12">
 						{userOrders.map((c) => {
 							return (
 								<MenuEntry
