@@ -14,8 +14,6 @@ type FlatSerializedLevel = Omit<SerializedLevel, 'user'> & {
 	total_vote_count: number;
 };
 
-const PAGE_SIZE = 20;
-
 const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
 	newest: 'updated_at',
 	popular: 'total_vote_count',
@@ -23,12 +21,10 @@ const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
 
 // for now, not paging, need to figure out how to only get custom coins from the db
 async function getLevels(
-	_page: number,
 	order: CategoryUserOrder
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
 	const { error, data, count } = await client
-		.rpc('get_published_levels_that_have_ecoins', {}, { count: 'exact' })
-		// .range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
+		.rpc('get_published_levels_that_have_ecoins')
 		.order(userOrderToOrderColumn[order], { ascending: false });
 
 	if (error) {
@@ -65,21 +61,18 @@ function hasCustomECoin(level: Level): boolean {
 }
 
 function ConnectedECoinsPage(props: PublicECoinsPageProps) {
-	const [page, setPage] = useState(0);
 	const [loadingState, setLoadingState] = useState<LoadingState>('loading');
 	const [levels, setLevels] = useState<Level[]>([]);
-	const [totalCount, setTotalCount] = useState(0);
 
 	useEffect(() => {
-		setPage(0);
 		setLevels([]);
 		setLoadingState('loading');
 	}, [props.currentOrder]);
 
 	useEffect(() => {
 		setLoadingState('loading');
-		getLevels(page, props.currentOrder)
-			.then(({ levels: retrievedLevels, totalCount: retrievedTotalCount }) => {
+		getLevels(props.currentOrder)
+			.then(({ levels: retrievedLevels }) => {
 				const convertedLevels = retrievedLevels.reduce<Level[]>(
 					(building, rawLevel) => {
 						const serializedLevel = {
@@ -110,30 +103,14 @@ function ConnectedECoinsPage(props: PublicECoinsPageProps) {
 				);
 
 				setLevels(convertedLevels);
-				setTotalCount(retrievedTotalCount);
 				setLoadingState('success');
 			})
 			.catch(() => {
 				setLoadingState('error');
 			});
-	}, [page, props.currentOrder, setLoadingState]);
+	}, [props.currentOrder, setLoadingState]);
 
-	return (
-		<ECoinsPage
-			{...props}
-			loadingState={loadingState}
-			levels={levels}
-			totalCount={totalCount}
-			pageSize={PAGE_SIZE}
-			currentPage={page}
-			onPreviousClick={() => {
-				setPage((p) => Math.max(0, p - 1));
-			}}
-			onNextClick={() => {
-				setPage((p) => p + 1);
-			}}
-		/>
-	);
+	return <ECoinsPage {...props} loadingState={loadingState} levels={levels} />;
 }
 
 export { ConnectedECoinsPage };

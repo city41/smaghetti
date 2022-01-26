@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import React from 'react';
 import { Root } from '../../layout/Root';
 import { LoadingBar } from '../../LoadingBar';
-import { Pagination } from '../../levels/Levels2Page/Pagination';
 import {
 	CategoryUserOrder,
 	userOrders,
@@ -18,23 +17,13 @@ type PublicECoinsPageProps = {
 type InternalECoinsPageProps = {
 	loadingState: 'loading' | 'error' | 'success';
 	levels: Level[];
-	totalCount: number;
-	pageSize: number;
-	currentPage: number;
-	onNextClick: () => void;
-	onPreviousClick: () => void;
 };
 
 function ECoinsPage({
 	loadingState,
 	levels,
-	totalCount,
-	pageSize,
 	currentOrder,
-	currentPage,
 	onUserOrderClick,
-	onNextClick,
-	onPreviousClick,
 }: PublicECoinsPageProps & InternalECoinsPageProps) {
 	return (
 		<Root metaDescription="Smaghetti's art gallery :)" title="Custom E-Coins">
@@ -81,15 +70,6 @@ function ECoinsPage({
 						</>
 					)}
 				</div>
-				{loadingState === 'success' && levels.length > 0 && (
-					<Pagination
-						currentPage={currentPage}
-						onNextClick={onNextClick}
-						onPreviousClick={onPreviousClick}
-						totalCount={totalCount}
-						pageSize={pageSize}
-					/>
-				)}
 			</div>
 		</Root>
 	);
