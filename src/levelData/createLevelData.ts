@@ -275,6 +275,10 @@ function getObjects(layer: RoomLayer, room: RoomData): number[] {
 	const clone = cloneDeep(layer.matrix);
 	const objects: number[] = [];
 
+	// for some reason, wrap around rooms bring all objects
+	// up by one tile. so compenstate by pushing them down one
+	const yIncrement = room.settings.wrapAround ? 2 : 1;
+
 	function getEndX(
 		row: EditorEntityRow,
 		startTile: EditorEntity
@@ -363,10 +367,6 @@ function getObjects(layer: RoomLayer, room: RoomData): number[] {
 			const length = endXTile.x - tile.x;
 			const height = bestY - tile.y;
 
-			// for some reason, wrap around rooms bring all objects
-			// up by one tile. so compenstate by pushing them down one
-			const yIncrement = room.settings.wrapAround ? 2 : 1;
-
 			objects.push(
 				...objectDef.toObjectBinary({
 					x,
@@ -393,7 +393,7 @@ function getObjects(layer: RoomLayer, room: RoomData): number[] {
 		return building.concat(
 			entityDef.toObjectBinary({
 				x: e.x / TILE_SIZE,
-				y: e.y / TILE_SIZE + 1,
+				y: e.y / TILE_SIZE + yIncrement,
 				w: 1,
 				h: 1,
 				settings: e.settings ?? {},
