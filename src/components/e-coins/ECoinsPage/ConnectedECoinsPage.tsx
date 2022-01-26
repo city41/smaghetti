@@ -10,7 +10,6 @@ type LoadingState = 'loading' | 'error' | 'success';
 type FlatSerializedLevel = Omit<SerializedLevel, 'user'> & {
 	username: string;
 	total_vote_count: number;
-	current_user_voted: boolean;
 };
 
 const PAGE_SIZE = 20;
