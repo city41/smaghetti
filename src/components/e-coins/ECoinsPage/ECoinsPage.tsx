@@ -37,7 +37,7 @@ function ECoinsPage({
 	onPreviousClick,
 }: PublicECoinsPageProps & InternalECoinsPageProps) {
 	return (
-		<Root metaDescription="Smaghetti\'s art gallery :)" title="Custom E-Coins">
+		<Root metaDescription="Smaghetti's art gallery :)" title="Custom E-Coins">
 			<div className="max-w-2xl mx-auto pt-16 flex flex-col h-full">
 				<h1 className="font-bold text-2xl text-center">Community E-Coins</h1>
 				<p className="mt-2 mb-16 text-gray-400 text-sm text-center mx-24">
