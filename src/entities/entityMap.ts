@@ -144,6 +144,7 @@ import { Fishbone } from './Fishbone';
 import { FlagPole } from './FlagPole';
 import { FlameChomp } from './FlameChomp';
 import { FlowerBush } from './FlowerBush';
+import { FlowerBushAlternate } from './FlowerBushAlternate';
 import { FluffyCloud } from './FluffyCloud';
 import { Flurry } from './Flurry';
 import { Flutter } from './Flutter';
@@ -531,6 +532,7 @@ const entityMap = {
 	FlagPole,
 	FlameChomp,
 	FlowerBush,
+	FlowerBushAlternate,
 	FluffyCloud,
 	Flurry,
 	Flutter,
