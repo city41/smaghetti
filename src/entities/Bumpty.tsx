@@ -18,32 +18,58 @@ const Bumpty: Entity = {
 	dimensions: 'none',
 	objectId: 0xf2,
 
-	resource: {
-		romOffset: 0x18c914,
-		palettes: [
-			[
-				0x739c,
-				0x7fff,
-				0x0,
-				0x11,
-				0x295e,
-				0x7610,
-				0x7eb4,
-				0x53bd,
-				0x6bde,
-				0x4920,
-				0x6e2c,
-				0x7fb4,
-				0x29bd,
-				0x467f,
-				0x4f9f,
-				0x63ff,
+	resources: {
+		Bumpty: {
+			romOffset: 0x18c914,
+			palettes: [
+				[
+					0x739c,
+					0x7fff,
+					0x0,
+					0x11,
+					0x295e,
+					0x7610,
+					0x7eb4,
+					0x53bd,
+					0x6bde,
+					0x4920,
+					0x6e2c,
+					0x7fb4,
+					0x29bd,
+					0x467f,
+					0x4f9f,
+					0x63ff,
+				],
 			],
-		],
-		tiles: [
-			[540, 541],
-			[572, 573],
-		],
+			tiles: [
+				[540, 541],
+				[572, 573],
+			],
+		},
+		BumptyFoot: {
+			romOffset: 0x18c914,
+			palettes: [
+				[
+					0x739c,
+					0x7fff,
+					0x0,
+					0x11,
+					0x295e,
+					0x7610,
+					0x7eb4,
+					0x53bd,
+					0x6bde,
+					0x4920,
+					0x6e2c,
+					0x7fb4,
+					0x29bd,
+					0x467f,
+					0x4f9f,
+					0x63ff,
+				],
+			],
+			tiles: [[571]],
+		},
 	},
 
 	toSpriteBinary({ x, y }) {
@@ -55,11 +81,36 @@ const Bumpty: Entity = {
 	},
 
 	simpleRender(size) {
+		const footOffset = Math.round(((1 / 8) * size) / 2);
+
+		const leftFootStyle = {
+			bottom: -footOffset,
+			left: footOffset * 2,
+			width: size / 2,
+			height: size / 2,
+		};
+
+		const rightFootStyle = {
+			bottom: -footOffset,
+			right: footOffset * 2,
+			width: size / 2,
+			height: size / 2,
+		};
+
 		return (
 			<div
-				className="Bumpty-bg bg-cover"
+				className="relative Bumpty-bg bg-cover"
 				style={{ width: size, height: size }}
-			/>
+			>
+				<div
+					className="absolute BumptyFoot-bg bg-cover"
+					style={leftFootStyle}
+				/>
+				<div
+					className="absolute BumptyFoot-bg bg-cover"
+					style={rightFootStyle}
+				/>
+			</div>
 		);
 	},
 

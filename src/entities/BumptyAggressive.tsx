@@ -41,6 +41,21 @@ const BumptyAggressive: Entity = {
 
 	render() {
 		const style = { width: TILE_SIZE, height: TILE_SIZE };
+		const footOffset = Math.round(((1 / 8) * TILE_SIZE) / 2);
+
+		const leftFootStyle = {
+			bottom: -footOffset,
+			left: footOffset * 2,
+			width: TILE_SIZE / 2,
+			height: TILE_SIZE / 2,
+		};
+
+		const rightFootStyle = {
+			bottom: -footOffset,
+			right: footOffset * 2,
+			width: TILE_SIZE / 2,
+			height: TILE_SIZE / 2,
+		};
 
 		const labelStyle = {
 			fontSize: 2,
@@ -49,6 +64,14 @@ const BumptyAggressive: Entity = {
 
 		return (
 			<div style={style} className="relative Bumpty-bg bg-cover">
+				<div
+					className="absolute BumptyFoot-bg bg-cover"
+					style={leftFootStyle}
+				/>
+				<div
+					className="absolute BumptyFoot-bg bg-cover"
+					style={rightFootStyle}
+				/>
 				<div
 					className="absolute left-0 w-full text-center bg-black text-white"
 					style={labelStyle}

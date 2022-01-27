@@ -67,6 +67,7 @@ export const resourceShaMap: Record<string, string> = {
   "BulletBillGeneratorCardinal": "dc0a2a61c954cdc8757aba6c61fb8eb39ed84ccb",
   "BulletBillGeneratorDiagonal": "3d727b18abaedceb37b13c52aa1b9af26770ff70",
   "Bumpty": "d957c4c3149bf325781b625b322755e8961b16d5",
+  "BumptyFoot": "53bf8af81eee9ac70c07ad5f09c31661e3bca26a",
   "BuriedVegetable": "87c0b7a6f5533ccf98d19ae3c3e9658f4eb46877",
   "MontyMoleJump": "ee5fe4778ee03faca94ee08a909b227c06651e74",
   "Burner": "ceafcdd957c534cd8845e6570d6d3815816f2088",
