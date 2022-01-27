@@ -66,7 +66,7 @@ const Water: Entity = {
 		}
 
 		const width = room.roomTileWidth - entity.x / TILE_SIZE;
-		const height = room.roomTileHeight - entity.y / TILE_SIZE;
+		const height = Math.min(27, room.roomTileHeight - entity.y / TILE_SIZE);
 
 		const style = { width: width * TILE_SIZE, height: height * TILE_SIZE };
 

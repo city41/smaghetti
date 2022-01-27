@@ -308,6 +308,11 @@ function TipsPage() {
 						water levels a bit more polished. Those are still to come in
 						Smaghetti.
 					</p>
+					<p>
+						<span className="bg-red-200 text-red-900 px-2 py-1">Warning:</span>{' '}
+						The water entity will not completely fill out a tall level. Water
+						can only be about 30 tiles tall.
+					</p>
 				</TipEntry>
 			</div>
 		</Root>
