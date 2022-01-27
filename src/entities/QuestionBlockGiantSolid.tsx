@@ -1,22 +1,16 @@
 import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
-import { ANY_OBJECT_SET } from './constants';
 import { TileSpace } from './TileSpace';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
-import { parseObjectIdMapSprite } from './util';
+import { encodeObjectSets, parseObjectIdMapObject } from './util';
 import invert from 'lodash/invert';
 
 const payloadToObjectId = {
-	OneUpMushroom: 0x94,
-	Mushroom: 0x95,
-	FireFlower: 0x96,
-	Leaf: 0x97,
-	TanookiSuit: 0x98,
-	FrogSuit: 0x99,
-	HammerBroSuit: 0x9a,
+	Coin: 0x2,
+	Leaf: 0x3,
 };
 
 const objectIdToPayload = invert(payloadToObjectId) as Record<
@@ -24,66 +18,42 @@ const objectIdToPayload = invert(payloadToObjectId) as Record<
 	ResourceType
 >;
 
-const QuestionBlockGiant: Entity = {
+const QuestionBlockGiantSolid: Entity = {
 	paletteCategory: 'object',
 	paletteInfo: {
-		title: 'Question Block - Giant, Alternate',
+		title: 'Question Block - Giant, Solid',
 		description:
-			'Nintendo used this question block in bonus rooms. It has more payloads than the solid one, but enemies cannot interact with it.',
+			'This is the "main" giant question block meant to be used in levels. It only has two possible payloads, but it fully interacts with enemies.',
 	},
 
-	objectSets: ANY_OBJECT_SET,
+	objectSets: encodeObjectSets([
+		[11, 11],
+		[13, 11],
+		[5, 11],
+	]),
 	spriteGraphicSets: [9, -1, -1, -1, 1, -1],
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
 	payloadToObjectId,
 	objectId: 0x94,
+	width: 2,
+	height: 2,
 
-	defaultSettings: { payload: 'Mushroom' },
+	defaultSettings: { payload: 'Coin' },
 
-	resource: {
-		romOffset: 0x1724f0,
-		palettes: [
-			[
-				0x7f96,
-				0x7fff,
-				0x18c6,
-				0x3192,
-				0x1636,
-				0x2a9c,
-				0x1f4,
-				0x29a,
-				0x37f,
-				0x42ff,
-				0x4a52,
-				0x6318,
-				0x77bd,
-				0x7ffb,
-				0x7fd2,
-				0x732c,
-			],
-		],
-		tiles: [
-			[768, 769, 770, 771],
-			[784, 785, 786, 787],
-			[800, 801, 802, 803],
-			[816, 817, 818, 819],
-		],
-	},
-
-	toSpriteBinary({ x, y, settings }) {
+	toObjectBinary({ x, y, settings }) {
 		const payloadToObjectId = this.payloadToObjectId!;
 		const payload = settings.payload ?? this.defaultSettings!.payload;
 		const objectId =
 			payloadToObjectId![payload as keyof typeof payloadToObjectId] ??
 			this.objectId;
 
-		return [0, objectId, x, y];
+		return [0x40, y, x, objectId];
 	},
 
-	parseSprite(data, offset) {
-		return parseObjectIdMapSprite(
+	parseObject(data, offset) {
+		return parseObjectIdMapObject(
 			data,
 			offset,
 			0,
@@ -96,19 +66,34 @@ const QuestionBlockGiant: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="QuestionBlockGiant-bg bg-cover"
+				className="relative QuestionBlockGiant-bg bg-cover"
 				style={{ width: size, height: size }}
-			/>
+			>
+				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
+					solid
+				</div>
+			</div>
 		);
 	},
 
 	render({ showDetails, settings, onSettingsChange }) {
 		const style = { width: TILE_SIZE * 2, height: TILE_SIZE * 2 };
-		const spaceStyle = { width: TILE_SIZE, height: TILE_SIZE };
+		const spaceStyle = { width: TILE_SIZE * 2, height: TILE_SIZE * 2 };
+
+		const labelStyle = {
+			fontSize: 2,
+			bottom: 0,
+		};
 
 		const body = (
 			<div style={style} className="relative QuestionBlockGiant-bg bg-cover">
 				<TileSpace style={spaceStyle} className="absolute top-0 left-0" />
+				<div
+					className="absolute left-0 w-full text-center bg-black text-white"
+					style={labelStyle}
+				>
+					solid
+				</div>
 				<PayloadViewDetails payload={settings.payload} />
 			</div>
 		);
@@ -132,6 +117,14 @@ const QuestionBlockGiant: Entity = {
 			return body;
 		}
 	},
+
+	getProblem({ entity }) {
+		const tx = entity.x / TILE_SIZE;
+
+		if (tx % 2 === 1) {
+			return 'Must be placed on an even x tile';
+		}
+	},
 };
 
-export { QuestionBlockGiant };
+export { QuestionBlockGiantSolid };

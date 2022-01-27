@@ -292,6 +292,7 @@ import { PtooieWalkingPiranhaPlant } from './PtooieWalkingPiranhaPlant';
 import { PWing } from './PWing';
 import { QuestionBlock } from './QuestionBlock';
 import { QuestionBlockGiant } from './QuestionBlockGiant';
+import { QuestionBlockGiantSolid } from './QuestionBlockGiantSolid';
 import { QuestionMark } from './QuestionMark';
 import { Quicksand } from './Quicksand';
 import { RedKoopaTroopa } from './RedKoopaTroopa';
@@ -678,6 +679,7 @@ const entityMap = {
 	PWing,
 	QuestionBlock,
 	QuestionBlockGiant,
+	QuestionBlockGiantSolid,
 	QuestionMark,
 	Quicksand,
 	RedKoopaTroopa,
