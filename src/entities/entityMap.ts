@@ -153,6 +153,7 @@ import { FlyingCheepCheepGenerator } from './FlyingCheepCheepGenerator';
 import { FlyingPiranhaPlant } from './FlyingPiranhaPlant';
 import { FortressAxe } from './FortressAxe';
 import { FortressBrick } from './FortressBrick';
+import { FortressBrickAlternate } from './FortressBrickAlternate';
 import { FortressLamp } from './FortressLamp';
 import { FullerFlowerBush } from './FullerFlowerBush';
 import { Galoomba } from './Galoomba';
@@ -542,6 +543,7 @@ const entityMap = {
 	FlyingPiranhaPlant,
 	FortressAxe,
 	FortressBrick,
+	FortressBrickAlternate,
 	FortressLamp,
 	FullerFlowerBush,
 	Galoomba,
