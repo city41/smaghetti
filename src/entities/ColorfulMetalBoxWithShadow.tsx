@@ -67,7 +67,7 @@ const ColorfulMetalBoxWithShadow: Entity = {
 
 		const objectId = colorToObjectId[color] ?? colorToObjectId.green;
 
-		return [getBankParam1(1, width), y, x, objectId];
+		return [getBankParam1(1, width - 1), y, x, objectId];
 	},
 
 	simpleRender(size) {
