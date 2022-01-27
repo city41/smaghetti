@@ -49,7 +49,7 @@ const betaChecklist: MilestoneChecklistItem[] = [
 	{ status: 'in-progress', description: 'Level file format is finalized' },
 	{ status: 'in-progress', description: 'Autoscroll rooms' },
 	{ status: 'in-progress', description: 'Object priorities' },
-	{ status: 'completed', description: 'Wrap-around rooms' },
+	{ status: 'in-progress', description: 'Wrap-around rooms' },
 	{ status: 'not-started', description: 'Adjustable camera' },
 	{ status: 'completed', description: 'Configurable controls' },
 	{ status: 'not-started', description: 'Save states' },
