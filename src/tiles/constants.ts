@@ -61,6 +61,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	FlowerBush: 'Flw',
 	FlowerBushAlternate: 'Flwa',
 	FortressBrick: 'Fb',
+	FortressBrickAlternate: 'Fba',
 	FullerFlowerBush: 'Fflw',
 	GlassBlock: 'Gb',
 	GrassHorizontal: 'Gh',
