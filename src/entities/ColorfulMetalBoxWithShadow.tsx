@@ -24,6 +24,7 @@ const RECT_CLASSES = [
 ];
 
 const colorToObjectId = {
+	white: 0x0,
 	orange: 0x1,
 	green: 0x2,
 	blue: 0x3,
@@ -32,6 +33,7 @@ const colorToObjectId = {
 type Color = keyof typeof colorToObjectId;
 
 const overlayColorToCss: Record<Color, string> = {
+	white: 'transparent',
 	orange: '#f8a060',
 	green: '#90c868',
 	blue: '#70d8f8',
