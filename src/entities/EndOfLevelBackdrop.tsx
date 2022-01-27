@@ -2,7 +2,7 @@ import React from 'react';
 import type { Entity } from './types';
 import { encodeObjectSets, parseSimpleObject } from './util';
 import { TILE_SIZE } from '../tiles/constants';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_SPRITE_GRAPHIC_SET, OBJECT_PRIORITY_LOWEST } from './constants';
 import { TileSpace } from './TileSpace';
 
 const EndOfLevelBackdrop: Entity = {
@@ -61,6 +61,7 @@ const EndOfLevelBackdrop: Entity = {
 		[9, 4],
 		[9, 9],
 	]),
+	objectPriority: OBJECT_PRIORITY_LOWEST,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	dimensions: 'none',
 	objectId: 0x29,
