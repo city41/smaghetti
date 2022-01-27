@@ -112,7 +112,7 @@ function WhatsNewPage() {
 					/>
 					<p>Still a lot more object priority changes to come.</p>
 				</NewEntry>
-				<NewEntry title="New Entities" date="2022-01-2y">
+				<NewEntry title="New Entities" date="2022-01-27">
 					<ul>
 						<li>Airship Window</li>
 						<li>Wood Floor - Moldy</li>
