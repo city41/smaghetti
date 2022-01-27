@@ -10,7 +10,7 @@ import { encodeObjectSets, getBankParam1, parseSimpleObject } from './util';
 // fall through it, which is unexpected
 
 const AirshipWindow: Entity = {
-	// paletteCategory: 'decoration',
+	paletteCategory: 'decoration',
 	paletteInfo: {
 		title: 'Airship Window',
 	},

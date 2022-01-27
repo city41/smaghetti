@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import type { Entity } from './types';
 import { encodeObjectSets } from './util';
 import { TILE_SIZE } from '../tiles/constants';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_SPRITE_GRAPHIC_SET, OBJECT_PRIORITY_LOWEST } from './constants';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
 import { Resizer } from '../components/Resizer';
@@ -39,6 +39,7 @@ const AirshipPlatform: Entity = {
 	},
 
 	objectSets: encodeObjectSets([[10, 10]]),
+	objectPriority: OBJECT_PRIORITY_LOWEST,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',
