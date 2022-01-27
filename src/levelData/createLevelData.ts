@@ -296,7 +296,7 @@ function isObjectPrioritiesEnabled(): boolean {
 	);
 }
 
-function getObjects(layer: RoomLayer, room: RoomData): number[] {
+function getPendingObjects(layer: RoomLayer, room: RoomData): PendingObject[] {
 	const clone = cloneDeep(layer.matrix);
 	const pendingObjects: PendingObject[] = [];
 
@@ -423,25 +423,7 @@ function getObjects(layer: RoomLayer, room: RoomData): number[] {
 		[]
 	);
 
-	const allPendingObjects = pendingObjects.concat(pendingEntityObjects);
-
-	const sortedPendingObjects = isObjectPrioritiesEnabled()
-		? allPendingObjects.sort(sortByObjectPriority)
-		: allPendingObjects;
-
-	return sortedPendingObjects.reduce<number[]>((building, po) => {
-		const entityDef = entityMap[po.entity.type];
-		return building.concat(
-			...entityDef.toObjectBinary!({
-				x: po.x,
-				y: po.y,
-				w: po.w,
-				h: po.h,
-				settings: po.entity.settings ?? {},
-				room,
-			})
-		);
-	}, []);
+	return pendingObjects.concat(pendingEntityObjects);
 }
 
 function getSprites(entities: EditorEntity[], room: RoomData): number[] {
@@ -620,15 +602,36 @@ function getRoom(
 	);
 
 	const objectHeader = getObjectHeader(levelSettings, currentRoom, allEntities);
-	const actorObjects = getObjects(actors, currentRoom);
-	const stageObjects = getObjects(stage, currentRoom);
+	const pendingActorObjects = getPendingObjects(actors, currentRoom);
+	const pendingStageObjects = getPendingObjects(stage, currentRoom);
+
+	const allPendingObjects = pendingActorObjects.concat(pendingStageObjects);
+
+	const sortedPendingObjects = isObjectPrioritiesEnabled()
+		? allPendingObjects.sort(sortByObjectPriority)
+		: allPendingObjects;
+
+	const objectData = sortedPendingObjects.reduce<number[]>((building, po) => {
+		const entityDef = entityMap[po.entity.type];
+		return building.concat(
+			...entityDef.toObjectBinary!({
+				x: po.x,
+				y: po.y,
+				w: po.w,
+				h: po.h,
+				settings: po.entity.settings ?? {},
+				room: currentRoom,
+			})
+		);
+	}, []);
+
 	const levelSettingsData = getLevelSettings(currentRoom, allEntities);
 	const transportData = getTransports(roomIndex, allEntities, allRooms);
 	const spriteHeader = [0x0];
 	const sprites = getSprites(allEntities, currentRoom);
 
 	return {
-		objects: objectHeader.concat(actorObjects, stageObjects, [0xff]),
+		objects: objectHeader.concat(objectData, [0xff]),
 		levelSettings: levelSettingsData,
 		transportData,
 		sprites: spriteHeader.concat(sprites, [0xff]),
