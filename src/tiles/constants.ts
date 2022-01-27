@@ -59,6 +59,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	FallAwaySpike: 'Fas',
 	FireBarBase: 'Fbb',
 	FlowerBush: 'Flw',
+	FlowerBushAlternate: 'Flwa',
 	FortressBrick: 'Fb',
 	FullerFlowerBush: 'Fflw',
 	GlassBlock: 'Gb',
