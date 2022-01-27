@@ -10,6 +10,7 @@ import seaToSkyScreenshotPng from './seaToSkyScreenshot.png';
 import eraseForFloorPng from './eraseForFloor.png';
 
 import styles from './TipsPage.module.css';
+import { entityMap } from '../../entities/entityMap';
 
 function TipEntry({ title, children }: { title: string; children: ReactNode }) {
 	const id = toId(title);
@@ -234,6 +235,15 @@ function TipsPage() {
 				</TipEntry>
 				<TipEntry title="Underwater Water">
 					<p>
+						<b>
+							You can also make a{' '}
+							<a href="#how-to-make-a-standard-water-level">
+								standard water level
+							</a>{' '}
+							which is a bit easier
+						</b>
+					</p>
+					<p>
 						Underwater Water is a normal tile entity. If you use it in a regular
 						room, it will look and behave just like Choppy Water.
 					</p>
@@ -281,10 +291,22 @@ function TipsPage() {
 						/>
 						If you don&apos;t do this, your floors will show up corrupted when
 						playing your level.
-						<span className="block mt-4 font-bold">
-							Currently underwater levels are a pain to make! Making this easier
-							is on the todo list!
-						</span>
+					</p>
+				</TipEntry>
+				<TipEntry title="How to make a standard water level">
+					<ol className="list-decimal flex flex-col gap-y-4 mt-4">
+						<li>Change the background of your room to underwater</li>
+						<li>
+							Place the water entity (found under terrain in the water section)
+							in the upper left corner of the room. It looks like this:
+							<div className="my-2">{entityMap.Water.simpleRender(50)}</div>
+						</li>
+					</ol>
+					<p>
+						There&apos;s no step three! Real Nintendo water levels also have
+						some meta sprites that fix up scrolling and other things that make
+						water levels a bit more polished. Those are still to come in
+						Smaghetti.
 					</p>
 				</TipEntry>
 			</div>

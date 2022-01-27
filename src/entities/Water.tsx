@@ -9,8 +9,26 @@ const Water: Entity = {
 	paletteInfo: {
 		subCategory: 'terrain-water',
 		title: 'Water',
-		description:
-			'Adds water to a level going right and down from its location. Want a full on water level? This is what you want.',
+		description: (
+			<>
+				<p>
+					Adds water to a level going right and down from its location. Want a
+					full on water level? This is what you want.
+				</p>
+				<p>
+					Checkout{' '}
+					<a
+						className="text-blue-500 hover:underline"
+						href="/tips#how-to-make-a-standard-water-level"
+						target="_blank"
+						rel="noreferer nofollower"
+					>
+						the tips page
+					</a>{' '}
+					for more info.
+				</p>
+			</>
+		),
 	},
 
 	objectSets: encodeObjectSets([[6, 6]]),
