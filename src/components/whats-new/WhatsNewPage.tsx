@@ -95,7 +95,7 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
-				<NewEntry title="Basic Object Priorties In Place" date="2022-01-27">
+				<NewEntry title="Basic Object Priorities In Place" date="2022-01-27">
 					<p>
 						The first step for object priorities is now live. Don&apos;t know
 						what I&apos;m talking about? Don&apos;t worry, this is a more behind
