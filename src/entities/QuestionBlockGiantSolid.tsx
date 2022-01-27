@@ -31,7 +31,7 @@ const QuestionBlockGiantSolid: Entity = {
 		[13, 11],
 		[5, 11],
 	]),
-	spriteGraphicSets: [9, -1, -1, -1, 1, -1],
+	spriteGraphicSets: [-1, -1, -1, -1, 1, -1],
 	layer: 'stage',
 	editorType: 'entity',
 	dimensions: 'none',
