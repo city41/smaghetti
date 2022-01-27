@@ -18,6 +18,7 @@ import castleCorruptECoinPng from './castleCorruptECoin.png';
 import exitingAGiantPipePng from './exitingAGiantPipe.png';
 import giantPipeExitPointPng from './giantPipeExitPoint.png';
 import ripVanFishSleepsPng from './ripVanFishSleeps.png';
+import endOfLevelBackdropExamplePng from './endOfLevelBackdropExample.png';
 
 function dateToHumanString(input: string): string {
 	const date = new Date(input);
@@ -94,6 +95,23 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Basic Object Priorties In Place" date="2022-01-27">
+					<p>
+						The first step for object priorities is now live. Don&apos;t know
+						what I&apos;m talking about? Don&apos;t worry, this is a more behind
+						the scenes kind of thing.
+					</p>
+					<p>
+						With this change it is now possible to make water levels using the{' '}
+						<b>Water</b> entity. And it is now possible to put stuff on top of
+						the end of level backdrop, like this:
+					</p>
+					<img
+						src={endOfLevelBackdropExamplePng}
+						alt="items on top of an end of level backdrop"
+					/>
+					<p>Still a lot more object priority changes to come.</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2022-01-26">
 					<ul>
 						<li>Wood Floor - Moldy</li>

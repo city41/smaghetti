@@ -5,7 +5,7 @@ import {
 	getBankParam1,
 	parseParam1WidthEntityObject,
 } from './util';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_SPRITE_GRAPHIC_SET, OBJECT_PRIORITY_HIGHEST } from './constants';
 
 import { Plateau } from '../components/Plateau';
 
@@ -17,6 +17,7 @@ const SnowPlateau: Entity = {
 	},
 
 	objectSets: encodeObjectSets([[12, 12]]),
+	objectPriority: OBJECT_PRIORITY_HIGHEST,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',

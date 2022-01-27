@@ -40,9 +40,12 @@ export const ANY_OBJECT_SET = [-1];
 
 // highest priority objects will get added to the level data
 // last. this allows them to clobber previous objects
-export const OBJECT_PRIORITY_HIGHEST = 0;
+export const OBJECT_PRIORITY_HIGHEST = 4;
+
+// objects that don't define their own priority get this as a default
+export const OBJECT_PRIORITY_MIDDLE = 2;
 
 // lowest priority objects will get added to the level data
 // first. this allows higher priority objects to clobber them
 // or at least part of them
-export const OBJECT_PRIORITY_LOWEST = 4;
+export const OBJECT_PRIORITY_LOWEST = 0;

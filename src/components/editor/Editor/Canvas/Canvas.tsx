@@ -53,7 +53,6 @@ type CanvasProps = {
 	dragOffset: Point | null;
 	showGrid: boolean;
 	mouseMode: MouseMode;
-	onEntityDropped: (entity: EditorEntity | NewEditorEntity) => void;
 	onPainted: (arg: OnPaintedArg) => void;
 	onDeleteFocused: () => void;
 	onEntitySettingsChange: (arg: {
@@ -540,7 +539,6 @@ const Canvas = memo(function Canvas({
 					className={clsx(styles.grid, 'pointer-events-none')}
 					style={viewportGridStyles}
 				/>
-				{stageMatrixRows}
 				<Entities
 					entities={stage.entities}
 					room={rooms[currentRoomIndex]}
@@ -553,7 +551,6 @@ const Canvas = memo(function Canvas({
 					dragOffset={dragOffset}
 					onEntitySettingsChange={onEntitySettingsChange}
 				/>
-				{actorMatrixRows}
 				<Entities
 					entities={actors.entities}
 					room={rooms[currentRoomIndex]}
@@ -566,6 +563,8 @@ const Canvas = memo(function Canvas({
 					dragOffset={dragOffset}
 					onEntitySettingsChange={onEntitySettingsChange}
 				/>
+				{stageMatrixRows}
+				{actorMatrixRows}
 				{transportDestinations.map((td, i) => (
 					<TransportDestination
 						key={i}

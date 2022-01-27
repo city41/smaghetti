@@ -5,7 +5,7 @@ import {
 	getBankParam1,
 	parseParam1WidthEntityObject,
 } from './util';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_SPRITE_GRAPHIC_SET, OBJECT_PRIORITY_HIGHEST } from './constants';
 import { Plateau } from '../components/Plateau';
 
 const StonePlateau: Entity = {
@@ -15,6 +15,7 @@ const StonePlateau: Entity = {
 	},
 
 	objectSets: encodeObjectSets([[8, 6]]),
+	objectPriority: OBJECT_PRIORITY_HIGHEST,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',

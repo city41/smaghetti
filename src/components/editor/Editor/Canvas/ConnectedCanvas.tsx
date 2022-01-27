@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
-	entityDropped,
 	painted,
 	deleteFocused,
 	scaleDecreased,
@@ -20,7 +19,6 @@ type ConnectedCanvasProps = Partial<CanvasProps>;
 
 const actions = bindActionCreators(
 	{
-		onEntityDropped: entityDropped,
 		onPainted: painted,
 		onDeleteFocused: deleteFocused,
 		onScaleDecreased: scaleDecreased,

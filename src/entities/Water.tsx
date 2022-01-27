@@ -5,12 +5,12 @@ import { ANY_SPRITE_GRAPHIC_SET, OBJECT_PRIORITY_LOWEST } from './constants';
 import { encodeObjectSets, parseSimpleObject } from './util';
 
 const Water: Entity = {
-	// paletteCategory: 'controls',
+	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-water',
 		title: 'Water',
 		description:
 			'Adds water to a level going right and down from its location. Want a full on water level? This is what you want.',
-		warning: 'This entity needs object priorities to work properly',
 	},
 
 	objectSets: encodeObjectSets([[6, 6]]),

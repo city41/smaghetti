@@ -2,7 +2,6 @@ import React from 'react';
 import { IconAlert } from '../../../../../icons';
 import { Modal } from '../../../../Modal';
 import { BinaryLevels } from '../BinaryLevels';
-import { ObjectPriorities } from '../ObjectPriorities';
 import { Overwrite1_1 } from '../Overwrite1_1';
 
 type ExperimentsModalProps = {
@@ -25,7 +24,6 @@ function ExperimentsModal({ isOpen, onRequestClose }: ExperimentsModalProps) {
 				</p>
 				<BinaryLevels onRequestClose={onRequestClose} />
 				<Overwrite1_1 />
-				<ObjectPriorities />
 			</div>
 		</Modal>
 	);

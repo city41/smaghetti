@@ -10,7 +10,7 @@ import {
 	ROOM_WIDTH_INCREMENT,
 } from '../components/editor/constants';
 import _ from 'lodash';
-import { OBJECT_PRIORITY_HIGHEST } from '../entities/constants';
+import { OBJECT_PRIORITY_MIDDLE } from '../entities/constants';
 
 type Room = {
 	objects: number[];
@@ -282,18 +282,11 @@ type PendingObject = {
 
 function sortByObjectPriority(a: PendingObject, b: PendingObject): number {
 	const aPriority =
-		entityMap[a.entity.type].objectPriority ?? OBJECT_PRIORITY_HIGHEST;
+		entityMap[a.entity.type].objectPriority ?? OBJECT_PRIORITY_MIDDLE;
 	const bPriority =
-		entityMap[b.entity.type].objectPriority ?? OBJECT_PRIORITY_HIGHEST;
+		entityMap[b.entity.type].objectPriority ?? OBJECT_PRIORITY_MIDDLE;
 
-	return bPriority - aPriority;
-}
-
-function isObjectPrioritiesEnabled(): boolean {
-	return !!(
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		(typeof window !== 'undefined' && (window as any).smaghettiObjectPriorities)
-	);
+	return aPriority - bPriority;
 }
 
 function getPendingObjects(layer: RoomLayer, room: RoomData): PendingObject[] {
@@ -607,9 +600,15 @@ function getRoom(
 
 	const allPendingObjects = pendingActorObjects.concat(pendingStageObjects);
 
-	const sortedPendingObjects = isObjectPrioritiesEnabled()
-		? allPendingObjects.sort(sortByObjectPriority)
-		: allPendingObjects;
+	const sortedPendingObjects = allPendingObjects.sort(sortByObjectPriority);
+
+	if (process.env.NODE_ENV !== 'production') {
+		// eslint-disable-next-line no-console
+		console.log(
+			'objects',
+			sortedPendingObjects.map((po) => po.entity.type).join(', ')
+		);
+	}
 
 	const objectData = sortedPendingObjects.reduce<number[]>((building, po) => {
 		const entityDef = entityMap[po.entity.type];
