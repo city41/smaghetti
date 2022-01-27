@@ -21,6 +21,7 @@ const LakituCloud: Entity = {
 	dimensions: 'x',
 	param1: 'width',
 	objectId: 0x2d,
+	alternateObjectIds: [0xa],
 	emptyBank: 1,
 
 	resource: {
