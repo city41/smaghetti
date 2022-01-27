@@ -433,7 +433,8 @@ function ManageLevel({
 											/>
 											{r.settings.wrapAround && (
 												<Warning className="-bottom-16">
-													This is a new feature. Might be buggy.
+													This is experimental. Your level will behave strangely
+													in many cases.
 												</Warning>
 											)}
 										</div>
