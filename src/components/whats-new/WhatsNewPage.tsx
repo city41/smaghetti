@@ -94,6 +94,11 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2022-01-26">
+					<ul>
+						<li>Wood Floor - Moldy</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="E-Coin Gallery" date="2022-01-26">
 					<p>
 						All custom e-coins gathered into one <a href="/e-coins">spot</a>.

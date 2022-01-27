@@ -9,33 +9,47 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { ResizableRect } from '../components/ResizableRect';
 
 const RECT_CLASSES = [
-	['WoodFloorUpperLeft-bg', 'WoodFloorTop-bg', 'WoodFloorUpperRight-bg'],
-	['WoodFloorLeft-bg', 'WoodFloorInternal-bg', 'WoodFloorRight-bg'],
-	['WoodFloorLeft-bg', 'WoodFloorInternal-bg', 'WoodFloorRight-bg'],
+	[
+		'WoodFloorMoldyUpperLeft-bg',
+		'WoodFloorMoldyTop-bg',
+		'WoodFloorMoldyUpperRight-bg',
+	],
+	[
+		'WoodFloorMoldyLeft-bg',
+		'WoodFloorMoldyInternal-bg',
+		'WoodFloorMoldyRight-bg',
+	],
+	[
+		'WoodFloorMoldyLeft-bg',
+		'WoodFloorMoldyInternal-bg',
+		'WoodFloorMoldyRight-bg',
+	],
 ];
 
 const palette = [
 	0x7f96,
 	0x7fff,
 	0x0,
-	0x17b,
-	0x1a1f,
-	0x329f,
-	0x4b7f,
-	0x3664,
-	0x470a,
-	0x5fb1,
-	0xd73,
-	0x19f8,
-	0x2e5d,
-	0x3edf,
+	0x209,
+	0x228e,
+	0x3732,
+	0x47b7,
+	0x1f4,
+	0x29a,
+	0x37f,
+	0x15,
+	0xd9d,
+	0x2bf,
+	0x3600,
+	0x4aa5,
+	0x5b29,
 ];
 
-const WoodFloor: Entity = {
+const WoodFloorMoldy: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-basic',
-		title: 'Wood Floor',
+		title: 'Wood Floor - Moldy',
 	},
 
 	objectSets: encodeObjectSets([[1, 1]]),
@@ -45,13 +59,13 @@ const WoodFloor: Entity = {
 
 	defaultSettings: { width: 2, height: 1 },
 	dimensions: 'none',
-	objectId: 0xb,
+	objectId: 0xc,
 	param1: 'height',
 	param2: 'width',
 	emptyBank: 1,
 
 	resources: {
-		WoodFloorLeft: {
+		WoodFloorMoldyLeft: {
 			palettes: [palette],
 			romOffset: 0x163768,
 			tiles: [
@@ -59,7 +73,7 @@ const WoodFloor: Entity = {
 				[614, 611],
 			],
 		},
-		WoodFloorRight: {
+		WoodFloorMoldyRight: {
 			palettes: [palette],
 			romOffset: 0x163768,
 			tiles: [
@@ -67,7 +81,7 @@ const WoodFloor: Entity = {
 				[610, 525],
 			],
 		},
-		WoodFloorTop: {
+		WoodFloorMoldyTop: {
 			palettes: [palette],
 			romOffset: 0x163768,
 			tiles: [
@@ -75,7 +89,7 @@ const WoodFloor: Entity = {
 				[608, 609],
 			],
 		},
-		WoodFloorUpperLeft: {
+		WoodFloorMoldyUpperLeft: {
 			palettes: [palette],
 			romOffset: 0x163768,
 			tiles: [
@@ -83,7 +97,7 @@ const WoodFloor: Entity = {
 				[602, 609],
 			],
 		},
-		WoodFloorUpperRight: {
+		WoodFloorMoldyUpperRight: {
 			palettes: [palette],
 			romOffset: 0x163768,
 			tiles: [
@@ -91,7 +105,7 @@ const WoodFloor: Entity = {
 				[609, 524],
 			],
 		},
-		WoodFloorInternal: {
+		WoodFloorMoldyInternal: {
 			palettes: [palette],
 			romOffset: 0x163768,
 			tiles: [
@@ -115,7 +129,7 @@ const WoodFloor: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="WoodFloorTop-bg bg-cover"
+				className="WoodFloorMoldyTop-bg bg-cover"
 				style={{ width: size, height: size }}
 			/>
 		);
@@ -140,4 +154,4 @@ const WoodFloor: Entity = {
 	},
 };
 
-export { WoodFloor };
+export { WoodFloorMoldy };

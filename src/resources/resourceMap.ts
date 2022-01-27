@@ -132,11 +132,6 @@ import { WigglerFlower } from './WigglerFlower';
 import { WingedPlatformBlock } from './WingedPlatformBlock';
 import { WingedPlatformWing } from './WingedPlatformWing';
 import { WinterBackground } from './WinterBackground';
-import { WoodFloorLeft } from './WoodFloorLeft';
-import { WoodFloorRight } from './WoodFloorRight';
-import { WoodFloorTop } from './WoodFloorTop';
-import { WoodFloorUpperLeft } from './WoodFloorUpperLeft';
-import { WoodFloorUpperRight } from './WoodFloorUpperRight';
 import { WoodPlatformLeft } from './WoodPlatformLeft';
 import { WoodPlatformRight } from './WoodPlatformRight';
 
@@ -275,11 +270,6 @@ const resourceMap = {
 	WingedPlatformBlock,
 	WingedPlatformWing,
 	WinterBackground,
-	WoodFloorLeft,
-	WoodFloorRight,
-	WoodFloorTop,
-	WoodFloorUpperLeft,
-	WoodFloorUpperRight,
 	WoodPlatformLeft,
 	WoodPlatformRight,
 };

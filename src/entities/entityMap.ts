@@ -378,6 +378,7 @@ import { WoodFloor } from './WoodFloor';
 import { WoodFloorGiant } from './WoodFloorGiant';
 import { WoodFloorGiantLeftEndCap } from './WoodFloorGiantLeftEndCap';
 import { WoodFloorGiantRightEndCap } from './WoodFloorGiantRightEndCap';
+import { WoodFloorMoldy } from './WoodFloorMoldy';
 import { WoodPlatform } from './WoodPlatform';
 import { WoodPlatformGiant } from './WoodPlatformGiant';
 import { WoodFloorSnowCovered } from './WoodFloorSnowCovered';
@@ -770,6 +771,7 @@ const entityMap = {
 	WoodFloorGiant,
 	WoodFloorGiantLeftEndCap,
 	WoodFloorGiantRightEndCap,
+	WoodFloorMoldy,
 	WoodPlatform,
 	WoodPlatformGiant,
 	WoodFloorSnowCovered,
