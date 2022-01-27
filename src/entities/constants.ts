@@ -37,3 +37,12 @@ export const ANY_SPRITE_GRAPHIC_SET: [
 ] = [-1, -1, -1, -1, -1, -1];
 
 export const ANY_OBJECT_SET = [-1];
+
+// highest priority objects will get added to the level data
+// last. this allows them to clobber previous objects
+export const OBJECT_PRIORITY_HIGHEST = 0;
+
+// lowest priority objects will get added to the level data
+// first. this allows higher priority objects to clobber them
+// or at least part of them
+export const OBJECT_PRIORITY_LOWEST = 4;

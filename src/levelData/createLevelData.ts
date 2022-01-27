@@ -10,6 +10,7 @@ import {
 	ROOM_WIDTH_INCREMENT,
 } from '../components/editor/constants';
 import _ from 'lodash';
+import { OBJECT_PRIORITY_HIGHEST } from '../entities/constants';
 
 type Room = {
 	objects: number[];
@@ -271,9 +272,33 @@ function getLevelSettings(
 	];
 }
 
+type PendingObject = {
+	x: number;
+	y: number;
+	w: number;
+	h: number;
+	entity: EditorEntity;
+};
+
+function sortByObjectPriority(a: PendingObject, b: PendingObject): number {
+	const aPriority =
+		entityMap[a.entity.type].objectPriority ?? OBJECT_PRIORITY_HIGHEST;
+	const bPriority =
+		entityMap[b.entity.type].objectPriority ?? OBJECT_PRIORITY_HIGHEST;
+
+	return bPriority - aPriority;
+}
+
+function isObjectPrioritiesEnabled(): boolean {
+	return !!(
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		(typeof window !== 'undefined' && (window as any).smaghettiObjectPriorities)
+	);
+}
+
 function getObjects(layer: RoomLayer, room: RoomData): number[] {
 	const clone = cloneDeep(layer.matrix);
-	const objects: number[] = [];
+	const pendingObjects: PendingObject[] = [];
 
 	// for some reason, wrap around rooms bring all objects
 	// up by one tile. so compenstate by pushing them down one
@@ -367,43 +392,56 @@ function getObjects(layer: RoomLayer, room: RoomData): number[] {
 			const length = endXTile.x - tile.x;
 			const height = bestY - tile.y;
 
-			objects.push(
-				...objectDef.toObjectBinary({
-					x,
-					y: y + yIncrement,
-					w: length,
-					h: height,
-					settings: tile.settings ?? {},
-					entity: tile,
-					room,
-				})
-			);
+			pendingObjects.push({
+				x,
+				y: y + yIncrement,
+				w: length,
+				h: height,
+				entity: tile,
+			});
 
 			erase(tile.y, bestY, tile.x, endXTile.x);
 		}
 	}
 
-	const entityObjectData = layer.entities.reduce<number[]>((building, e) => {
-		const entityDef = entityMap[e.type];
+	const pendingEntityObjects = layer.entities.reduce<PendingObject[]>(
+		(building, e) => {
+			const entityDef = entityMap[e.type];
 
-		if (!entityDef.toObjectBinary) {
-			return building;
-		}
+			if (!entityDef.toObjectBinary) {
+				return building;
+			}
 
-		return building.concat(
-			entityDef.toObjectBinary({
+			return building.concat({
 				x: e.x / TILE_SIZE,
 				y: e.y / TILE_SIZE + yIncrement,
 				w: 1,
 				h: 1,
-				settings: e.settings ?? {},
 				entity: e,
+			});
+		},
+		[]
+	);
+
+	const allPendingObjects = pendingObjects.concat(pendingEntityObjects);
+
+	const sortedPendingObjects = isObjectPrioritiesEnabled()
+		? allPendingObjects.sort(sortByObjectPriority)
+		: allPendingObjects;
+
+	return sortedPendingObjects.reduce<number[]>((building, po) => {
+		const entityDef = entityMap[po.entity.type];
+		return building.concat(
+			...entityDef.toObjectBinary!({
+				x: po.x,
+				y: po.y,
+				w: po.w,
+				h: po.h,
+				settings: po.entity.settings ?? {},
 				room,
 			})
 		);
 	}, []);
-
-	return objects.concat(entityObjectData);
 }
 
 function getSprites(entities: EditorEntity[], room: RoomData): number[] {

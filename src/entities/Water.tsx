@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_SPRITE_GRAPHIC_SET, OBJECT_PRIORITY_LOWEST } from './constants';
 import { encodeObjectSets, parseSimpleObject } from './util';
 
 const Water: Entity = {
@@ -14,6 +14,7 @@ const Water: Entity = {
 	},
 
 	objectSets: encodeObjectSets([[6, 6]]),
+	objectPriority: OBJECT_PRIORITY_LOWEST,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',

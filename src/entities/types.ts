@@ -111,6 +111,7 @@ type Entity = {
 	 * to the point the editor chugged every time an entity was drawn or erased
 	 */
 	objectSets: Array<number>;
+	objectPriority?: number;
 
 	/**
 	 * which sprite graphic set values does this entity need? If not specified,
