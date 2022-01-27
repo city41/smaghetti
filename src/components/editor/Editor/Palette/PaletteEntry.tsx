@@ -47,6 +47,7 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 				'opacity-50 cursor-default': disabled,
 			})}
 			onClick={disabled ? undefined : onClick}
+			title={entityDef.paletteInfo.title}
 		>
 			<div
 				className={clsx('w-full h-full grid place-items-center p-1', {
