@@ -59,31 +59,6 @@ const ColorfulMetalBoxWithShadow: Entity = {
 
 	defaultSettings: { width: 2, color: 'green' },
 
-	resource: {
-		palettes: [
-			[
-				0x7f96,
-				0x7fff,
-				0x0,
-				0x39ce,
-				0x4a52,
-				0x6318,
-				0x77bd,
-				0x732c,
-				0x7fd2,
-				0x7ffb,
-				0x5810,
-				0x7597,
-				0x7e1d,
-			],
-		],
-		romOffset: 0x182cb4,
-		tiles: [
-			[246, 246],
-			[246, 246],
-		],
-	},
-
 	toObjectBinary({ x, y, settings }): number[] {
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 		const color = (settings.color ?? this.defaultSettings!.color) as Color;
