@@ -76,6 +76,8 @@ const CoinWater: Entity = {
 	},
 
 	getProblem({ room }) {
+		const hasWater = room.stage.entities.some((e) => e.type === 'Water');
+
 		const hasChoppyWater = room.stage.entities.some(
 			(e) => e.type === 'ChoppyWater'
 		);
@@ -84,11 +86,11 @@ const CoinWater: Entity = {
 			return row?.some((cell) => cell?.type === 'UnderwaterWater');
 		});
 
-		if (hasChoppyWater || hasUnderwaterWater) {
+		if (hasWater || hasChoppyWater || hasUnderwaterWater) {
 			return;
 		}
 
-		return 'Must add Choppy Water or Underwater Water to this room, or the game will crash';
+		return 'Must add Water, Choppy Water or Underwater Water to this room, or the game will crash';
 	},
 };
 
