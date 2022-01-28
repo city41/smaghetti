@@ -101,9 +101,18 @@ const ECoin: Entity = {
 
 	getProblem({ allRooms }) {
 		const coinCount = allRooms.reduce<number>((building, room) => {
-			return (
-				building + room.stage.entities.filter((e) => e.type === 'ECoin').length
-			);
+			const eCoinsInRoomCount = room.stage.entities.filter(
+				(e) => e.type === 'ECoin'
+			).length;
+
+			const buriedVeggiesWithECoinsCount = room.stage.matrix
+				.flat(1)
+				.filter(
+					(e) =>
+						e?.type === 'BuriedVegetable' && e?.settings?.payload === 'ECoin'
+				).length;
+
+			return building + eCoinsInRoomCount + buriedVeggiesWithECoinsCount;
 		}, 0);
 
 		if (coinCount > 1) {
