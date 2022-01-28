@@ -119,7 +119,7 @@ const ConveyorBelt: Entity = {
 		return (
 			<div
 				className={clsx('relative ConveyorBelt-bg', {
-					[styles.resizing]: settings?.resizing,
+					[styles.resizing]: settings.resizing,
 				})}
 				style={style}
 			>

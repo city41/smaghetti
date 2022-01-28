@@ -1,30 +1,19 @@
 import React from 'react';
+import clsx from 'clsx';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { encodeObjectSets, parseCellObjectsParam1Width } from './util';
+import { encodeObjectSets, getBankParam1 } from './util';
+import { Resizer } from '../components/Resizer';
+import clamp from 'lodash/clamp';
 
-function getHeight(
-	entity: EditorEntity | undefined,
-	room: RoomData | undefined
-): number {
-	if (!entity || !room) {
-		return 2;
-	}
+import styles from '../components/Resizer/ResizingStyles.module.css';
 
-	const ty = entity.y / TILE_SIZE;
-
-	return Math.max(1, room.roomTileHeight - ty);
-}
-
-/**
- * these need object priorities implemented before they can be used effectively
- */
 const WoodColumnWide: Entity = {
+	paletteCategory: 'terrain',
 	paletteInfo: {
+		subCategory: 'terrain-airship',
 		title: 'Wood Column - Wide',
-		warning:
-			"Smaghetti needs the object priorities feature before these can work as you'd expect",
 	},
 
 	objectSets: encodeObjectSets([[10, 10]]),
@@ -35,6 +24,9 @@ const WoodColumnWide: Entity = {
 	objectId: 0x5,
 	emptyBank: 1,
 	width: 2,
+	defaultSettings: {
+		height: 2,
+	},
 
 	resources: {
 		WoodColumnWideTop: {
@@ -93,15 +85,48 @@ const WoodColumnWide: Entity = {
 			],
 			romOffset: 1501760,
 		},
+		WoodColumnWideBottom: {
+			palettes: [
+				[
+					32662,
+					32767,
+					0,
+					17932,
+					23185,
+					28469,
+					32731,
+					8378,
+					8606,
+					15007,
+					304,
+					435,
+					6711,
+					11931,
+					16158,
+					19359,
+				],
+			],
+			tiles: [
+				[314, 315, 316, 317],
+				[286, 287, 318, 319],
+			],
+			romOffset: 1501760,
+		},
 	},
 
-	toObjectBinary({ x, y }) {
-		return [0x40, y, x, this.objectId, 0];
+	toObjectBinary({ x, y, settings }) {
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
+
+		// param1 = 0 -> auto grows to bottom of level, like a plateau
+		// param1 > 0 -> height of <param+1>
+		// param2 -> width in tiles, including half widths, so
+		// 3 would render 1.5 wood columns
+		return [getBankParam1(1, height - 1), y, x, this.objectId, 2];
 	},
 
-	parseObject(data, offset) {
-		return parseCellObjectsParam1Width(data, offset, this);
-	},
+	// parseObject(data, offset) {
+	// 	return parseCellObjectsParam1Width(data, offset, this);
+	// },
 
 	simpleRender(size) {
 		const style = {
@@ -109,26 +134,27 @@ const WoodColumnWide: Entity = {
 			height: size,
 		};
 
-		const topStyle = {
-			width: (size / 3) * 2,
+		const topAndBottomStyle = {
+			width: size,
 			height: size / 2,
-		};
-
-		const bodyStyle = {
-			width: (size / 3) * 2,
-			height: (size / 3) * 2,
 		};
 
 		return (
 			<div className="flex flex-col items-center" style={style}>
-				<div className="WoodColumnWideTop-bg bg-cover" style={topStyle} />
-				<div className="WoodColumnWideBody-bg bg-cover" style={bodyStyle} />
+				<div
+					className="WoodColumnWideTop-bg bg-cover"
+					style={topAndBottomStyle}
+				/>
+				<div
+					className="WoodColumnWideBottom-bg bg-cover"
+					style={topAndBottomStyle}
+				/>
 			</div>
 		);
 	},
 
-	render({ entity, room }) {
-		const height = getHeight(entity, room);
+	render({ entity, settings, onSettingsChange }) {
+		const height = (settings.height ?? this.defaultSettings!.height) as number;
 
 		const style = {
 			width: 2 * TILE_SIZE,
@@ -140,15 +166,42 @@ const WoodColumnWide: Entity = {
 			height: TILE_SIZE,
 		};
 
-		const bodyStyle = {
+		const bottomStyle = {
 			width: 2 * TILE_SIZE,
-			height: (height - 1) * TILE_SIZE,
+			height: TILE_SIZE,
 		};
 
+		const bodyStyle = {
+			width: 2 * TILE_SIZE,
+			height: (height - 2) * TILE_SIZE,
+		};
+
+		const size = { x: 1, y: height };
+
 		return (
-			<div className="flex flex-col" style={style}>
+			<div
+				style={style}
+				className={clsx('relative flex flex-col', {
+					[styles.resizing]: settings.resizing,
+				})}
+			>
 				<div className="WoodColumnWideTop-bg" style={topStyle} />
 				<div className="WoodColumnWideBody-bg bg-repeat-y" style={bodyStyle} />
+				<div className="WoodColumnWideBottom-bg" style={bottomStyle} />
+				{!!entity && (
+					<Resizer
+						className="absolute bottom-0 right-0"
+						style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
+						size={size}
+						increment={TILE_SIZE}
+						axis="y"
+						onSizeChange={(newSizePoint) => {
+							onSettingsChange({ height: clamp(newSizePoint.y, 2, 32) });
+						}}
+						onResizeStart={() => onSettingsChange({ resizing: true })}
+						onResizeEnd={() => onSettingsChange({ resizing: false })}
+					/>
+				)}
 			</div>
 		);
 	},
