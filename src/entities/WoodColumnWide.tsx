@@ -25,6 +25,7 @@ const WoodColumnWide: Entity = {
 	emptyBank: 1,
 	width: 2,
 	defaultSettings: {
+		width: 2,
 		height: 2,
 	},
 
@@ -116,12 +117,13 @@ const WoodColumnWide: Entity = {
 
 	toObjectBinary({ x, y, settings }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const width = (settings.width ?? this.defaultSettings!.width) as number;
 
 		// param1 = 0 -> auto grows to bottom of level, like a plateau
 		// param1 > 0 -> height of <param+1>
 		// param2 -> width in tiles, including half widths, so
 		// 3 would render 1.5 wood columns
-		return [getBankParam1(1, height - 1), y, x, this.objectId, 2];
+		return [getBankParam1(1, height - 1), y, x, this.objectId, width];
 	},
 
 	// parseObject(data, offset) {
@@ -155,28 +157,26 @@ const WoodColumnWide: Entity = {
 
 	render({ entity, settings, onSettingsChange }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
+		const width = (settings.width ?? this.defaultSettings!.width) as number;
 
 		const style = {
-			width: 2 * TILE_SIZE,
+			width: width * TILE_SIZE,
 			height: height * TILE_SIZE,
 		};
 
 		const topStyle = {
-			width: 2 * TILE_SIZE,
 			height: TILE_SIZE,
 		};
 
 		const bottomStyle = {
-			width: 2 * TILE_SIZE,
 			height: TILE_SIZE,
 		};
 
 		const bodyStyle = {
-			width: 2 * TILE_SIZE,
 			height: (height - 2) * TILE_SIZE,
 		};
 
-		const size = { x: 1, y: height };
+		const size = { x: width, y: height };
 
 		return (
 			<div
@@ -185,18 +185,30 @@ const WoodColumnWide: Entity = {
 					[styles.resizing]: settings.resizing,
 				})}
 			>
-				<div className="WoodColumnWideTop-bg" style={topStyle} />
-				<div className="WoodColumnWideBody-bg bg-repeat-y" style={bodyStyle} />
-				<div className="WoodColumnWideBottom-bg" style={bottomStyle} />
+				<div
+					className="WoodColumnWideTop-bg bg-repeat-x w-full"
+					style={topStyle}
+				/>
+				<div
+					className="WoodColumnWideBody-bg bg-repeat w-full"
+					style={bodyStyle}
+				/>
+				<div
+					className="WoodColumnWideBottom-bg bg-repeat-x w-full"
+					style={bottomStyle}
+				/>
 				{!!entity && (
 					<Resizer
 						className="absolute bottom-0 right-0"
 						style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
 						size={size}
 						increment={TILE_SIZE}
-						axis="y"
+						axis="xy"
 						onSizeChange={(newSizePoint) => {
-							onSettingsChange({ height: clamp(newSizePoint.y, 2, 32) });
+							onSettingsChange({
+								width: clamp(newSizePoint.x, 2, 32),
+								height: clamp(newSizePoint.y, 2, 32),
+							});
 						}}
 						onResizeStart={() => onSettingsChange({ resizing: true })}
 						onResizeEnd={() => onSettingsChange({ resizing: false })}
