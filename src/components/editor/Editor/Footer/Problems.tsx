@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { entityMap } from '../../../../entities/entityMap';
 import { flattenCells } from '../../../../levelData/util';
 import { IconAlert } from '../../../../icons';
+import { getGenericProblem } from '../ProblemList/genericProblems';
 
 type ProblemProps = {
 	className?: string;
@@ -23,12 +24,14 @@ function Problems({ className, rooms, onProblemClick }: ProblemProps) {
 				[number, number]
 			>(
 				(building, entity) => {
-					const problem = entityMap[entity.type].getProblem?.({
-						settings: entity.settings,
-						entity,
-						room,
-						allRooms: rooms,
-					});
+					const problem =
+						getGenericProblem(entity) ||
+						entityMap[entity.type].getProblem?.({
+							settings: entity.settings,
+							entity,
+							room,
+							allRooms: rooms,
+						});
 
 					if (!problem) {
 						return building;

@@ -6,6 +6,7 @@ import { PlainIconButton } from '../../../PlainIconButton';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { EntityProblem } from '../../../../entities/types';
 import { IconClose } from '../../../../icons';
+import { getGenericProblem } from './genericProblems';
 
 type PublicProblemListProps = {
 	className?: string;
@@ -83,12 +84,14 @@ function ProblemList({
 			);
 
 			const problems = entities.reduce<EntityProblemEntry[]>((b, entity) => {
-				let problem = entityMap[entity.type].getProblem?.({
-					settings: entity.settings,
-					entity,
-					room,
-					allRooms: rooms,
-				});
+				let problem =
+					getGenericProblem(entity) ??
+					entityMap[entity.type].getProblem?.({
+						settings: entity.settings,
+						entity,
+						room,
+						allRooms: rooms,
+					});
 
 				if (typeof problem === 'string') {
 					problem = {
