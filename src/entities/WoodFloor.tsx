@@ -138,6 +138,15 @@ const WoodFloor: Entity = {
 			/>
 		);
 	},
+
+	getProblem({ entity }) {
+		if (entity.x < 0) {
+			return {
+				severity: 'error',
+				message: "Can't extend beyond the start of the level",
+			};
+		}
+	},
 };
 
 export { WoodFloor };
