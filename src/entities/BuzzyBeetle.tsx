@@ -4,8 +4,6 @@ import React from 'react';
 import { ANY_OBJECT_SET } from './constants';
 import { parseSimpleSprite } from './util';
 
-const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-
 const BuzzyBeetle: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
@@ -14,14 +12,7 @@ const BuzzyBeetle: Entity = {
 	},
 
 	objectSets: ANY_OBJECT_SET,
-	spriteGraphicSets: [
-		graphicSets,
-		graphicSets,
-		-1,
-		graphicSets,
-		graphicSets,
-		graphicSets,
-	],
+	spriteGraphicSets: [-1, -1, 0, -1, -1, -1],
 	objectId: 0x70,
 	layer: 'actor',
 	editorType: 'entity',
