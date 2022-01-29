@@ -93,14 +93,6 @@ import { RegularVegetable } from './RegularVegetable';
 import { SeeSawPivotPoint } from './SeeSawPivotPoint';
 import { Shoe } from './Shoe';
 import { SmallVegetable } from './SmallVegetable';
-import { StoneFloorBottom } from './StoneFloorBottom';
-import { StoneFloorLeft } from './StoneFloorLeft';
-import { StoneFloorLowerLeft } from './StoneFloorLowerLeft';
-import { StoneFloorLowerRight } from './StoneFloorLowerRight';
-import { StoneFloorRight } from './StoneFloorRight';
-import { StoneFloorTop } from './StoneFloorTop';
-import { StoneFloorUpperLeft } from './StoneFloorUpperLeft';
-import { StoneFloorUpperRight } from './StoneFloorUpperRight';
 import { StoneWallBackground } from './StoneWallBackground';
 import { StormyCloudsBackground } from './StormyCloudsBackground';
 import { StretchBooPlatformLeft } from './StretchBooPlatformLeft';
@@ -231,14 +223,6 @@ const resourceMap = {
 	SeeSawPivotPoint,
 	Shoe,
 	SmallVegetable,
-	StoneFloorBottom,
-	StoneFloorLeft,
-	StoneFloorLowerLeft,
-	StoneFloorLowerRight,
-	StoneFloorRight,
-	StoneFloorTop,
-	StoneFloorUpperLeft,
-	StoneFloorUpperRight,
 	StoneWallBackground,
 	StormyCloudsBackground,
 	StretchBooPlatformLeft,

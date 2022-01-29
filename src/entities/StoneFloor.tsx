@@ -10,8 +10,27 @@ import { ResizableRect } from '../components/ResizableRect';
 
 const RECT_CLASSES = [
 	['StoneFloorUpperLeft-bg', 'StoneFloorTop-bg', 'StoneFloorUpperRight-bg'],
-	['StoneFloorLeft-bg', 'StoneFloor-bg', 'StoneFloorRight-bg'],
+	['StoneFloorLeft-bg', 'StoneFloorInternal-bg', 'StoneFloorRight-bg'],
 	['StoneFloorLowerLeft-bg', 'StoneFloorBottom-bg', 'StoneFloorLowerRight-bg'],
+];
+
+const palette = [
+	0x7f96,
+	0x7fff,
+	0x0,
+	0x620d,
+	0x7271,
+	0x7b15,
+	0x7fbb,
+	0x2cb5,
+	0x459b,
+	0x563e,
+	0x252,
+	0x1ab7,
+	0x331c,
+	0x437f,
+	0x6abf,
+	0x7b5f,
 ];
 
 const StoneFloor: Entity = {
@@ -33,32 +52,79 @@ const StoneFloor: Entity = {
 
 	defaultSettings: { width: 2, height: 2 },
 
-	resource: {
-		palettes: [
-			[
-				32662,
-				32767,
-				0,
-				25101,
-				29297,
-				31509,
-				32699,
-				11445,
-				17819,
-				22078,
-				13805,
-				18033,
-				23318,
-				27546,
-				27327,
-				31583,
+	resources: {
+		StoneFloorInternal: {
+			palettes: [palette],
+			tiles: [
+				[119, 119],
+				[119, 119],
 			],
-		],
-		tiles: [
-			[119, 119],
-			[119, 119],
-		],
-		romOffset: 1501760,
+			romOffset: 1501760,
+		},
+		StoneFloorBottom: {
+			palettes: [palette],
+			tiles: [
+				[119, 119],
+				[91, 91],
+			],
+			romOffset: 1501760,
+		},
+		StoneFloorLeft: {
+			palettes: [palette],
+			tiles: [
+				[90, 119],
+				[90, 119],
+			],
+			romOffset: 1501760,
+		},
+		StoneFloorLowerLeft: {
+			palettes: [palette],
+			tiles: [
+				[90, 119],
+				[50, 91],
+			],
+			romOffset: 1501760,
+		},
+		StoneFloorLowerRight: {
+			palettes: [palette],
+			tiles: [
+				[119, 92],
+				[91, 51],
+			],
+			romOffset: 1501760,
+		},
+		StoneFloorRight: {
+			palettes: [palette],
+			tiles: [
+				[119, 92],
+				[119, 92],
+			],
+			romOffset: 1501760,
+		},
+		StoneFloorTop: {
+			palettes: [palette],
+			tiles: [
+				[89, 89],
+				[119, 119],
+			],
+			romOffset: 1501760,
+		},
+		StoneFloorUpperLeft: {
+			palettes: [palette],
+			tiles: [
+				[19, 89],
+				[90, 119],
+			],
+			romOffset: 1501760,
+		},
+		StoneFloorUpperRight: {
+			palettes: [palette],
+			tiles: [
+				[89, 20],
+				[119, 92],
+			],
+			romOffset: 1501760,
+		},
 	},
 
 	toObjectBinary({ x, y, settings }) {
