@@ -16,7 +16,7 @@ function getGenericProblem(entity: EditorEntity) {
 		return {
 			severity: 'error',
 			message: "Can't extend beyond the start of the level",
-		};
+		} as const;
 	}
 }
 
