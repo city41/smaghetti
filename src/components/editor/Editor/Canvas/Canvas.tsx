@@ -22,6 +22,7 @@ import { entityMap, EntityType } from '../../../../entities/entityMap';
 
 import styles from './Canvas.module.css';
 import { LevelBackground } from '../../../LevelBackground';
+import { OBJECT_PRIORITY_MIDDLE } from '../../../../entities/constants';
 
 type OnPaintedArg = {
 	points: Point[];
@@ -196,6 +197,7 @@ const MatrixRow: FunctionComponent<MatrixRowProps> = memo(function MatrixRow({
 
 type EntitiesProps = {
 	entities: EditorEntity[];
+	sortByObjectPriority?: boolean;
 	room: RoomData;
 	rooms: RoomData[];
 	locked: boolean;
@@ -210,8 +212,16 @@ type EntitiesProps = {
 	}) => void;
 };
 
+function objectPrioritySorter(a: EditorEntity, b: EditorEntity): number {
+	const aPriority = entityMap[a.type].objectPriority ?? OBJECT_PRIORITY_MIDDLE;
+	const bPriority = entityMap[b.type].objectPriority ?? OBJECT_PRIORITY_MIDDLE;
+
+	return aPriority - bPriority;
+}
+
 const Entities = memo(function Entities({
 	entities,
+	sortByObjectPriority,
 	room,
 	rooms,
 	locked,
@@ -222,9 +232,13 @@ const Entities = memo(function Entities({
 	onEntitySettingsChange,
 }: EntitiesProps) {
 	const focusCount = Object.keys(focused).length;
+
+	const sortedEntities = sortByObjectPriority
+		? [...entities].sort(objectPrioritySorter)
+		: entities;
 	return (
 		<>
-			{entities.map((e) => {
+			{sortedEntities.map((e) => {
 				const isFocused =
 					focused[e.id] && (mouseMode === 'select' || mouseMode === 'pan');
 
@@ -545,6 +559,7 @@ const Canvas = memo(function Canvas({
 				/>
 				<Entities
 					entities={stage.entities}
+					sortByObjectPriority
 					room={rooms[currentRoomIndex]}
 					rooms={rooms}
 					locked={stage.locked}
