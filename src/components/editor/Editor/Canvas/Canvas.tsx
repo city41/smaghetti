@@ -296,6 +296,10 @@ const Entities = memo(function Entities({
 function getPointsBetween(oldP: Point, newP: Point, scale: number): Point[] {
 	let distance = Math.sqrt((newP.x - oldP.x) ** 2 + (newP.y - oldP.y) ** 2);
 
+	if (distance === 0) {
+		return [oldP];
+	}
+
 	const step = Math.min(TILE_SIZE * scale, TILE_SIZE);
 
 	if (distance <= step) {

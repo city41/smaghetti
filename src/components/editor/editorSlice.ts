@@ -580,28 +580,6 @@ function overlap(a: Bounds, b: Bounds): boolean {
 	return true;
 }
 
-function isNotANewEntity(e: NewEditorEntity | EditorEntity): e is EditorEntity {
-	return 'id' in e && !!e.id;
-}
-
-function canDrop(
-	entity: NewEditorEntity | EditorEntity,
-	entities: EditorEntity[]
-) {
-	const entityBounds = getEntityTileBounds(entity);
-
-	return !entities.some((otherEntity) => {
-		// ignore the current entity, allow it to drop back down onto itself
-		if (isNotANewEntity(entity) && otherEntity.id === entity.id) {
-			return false;
-		}
-
-		const otherBounds = getEntityTileBounds(otherEntity);
-
-		return overlap(entityBounds, otherBounds);
-	});
-}
-
 function snapEntityCoordToGrid(inputX: number): number {
 	return Math.floor(inputX / TILE_SIZE) * TILE_SIZE;
 }
@@ -894,10 +872,7 @@ function drawAt(
 			layer.entities = layer.entities.filter((e) => e.type !== 'PlayerGhost');
 		}
 
-		if (
-			canDrop(newEntity, layer.entities) &&
-			(type !== 'AceCoin' || getTotalAceCoinCount(state) < 5)
-		) {
+		if (type !== 'AceCoin' || getTotalAceCoinCount(state) < 5) {
 			const completeEntity: EditorEntity = {
 				...newEntity,
 				id: idCounter++,
@@ -1096,10 +1071,6 @@ const editorSlice = createSlice({
 			action: PayloadAction<EditorEntity | NewEditorEntity>
 		) {
 			const currentRoom = getCurrentRoom(state);
-
-			if (!canDrop(action.payload, getCurrentRoom(state).actors.entities)) {
-				return;
-			}
 
 			if ('id' in action.payload) {
 				const { id } = action.payload;
