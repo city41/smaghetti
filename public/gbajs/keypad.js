@@ -179,35 +179,37 @@ GameBoyAdvanceKeypad.prototype.keyboardHandler = function (e) {
 GameBoyAdvanceKeypad.prototype.gamepadHandler = function (gamepad) {
 	let value = 0;
 
-	if (gamepad.buttons[window.GBA_GAMEPAD_START].pressed) {
+	const b = gamepad.buttons;
+
+	if (b[window.GBA_GAMEPAD_START] && b[window.GBA_GAMEPAD_START].pressed) {
 		value |= 1 << this.START;
 	}
 
-	if (gamepad.buttons[window.GBA_GAMEPAD_LEFT].pressed) {
+	if (b[window.GBA_GAMEPAD_LEFT] && b[window.GBA_GAMEPAD_LEFT].pressed) {
 		value |= 1 << this.LEFT;
 	}
-	if (gamepad.buttons[window.GBA_GAMEPAD_UP].pressed) {
+	if (b[window.GBA_GAMEPAD_UP] && b[window.GBA_GAMEPAD_UP].pressed) {
 		value |= 1 << this.UP;
 	}
-	if (gamepad.buttons[window.GBA_GAMEPAD_RIGHT].pressed) {
+	if (b[window.GBA_GAMEPAD_RIGHT] && b[window.GBA_GAMEPAD_RIGHT].pressed) {
 		value |= 1 << this.RIGHT;
 	}
-	if (gamepad.buttons[window.GBA_GAMEPAD_DOWN].pressed) {
+	if (b[window.GBA_GAMEPAD_DOWN] && b[window.GBA_GAMEPAD_DOWN].pressed) {
 		value |= 1 << this.DOWN;
 	}
-	if (gamepad.buttons[window.GBA_GAMEPAD_SELECT].pressed) {
+	if (b[window.GBA_GAMEPAD_SELECT] && b[window.GBA_GAMEPAD_SELECT].pressed) {
 		value |= 1 << this.SELECT;
 	}
-	if (gamepad.buttons[window.GBA_GAMEPAD_A].pressed) {
+	if (b[window.GBA_GAMEPAD_A] && b[window.GBA_GAMEPAD_A].pressed) {
 		value |= 1 << this.A;
 	}
-	if (gamepad.buttons[window.GBA_GAMEPAD_B].pressed) {
+	if (b[window.GBA_GAMEPAD_B] && b[window.GBA_GAMEPAD_B].pressed) {
 		value |= 1 << this.B;
 	}
-	if (gamepad.buttons[window.GBA_GAMEPAD_L].pressed) {
+	if (b[window.GBA_GAMEPAD_L] && b[window.GBA_GAMEPAD_L].pressed) {
 		value |= 1 << this.L;
 	}
-	if (gamepad.buttons[window.GBA_GAMEPAD_R].pressed) {
+	if (b[window.GBA_GAMEPAD_R] && b[window.GBA_GAMEPAD_R].pressed) {
 		value |= 1 << this.R;
 	}
 
