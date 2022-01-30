@@ -8,6 +8,9 @@ import eCoinTemplateWPalettePng from './eCoinTemplateWPalette.png';
 import pipeWarpsPng from './pipeWarps.png';
 import seaToSkyScreenshotPng from './seaToSkyScreenshot.png';
 import eraseForFloorPng from './eraseForFloor.png';
+import advanceCoinsInHudPng from './advanceCoinsInHud.png';
+import advanceCoinPositioningPng from './advanceCoinPositioning.png';
+import advanceCoinHudGapPng from './advanceCoinHudGap.png';
 
 import styles from './TipsPage.module.css';
 import { entityMap } from '../../entities/entityMap';
@@ -312,6 +315,41 @@ function TipsPage() {
 						<span className="bg-red-200 text-red-900 px-2 py-1">Warning:</span>{' '}
 						The water entity will not completely fill out a tall level. Water
 						can only be about 30 tiles tall.
+					</p>
+				</TipEntry>
+				<TipEntry title="Positioning Advance Coins">
+					<p>
+						When your level has Advance Coins in it, the HUD has a little spot
+						to tell the player which ones they have collected.
+						<img
+							className="my-4"
+							src={advanceCoinsInHudPng}
+							alt="Advance Coins in the HUD"
+							width={204}
+							height={88}
+						/>
+					</p>
+					<p>
+						For each Advance Coin in your level, you need to specify which slot
+						it will be in the HUD. The first coin a player finds is usually
+						number 1, then number 2, and so on. That way if the player collects
+						a coin and there are gaps in the HUD, they know they missed some
+						coins.
+						<img
+							className="my-4"
+							src={advanceCoinHudGapPng}
+							alt="A gap in the Advance Coin HUD"
+							width={204}
+							height={96}
+						/>
+					</p>
+					<p>
+						Just click on your Advance Coins and assign them a position
+						<img
+							className="my-4"
+							src={advanceCoinPositioningPng}
+							alt="Assigning position to an Advance Coin"
+						/>
 					</p>
 				</TipEntry>
 			</div>

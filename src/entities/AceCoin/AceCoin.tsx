@@ -157,7 +157,11 @@ const AceCoin: Entity = {
 		const aceCoinIndex = settings?.aceCoinIndex;
 
 		if (aceCoinIndex === undefined) {
-			return 'Position not set';
+			return {
+				severity: 'warning',
+				message: 'Position not set',
+				tipId: 'positioning-advance-coins',
+			};
 		}
 
 		const allAceCoins = getAllAceCoinEntities(allRooms);
