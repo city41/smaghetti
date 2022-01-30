@@ -1,34 +1,38 @@
 import React from 'react';
 import clsx from 'clsx';
 import { entityMap } from '../../../../entities/entityMap';
-import { flattenCells } from '../../../../levelData/util';
 import { IconAlert } from '../../../../icons';
-import { getGenericProblem } from '../ProblemList/genericProblems';
+import { getGenericProblem } from '../EntityAndProblemList/genericProblems';
+import { getPendingObjects } from '../../../../levelData/createLevelData';
 
-type ProblemProps = {
+type EntityAndProblemCountProps = {
 	className?: string;
 	rooms: RoomData[];
 	onProblemClick: () => void;
 };
 
-function Problems({ className, rooms, onProblemClick }: ProblemProps) {
-	const [warningCount, errorCount] = rooms.reduce<[number, number]>(
+function EntityAndProblemCount({
+	className,
+	rooms,
+	onProblemClick,
+}: EntityAndProblemCountProps) {
+	const [warningCount, errorCount, entityCount] = rooms.reduce<
+		[number, number, number]
+	>(
 		(building, room) => {
-			const roomEntities = room.actors.entities.concat(
-				room.stage.entities,
-				flattenCells(room.actors.matrix),
-				flattenCells(room.stage.matrix)
-			);
+			const stageEntities = getPendingObjects(room.stage, room);
+			const actorEntities = getPendingObjects(room.actors, room);
+			const pendingRoomEntities = stageEntities.concat(actorEntities);
 
-			const [roomWarningCount, roomErrorCount] = roomEntities.reduce<
+			const [roomWarningCount, roomErrorCount] = pendingRoomEntities.reduce<
 				[number, number]
 			>(
-				(building, entity) => {
+				(building, pendingEntity) => {
 					const problem =
-						getGenericProblem(entity) ||
-						entityMap[entity.type].getProblem?.({
-							settings: entity.settings,
-							entity,
+						getGenericProblem(pendingEntity.entity) ||
+						entityMap[pendingEntity.entity.type].getProblem?.({
+							settings: pendingEntity.entity.settings,
+							entity: pendingEntity.entity,
 							room,
 							allRooms: rooms,
 						});
@@ -50,17 +54,15 @@ function Problems({ className, rooms, onProblemClick }: ProblemProps) {
 
 			building[0] += roomWarningCount;
 			building[1] += roomErrorCount;
+			building[2] += pendingRoomEntities.length;
+
 			return building;
 		},
-		[0, 0]
+		[0, 0, 0]
 	);
 
-	if (warningCount === 0 && errorCount === 0) {
-		return (
-			<div className={clsx(className, 'text-sm flex flex-row')}>no issues</div>
-		);
-	} else {
-		return (
+	return (
+		<div className={clsx(className, 'text-sm flex flex-row')}>
 			<a
 				className={clsx(
 					className,
@@ -72,6 +74,9 @@ function Problems({ className, rooms, onProblemClick }: ProblemProps) {
 					onProblemClick();
 				}}
 			>
+				<div>
+					{entityCount} {entityCount === 1 ? 'entity' : 'entities'}
+				</div>
 				{warningCount > 0 && (
 					<>
 						<IconAlert className="text-yellow-300" /> {warningCount} warning
@@ -85,8 +90,8 @@ function Problems({ className, rooms, onProblemClick }: ProblemProps) {
 					</>
 				)}
 			</a>
-		);
-	}
+		</div>
+	);
 }
 
-export { Problems };
+export { EntityAndProblemCount };

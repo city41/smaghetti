@@ -4,7 +4,7 @@ import { createLevelData } from '../../../../levelData/createLevelData';
 import { compress } from '../../../../levelData/compress';
 import { LevelSizeMeter } from './LevelSizeMeter';
 import memoize from 'lodash/memoize';
-import { Problems } from './Problems';
+import { EntityAndProblemCount } from './EntityAndProblemCount';
 import { PlainIconButton } from '../../../PlainIconButton';
 import { IconExperiment } from '../../../../icons';
 
@@ -41,7 +41,10 @@ const Footer = memo(function Footer({
 			)}
 			style={style}
 		>
-			<Problems rooms={level.data.rooms} onProblemClick={onProblemClick} />
+			<EntityAndProblemCount
+				rooms={level.data.rooms}
+				onProblemClick={onProblemClick}
+			/>
 			<div className="flex-1" />
 			<LevelSizeMeter
 				className="w-1/3"

@@ -793,4 +793,11 @@ function createLevelData(level: LevelToLoadInGBA): Uint8Array {
 	return Uint8Array.from(fullData);
 }
 
-export { createLevelData, getLevelName, setPointer };
+export {
+	createLevelData,
+	getLevelName,
+	setPointer,
+	getPendingObjects,
+	sortByObjectPriority,
+};
+export type { PendingObject };

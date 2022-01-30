@@ -4,7 +4,10 @@ import { bindActionCreators } from 'redux';
 import { AppState, dispatch } from '../../../../store';
 import { scrollToEntity } from '../../editorSlice';
 
-import { ProblemList, PublicProblemListProps } from './ProblemList';
+import {
+	EntityAndProblemList,
+	PublicEntityAndProblemListProps,
+} from './EntityAndProblemList';
 
 const actions = bindActionCreators(
 	{
@@ -13,10 +16,10 @@ const actions = bindActionCreators(
 	dispatch
 );
 
-function ConnectedProblemList(props: PublicProblemListProps) {
+function ConnectedEntityAndProblemList(props: PublicEntityAndProblemListProps) {
 	const { rooms } = useSelector((state: AppState) => state.editor.present);
 
-	return <ProblemList {...props} rooms={rooms} {...actions} />;
+	return <EntityAndProblemList {...props} rooms={rooms} {...actions} />;
 }
 
-export { ConnectedProblemList };
+export { ConnectedEntityAndProblemList };

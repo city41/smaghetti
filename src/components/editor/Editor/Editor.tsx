@@ -24,7 +24,7 @@ import { useFirstRender } from '../../../hooks/useFirstRender';
 import styles from './Editor.module.css';
 import { LoadingBar } from '../../LoadingBar';
 import { EarlyStarburst } from '../../EarlyStarburst';
-import { ProblemList } from './ProblemList';
+import { EntityAndProblemList } from './EntityAndProblemList';
 
 type EditorProps = {
 	publishedLevelToLoad?: string;
@@ -61,7 +61,9 @@ function Editor({
 	const [isChoosingLevel, setIsChoosingLevel] = useState(false);
 	const [isPlaying, setPlaying] = useState(false);
 	const [showKeyboardHelpModal, setShowKeyboardHelpModal] = useState(false);
-	const [showProblems, setShowProblems] = useState(false);
+	const [showEntityAndProblemList, setShowEntityAndProblemList] = useState(
+		false
+	);
 
 	const dispatch = useDispatch();
 
@@ -145,8 +147,8 @@ function Editor({
 	}
 
 	const handleProblemClick = useCallback(() => {
-		setShowProblems((sw) => !sw);
-	}, [setShowProblems]);
+		setShowEntityAndProblemList((sw) => !sw);
+	}, [setShowEntityAndProblemList]);
 
 	return (
 		<>
@@ -224,11 +226,11 @@ function Editor({
 								</div>
 							)}
 					</div>
-					{showProblems && (
-						<ProblemList
+					{showEntityAndProblemList && (
+						<EntityAndProblemList
 							className="pointer-events-auto w-60"
 							style={{ gridColumn: '1', gridRow: '2', maxWidth: '33vw' }}
-							onClose={() => setShowProblems(false)}
+							onClose={() => setShowEntityAndProblemList(false)}
 						/>
 					)}
 					{!isPlaying && (
