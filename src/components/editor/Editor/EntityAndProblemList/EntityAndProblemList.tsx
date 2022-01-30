@@ -9,7 +9,7 @@ import { getGenericProblem } from './genericProblems';
 import { PendingObject } from '../../../../levelData/createLevelData';
 import { getPendingEntities } from './getPendingEntities';
 
-import roomThumbnailStyles from '../../../RoomThumbnail/RoomThumbnail.module.css';
+import styles from './EntityAndProblemList.module.css';
 
 type PublicEntityAndProblemListProps = {
 	className?: string;
@@ -51,7 +51,7 @@ function EntityEntry({
 	return (
 		<div
 			className={clsx(
-				roomThumbnailStyles.doHide,
+				styles.entityEntry,
 				'cursor-pointer hover:bg-gray-600 grid grid-cols-3 items-center pb-1 pt-4 -mx-2 px-2 border-b border-gray-500 last:border-b-0 bg-gray-800'
 			)}
 			onClick={onClick}

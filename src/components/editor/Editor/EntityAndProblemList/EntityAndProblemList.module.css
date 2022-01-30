@@ -1,0 +1,3 @@
+.entityEntry :global(.tile-space-hide) {
+	display: none;
+}
