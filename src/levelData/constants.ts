@@ -73,7 +73,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	waterfalls: 0x16,
 	'toad-house': 0x17,
 	// 0x18: just the tips of some hills. mostly blank
-	// 0x19: pyramids and inside pyramids split bg
+	'pyramid-split-inside-and-out': 0x19,
 	// 0x1a: plains (repeat)
 	'bowser-castle': 0x1b,
 	jungle: 0x1c,
@@ -159,6 +159,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	desert: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.desert,
+		bgColor: 0xc,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'pyramid-split-inside-and-out': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['pyramid-split-inside-and-out'],
 		bgColor: 0xc,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},

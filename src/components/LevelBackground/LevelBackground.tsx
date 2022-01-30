@@ -171,6 +171,20 @@ function Pyramids() {
 	);
 }
 
+function PyramidSplitInsideAndOut() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#f7dea5' }}
+		>
+			<div
+				className="PyramidSplitInsideAndOutBackground-bg w-full bg-repeat-x"
+				style={{ height: 368 }}
+			/>
+		</div>
+	);
+}
+
 function TallHills() {
 	return (
 		<div
@@ -403,6 +417,9 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['underground-cave']]: <UndergroundCave />,
 	[BACKGROUND_GRAPHIC_VALUES.blank]: <Blank />,
 	[BACKGROUND_GRAPHIC_VALUES['high-up-in-the-clouds']]: <HighUpInTheClouds />,
+	[BACKGROUND_GRAPHIC_VALUES['pyramid-split-inside-and-out']]: (
+		<PyramidSplitInsideAndOut />
+	),
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

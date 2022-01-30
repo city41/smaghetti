@@ -80,6 +80,7 @@ type BackgroundGraphic =
 	| 'jungle'
 	| 'jungle-no-sky'
 	| 'toad-house'
+	| 'pyramid-split-inside-and-out'
 	| 'desert-brick-wall'
 	| 'colorful-brick-wall'
 	| 'blue-and-green-stars';

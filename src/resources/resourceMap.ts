@@ -89,6 +89,7 @@ import { PlainsBackground } from './PlainsBackground';
 import { PoisonMushroom } from './PoisonMushroom';
 import { PWing } from './PWing';
 import { PyramidsBackground } from './PyramidsBackground';
+import { PyramidSplitInsideAndOutBackground } from './PyramidSplitInsideAndOutBackground';
 import { RedCheepCheep } from './RedCheepCheep';
 import { RegularVegetable } from './RegularVegetable';
 import { SeeSawPivotPoint } from './SeeSawPivotPoint';
@@ -210,6 +211,7 @@ const resourceMap = {
 	OrangeSpinyEgg,
 	PWing,
 	PyramidsBackground,
+	PyramidSplitInsideAndOutBackground,
 	ParaWing,
 	PipesBackground,
 	PipeAirshipVerticalBody,

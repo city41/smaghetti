@@ -466,6 +466,7 @@ export const resourceShaMap: Record<string, string> = {
   "OrangeSpinyEgg": "19feacd4182a06476d448ae0b47e8f1c6043dc7a",
   "PWing": "4bab7747e786ff32118d84f1bb10c5e342a65300",
   "PyramidsBackground": "f5b6108ed73b8a2b1c39e9613db35a5e6be8be05",
+  "PyramidSplitInsideAndOutBackground": "a22981997495e313b96092f78fe598ddef496383",
   "ParaWing": "31866813d3278907d4a84b172bf83f9ef5b800df",
   "PipesBackground": "1eda7871af650d0a3cedd5010a94a9c82660d550",
   "PipeAirshipVerticalBody": "1f14a59d4b39f7fd144dcd060253c3cef147b8f7",
