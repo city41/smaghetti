@@ -70,6 +70,7 @@ type BackgroundGraphic =
 	| 'pyramids'
 	| 'inside-airship'
 	| 'mountains'
+	| 'high-up-in-the-clouds'
 	| 'waterfalls'
 	| 'bowser-castle'
 	| 'pipes'

@@ -51,6 +51,15 @@ function BasementDungeon() {
 	return <div className="BasementDungeon-bg bg-black w-full h-full" />;
 }
 
+function HighUpInTheClouds() {
+	return (
+		<div
+			className="HighUpInTheCloudsBackground-bg bg-repeat w-full h-full"
+			style={{ backgroundColor: '#84adff' }}
+		/>
+	);
+}
+
 function GhostHouse() {
 	return (
 		<div
@@ -393,6 +402,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	[BACKGROUND_GRAPHIC_VALUES['colorful-brick-wall']]: <ColorfulBrickWall />,
 	[BACKGROUND_GRAPHIC_VALUES['underground-cave']]: <UndergroundCave />,
 	[BACKGROUND_GRAPHIC_VALUES.blank]: <Blank />,
+	[BACKGROUND_GRAPHIC_VALUES['high-up-in-the-clouds']]: <HighUpInTheClouds />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

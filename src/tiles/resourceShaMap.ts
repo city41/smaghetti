@@ -441,6 +441,7 @@ export const resourceShaMap: Record<string, string> = {
   "GrassStaircaseUpRight": "f51fd93c9660e9ab9c428b19b6ed6ce096dfdce3",
   "GreenMountainsBackground": "39199c4faa13cb46ad534eb19288a1e1b4081715",
   "HammerBroSuit": "827118c3174c5efe47f79bbe38a8566ca8ad0216",
+  "HighUpInTheCloudsBackground": "4a487351bbc72c54e95c7ed153f56e10a9ec7ee8",
   "GreenCheepCheep": "2072be80c52370000a454d457478fbc64aaaeca5",
   "GreenSpinyEgg": "8db1ce862449c9c5ba983a2594afbd7304606985",
   "HillsAtNightBackground": "1d7d6f149b839edb260e2c65c389c37019c022b5",

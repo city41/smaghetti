@@ -95,6 +95,11 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Backgrounds" date="2022-01-30">
+					<ul>
+						<li>High Up In The Clouds</li>
+					</ul>
+				</NewEntry>
 				<NewEntry title="Entity List" date="2022-01-29">
 					<p>
 						Down in the editor&apos;s footer, over where warnings and errors

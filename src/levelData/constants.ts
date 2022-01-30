@@ -66,7 +66,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	pyramids: 0xe,
 	// basement dungeon (repeat)
 	mountains: 0x11,
-	// 'up-in-the-clouds': 0x12,
+	'high-up-in-the-clouds': 0x12,
 	'bonus-room': 0x13,
 	'crystal-underground': 0x14,
 	// 0x15: underground (repeat)
@@ -248,6 +248,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	mountains: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.mountains,
 		bgColor: 0x14,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'high-up-in-the-clouds': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['high-up-in-the-clouds'],
+		bgColor: 0x84,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 	waterfalls: {
