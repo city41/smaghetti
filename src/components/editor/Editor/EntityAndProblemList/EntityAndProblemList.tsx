@@ -9,6 +9,8 @@ import { getGenericProblem } from './genericProblems';
 import { PendingObject } from '../../../../levelData/createLevelData';
 import { getPendingEntities } from './getPendingEntities';
 
+import roomThumbnailStyles from '../../../RoomThumbnail/RoomThumbnail.module.css';
+
 type PublicEntityAndProblemListProps = {
 	className?: string;
 	style?: CSSProperties;
@@ -27,6 +29,8 @@ type EntityProblemEntry = EntityProblem & {
 
 function EntityEntry({
 	entity,
+	room,
+	allRooms,
 	x,
 	y,
 	w,
@@ -34,6 +38,8 @@ function EntityEntry({
 	onClick,
 }: {
 	entity: EditorEntity;
+	room: RoomData;
+	allRooms: RoomData[];
 	x: number;
 	y: number;
 	w: number;
@@ -44,10 +50,22 @@ function EntityEntry({
 
 	return (
 		<div
-			className="cursor-pointer hover:bg-gray-600 grid grid-cols-3 items-center pb-1 pt-4 -mx-2 px-2 border-b border-gray-500 last:border-b-0 bg-gray-800"
+			className={clsx(
+				roomThumbnailStyles.doHide,
+				'cursor-pointer hover:bg-gray-600 grid grid-cols-3 items-center pb-1 pt-4 -mx-2 px-2 border-b border-gray-500 last:border-b-0 bg-gray-800'
+			)}
 			onClick={onClick}
 		>
-			<div>{entityDef.simpleRender(30)}</div>
+			<div>
+				{entityDef.render({
+					showDetails: false,
+					onSettingsChange: () => {},
+					settings: entity.settings ?? {},
+					entity,
+					room,
+					allRooms,
+				})}
+			</div>
 			<div className="col-span-4 text-xs">
 				{entityDef.paletteInfo.title}
 				{entityDef.editorType === 'cell' ? `, ${w + 1}x${h + 1}` : ''}
@@ -232,6 +250,8 @@ function EntityAndProblemList({
 									<EntityEntry
 										key={pe.entity.id}
 										{...pe}
+										room={rooms[roomIndex]}
+										allRooms={rooms}
 										onClick={() => {
 											onProblemClick({ room: roomIndex, id: pe.entity.id });
 										}}
