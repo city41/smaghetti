@@ -6,10 +6,8 @@ import { TILE_SIZE } from '../../../../tiles/constants';
 import { EntityProblem } from '../../../../entities/types';
 import { IconClose } from '../../../../icons';
 import { getGenericProblem } from './genericProblems';
-import {
-	getPendingObjects,
-	PendingObject,
-} from '../../../../levelData/createLevelData';
+import { PendingObject } from '../../../../levelData/createLevelData';
+import { getPendingEntities } from './getPendingEntities';
 
 type PublicEntityAndProblemListProps = {
 	className?: string;
@@ -118,8 +116,8 @@ function EntityAndProblemList({
 	const [problems, pendingEntitiesPerRoom] = useMemo(() => {
 		return rooms.reduce<[EntityProblemEntry[], PendingObject[][]]>(
 			(building, room, roomIndex) => {
-				const stageEntities = getPendingObjects(room.stage, room);
-				const actorEntities = getPendingObjects(room.actors, room);
+				const stageEntities = getPendingEntities(room.stage, room);
+				const actorEntities = getPendingEntities(room.actors, room);
 				const pendingEntities = stageEntities.concat(actorEntities);
 
 				const problems = pendingEntities.reduce<EntityProblemEntry[]>(

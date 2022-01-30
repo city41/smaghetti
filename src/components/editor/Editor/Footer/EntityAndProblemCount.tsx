@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { entityMap } from '../../../../entities/entityMap';
 import { IconAlert } from '../../../../icons';
 import { getGenericProblem } from '../EntityAndProblemList/genericProblems';
-import { getPendingObjects } from '../../../../levelData/createLevelData';
+import { getPendingEntities } from '../EntityAndProblemList/getPendingEntities';
 
 type EntityAndProblemCountProps = {
 	className?: string;
@@ -20,8 +20,8 @@ function EntityAndProblemCount({
 		[number, number, number]
 	>(
 		(building, room) => {
-			const stageEntities = getPendingObjects(room.stage, room);
-			const actorEntities = getPendingObjects(room.actors, room);
+			const stageEntities = getPendingEntities(room.stage, room);
+			const actorEntities = getPendingEntities(room.actors, room);
 			const pendingRoomEntities = stageEntities.concat(actorEntities);
 
 			const [roomWarningCount, roomErrorCount] = pendingRoomEntities.reduce<
