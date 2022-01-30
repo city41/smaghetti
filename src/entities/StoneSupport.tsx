@@ -40,11 +40,14 @@ function getPosition(
 	return position;
 }
 
+// This entity is named StoneSupport, but really this entity is made out of wood.
+// The title was changed so users see "wood", but we can't change the name here
+// as that would break levels
 const StoneSupport: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-basic',
-		title: 'Stone Support',
+		title: 'Wooden Support',
 		description: 'Holds up the wood bridges. Purely decoration.',
 	},
 
