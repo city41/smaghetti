@@ -95,6 +95,19 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Entity List" date="2022-01-29">
+					<p>
+						Down in the editor&apos;s footer, over where warnings and errors
+						appear, is now an entity listing. It will still show you
+						warnings/errors, but if you click on it, it also shows all the
+						entities in your level. You can click on an entity to focus it in
+						the editor.
+					</p>
+					<p>
+						This isn&apos;t very useful ... yet. But it will have more features
+						that will make it more useful in the future.
+					</p>
+				</NewEntry>
 				<NewEntry
 					title="Spiny and Buzzy Beetle bug fix"
 					date="2022-01-29"

@@ -226,7 +226,7 @@ function Editor({
 								</div>
 							)}
 					</div>
-					{showEntityAndProblemList && (
+					{showEntityAndProblemList && !isPlaying && (
 						<EntityAndProblemList
 							className="pointer-events-auto w-60"
 							style={{ gridColumn: '1', gridRow: '2', maxWidth: '33vw' }}
