@@ -165,6 +165,12 @@ function BasicCastle() {
 	return <div className="BasicCastleBackground-bg w-full h-full bg-repeat" />;
 }
 
+function BasicGhostHouse() {
+	return (
+		<div className="BasicGhostHouseBackground-bg w-full h-full bg-repeat" />
+	);
+}
+
 function LargePulsatingBricks() {
 	return (
 		<div className="LargePulsatingBricksBackground-bg w-full h-full bg-repeat" />
@@ -478,6 +484,7 @@ const bgToComponent: Record<number, ReactNode> = {
 	),
 	[BACKGROUND_GRAPHIC_VALUES['long-clouds']]: <LongClouds />,
 	[BACKGROUND_GRAPHIC_VALUES['basic-castle']]: <BasicCastle />,
+	[BACKGROUND_GRAPHIC_VALUES['basic-ghost-house']]: <BasicGhostHouse />,
 	[BACKGROUND_GRAPHIC_VALUES['large-pulsating-bricks']]: (
 		<LargePulsatingBricks />
 	),

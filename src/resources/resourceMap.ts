@@ -2,6 +2,7 @@ import { BackgroundHillsStripedMedium } from './BackgroundHillsStripedMedium';
 import { BackgroundHillsStripedSmall } from './BackgroundHillsStripedSmall';
 import { BasementDungeon } from './BasementDungeon';
 import { BasicCastleBackground } from './BasicCastleBackground';
+import { BasicGhostHouseBackground } from './BasicGhostHouseBackground';
 import { BigBooArm } from './BigBooArm';
 import { BigBooBody } from './BigBooBody';
 import { BigBooFace } from './BigBooFace';
@@ -139,6 +140,7 @@ const resourceMap = {
 	BackgroundHillsStripedSmall,
 	BasementDungeon,
 	BasicCastleBackground,
+	BasicGhostHouseBackground,
 	BigBooArm,
 	BigBooBody,
 	BigBooFace,

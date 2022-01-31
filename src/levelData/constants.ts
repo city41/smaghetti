@@ -93,7 +93,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'night-sky': 0x2a,
 	// 0x2b: basement dungeon (repeat)
 	'ghost-house': 0x2c,
-	// 0x2d: a sparse ghost house, has beams and cobwebs but no windows
+	'basic-ghost-house': 0x2d,
 	'basic-castle': 0x2e,
 	// 0x2f: looks to be mostly garbage, but some hints of clouds up high
 	// 0x30: bonus game wall with embossed power ups, only one screen in size
@@ -179,6 +179,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'ghost-house': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['ghost-house'],
+		bgColor: 0x1,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'basic-ghost-house': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['basic-ghost-house'],
 		bgColor: 0x1,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},

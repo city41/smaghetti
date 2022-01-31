@@ -98,6 +98,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Backgrounds" date="2022-01-30">
 					<ul>
 						<li>Basic Castle</li>
+						<li>Basic Ghost House</li>
 						<li>High Up In The Clouds</li>
 						<li>Large Pulsating Bricks</li>
 						<li>Long Clouds</li>

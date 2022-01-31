@@ -389,6 +389,7 @@ export const resourceShaMap: Record<string, string> = {
   "BackgroundHillsStripedSmall": "098d9dfeddba33372cb07d46e2ab0d895ae35483",
   "BasementDungeon": "9789321dc5f271b56dd5da6f1cf1e8017b24146d",
   "BasicCastleBackground": "a9aac4375d7436903a45e1062d0848dbcb8311a8",
+  "BasicGhostHouseBackground": "1d5fdd18cde8278209397f2b7c3da7e04f02eb9a",
   "BigBooArm": "72a3332cddbb5c7b2134d6f7c299e878d6e47141",
   "BigBooBody": "27480d395c6009c53df161c78d99f99b3e1b5d35",
   "BigBooFace": "ef985f57aadad57c86cd00ad1bdeb58efff27e3f",
