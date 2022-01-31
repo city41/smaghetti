@@ -61,6 +61,7 @@ type BackgroundGraphic =
 	| 'underwater-more-terrain'
 	| 'winter'
 	| 'underwater'
+	| 'long-clouds'
 	| 'crystal-underground'
 	| 'hills-at-night'
 	| 'night-sky'

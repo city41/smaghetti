@@ -87,7 +87,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	// 0x24: inside airship but with lots of garbled graphics
 	underwater: 0x25,
 	// 0x26: underwater but with only red plants and no wave effect
-	// 0x27: long/narrow clouds in the sky
+	'long-clouds': 0x27,
 	'desert-brick-wall': 0x28,
 	// 0x29: bowser's castle (repeat)
 	'night-sky': 0x2a,
@@ -159,6 +159,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	desert: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.desert,
+		bgColor: 0xc,
+		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
+	},
+	'long-clouds': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['long-clouds'],
 		bgColor: 0xc,
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
