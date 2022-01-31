@@ -99,6 +99,7 @@ function WhatsNewPage() {
 					<ul>
 						<li>Basic Castle</li>
 						<li>High Up In The Clouds</li>
+						<li>Large Pulsating Bricks</li>
 						<li>Long Clouds</li>
 						<li>Pyramid Split Inside and Out</li>
 						<li>Underwater More Terrain</li>

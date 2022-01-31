@@ -108,7 +108,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'far-away-hills-in-clouds': 0x39,
 	'stone-wall': 0x3a,
 	// 0x3b: tall waterfalls, but the clouds above have some garbage tiles
-	// 0x3c: a stone wall with even bricks that pulsate red
+	'large-pulsating-bricks': 0x3c,
 	'jungle-no-sky': 0x3d,
 	// 0x3e: repeat of 0x3b
 	// 0x3f: more waterfalls, also with garbled sky tiles
@@ -247,6 +247,12 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'basement-dungeon': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['basement-dungeon'],
+		bgColor: 0x1,
+		bgExtraColorAndEffect:
+			BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES['lava-shimmer'],
+	},
+	'large-pulsating-bricks': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['large-pulsating-bricks'],
 		bgColor: 0x1,
 		bgExtraColorAndEffect:
 			BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES['lava-shimmer'],

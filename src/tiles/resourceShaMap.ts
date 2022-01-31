@@ -455,6 +455,7 @@ export const resourceShaMap: Record<string, string> = {
   "JungleBackground": "891eb2e89ab9e91c7e244b38d6ad48620eacca32",
   "KoopaShell": "87b70a7e96845b485fa7086b030d7c2e4a54a27b",
   "KoopaWing": "31866813d3278907d4a84b172bf83f9ef5b800df",
+  "LargePulsatingBricksBackground": "8c2f62b8513a5df3426aad153c6ee3863bf8da7b",
   "LongCloudsBackground": "dc9257ca3ab939cb3ebf31295766b5dfccb2cfcc",
   "KoopalingWand": "a07704a91d818e22ee702ca44cf78d2436c07710",
   "MetalBrickBackground": "f90cc4a27b3e0cfafa2c96c98d6b02fef14109ed",

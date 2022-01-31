@@ -69,6 +69,7 @@ import { JungleBackground } from './JungleBackground';
 import { KoopalingWand } from './KoopalingWand';
 import { KoopaShell } from './KoopaShell';
 import { KoopaWing } from './KoopaWing';
+import { LargePulsatingBricksBackground } from './LargePulsatingBricksBackground';
 import { LongCloudsBackground } from './LongCloudsBackground';
 import { MetalBrickBackground } from './MetalBrickBackground';
 import { MontyMoleJumpingOut } from './MontyMoleJumpingOut';
@@ -203,6 +204,7 @@ const resourceMap = {
 	JungleBackground,
 	KoopaShell,
 	KoopaWing,
+	LargePulsatingBricksBackground,
 	LongCloudsBackground,
 	KoopalingWand,
 	MetalBrickBackground,

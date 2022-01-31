@@ -69,6 +69,7 @@ type BackgroundGraphic =
 	| 'bonus-room'
 	| 'stormy-clouds'
 	| 'stone-wall'
+	| 'large-pulsating-bricks'
 	| 'basement-dungeon'
 	| 'pyramids'
 	| 'inside-airship'
