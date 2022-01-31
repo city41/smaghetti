@@ -859,6 +859,14 @@ function drawAt(
 			};
 		}
 	} else if (entityDef.editorType === 'entity') {
+		const destX = x * TILE_SIZE;
+		const destY = y * TILE_SIZE;
+
+		// entities can overlap, but not if they are at the exact same location
+		if (layer.entities.some((e) => e.x === destX && e.y === destY)) {
+			return;
+		}
+
 		const newEntity: NewEditorEntity = {
 			x: x * TILE_SIZE,
 			y: y * TILE_SIZE,
