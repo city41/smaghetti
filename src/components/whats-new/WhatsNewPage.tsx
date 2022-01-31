@@ -102,6 +102,7 @@ function WhatsNewPage() {
 						<li>Large Pulsating Bricks</li>
 						<li>Long Clouds</li>
 						<li>Pyramid Split Inside and Out</li>
+						<li>Underground Double Cave</li>
 						<li>Underwater More Terrain</li>
 					</ul>
 				</NewEntry>

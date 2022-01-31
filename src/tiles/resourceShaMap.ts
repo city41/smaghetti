@@ -500,6 +500,7 @@ export const resourceShaMap: Record<string, string> = {
   "ToadHouseNullBackground": "ee2ea9f8818c6679563a6d3f9adb0209c3f06b5c",
   "TwoNumberBlock": "87d56b94100bd89bd7b98b61286da810c062293b",
   "UndergroundCaveBackground": "d0d6617ef59ab13e4f7a7aeb7b78f1c034b8c927",
+  "UndergroundDoubleCaveBackground": "97df7acd792957604f1ae98e646767085ba44add",
   "UndergroundBackground": "1827b19170852611247ca735ac55198a6fd11d73",
   "UnderwaterBackground": "ce4f037f74920a4920da6eddbcbce3dfbe439351",
   "UnderwaterFloorBottom": "9b37c9576f0154adc53cb8b67fe540958b2e5b5a",

@@ -100,7 +100,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	'colorful-brick-wall': 0x31,
 	'blue-and-green-stars': 0x32,
 	'tetris-room': 0x33,
-	// 0x34: underground cave but it repeats the cave pattern twice, as noted on TCRF
+	'underground-double-cave': 0x34,
 	pipes: 0x35,
 	'tall-hills': 0x36,
 	underground: 0x37,
@@ -143,6 +143,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'underground-cave': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['underground-cave'],
+		bgColor: 0x84,
+		bgExtraColorAndEffect: 0x5a,
+	},
+	'underground-double-cave': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['underground-double-cave'],
 		bgColor: 0x84,
 		bgExtraColorAndEffect: 0x5a,
 	},

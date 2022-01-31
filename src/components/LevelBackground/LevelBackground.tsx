@@ -368,6 +368,24 @@ function JungleNoSky() {
 	);
 }
 
+function UndergroundDoubleCave() {
+	return (
+		<div
+			className="w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#8cbdff' }}
+		>
+			<div
+				className="UndergroundDoubleCaveBackground-bg w-full bg-repeat-x"
+				style={{ height: 240, backgroundColor: '#402800' }}
+			/>
+			<div
+				className="UndergroundDoubleCaveBackground-bg w-full bg-repeat-x"
+				style={{ height: 240, backgroundColor: '#402800' }}
+			/>
+		</div>
+	);
+}
+
 function UndergroundCave() {
 	return (
 		<div
@@ -450,6 +468,9 @@ const bgToComponent: Record<number, ReactNode> = {
 	),
 	[BACKGROUND_GRAPHIC_VALUES['colorful-brick-wall']]: <ColorfulBrickWall />,
 	[BACKGROUND_GRAPHIC_VALUES['underground-cave']]: <UndergroundCave />,
+	[BACKGROUND_GRAPHIC_VALUES['underground-double-cave']]: (
+		<UndergroundDoubleCave />
+	),
 	[BACKGROUND_GRAPHIC_VALUES.blank]: <Blank />,
 	[BACKGROUND_GRAPHIC_VALUES['high-up-in-the-clouds']]: <HighUpInTheClouds />,
 	[BACKGROUND_GRAPHIC_VALUES['pyramid-split-inside-and-out']]: (

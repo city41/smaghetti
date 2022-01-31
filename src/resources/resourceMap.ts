@@ -113,6 +113,7 @@ import { ToadHouseBackground } from './ToadHouseBackground';
 import { ToadHouseNullBackground } from './ToadHouseNullBackground';
 import { TwoNumberBlock } from './TwoNumberBlock';
 import { UndergroundCaveBackground } from './UndergroundCaveBackground';
+import { UndergroundDoubleCaveBackground } from './UndergroundDoubleCaveBackground';
 import { UndergroundBackground } from './UndergroundBackground';
 import { UnderwaterBackground } from './UnderwaterBackground';
 import { UnderwaterFloorBottom } from './UnderwaterFloorBottom';
@@ -249,6 +250,7 @@ const resourceMap = {
 	ToadHouseNullBackground,
 	TwoNumberBlock,
 	UndergroundCaveBackground,
+	UndergroundDoubleCaveBackground,
 	UndergroundBackground,
 	UnderwaterBackground,
 	UnderwaterFloorBottom,
