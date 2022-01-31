@@ -570,6 +570,8 @@ const Canvas = memo(function Canvas({
 					dragOffset={dragOffset}
 					onEntitySettingsChange={onEntitySettingsChange}
 				/>
+				{stageMatrixRows}
+				{actorMatrixRows}
 				<Entities
 					entities={actors.entities}
 					room={rooms[currentRoomIndex]}
@@ -582,8 +584,6 @@ const Canvas = memo(function Canvas({
 					dragOffset={dragOffset}
 					onEntitySettingsChange={onEntitySettingsChange}
 				/>
-				{stageMatrixRows}
-				{actorMatrixRows}
 				{transportDestinations.map((td, i) => (
 					<TransportDestination
 						key={i}
