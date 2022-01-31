@@ -40,7 +40,7 @@ exports.up = (pgm) => {
       on
         u.id = l.user_id
       where
-        l.published = true and l.id in (
+        l.published = true and (u.role is null or u.role <> 'sb' or l.user_id::text = current_user_id) and l.id in(
           select 
             l2.id 
           from 

@@ -37,7 +37,7 @@ exports.up = (pgm) => {
       on
         u.id = l.user_id
       where
-        l.published = true and (l.data::text like '%"type": "ECoin"%')
+        l.published = true and (u.role is null or u.role <> 'sb' or l.user_id::text = current_user_id) and (l.data::text like '%"type": "ECoin"%')
       group by
         l.id, l.name, l.data, l.version, u.username, l.created_at, l.updated_at;
       end;

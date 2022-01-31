@@ -4,16 +4,16 @@ const GET_LEVELS_FUNCTION_PARAMS = ['sort text'];
 exports.shorthands = undefined;
 
 exports.up = (pgm) => {
-  pgm.createFunction(
-    GET_LEVELS_FUNCTION_NAME,
-    GET_LEVELS_FUNCTION_PARAMS,
-    {
-      replace: true,
-      returns:
-        'table (name text, description text, data text, updated_at timestamp, deaths bigint, plays bigint)',
-      language: 'plpgsql security definer',
-    },
-    `
+	pgm.createFunction(
+		GET_LEVELS_FUNCTION_NAME,
+		GET_LEVELS_FUNCTION_PARAMS,
+		{
+			replace: true,
+			returns:
+				'table (name text, description text, data text, updated_at timestamp, deaths bigint, plays bigint)',
+			language: 'plpgsql security definer',
+		},
+		`
     declare
       order_by text;
       qry text;
@@ -47,9 +47,11 @@ exports.up = (pgm) => {
       return query execute qry;
     end
     `
-  );
+	);
 };
 
 exports.down = (pgm) => {
-  pgm.dropFunction(GET_LEVELS_FUNCTION_NAME, GET_LEVELS_FUNCTION_PARAMS);
+	pgm.dropFunction(GET_LEVELS_FUNCTION_NAME, GET_LEVELS_FUNCTION_PARAMS);
 };
+exports.GET_LEVELS_FUNCTION_NAME = GET_LEVELS_FUNCTION_NAME;
+exports.GET_LEVELS_FUNCTION_PARAMS = GET_LEVELS_FUNCTION_PARAMS;

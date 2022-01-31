@@ -27,10 +27,6 @@ exports.up = (pgm) => {
     created_level_id text;
   begin
         
-    if (select users.role from users where users.id = auth.uid()) = 'sb' then
-        return '123456';
-    end if;
-  
     if existing_id is null then
       existing_id := unique_level_id();
     end if;
@@ -67,10 +63,6 @@ exports.down = (pgm) => {
     created_level_id text;
   begin
         
-    if (select users.role from users where users.id = auth.uid()) == 'sb' then
-        return '123456';
-    }
-  
     if existing_id is null then
       existing_id := unique_level_id();
     end if;
