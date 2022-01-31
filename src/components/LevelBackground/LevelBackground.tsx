@@ -245,6 +245,24 @@ function Underwater() {
 	);
 }
 
+function UnderwaterMoreTerrain() {
+	return (
+		<div
+			className="relative w-full h-full flex flex-col justify-end"
+			style={{ backgroundColor: '#84adff' }}
+		>
+			<div
+				className="UnderwaterMoreTerrainBackground-bg w-full bg-repeat-x"
+				style={{ height: 224 }}
+			/>
+			<div
+				className="absolute top-0 left-0 w-full h-full opacity-40"
+				style={{ backgroundColor: 'blue' }}
+			/>
+		</div>
+	);
+}
+
 function HillsAtNight() {
 	return (
 		<div
@@ -391,6 +409,9 @@ const bgToComponent: Record<number, ReactNode> = {
 	),
 	[BACKGROUND_GRAPHIC_VALUES['metal-brick']]: <MetalBrick />,
 	[BACKGROUND_GRAPHIC_VALUES.underwater]: <Underwater />,
+	[BACKGROUND_GRAPHIC_VALUES['underwater-more-terrain']]: (
+		<UnderwaterMoreTerrain />
+	),
 	[BACKGROUND_GRAPHIC_VALUES['crystal-underground']]: <CrystalUnderground />,
 	[BACKGROUND_GRAPHIC_VALUES['hills-at-night']]: <HillsAtNight />,
 	[BACKGROUND_GRAPHIC_VALUES['night-sky']]: <NightSky />,

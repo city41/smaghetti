@@ -81,7 +81,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	// 0x1e: up in the clouds of the waterfalls bg, but has some garbage tiles in it
 	'basement-dungeon': 0x1f,
 	'metal-brick': 0x20,
-	// 0x21: underwater but with more terrain and some red plants
+	'underwater-more-terrain': 0x21,
 	// 0x22: bowser's castle, but its only about one screen wide
 	// 0x23: stormy clouds (repeat)
 	// 0x24: inside airship but with lots of garbled graphics
@@ -204,6 +204,12 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	underwater: {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES.underwater,
+		bgColor: 0x9c,
+		bgExtraColorAndEffect:
+			BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES['underwater-ripple-purple'],
+	},
+	'underwater-more-terrain': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['underwater-more-terrain'],
 		bgColor: 0x9c,
 		bgExtraColorAndEffect:
 			BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES['underwater-ripple-purple'],

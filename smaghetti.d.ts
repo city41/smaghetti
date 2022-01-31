@@ -58,6 +58,7 @@ type BackgroundGraphic =
 	| 'tall-hills-but-shorter'
 	| 'tetris-room'
 	| 'metal-brick'
+	| 'underwater-more-terrain'
 	| 'winter'
 	| 'underwater'
 	| 'crystal-underground'

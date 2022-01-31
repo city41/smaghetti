@@ -99,6 +99,7 @@ function WhatsNewPage() {
 					<ul>
 						<li>High Up In The Clouds</li>
 						<li>Pyramid Split Inside and Out</li>
+						<li>Underwater More Terrain</li>
 					</ul>
 				</NewEntry>
 				<NewEntry title="Entity List" date="2022-01-29">
