@@ -9,7 +9,7 @@ import { entitiesByCount } from './stats/entitiesByCount';
 import { roomsPerLevelPercentages } from './stats/roomsPerLevelPercentages';
 
 async function queryForLevels(): Promise<SerializedLevel[]> {
-	const client = new Client();
+	const client = new Client(process.env.DATABASE_URL);
 	await client.connect();
 
 	const res = await client.query('select * from levels');
@@ -52,6 +52,13 @@ async function main() {
 	const stats = calcStats(levels);
 
 	writeStats(stats, path.resolve(__dirname, '../src/stats/stats.ts'));
+}
+
+if (!process.env.DATABASE_URL) {
+	console.error(
+		'set DATABASE_URL as an env variable to run this script, just like running migrations, see supabase.md'
+	);
+	process.exit(1);
 }
 
 main()
