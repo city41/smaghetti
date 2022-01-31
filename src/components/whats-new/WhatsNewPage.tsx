@@ -95,11 +95,11 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
-				<NewEntry title="All level votes lost" date="2022-01-30" alertingChange>
+				<NewEntry title="All level votes lost" date="2022-01-31" alertingChange>
 					<p>
-						Sorry everyone, I screwed up and all level votes were lost :(. I
-						have taken some steps to ensure that does not happen again. Really
-						sorry about that.
+						Sorry everyone, I screwed up and all level votes were lost :( I have
+						taken some steps to ensure that does not happen again. Really sorry
+						about that.
 					</p>
 					<p>
 						If you have some time, please{' '}
