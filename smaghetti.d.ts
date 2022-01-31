@@ -54,6 +54,7 @@ type BackgroundGraphic =
 	| 'plains'
 	| 'desert'
 	| 'ghost-house'
+	| 'basic-castle'
 	| 'tall-hills'
 	| 'tall-hills-but-shorter'
 	| 'tetris-room'

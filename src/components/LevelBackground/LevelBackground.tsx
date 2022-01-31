@@ -161,6 +161,10 @@ function LongClouds() {
 	return <div className="LongCloudsBackground-bg w-full h-full bg-repeat" />;
 }
 
+function BasicCastle() {
+	return <div className="BasicCastleBackground-bg w-full h-full bg-repeat" />;
+}
+
 function Pyramids() {
 	return (
 		<div
@@ -446,6 +450,7 @@ const bgToComponent: Record<number, ReactNode> = {
 		<PyramidSplitInsideAndOut />
 	),
 	[BACKGROUND_GRAPHIC_VALUES['long-clouds']]: <LongClouds />,
+	[BACKGROUND_GRAPHIC_VALUES['basic-castle']]: <BasicCastle />,
 };
 
 function LevelBackground({ className, bgNumber }: LevelBackgroundProps) {

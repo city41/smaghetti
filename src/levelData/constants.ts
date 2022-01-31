@@ -94,7 +94,7 @@ export const BACKGROUND_GRAPHIC_VALUES: Record<BackgroundGraphic, number> = {
 	// 0x2b: basement dungeon (repeat)
 	'ghost-house': 0x2c,
 	// 0x2d: a sparse ghost house, has beams and cobwebs but no windows
-	// 0x2e: a simpler bowser's castle that has no paintings
+	'basic-castle': 0x2e,
 	// 0x2f: looks to be mostly garbage, but some hints of clouds up high
 	// 0x30: bonus game wall with embossed power ups, only one screen in size
 	'colorful-brick-wall': 0x31,
@@ -281,6 +281,11 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 	},
 	'bowser-castle': {
 		bgGraphic: BACKGROUND_GRAPHIC_VALUES['bowser-castle'],
+		bgColor: 0x0,
+		bgExtraColorAndEffect: 0x9f,
+	},
+	'basic-castle': {
+		bgGraphic: BACKGROUND_GRAPHIC_VALUES['basic-castle'],
 		bgColor: 0x0,
 		bgExtraColorAndEffect: 0x9f,
 	},
