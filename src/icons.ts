@@ -68,6 +68,7 @@ export {
 	GiStopSign as IconStopSign,
 	GiArrowCursor as IconArrow,
 	GiWarpPipe as IconWarpPipe,
+	GiHumanTarget as IconHumanTarget,
 } from 'react-icons/gi';
 
 export { GoAlert as IconAlert } from 'react-icons/go';

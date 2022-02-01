@@ -5,7 +5,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import { PlainIconButton } from '../../../PlainIconButton';
 import {
 	IconPhoto,
-	IconPhotoScaled,
+	IconHumanTarget,
 	IconZoomIn,
 	IconZoomOut,
 } from '../../../../icons';
@@ -13,7 +13,7 @@ import {
 type ZoomProps = {
 	className?: string;
 	disabled?: boolean;
-	onResetViewport: () => void;
+	onCenterPlayerInViewport: () => void;
 	onShowEntireRoom: () => void;
 	onScaleIncreased: () => void;
 	onScaleDecreased: () => void;
@@ -24,7 +24,7 @@ type ZoomProps = {
 const Zoom: FunctionComponent<ZoomProps> = ({
 	className,
 	disabled,
-	onResetViewport,
+	onCenterPlayerInViewport,
 	onShowEntireRoom,
 	onScaleIncreased,
 	onScaleDecreased,
@@ -71,9 +71,9 @@ const Zoom: FunctionComponent<ZoomProps> = ({
 			/>
 			<PlainIconButton
 				size="large"
-				label="reset viewport"
-				icon={IconPhotoScaled}
-				onClick={onResetViewport}
+				label="center player in viewport"
+				icon={IconHumanTarget}
+				onClick={onCenterPlayerInViewport}
 				disabled={disabled}
 			/>
 			<PlainIconButton

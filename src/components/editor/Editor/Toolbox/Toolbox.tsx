@@ -47,7 +47,7 @@ type InternalToolboxProps = {
 	currentPaletteEntry?: EntityType;
 	mouseMode: MouseMode;
 	onMouseModeChanged: (mouseMode: MouseMode) => void;
-	onResetViewport: () => void;
+	onCenterPlayerInViewport: () => void;
 	onShowEntireRoom: () => void;
 	onScaleDecreased: () => void;
 	onScaleIncreased: () => void;
@@ -67,7 +67,7 @@ const Toolbox = memo(function Toolbox({
 	currentPaletteEntry,
 	mouseMode,
 	onMouseModeChanged,
-	onResetViewport,
+	onCenterPlayerInViewport,
 	onShowEntireRoom,
 	onScaleDecreased,
 	onScaleIncreased,
@@ -137,7 +137,7 @@ const Toolbox = memo(function Toolbox({
 
 			<Zoom
 				disabled={disabled}
-				onResetViewport={onResetViewport}
+				onCenterPlayerInViewport={onCenterPlayerInViewport}
 				onShowEntireRoom={onShowEntireRoom}
 				onScaleDecreased={onScaleDecreased}
 				onScaleIncreased={onScaleIncreased}

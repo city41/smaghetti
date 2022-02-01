@@ -161,6 +161,31 @@ function resetState(state: InternalEditorState) {
 	});
 }
 
+function _scrollToEntity(state: InternalEditorState, room: number, id: number) {
+	state.currentRoomIndex = room;
+
+	const currentRoom = getCurrentRoom(state);
+	currentRoom.scale = initialScale;
+
+	const entities = currentRoom.actors.entities.concat(
+		flattenCells(currentRoom.actors.matrix),
+		currentRoom.stage.entities,
+		flattenCells(currentRoom.stage.matrix)
+	);
+
+	const entity = entities.find((e) => e.id === id);
+	const scale = currentRoom.scale;
+
+	if (entity) {
+		const multiplier =
+			entityMap[entity.type].editorType === 'cell' ? TILE_SIZE : 1;
+		currentRoom.scrollOffset.x =
+			(entity.x * multiplier * scale - window.innerWidth / 2) / scale;
+		currentRoom.scrollOffset.y =
+			(entity.y * multiplier * scale - window.innerHeight / 2) / scale;
+	}
+}
+
 function removeEntitiesFromLevel(
 	levelData: LevelData,
 	keepIf: (e: EditorEntity) => boolean
@@ -1197,16 +1222,15 @@ const editorSlice = createSlice({
 		eraseLevel(state: InternalEditorState) {
 			resetState(state);
 		},
-		resetViewport(state: InternalEditorState) {
+		centerPlayerInViewport(state: InternalEditorState) {
 			const currentRoom = getCurrentRoom(state);
+			const player =
+				currentRoom.actors.entities.find((e) => e.type === 'PlayerGhost') ??
+				currentRoom.actors.entities.find((e) => e.type === 'Player');
 
-			currentRoom.scrollOffset.x = 0;
-			currentRoom.scrollOffset.y = calcYForScrollToBottom(
-				currentRoom.roomTileHeight,
-				initialScale
-			);
-
-			scaleTo(state, initialScale);
+			if (player) {
+				_scrollToEntity(state, state.currentRoomIndex, player.id);
+			}
 		},
 		viewportToEntireRoom(state: InternalEditorState) {
 			const currentRoom = getCurrentRoom(state);
@@ -1723,28 +1747,7 @@ const editorSlice = createSlice({
 		) {
 			const { room, id } = action.payload;
 
-			state.currentRoomIndex = room;
-
-			const currentRoom = getCurrentRoom(state);
-			currentRoom.scale = initialScale;
-
-			const entities = currentRoom.actors.entities.concat(
-				flattenCells(currentRoom.actors.matrix),
-				currentRoom.stage.entities,
-				flattenCells(currentRoom.stage.matrix)
-			);
-
-			const entity = entities.find((e) => e.id === id);
-			const scale = currentRoom.scale;
-
-			if (entity) {
-				const multiplier =
-					entityMap[entity.type].editorType === 'cell' ? TILE_SIZE : 1;
-				currentRoom.scrollOffset.x =
-					(entity.x * multiplier * scale - window.innerWidth / 2) / scale;
-				currentRoom.scrollOffset.y =
-					(entity.y * multiplier * scale - window.innerHeight / 2) / scale;
-			}
+			_scrollToEntity(state, room, id);
 		},
 		setEntitySettings(
 			state: InternalEditorState,
@@ -2051,7 +2054,7 @@ const {
 	toggleLayerLock,
 	pushPan,
 	popPan,
-	resetViewport,
+	centerPlayerInViewport,
 	viewportToEntireRoom,
 	addPaletteEntry,
 	removePaletteEntry,
@@ -2091,7 +2094,7 @@ const undoableReducer = undoable(cleanUpReducer, {
 		setTimer.toString(),
 		setCurrentRoomIndex.toString(),
 		mouseModeChanged.toString(),
-		resetViewport.toString(),
+		centerPlayerInViewport.toString(),
 		viewportToEntireRoom.toString(),
 		scaleIncreased.toString(),
 		scaleDecreased.toString(),
@@ -2288,7 +2291,7 @@ export {
 	toggleLayerLock,
 	pushPan,
 	popPan,
-	resetViewport,
+	centerPlayerInViewport,
 	viewportToEntireRoom,
 	addPaletteEntry,
 	removePaletteEntry,
