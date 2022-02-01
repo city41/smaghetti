@@ -139,7 +139,9 @@ function LevelChooserModal({
 
 	return (
 		<Modal
-			className={clsx(styles.modal, 'relative pb-12')}
+			className={clsx(styles.modal, {
+				'relative pb-12': isLoggedIn,
+			})}
 			title="Choose what to work on"
 			isOpen={isOpen}
 			onXClick={onRequestClose}
