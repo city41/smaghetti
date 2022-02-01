@@ -95,6 +95,10 @@ function Palette({
 					setModalOpen(true);
 				}}
 				disabled={disabled}
+				onFocus={(e) => {
+					e.preventDefault();
+					e.target.blur();
+				}}
 			>
 				<IconPlus className="w-6 h-6" />
 				<div className="text-xs">add</div>
