@@ -35,6 +35,7 @@ function PlainIconButton({
 			aria-label={label}
 			title={label}
 			disabled={disabled}
+			tabIndex={-1}
 			className={clsx(className, 'text-white ', {
 				'bg-blue-400 text-gray-700 border-white': toggled && !disabled,
 				'border-transparent': !toggled || disabled,
@@ -43,6 +44,10 @@ function PlainIconButton({
 				[styles.hover]: !disabled,
 				'py-0.5 px-1 border-b-2': size !== 'editor',
 			})}
+			onFocus={(e) => {
+				e.preventDefault();
+				e.currentTarget.blur();
+			}}
 			{...rest}
 		>
 			<Icon
