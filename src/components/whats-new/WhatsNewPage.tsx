@@ -95,6 +95,12 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Play as Luigi" date="2022-02-01">
+					<p>
+						You can now test your levels as Luigi. In the lower right corner,
+						click the toggle button to switch to Luigi.
+					</p>
+				</NewEntry>
 				<NewEntry
 					title="Level votes restored!"
 					date="2022-01-31"

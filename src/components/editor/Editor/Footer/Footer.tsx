@@ -7,10 +7,13 @@ import memoize from 'lodash/memoize';
 import { EntityAndProblemCount } from './EntityAndProblemCount';
 import { PlainIconButton } from '../../../PlainIconButton';
 import { IconExperiment } from '../../../../icons';
+import { MarioLuigiToggle } from './MarioLuigiToggle';
 
 type PublicFooterProps = {
 	className?: string;
 	style?: CSSProperties;
+	playAsCharacter: 'mario' | 'luigi';
+	onPlayAsCharacterToggle: () => void;
 	onProblemClick: () => void;
 };
 
@@ -25,6 +28,8 @@ const Footer = memo(function Footer({
 	className,
 	style,
 	level,
+	playAsCharacter,
+	onPlayAsCharacterToggle,
 	onProblemClick,
 	onExperimentsClick,
 }: PublicFooterProps & InternalFooterProps) {
@@ -41,6 +46,11 @@ const Footer = memo(function Footer({
 			)}
 			style={style}
 		>
+			<MarioLuigiToggle
+				className="mr-2"
+				currentValue={playAsCharacter}
+				onClick={onPlayAsCharacterToggle}
+			/>
 			<EntityAndProblemCount
 				rooms={level.data.rooms}
 				onProblemClick={onProblemClick}

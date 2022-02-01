@@ -14,6 +14,7 @@ import { moveRoomToFront } from './moveRoomToFront';
 type LevelPlayerProps = {
 	className?: string;
 	isPlaying: boolean;
+	playAs: 'mario' | 'luigi';
 	checkeredBackground: boolean;
 	children?: ReactNode;
 };

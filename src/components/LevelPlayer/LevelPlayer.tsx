@@ -16,6 +16,7 @@ import { AudioToggle } from './AudioToggle';
 type LevelPlayerProps = {
 	className?: string;
 	style?: CSSProperties;
+	playAs: 'mario' | 'luigi';
 	isPlaying: boolean;
 	level: LevelToLoadInGBA;
 	biosFile: Uint8Array;
@@ -35,6 +36,7 @@ function BodyPortal({ children }: { children: ReactNode }) {
 
 const LevelPlayer = memo(function LevelPlayer({
 	isPlaying,
+	playAs,
 	level,
 	biosFile,
 	romFile,
@@ -88,6 +90,7 @@ const LevelPlayer = memo(function LevelPlayer({
 						levelData={createLevelData(level)}
 						ecoinInfo={getECoinInfo(level)}
 						isPlaying={isPlaying}
+						playAs={playAs}
 						canvasRef={canvasRef}
 					/>
 					<div className="fixed left-0 bottom-0 w-full flex flex-row gap-x-4 justify-center items-center pointer-events-auto">

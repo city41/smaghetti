@@ -72,6 +72,7 @@ import { KoopaShell } from './KoopaShell';
 import { KoopaWing } from './KoopaWing';
 import { LargePulsatingBricksBackground } from './LargePulsatingBricksBackground';
 import { LongCloudsBackground } from './LongCloudsBackground';
+import { MarioLuigiLetterIcons } from './MarioLuigiLetterIcons';
 import { MetalBrickBackground } from './MetalBrickBackground';
 import { MontyMoleJumpingOut } from './MontyMoleJumpingOut';
 import { MountainsBackground } from './MountainsBackground';
@@ -209,6 +210,7 @@ const resourceMap = {
 	KoopaWing,
 	LargePulsatingBricksBackground,
 	LongCloudsBackground,
+	...MarioLuigiLetterIcons,
 	KoopalingWand,
 	MetalBrickBackground,
 	MontyMoleJumpingOut,

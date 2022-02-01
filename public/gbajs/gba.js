@@ -1,7 +1,7 @@
 const A_BUTTON = 0;
 const RIGHT_BUTTON = 4;
 
-const goIntoLevelScript = [
+const goIntoLevelScriptAsMario = [
 	{
 		// file menu, with Level Card highlighted
 		// choose to go into level menu
@@ -47,6 +47,15 @@ const goIntoLevelScript = [
 		ignoreInput: false,
 	},
 ];
+
+const goIntoLevelScriptAsLuigi = goIntoLevelScriptAsMario.slice(0);
+goIntoLevelScriptAsLuigi.splice(2, 0, {
+	// e-reader world
+	description: 'press a to toggle to luigi',
+	frameDelay: 24,
+	input: A_BUTTON,
+});
+goIntoLevelScriptAsLuigi[3].frameDelay = 90;
 
 GameBoyAdvance = function GameBoyAdvance() {
 	this.statusCallback = null;
@@ -293,9 +302,10 @@ GameBoyAdvance.prototype.advanceFrame = function () {
 	}
 };
 
-GameBoyAdvance.prototype.injectSaveFile = function (saveFileBuffer) {
+GameBoyAdvance.prototype.injectSaveFile = function (saveFileBuffer, playAs) {
 	this.setSavedata(saveFileBuffer);
-	this.script = goIntoLevelScript;
+	this.script =
+		playAs === 'mario' ? goIntoLevelScriptAsMario : goIntoLevelScriptAsLuigi;
 	this.scriptIndex = 0;
 	this.runStable();
 };

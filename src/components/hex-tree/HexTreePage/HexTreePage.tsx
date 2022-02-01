@@ -224,6 +224,7 @@ function HexTreePage({
 										levelData={data}
 										ecoinInfo={null}
 										isPlaying={editState === 'running' || immediateMode}
+										playAs="mario"
 										scale={1.5}
 										canvasRef={canvasRef}
 										neverShowCrashScreen

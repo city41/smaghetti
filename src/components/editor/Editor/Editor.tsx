@@ -64,6 +64,9 @@ function Editor({
 	const [showEntityAndProblemList, setShowEntityAndProblemList] = useState(
 		false
 	);
+	const [playAsCharacter, setPlayAsCharacter] = useState<'mario' | 'luigi'>(
+		'mario'
+	);
 
 	const dispatch = useDispatch();
 
@@ -176,6 +179,7 @@ function Editor({
 				{!firstRender && (
 					<div className="fixed top-0 left-0 w-full h-full">
 						<LevelPlayer
+							playAs={playAsCharacter}
 							className="border border-black"
 							isPlaying={isPlaying}
 							checkeredBackground
@@ -237,6 +241,16 @@ function Editor({
 						<Footer
 							style={FOOTER_STYLE}
 							className="w-full pointer-events-auto"
+							playAsCharacter={playAsCharacter}
+							onPlayAsCharacterToggle={() => {
+								setPlayAsCharacter((c) => {
+									if (c === 'mario') {
+										return 'luigi';
+									} else {
+										return 'mario';
+									}
+								});
+							}}
 							onProblemClick={handleProblemClick}
 						/>
 					)}

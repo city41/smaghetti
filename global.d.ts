@@ -17,7 +17,7 @@ interface _GameBoyAdvance {
 	};
 	rom: ArrayBuffer | undefined;
 	statusCallback: ((status: GBAStatus) => void) | undefined;
-	injectSaveFile: (buffer: ArrayBuffer) => void;
+	injectSaveFile: (buffer: ArrayBuffer, playAs: 'mario' | 'luigi') => void;
 	_shouldMute?: boolean;
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

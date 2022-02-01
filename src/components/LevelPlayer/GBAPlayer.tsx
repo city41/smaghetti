@@ -17,6 +17,7 @@ type GBAPlayerProps = {
 	levelData: Uint8Array;
 	ecoinInfo: ECoinInfo | null;
 	isPlaying: boolean;
+	playAs: 'mario' | 'luigi';
 	scale?: number;
 	canvasRef: RefObject<HTMLCanvasElement>;
 	neverShowCrashScreen?: boolean;
@@ -31,6 +32,7 @@ function GBAPlayer({
 	levelData,
 	ecoinInfo,
 	isPlaying,
+	playAs,
 	scale = 3,
 	canvasRef,
 	neverShowCrashScreen,
@@ -51,7 +53,7 @@ function GBAPlayer({
 					levelData,
 					ecoinInfo
 				);
-				window._gba.injectSaveFile(saveFileWithInjectedLevel.buffer);
+				window._gba.injectSaveFile(saveFileWithInjectedLevel.buffer, playAs);
 			}
 
 			if (status === 'crashed') {
@@ -62,7 +64,7 @@ function GBAPlayer({
 		return () => {
 			window._gba.statusCallback = undefined;
 		};
-	}, [levelData]);
+	}, [levelData, playAs]);
 
 	useEffect(() => {
 		if (isPlaying) {
