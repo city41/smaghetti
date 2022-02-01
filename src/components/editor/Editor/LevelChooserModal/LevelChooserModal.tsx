@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import clsx from 'clsx';
 import { Modal } from '../../../Modal';
 import { RoomThumbnail } from '../../../RoomThumbnail';
@@ -14,6 +14,9 @@ import { SavedLevels } from './SavedLevels';
 
 import styles from './LevelChooserModal.module.css';
 import { useLocalStorage } from '../../../../hooks/useLocalStorage';
+import { SaveFileList } from '../../../levels/Levels2Page/SaveFileList';
+import { downloadSetOfLevelsAsSaveFile } from '../../../../levelData/downloadLevelAsSaveFile';
+import { MAX_LEVELS_IN_SAVE } from '../../../levels/Levels2Page/Levels2Page';
 
 type PublicLevelChooserModalProps = {
 	isOpen: boolean;
@@ -101,6 +104,9 @@ function LevelChooserModal({
 	onTogglePublishLevel,
 	onRequestClose,
 }: PublicLevelChooserModalProps & InternalLevelChooserModalProps) {
+	const [isBuildingSave, setIsBuildingSave] = useState(false);
+	const [chosenLevels, setChosenLevels] = useState<Level[]>([]);
+
 	const [hidePublishBlurb, setHidePublishBlurb] = useLocalStorage(
 		PUBLISH_BLURB_KEY,
 		'false'
@@ -125,9 +131,15 @@ function LevelChooserModal({
 		? deserialize(convertedLocalStorage.data).rooms[0]
 		: EMPTY_ROOM;
 
+	function downloadSave(levels: Level[]) {
+		downloadSetOfLevelsAsSaveFile(levels, 'smaghetti');
+		setIsBuildingSave(false);
+		setChosenLevels([]);
+	}
+
 	return (
 		<Modal
-			className={styles.modal}
+			className={clsx(styles.modal, 'relative pb-8')}
 			title="Choose what to work on"
 			isOpen={isOpen}
 			onXClick={onRequestClose}
@@ -236,11 +248,46 @@ function LevelChooserModal({
 							levels={savedLevels}
 							isAdmin={isAdmin}
 							thumbnailScale={THUMBNAIL_SCALE}
-							onLevelChosen={onLevelChosen}
+							onLevelChosen={(level) => {
+								if (isBuildingSave) {
+									setChosenLevels((curLevels) => {
+										if (curLevels.includes(level)) {
+											return curLevels.filter((cl) => cl !== level);
+										} else if (curLevels.length < MAX_LEVELS_IN_SAVE) {
+											return curLevels.concat(level);
+										} else {
+											return curLevels;
+										}
+									});
+								} else {
+									onLevelChosen(level);
+								}
+							}}
 							onDeleteLevel={onDeleteLevel}
 							onTogglePublishLevel={onTogglePublishLevel}
+							isBuildingSave={isBuildingSave}
+							chosenLevelsForSave={chosenLevels}
 						/>
 					</>
+				)}
+				{isLoggedIn && (
+					<SaveFileList
+						emptySaveFileState="success"
+						className="absolute bottom-0 left-4 py-2"
+						style={{ minHeight: '3rem' }}
+						chosenLevelCount={chosenLevels.length}
+						onStartClick={() => {
+							setIsBuildingSave(true);
+						}}
+						onCancelClick={() => {
+							setIsBuildingSave(false);
+							setChosenLevels([]);
+						}}
+						onSaveClick={() => {
+							downloadSave(chosenLevels);
+						}}
+						isBuilding={isBuildingSave}
+					/>
 				)}
 			</div>
 		</Modal>

@@ -194,7 +194,7 @@ function Levels2Page({
 			</Root>
 			<SaveFileList
 				emptySaveFileState={emptySaveFileState}
-				className="ml-12 fixed bottom-0"
+				className="bg-gray-600 border-l border-t border-r border-gray-200 ml-12 fixed bottom-0"
 				style={{ minHeight: '3rem' }}
 				chosenLevelCount={chosenLevels.length}
 				onStartClick={() => {

@@ -105,7 +105,7 @@ function SaveFileList({
 		<div
 			className={clsx(
 				className,
-				'p-2 bg-gray-600 border-l border-t border-r border-gray-200 grid space-x-2 items-center text-sm max-w-lg'
+				'p-2  grid space-x-2 items-center text-sm max-w-lg'
 			)}
 			style={{ ...style, gridTemplateColumns: '8rem 1fr' }}
 		>

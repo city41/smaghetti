@@ -10,7 +10,7 @@ import { RoomThumbnail } from '../../../RoomThumbnail';
 import { PlainIconButton } from '../../../PlainIconButton';
 import { Button } from '../../../Button';
 import { isBrokenLevel } from './util';
-import { IconTrash } from '../../../../icons';
+import { IconCheck, IconTrash, IconUnchecked } from '../../../../icons';
 
 type SavedLevelsProps = {
 	className?: string;
@@ -18,6 +18,8 @@ type SavedLevelsProps = {
 	levels: Array<Level | BrokenLevel>;
 	isAdmin: boolean;
 	thumbnailScale: number;
+	isBuildingSave?: boolean;
+	chosenLevelsForSave: Level[];
 	onLevelChosen: (level: Level) => void;
 	onDeleteLevel: (level: Level | BrokenLevel) => void;
 	onTogglePublishLevel: (level: Level) => void;
@@ -74,6 +76,8 @@ type LevelRowProps = {
 	level: Level | BrokenLevel;
 	isAdmin: boolean;
 	scale: number;
+	isBuildingSave?: boolean;
+	isChosenForSave: boolean;
 	onLevelChosen: () => void;
 	onDeleteLevel: () => void;
 	onTogglePublishLevel: () => void;
@@ -86,7 +90,11 @@ function LevelRow({
 	onLevelChosen,
 	onDeleteLevel,
 	onTogglePublishLevel,
+	isBuildingSave,
+	isChosenForSave,
 }: LevelRowProps) {
+	const CheckIcon = isChosenForSave ? IconCheck : IconUnchecked;
+
 	const thumbnail = isBrokenLevel(level) ? (
 		<BrokenThumbnail scale={scale} />
 	) : (
@@ -123,7 +131,12 @@ function LevelRow({
 				gridTemplateColumns,
 			}}
 		>
-			{thumbnail}
+			<div className="flex flex-row items-center gap-x-2">
+				{isBuildingSave && (
+					<CheckIcon className="cursor-pointer" onClick={onLevelChosen} />
+				)}
+				{thumbnail}
+			</div>
 			<div
 				className={clsx('w-56 h-full flex flex-row items-center pl-4', {
 					'font-bold hover:underline cursor-pointer': !isBrokenLevel(level),
@@ -139,14 +152,18 @@ function LevelRow({
 			{isAdmin && !isBrokenLevel(level) && (
 				<div className="text-xs text-gray-400">{level.user?.username}</div>
 			)}
-			{isBrokenLevel(level) ? (
-				<div />
-			) : (
-				<Button onClick={onTogglePublishLevel}>
-					{level.published ? 'unpublish' : 'publish'}
-				</Button>
+			{!isBuildingSave && (
+				<>
+					{isBrokenLevel(level) ? (
+						<div />
+					) : (
+						<Button onClick={onTogglePublishLevel}>
+							{level.published ? 'unpublish' : 'publish'}
+						</Button>
+					)}
+					<DeleteLevel onDeleteLevel={onDeleteLevel} />
+				</>
 			)}
-			<DeleteLevel onDeleteLevel={onDeleteLevel} />
 		</div>
 	);
 }
@@ -157,6 +174,8 @@ function SavedLevels({
 	levels,
 	isAdmin,
 	thumbnailScale,
+	isBuildingSave,
+	chosenLevelsForSave,
 	onLevelChosen,
 	onDeleteLevel,
 	onTogglePublishLevel,
@@ -185,9 +204,17 @@ function SavedLevels({
 									level={l}
 									isAdmin={isAdmin}
 									scale={thumbnailScale}
-									onLevelChosen={() => onLevelChosen(l as Level)}
+									onLevelChosen={() => {
+										if (!isBrokenLevel(l)) {
+											onLevelChosen(l);
+										}
+									}}
 									onDeleteLevel={() => onDeleteLevel(l)}
 									onTogglePublishLevel={() => onTogglePublishLevel(l as Level)}
+									isBuildingSave={!isBrokenLevel(l) && isBuildingSave}
+									isChosenForSave={
+										!isBrokenLevel(l) && chosenLevelsForSave.includes(l)
+									}
 								/>
 							);
 						})}
