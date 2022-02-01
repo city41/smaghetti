@@ -14,15 +14,19 @@ import { moveRoomToFront } from './moveRoomToFront';
 type LevelPlayerProps = {
 	className?: string;
 	isPlaying: boolean;
-	playAs: 'mario' | 'luigi';
 	checkeredBackground: boolean;
 	children?: ReactNode;
 };
 
 function ConnectedLevelPlayer(props: LevelPlayerProps) {
-	const { mouseMode, name, settings, rooms, currentRoomIndex } = useSelector(
-		(state: AppState) => state.editor.present
-	);
+	const {
+		playAs,
+		mouseMode,
+		name,
+		settings,
+		rooms,
+		currentRoomIndex,
+	} = useSelector((state: AppState) => state.editor.present);
 
 	const level = useMemo(
 		() => ({
@@ -55,6 +59,7 @@ function ConnectedLevelPlayer(props: LevelPlayerProps) {
 		<LevelPlayer
 			{...props}
 			level={level}
+			playAs={playAs}
 			romFile={romFile}
 			biosFile={biosFile}
 			emptySaveFile={emptySaveFile}

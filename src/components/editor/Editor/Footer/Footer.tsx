@@ -12,14 +12,14 @@ import { MarioLuigiToggle } from './MarioLuigiToggle';
 type PublicFooterProps = {
 	className?: string;
 	style?: CSSProperties;
-	playAsCharacter: 'mario' | 'luigi';
-	onPlayAsCharacterToggle: () => void;
 	onProblemClick: () => void;
 };
 
 type InternalFooterProps = {
 	level: LevelToLoadInGBA;
+	playAsCharacter: PlayAsCharacter;
 	onExperimentsClick: () => void;
+	onPlayAsCharacterToggle: () => void;
 };
 
 const memoCompress = memoize(compress);

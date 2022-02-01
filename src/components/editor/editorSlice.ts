@@ -96,6 +96,7 @@ type RoomState = {
 type InternalEditorState = {
 	name: string;
 	creatorName?: string;
+	playAs: PlayAsCharacter;
 	settings: LevelSettings;
 	rooms: RoomState[];
 	currentRoomIndex: number;
@@ -394,6 +395,7 @@ const initialRoomState: RoomState = {
 
 const defaultInitialState: InternalEditorState = {
 	name: 'new level',
+	playAs: 'mario',
 	settings: {
 		timer: 900,
 		tag0: undefined,
@@ -992,6 +994,9 @@ const editorSlice = createSlice({
 	name: 'editor',
 	initialState,
 	reducers: {
+		togglePlayAs(state: InternalEditorState) {
+			state.playAs = state.playAs === 'mario' ? 'luigi' : 'mario';
+		},
 		setLevelName(state: InternalEditorState, action: PayloadAction<string>) {
 			state.name = action.payload;
 		},
@@ -2021,6 +2026,7 @@ const saveToLocalStorage = (): LevelThunk => (dispatch, getState) => {
 };
 
 const {
+	togglePlayAs,
 	setLevelName,
 	setTimer,
 	setCurrentRoomIndex,
@@ -2080,6 +2086,7 @@ function cleanUpReducer(state: InternalEditorState, action: Action) {
 // @ts-ignore not sure why this ignore is needed...
 const undoableReducer = undoable(cleanUpReducer, {
 	filter: excludeAction([
+		togglePlayAs.toString(),
 		setLevelName.toString(),
 		setTimer.toString(),
 		setCurrentRoomIndex.toString(),
@@ -2255,6 +2262,7 @@ export {
 	currentRoomReducer as reducer,
 	undo,
 	redo,
+	togglePlayAs,
 	setLevelName,
 	setTimer,
 	setCurrentRoomIndex,

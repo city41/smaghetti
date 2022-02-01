@@ -1,13 +1,22 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { AppState } from '../../../../store';
+import { bindActionCreators } from 'redux';
+import { AppState, dispatch } from '../../../../store';
 import { ExperimentsModal } from '../experiments/ExperimentsModal/ExperimentsModal';
+import { togglePlayAs } from '../../editorSlice';
 
 import { Footer, PublicFooterProps } from './Footer';
 
+const actions = bindActionCreators(
+	{
+		onPlayAsCharacterToggle: togglePlayAs,
+	},
+	dispatch
+);
+
 function ConnectedFooter(props: PublicFooterProps) {
 	const [showExperimentsModal, setShowExperimentsModal] = useState(false);
-	const { rooms, mouseMode } = useSelector(
+	const { rooms, mouseMode, playAs } = useSelector(
 		(state: AppState) => state.editor.present
 	);
 
@@ -38,7 +47,9 @@ function ConnectedFooter(props: PublicFooterProps) {
 			<Footer
 				{...props}
 				level={level}
+				playAsCharacter={playAs}
 				onExperimentsClick={handleExperimentsClick}
+				{...actions}
 			/>
 			<ExperimentsModal
 				isOpen={showExperimentsModal}

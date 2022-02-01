@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 type MarioLuigiToggle = {
 	className?: string;
-	currentValue: 'mario' | 'luigi';
+	currentValue: PlayAsCharacter;
 	onClick: () => void;
 };
 

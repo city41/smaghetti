@@ -17,7 +17,7 @@ type GBAPlayerProps = {
 	levelData: Uint8Array;
 	ecoinInfo: ECoinInfo | null;
 	isPlaying: boolean;
-	playAs: 'mario' | 'luigi';
+	playAs: PlayAsCharacter;
 	scale?: number;
 	canvasRef: RefObject<HTMLCanvasElement>;
 	neverShowCrashScreen?: boolean;
