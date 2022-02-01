@@ -2160,6 +2160,7 @@ const NonUndoableEditorState: Array<keyof InternalEditorState> = [
 	'showGrid',
 	'focused',
 	'mouseMode',
+	'playAs',
 ];
 
 const NonUndoableRoomState: Array<keyof RoomState> = [
