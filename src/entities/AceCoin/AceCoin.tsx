@@ -184,6 +184,12 @@ const AceCoin: Entity = {
 				aceCoinIndex + 1
 			}`;
 		}
+
+		const totalAceCoinCount = allAceCoins.length + allBubbles.length;
+
+		if (aceCoinIndex >= totalAceCoinCount) {
+			return `Position should not be greater than ${totalAceCoinCount}`;
+		}
 	},
 };
 
