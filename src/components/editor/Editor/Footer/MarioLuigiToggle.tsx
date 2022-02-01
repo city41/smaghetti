@@ -13,7 +13,14 @@ function MarioLuigiToggle({
 	onClick,
 }: MarioLuigiToggle) {
 	return (
-		<button className={clsx(className, 'flex flex-row')} onClick={onClick}>
+		<button
+			className={clsx(className, 'flex flex-row')}
+			onClick={onClick}
+			onFocus={(e) => {
+				e.preventDefault();
+				e.target.blur();
+			}}
+		>
 			<div
 				className={clsx('w-4 h-4 bg-cover', {
 					'MarioLetterIconActive-bg': currentValue === 'mario',
