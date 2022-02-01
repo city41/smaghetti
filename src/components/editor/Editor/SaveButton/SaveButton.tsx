@@ -61,6 +61,10 @@ const SaveButton = memo(function SaveButton({
 							e.preventDefault();
 							onSaveACopyClick();
 						}}
+						onFocus={(e) => {
+							e.preventDefault();
+							e.target.blur();
+						}}
 					>
 						or save a copy
 					</a>
