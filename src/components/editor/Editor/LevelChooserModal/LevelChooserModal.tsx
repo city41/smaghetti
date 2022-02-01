@@ -139,7 +139,7 @@ function LevelChooserModal({
 
 	return (
 		<Modal
-			className={clsx(styles.modal, 'relative pb-8')}
+			className={clsx(styles.modal, 'relative pb-12')}
 			title="Choose what to work on"
 			isOpen={isOpen}
 			onXClick={onRequestClose}
@@ -270,11 +270,10 @@ function LevelChooserModal({
 						/>
 					</>
 				)}
-				{isLoggedIn && (
+				{isLoggedIn && loadingLevelsState === 'success' && (
 					<SaveFileList
 						emptySaveFileState="success"
 						className="absolute bottom-0 left-4 py-2"
-						style={{ minHeight: '3rem' }}
 						chosenLevelCount={chosenLevels.length}
 						onStartClick={() => {
 							setIsBuildingSave(true);
