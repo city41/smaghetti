@@ -55,6 +55,7 @@ goIntoLevelScriptAsLuigi.splice(2, 0, {
 	frameDelay: 24,
 	input: A_BUTTON,
 });
+goIntoLevelScriptAsLuigi[3] = Object.assign({}, goIntoLevelScriptAsLuigi[3]);
 goIntoLevelScriptAsLuigi[3].frameDelay = 90;
 
 GameBoyAdvance = function GameBoyAdvance() {
