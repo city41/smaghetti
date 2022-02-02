@@ -44,7 +44,6 @@ const betaChecklist: MilestoneChecklistItem[] = [
 	},
 	{ status: 'completed', description: 'Water levels' },
 	{ status: 'in-progress', description: 'Giant object grid' },
-	{ status: 'in-progress', description: 'Airship Levels' },
 	{ status: 'not-started', description: 'All entities are fully configurable' },
 	{ status: 'in-progress', description: 'Level file format is finalized' },
 	{ status: 'in-progress', description: 'Autoscroll rooms' },
