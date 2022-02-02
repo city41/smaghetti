@@ -1,25 +1,33 @@
 import React from 'react';
 import type { Entity } from './types';
-import { encodeObjectSets, getBankParam1 } from './util';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	getHeightForEntityWithASupportingFloor,
+	getSupportingFloor,
+} from './util';
+import { ANY_SPRITE_GRAPHIC_SET, OBJECT_PRIORITY_MIDDLE } from './constants';
 import { ResizableRect } from '../components/ResizableRect';
 import { HammerButton } from './detailPanes/HammerButton';
+import { TILE_SIZE } from '../tiles/constants';
+import { TileSpace } from './TileSpace';
+import { StaticResource } from '../resources/types';
 
-const RECT_CLASSES = [
+const RECT_CLASSES_TEMPLATE = [
 	[
-		'ColorfulMetalBoxUpperLeft-bg',
-		'ColorfulMetalBoxTop-bg',
-		'ColorfulMetalBoxUpperRight-bg',
+		'GrassPlateauTopiaryUpperLeft',
+		'GrassPlateauTopiaryUpperCenter',
+		'GrassPlateauTopiaryUpperRight',
 	],
 	[
-		'ColorfulMetalBoxLeft-bg',
-		'ColorfulMetalBox-bg',
-		'ColorfulMetalBoxRight-bg',
+		'GrassPlateauTopiaryLowerLeft',
+		'GrassPlateauTopiaryLowerCenter',
+		'GrassPlateauTopiaryLowerRight',
 	],
 	[
-		'ColorfulMetalBoxLowerLeft-bg',
-		'ColorfulMetalBoxBottom-bg',
-		'ColorfulMetalBoxLowerRight-bg',
+		'GrassPlateauTopiaryLowerLeft',
+		'GrassPlateauTopiaryLowerCenter',
+		'GrassPlateauTopiaryLowerRight',
 	],
 ];
 
@@ -31,19 +39,171 @@ const colorToObjectId = {
 
 type Color = keyof typeof colorToObjectId;
 
-const overlayColorToCss: Record<Color, string> = {
-	orange: '#f8a060',
-	green: '#90c868',
-	blue: '#70d8f8',
+const colorCycle: Color[] = Object.keys(colorToObjectId) as Color[];
+
+function getRectClasses(color: Color): string[][] {
+	return RECT_CLASSES_TEMPLATE.map((row) => {
+		return row.map((cell) => {
+			return cell + color + '-bg';
+		});
+	});
+}
+
+const palettes: Record<Color, number[]> = {
+	green: [
+		31775,
+		32767,
+		0,
+		521,
+		8846,
+		14130,
+		18359,
+		500,
+		666,
+		895,
+		21,
+		3485,
+		703,
+		13824,
+		19109,
+		23337,
+	],
+	blue: [
+		0x7f96,
+		0x7fff,
+		0x0,
+		0x65a3,
+		0x7a8b,
+		0x7f6e,
+		0x7fd6,
+		0x1594,
+		0x2e39,
+		0x42bd,
+		0x2260,
+		0x2ac8,
+		0x3b4c,
+		0x47b0,
+		0x223f,
+		0x57f3,
+	],
+	orange: [
+		0x7f96,
+		0x7fff,
+		0x0,
+		0x17b,
+		0x1a1f,
+		0x329f,
+		0x4b7f,
+		0x3664,
+		0x470a,
+		0x5fb1,
+		0xd73,
+		0x19f8,
+		0x2e5d,
+		0x3edf,
+		0x0,
+		0x0,
+	],
 };
 
-const colorCycle: Color[] = Object.keys(colorToObjectId) as Color[];
+const resourceTemplate = {
+	GrassPlateauTopiaryUpperLeft: {
+		palettes: [],
+		tiles: [
+			[512, 530],
+			[600, 535],
+		],
+		romOffset: 1534952,
+	},
+	GrassPlateauTopiaryUpperCenter: {
+		palettes: [],
+		tiles: [
+			[531, 530],
+			[536, 535],
+		],
+		romOffset: 1534952,
+	},
+	GrassPlateauTopiaryUpperRight: {
+		palettes: [],
+		tiles: [
+			[531, 514],
+			[536, 601],
+		],
+		romOffset: 1534952,
+	},
+	GrassPlateauTopiaryLowerLeft: {
+		palettes: [],
+		tiles: [
+			[515, 534],
+			[
+				565,
+				{
+					romOffset: 1486172,
+					tileIndex: 507,
+				},
+			],
+		],
+		romOffset: 1534952,
+	},
+	GrassPlateauTopiaryLowerCenter: {
+		palettes: [],
+		tiles: [
+			[
+				{
+					romOffset: 1486172,
+					tileIndex: 507,
+				},
+				534,
+			],
+			[
+				534,
+				{
+					romOffset: 1486172,
+					tileIndex: 507,
+				},
+			],
+		],
+		romOffset: 1534952,
+	},
+	GrassPlateauTopiaryLowerRight: {
+		palettes: [],
+		tiles: [
+			[
+				{
+					romOffset: 1486172,
+					tileIndex: 507,
+				},
+				516,
+			],
+			[534, 566],
+		],
+		romOffset: 1534952,
+	},
+};
+
+const resources = Object.keys(resourceTemplate).reduce<
+	Record<string, StaticResource>
+>((building, key) => {
+	Object.entries(palettes).forEach((pe) => {
+		const resource = resourceTemplate[key as keyof typeof resourceTemplate];
+		const newResource = {
+			...resource,
+			palettes: [pe[1]],
+		};
+
+		building[key + pe[0]] = newResource;
+	});
+
+	return building;
+}, {});
 
 const GrassPlateauTopiary: Entity = {
 	paletteCategory: 'unfinished',
 	paletteInfo: {
 		subCategory: 'terrain-large',
 		title: 'Grass Plateau - Topiary',
+		description:
+			'These always extend down to a wood floor, and cast shadows on topiaries they overlap with',
 	},
 
 	objectSets: encodeObjectSets([[1, 0x14]]),
@@ -52,12 +212,14 @@ const GrassPlateauTopiary: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	param1: 'width',
-	param2: 'height',
 	objectId: 0x2,
+	objectPriority: OBJECT_PRIORITY_MIDDLE + 1,
 	alternateObjectIds: Object.values(colorToObjectId),
 	emptyBank: 1,
 
 	defaultSettings: { width: 2, color: 'green' },
+
+	resources,
 
 	toObjectBinary({ x, y, settings }): number[] {
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
@@ -77,26 +239,30 @@ const GrassPlateauTopiary: Entity = {
 			<div style={style} className="grid grid-cols-2 grid-rows-2">
 				<div
 					style={cornerStyle}
-					className="ColorfulMetalBoxUpperLeft-bg bg-cover"
+					className="GrassPlateauTopiaryUpperLeftgreen-bg bg-cover"
 				/>
 				<div
 					style={cornerStyle}
-					className="ColorfulMetalBoxUpperRight-bg bg-cover"
+					className="GrassPlateauTopiaryUpperRightgreen-bg bg-cover"
 				/>
 				<div
 					style={cornerStyle}
-					className="ColorfulMetalBoxLowerLeft-bg bg-cover"
+					className="GrassPlateauTopiaryLowerLeftgreen-bg bg-cover"
 				/>
 				<div
 					style={cornerStyle}
-					className="ColorfulMetalBoxLowerRight-bg bg-cover"
+					className="GrassPlateauTopiaryLowerRightgreen-bg bg-cover"
 				/>
 			</div>
 		);
 	},
 
-	render({ settings, onSettingsChange, entity }) {
-		const height = 2; // (settings.height ?? this.defaultSettings!.height) as number;
+	render({ settings, onSettingsChange, entity, room }) {
+		const height = getHeightForEntityWithASupportingFloor(
+			entity,
+			room,
+			'WoodFloor'
+		);
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 		const color = (settings.color ?? this.defaultSettings!.color) as Color;
 
@@ -105,30 +271,48 @@ const GrassPlateauTopiary: Entity = {
 				className="relative"
 				width={width}
 				height={height}
-				styles={RECT_CLASSES}
+				styles={getRectClasses(color)}
+				axis="x"
 				hideResizer={!entity}
 				minW={2}
 				minH={2}
-				onSizeChange={(width, height) => onSettingsChange({ width, height })}
+				onSizeChange={(width) => onSettingsChange({ width })}
 			>
-				<div
-					className="absolute top-0 left-0 w-full h-full"
-					style={{
-						backgroundColor: overlayColorToCss[color],
-						mixBlendMode: 'multiply',
-					}}
-				/>
 				{!!entity && (
-					<HammerButton
-						currentValue={color}
-						values={colorCycle}
-						onNewValue={(newColor) => {
-							onSettingsChange({ color: newColor });
-						}}
-					/>
+					<>
+						<HammerButton
+							currentValue={color}
+							values={colorCycle}
+							onNewValue={(newColor) => {
+								onSettingsChange({ color: newColor });
+							}}
+						/>
+						<TileSpace
+							className="absolute left-0 top-0 w-full"
+							style={{ height: TILE_SIZE }}
+						/>
+					</>
 				)}
 			</ResizableRect>
 		);
+	},
+
+	getProblem({ entity, room }) {
+		const supportingWoodFloor = getSupportingFloor(entity, room, 'WoodFloor');
+
+		if (!supportingWoodFloor) {
+			return {
+				severity: 'error',
+				message:
+					'Must sit on top of a wood floor that extends 1 tile beyond on each side',
+			};
+		}
+
+		if (
+			getHeightForEntityWithASupportingFloor(entity, room, 'WoodFloor') === 1
+		) {
+			return "Won't render correctly when only 1 tile tall";
+		}
 	},
 };
 

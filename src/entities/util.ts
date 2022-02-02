@@ -810,3 +810,64 @@ export function invertNumeric(
 		{}
 	);
 }
+
+/**
+ * used by ColorfulMetalBoxWithShadow, GrassPlateauTopiary, and StonePlateau
+ * These types need to sit on top of a floor in order to not be corrupt
+ */
+export function getSupportingFloor(
+	entity: EditorEntity | undefined,
+	room: RoomData | undefined,
+	floorType: EntityType
+): EditorEntity | null {
+	if (!entity || !room) {
+		return null;
+	}
+
+	const ety = entity.y / TILE_SIZE;
+	const etx = entity.x / TILE_SIZE;
+
+	const entityWidth = entity.settings!.width as number;
+
+	const floorThatMatches = room.stage.entities.find((f) => {
+		if (f.type !== floorType) {
+			return false;
+		}
+
+		const fty = f.y / TILE_SIZE;
+
+		if (fty <= ety) {
+			return false;
+		}
+
+		const floorWidth = (f.settings?.width ?? 2) as number;
+		const ftx = f.x / TILE_SIZE;
+
+		if (ftx < etx && ftx + floorWidth > etx + entityWidth) {
+			return true;
+		}
+	});
+
+	return floorThatMatches ?? null;
+}
+
+export function getHeightForEntityWithASupportingFloor(
+	entity: EditorEntity | undefined,
+	room: RoomData | undefined,
+	floorType: EntityType
+): number {
+	if (!entity || !room) {
+		return 2;
+	}
+
+	const ety = entity.y / TILE_SIZE;
+
+	const floorThatMatches = getSupportingFloor(entity, room, floorType);
+
+	if (!floorThatMatches) {
+		return room.roomTileHeight - ety;
+	}
+
+	const wfty = floorThatMatches.y / TILE_SIZE;
+	return wfty - ety;
+}

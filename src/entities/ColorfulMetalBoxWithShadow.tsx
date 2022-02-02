@@ -1,6 +1,11 @@
 import React from 'react';
 import type { Entity } from './types';
-import { encodeObjectSets, getBankParam1 } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	getHeightForEntityWithASupportingFloor,
+	getSupportingFloor,
+} from './util';
 import { ANY_SPRITE_GRAPHIC_SET, OBJECT_PRIORITY_MIDDLE } from './constants';
 import { ResizableRect } from '../components/ResizableRect';
 import { HammerButton } from './detailPanes/HammerButton';
@@ -42,61 +47,6 @@ const overlayColorToCss: Record<Color, string> = {
 };
 
 const colorCycle: Color[] = Object.keys(colorToObjectId) as Color[];
-
-function getSupportingWoodFloor(
-	entity: EditorEntity | undefined,
-	room: RoomData | undefined
-): EditorEntity | null {
-	if (!entity || !room) {
-		return null;
-	}
-
-	const ety = entity.y / TILE_SIZE;
-	const etx = entity.x / TILE_SIZE;
-
-	const entityWidth = entity.settings!.width as number;
-
-	const woodFloorThatMatches = room.stage.entities.find((f) => {
-		if (f.type !== 'WoodFloor') {
-			return false;
-		}
-
-		const fty = f.y / TILE_SIZE;
-
-		if (fty <= ety) {
-			return false;
-		}
-
-		const floorWidth = (f.settings?.width ?? 2) as number;
-		const ftx = f.x / TILE_SIZE;
-
-		if (ftx < etx && ftx + floorWidth > etx + entityWidth) {
-			return true;
-		}
-	});
-
-	return woodFloorThatMatches ?? null;
-}
-
-function getHeight(
-	entity: EditorEntity | undefined,
-	room: RoomData | undefined
-): number {
-	if (!entity || !room) {
-		return 2;
-	}
-
-	const ety = entity.y / TILE_SIZE;
-
-	const woodFloorThatMatches = getSupportingWoodFloor(entity, room);
-
-	if (!woodFloorThatMatches) {
-		return room.roomTileHeight - ety;
-	}
-
-	const wfty = woodFloorThatMatches.y / TILE_SIZE;
-	return wfty - ety;
-}
 
 const ColorfulMetalBoxWithShadow: Entity = {
 	paletteCategory: 'terrain',
@@ -160,7 +110,11 @@ const ColorfulMetalBoxWithShadow: Entity = {
 	},
 
 	render({ settings, onSettingsChange, entity, room }) {
-		const height = getHeight(entity, room);
+		const height = getHeightForEntityWithASupportingFloor(
+			entity,
+			room,
+			'WoodFloor'
+		);
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 		const color = (settings.color ?? this.defaultSettings!.color) as Color;
 
@@ -203,7 +157,7 @@ const ColorfulMetalBoxWithShadow: Entity = {
 	},
 
 	getProblem({ entity, room }) {
-		const supportingWoodFloor = getSupportingWoodFloor(entity, room);
+		const supportingWoodFloor = getSupportingFloor(entity, room, 'WoodFloor');
 
 		if (!supportingWoodFloor) {
 			return {
@@ -213,7 +167,9 @@ const ColorfulMetalBoxWithShadow: Entity = {
 			};
 		}
 
-		if (getHeight(entity, room) === 1) {
+		if (
+			getHeightForEntityWithASupportingFloor(entity, room, 'WoodFloor') === 1
+		) {
 			return "Won't render correctly when only 1 tile tall";
 		}
 	},
