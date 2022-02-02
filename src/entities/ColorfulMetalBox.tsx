@@ -46,6 +46,8 @@ const ColorfulMetalBox: Entity = {
 	paletteInfo: {
 		subCategory: 'terrain-large',
 		title: 'Colorful Metal Box',
+		description:
+			'These can float in the air, but never cast shadow on other boxes',
 	},
 
 	objectSets: encodeObjectSets([[1, 1]]),

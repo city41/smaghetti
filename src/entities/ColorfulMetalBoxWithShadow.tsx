@@ -1,9 +1,11 @@
 import React from 'react';
 import type { Entity } from './types';
 import { encodeObjectSets, getBankParam1 } from './util';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_SPRITE_GRAPHIC_SET, OBJECT_PRIORITY_MIDDLE } from './constants';
 import { ResizableRect } from '../components/ResizableRect';
 import { HammerButton } from './detailPanes/HammerButton';
+import { TILE_SIZE } from '../tiles/constants';
+import { TileSpace } from './TileSpace';
 
 const RECT_CLASSES = [
 	[
@@ -41,11 +43,68 @@ const overlayColorToCss: Record<Color, string> = {
 
 const colorCycle: Color[] = Object.keys(colorToObjectId) as Color[];
 
+function getSupportingWoodFloor(
+	entity: EditorEntity | undefined,
+	room: RoomData | undefined
+): EditorEntity | null {
+	if (!entity || !room) {
+		return null;
+	}
+
+	const ety = entity.y / TILE_SIZE;
+	const etx = entity.x / TILE_SIZE;
+
+	const entityWidth = entity.settings!.width as number;
+
+	const woodFloorThatMatches = room.stage.entities.find((f) => {
+		if (f.type !== 'WoodFloor') {
+			return false;
+		}
+
+		const fty = f.y / TILE_SIZE;
+
+		if (fty <= ety) {
+			return false;
+		}
+
+		const floorWidth = (f.settings?.width ?? 2) as number;
+		const ftx = f.x / TILE_SIZE;
+
+		if (ftx < etx && ftx + floorWidth > etx + entityWidth) {
+			return true;
+		}
+	});
+
+	return woodFloorThatMatches ?? null;
+}
+
+function getHeight(
+	entity: EditorEntity | undefined,
+	room: RoomData | undefined
+): number {
+	if (!entity || !room) {
+		return 2;
+	}
+
+	const ety = entity.y / TILE_SIZE;
+
+	const woodFloorThatMatches = getSupportingWoodFloor(entity, room);
+
+	if (!woodFloorThatMatches) {
+		return room.roomTileHeight - ety;
+	}
+
+	const wfty = woodFloorThatMatches.y / TILE_SIZE;
+	return wfty - ety;
+}
+
 const ColorfulMetalBoxWithShadow: Entity = {
 	paletteCategory: 'unfinished',
 	paletteInfo: {
 		subCategory: 'terrain-large',
 		title: 'Colorful Metal Box - With Shadow',
+		description:
+			'These always extend down to a wood floor, and cast shadows on boxes they overlap with',
 	},
 
 	objectSets: encodeObjectSets([[1, 1]]),
@@ -54,8 +113,8 @@ const ColorfulMetalBoxWithShadow: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	param1: 'width',
-	param2: 'height',
 	objectId: 0x2,
+	objectPriority: OBJECT_PRIORITY_MIDDLE + 1,
 	alternateObjectIds: Object.values(colorToObjectId),
 	emptyBank: 1,
 
@@ -76,7 +135,7 @@ const ColorfulMetalBoxWithShadow: Entity = {
 		const cornerStyle = { width: size / 2, height: size / 2 };
 
 		return (
-			<div style={style} className="grid grid-cols-2 grid-rows-2">
+			<div style={style} className="relative grid grid-cols-2 grid-rows-2">
 				<div
 					style={cornerStyle}
 					className="ColorfulMetalBoxUpperLeft-bg bg-cover"
@@ -93,12 +152,15 @@ const ColorfulMetalBoxWithShadow: Entity = {
 					style={cornerStyle}
 					className="ColorfulMetalBoxLowerRight-bg bg-cover"
 				/>
+				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
+					shadow
+				</div>
 			</div>
 		);
 	},
 
-	render({ settings, onSettingsChange, entity }) {
-		const height = 2; // (settings.height ?? this.defaultSettings!.height) as number;
+	render({ settings, onSettingsChange, entity, room }) {
+		const height = getHeight(entity, room);
 		const width = (settings.width ?? this.defaultSettings!.width) as number;
 		const color = (settings.color ?? this.defaultSettings!.color) as Color;
 
@@ -111,7 +173,7 @@ const ColorfulMetalBoxWithShadow: Entity = {
 				hideResizer={!entity}
 				minW={2}
 				minH={2}
-				onSizeChange={(width, height) => onSettingsChange({ width, height })}
+				onSizeChange={(width) => onSettingsChange({ width })}
 			>
 				<div
 					className="absolute top-0 left-0 w-full h-full"
@@ -121,16 +183,34 @@ const ColorfulMetalBoxWithShadow: Entity = {
 					}}
 				/>
 				{!!entity && (
-					<HammerButton
-						currentValue={color}
-						values={colorCycle}
-						onNewValue={(newColor) => {
-							onSettingsChange({ color: newColor });
-						}}
-					/>
+					<>
+						<HammerButton
+							currentValue={color}
+							values={colorCycle}
+							onNewValue={(newColor) => {
+								onSettingsChange({ color: newColor });
+							}}
+						/>
+						<TileSpace
+							className="absolute left-0 top-0 w-full"
+							style={{ height: TILE_SIZE }}
+						/>
+					</>
 				)}
 			</ResizableRect>
 		);
+	},
+
+	getProblem({ entity, room }) {
+		const supportingWoodFloor = getSupportingWoodFloor(entity, room);
+
+		if (!supportingWoodFloor) {
+			return {
+				severity: 'error',
+				message:
+					'Must sit on top of a wood floor that extends 1 tile beyond on each side',
+			};
+		}
 	},
 };
 
