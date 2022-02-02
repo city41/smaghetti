@@ -99,7 +99,7 @@ function getHeight(
 }
 
 const ColorfulMetalBoxWithShadow: Entity = {
-	paletteCategory: 'unfinished',
+	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-large',
 		title: 'Colorful Metal Box - With Shadow',
@@ -170,6 +170,7 @@ const ColorfulMetalBoxWithShadow: Entity = {
 				width={width}
 				height={height}
 				styles={RECT_CLASSES}
+				axis="x"
 				hideResizer={!entity}
 				minW={2}
 				minH={2}
@@ -210,6 +211,10 @@ const ColorfulMetalBoxWithShadow: Entity = {
 				message:
 					'Must sit on top of a wood floor that extends 1 tile beyond on each side',
 			};
+		}
+
+		if (getHeight(entity, room) === 1) {
+			return "Won't render correctly when only 1 tile tall";
 		}
 	},
 };

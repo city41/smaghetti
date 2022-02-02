@@ -17,6 +17,7 @@ type ResizableRectProps = {
 	minH: number;
 	maxW?: number;
 	maxH?: number;
+	axis?: 'x' | 'y' | 'xy';
 	onSizeChange: (newWidth: number, newHeight: number) => void;
 	children?: ReactNode;
 };
@@ -84,6 +85,7 @@ const ResizableRect = memo(function ResizableRect({
 	hideResizer,
 	onSizeChange,
 	children,
+	axis = 'xy',
 }: ResizableRectProps) {
 	const [resizing, setResizing] = useState(false);
 
@@ -129,7 +131,7 @@ const ResizableRect = memo(function ResizableRect({
 					style={{ marginRight: '-0.12rem', marginBottom: '-0.12rem' }}
 					size={size}
 					increment={TILE_SIZE}
-					axis="xy"
+					axis={axis}
 					onSizeChange={(newSizePoint) => {
 						onSizeChange(
 							clamp(newSizePoint.x, minW, maxW ?? Number.MAX_SAFE_INTEGER),

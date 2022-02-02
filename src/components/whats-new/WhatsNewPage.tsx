@@ -95,6 +95,17 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2022-02-02">
+					<ul>
+						<li>Colorful Metal Box - With Shadow</li>
+					</ul>
+					<p>
+						The classic boxes found in SMB3 1-1 are finally in Smaghetti. The
+						other colorful boxes that Smaghetti already had are a bit different.
+						These new ones cast shadows, but must be placed on top of a wood
+						floor.
+					</p>
+				</NewEntry>
 				<NewEntry title="Play as Luigi" date="2022-02-01">
 					<p>
 						You can now test your levels as Luigi. In the lower right corner,
