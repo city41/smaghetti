@@ -108,7 +108,7 @@ function WhatsNewPage() {
 				</NewEntry>
 				<NewEntry title="Play as Luigi" date="2022-02-01">
 					<p>
-						You can now test your levels as Luigi. In the lower right corner,
+						You can now test your levels as Luigi. In the lower left corner,
 						click the toggle button to switch to Luigi.
 					</p>
 				</NewEntry>
