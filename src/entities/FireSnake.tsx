@@ -8,7 +8,8 @@ const FireSnake: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		title: 'Fire Snake',
-		description: "Welp, it's not supposed to be purple...",
+		description:
+			'Want it to be orange? Add a stone floor or fortress spike to your level',
 	},
 
 	objectSets: ANY_OBJECT_SET,
