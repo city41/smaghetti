@@ -843,7 +843,7 @@ export function getSupportingFloor(
 		const floorWidth = (f.settings?.width ?? 2) as number;
 		const ftx = f.x / TILE_SIZE;
 
-		if (ftx < etx && ftx + floorWidth > etx + entityWidth) {
+		if (ftx <= etx && ftx + floorWidth > etx + entityWidth) {
 			return true;
 		}
 	});

@@ -304,7 +304,7 @@ const TopiaryPlateau: Entity = {
 			return {
 				severity: 'error',
 				message:
-					'Must sit on top of a wood floor that extends 1 tile beyond on each side',
+					'Must sit on top of a wood floor that extends 1 tile beyond on the right side',
 			};
 		}
 
