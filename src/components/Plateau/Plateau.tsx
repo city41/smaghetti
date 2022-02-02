@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { Resizer } from '../Resizer';
 
 import styles from '../Resizer/ResizingStyles.module.css';
+import { TileSpace } from '../../entities/TileSpace';
 
 type PlateauProps = {
 	bgClassName: string;
@@ -152,6 +153,10 @@ function Plateau({
 					onResizeEnd={() => onSettingsChange({ resizing: false })}
 				/>
 			)}
+			<TileSpace
+				className="absolute top-0 left-0 w-full"
+				style={{ height: TILE_SIZE }}
+			/>
 		</div>
 	);
 }
