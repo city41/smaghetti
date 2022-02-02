@@ -38,7 +38,10 @@ const WoodFloor: Entity = {
 		title: 'Wood Floor',
 	},
 
-	objectSets: encodeObjectSets([[1, 1]]),
+	objectSets: encodeObjectSets([
+		[1, 1],
+		[1, 0x14],
+	]),
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'entity',

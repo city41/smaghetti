@@ -119,7 +119,9 @@ function getObjectHeader(
 		width & 0xf, // bottom nibble is length of level, top is unknown
 		room.settings.bgColor, // background color
 		room.settings.wrapAround ? 0xb1 : 0xa1, // top nibble is scroll settings, bottom unknown, copied from 1-2
-		objectGraphicSet, // top 3 bits: level entry action, bottom 5: graphics set
+		// TODO: level entries. for now they are always zero, and to help ensure that is the case
+		// mask objectGraphicSet down to 5 bits
+		objectGraphicSet & 0x1f, // top 3 bits: level entry action, bottom 5: graphics set
 		0x08, // top nibble: graphics set, bottom: unknown
 		room.settings.bgExtraColorAndEffect ?? 0,
 		room.settings.bgGraphic,

@@ -171,6 +171,7 @@ import { GrassChuteDownRight } from './GrassChuteDownRight';
 import { GrassFloor } from './GrassFloor';
 import { GrassHorizontal } from './GrassHorizontal';
 import { GrassPlateau } from './GrassPlateau';
+import { GrassPlateauTopiary } from './GrassPlateauTopiary';
 import { GrassSlope30DegUpLeft } from './GrassSlope30DegUpLeft';
 import { GrassSlope30DegUpRight } from './GrassSlope30DegUpRight';
 import { GrassStaircaseUpLeft } from './GrassStaircaseUpLeft';
@@ -564,6 +565,7 @@ const entityMap = {
 	GrassFloor,
 	GrassHorizontal,
 	GrassPlateau,
+	GrassPlateauTopiary,
 	GrassSlope30DegUpLeft,
 	GrassSlope30DegUpRight,
 	GrassStaircaseUpLeft,
