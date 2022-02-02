@@ -8,6 +8,23 @@ import {
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { ResizableRect } from '../components/ResizableRect';
 
+const palette = [
+	0x7f96,
+	0x7fff,
+	0x0,
+	0x39ce,
+	0x4a52,
+	0x6318,
+	0x77bd,
+	0x732c,
+	0x7fd2,
+	0x7ffb,
+	0x15d2,
+	0x2257,
+	0x2afc,
+	0x37be,
+];
+
 const RECT_CLASSES = [
 	[
 		'UnderwaterFloorUpperLeft-bg',
@@ -49,32 +66,77 @@ const UnderwaterFloor: Entity = {
 
 	defaultSettings: { width: 2, height: 2 },
 
-	resource: {
-		romOffset: 0x16ad5c,
-		palettes: [
-			[
-				0x7f96,
-				0x7fff,
-				0x0,
-				0x356b,
-				0x4610,
-				0x5a94,
-				0x6b18,
-				0x732c,
-				0x7fd2,
-				0x7ffb,
-				0x59c9,
-				0x6a51,
-				0x7ad8,
-				0x7f5c,
-				0x29a,
-				0x37f,
+	resources: {
+		UnderwaterFloorBottom: {
+			palettes: [palette],
+			romOffset: 0x17a894,
+			tiles: [
+				[
+					{ romOffset: 0x16ad5c, tileIndex: 510 },
+					{ romOffset: 0x16ad5c, tileIndex: 510 },
+				],
+				[587, 587],
 			],
-		],
-		tiles: [
-			[510, 510],
-			[510, 510],
-		],
+		},
+		UnderwaterFloorLeft: {
+			palettes: [palette],
+			romOffset: 0x17a894,
+			tiles: [
+				[588, { romOffset: 0x16ad5c, tileIndex: 510 }],
+				[588, { romOffset: 0x16ad5c, tileIndex: 510 }],
+			],
+		},
+		UnderwaterFloorRight: {
+			palettes: [palette],
+			romOffset: 0x17a894,
+			tiles: [
+				[{ romOffset: 0x16ad5c, tileIndex: 510 }, 589],
+				[{ romOffset: 0x16ad5c, tileIndex: 510 }, 589],
+			],
+		},
+		UnderwaterFloorLowerLeft: {
+			palettes: [palette],
+			romOffset: 0x17a894,
+			tiles: [
+				[588, { romOffset: 0x16ad5c, tileIndex: 510 }],
+				[523, 587],
+			],
+		},
+		UnderwaterFloorLowerRight: {
+			palettes: [palette],
+			romOffset: 0x17a894,
+			tiles: [
+				[{ romOffset: 0x16ad5c, tileIndex: 510 }, 589],
+				[587, 524],
+			],
+		},
+		UnderwaterFloorTop: {
+			palettes: [palette],
+			romOffset: 0x17a894,
+			tiles: [
+				[586, 586],
+				[
+					{ romOffset: 0x16ad5c, tileIndex: 510 },
+					{ romOffset: 0x16ad5c, tileIndex: 510 },
+				],
+			],
+		},
+		UnderwaterFloorUpperLeft: {
+			palettes: [palette],
+			romOffset: 0x17a894,
+			tiles: [
+				[521, 586],
+				[588, { romOffset: 0x16ad5c, tileIndex: 510 }],
+			],
+		},
+		UnderwaterFloorUpperRight: {
+			palettes: [palette],
+			romOffset: 0x17a894,
+			tiles: [
+				[586, 522],
+				[{ romOffset: 0x16ad5c, tileIndex: 510 }, 589],
+			],
+		},
 	},
 
 	toObjectBinary({ x, y, settings }) {

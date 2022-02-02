@@ -118,14 +118,6 @@ import { UndergroundCaveBackground } from './UndergroundCaveBackground';
 import { UndergroundDoubleCaveBackground } from './UndergroundDoubleCaveBackground';
 import { UndergroundBackground } from './UndergroundBackground';
 import { UnderwaterBackground } from './UnderwaterBackground';
-import { UnderwaterFloorBottom } from './UnderwaterFloorBottom';
-import { UnderwaterFloorLeft } from './UnderwaterFloorLeft';
-import { UnderwaterFloorLowerLeft } from './UnderwaterFloorLowerLeft';
-import { UnderwaterFloorLowerRight } from './UnderwaterFloorLowerRight';
-import { UnderwaterFloorRight } from './UnderwaterFloorRight';
-import { UnderwaterFloorTop } from './UnderwaterFloorTop';
-import { UnderwaterFloorUpperLeft } from './UnderwaterFloorUpperLeft';
-import { UnderwaterFloorUpperRight } from './UnderwaterFloorUpperRight';
 import { UnderwaterMoreTerrainBackground } from './UnderwaterMoreTerrainBackground';
 import { WaterfallsBackground } from './WaterfallsBackground';
 import { WaterfallTop } from './WaterfallTop';
@@ -257,14 +249,6 @@ const resourceMap = {
 	UndergroundDoubleCaveBackground,
 	UndergroundBackground,
 	UnderwaterBackground,
-	UnderwaterFloorBottom,
-	UnderwaterFloorLeft,
-	UnderwaterFloorLowerLeft,
-	UnderwaterFloorLowerRight,
-	UnderwaterFloorRight,
-	UnderwaterFloorTop,
-	UnderwaterFloorUpperLeft,
-	UnderwaterFloorUpperRight,
 	UnderwaterMoreTerrainBackground,
 	WaterfallsBackground,
 	WaterfallTop,

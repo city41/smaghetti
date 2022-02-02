@@ -98,6 +98,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2022-02-02">
 					<ul>
 						<li>Colorful Metal Box - With Shadow</li>
+						<li>Stone Plateau</li>
 					</ul>
 					<p>
 						The classic boxes found in SMB3 1-1 are finally in Smaghetti. The
