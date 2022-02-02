@@ -171,7 +171,6 @@ import { GrassChuteDownRight } from './GrassChuteDownRight';
 import { GrassFloor } from './GrassFloor';
 import { GrassHorizontal } from './GrassHorizontal';
 import { GrassPlateau } from './GrassPlateau';
-import { GrassPlateauTopiary } from './GrassPlateauTopiary';
 import { GrassSlope30DegUpLeft } from './GrassSlope30DegUpLeft';
 import { GrassSlope30DegUpRight } from './GrassSlope30DegUpRight';
 import { GrassStaircaseUpLeft } from './GrassStaircaseUpLeft';
@@ -355,6 +354,7 @@ import { ThreeUpMoon } from './ThreeUpMoon';
 import { Thwimp } from './Thwimp';
 import { Thwomp } from './Thwomp';
 import { TiltPlatform } from './TiltPlatform';
+import { TopiaryPlateau } from './TopiaryPlateau';
 import { Tornado } from './Tornado';
 import { TriangularBlock } from './TriangularBlock';
 import { UnderwaterFloor } from './UnderwaterFloor';
@@ -565,7 +565,6 @@ const entityMap = {
 	GrassFloor,
 	GrassHorizontal,
 	GrassPlateau,
-	GrassPlateauTopiary,
 	GrassSlope30DegUpLeft,
 	GrassSlope30DegUpRight,
 	GrassStaircaseUpLeft,
@@ -749,6 +748,7 @@ const entityMap = {
 	Thwimp,
 	Thwomp,
 	TiltPlatform,
+	TopiaryPlateau,
 	Tornado,
 	TriangularBlock,
 	UnderwaterFloor,

@@ -15,19 +15,19 @@ import { StaticResource } from '../resources/types';
 
 const RECT_CLASSES_TEMPLATE = [
 	[
-		'GrassPlateauTopiaryUpperLeft',
-		'GrassPlateauTopiaryUpperCenter',
-		'GrassPlateauTopiaryUpperRight',
+		'TopiaryPlateauUpperLeft',
+		'TopiaryPlateauUpperCenter',
+		'TopiaryPlateauUpperRight',
 	],
 	[
-		'GrassPlateauTopiaryLowerLeft',
-		'GrassPlateauTopiaryLowerCenter',
-		'GrassPlateauTopiaryLowerRight',
+		'TopiaryPlateauLowerLeft',
+		'TopiaryPlateauLowerCenter',
+		'TopiaryPlateauLowerRight',
 	],
 	[
-		'GrassPlateauTopiaryLowerLeft',
-		'GrassPlateauTopiaryLowerCenter',
-		'GrassPlateauTopiaryLowerRight',
+		'TopiaryPlateauLowerLeft',
+		'TopiaryPlateauLowerCenter',
+		'TopiaryPlateauLowerRight',
 	],
 ];
 
@@ -107,7 +107,7 @@ const palettes: Record<Color, number[]> = {
 };
 
 const resourceTemplate = {
-	GrassPlateauTopiaryUpperLeft: {
+	TopiaryPlateauUpperLeft: {
 		palettes: [],
 		tiles: [
 			[512, 530],
@@ -115,7 +115,7 @@ const resourceTemplate = {
 		],
 		romOffset: 1534952,
 	},
-	GrassPlateauTopiaryUpperCenter: {
+	TopiaryPlateauUpperCenter: {
 		palettes: [],
 		tiles: [
 			[531, 530],
@@ -123,7 +123,7 @@ const resourceTemplate = {
 		],
 		romOffset: 1534952,
 	},
-	GrassPlateauTopiaryUpperRight: {
+	TopiaryPlateauUpperRight: {
 		palettes: [],
 		tiles: [
 			[531, 514],
@@ -131,7 +131,7 @@ const resourceTemplate = {
 		],
 		romOffset: 1534952,
 	},
-	GrassPlateauTopiaryLowerLeft: {
+	TopiaryPlateauLowerLeft: {
 		palettes: [],
 		tiles: [
 			[515, 534],
@@ -145,7 +145,7 @@ const resourceTemplate = {
 		],
 		romOffset: 1534952,
 	},
-	GrassPlateauTopiaryLowerCenter: {
+	TopiaryPlateauLowerCenter: {
 		palettes: [],
 		tiles: [
 			[
@@ -165,7 +165,7 @@ const resourceTemplate = {
 		],
 		romOffset: 1534952,
 	},
-	GrassPlateauTopiaryLowerRight: {
+	TopiaryPlateauLowerRight: {
 		palettes: [],
 		tiles: [
 			[
@@ -197,13 +197,13 @@ const resources = Object.keys(resourceTemplate).reduce<
 	return building;
 }, {});
 
-const GrassPlateauTopiary: Entity = {
+const TopiaryPlateau: Entity = {
 	paletteCategory: 'unfinished',
 	paletteInfo: {
 		subCategory: 'terrain-large',
-		title: 'Grass Plateau - Topiary',
+		title: 'Topiary Plateau',
 		description:
-			'These always extend down to a wood floor, and cast shadows on topiaries they overlap with',
+			'Always extends down to a wood floor, and casts shadows on topiaries they overlap with',
 	},
 
 	objectSets: encodeObjectSets([[1, 0x14]]),
@@ -239,19 +239,19 @@ const GrassPlateauTopiary: Entity = {
 			<div style={style} className="grid grid-cols-2 grid-rows-2">
 				<div
 					style={cornerStyle}
-					className="GrassPlateauTopiaryUpperLeftgreen-bg bg-cover"
+					className="TopiaryPlateauUpperLeftgreen-bg bg-cover"
 				/>
 				<div
 					style={cornerStyle}
-					className="GrassPlateauTopiaryUpperRightgreen-bg bg-cover"
+					className="TopiaryPlateauUpperRightgreen-bg bg-cover"
 				/>
 				<div
 					style={cornerStyle}
-					className="GrassPlateauTopiaryLowerLeftgreen-bg bg-cover"
+					className="TopiaryPlateauLowerLeftgreen-bg bg-cover"
 				/>
 				<div
 					style={cornerStyle}
-					className="GrassPlateauTopiaryLowerRightgreen-bg bg-cover"
+					className="TopiaryPlateauLowerRightgreen-bg bg-cover"
 				/>
 			</div>
 		);
@@ -316,4 +316,4 @@ const GrassPlateauTopiary: Entity = {
 	},
 };
 
-export { GrassPlateauTopiary };
+export { TopiaryPlateau };
