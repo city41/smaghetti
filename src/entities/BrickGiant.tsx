@@ -6,7 +6,6 @@ import {
 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const BrickGiant: Entity = {
 	paletteCategory: 'terrain',
@@ -22,7 +21,7 @@ const BrickGiant: Entity = {
 		[13, 11],
 		[5, 11],
 	]),
-	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
+	spriteGraphicSets: [-1, -1, -1, -1, 1, -1],
 	layer: 'stage',
 	editorType: 'double-cell',
 	dimensions: 'xy',
