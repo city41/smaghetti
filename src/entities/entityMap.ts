@@ -348,6 +348,7 @@ import { StretchBoo } from './StretchBoo';
 import { StretchBooUpsideDown } from './StretchBooUpsideDown';
 import { StretchBooPlatform } from './StretchBooPlatform';
 import { Swooper } from './Swooper';
+import { TankTreads } from './TankTreads';
 import { TanMetalBrickLarge } from './TanMetalBrickLarge';
 import { TanMetalBrickMedium } from './TanMetalBrickMedium';
 import { TanMetalBricksSmallPyramid } from './TanMetalBricksSmallPyramid';
@@ -747,6 +748,7 @@ const entityMap = {
 	StretchBooUpsideDown,
 	StretchBooPlatform,
 	Swooper,
+	TankTreads,
 	TanMetalBrickLarge,
 	TanMetalBrickMedium,
 	TanMetalBricksSmallPyramid,

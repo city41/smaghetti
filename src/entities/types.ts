@@ -83,7 +83,7 @@ type PaletteSubcategory =
 	| 'terrain-winter'
 	| 'terrain-large'
 	| 'terrain-checkered'
-	| 'terrain-airship'
+	| 'terrain-bowsers-army'
 	| 'terrain-giant'
 	| 'terrain-desert'
 	| 'enemy-common'

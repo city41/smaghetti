@@ -29,7 +29,7 @@ function isBoltToRight(
 const BoltRight: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-airship',
+		subCategory: 'terrain-bowsers-army',
 		title: 'Bolt - Right',
 		description: 'Bolt Lifts ride on these',
 	},

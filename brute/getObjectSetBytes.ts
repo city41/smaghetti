@@ -196,7 +196,7 @@ function captureEmptyLevel(
 }
 
 const STARTING_VALUE = 0x0;
-const ENDING_VALUE = 0x10;
+const ENDING_VALUE = 0x20;
 
 function dumpAll(
 	knownGood: KnownGood | null,

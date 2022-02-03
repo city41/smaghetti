@@ -10,6 +10,7 @@ import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { Resizer } from '../../components/Resizer';
 import { IconArrowLeft, IconArrowRight } from '../../icons';
+import clamp from 'lodash/clamp';
 
 import styles from '../../components/Resizer/ResizingStyles.module.css';
 
@@ -158,7 +159,7 @@ const ConveyorBelt: Entity = {
 							increment={TILE_SIZE}
 							axis="x"
 							onSizeChange={(newSizePoint) => {
-								onSettingsChange({ width: Math.max(1, newSizePoint.x) });
+								onSettingsChange({ width: clamp(newSizePoint.x, 1, 63) });
 							}}
 							onResizeStart={() => onSettingsChange({ resizing: true })}
 							onResizeEnd={() => onSettingsChange({ resizing: false })}

@@ -25,7 +25,7 @@ const RECT_CLASSES = [
 const AirshipCrate: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-airship',
+		subCategory: 'terrain-bowsers-army',
 		title: 'Airship Crate',
 	},
 

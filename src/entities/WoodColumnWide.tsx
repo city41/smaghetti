@@ -12,7 +12,7 @@ import styles from '../components/Resizer/ResizingStyles.module.css';
 const WoodColumnWide: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-airship',
+		subCategory: 'terrain-bowsers-army',
 		title: 'Wood Column - Wide',
 	},
 

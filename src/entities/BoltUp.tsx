@@ -29,7 +29,7 @@ function isBoltAbove(
 const BoltUp: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-airship',
+		subCategory: 'terrain-bowsers-army',
 		title: 'Bolt - Up',
 	},
 

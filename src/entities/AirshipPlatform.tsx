@@ -33,12 +33,15 @@ type Cap = typeof caps[number];
 const AirshipPlatform: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-airship',
+		subCategory: 'terrain-bowsers-army',
 		title: 'Airship Platform',
 		description: 'Can be tapered or flat on each end',
 	},
 
-	objectSets: encodeObjectSets([[10, 10]]),
+	objectSets: encodeObjectSets([
+		[10, 10],
+		[10, 0x15],
+	]),
 	objectPriority: OBJECT_PRIORITY_LOWEST,
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',

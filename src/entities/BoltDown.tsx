@@ -29,7 +29,7 @@ function isBoltBelow(
 const BoltDown: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-airship',
+		subCategory: 'terrain-bowsers-army',
 		title: 'Bolt - Down',
 	},
 
