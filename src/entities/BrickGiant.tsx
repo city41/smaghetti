@@ -13,6 +13,8 @@ const BrickGiant: Entity = {
 	paletteInfo: {
 		subCategory: 'terrain-giant',
 		title: 'Brick - Giant',
+		warning:
+			"If you place this on an odd x location, it won't break correctly when Super Mario smashes it",
 	},
 
 	objectSets: encodeObjectSets([
