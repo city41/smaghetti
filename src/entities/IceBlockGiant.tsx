@@ -9,7 +9,7 @@ import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const IceBlockGiant: Entity = {
-	// paletteCategory: 'terrain',
+	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-winter',
 		title: 'Ice Block - Giant',

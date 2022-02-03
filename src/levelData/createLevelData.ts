@@ -291,73 +291,12 @@ function sortByObjectPriority(a: PendingObject, b: PendingObject): number {
 	return aPriority - bPriority;
 }
 
-function getPendingDoubleCellObjects(
-	doubleCellEntities: EditorEntity[],
+function getPendingObjectsFromMatrix(
+	matrix: EditorEntityMatrix,
 	room: RoomData,
 	yIncrement: number
 ): PendingObject[] {
-	if (room.roomTileWidth > room.roomTileHeight) {
-		doubleCellEntities.sort((a, b) => a.x - b.x);
-	} else {
-		doubleCellEntities.sort((a, b) => a.y - b.y);
-	}
-
-	const pool = doubleCellEntities as Array<EditorEntity | null>;
 	const pendingObjects: PendingObject[] = [];
-
-	for (let i = 0; i < pool.length; ++i) {
-		if (pool[i] === null) {
-			continue;
-		}
-
-		const masterCell = pool[i]!;
-		const curCells = [masterCell];
-		let nextX = masterCell.x + 2 * TILE_SIZE;
-		let keepGoing = true;
-
-		while (keepGoing) {
-			keepGoing = false;
-
-			for (let k = i + 1; k < pool.length && curCells.length < 64; ++k) {
-				const candidate = pool[k];
-
-				if (candidate === null) {
-					continue;
-				}
-
-				if (
-					candidate.x === nextX &&
-					candidate.y === masterCell.y &&
-					candidate.type === masterCell.type &&
-					isEqual(candidate.settings, masterCell.settings)
-				) {
-					curCells.push(candidate);
-					pool[k] = null;
-					nextX += 2 * TILE_SIZE;
-					keepGoing = true;
-					break;
-				}
-			}
-		}
-
-		pendingObjects.push({
-			x: masterCell.x / TILE_SIZE,
-			y: masterCell.y / TILE_SIZE + yIncrement,
-			w: curCells.length - 1,
-			h: 0,
-			entity: masterCell,
-		});
-	}
-
-	return pendingObjects;
-}
-
-function getPendingObjects(layer: RoomLayer, room: RoomData): PendingObject[] {
-	const clone = cloneDeep(layer.matrix);
-	const pendingObjects: PendingObject[] = [];
-
-	// TODO: actually figure out wrap around rooms, this is not correct most of the time
-	const yIncrement = room.settings.wrapAround ? 2 : 1;
 
 	function getEndX(
 		row: EditorEntityRow,
@@ -389,8 +328,8 @@ function getPendingObjects(layer: RoomLayer, room: RoomData): PendingObject[] {
 		let y = tile.y;
 
 		while (
-			clone[y]?.[tile.x]?.type === tile.type &&
-			isEqual(clone[y]?.[tile.x]?.settings ?? {}, tile.settings ?? {})
+			matrix[y]?.[tile.x]?.type === tile.type &&
+			isEqual(matrix[y]?.[tile.x]?.settings ?? {}, tile.settings ?? {})
 		) {
 			++y;
 		}
@@ -402,7 +341,7 @@ function getPendingObjects(layer: RoomLayer, room: RoomData): PendingObject[] {
 		let curBest = Number.MAX_SAFE_INTEGER;
 
 		for (let x = startTile.x; x <= endTile.x; ++x) {
-			const thisColMaxY = getMaxY(clone[startTile.y]![x]!);
+			const thisColMaxY = getMaxY(matrix[startTile.y]![x]!);
 
 			curBest = Math.min(curBest, thisColMaxY);
 		}
@@ -412,7 +351,7 @@ function getPendingObjects(layer: RoomLayer, room: RoomData): PendingObject[] {
 
 	function erase(startY: number, endY: number, startX: number, endX: number) {
 		for (let y = startY; y <= endY; ++y) {
-			const row = clone[y]!;
+			const row = matrix[y]!;
 
 			for (let x = startX; x <= endX; ++x) {
 				row[x] = null;
@@ -421,7 +360,7 @@ function getPendingObjects(layer: RoomLayer, room: RoomData): PendingObject[] {
 	}
 
 	for (let y = 0; y < room.roomTileHeight; ++y) {
-		const row = clone[y];
+		const row = matrix[y];
 
 		if (!row) {
 			continue;
@@ -458,6 +397,95 @@ function getPendingObjects(layer: RoomLayer, room: RoomData): PendingObject[] {
 			erase(tile.y, bestY, tile.x, endXTile.x);
 		}
 	}
+
+	return pendingObjects;
+}
+
+function getPendingDoubleCellObjects(
+	doubleCellEntities: EditorEntity[],
+	room: RoomData,
+	yIncrement: number
+): PendingObject[] {
+	const matrices: Record<string, EditorEntityMatrix> = {
+		xEvenYEven: [],
+		xOddYOdd: [],
+		xOddYEven: [],
+		xEvenYOdd: [],
+	};
+
+	function getMatrix(tx: number, ty: number): EditorEntityMatrix {
+		const xe = (tx & 1) === 0;
+		const ye = (ty & 1) === 0;
+
+		const key = `x${xe ? 'Even' : 'Odd'}Y${ye ? 'Even' : 'Odd'}`;
+		return matrices[key];
+	}
+
+	doubleCellEntities.forEach((e) => {
+		const tx = e.x / TILE_SIZE;
+		const ty = e.y / TILE_SIZE;
+
+		const matrix = getMatrix(tx, ty);
+
+		const mx = Math.floor(tx / 2);
+		const my = Math.floor(ty / 2);
+
+		matrix[my] = matrix[my] ?? [];
+		matrix[my]![mx] = {
+			...e,
+			x: mx,
+			y: my,
+		};
+	});
+
+	function mapToOriginalPosition(
+		po: PendingObject,
+		matrix: EditorEntityMatrix
+	): PendingObject {
+		let tx = po.x * 2;
+		let ty = po.y * 2 - 1;
+
+		if (matrix === matrices.xOddYEven || matrix === matrices.xOddYOdd) {
+			tx += 1;
+		}
+
+		if (matrix === matrices.xOddYOdd || matrix === matrices.xEvenYOdd) {
+			ty += 1;
+		}
+
+		return {
+			...po,
+			x: tx,
+			y: ty,
+		};
+	}
+
+	return Object.values(matrices).reduce<PendingObject[]>((building, matrix) => {
+		if (matrix.length === 0) {
+			return building;
+		}
+
+		const pendingObjects = getPendingObjectsFromMatrix(
+			matrix,
+			room,
+			yIncrement
+		);
+
+		return building.concat(
+			pendingObjects.map((po) => mapToOriginalPosition(po, matrix))
+		);
+	}, []);
+}
+
+function getPendingObjects(layer: RoomLayer, room: RoomData): PendingObject[] {
+	// TODO: actually figure out wrap around rooms, this is not correct most of the time
+	const yIncrement = room.settings.wrapAround ? 2 : 1;
+
+	const pendingObjects = getPendingObjectsFromMatrix(
+		cloneDeep(layer.matrix),
+		room,
+		yIncrement
+	);
 
 	const doubleCellEntities = layer.entities.filter(
 		(e) => entityMap[e.type].editorType === 'double-cell'
@@ -676,14 +704,6 @@ function getRoom(
 
 	const sortedPendingObjects = allPendingObjects.sort(sortByObjectPriority);
 
-	if (process.env.NODE_ENV !== 'production') {
-		// eslint-disable-next-line no-console
-		console.log(
-			'objects',
-			sortedPendingObjects.map((po) => po.entity.type).join(', ')
-		);
-	}
-
 	const objectData = sortedPendingObjects.reduce<number[]>((building, po) => {
 		const entityDef = entityMap[po.entity.type];
 		return building.concat(
@@ -697,6 +717,16 @@ function getRoom(
 			})
 		);
 	}, []);
+
+	if (process.env.NODE_ENV !== 'production') {
+		// eslint-disable-next-line no-console
+		console.log(
+			'objects',
+			sortedPendingObjects.map((po) => po.entity.type).join(', ')
+		);
+		// eslint-disable-next-line no-console
+		console.log('objectData', objectData.map((b) => b.toString(16)).join(','));
+	}
 
 	const levelSettingsData = getLevelSettings(currentRoom, allEntities);
 	const transportData = getTransports(roomIndex, allEntities, allRooms);
