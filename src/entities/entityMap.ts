@@ -193,6 +193,7 @@ import { HotFoot } from './HotFoot';
 import { HotFootShy } from './HotFootShy';
 import { HotHead } from './HotHead';
 import { IceBlockCoin } from './IceBlockCoin';
+import { IceBlockGiant } from './IceBlockGiant';
 import { IceBlockMuncher } from './IceBlockMuncher';
 import { IceBlockSmall } from './IceBlockSmall';
 import { Iggy } from './Iggy';
@@ -587,6 +588,7 @@ const entityMap = {
 	HotFootShy,
 	HotHead,
 	IceBlockCoin,
+	IceBlockGiant,
 	IceBlockMuncher,
 	IceBlockSmall,
 	Iggy,

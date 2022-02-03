@@ -139,7 +139,7 @@ type Entity = {
 	koopalingId?: number;
 
 	layer: 'actor' | 'stage';
-	editorType: 'entity' | 'cell';
+	editorType: 'entity' | 'cell' | 'double-cell';
 
 	/**
 	 * When placing this entity in the palette choice modal, which category should it go under.

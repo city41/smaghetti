@@ -885,7 +885,10 @@ function drawAt(
 				...entityDef.defaultSettings,
 			};
 		}
-	} else if (entityDef.editorType === 'entity') {
+	} else if (
+		entityDef.editorType === 'entity' ||
+		entityDef.editorType === 'double-cell'
+	) {
 		const destX = x * TILE_SIZE;
 		const destY = y * TILE_SIZE;
 

@@ -291,12 +291,72 @@ function sortByObjectPriority(a: PendingObject, b: PendingObject): number {
 	return aPriority - bPriority;
 }
 
+function getPendingDoubleCellObjects(
+	doubleCellEntities: EditorEntity[],
+	room: RoomData,
+	yIncrement: number
+): PendingObject[] {
+	if (room.roomTileWidth > room.roomTileHeight) {
+		doubleCellEntities.sort((a, b) => a.x - b.x);
+	} else {
+		doubleCellEntities.sort((a, b) => a.y - b.y);
+	}
+
+	const pool = doubleCellEntities as Array<EditorEntity | null>;
+	const pendingObjects: PendingObject[] = [];
+
+	for (let i = 0; i < pool.length; ++i) {
+		if (pool[i] === null) {
+			continue;
+		}
+
+		const masterCell = pool[i]!;
+		const curCells = [masterCell];
+		let nextX = masterCell.x + 2 * TILE_SIZE;
+		let keepGoing = true;
+
+		while (keepGoing) {
+			keepGoing = false;
+
+			for (let k = i + 1; k < pool.length && curCells.length < 64; ++k) {
+				const candidate = pool[k];
+
+				if (candidate === null) {
+					continue;
+				}
+
+				if (
+					candidate.x === nextX &&
+					candidate.y === masterCell.y &&
+					candidate.type === masterCell.type &&
+					isEqual(candidate.settings, masterCell.settings)
+				) {
+					curCells.push(candidate);
+					pool[k] = null;
+					nextX += 2 * TILE_SIZE;
+					keepGoing = true;
+					break;
+				}
+			}
+		}
+
+		pendingObjects.push({
+			x: masterCell.x / TILE_SIZE,
+			y: masterCell.y / TILE_SIZE + yIncrement,
+			w: curCells.length - 1,
+			h: 0,
+			entity: masterCell,
+		});
+	}
+
+	return pendingObjects;
+}
+
 function getPendingObjects(layer: RoomLayer, room: RoomData): PendingObject[] {
 	const clone = cloneDeep(layer.matrix);
 	const pendingObjects: PendingObject[] = [];
 
-	// for some reason, wrap around rooms bring all objects
-	// up by one tile. so compenstate by pushing them down one
+	// TODO: actually figure out wrap around rooms, this is not correct most of the time
 	const yIncrement = room.settings.wrapAround ? 2 : 1;
 
 	function getEndX(
@@ -399,7 +459,19 @@ function getPendingObjects(layer: RoomLayer, room: RoomData): PendingObject[] {
 		}
 	}
 
-	const pendingEntityObjects = layer.entities.reduce<PendingObject[]>(
+	const doubleCellEntities = layer.entities.filter(
+		(e) => entityMap[e.type].editorType === 'double-cell'
+	);
+	const nonDoubleCellEntities = layer.entities.filter(
+		(e) => entityMap[e.type].editorType !== 'double-cell'
+	);
+
+	const pendingDoubleCellObjects = getPendingDoubleCellObjects(
+		doubleCellEntities,
+		room,
+		yIncrement
+	);
+	const pendingEntityObjects = nonDoubleCellEntities.reduce<PendingObject[]>(
 		(building, e) => {
 			const entityDef = entityMap[e.type];
 
@@ -418,7 +490,7 @@ function getPendingObjects(layer: RoomLayer, room: RoomData): PendingObject[] {
 		[]
 	);
 
-	return pendingObjects.concat(pendingEntityObjects);
+	return pendingObjects.concat(pendingDoubleCellObjects, pendingEntityObjects);
 }
 
 function getSprites(entities: EditorEntity[], room: RoomData): number[] {

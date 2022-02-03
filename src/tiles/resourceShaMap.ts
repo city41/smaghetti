@@ -193,6 +193,7 @@ export const resourceShaMap: Record<string, string> = {
   "HotFootShy": "ec7fa49c2c1dfbd218fd79ddf7f2ced372329a2f",
   "HotHead": "bfa974f040faa4fa0eda4266db983073d8bd524d",
   "IceBlockCoin": "d59d6c1215767e9dafeabc9ea8b53d45d421132e",
+  "IceBlockGiant": "5aaa65a78542e22740a42e4aa367722db42cabbc",
   "IceBlockMuncher": "2e30fefd5e1a93e171b93e97f82af30b5e6f7ad4",
   "IceBlockSmall": "f685b4a5c72bfca3177c26e5e97346473f5c250c",
   "Iggy": "89c8818747f47679fe36f271135d2b7c7b46aba6",
