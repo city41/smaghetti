@@ -43,7 +43,7 @@ const betaChecklist: MilestoneChecklistItem[] = [
 		description: 'Most entities in SMA4 are available to build levels with',
 	},
 	{ status: 'completed', description: 'Water levels' },
-	{ status: 'in-progress', description: 'Giant object grid' },
+	{ status: 'completed', description: 'Giant object grid' },
 	{ status: 'not-started', description: 'All entities are fully configurable' },
 	{ status: 'in-progress', description: 'Level file format is finalized' },
 	{ status: 'in-progress', description: 'Autoscroll rooms' },
