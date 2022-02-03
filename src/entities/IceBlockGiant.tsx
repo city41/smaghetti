@@ -9,7 +9,7 @@ import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const IceBlockGiant: Entity = {
-	// paletteCategory: 'terrain',
+	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-winter',
 		title: 'Ice Block - Giant',
@@ -20,7 +20,7 @@ const IceBlockGiant: Entity = {
 	spriteGraphicSets: ANY_SPRITE_GRAPHIC_SET,
 	layer: 'stage',
 	editorType: 'double-cell',
-	dimensions: 'none',
+	dimensions: 'x',
 	objectId: 0x34,
 	param1: 'width',
 	emptyBank: 1,
@@ -62,6 +62,8 @@ const IceBlockGiant: Entity = {
 	},
 
 	parseObject(data, offset) {
+		// TODO: param2 is not actually height, so far, don't know what param2 is
+		// it seems to have no impact, but Nintendo makes it various different values
 		return parseCellObjectsParam1WidthParam2Height(data, offset, this);
 	},
 

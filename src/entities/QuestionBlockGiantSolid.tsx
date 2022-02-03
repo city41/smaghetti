@@ -5,18 +5,12 @@ import { TileSpace } from './TileSpace';
 import { ResourceType } from '../resources/resourceMap';
 import { PayloadEditDetails } from './detailPanes/PayloadEditDetails';
 import { PayloadViewDetails } from './detailPanes/PayloadViewDetails';
-import { encodeObjectSets, parseObjectIdMapObject } from './util';
-import invert from 'lodash/invert';
+import { encodeObjectSets, getBankParam1 } from './util';
 
 const payloadToObjectId = {
 	Coin: 0x2,
 	Leaf: 0x3,
 };
-
-const objectIdToPayload = invert(payloadToObjectId) as Record<
-	number,
-	ResourceType
->;
 
 const QuestionBlockGiantSolid: Entity = {
 	paletteCategory: 'object',
@@ -33,35 +27,37 @@ const QuestionBlockGiantSolid: Entity = {
 	]),
 	spriteGraphicSets: [-1, -1, -1, -1, 1, -1],
 	layer: 'stage',
-	editorType: 'entity',
-	dimensions: 'none',
+	editorType: 'double-cell',
+	dimensions: 'x',
 	payloadToObjectId,
 	objectId: 0x94,
+	param1: 'width',
 	width: 2,
 	height: 2,
 
 	defaultSettings: { payload: 'Coin' },
 
-	toObjectBinary({ x, y, settings }) {
+	toObjectBinary({ x, y, w, settings }) {
 		const payloadToObjectId = this.payloadToObjectId!;
 		const payload = settings.payload ?? this.defaultSettings!.payload;
 		const objectId =
 			payloadToObjectId![payload as keyof typeof payloadToObjectId] ??
 			this.objectId;
 
-		return [0x40, y, x, objectId];
+		return [getBankParam1(1, w), y, x, objectId];
 	},
 
-	parseObject(data, offset) {
-		return parseObjectIdMapObject(
-			data,
-			offset,
-			0,
-			objectIdToPayload,
-			'payload',
-			this
-		);
-	},
+	// TODO: this is an unusual parse
+	// parseObject(data, offset) {
+	// 	return parseObjectIdMapObject(
+	// 		data,
+	// 		offset,
+	// 		0,
+	// 		objectIdToPayload,
+	// 		'payload',
+	// 		this
+	// 	);
+	// },
 
 	simpleRender(size) {
 		return (

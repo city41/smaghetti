@@ -95,6 +95,16 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2022-02-03">
+					<ul>
+						<li>Brick - Giant</li>
+						<li>Coral - Giant</li>
+						<li>Ice Block - Giant</li>
+						<li>Lakitu Cloud - Giant</li>
+						<li>Wood Block - Giant</li>
+					</ul>
+					<p>Giant Land in full effect</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2022-02-02">
 					<ul>
 						<li>Colorful Metal Box - With Shadow</li>

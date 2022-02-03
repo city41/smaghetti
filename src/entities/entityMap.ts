@@ -56,6 +56,7 @@ import { BowserFireStatue } from './BowserFireStatue';
 import { BowserLaserStatue } from './BowserLaserStatue';
 import { Brick } from './Brick';
 import { Brick2 } from './Brick/Brick2';
+import { BrickGiant } from './BrickGiant';
 import { Bubble } from './Bubble';
 import { BulletBillGeneratorCanceler } from './BulletBillGeneratorCanceler';
 import { BulletBillGeneratorCardinal } from './BulletBillGeneratorCardinal';
@@ -122,6 +123,7 @@ import { ColorfulMetalBox } from './ColorfulMetalBox';
 import { ColorfulMetalBoxWithShadow } from './ColorfulMetalBoxWithShadow';
 import { ConveyorBelt } from './ConveyorBelt';
 import { CoralDonutBlock } from './CoralDonutBlock';
+import { CoralGiant } from './CoralGiant';
 import { DeleteBlock } from './DeleteBlock';
 import { DiggableSand } from './DiggableSand';
 import { DirectionalLift } from './DirectionalLift';
@@ -205,6 +207,7 @@ import { Key } from './Key';
 import { Lakitu } from './Lakitu';
 import { LakituCloud } from './LakituCloud';
 import { LakituCloudAlternate } from './LakituCloudAlternate';
+import { LakituCloudGiant } from './LakituCloudGiant';
 import { Larry } from './Larry';
 import { Lava } from './Lava';
 import { LavaLotus } from './LavaLotus';
@@ -372,6 +375,7 @@ import { Wendy } from './Wendy';
 import { Wiggler } from './Wiggler';
 import { WingedPlatform } from './WingedPlatform';
 import { WoodBlock } from './WoodBlock';
+import { WoodBlockGiant } from './WoodBlockGiant';
 import { WoodColumn } from './WoodColumn';
 import { WoodColumnWide } from './WoodColumnWide';
 import { WoodDoor } from './WoodDoor';
@@ -451,6 +455,7 @@ const entityMap = {
 	BowserLaserStatue,
 	Brick,
 	Brick2,
+	BrickGiant,
 	Bubble,
 	BulletBillGeneratorCanceler,
 	BulletBillGeneratorCardinal,
@@ -517,6 +522,7 @@ const entityMap = {
 	ColorfulMetalBoxWithShadow,
 	ConveyorBelt,
 	CoralDonutBlock,
+	CoralGiant,
 	DeleteBlock,
 	DiggableSand,
 	DirectionalLift,
@@ -600,6 +606,7 @@ const entityMap = {
 	Lakitu,
 	LakituCloud,
 	LakituCloudAlternate,
+	LakituCloudGiant,
 	Larry,
 	Lava,
 	LavaLotus,
@@ -767,6 +774,7 @@ const entityMap = {
 	Wiggler,
 	WingedPlatform,
 	WoodBlock,
+	WoodBlockGiant,
 	WoodColumn,
 	WoodColumnWide,
 	WoodDoor,

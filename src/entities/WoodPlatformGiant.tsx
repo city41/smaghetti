@@ -12,10 +12,29 @@ import { Resizer } from '../components/Resizer';
 
 import styles from '../components/Resizer/ResizingStyles.module.css';
 
+const palette = [
+	32662,
+	32767,
+	0,
+	5586,
+	8791,
+	11004,
+	14270,
+	5668,
+	11910,
+	17229,
+	12690,
+	5686,
+	10908,
+	17151,
+	5521,
+	9786,
+];
+
 const WoodPlatformGiant: Entity = {
 	paletteCategory: 'terrain',
 	paletteInfo: {
-		subCategory: 'terrain-giant',
+		subCategory: 'terrain-basic',
 		title: 'Wood Platform - Giant',
 	},
 
@@ -27,7 +46,7 @@ const WoodPlatformGiant: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 
-	defaultSettings: { width: 2 },
+	defaultSettings: { width: 3 },
 	dimensions: 'none',
 	objectId: 0x1,
 	param1: 'width',
@@ -37,26 +56,7 @@ const WoodPlatformGiant: Entity = {
 	resources: {
 		WoodPlatformGiantLeft: {
 			romOffset: 0x163768,
-			palettes: [
-				[
-					32662,
-					32767,
-					0,
-					5586,
-					8791,
-					11004,
-					14270,
-					5668,
-					11910,
-					17229,
-					12690,
-					5686,
-					10908,
-					17151,
-					5521,
-					9786,
-				],
-			],
+			palettes: [palette],
 			tiles: [
 				[768, 769],
 				[784, 785],
@@ -66,26 +66,7 @@ const WoodPlatformGiant: Entity = {
 		},
 		WoodPlatformGiantCenter: {
 			romOffset: 0x163768,
-			palettes: [
-				[
-					32662,
-					32767,
-					0,
-					5586,
-					8791,
-					11004,
-					14270,
-					5668,
-					11910,
-					17229,
-					12690,
-					5686,
-					10908,
-					17151,
-					5521,
-					9786,
-				],
-			],
+			palettes: [palette],
 			tiles: [
 				[769, 769],
 				[785, 785],
@@ -95,26 +76,7 @@ const WoodPlatformGiant: Entity = {
 		},
 		WoodPlatformGiantRight: {
 			romOffset: 0x163768,
-			palettes: [
-				[
-					32662,
-					32767,
-					0,
-					5586,
-					8791,
-					11004,
-					14270,
-					5668,
-					11910,
-					17229,
-					12690,
-					5686,
-					10908,
-					17151,
-					5521,
-					9786,
-				],
-			],
+			palettes: [palette],
 			tiles: [
 				[769, 770],
 				[785, 786],
@@ -136,11 +98,15 @@ const WoodPlatformGiant: Entity = {
 
 	simpleRender(size) {
 		const style = { width: size, height: size };
-		const cellStyle = { width: size / 2, height: size };
+		const cellStyle = { width: size / 3, height: (size * 2) / 3 };
 
 		return (
-			<div className="flex flex-row" style={style}>
+			<div className="flex flex-row items-center" style={style}>
 				<div className="WoodPlatformGiantLeft-bg bg-cover" style={cellStyle} />
+				<div
+					className="WoodPlatformGiantCenter-bg bg-cover"
+					style={cellStyle}
+				/>
 				<div className="WoodPlatformGiantRight-bg bg-cover" style={cellStyle} />
 			</div>
 		);
