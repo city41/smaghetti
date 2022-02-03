@@ -352,6 +352,20 @@ function TipsPage() {
 						/>
 					</p>
 				</TipEntry>
+				<TipEntry title="Sparse rooms might crash the game">
+					<p>
+						If you have a room with only one or two entities in it, sometimes
+						that can crash the game. We know this can happen with:
+						<ul>
+							<li>Ice Block - Giant</li>
+							<li>Wood Floor - Snow Covered</li>
+							<li>Some of the Checkered Terrains</li>
+							<li>and probably a lot more</li>
+						</ul>
+						You can avoid this problem by just adding more stuff to the room.
+						Often just one more entity fixes it.
+					</p>
+				</TipEntry>
 			</div>
 		</Root>
 	);
