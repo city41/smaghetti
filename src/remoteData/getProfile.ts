@@ -31,7 +31,7 @@ export async function getProfile(id: string): Promise<ProfileData> {
       created_at,
       updated_at,
       version,
-      user:user_id (username)
+      user:user_id (username, role)
     `
 	);
 

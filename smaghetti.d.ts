@@ -192,6 +192,7 @@ type NewLevel = {
 	published?: boolean;
 	user?: {
 		username: string;
+		role?: string;
 	};
 };
 

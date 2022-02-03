@@ -150,7 +150,14 @@ function LevelRow({
 				{level.name}
 			</div>
 			{isAdmin && !isBrokenLevel(level) && (
-				<div className="text-xs text-gray-400">{level.user?.username}</div>
+				<div
+					className={clsx('text-xs text-gray-400', {
+						'text-gray-400': level.user?.role !== 'sb',
+						'text-red-400': level.user?.role === 'sb',
+					})}
+				>
+					{level.user?.username}
+				</div>
 			)}
 			{!isBuildingSave && (
 				<>
