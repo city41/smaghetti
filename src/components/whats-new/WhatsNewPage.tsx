@@ -19,6 +19,7 @@ import exitingAGiantPipePng from './exitingAGiantPipe.png';
 import giantPipeExitPointPng from './giantPipeExitPoint.png';
 import ripVanFishSleepsPng from './ripVanFishSleeps.png';
 import endOfLevelBackdropExamplePng from './endOfLevelBackdropExample.png';
+import entityListPng from './entityList.png';
 
 function dateToHumanString(input: string): string {
 	const date = new Date(input);
@@ -95,6 +96,38 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Entity List improvements" date="2022-02-04">
+					<p>
+						The entity list is now slightly useful:
+						<ul>
+							<li>The rows are more compact</li>
+							<li>
+								You can jump from room to room (click on next or previous in the
+								room header)
+							</li>
+							<li>
+								You can delete an entity from the listing, hover over it to see
+								the trash can
+							</li>
+							<li>
+								Clicking on an entity in the list takes you to that entity in
+								the room
+							</li>
+						</ul>
+					</p>
+					<img
+						src={entityListPng}
+						alt="entity list screenshot"
+						width={232}
+						height={155}
+					/>
+					<p>
+						The real point of the entity list is to enable you to control how
+						overlapping entities stack. This will enable you to decide how
+						overlapping colorful boxes or plateaus look and work in your level
+						for example. That&apos;s not here yet, but it is coming!
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2022-02-03">
 					<ul>
 						<li>Brick - Giant</li>
