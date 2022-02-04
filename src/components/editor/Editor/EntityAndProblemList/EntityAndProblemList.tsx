@@ -93,7 +93,7 @@ function EntityEntry({
 					  })
 					: entityDef.simpleRender(16)}
 			</div>
-			<div className="text-xs">
+			<div className="text-xs truncate">
 				{entityDef.paletteInfo.title}
 				{entityDef.editorType === 'cell' ||
 				entityDef.editorType === 'double-cell'
