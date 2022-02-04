@@ -57,14 +57,16 @@ function EntityEntry({
 			onClick={onClick}
 		>
 			<div>
-				{entityDef.render({
-					showDetails: false,
-					onSettingsChange: () => {},
-					settings: entity.settings ?? {},
-					entity,
-					room,
-					allRooms,
-				})}
+				{entityDef.editorType !== 'entity'
+					? entityDef.render({
+							showDetails: false,
+							onSettingsChange: () => {},
+							settings: entity.settings ?? {},
+							entity,
+							room,
+							allRooms,
+					  })
+					: entityDef.simpleRender(16)}
 			</div>
 			<div className="col-span-4 text-xs">
 				{entityDef.paletteInfo.title}
