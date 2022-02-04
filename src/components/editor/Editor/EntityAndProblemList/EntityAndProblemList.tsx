@@ -10,6 +10,7 @@ import { PendingObject } from '../../../../levelData/createLevelData';
 import { getPendingEntities } from './getPendingEntities';
 
 import styles from './EntityAndProblemList.module.css';
+import focusedStyles from '../../../../styles/focused.module.css';
 
 type PublicEntityAndProblemListProps = {
 	className?: string;
@@ -32,36 +33,50 @@ type EntityProblemEntry = EntityProblem & {
 
 const ROOT_ID = 'entity-and-problem-list-root';
 
-function EntityEntry({
-	entity,
-	room,
-	allRooms,
-	x,
-	y,
-	w,
-	h,
-	onClick,
-	onDeleteClick,
-}: {
+type EntityEntryProps = {
 	entity: EditorEntity;
 	room: RoomData;
 	allRooms: RoomData[];
+	focused?: boolean;
 	x: number;
 	y: number;
 	w: number;
 	h: number;
 	onClick: () => void;
 	onDeleteClick: () => void;
-}) {
+};
+
+function EntityEntry({
+	entity,
+	room,
+	allRooms,
+	focused,
+	x,
+	y,
+	w,
+	h,
+	onClick,
+	onDeleteClick,
+}: EntityEntryProps) {
 	const entityDef = entityMap[entity.type];
 
 	return (
 		<div
 			className={clsx(
 				styles.entityEntry,
-				'group cursor-pointer hover:bg-gray-600 grid gap-x-2 items-center py-2 -mx-2 px-2 border-b border-gray-500 last:border-b-0 bg-gray-800'
+				'group cursor-pointer hover:bg-gray-600 grid gap-x-2 items-center py-2 -mx-2 px-2 border-b border-gray-500 last:border-b-0 bg-gray-800',
+				{
+					[focusedStyles.focused]: focused,
+				}
 			)}
-			style={{ gridTemplateColumns: 'min-content 1fr min-content' }}
+			style={
+				{
+					gridTemplateColumns: 'min-content 1fr min-content',
+					'--focused-width': '100%',
+					'--focused-height': '100%',
+					'--focused-opacity': '0.3',
+				} as CSSProperties
+			}
 			onClick={onClick}
 			data-entity-id={entity.id}
 		>
@@ -409,6 +424,9 @@ function EntityAndProblemList({
 									{...pe}
 									room={rooms[roomIndex]}
 									allRooms={rooms}
+									focused={
+										focusedIds.length === 1 && focusedIds[0] === pe.entity.id
+									}
 									onClick={() => {
 										onEntityClick({ room: roomIndex, pendingObject: pe });
 									}}
