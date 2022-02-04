@@ -19,6 +19,7 @@ type PublicEntityAndProblemListProps = {
 
 type InternalEntityAndProblemListProps = {
 	rooms: RoomData[];
+	focused: Record<number, boolean>;
 	onProblemClick: (arg: { room: number; id: number }) => void;
 	onEntityClick: (arg: { room: number; pendingObject: PendingObject }) => void;
 	onDeleteClick: (pendingObject: PendingObject) => void;
@@ -62,6 +63,7 @@ function EntityEntry({
 			)}
 			style={{ gridTemplateColumns: 'min-content 1fr min-content' }}
 			onClick={onClick}
+			data-entity-id={entity.id}
 		>
 			<div>
 				{entityDef.editorType === 'cell' ||
@@ -227,6 +229,7 @@ function EntityAndProblemList({
 	className,
 	style,
 	rooms,
+	focused,
 	onClose,
 	onProblemClick,
 	onEntityClick,
@@ -308,6 +311,32 @@ function EntityAndProblemList({
 			onClose();
 		}
 	}, [rowCount, onClose]);
+
+	const focusedIds = useMemo(() => {
+		return Object.entries(focused)
+			.filter((e) => e[1])
+			.map((e) => Number(e[0]));
+	}, [focused]);
+
+	useEffect(() => {
+		if (focusedIds.length === 1) {
+			const [id] = focusedIds;
+
+			const entry = document.querySelector(`[data-entity-id="${id}"]`);
+
+			if (entry) {
+				entry.scrollIntoView({ behavior: 'auto' });
+
+				const root = document.querySelector(`#${ROOT_ID}`);
+
+				if (root) {
+					setTimeout(() => {
+						root.scrollBy({ top: -48 });
+					}, 10);
+				}
+			}
+		}
+	}, [focusedIds.length === 1 ? focusedIds[0] : null]);
 
 	return (
 		<div

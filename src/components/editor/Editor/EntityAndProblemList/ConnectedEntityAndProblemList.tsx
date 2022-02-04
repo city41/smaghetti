@@ -23,7 +23,9 @@ const actions = bindActionCreators(
 );
 
 function ConnectedEntityAndProblemList(props: PublicEntityAndProblemListProps) {
-	const { rooms } = useSelector((state: AppState) => state.editor.present);
+	const { rooms, focused } = useSelector(
+		(state: AppState) => state.editor.present
+	);
 
 	function handleEntityClick({
 		room,
@@ -40,6 +42,7 @@ function ConnectedEntityAndProblemList(props: PublicEntityAndProblemListProps) {
 		<EntityAndProblemList
 			{...props}
 			rooms={rooms}
+			focused={focused}
 			{...actions}
 			onEntityClick={handleEntityClick}
 		/>

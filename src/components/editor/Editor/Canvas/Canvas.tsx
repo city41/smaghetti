@@ -231,7 +231,7 @@ const Entities = memo(function Entities({
 	dragOffset,
 	onEntitySettingsChange,
 }: EntitiesProps) {
-	const focusCount = Object.keys(focused).length;
+	const focusCount = Object.values(focused).filter((v) => v).length;
 
 	const sortedEntities = sortByObjectPriority
 		? [...entities].sort(objectPrioritySorter)
