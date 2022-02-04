@@ -1,10 +1,9 @@
 import React, { CSSProperties, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
 import { entityMap } from '../../../../entities/entityMap';
-import { PlainIconButton } from '../../../PlainIconButton';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { EntityProblem } from '../../../../entities/types';
-import { IconClose, IconTrash } from '../../../../icons';
+import { IconTrash } from '../../../../icons';
 import { getGenericProblem } from './genericProblems';
 import { PendingObject } from '../../../../levelData/createLevelData';
 import { getPendingEntities } from './getPendingEntities';
@@ -362,17 +361,6 @@ function EntityAndProblemList({
 			style={style}
 			id={ROOT_ID}
 		>
-			<PlainIconButton
-				className="absolute top-2 -right-0.5"
-				style={{ zIndex: 20 }}
-				icon={IconClose}
-				label="close"
-				onMouseDown={(e) => {
-					e.stopPropagation();
-					e.preventDefault();
-					onClose();
-				}}
-			/>
 			{errors.length > 0 && (
 				<>
 					<Header className="border-red-500">Errors</Header>
