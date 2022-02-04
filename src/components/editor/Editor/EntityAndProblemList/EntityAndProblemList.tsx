@@ -1,4 +1,4 @@
-import React, { CSSProperties, useMemo } from 'react';
+import React, { CSSProperties, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
 import { entityMap } from '../../../../entities/entityMap';
 import { PlainIconButton } from '../../../PlainIconButton';
@@ -299,6 +299,15 @@ function EntityAndProblemList({
 
 	const warnings = problems.filter((p) => p.severity === 'warning');
 	const errors = problems.filter((p) => p.severity === 'error');
+
+	const rowCount =
+		warnings.length + errors.length + pendingEntitiesPerRoom.flat(1).length;
+
+	useEffect(() => {
+		if (rowCount === 0) {
+			onClose();
+		}
+	}, [rowCount, onClose]);
 
 	return (
 		<div
