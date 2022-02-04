@@ -10,6 +10,8 @@ const Muncher: Entity = {
 	paletteInfo: {
 		subCategory: 'terrain-damaging',
 		title: 'Muncher',
+		description:
+			'Both Munchers behave the same. This one takes up more space in your level file, but has much higher compatibility',
 	},
 
 	objectSets: encodeObjectSets(objectSets),

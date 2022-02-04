@@ -225,6 +225,7 @@ import { MetalMushroom } from './MetalMushroom';
 import { MontyMole } from './MontyMole';
 import { Morton } from './Morton';
 import { Muncher } from './Muncher';
+import { MuncherStrip } from './MuncherStrip';
 import { Mushroom } from './Mushroom';
 import { MusicBlock } from './MusicBlock';
 import { MusicBlockThreeWay } from './MusicBlockThreeWay';
@@ -625,6 +626,7 @@ const entityMap = {
 	MontyMole,
 	Morton,
 	Muncher,
+	MuncherStrip,
 	Mushroom,
 	MusicBlock,
 	MusicBlockThreeWay,

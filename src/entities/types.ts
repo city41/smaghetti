@@ -101,6 +101,16 @@ type PaletteSubcategory =
 
 type Entity = {
 	/**
+	 * a flag to indicate if this entity has had its object sets dumped to 0x20
+	 *
+	 * earlier in smaghetti, object set dumping only went up to 0x10. We now realize
+	 * some entities use object sets from 0x11 to 0x1f, so ultimately we really should
+	 * redump everything up to 0x20. This flag is an indicator this entity has already
+	 * been fully dumped so no need to redump it
+	 */
+	dumpedTo32?: boolean;
+
+	/**
 	 * which object set/object graphic set pairs are this entity compatible with?
 	 * [-1] means all object sets (ie question block)
 	 *
