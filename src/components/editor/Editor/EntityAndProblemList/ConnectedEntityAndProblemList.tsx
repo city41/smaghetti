@@ -1,8 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { PendingObject } from '../../../../levelData/createLevelData';
 import { AppState, dispatch } from '../../../../store';
-import { deleteEntity, scrollToEntity } from '../../editorSlice';
+import {
+	deletePendingObject,
+	focusPendingObject,
+	scrollToEntity,
+} from '../../editorSlice';
 
 import {
 	EntityAndProblemList,
@@ -12,7 +17,7 @@ import {
 const actions = bindActionCreators(
 	{
 		onProblemClick: scrollToEntity,
-		onDeleteClick: deleteEntity,
+		onDeleteClick: deletePendingObject,
 	},
 	dispatch
 );
@@ -20,7 +25,25 @@ const actions = bindActionCreators(
 function ConnectedEntityAndProblemList(props: PublicEntityAndProblemListProps) {
 	const { rooms } = useSelector((state: AppState) => state.editor.present);
 
-	return <EntityAndProblemList {...props} rooms={rooms} {...actions} />;
+	function handleEntityClick({
+		room,
+		pendingObject,
+	}: {
+		room: number;
+		pendingObject: PendingObject;
+	}) {
+		dispatch(scrollToEntity({ room, id: pendingObject.entity.id }));
+		dispatch(focusPendingObject(pendingObject));
+	}
+
+	return (
+		<EntityAndProblemList
+			{...props}
+			rooms={rooms}
+			{...actions}
+			onEntityClick={handleEntityClick}
+		/>
+	);
 }
 
 export { ConnectedEntityAndProblemList };

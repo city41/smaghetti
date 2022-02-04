@@ -54,6 +54,7 @@ import { flattenCells } from '../../levelData/util';
 import { getEntityTileBounds, pointIsInside } from './util';
 import { logError } from '../../reporting/logError';
 import { parseBinaryLevel } from '../../levelData/parseBinaryLevel';
+import { PendingObject } from '../../levelData/createLevelData';
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
 
@@ -1018,6 +1019,87 @@ function deleteEntitiesById(layer: EditorRoomLayer, ids: number[]) {
 	});
 }
 
+function getAllCellIdsForPendingObject(
+	rooms: RoomData[],
+	po: PendingObject
+): number[] {
+	const matrices = rooms.map((r) => [r.stage.matrix, r.actors.matrix]).flat(1);
+
+	return matrices.reduce<number[]>((building, matrix) => {
+		const hasObject = matrix.some((row) => {
+			return row && row.some((cell) => cell?.id === po.entity.id);
+		});
+
+		if (!hasObject) {
+			return building;
+		}
+
+		const ids = [];
+		// add one to each dimension since po's store them by one less
+		// subtract 1 from y due to how po's are adjusted by 1 in createLevelData
+		const poY = po.y - 1;
+		for (let y = poY; y < poY + po.h + 1 && y < matrix.length; ++y) {
+			for (let x = po.x; x < po.x + po.w + 1 && x < matrix[y]!.length; ++x) {
+				ids.push(matrix[y]![x]!.id);
+			}
+		}
+
+		return ids;
+	}, []);
+}
+
+function getAllCellIdsForPendingDoubleCellObject(
+	rooms: RoomData[],
+	po: PendingObject
+): number[] {
+	function _getIds(
+		masterEntity: EditorEntity,
+		entities: EditorEntity[]
+	): number[] {
+		const mex = masterEntity.x / TILE_SIZE;
+		const mey = masterEntity.y / TILE_SIZE;
+
+		return entities
+			.filter((e) => {
+				if (e === masterEntity) {
+					return true;
+				}
+
+				const ex = e.x / TILE_SIZE;
+				const ey = e.y / TILE_SIZE;
+
+				return (
+					e.type === masterEntity.type &&
+					isEqual(e.settings, masterEntity.settings) &&
+					ex >= mex &&
+					ey >= mey &&
+					ex < mex + (po.w + 1) * 2 &&
+					ey < mey + (po.h + 1) * 2 &&
+					Math.abs(ex - mex) % 2 === 0 &&
+					Math.abs(ey - mey) % 2 === 0
+				);
+			})
+			.map((e) => e.id);
+	}
+
+	for (let i = 0; i < rooms.length; ++i) {
+		const room = rooms[i];
+
+		let masterEntity = room.actors.entities.find((e) => e.id === po.entity.id);
+
+		if (masterEntity) {
+			return _getIds(masterEntity, room.actors.entities);
+		}
+
+		masterEntity = room.stage.entities.find((e) => e.id === po.entity.id);
+		if (masterEntity) {
+			return _getIds(masterEntity, room.stage.entities);
+		}
+	}
+
+	return [];
+}
+
 const editorSlice = createSlice({
 	name: 'editor',
 	initialState,
@@ -1207,11 +1289,58 @@ const editorSlice = createSlice({
 
 			updateValidEntityTypes(currentRoom);
 		},
-		deleteEntity(state: InternalEditorState, action: PayloadAction<number>) {
-			const id = action.payload;
-			const currentRoom = getCurrentRoom(state);
-			deleteEntitiesById(currentRoom.actors, [id]);
-			deleteEntitiesById(currentRoom.stage, [id]);
+		deletePendingObject(
+			state: InternalEditorState,
+			action: PayloadAction<PendingObject>
+		) {
+			const po = action.payload;
+
+			const entityDef = entityMap[po.entity.type];
+
+			const ids: number[] = [];
+
+			if (entityDef.editorType === 'entity') {
+				ids.push(po.entity.id);
+			} else if (entityDef.editorType === 'cell') {
+				ids.push(...getAllCellIdsForPendingObject(state.rooms, po));
+			} else if (entityDef.editorType === 'double-cell') {
+				ids.push(...getAllCellIdsForPendingDoubleCellObject(state.rooms, po));
+			}
+
+			state.rooms.forEach((room) => {
+				deleteEntitiesById(room.actors, ids);
+				deleteEntitiesById(room.stage, ids);
+			});
+		},
+		focusPendingObject(
+			state: InternalEditorState,
+			action: PayloadAction<PendingObject>
+		) {
+			state.mouseMode = 'select';
+
+			const po = action.payload;
+
+			const entityDef = entityMap[po.entity.type];
+
+			const ids: number[] = [];
+
+			if (entityDef.editorType === 'entity') {
+				ids.push(po.entity.id);
+			} else if (entityDef.editorType === 'cell') {
+				ids.push(...getAllCellIdsForPendingObject(state.rooms, po));
+			} else if (entityDef.editorType === 'double-cell') {
+				ids.push(...getAllCellIdsForPendingDoubleCellObject(state.rooms, po));
+			}
+
+			const focusedRecord = ids.reduce<Record<number, boolean>>(
+				(building, id) => {
+					building[id] = true;
+					return building;
+				},
+				{}
+			);
+
+			state.focused = focusedRecord;
 		},
 		mouseModeChanged(
 			state: InternalEditorState,
@@ -2046,7 +2175,8 @@ const {
 	mouseModeChanged,
 	painted,
 	deleteFocused,
-	deleteEntity,
+	deletePendingObject,
+	focusPendingObject,
 	pan,
 	selectDrag,
 	cancelDrag,
@@ -2099,6 +2229,7 @@ function cleanUpReducer(state: InternalEditorState, action: Action) {
 // @ts-ignore not sure why this ignore is needed...
 const undoableReducer = undoable(cleanUpReducer, {
 	filter: excludeAction([
+		focusPendingObject.toString(),
 		togglePlayAs.toString(),
 		setLevelName.toString(),
 		setTimer.toString(),
@@ -2284,7 +2415,8 @@ export {
 	mouseModeChanged,
 	painted,
 	deleteFocused,
-	deleteEntity,
+	deletePendingObject,
+	focusPendingObject,
 	pan,
 	selectDrag,
 	cancelDrag,

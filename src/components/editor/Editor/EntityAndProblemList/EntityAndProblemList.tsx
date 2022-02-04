@@ -20,7 +20,8 @@ type PublicEntityAndProblemListProps = {
 type InternalEntityAndProblemListProps = {
 	rooms: RoomData[];
 	onProblemClick: (arg: { room: number; id: number }) => void;
-	onDeleteClick: (id: number) => void;
+	onEntityClick: (arg: { room: number; pendingObject: PendingObject }) => void;
+	onDeleteClick: (pendingObject: PendingObject) => void;
 };
 
 type EntityProblemEntry = EntityProblem & {
@@ -77,7 +78,10 @@ function EntityEntry({
 			</div>
 			<div className="text-xs">
 				{entityDef.paletteInfo.title}
-				{entityDef.editorType === 'cell' ? `, ${w + 1}x${h + 1}` : ''}
+				{entityDef.editorType === 'cell' ||
+				entityDef.editorType === 'double-cell'
+					? `, ${w + 1}x${h + 1}`
+					: ''}
 			</div>
 			<div className="text-gray-400 flex flex-row gap-x-2 items-center">
 				<div style={{ fontSize: 10 }}>
@@ -225,6 +229,7 @@ function EntityAndProblemList({
 	rooms,
 	onClose,
 	onProblemClick,
+	onEntityClick,
 	onDeleteClick,
 }: InternalEntityAndProblemListProps & PublicEntityAndProblemListProps) {
 	const [problems, pendingEntitiesPerRoom] = useMemo(() => {
@@ -305,7 +310,8 @@ function EntityAndProblemList({
 			id={ROOT_ID}
 		>
 			<PlainIconButton
-				className="absolute top-1.5 -right-1"
+				className="absolute top-2 -right-0.5"
+				style={{ zIndex: 20 }}
 				icon={IconClose}
 				label="close"
 				onMouseDown={(e) => {
@@ -366,10 +372,10 @@ function EntityAndProblemList({
 									room={rooms[roomIndex]}
 									allRooms={rooms}
 									onClick={() => {
-										onProblemClick({ room: roomIndex, id: pe.entity.id });
+										onEntityClick({ room: roomIndex, pendingObject: pe });
 									}}
 									onDeleteClick={() => {
-										onDeleteClick(pe.entity.id);
+										onDeleteClick(pe);
 									}}
 								/>
 							);
