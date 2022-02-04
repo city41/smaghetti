@@ -1,10 +1,11 @@
 import { entityMap } from '../../../../entities/entityMap';
+import { EntityProblem } from '../../../../entities/types';
 
 /**
  * these are problems just about any entity can have. Rather than look for these
  * problems in a whole bunch of entities, they are easier served here
  */
-function getGenericProblem(entity: EditorEntity) {
+function getGenericProblem(entity: EditorEntity): EntityProblem | undefined {
 	const entityDef = entityMap[entity.type];
 
 	// trying to place an object where x < 0 always corrupts it

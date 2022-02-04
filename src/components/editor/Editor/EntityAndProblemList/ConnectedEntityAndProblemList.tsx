@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { AppState, dispatch } from '../../../../store';
-import { scrollToEntity } from '../../editorSlice';
+import { deleteEntity, scrollToEntity } from '../../editorSlice';
 
 import {
 	EntityAndProblemList,
@@ -12,6 +12,7 @@ import {
 const actions = bindActionCreators(
 	{
 		onProblemClick: scrollToEntity,
+		onDeleteClick: deleteEntity,
 	},
 	dispatch
 );

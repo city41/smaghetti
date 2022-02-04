@@ -1207,6 +1207,12 @@ const editorSlice = createSlice({
 
 			updateValidEntityTypes(currentRoom);
 		},
+		deleteEntity(state: InternalEditorState, action: PayloadAction<number>) {
+			const id = action.payload;
+			const currentRoom = getCurrentRoom(state);
+			deleteEntitiesById(currentRoom.actors, [id]);
+			deleteEntitiesById(currentRoom.stage, [id]);
+		},
 		mouseModeChanged(
 			state: InternalEditorState,
 			action: PayloadAction<MouseMode>
@@ -2040,6 +2046,7 @@ const {
 	mouseModeChanged,
 	painted,
 	deleteFocused,
+	deleteEntity,
 	pan,
 	selectDrag,
 	cancelDrag,
@@ -2277,6 +2284,7 @@ export {
 	mouseModeChanged,
 	painted,
 	deleteFocused,
+	deleteEntity,
 	pan,
 	selectDrag,
 	cancelDrag,

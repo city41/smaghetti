@@ -118,7 +118,7 @@ const QuestionBlockGiantSolid: Entity = {
 		const tx = entity.x / TILE_SIZE;
 
 		if (tx % 2 === 1) {
-			return 'Must be placed on an even x tile';
+			return 'Behaves strangely if not on an even x coordinate';
 		}
 	},
 };

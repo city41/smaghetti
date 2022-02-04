@@ -4,7 +4,7 @@ import { entityMap } from '../../../../entities/entityMap';
 import { PlainIconButton } from '../../../PlainIconButton';
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { EntityProblem } from '../../../../entities/types';
-import { IconClose } from '../../../../icons';
+import { IconClose, IconTrash } from '../../../../icons';
 import { getGenericProblem } from './genericProblems';
 import { PendingObject } from '../../../../levelData/createLevelData';
 import { getPendingEntities } from './getPendingEntities';
@@ -20,12 +20,15 @@ type PublicEntityAndProblemListProps = {
 type InternalEntityAndProblemListProps = {
 	rooms: RoomData[];
 	onProblemClick: (arg: { room: number; id: number }) => void;
+	onDeleteClick: (id: number) => void;
 };
 
 type EntityProblemEntry = EntityProblem & {
 	entity: EditorEntity;
 	room: number;
 };
+
+const ROOT_ID = 'entity-and-problem-list-root';
 
 function EntityEntry({
 	entity,
@@ -36,6 +39,7 @@ function EntityEntry({
 	w,
 	h,
 	onClick,
+	onDeleteClick,
 }: {
 	entity: EditorEntity;
 	room: RoomData;
@@ -45,6 +49,7 @@ function EntityEntry({
 	w: number;
 	h: number;
 	onClick: () => void;
+	onDeleteClick: () => void;
 }) {
 	const entityDef = entityMap[entity.type];
 
@@ -52,12 +57,14 @@ function EntityEntry({
 		<div
 			className={clsx(
 				styles.entityEntry,
-				'cursor-pointer hover:bg-gray-600 grid grid-cols-3 items-center pb-1 pt-4 -mx-2 px-2 border-b border-gray-500 last:border-b-0 bg-gray-800'
+				'group cursor-pointer hover:bg-gray-600 grid gap-x-2 items-center py-2 -mx-2 px-2 border-b border-gray-500 last:border-b-0 bg-gray-800'
 			)}
+			style={{ gridTemplateColumns: 'min-content 1fr min-content' }}
 			onClick={onClick}
 		>
 			<div>
-				{entityDef.editorType !== 'entity'
+				{entityDef.editorType === 'cell' ||
+				entityDef.editorType === 'double-cell'
 					? entityDef.render({
 							showDetails: false,
 							onSettingsChange: () => {},
@@ -68,15 +75,18 @@ function EntityEntry({
 					  })
 					: entityDef.simpleRender(16)}
 			</div>
-			<div className="col-span-4 text-xs">
+			<div className="text-xs">
 				{entityDef.paletteInfo.title}
 				{entityDef.editorType === 'cell' ? `, ${w + 1}x${h + 1}` : ''}
 			</div>
-			<div
-				style={{ fontSize: 10 }}
-				className="col-span-5 text-right text-gray-400"
-			>
-				({x},{y})
+			<div className="text-gray-400 flex flex-row gap-x-2 items-center">
+				<div style={{ fontSize: 10 }}>
+					({x},{y})
+				</div>
+				<IconTrash
+					className="hidden group-hover:block text-white hover:text-red-500"
+					onClick={onDeleteClick}
+				/>
 			</div>
 		</div>
 	);
@@ -126,12 +136,96 @@ function Problem({
 	);
 }
 
+type HeaderProps = Omit<JSX.IntrinsicElements['h2'], 'ref'> & {
+	className?: string;
+};
+
+function Header(props: HeaderProps) {
+	const { className, ...rest } = props;
+
+	return (
+		<h2
+			className={clsx(
+				className,
+				'text-lg border-b-2 border-t-2 py-1 px-2 -mx-2 sticky top-0 bg-gray-600 z-10'
+			)}
+			{...rest}
+		/>
+	);
+}
+
+type RoomNavigationProps = {
+	count: number;
+	index: number;
+};
+
+function getRoomScrollToTargetId(roomIndex: number): string {
+	return `entity-and-problem-list-room-scroll-to-target-${roomIndex}`;
+}
+
+function RoomNavigation({ count, index }: RoomNavigationProps) {
+	if (count === 1) {
+		return null;
+	}
+
+	const [prev, next] = ['previous', 'next'].map((action) => {
+		return (
+			<a
+				key={action}
+				className="text-white text-xs cursor-pointer hover:underline"
+				onClick={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+
+					const delta = action === 'next' ? 1 : -1;
+
+					const roomScrollToTarget = document.querySelector(
+						`#${getRoomScrollToTargetId(index + delta)}`
+					);
+
+					if (roomScrollToTarget) {
+						roomScrollToTarget.scrollIntoView({ behavior: 'auto' });
+
+						const root = document.querySelector(`#${ROOT_ID}`);
+
+						if (root) {
+							setTimeout(() => {
+								root.scrollBy({ top: -48 });
+							}, 10);
+						}
+					}
+				}}
+			>
+				{action}
+			</a>
+		);
+	});
+
+	let body;
+
+	if (index === 0) {
+		body = <>{next}</>;
+	} else if (index === count - 1) {
+		body = <>{prev}</>;
+	} else {
+		body = (
+			<>
+				{prev}
+				{next}
+			</>
+		);
+	}
+
+	return <div className="flex flex-row gap-x-2 items-center">{body}</div>;
+}
+
 function EntityAndProblemList({
 	className,
 	style,
 	rooms,
 	onClose,
 	onProblemClick,
+	onDeleteClick,
 }: InternalEntityAndProblemListProps & PublicEntityAndProblemListProps) {
 	const [problems, pendingEntitiesPerRoom] = useMemo(() => {
 		return rooms.reduce<[EntityProblemEntry[], PendingObject[][]]>(
@@ -142,11 +236,30 @@ function EntityAndProblemList({
 
 				const problems = pendingEntities.reduce<EntityProblemEntry[]>(
 					(b, pendingEntity) => {
+						const entityDef = entityMap[pendingEntity.entity.type];
+
+						let entity;
+
+						// HACK: ugh, since running double-cells through the pending object
+						// pipeline maps them into tile coordinates, need to unmap them
+						// back to pixel coordinates for their problems to be triggered
+						// properly
+						// TODO: for the love of god, get rid of pixel coordinates
+						if (entityDef.editorType === 'double-cell') {
+							entity = {
+								...pendingEntity.entity,
+								x: pendingEntity.x * TILE_SIZE,
+								y: pendingEntity.entity.y * TILE_SIZE,
+							};
+						} else {
+							entity = pendingEntity.entity;
+						}
+
 						let problem =
 							getGenericProblem(pendingEntity.entity) ??
 							entityMap[pendingEntity.entity.type].getProblem?.({
 								settings: pendingEntity.entity.settings,
-								entity: pendingEntity.entity,
+								entity,
 								room,
 								allRooms: rooms,
 							});
@@ -186,84 +299,84 @@ function EntityAndProblemList({
 		<div
 			className={clsx(
 				className,
-				'bg-gray-700 px-2 overflow-x-hidden overflow-y-auto thinScrollbar'
+				'relative bg-gray-700 px-2 overflow-x-hidden overflow-y-auto thinScrollbar'
 			)}
 			style={style}
+			id={ROOT_ID}
 		>
-			<div className="relative w-full h-full">
-				<PlainIconButton
-					className="absolute top-1.5 -right-1"
-					icon={IconClose}
-					label="close"
-					onMouseDown={(e) => {
-						e.stopPropagation();
-						e.preventDefault();
-						onClose();
-					}}
-				/>
-				{errors.length > 0 && (
-					<>
-						<h2 className="text-lg block border-b-2 border-t-2 border-red-500 py-1 px-2 -mx-2">
-							Errors
-						</h2>
-						<div className="flex flex-col xgap-y-4">
-							{errors.map((e) => (
-								<Problem
-									key={e.entity.id}
-									problem={e}
-									onClick={() => {
-										onProblemClick({ room: e.room, id: e.entity.id });
-									}}
-								/>
-							))}
-						</div>
-					</>
-				)}
-				{warnings.length > 0 && (
-					<>
-						<h2 className="text-lg block border-b-2 border-t-2 border-yellow-500 py-1 px-2 -mx-2">
-							Warnings
-						</h2>
-						<div className="flex flex-col xgap-y-4">
-							{warnings.map((w) => (
-								<Problem
-									key={w.entity.id}
-									problem={w}
-									onClick={() => {
-										onProblemClick({ room: w.room, id: w.entity.id });
-									}}
-								/>
-							))}
-						</div>
-					</>
-				)}
-				{pendingEntitiesPerRoom.map((pendingEntities, roomIndex) => {
-					if (pendingEntities.length === 0) {
-						return null;
-					}
+			<PlainIconButton
+				className="absolute top-1.5 -right-1"
+				icon={IconClose}
+				label="close"
+				onMouseDown={(e) => {
+					e.stopPropagation();
+					e.preventDefault();
+					onClose();
+				}}
+			/>
+			{errors.length > 0 && (
+				<>
+					<Header className="border-red-500">Errors</Header>
+					<div className="flex flex-col xgap-y-4">
+						{errors.map((e) => (
+							<Problem
+								key={e.entity.id}
+								problem={e}
+								onClick={() => {
+									onProblemClick({ room: e.room, id: e.entity.id });
+								}}
+							/>
+						))}
+					</div>
+				</>
+			)}
+			{warnings.length > 0 && (
+				<>
+					<Header className="border-yellow-500">Warnings</Header>
+					<div className="flex flex-col xgap-y-4">
+						{warnings.map((w) => (
+							<Problem
+								key={w.entity.id}
+								problem={w}
+								onClick={() => {
+									onProblemClick({ room: w.room, id: w.entity.id });
+								}}
+							/>
+						))}
+					</div>
+				</>
+			)}
+			{pendingEntitiesPerRoom.map((pendingEntities, roomIndex) => {
+				if (pendingEntities.length === 0) {
+					return null;
+				}
 
-					return (
-						<React.Fragment key={roomIndex}>
-							<h2 className="text-lg block border-b-2 border-t-2 border-white py-1 px-2 -mx-2">
-								Room {roomIndex + 1}
-							</h2>
-							{pendingEntities.map((pe) => {
-								return (
-									<EntityEntry
-										key={pe.entity.id}
-										{...pe}
-										room={rooms[roomIndex]}
-										allRooms={rooms}
-										onClick={() => {
-											onProblemClick({ room: roomIndex, id: pe.entity.id });
-										}}
-									/>
-								);
-							})}
-						</React.Fragment>
-					);
-				})}
-			</div>
+				return (
+					<React.Fragment key={roomIndex}>
+						<Header className="border-white flex flex-row items-baseline gap-x-4">
+							<div>Room {roomIndex + 1}</div>
+							<RoomNavigation count={rooms.length} index={roomIndex} />
+						</Header>
+						<div id={getRoomScrollToTargetId(roomIndex)} />
+						{pendingEntities.map((pe) => {
+							return (
+								<EntityEntry
+									key={pe.entity.id}
+									{...pe}
+									room={rooms[roomIndex]}
+									allRooms={rooms}
+									onClick={() => {
+										onProblemClick({ room: roomIndex, id: pe.entity.id });
+									}}
+									onDeleteClick={() => {
+										onDeleteClick(pe.entity.id);
+									}}
+								/>
+							);
+						})}
+					</React.Fragment>
+				);
+			})}
 		</div>
 	);
 }
