@@ -798,6 +798,38 @@ export function parseSimpleCheckeredTerrainObject(
 	}
 }
 
+export function parsePixelPositionedSprite(
+	data: Uint8Array,
+	offset: number,
+	spriteId: number,
+	target: Entity
+): ReturnType<Required<Entity>['parseSprite']> {
+	if (
+		data[offset] === 1 &&
+		data[offset + 1] === 0x1d &&
+		data[offset + 4] === spriteId
+	) {
+		const x = data[offset + 2];
+		const y = data[offset + 3];
+		const pixelOffset = data[offset + 5];
+
+		const type = getType(target);
+
+		return {
+			entity: {
+				type,
+				x: x * TILE_SIZE,
+				y: y * TILE_SIZE,
+				settings: {
+					pixelOffset,
+					width: 1 + Math.round(pixelOffset / TILE_SIZE),
+				},
+			},
+			offset: offset + 6,
+		};
+	}
+}
+
 export function invertNumeric(
 	obj: Record<number, number>
 ): Record<number, number> {

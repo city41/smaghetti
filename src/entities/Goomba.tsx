@@ -52,7 +52,6 @@ const Goomba: Entity = {
 		return [0, this.objectId, x, y];
 	},
 
-	// TODO: pixel positioned Goombas
 	parseSprite(data, offset) {
 		return parseSimpleSprite(data, offset, 0, this);
 	},

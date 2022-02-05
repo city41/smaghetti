@@ -167,6 +167,7 @@ import { GiantRedKoopa } from './GiantRedKoopa';
 import { GlassBlock } from './GlassBlock';
 import { Goomba } from './Goomba';
 import { GoombaGenerator } from './GoombaGenerator';
+import { GoombaPixelPositioned } from './GoombaPixelPositioned';
 import { GrandGoomba } from './GrandGoomba';
 import { GrassChuteDownLeft } from './GrassChuteDownLeft';
 import { GrassChuteDownRight } from './GrassChuteDownRight';
@@ -568,6 +569,7 @@ const entityMap = {
 	GlassBlock,
 	Goomba,
 	GoombaGenerator,
+	GoombaPixelPositioned,
 	GrandGoomba,
 	GrassChuteDownLeft,
 	GrassChuteDownRight,

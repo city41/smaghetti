@@ -32,7 +32,7 @@ function UnknownDetails({ rawBytes, children }: UnknownDetailsProps) {
 			{children}
 			<div className="my-0.5 flex flex-col space-y-0.5">
 				<div className="flex flex-row justify-between">
-					{rawBytes.concat(1, 2).map((b, i) => (
+					{rawBytes.map((b, i) => (
 						<div key={i}>{toHexString(b)}</div>
 					))}
 				</div>
