@@ -811,7 +811,11 @@ export function parsePixelPositionedSprite(
 	) {
 		const x = data[offset + 2];
 		const y = data[offset + 3];
-		const pixelOffset = data[offset + 5];
+		let pixelOffset = data[offset + 5];
+
+		if (pixelOffset > 127) {
+			pixelOffset = pixelOffset - 255;
+		}
 
 		const type = getType(target);
 
@@ -822,7 +826,7 @@ export function parsePixelPositionedSprite(
 				y: y * TILE_SIZE,
 				settings: {
 					pixelOffset,
-					width: 1 + Math.round(pixelOffset / TILE_SIZE),
+					width: 1,
 				},
 			},
 			offset: offset + 6,

@@ -6,6 +6,7 @@ import { parsePixelPositionedSprite } from './util';
 import { Resizer } from '../components/Resizer';
 import clamp from 'lodash/clamp';
 import clsx from 'clsx';
+import { TileSpace } from './TileSpace';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -82,41 +83,45 @@ const GoombaPixelPositioned: Entity = {
 		};
 
 		return (
-			<div
-				style={style}
-				className={clsx('relative border-b', {
-					'border-blue-600': pixelOffset >= 0,
-					'border-yellow-600': pixelOffset < 0,
-				})}
-			>
-				<div
-					className="Goomba-bg bg-cover"
+			<div className="relative" style={{ width: TILE_SIZE, height: TILE_SIZE }}>
+				<TileSpace
+					className="absolute"
 					style={{ width: TILE_SIZE, height: TILE_SIZE }}
 				/>
-				{!!entity && (
-					<Resizer
-						className="absolute bottom-0"
-						style={{
-							marginBottom: '-0.12rem',
-							...(pixelOffset < 0
-								? { left: `calc(${TILE_SIZE}px - 0.12rem)` }
-								: { right: '-0.12rem' }),
-						}}
-						size={{ x: pixelOffset, y: 1 }}
-						increment={1}
-						axis="x"
-						onSizeChange={(newSizePoint) => {
-							const newPixelOffset = clamp(newSizePoint.x, -127, 127);
-							const newWidth = Math.round(newPixelOffset / TILE_SIZE) + 1;
-							onSettingsChange({
-								width: newWidth,
-								pixelOffset: newPixelOffset,
-							});
-						}}
-						onResizeStart={() => onSettingsChange({ resizing: true })}
-						onResizeEnd={() => onSettingsChange({ resizing: false })}
+				<div
+					style={style}
+					className={clsx('absolute border-b', {
+						'border-blue-600': pixelOffset >= 0,
+						'border-yellow-600': pixelOffset < 0,
+					})}
+				>
+					<div
+						className="Goomba-bg bg-cover"
+						style={{ width: TILE_SIZE, height: TILE_SIZE }}
 					/>
-				)}
+					{!!entity && (
+						<Resizer
+							className="absolute bottom-0"
+							style={{
+								marginBottom: '-0.12rem',
+								...(pixelOffset < 0
+									? { left: `calc(${TILE_SIZE}px - 0.12rem)` }
+									: { right: '-0.12rem' }),
+							}}
+							size={{ x: pixelOffset, y: 1 }}
+							increment={1}
+							axis="x"
+							onSizeChange={(newSizePoint) => {
+								const newPixelOffset = clamp(newSizePoint.x, -127, 127);
+								onSettingsChange({
+									pixelOffset: newPixelOffset,
+								});
+							}}
+							onResizeStart={() => onSettingsChange({ resizing: true })}
+							onResizeEnd={() => onSettingsChange({ resizing: false })}
+						/>
+					)}
+				</div>
 			</div>
 		);
 	},
