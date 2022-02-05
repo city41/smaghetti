@@ -2,7 +2,10 @@ import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { parseObjectIdMapSprite } from './util';
+import {
+	parseObjectIdMapSprite,
+	parseSimpleSpriteObjectIdOverride,
+} from './util';
 import { IconArrowLeft, IconArrowRight } from '../icons';
 import invert from 'lodash/invert';
 
@@ -45,6 +48,31 @@ const ScrollStopHorizontal: Entity = {
 	},
 
 	parseSprite(data, offset) {
+		const simpleResult = parseSimpleSpriteObjectIdOverride(
+			data,
+			offset,
+			1,
+			0x29,
+			this
+		);
+
+		// this is an alternate scroll stop sprite that only
+		// prevents scrolling to to the right. it is used
+		// in star04 (classic 1-4) to prevent you from backtracking
+		// after entering the room with bowser in it
+		if (simpleResult) {
+			return {
+				...simpleResult,
+				entity: {
+					...simpleResult.entity,
+					settings: {
+						...simpleResult.entity.settings,
+						direction: 'right',
+					},
+				},
+			};
+		}
+
 		return parseObjectIdMapSprite(
 			data,
 			offset,
