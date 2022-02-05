@@ -144,7 +144,7 @@ type UnknownObjectDef = {
 };
 
 const unknownObjectDefs: Map<string, UnknownObjectDef[]> = new Map();
-unknownObjectDefs.set('1-1', [{ id: 0x1f, byteLength: 4 }]);
+// unknownObjectDefs.set('1-1', [{ id: 0x1f, byteLength: 4 }]);
 
 function parseUnknownObject(
 	bytes: Uint8Array,
@@ -158,17 +158,17 @@ function parseUnknownObject(
 		return null;
 	}
 
-	const def = defs.find((d) => d.id === bytes[offset + 3]);
+	const objectId = bytes[offset + 3];
+	const def = defs.find((d) => d.id === objectId);
 	const x = bytes[offset + 2];
 	const y = bytes[offset + 1];
-	const objectId = bytes[offset + 3];
 
 	if (def) {
 		return {
 			entity: {
 				type: 'Unknown',
-				x,
-				y,
+				x: x * TILE_SIZE,
+				y: y * TILE_SIZE,
 				settings: {
 					type: 'object',
 					objectId,
@@ -221,7 +221,14 @@ function parseObjects(
 			);
 
 			if (unknownObjectResult) {
-				cellEntities.push(unknownObjectResult.entity);
+				// eslint-disable-next-line no-console
+				console.warn(
+					'unknown object captured',
+					unknownObjectResult.entity.settings?.rawBytes
+						.map((b: number) => b.toString(16))
+						.join(' ')
+				);
+				objectEntities.push(unknownObjectResult.entity);
 				offset = unknownObjectResult.offset;
 			} else {
 				// eslint-disable-next-line no-console
