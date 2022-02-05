@@ -235,6 +235,28 @@ export function parseSimpleSprite(
 	}
 }
 
+export function parseSimpleSpriteObjectIdOverride(
+	data: Uint8Array,
+	offset: number,
+	bank: number,
+	objectId: number,
+	target: Entity
+): ReturnType<Required<Entity>['parseSprite']> {
+	if (data[offset++] === bank && data[offset++] === objectId) {
+		const x = data[offset++];
+		const y = data[offset++];
+
+		return {
+			entity: {
+				type: getType(target),
+				x: x * TILE_SIZE,
+				y: y * TILE_SIZE,
+			},
+			offset,
+		};
+	}
+}
+
 export function parseSimpleSpriteWithByteParam(
 	data: Uint8Array,
 	offset: number,

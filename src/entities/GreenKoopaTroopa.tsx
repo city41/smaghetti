@@ -3,7 +3,7 @@ import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
-import { parseSimpleSprite } from './util';
+import { parseSimpleSprite, parseSimpleSpriteObjectIdOverride } from './util';
 
 const graphicSetValues = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -86,9 +86,15 @@ const GreenKoopaTroopa: Entity = {
 		);
 	},
 
-	// TODO: pixel positioned koopas
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 0, this);
+		// koopa troopa has an alternate version at [1, 0x18, x, y]
+		// doesn't seem like we need that to be a full fledged entity in smaghetti,
+		// as sprites are pretty universal, so if we hit that alternate version, we'll
+		// just turn it into GreenKoopaTroopa
+		return (
+			parseSimpleSprite(data, offset, 0, this) ??
+			parseSimpleSpriteObjectIdOverride(data, offset, 1, 0x18, this)
+		);
 	},
 };
 
