@@ -71,6 +71,7 @@ import { BuriedVegetableMontyMole } from './BuriedVegetable/BuriedVegetableMonty
 import { Burner } from './Burner';
 import { BusterBeetle } from './BusterBeetle';
 import { BuzzyBeetle } from './BuzzyBeetle';
+import { BuzzyBeetlePixelPositioned } from './BuzzyBeetlePixelPositioned';
 import { Cactus } from './Cactus';
 import { Cannon } from './Cannon';
 import { CannonRotating } from './CannonRotating';
@@ -334,6 +335,7 @@ import { SpinPlatform } from './SpinPlatform';
 import { Spiny } from './Spiny';
 import { SpinyCheepCheepGenerator } from './SpinyCheepCheepGenerator';
 import { SpinyEggGreen } from './SpinyEggGreen';
+import { SpinyPixelPositioned } from './SpinyPixelPositioned';
 import { SpringBoard } from './SpringBoard';
 import { StairsDownRight } from './StairsDownRight';
 import { StairsUpRight } from './StairsUpRight';
@@ -473,6 +475,7 @@ const entityMap = {
 	Burner,
 	BusterBeetle,
 	BuzzyBeetle,
+	BuzzyBeetlePixelPositioned,
 	Cactus,
 	Cannon,
 	CannonRotating,
@@ -736,6 +739,7 @@ const entityMap = {
 	Spiny,
 	SpinyCheepCheepGenerator,
 	SpinyEggGreen,
+	SpinyPixelPositioned,
 	SpringBoard,
 	StairsDownRight,
 	StairsUpRight,

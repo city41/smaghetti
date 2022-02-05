@@ -87,6 +87,7 @@ type PaletteSubcategory =
 	| 'terrain-giant'
 	| 'terrain-desert'
 	| 'enemy-common'
+	| 'enemy-pixel-positioned'
 	| 'enemy-piranha'
 	| 'enemy-fortress'
 	| 'enemy-airship'
