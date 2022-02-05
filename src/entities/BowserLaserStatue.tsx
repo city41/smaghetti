@@ -19,6 +19,8 @@ const BowserLaserStatue: Entity = {
 	dimensions: 'none',
 	objectId: 0x5,
 	emptyBank: 0,
+	width: 1,
+	height: 2,
 
 	resource: {
 		romOffset: 0x167674,
