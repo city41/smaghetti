@@ -28,7 +28,9 @@ const otherSettingSlices = {
 	graphicSets: [16, 6],
 	unknown1: [22, 4],
 	rotationSet: [26, 1],
-	unknown2: [27, 5],
+	unknown2: [27, 1],
+	bgExtraYPos: [28, 1],
+	unknown3: [28, 3],
 };
 
 function LevelSettings({ levelSettings, onPatch }: LevelSettingsProps) {
@@ -86,7 +88,7 @@ function LevelSettings({ levelSettings, onPatch }: LevelSettingsProps) {
 				{keys}
 				{values}
 			</div>
-			<div className="grid grid-cols-4 grid-rows-2 p-1">
+			<div className="grid grid-cols-6 grid-rows-2 p-1">
 				{otherKeys}
 				{otherValues}
 			</div>

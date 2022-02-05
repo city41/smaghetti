@@ -267,7 +267,7 @@ function getLevelSettings(
 		0,
 		getRotationByte(entities),
 		0,
-		0,
+		0, // y position of extra effects such as the river
 		0,
 		0,
 		0,
