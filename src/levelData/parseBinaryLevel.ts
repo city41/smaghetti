@@ -138,6 +138,50 @@ function parseObjectEntity(
 	return null;
 }
 
+type UnknownObjectDef = {
+	id: number;
+	byteLength: number;
+};
+
+const unknownObjectDefs: Map<string, UnknownObjectDef[]> = new Map();
+unknownObjectDefs.set('1-1', [{ id: 0x1f, byteLength: 4 }]);
+
+function parseUnknownObject(
+	bytes: Uint8Array,
+	offset: number,
+	objectSet: number,
+	gfxSet: number
+): { entity: NewEditorEntity; offset: number } | null {
+	const defs = unknownObjectDefs.get(`${objectSet}-${gfxSet}`);
+
+	if (!defs) {
+		return null;
+	}
+
+	const def = defs.find((d) => d.id === bytes[offset + 3]);
+	const x = bytes[offset + 2];
+	const y = bytes[offset + 1];
+	const objectId = bytes[offset + 3];
+
+	if (def) {
+		return {
+			entity: {
+				type: 'Unknown',
+				x,
+				y,
+				settings: {
+					type: 'object',
+					objectId,
+					rawBytes: Array.from(bytes.subarray(offset, offset + def.byteLength)),
+				},
+			} as const,
+			offset: offset + def.byteLength,
+		};
+	}
+
+	return null;
+}
+
 function parseObjects(
 	levelBytes: Uint8Array,
 	index: number
@@ -169,19 +213,31 @@ function parseObjects(
 			}
 			offset = result.offset;
 		} else {
-			// eslint-disable-next-line no-console
-			console.warn(
-				`unknown object encountered after ${
-					objectEntities.length + cellEntities.length
-				} successes`
-			);
-			// eslint-disable-next-line no-console
-			console.warn(
-				'remaining bytes',
-				getRemainingObjectBytes(levelBytes, index, offset)
+			const unknownObjectResult = parseUnknownObject(
+				levelBytes,
+				offset,
+				objectSet,
+				gfxSet
 			);
 
-			return { objectEntities, cellEntities };
+			if (unknownObjectResult) {
+				cellEntities.push(unknownObjectResult.entity);
+				offset = unknownObjectResult.offset;
+			} else {
+				// eslint-disable-next-line no-console
+				console.warn(
+					`unknown object encountered in room ${index}, after ${
+						objectEntities.length + cellEntities.length
+					} successes`
+				);
+				// eslint-disable-next-line no-console
+				console.warn(
+					'remaining bytes',
+					getRemainingObjectBytes(levelBytes, index, offset)
+				);
+
+				return { objectEntities, cellEntities };
+			}
 		}
 	}
 
