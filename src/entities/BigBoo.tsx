@@ -5,13 +5,12 @@ import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
 import { parseSimpleSprite } from './util';
 
-const BigBooBoss: Entity = {
+const BigBoo: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		subCategory: 'enemy-boss',
-		title: 'Big Boo Boss',
-		description:
-			'Throw magic blocks at him to hurt him. Beating him completes the level.',
+		subCategory: 'enemy-fortress',
+		title: 'Big Boo',
+		description: 'A Boo, but bigger',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -19,14 +18,14 @@ const BigBooBoss: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x25,
+	objectId: 0x12,
 
 	toSpriteBinary({ x, y }) {
-		return [1, this.objectId, x, y];
+		return [0, this.objectId, x, y];
 	},
 
 	parseSprite(data, offset) {
-		return parseSimpleSprite(data, offset, 1, this);
+		return parseSimpleSprite(data, offset, 0, this);
 	},
 
 	simpleRender(size) {
@@ -72,7 +71,7 @@ const BigBooBoss: Entity = {
 					style={armStyle}
 				/>
 				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
-					boss
+					enemy
 				</div>
 			</div>
 		);
@@ -139,11 +138,11 @@ const BigBooBoss: Entity = {
 					<TileSpace />
 				</div>
 				<div className="absolute left-0 w-full text-center" style={labelStyle}>
-					<div className="inline-block px-2 bg-black text-white">boss</div>
+					<div className="inline-block px-2 bg-black text-white">enemy</div>
 				</div>
 			</div>
 		);
 	},
 };
 
-export { BigBooBoss };
+export { BigBoo };

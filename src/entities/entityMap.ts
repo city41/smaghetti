@@ -22,6 +22,7 @@ import { BeachBall } from './BeachBall';
 import { BeachedCheepCheep } from './BeachedCheepCheep';
 import { BigBass } from './BigBass';
 import { BigBertha } from './BigBertha';
+import { BigBoo } from './BigBoo';
 import { BigBooBoss } from './BigBooBoss';
 import { BillBlaster } from './BillBlaster';
 import { BillBlasterBurner } from './BillBlasterBurner';
@@ -429,6 +430,7 @@ const entityMap = {
 	BeachedCheepCheep,
 	BigBass,
 	BigBertha,
+	BigBoo,
 	BigBooBoss,
 	BillBlaster,
 	BillBlasterBurner,
