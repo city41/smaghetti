@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import type { Entity } from './types';
+import type { Entity, SpriteGraphicSets } from './types';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_OBJECT_SET } from './constants';
 import { parsePixelPositionedSprite } from './util';
@@ -12,7 +12,8 @@ function getPixelPositionedEntity(
 	name: string,
 	spriteClassName: string,
 	spriteId: number,
-	spriteGraphicSets: Entity['spriteGraphicSets']
+	spriteGraphicSets: SpriteGraphicSets,
+	height = TILE_SIZE
 ) {
 	const pixelPositionedEntity: Entity = {
 		paletteCategory: 'enemy',
@@ -41,7 +42,7 @@ function getPixelPositionedEntity(
 			// 1 = buzzy beetle
 			// 2 = green koopa
 			// 3 = red koopa
-			// and there are probably more
+			// 4 = spiny
 			// https://github.com/city41/smaghetti/wiki/Pixel-positioned-sprites
 
 			let pixelOffsetByte = pixelOffset;
@@ -69,8 +70,9 @@ function getPixelPositionedEntity(
 					<div
 						className={clsx(
 							spriteClassName,
-							'absolute bg-cover w-full h-full -right-4'
+							'absolute bg-cover bg-no-repeat bg-center w-full h-full -right-4'
 						)}
+						style={{ backgroundSize: `${(TILE_SIZE / height) * 100}% 100%` }}
 					/>
 				</div>
 			);
@@ -108,7 +110,11 @@ function getPixelPositionedEntity(
 					>
 						<div
 							className={clsx('bg-cover', spriteClassName)}
-							style={{ width: TILE_SIZE, height: TILE_SIZE }}
+							style={{
+								width: TILE_SIZE,
+								height,
+								marginTop: TILE_SIZE - height,
+							}}
 						/>
 						{!!entity && (
 							<Resizer

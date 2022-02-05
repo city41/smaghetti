@@ -184,6 +184,7 @@ import { GrassUpperRightCorner } from './GrassUpperRightCorner';
 import { GrassVerticalLeft } from './GrassVerticalLeft';
 import { GrassVerticalRight } from './GrassVerticalRight';
 import { GreenKoopaTroopa } from './GreenKoopaTroopa';
+import { GreenKoopaTroopaPixelPositioned } from './GreenKoopaTroopaPixelPositioned';
 import { GreenParaTroopa } from './GreenParaTroopa';
 import { GreenParaTroopaPatrolling } from './GreenParaTroopaPatrolling';
 import { HammerBro } from './HammerBro';
@@ -306,6 +307,7 @@ import { QuestionBlockGiantSolid } from './QuestionBlockGiantSolid';
 import { QuestionMark } from './QuestionMark';
 import { Quicksand } from './Quicksand';
 import { RedKoopaTroopa } from './RedKoopaTroopa';
+import { RedKoopaTroopaPixelPositioned } from './RedKoopaTroopaPixelPositioned';
 import { RedParaTroopa } from './RedParaTroopa';
 import { RipVanFish } from './RipVanFish';
 import { RiverCheepCheep } from './RiverCheepCheep';
@@ -588,6 +590,7 @@ const entityMap = {
 	GrassVerticalLeft,
 	GrassVerticalRight,
 	GreenKoopaTroopa,
+	GreenKoopaTroopaPixelPositioned,
 	GreenParaTroopa,
 	GreenParaTroopaPatrolling,
 	HammerBro,
@@ -710,6 +713,7 @@ const entityMap = {
 	QuestionMark,
 	Quicksand,
 	RedKoopaTroopa,
+	RedKoopaTroopaPixelPositioned,
 	RedParaTroopa,
 	RipVanFish,
 	RiverCheepCheep,
