@@ -32,9 +32,9 @@ const RECT_CLASSES = [
 		'UnderwaterFloorUpperRight-bg',
 	],
 	[
-		'UnderwaterFloorLeft-bg',
-		'UnderwaterFloorCenter-bg',
-		'UnderwaterFloorRight-bg',
+		'UnderwaterFloorLowerLeft-bg',
+		'UnderwaterFloorBottom-bg',
+		'UnderwaterFloorLowerRight-bg',
 	],
 	[
 		'UnderwaterFloorLowerLeft-bg',
