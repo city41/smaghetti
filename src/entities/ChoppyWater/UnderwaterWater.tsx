@@ -13,7 +13,8 @@ const UnderwaterWater: Entity = {
 	paletteInfo: {
 		subCategory: 'terrain-water',
 		title: 'Underwater Water',
-		description: 'Use this to create full on underwater rooms,',
+		description:
+			"One option for an underwater level, but also check out regular ol' Water too",
 		helpId: 'underwater-water',
 	},
 
