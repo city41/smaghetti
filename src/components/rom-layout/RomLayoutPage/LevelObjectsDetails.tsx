@@ -8,6 +8,10 @@ import { getRom } from '../../FileLoader/files';
 import { PlainIconButton } from '../../PlainIconButton';
 import { RoomThumbnail } from '../../RoomThumbnail';
 import { IconSave } from '../../../icons';
+import {
+	BACKGROUND_GRAPHIC_VALUES,
+	MUSIC_VALUES,
+} from '../../../levelData/constants';
 
 type LevelObjectsDetailsProps = {
 	offset: number;
@@ -111,6 +115,84 @@ function buildMatrix(entities: NewEditorEntity[]): EditorEntityMatrix {
 	return matrix;
 }
 
+function toHexByteString(b: number): string {
+	const asString = b.toString(16);
+
+	if (asString.length === 1) {
+		return '0' + asString;
+	}
+	return asString;
+}
+
+function toHexSlice(bytes: number[], start: number, count: number): string {
+	const sl = bytes.slice(start, start + count);
+	return sl.map(toHexByteString).join(' ');
+}
+
+function findBackground(bg: number): string {
+	const entry = Object.entries(BACKGROUND_GRAPHIC_VALUES).find(
+		(e) => e[1] === bg
+	);
+
+	return entry?.[0] ?? 'unknown';
+}
+
+function findMusic(m: number): string {
+	const entry = Object.entries(MUSIC_VALUES).find((e) => e[1] === m);
+
+	return entry?.[0] ?? 'unknown';
+}
+
+function Header({ bytes }: { bytes: number[] }) {
+	return (
+		<table>
+			<tbody>
+				<tr>
+					<td colSpan={2}>{toHexSlice(bytes, 0, bytes.length)}</td>
+				</tr>
+				<tr>
+					<td>Level ID Next area (big endian)</td>
+					<td>{toHexSlice(bytes, 0, 2)}</td>
+				</tr>
+				<tr>
+					<td>Opponent id of next area (big endian)</td>
+					<td>{toHexSlice(bytes, 2, 2)}</td>
+				</tr>
+				<tr>
+					<td>start pos y/map length</td>
+					<td>{toHexSlice(bytes, 4, 1)}</td>
+				</tr>
+				<tr>
+					<td>start pos x</td>
+					<td>{toHexSlice(bytes, 5, 1)}</td>
+				</tr>
+				<tr>
+					<td>scroll type/object set</td>
+					<td>{toHexSlice(bytes, 6, 1)}</td>
+				</tr>
+				<tr>
+					<td>gfx</td>
+					<td>{toHexSlice(bytes, 7, 1)}</td>
+				</tr>
+				<tr>
+					<td>object set next area/music</td>
+					<td>{toHexSlice(bytes, 8, 1)}</td>
+					<td>{findMusic(bytes[8] && 0xf)}</td>
+				</tr>
+				<tr>
+					<td>extra color/extra effect</td>
+					<td>{toHexSlice(bytes, 9, 1)}</td>
+				</tr>
+				<tr>
+					<td>background</td>
+					<td>{toHexSlice(bytes, 10, 1)}</td>
+					<td>{findBackground(bytes[10])}</td>
+				</tr>
+			</tbody>
+		</table>
+	);
+}
+
 function LevelObjectsDetails({ offset, size }: LevelObjectsDetailsProps) {
 	const [loading, setLoading] = useState(true);
 	const [entities, setEntities] = useState<EditorEntity[]>([]);
@@ -155,16 +237,13 @@ function LevelObjectsDetails({ offset, size }: LevelObjectsDetailsProps) {
 			},
 		};
 
-		const headerBytes = Array.from(rom.slice(offset - 15, offset))
-			.map((b) => b.toString(16))
-			.join(' ');
 		const levelBytes = Array.from(rom.slice(offset, offset + size))
 			.map((b) => b.toString(16))
 			.join(' ');
 
 		body = (
 			<div className="w-full overflow-auto">
-				<div className="my-2 bg-gray-600 text-white">{headerBytes}</div>
+				<Header bytes={Array.from(rom.slice(offset - 15, offset))} />
 				<div className="my-2 bg-gray-600 text-white">{levelBytes}</div>
 				<RoomThumbnail
 					className="bg-gray-600"
