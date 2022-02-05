@@ -283,6 +283,7 @@ export const resourceShaMap: Record<string, string> = {
   "PtooieWalkingPiranhaPlant": "37ff9602eb3cc83864c0fa95a22042a1e3d78856",
   "QuestionBlock": "466b67b2b053a8eb2531cd7b97ed14e824422888",
   "QuestionBlockGiant": "6a774bb8f580c3a666813924655ffe33fb166c3c",
+  "QuestionBlockGiantSpent": "171c6f16a6a3c48305396567ba5f2acf83f2d00b",
   "QuestionMark": "2ba8128dc87eb0e4ab612444149343bbe70a8de8",
   "QuicksandTop": "9f2cd37db03b7fa01594301e6b5f630fa08935bd",
   "QuicksandBody": "7b3420faa70e87228357b66f64d3c552454a25c7",

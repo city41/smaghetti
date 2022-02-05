@@ -304,6 +304,7 @@ import { PWing } from './PWing';
 import { QuestionBlock } from './QuestionBlock';
 import { QuestionBlockGiant } from './QuestionBlockGiant';
 import { QuestionBlockGiantSolid } from './QuestionBlockGiantSolid';
+import { QuestionBlockGiantSpent } from './QuestionBlockGiantSpent';
 import { QuestionMark } from './QuestionMark';
 import { Quicksand } from './Quicksand';
 import { RedKoopaTroopa } from './RedKoopaTroopa';
@@ -710,6 +711,7 @@ const entityMap = {
 	QuestionBlock,
 	QuestionBlockGiant,
 	QuestionBlockGiantSolid,
+	QuestionBlockGiantSpent,
 	QuestionMark,
 	Quicksand,
 	RedKoopaTroopa,
