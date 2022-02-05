@@ -380,6 +380,7 @@ export const resourceShaMap: Record<string, string> = {
   "UnderwaterFloorTop": "65d055c3b9c6cf5b2a50c68b18205e5f45c93cd3",
   "UnderwaterFloorUpperLeft": "c1063677ba73950b54cebd0873ed04b697e474bd",
   "UnderwaterFloorUpperRight": "99ac576326e60f489cf1cdcc7a16454cbce626d7",
+  "UnderwaterFloorCenter": "f869f6fd339ea2c978c70550667d5ef1b96f5d73",
   "UpFortressSpike": "3cd38d7b15734f3e2a58e8f478a1099eba7d3a72",
   "Vine": "aa0c7de12225778f3873a0553dab4f2bd79f010d",
   "Waterfall": "cc0ef95e28c9223e19aeb5f0d7aa36adaad36f23",

@@ -31,7 +31,11 @@ const RECT_CLASSES = [
 		'UnderwaterFloorTop-bg',
 		'UnderwaterFloorUpperRight-bg',
 	],
-	['UnderwaterFloorLeft-bg', 'UnderwaterFloor-bg', 'UnderwaterFloorRight-bg'],
+	[
+		'UnderwaterFloorLeft-bg',
+		'UnderwaterFloorCenter-bg',
+		'UnderwaterFloorRight-bg',
+	],
 	[
 		'UnderwaterFloorLowerLeft-bg',
 		'UnderwaterFloorBottom-bg',
@@ -135,6 +139,14 @@ const UnderwaterFloor: Entity = {
 			tiles: [
 				[586, 522],
 				[{ romOffset: 0x16ad5c, tileIndex: 510 }, 589],
+			],
+		},
+		UnderwaterFloorCenter: {
+			palettes: [palette],
+			romOffset: 0x16ad5c,
+			tiles: [
+				[510, 510],
+				[510, 510],
 			],
 		},
 	},
