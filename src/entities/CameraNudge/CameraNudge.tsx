@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
-import { IconArrowUp, IconArrowDown } from '../../icons';
+import { IconArrowUp, IconArrowDown, IconMovieCamera } from '../../icons';
 import invert from 'lodash/invert';
 import { parseSimpleSpriteObjectIdOverride } from '../util';
 import { Resizer } from '../../components/Resizer';
@@ -131,7 +131,10 @@ const CameraNudge: Entity = {
 				style={style}
 				className="relative bg-indigo-700 text-white flex flex-col items-center justify-around p-0.5"
 			>
-				<div className="text-center">camera nudge</div>
+				<div className="flex flex-row gap-x-1 items-center">
+					<IconMovieCamera className="inline-block w-3 h-3" />
+					nudge
+				</div>
 				<IconArrowUp className="w-1/2 h-1/2" />
 			</div>
 		);
@@ -182,8 +185,9 @@ const CameraNudge: Entity = {
 						borderRadius: '10%',
 					}}
 				>
-					<div className="text-center">
-						{entity ? Math.abs(nudgeSize) : 'camera nudge'}
+					<div className="flex flex-row gap-x-0.5 items-baseline">
+						<IconMovieCamera className="inline-block w-1 h-1" />
+						{entity ? Math.abs(nudgeSize) : 'nudge'}
 					</div>
 					<button
 						className="w-1/2 h-1/2 hover:bg-indigo-900"

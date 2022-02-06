@@ -21,6 +21,7 @@ export {
 export {
 	BsEyeFill as IconEye,
 	BsEyeSlashFill as IconEyeSlash,
+	BsCameraReelsFill as IconMovieCamera,
 } from 'react-icons/bs';
 
 export {
