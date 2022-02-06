@@ -18,7 +18,6 @@ import isEqual from 'lodash/isEqual';
 import { encodeObjectSets } from '../entities/util';
 import { TILE_SIZE } from '../tiles/constants';
 import { getSpriteLength } from './spriteLengths';
-import { resourceLimits } from 'worker_threads';
 
 const ENTITIES = Object.freeze(Object.values(entityMap));
 
