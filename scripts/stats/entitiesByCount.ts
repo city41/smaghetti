@@ -30,7 +30,7 @@ export function entitiesByCount(
 		if (
 			!entityDef ||
 			!entityDef.paletteCategory ||
-			entityDef.paletteCategory === 'hextree'
+			entityDef.paletteCategory === 'binary'
 		) {
 			return building;
 		}

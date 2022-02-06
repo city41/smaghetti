@@ -228,7 +228,7 @@ function serialize(levelData: LevelData): ReturnType<typeof levelSerialize> {
 			e.type === 'Player' ||
 			(e.type !== 'PlayerGhost' &&
 				!!entityMap[e.type].paletteCategory &&
-				entityMap[e.type].paletteCategory !== 'hextree')
+				entityMap[e.type].paletteCategory !== 'binary')
 		);
 	});
 	return levelSerialize(cleanedLevelData);

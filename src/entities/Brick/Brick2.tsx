@@ -10,7 +10,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './xObjectSets';
 
 const Brick2: Entity = {
-	paletteCategory: 'hextree',
+	paletteCategory: 'binary',
 	paletteInfo: {
 		title: 'Brick - Horizontal only',
 		description: 'An alternate brick object used in several e-ereader levels',

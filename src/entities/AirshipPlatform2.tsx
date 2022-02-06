@@ -35,7 +35,7 @@ const twoWideCaps = [
 type Cap = typeof caps[number];
 
 const AirshipPlatform2: Entity = {
-	paletteCategory: 'hextree',
+	paletteCategory: 'binary',
 	paletteInfo: {
 		title: 'Airship Platform 2',
 		description:

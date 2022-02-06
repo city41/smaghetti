@@ -44,12 +44,11 @@ const tabs: TabType[] = [
 	{ title: 'Unfinished', category: 'unfinished' },
 ];
 
-const hexTreeOverride =
-	typeof window !== 'undefined' &&
-	window.location.search.includes('hextreecat');
+const binaryOverride =
+	typeof window !== 'undefined' && window.location.search.includes('binarycat');
 
-if (process.env.NODE_ENV !== 'production' || hexTreeOverride) {
-	tabs.push({ title: 'HexTree', category: 'hextree' });
+if (process.env.NODE_ENV !== 'production' || binaryOverride) {
+	tabs.push({ title: 'Binary', category: 'binary' });
 }
 
 type AllEntriesType = Record<

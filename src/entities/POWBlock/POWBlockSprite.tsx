@@ -13,7 +13,7 @@ import { encodeObjectSets, parseSimpleSprite } from '../util';
  * So ... for now, capture this for knowledge and to improve hex-tree
  */
 const POWBlockSprite: Entity = {
-	paletteCategory: 'hextree',
+	paletteCategory: 'binary',
 	paletteInfo: {
 		title: 'POW Block - Sprite',
 		description: 'A sprite version of the POW Block',

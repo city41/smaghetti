@@ -5,7 +5,7 @@ import { ANY_OBJECT_SET } from './constants';
 import { parseSimpleSprite } from './util';
 
 const FortressAxe: Entity = {
-	// paletteCategory: 'object',
+	paletteCategory: 'binary',
 	paletteInfo: {
 		title: 'Fortress Axe',
 		description: 'Send Bowser to his death',

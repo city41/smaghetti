@@ -73,7 +73,7 @@ type PaletteCategory =
 	| 'decoration'
 	| 'meta'
 	| 'unfinished'
-	| 'hextree';
+	| 'binary';
 
 type PaletteSubcategory =
 	| 'terrain-basic'
