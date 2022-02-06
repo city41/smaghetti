@@ -428,7 +428,7 @@ function parseRoom(
 			roomTileHeight: parseRoomHeight(levelBytes, index),
 			roomTileWidth: parseRoomWidth(levelBytes, index),
 		},
-		idCounter,
+		idCounter: actorMatrixResult.idCounter,
 	};
 }
 
