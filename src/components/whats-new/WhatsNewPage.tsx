@@ -100,6 +100,7 @@ function WhatsNewPage() {
 					<ul>
 						<li>Big Boo</li>
 						<li>Buzzy Beetle - Pixel Positioned</li>
+						<li>Cheep Cheep - Hop</li>
 						<li>Goomba - Pixel Positioned</li>
 						<li>Green Koopa Troopa - Pixel Positioned</li>
 						<li>Question Block - Giant, Spent</li>

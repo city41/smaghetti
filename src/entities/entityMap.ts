@@ -106,6 +106,7 @@ import { CheckeredPlatformLeftCap } from './CheckeredTerrain/CheckeredPlatformLe
 import { CheckeredPlatformRightCap } from './CheckeredTerrain/CheckeredPlatformRightCap';
 import { CheckeredWallLeft } from './CheckeredTerrain/CheckeredWallLeft';
 import { CheckeredWallRight } from './CheckeredTerrain/CheckeredWallRight';
+import { CheepCheepHop } from './CheepCheepHop';
 import { Chest } from './Chest';
 import { ChoppyWater } from './ChoppyWater';
 import { ClappingChuck } from './ClappingChuck';
@@ -514,6 +515,7 @@ const entityMap = {
 	CheckeredPlatformRightCap,
 	CheckeredWallLeft,
 	CheckeredWallRight,
+	CheepCheepHop,
 	Chest,
 	ChoppyWater,
 	ClappingChuck,
