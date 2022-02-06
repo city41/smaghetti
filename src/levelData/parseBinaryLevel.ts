@@ -18,6 +18,7 @@ import isEqual from 'lodash/isEqual';
 import { encodeObjectSets } from '../entities/util';
 import { TILE_SIZE } from '../tiles/constants';
 import { getSpriteLength } from './spriteLengths';
+import { resourceLimits } from 'worker_threads';
 
 const ENTITIES = Object.freeze(Object.values(entityMap));
 
@@ -206,6 +207,22 @@ function parseObjects(
 		const result = parseObjectEntity(levelBytes, offset, encodedObjectSet);
 
 		if (result) {
+			if (result.entities.length === 0) {
+				// eslint-disable-next-line no-console
+				console.warn(
+					`Empty entity array encountered in room ${index}, after ${
+						objectEntities.length + cellEntities.length
+					} successes`
+				);
+				// eslint-disable-next-line no-console
+				console.warn(
+					'remaining bytes',
+					getRemainingObjectBytes(levelBytes, index, offset)
+				);
+
+				return { objectEntities, cellEntities };
+			}
+
 			if (entityMap[result.entities[0].type].editorType === 'entity') {
 				objectEntities.push(...result.entities);
 			} else {

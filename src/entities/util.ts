@@ -374,6 +374,42 @@ export function parseSimpleObject(
 	}
 }
 
+export function parsePipe(
+	data: Uint8Array,
+	offset: number,
+	objectIdToTransportDirection: Record<number, string>,
+	objectIdToNonTransportDirection: Record<number, string>,
+	target: Entity
+): ReturnType<Required<Entity>['parseObject']> {
+	const objectId = data[offset + 3];
+	if (
+		data[offset] >= 0x40 &&
+		(objectIdToTransportDirection[objectId] ||
+			objectIdToNonTransportDirection[objectId])
+	) {
+		const height = parseParamFromBank(data[offset]) + 1;
+		const y = data[offset + 1] * TILE_SIZE;
+		const x = data[offset + 2] * TILE_SIZE;
+
+		return {
+			entities: [
+				{
+					type: getType(target),
+					x,
+					y,
+					settings: {
+						height,
+						direction:
+							objectIdToTransportDirection[objectId] ??
+							objectIdToNonTransportDirection[objectId],
+					},
+				},
+			],
+			offset: offset + 4,
+		};
+	}
+}
+
 export function parseSimpleObjectWithWidth(
 	data: Uint8Array,
 	offset: number,
@@ -735,7 +771,7 @@ export function parseCheckeredTerrainCellObjectParamHeight(
 		const height = data[offset + 4];
 
 		const cells = [];
-		for (let i = 0; i < height - 1; ++i) {
+		for (let i = 0; i < height; ++i) {
 			cells.push({
 				type: getType(target),
 				x,
@@ -762,7 +798,7 @@ export function parseCheckeredTerrainCellObjectParamWidth(
 		const width = data[offset + 4];
 
 		const cells = [];
-		for (let i = 0; i < width - 1; ++i) {
+		for (let i = 0; i < width; ++i) {
 			cells.push({
 				type: getType(target),
 				x: x + i,
@@ -789,9 +825,11 @@ export function parseCheckeredTerrainCellObjectParam1WidthParam2Height(
 		const width = data[offset + 4];
 		const height = data[offset + 5];
 
+		// so annoying, width is not "minus one", but height is
+		// https://github.com/city41/smaghetti/wiki/Checkered-terrain#param-0-interior-pattern
 		const cells = [];
-		for (let h = 0; h < height; ++h) {
-			for (let w = 0; w < width - 1; ++w) {
+		for (let h = 0; h < height + 1; ++h) {
+			for (let w = 0; w < width; ++w) {
 				cells.push({
 					type: getType(target),
 					x: x + w,

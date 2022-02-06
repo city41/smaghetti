@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import type { Entity } from '../types';
-import { encodeObjectSets, getBankParam1 } from '../util';
+import { encodeObjectSets, getBankParam1, parsePipe } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { Resizer } from '../../components/Resizer';
@@ -12,6 +12,7 @@ import type { IconType } from '../../icons';
 import styles from '../../components/Resizer/ResizingStyles.module.css';
 import { TransportSource } from '../../components/Transport/TransportSource';
 import { getBasePipeProperties } from '../getBasePipeProperties';
+import invert from 'lodash/invert';
 
 type PipeDirection = 'right' | 'left';
 
@@ -20,10 +21,18 @@ const transportDirectionToObjectId: Record<PipeDirection, number> = {
 	left: 0x1c,
 };
 
+const objectIdToTransportDirection = invert(
+	transportDirectionToObjectId
+) as Record<number, PipeDirection>;
+
 const nonTransportDirectionToObjectId: Record<PipeDirection, number> = {
 	right: 0x1f,
 	left: 0x1d,
 };
+
+const objectIdToNonTransportDirection = invert(
+	nonTransportDirectionToObjectId
+) as Record<number, PipeDirection>;
 
 const directionIcons: Record<PipeDirection, IconType> = {
 	right: IconArrowRight,
@@ -64,6 +73,16 @@ const PipeHorizontal: Entity = {
 		const objectId = objectIdMap[direction];
 
 		return [getBankParam1(1, width - 1), y, x, objectId];
+	},
+
+	parseObject(data, offset) {
+		return parsePipe(
+			data,
+			offset,
+			objectIdToTransportDirection,
+			objectIdToNonTransportDirection,
+			this
+		);
 	},
 
 	simpleRender(size) {

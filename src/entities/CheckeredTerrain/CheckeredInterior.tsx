@@ -67,12 +67,14 @@ const CheckeredInterior: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseCheckeredTerrainCellObjectParam1WidthParam2Height(
+		const result = parseCheckeredTerrainCellObjectParam1WidthParam2Height(
 			data,
 			offset,
 			0x40,
 			this
 		);
+
+		return result;
 	},
 
 	simpleRender(size) {
