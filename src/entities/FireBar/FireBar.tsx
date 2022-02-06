@@ -4,7 +4,7 @@ import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { TileSpace } from '../TileSpace';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
-import { FireBarDetails, paramTree } from './FireBarDetails';
+import { FireBarDetails, inverseParamTree, paramTree } from './FireBarDetails';
 import type {
 	Rotation,
 	Pivot,
@@ -15,6 +15,17 @@ import {
 	IconCounterClockwiseRotation,
 	IconClockwiseRotation,
 } from '../../icons';
+import { parseSimpleSprite } from '../util';
+
+function getSettingsFromByte(b: number): FireBarSettings {
+	const values = inverseParamTree[b] ?? inverseParamTree[0];
+
+	return {
+		count: values[0],
+		pivot: values[1],
+		rotation: values[2],
+	};
+}
 
 const FireBar: Entity = {
 	paletteCategory: 'enemy',
@@ -67,6 +78,21 @@ const FireBar: Entity = {
 			paramTree[rotation as Rotation][pivot as Pivot][count as FireballCount];
 
 		return [0, this.objectId, x, y, param ?? 0];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 0, this);
+
+		if (result) {
+			return {
+				...result,
+				entity: {
+					...result.entity,
+					settings: getSettingsFromByte(data[offset + 4]),
+				},
+				offset: result.offset + 1,
+			};
+		}
 	},
 
 	simpleRender(size) {

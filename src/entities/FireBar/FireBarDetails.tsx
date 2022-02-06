@@ -59,6 +59,25 @@ const paramTree: Record<
 	},
 };
 
+const inverseParamTree: Record<number, [FireballCount, Pivot, Rotation]> = {
+	0: [7, 'center', 'clockwise'],
+	4: [11, 'center', 'clockwise'],
+	8: [13, 'center', 'clockwise'],
+	0xc: [17, 'center', 'clockwise'],
+	2: [4, 'end', 'clockwise'],
+	6: [6, 'end', 'clockwise'],
+	0xa: [7, 'end', 'clockwise'],
+	0xe: [9, 'end', 'clockwise'],
+	1: [7, 'center', 'counter-clockwise'],
+	5: [11, 'center', 'counter-clockwise'],
+	9: [13, 'center', 'counter-clockwise'],
+	0xd: [17, 'center', 'counter-clockwise'],
+	3: [4, 'end', 'counter-clockwise'],
+	7: [6, 'end', 'counter-clockwise'],
+	0xb: [7, 'end', 'counter-clockwise'],
+	0xf: [9, 'end', 'counter-clockwise'],
+};
+
 function NumberButton({
 	current,
 	disabled,
@@ -234,5 +253,5 @@ function FireBarDetails({
 	);
 }
 
-export { FireBarDetails, paramTree };
+export { FireBarDetails, paramTree, inverseParamTree };
 export type { Rotation, Pivot, FireballCount, FireBarSettings };
