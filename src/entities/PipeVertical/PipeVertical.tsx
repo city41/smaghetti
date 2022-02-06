@@ -1,12 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import type { Entity } from '../types';
-import {
-	encodeObjectSets,
-	getBankParam1,
-	parseParamFromBank,
-	parsePipe,
-} from '../util';
+import { encodeObjectSets, getBankParam1, parsePipe } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { Resizer } from '../../components/Resizer';
