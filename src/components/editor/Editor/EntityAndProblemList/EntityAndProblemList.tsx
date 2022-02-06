@@ -101,7 +101,9 @@ function EntityEntry({
 			</div>
 			<div className="text-gray-400 flex flex-row gap-x-2 items-center">
 				<div style={{ fontSize: 10 }}>
-					({x},{y})
+					{/* y-1 due to createLevelData will bump y by one 
+				TODO: figure out a way to get rid of this hack */}
+					({x},{y - 1})
 				</div>
 				<IconTrash
 					className="hidden group-hover:block text-white hover:text-red-500"
