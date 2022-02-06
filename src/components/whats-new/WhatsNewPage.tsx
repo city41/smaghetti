@@ -96,6 +96,15 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2022-02-06">
+					<ul>
+						<li>Camera Nudge</li>
+					</ul>
+					<p>
+						Camera nudge (in meta category) is experimental, but give it a try
+						and see if it works for you.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2022-02-05">
 					<ul>
 						<li>Big Boo</li>
