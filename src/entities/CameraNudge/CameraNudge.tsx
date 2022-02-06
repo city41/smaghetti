@@ -4,7 +4,6 @@ import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { IconArrowUp, IconArrowDown, IconMovieCamera } from '../../icons';
-import invert from 'lodash/invert';
 import { parseSimpleSpriteObjectIdOverride } from '../util';
 import { Resizer } from '../../components/Resizer';
 import clamp from 'lodash/clamp';
@@ -20,19 +19,14 @@ const directionToObjectId: Record<Direction, number> = {
 
 // these are also camera nudge sprites, and so far they seem
 // to behave identically, so Smaghetti treats them the same when parsing
-const alternateDirectionToObjectId: Record<Direction, number> = {
-	up: 0xf5,
-	down: 0xf6,
+const objectIdToDirection: Record<number, Direction> = {
+	0xca: 'up',
+	0xf5: 'up',
+	0xe0: 'up',
+	0xcb: 'down',
+	0xf6: 'down',
+	0xe1: 'down',
 };
-
-const objectIdToDirection = invert(directionToObjectId) as Record<
-	number,
-	Direction
->;
-
-const alternateObjectIdToDirection = invert(
-	alternateDirectionToObjectId
-) as Record<number, Direction>;
 
 const CameraNudge: Entity = {
 	paletteCategory: 'meta',
@@ -49,7 +43,7 @@ const CameraNudge: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0xca,
-	alternateObjectIds: Object.values(directionToObjectId),
+	alternateObjectIds: Object.keys(objectIdToDirection).map(Number),
 
 	defaultSettings: { direction: 'up', nudgeSize: 0 },
 
@@ -68,41 +62,23 @@ const CameraNudge: Entity = {
 	},
 
 	parseSprite(data, offset) {
-		const result =
-			parseSimpleSpriteObjectIdOverride(
-				data,
-				offset,
-				0,
-				directionToObjectId.up,
-				this
-			) ??
-			parseSimpleSpriteObjectIdOverride(
-				data,
-				offset,
-				0,
-				directionToObjectId.down,
-				this
-			) ??
-			parseSimpleSpriteObjectIdOverride(
-				data,
-				offset,
-				0,
-				alternateDirectionToObjectId.up,
-				this
-			) ??
-			parseSimpleSpriteObjectIdOverride(
-				data,
-				offset,
-				0,
-				alternateDirectionToObjectId.down,
-				this
-			);
+		const result = parseSimpleSpriteObjectIdOverride(
+			data,
+			offset,
+			0,
+			this.alternateObjectIds!,
+			this
+		);
 
 		if (result) {
-			const nudgeSize = Math.abs(data[offset + 4] - 0x80);
-			const direction =
-				objectIdToDirection[data[offset + 1]] ??
-				alternateObjectIdToDirection[data[offset + 1]];
+			// e0/e1 are six byte sprites. for now ignoring their fifth byte, the sixth byte
+			// seems to be their nudge amount. lumping e0/e1 into here may be a mistake, but
+			// going with it for now
+			const objectId = data[offset + 1];
+			const nudgeIndex = objectId === 0xe0 || objectId === 0xe1 ? 5 : 4;
+			const offsetBump = objectId === 0xe0 || objectId === 0xe1 ? 2 : 1;
+			const nudgeSize = Math.abs(data[offset + nudgeIndex] - 0x80);
+			const direction = objectIdToDirection[data[offset + 1]];
 
 			return {
 				...result,
@@ -113,7 +89,7 @@ const CameraNudge: Entity = {
 						nudgeSize: direction === 'up' ? -nudgeSize : nudgeSize,
 					},
 				},
-				offset: result.offset + 1,
+				offset: result.offset + offsetBump,
 			};
 		}
 	},

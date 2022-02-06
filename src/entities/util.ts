@@ -239,10 +239,12 @@ export function parseSimpleSpriteObjectIdOverride(
 	data: Uint8Array,
 	offset: number,
 	bank: number,
-	objectId: number,
+	objectId: number | number[],
 	target: Entity
 ): ReturnType<Required<Entity>['parseSprite']> {
-	if (data[offset++] === bank && data[offset++] === objectId) {
+	const ids = Array.isArray(objectId) ? objectId : [objectId];
+
+	if (data[offset++] === bank && ids.includes(data[offset++])) {
 		const x = data[offset++];
 		const y = data[offset++];
 
