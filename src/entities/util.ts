@@ -12,7 +12,7 @@ export function getBankParam1(bank: 0 | 1, param: number): number {
 }
 
 export function parseParamFromBank(byte: number): number {
-	return 0x2f & byte;
+	return 0x3f & byte;
 }
 
 function getEntityTileWidth(entityDef: Entity): number {
