@@ -379,6 +379,7 @@ export function parsePipe(
 	offset: number,
 	objectIdToTransportDirection: Record<number, string>,
 	objectIdToNonTransportDirection: Record<number, string>,
+	dimension: 'height' | 'width',
 	target: Entity
 ): ReturnType<Required<Entity>['parseObject']> {
 	const objectId = data[offset + 3];
@@ -387,7 +388,7 @@ export function parsePipe(
 		(objectIdToTransportDirection[objectId] ||
 			objectIdToNonTransportDirection[objectId])
 	) {
-		const height = parseParamFromBank(data[offset]) + 1;
+		const dimensionValue = parseParamFromBank(data[offset]) + 1;
 		const y = data[offset + 1] * TILE_SIZE;
 		const x = data[offset + 2] * TILE_SIZE;
 
@@ -398,7 +399,7 @@ export function parsePipe(
 					x,
 					y,
 					settings: {
-						height,
+						[dimension]: dimensionValue,
 						direction:
 							objectIdToTransportDirection[objectId] ??
 							objectIdToNonTransportDirection[objectId],

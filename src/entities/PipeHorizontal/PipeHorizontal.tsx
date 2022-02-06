@@ -81,6 +81,7 @@ const PipeHorizontal: Entity = {
 			offset,
 			objectIdToTransportDirection,
 			objectIdToNonTransportDirection,
+			'width',
 			this
 		);
 	},
