@@ -660,6 +660,9 @@ export function parseCellObjectsParam1Height(
 			});
 		}
 
+		// move off of the id onto the next object
+		offset++;
+
 		return { entities, offset };
 	}
 }
