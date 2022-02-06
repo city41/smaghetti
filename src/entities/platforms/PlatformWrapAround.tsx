@@ -9,6 +9,7 @@ import { PlatformWidthButton } from './PlatformWidthButton';
 import { NumberButton } from '../detailPanes/NumberButton';
 import { IconArrowDown, IconArrowUp, IconUTurn } from '../../icons';
 import type { IconType } from '../../icons';
+import { parseSimpleSprite } from '../util';
 
 const directions = ['up', 'down'] as const;
 type Direction = typeof directions[number];
@@ -69,6 +70,33 @@ const PlatformWrapAround: Entity = {
 		const configByte = (widthNibble << 4) | dirNibble;
 
 		return [0, this.objectId, x, y, configByte, count - 1];
+	},
+
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 0, this);
+
+		if (result) {
+			const configByte = data[offset + 4];
+
+			const widthNibble = configByte >> 4;
+			const width = widthNibble === 1 ? 3 : 2;
+			const direction = configByte & 1 ? 'down' : 'up';
+
+			const count = data[offset + 5] + 1;
+
+			return {
+				...result,
+				entity: {
+					...result.entity,
+					settings: {
+						width,
+						direction,
+						count,
+					},
+				},
+				offset: result.offset + 2,
+			};
+		}
 	},
 
 	simpleRender(size) {
