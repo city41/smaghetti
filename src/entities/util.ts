@@ -507,10 +507,10 @@ export function parseParam1HeightParam2WidthEntityObject(
 	target: Entity
 ): ReturnType<Required<Entity>['parseObject']> {
 	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
-		const height = parseParamFromBank(data[offset]);
+		const height = parseParamFromBank(data[offset]) + 1;
 		const y = data[offset + 1];
 		const x = data[offset + 2];
-		const width = data[offset + 4];
+		const width = data[offset + 4] + 1;
 
 		return {
 			entities: [
@@ -519,8 +519,8 @@ export function parseParam1HeightParam2WidthEntityObject(
 					x: x * TILE_SIZE,
 					y: y * TILE_SIZE,
 					settings: {
-						width: width + 1,
-						height: height + 1,
+						width,
+						height,
 					},
 				},
 			],
