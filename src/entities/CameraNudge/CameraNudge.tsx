@@ -74,13 +74,16 @@ const CameraNudge: Entity = {
 			);
 
 		if (result) {
+			const nudgeSize = Math.abs(data[offset + 4] - 0x80);
+			const direction = objectIdToDirection[data[offset + 1]];
+
 			return {
 				...result,
 				entity: {
 					...result.entity,
 					settings: {
-						direction: objectIdToDirection[data[offset + 1]],
-						nudgeSize: data[offset + 4] - 0x80,
+						direction,
+						nudgeSize: direction === 'up' ? -nudgeSize : nudgeSize,
 					},
 				},
 				offset: result.offset + 1,
@@ -147,7 +150,7 @@ const CameraNudge: Entity = {
 				<div
 					className="w-full h-full bg-indigo-700 text-white flex flex-col items-center justify-around"
 					style={{
-						fontSize: 2.25,
+						fontSize: entity ? 4 : 2.25,
 						padding: 1,
 						borderRadius: '10%',
 					}}
