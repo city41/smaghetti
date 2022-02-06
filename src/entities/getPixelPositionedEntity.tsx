@@ -47,8 +47,9 @@ function getPixelPositionedEntity(
 
 			let pixelOffsetByte = pixelOffset;
 
+			// convert negative value into a 2's compliment signed byte
 			if (pixelOffset < 0) {
-				pixelOffsetByte = 255 + pixelOffset;
+				pixelOffsetByte = 256 + pixelOffset;
 			}
 
 			return [1, this.objectId, x, y, spriteId, pixelOffsetByte];
