@@ -4,6 +4,15 @@ import { TILE_SIZE } from '../tiles/constants';
 import { ANY_BELOW_0x16, ANY_OBJECT_SET } from './constants';
 import { parseSimpleSprite } from './util';
 import { IconArrowLeft } from '../icons';
+import { PlatformSpeedButton } from './platforms/PlatformSpeedButton';
+
+const speeds = ['slow', 'fast'] as const;
+type Speed = typeof speeds[number];
+
+const speedToObjectId: Record<Speed, number> = {
+	slow: 0x2c,
+	fast: 0x24,
+};
 
 const CloudPlatformAeroMoving: Entity = {
 	paletteCategory: 'terrain',
@@ -18,9 +27,11 @@ const CloudPlatformAeroMoving: Entity = {
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
-	objectId: 0x2c,
+	objectId: 0x24,
+	alternateObjectIds: Object.values(speedToObjectId),
 	width: 3,
 	height: 1,
+	defaultSettings: { speed: 'slow' },
 
 	resource: {
 		palettes: [
@@ -50,8 +61,11 @@ const CloudPlatformAeroMoving: Entity = {
 		],
 	},
 
-	toSpriteBinary({ x, y }) {
-		return [0, this.objectId, x, y];
+	toSpriteBinary({ x, y, settings }) {
+		const speed = (settings.speed ?? this.defaultSettings?.speed) as Speed;
+		const objectId = speedToObjectId[speed];
+
+		return [0, objectId, x, y];
 	},
 
 	parseSprite(data, offset) {
@@ -74,10 +88,26 @@ const CloudPlatformAeroMoving: Entity = {
 		);
 	},
 
-	render() {
+	render({ entity, settings, onSettingsChange }) {
+		const speed = (settings.speed ?? this.defaultSettings?.speed) as Speed;
+
 		const style = { width: TILE_SIZE * 3, height: TILE_SIZE };
 		return (
-			<div className="CloudPlatformAeroMoving-bg bg-cover" style={style} />
+			<div
+				className="relative CloudPlatformAeroMoving-bg bg-cover"
+				style={style}
+			>
+				{!!entity && (
+					<div className="absolute inset-0 grid place-items-center transform rotate-180">
+						<PlatformSpeedButton
+							currentSpeed={speed}
+							onSpeedChange={(newSpeed) => {
+								onSettingsChange({ speed: newSpeed });
+							}}
+						/>
+					</div>
+				)}
+			</div>
 		);
 	},
 };
