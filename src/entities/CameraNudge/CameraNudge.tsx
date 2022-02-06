@@ -18,10 +18,21 @@ const directionToObjectId: Record<Direction, number> = {
 	down: 0xcb,
 };
 
+// these are also camera nudge sprites, and so far they seem
+// to behave identically, so Smaghetti treats them the same when parsing
+const alternateDirectionToObjectId: Record<Direction, number> = {
+	up: 0xf5,
+	down: 0xf6,
+};
+
 const objectIdToDirection = invert(directionToObjectId) as Record<
 	number,
 	Direction
 >;
+
+const alternateObjectIdToDirection = invert(
+	alternateDirectionToObjectId
+) as Record<number, Direction>;
 
 const CameraNudge: Entity = {
 	paletteCategory: 'meta',
@@ -71,11 +82,27 @@ const CameraNudge: Entity = {
 				0,
 				directionToObjectId.down,
 				this
+			) ??
+			parseSimpleSpriteObjectIdOverride(
+				data,
+				offset,
+				0,
+				alternateDirectionToObjectId.up,
+				this
+			) ??
+			parseSimpleSpriteObjectIdOverride(
+				data,
+				offset,
+				0,
+				alternateDirectionToObjectId.down,
+				this
 			);
 
 		if (result) {
 			const nudgeSize = Math.abs(data[offset + 4] - 0x80);
-			const direction = objectIdToDirection[data[offset + 1]];
+			const direction =
+				objectIdToDirection[data[offset + 1]] ??
+				alternateObjectIdToDirection[data[offset + 1]];
 
 			return {
 				...result,
