@@ -10,7 +10,7 @@ type Direction = 'up' | 'down';
 
 const directionToObjectId: Record<Direction, number> = {
 	up: 0xca,
-	down: 0xf6,
+	down: 0xcb,
 };
 
 const objectIdToDirection = invert(directionToObjectId) as Record<
@@ -44,7 +44,7 @@ const CameraNudge: Entity = {
 		// hard coding 0x98 for now, as that is used in classic 1-4
 		// it is possible this isn't really y, because this sprite
 		// probably doesn't need to care about y
-		return [0, objectId, y, x, settings.fromParse ?? 0x98];
+		return [0, objectId, x, y, settings.fromParse ?? 0x98];
 	},
 
 	parseSprite(data, offset) {
