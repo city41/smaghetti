@@ -312,7 +312,7 @@ function parseRoomHeight(levelBytes: Uint8Array, index: number): number {
 	const levelSettingsOffset = view.getUint16(levelSettingsPointer, true);
 
 	const heightInPixels = view.getUint16(levelSettingsOffset, true);
-	return Math.ceil(heightInPixels / TILE_SIZE);
+	return Math.floor(heightInPixels / TILE_SIZE);
 }
 
 function hasRoomData(levelBytes: Uint8Array, index: number): boolean {
@@ -357,6 +357,16 @@ function parsePlayer(levelBytes: Uint8Array, index: number): NewEditorEntity {
 	};
 }
 
+function adjustY(entities: NewEditorEntity[]): void {
+	entities.forEach((e) => {
+		if (entityMap[e.type].editorType === 'cell') {
+			e.y -= 1;
+		} else {
+			e.y -= TILE_SIZE;
+		}
+	});
+}
+
 function parseRoom(
 	levelBytes: Uint8Array,
 	index: number,
@@ -370,6 +380,9 @@ function parseRoom(
 	const spriteEntities = parseSprites(levelBytes, index);
 	const { objectEntities, cellEntities } = parseObjects(levelBytes, index);
 	const allNonCellEntities = spriteEntities.concat(objectEntities, player);
+
+	adjustY(cellEntities);
+	adjustY(allNonCellEntities);
 
 	const actorSpriteEntities = allNonCellEntities.reduce<EditorEntity[]>(
 		(building, e) => {
