@@ -53,7 +53,7 @@ const PipeVertical: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 
-	defaultSettings: { width: 2, height: 2, direction: 'up' },
+	defaultSettings: { height: 2, direction: 'up' },
 	dimensions: 'none',
 	param1: 'height',
 	objectId: 0x18,
@@ -61,6 +61,7 @@ const PipeVertical: Entity = {
 		Object.values(nonTransportDirectionToObjectId)
 	),
 	emptyBank: 1,
+	width: 2,
 
 	toObjectBinary({ x, y, settings }) {
 		const height = settings.height ?? 1;

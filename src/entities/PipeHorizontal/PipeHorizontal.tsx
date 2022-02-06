@@ -53,7 +53,7 @@ const PipeHorizontal: Entity = {
 	layer: 'stage',
 	editorType: 'entity',
 
-	defaultSettings: { width: 2, height: 2, direction: 'left' },
+	defaultSettings: { width: 2, direction: 'left' },
 	dimensions: 'none',
 	param1: 'width',
 	objectId: 0x1e,
@@ -61,6 +61,7 @@ const PipeHorizontal: Entity = {
 		Object.values(nonTransportDirectionToObjectId)
 	),
 	emptyBank: 1,
+	height: 2,
 
 	toObjectBinary({ x, y, settings }) {
 		const width = settings.width ?? 1;
