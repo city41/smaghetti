@@ -287,7 +287,7 @@ function parseRoomWidth(levelBytes: Uint8Array, index: number): number {
 
 	const levelLength = levelBytes[objectOffset + 4];
 
-	return (levelLength & 0xf) * ROOM_WIDTH_INCREMENT;
+	return ((levelLength & 0xf) + 1) * ROOM_WIDTH_INCREMENT;
 }
 
 function parseRoomHeight(levelBytes: Uint8Array, index: number): number {
