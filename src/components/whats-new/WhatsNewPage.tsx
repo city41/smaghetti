@@ -96,6 +96,13 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Camera Nudge left and right" date="2022-02-07">
+					<p>
+						Camera Nudge can now nudge left and right. It also now sports the
+						experimental icon to remind we still need to learn more about how it
+						works.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2022-02-06">
 					<ul>
 						<li>Camera Nudge</li>
