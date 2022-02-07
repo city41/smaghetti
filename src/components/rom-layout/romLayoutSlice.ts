@@ -7,7 +7,7 @@ import {
 import { AppState } from '../../store';
 import { extractCompressedTilesFromRom } from '../../tiles/extractCompressedTilesFromRom';
 import { getRom } from '../FileLoader/files';
-import { inGameLevels } from '../hex-tree/inGameLevels';
+import { inGameLevels } from '../../levelData/inGameLevels';
 import { ROM_SIZE } from './constants';
 import { CompressedTilesRomSection, RomSection } from './types';
 

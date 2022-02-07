@@ -5,12 +5,14 @@ import {
 	getBankParam1,
 	getHeightForEntityWithASupportingFloor,
 	getSupportingFloor,
+	parseParam1WidthEntityObject,
 } from './util';
 import { ANY_SPRITE_GRAPHIC_SET, OBJECT_PRIORITY_MIDDLE } from './constants';
 import { ResizableRect } from '../components/ResizableRect';
 import { HammerButton } from './detailPanes/HammerButton';
 import { TILE_SIZE } from '../tiles/constants';
 import { TileSpace } from './TileSpace';
+import invert from 'lodash/invert';
 
 const RECT_CLASSES = [
 	[
@@ -46,6 +48,8 @@ const overlayColorToCss: Record<Color, string> = {
 	blue: '#70d8f8',
 };
 
+const objectIdToColor = invert(colorToObjectId) as Record<number, Color>;
+
 const colorCycle: Color[] = Object.keys(colorToObjectId) as Color[];
 
 const ColorfulMetalBoxWithShadow: Entity = {
@@ -77,6 +81,25 @@ const ColorfulMetalBoxWithShadow: Entity = {
 		const objectId = colorToObjectId[color] ?? colorToObjectId.green;
 
 		return [getBankParam1(1, width - 1), y, x, objectId];
+	},
+
+	parseObject(data, offset) {
+		const result = parseParam1WidthEntityObject(data, offset, this);
+
+		if (result) {
+			return {
+				...result,
+				entities: [
+					{
+						...result.entities[0],
+						settings: {
+							...result.entities[0].settings,
+							color: objectIdToColor[data[offset + 3]],
+						},
+					},
+				],
+			};
+		}
 	},
 
 	simpleRender(size) {

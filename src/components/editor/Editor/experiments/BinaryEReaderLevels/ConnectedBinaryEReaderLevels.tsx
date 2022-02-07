@@ -1,16 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { BinaryLevels } from './BinaryLevels';
+import { BinaryEReaderLevels } from './BinaryEReaderLevels';
 import { AppState, dispatch } from '../../../../../store';
-import { loadBinaryLevel } from '../../../editorSlice';
+import { loadBinaryEReaderLevel } from '../../../editorSlice';
 import { downloadLevelAsLevelFile } from '../../../../../levelData/downloadLevelAsSaveFile';
 
-type ConnectedBinaryLevelsProps = {
+type ConnectedBinaryEReaderLevelsProps = {
 	onRequestClose: () => void;
 };
 
-function ConnectedBinaryLevels({ onRequestClose }: ConnectedBinaryLevelsProps) {
+function ConnectedBinaryEReaderLevels({
+	onRequestClose,
+}: ConnectedBinaryEReaderLevelsProps) {
 	const { rooms, settings, name } = useSelector(
 		(state: AppState) => state.editor.present
 	);
@@ -29,16 +31,16 @@ function ConnectedBinaryLevels({ onRequestClose }: ConnectedBinaryLevelsProps) {
 	}
 
 	function handleBinaryLevelFile(file: File) {
-		dispatch(loadBinaryLevel(file));
+		dispatch(loadBinaryEReaderLevel(file));
 		onRequestClose();
 	}
 
 	return (
-		<BinaryLevels
+		<BinaryEReaderLevels
 			onDownload={handleDownload}
 			onBinaryLevelFile={handleBinaryLevelFile}
 		/>
 	);
 }
 
-export { ConnectedBinaryLevels };
+export { ConnectedBinaryEReaderLevels };

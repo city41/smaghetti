@@ -1,15 +1,15 @@
 import React from 'react';
 import { Button, ButtonMimickLabel } from '../../../../Button';
 
-type InternalBinaryLevelsProps = {
+type InternalBinaryEReaderLevelsProps = {
 	onDownload: () => void;
 	onBinaryLevelFile: (file: File) => void;
 };
 
-function BinaryLevels({
+function BinaryEReaderLevels({
 	onDownload,
 	onBinaryLevelFile,
-}: InternalBinaryLevelsProps) {
+}: InternalBinaryEReaderLevelsProps) {
 	function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
 		const file = e.target.files?.[0];
 		if (file) {
@@ -19,7 +19,7 @@ function BinaryLevels({
 
 	return (
 		<div className="flex flex-col gap-y-2">
-			<h1 className="text-lg font-bold">Binary Levels</h1>
+			<h1 className="text-lg font-bold">Binary E-Reader Levels</h1>
 			<p className="text-gray-400">
 				I am working on storing Smaghetti levels in the same binary format the
 				game uses. It&apos;s a really big change, but will bring many benefits.
@@ -40,4 +40,4 @@ function BinaryLevels({
 	);
 }
 
-export { BinaryLevels };
+export { BinaryEReaderLevels };

@@ -55,7 +55,7 @@ import { LOCALSTORAGE_KEY } from '../editor/editorSlice';
 import { deserialize } from '../../level/deserialize';
 import { convertLevelToLatestVersion } from '../../level/versioning/convertLevelToLatestVersion';
 import { getRom } from '../FileLoader/files';
-import { InGameLevel } from './inGameLevels';
+import { InGameLevel } from '../../levelData/inGameLevels';
 
 type HexTreeMode = 'rom' | 'e-reader';
 

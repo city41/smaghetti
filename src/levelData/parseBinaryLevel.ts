@@ -2,6 +2,7 @@ import { ROOM_WIDTH_INCREMENT } from '../components/editor/constants';
 import { entityMap } from '../entities/entityMap';
 import { Entity } from '../entities/types';
 import {
+	MUSIC_VALUES,
 	ROOM_BACKGROUND_SETTINGS,
 	ROOM_LEVELSETTING_POINTERS,
 	ROOM_OBJECT_POINTERS,
@@ -18,6 +19,27 @@ import isEqual from 'lodash/isEqual';
 import { encodeObjectSets } from '../entities/util';
 import { TILE_SIZE } from '../tiles/constants';
 import { getSpriteLength } from './spriteLengths';
+import { inGameLevels } from './inGameLevels';
+
+type ParseBinaryResult = {
+	levelData: LevelData;
+	name: string;
+};
+
+type UnknownObjectDef = {
+	id: number;
+	byteLength: number;
+};
+
+const unknownObjectDefs: Map<string, UnknownObjectDef[]> = new Map();
+unknownObjectDefs.set('1-1', [
+	{ id: 0x0, byteLength: 4 },
+	{ id: 0x1, byteLength: 4 },
+	{ id: 0x2, byteLength: 4 },
+	{ id: 0x3, byteLength: 4 },
+	{ id: 0x5c, byteLength: 4 },
+	{ id: 0xb, byteLength: 5 },
+]);
 
 const ENTITIES = Object.freeze(Object.values(entityMap));
 
@@ -51,23 +73,14 @@ function parseSpriteEntity(
 
 function getRemainingObjectBytes(
 	levelBytes: Uint8Array,
-	index: number,
 	lastOffset: number
 ): string {
-	const view = new DataView(levelBytes.buffer);
-	const spritePointer = ROOM_SPRITE_POINTERS[index];
-	const spriteOffset = view.getUint16(spritePointer, true);
-
-	const bytes = [];
-
-	for (let i = lastOffset; i < spriteOffset; ++i) {
-		bytes.push(levelBytes[i]);
-	}
-
-	return bytes.map((b) => b.toString(16)).join(', ');
+	return Array.from(levelBytes.slice(lastOffset))
+		.map((b) => b.toString(16))
+		.join(', ');
 }
 
-function parseSprites(
+function parseEReaderRoomSprites(
 	levelBytes: Uint8Array,
 	index: number
 ): NewEditorEntity[] {
@@ -76,23 +89,29 @@ function parseSprites(
 
 	const spriteOffset = view.getUint16(spritePointer, true);
 
-	// sprites always have an opening zero for some reason
-	let offset = spriteOffset + 1;
+	// sprites always have a leading zero for some reason
+	const spriteData = levelBytes.slice(spriteOffset + 1);
+
+	return parseSprites(spriteData);
+}
+
+function parseSprites(spriteData: Uint8Array): NewEditorEntity[] {
+	let offset = 0;
 
 	const entities: NewEditorEntity[] = [];
 
-	while (offset < levelBytes.byteLength && levelBytes[offset] !== 0xff) {
-		const result = parseSpriteEntity(levelBytes, offset);
+	while (offset < spriteData.byteLength && spriteData[offset] !== 0xff) {
+		const result = parseSpriteEntity(spriteData, offset);
 
 		if (result) {
 			entities.push(result.entity);
 			offset = result.offset;
 		} else {
-			const objectId = levelBytes[offset + 1];
-			const bank = levelBytes[offset];
+			const objectId = spriteData[offset + 1];
+			const bank = spriteData[offset];
 			const length = getSpriteLength(objectId, bank);
-			const x = levelBytes[offset + 2];
-			const y = levelBytes[offset + 3];
+			const x = spriteData[offset + 2];
+			const y = spriteData[offset + 3];
 
 			entities.push({
 				type: 'Unknown',
@@ -101,7 +120,7 @@ function parseSprites(
 				settings: {
 					type: 'sprite',
 					objectId,
-					rawBytes: Array.from(levelBytes.subarray(offset, offset + length)),
+					rawBytes: Array.from(spriteData.subarray(offset, offset + length)),
 				},
 			});
 			offset += length;
@@ -137,14 +156,6 @@ function parseObjectEntity(
 
 	return null;
 }
-
-type UnknownObjectDef = {
-	id: number;
-	byteLength: number;
-};
-
-const unknownObjectDefs: Map<string, UnknownObjectDef[]> = new Map();
-// unknownObjectDefs.set('1-1', [{ id: 0x1f, byteLength: 4 }]);
 
 function parseUnknownObject(
 	bytes: Uint8Array,
@@ -182,10 +193,10 @@ function parseUnknownObject(
 	return null;
 }
 
-function parseObjects(
+function parseEReaderRoomObjects(
 	levelBytes: Uint8Array,
 	index: number
-): { objectEntities: NewEditorEntity[]; cellEntities: NewEditorEntity[] } {
+): ReturnType<typeof parseObjects> {
 	const view = new DataView(levelBytes.buffer);
 	const objectPointer = ROOM_OBJECT_POINTERS[index];
 	const levelSettingsPointer = ROOM_LEVELSETTING_POINTERS[index];
@@ -193,30 +204,45 @@ function parseObjects(
 	const objectOffset = view.getUint16(objectPointer, true);
 	const levelSettingsOffset = view.getUint16(levelSettingsPointer, true);
 
+	const gfxSet = levelBytes[objectOffset + 7] & 0xf;
+	const objectSet = levelBytes[levelSettingsOffset + 12];
+
+	// when getting the objects, skip past the header
+	const objectData = levelBytes.slice(objectOffset + OBJECT_HEADER_SIZE);
+
+	return parseObjects(objectData, objectSet, gfxSet);
+}
+
+function parseObjects(
+	objectData: Uint8Array,
+	objectSet: number,
+	gfxSet: number
+): { objectEntities: NewEditorEntity[]; cellEntities: NewEditorEntity[] } {
+	// eslint-disable-next-line no-console
+	console.log('parseObjects: object set', objectSet, 'gfx set', gfxSet);
+
 	const objectEntities: NewEditorEntity[] = [];
 	const cellEntities: NewEditorEntity[] = [];
 
-	const gfxSet = levelBytes[objectOffset + 7] & 0xf;
-	const objectSet = levelBytes[levelSettingsOffset + 12];
 	const encodedObjectSet = encodeObjectSets([[objectSet, gfxSet]]).pop()!;
 
-	let offset = objectOffset + OBJECT_HEADER_SIZE;
+	let offset = 0;
 
-	while (offset < levelBytes.length && levelBytes[offset] !== 0xff) {
-		const result = parseObjectEntity(levelBytes, offset, encodedObjectSet);
+	while (offset < objectData.length && objectData[offset] !== 0xff) {
+		const result = parseObjectEntity(objectData, offset, encodedObjectSet);
 
 		if (result) {
 			if (result.entities.length === 0) {
 				// eslint-disable-next-line no-console
 				console.warn(
-					`Empty entity array encountered in room ${index}, after ${
+					`parseObjects: Empty entity array encountered after ${
 						objectEntities.length + cellEntities.length
 					} successes`
 				);
 				// eslint-disable-next-line no-console
 				console.warn(
-					'remaining bytes',
-					getRemainingObjectBytes(levelBytes, index, offset)
+					'parseObjects: remaining bytes',
+					getRemainingObjectBytes(objectData, offset)
 				);
 
 				return { objectEntities, cellEntities };
@@ -230,7 +256,7 @@ function parseObjects(
 			offset = result.offset;
 		} else {
 			const unknownObjectResult = parseUnknownObject(
-				levelBytes,
+				objectData,
 				offset,
 				objectSet,
 				gfxSet
@@ -239,7 +265,7 @@ function parseObjects(
 			if (unknownObjectResult) {
 				// eslint-disable-next-line no-console
 				console.warn(
-					'unknown object captured',
+					'parseObjects: unknown object captured',
 					unknownObjectResult.entity.settings?.rawBytes
 						.map((b: number) => b.toString(16))
 						.join(' ')
@@ -249,14 +275,14 @@ function parseObjects(
 			} else {
 				// eslint-disable-next-line no-console
 				console.warn(
-					`unknown object encountered in room ${index}, after ${
+					`parseObjects: unknown object encountered after ${
 						objectEntities.length + cellEntities.length
 					} successes`
 				);
 				// eslint-disable-next-line no-console
 				console.warn(
-					'remaining bytes',
-					getRemainingObjectBytes(levelBytes, index, offset)
+					'parseObjects: remaining bytes',
+					getRemainingObjectBytes(objectData, offset)
 				);
 
 				return { objectEntities, cellEntities };
@@ -377,8 +403,11 @@ function parseRoom(
 	}
 
 	const player = parsePlayer(levelBytes, index);
-	const spriteEntities = parseSprites(levelBytes, index);
-	const { objectEntities, cellEntities } = parseObjects(levelBytes, index);
+	const spriteEntities = parseEReaderRoomSprites(levelBytes, index);
+	const { objectEntities, cellEntities } = parseEReaderRoomObjects(
+		levelBytes,
+		index
+	);
 	const allNonCellEntities = spriteEntities.concat(objectEntities, player);
 
 	adjustY(cellEntities);
@@ -445,9 +474,7 @@ function parseRoom(
 	};
 }
 
-function parseBinaryLevel(
-	levelBytes: Uint8Array
-): { levelData: LevelData; name: string } {
+function parseBinaryEReaderLevel(levelBytes: Uint8Array): ParseBinaryResult {
 	const name = parseLevelName(levelBytes);
 
 	let idCounter = 1;
@@ -474,4 +501,125 @@ function parseBinaryLevel(
 	};
 }
 
-export { parseBinaryLevel };
+function getObjectAndGraphicSetForInGameLevel(
+	root: number,
+	rom: Uint8Array
+): { objectSet: number; gfxSet: number } {
+	const objectSet = rom[root + 6] & 0xf;
+	const gfxSet = rom[root + 7];
+
+	return { objectSet, gfxSet };
+}
+
+function parseBinaryInGameLevel(
+	levelId: '1-1',
+	rom: Uint8Array
+): ParseBinaryResult {
+	const inGameLevel = inGameLevels.find((igl) => igl.name === levelId);
+
+	if (!inGameLevel) {
+		throw new Error(`Failed to get InGameLevel entry for ${levelId}`);
+	}
+
+	if (inGameLevel.sprites === undefined) {
+		throw new Error(`InGameLevel entry for ${levelId} has no sprite offset`);
+	}
+
+	if (inGameLevel.root === undefined) {
+		throw new Error(`InGameLevel entry for ${levelId} has no root`);
+	}
+
+	// sprites always start with a leading zero, skip past it
+	const spriteData = rom.slice(inGameLevel.sprites + 1);
+	const newSpriteEntities = parseSprites(spriteData);
+
+	let idCounter = 1;
+
+	const { objectSet, gfxSet } = getObjectAndGraphicSetForInGameLevel(
+		inGameLevel.root,
+		rom
+	);
+
+	const { objectEntities, cellEntities } = parseObjects(
+		rom.slice(inGameLevel.root + 15),
+		objectSet,
+		gfxSet
+	);
+
+	const allNonCellEntities = newSpriteEntities.concat(objectEntities);
+
+	adjustY(cellEntities);
+	adjustY(allNonCellEntities);
+
+	const actorSpriteEntities = allNonCellEntities.reduce<EditorEntity[]>(
+		(building, e) => {
+			if (entityMap[e.type].layer === 'actor') {
+				return building.concat({
+					...e,
+					id: idCounter++,
+				});
+			} else {
+				return building;
+			}
+		},
+		[]
+	);
+
+	const stageSpriteEntities = allNonCellEntities.reduce<EditorEntity[]>(
+		(building, e) => {
+			if (entityMap[e.type].layer === 'stage') {
+				return building.concat({
+					...e,
+					id: idCounter++,
+				});
+			} else {
+				return building;
+			}
+		},
+		[]
+	);
+
+	const stageCells = cellEntities.filter(
+		(c) => entityMap[c.type].layer === 'stage'
+	);
+	const actorCells = cellEntities.filter(
+		(c) => entityMap[c.type].layer === 'actor'
+	);
+
+	const stageMatrixResult = cellsToMatrix(stageCells, idCounter);
+	const actorMatrixResult = cellsToMatrix(
+		actorCells,
+		stageMatrixResult.idCounter
+	);
+
+	const room: RoomData = {
+		settings: {
+			...ROOM_BACKGROUND_SETTINGS.plains,
+			music: MUSIC_VALUES.Plains,
+		},
+		paletteEntries: [],
+		actors: {
+			entities: actorSpriteEntities,
+			matrix: actorMatrixResult.matrix,
+		},
+		stage: {
+			entities: stageSpriteEntities,
+			matrix: stageMatrixResult.matrix,
+		},
+
+		roomTileHeight: 27,
+		roomTileWidth: 128,
+	};
+
+	return {
+		levelData: {
+			rooms: [room],
+			settings: {
+				timer: 300,
+			},
+		},
+		name: levelId,
+	};
+}
+
+export { parseBinaryEReaderLevel, parseBinaryInGameLevel };

@@ -1,8 +1,9 @@
 import React from 'react';
 import { IconAlert } from '../../../../../icons';
 import { Modal } from '../../../../Modal';
-import { BinaryLevels } from '../BinaryLevels';
+import { BinaryEReaderLevels } from '../BinaryEReaderLevels';
 import { Overwrite1_1 } from '../Overwrite1_1';
+import { Load1_1 } from '../Load1_1';
 
 type ExperimentsModalProps = {
 	isOpen: boolean;
@@ -22,8 +23,9 @@ function ExperimentsModal({ isOpen, onRequestClose }: ExperimentsModalProps) {
 					<IconAlert />
 					This stuff is buggy!
 				</p>
-				<BinaryLevels onRequestClose={onRequestClose} />
+				<BinaryEReaderLevels onRequestClose={onRequestClose} />
 				<Overwrite1_1 />
+				<Load1_1 onRequestClose={onRequestClose} />
 			</div>
 		</Modal>
 	);

@@ -447,7 +447,9 @@ export function parseParam1WidthEntityObject(
 	target: Entity,
 	widthPropName = 'width'
 ): ReturnType<Required<Entity>['parseObject']> {
-	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
+	const ids = [target.objectId].concat(target.alternateObjectIds ?? []);
+
+	if (data[offset] >= 0x40 && ids.includes(data[offset + 3])) {
 		const width = parseParamFromBank(data[offset]);
 		const y = data[offset + 1];
 		const x = data[offset + 2];
@@ -666,7 +668,7 @@ export function parseCellObjectsParam1Width(
 		const entities = [];
 		const type = getType(target);
 
-		for (let w = 0; w <= width; ++w) {
+		for (let w = 0; w < width + 1; ++w) {
 			entities.push({
 				type,
 				x: x + w,

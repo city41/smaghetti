@@ -45,7 +45,7 @@ import {
 	isGraphicAndObjectSetCompatible,
 	isUnfinishedEntityType,
 } from '../../entities/util';
-import { getExampleLevel } from '../FileLoader/files';
+import { getExampleLevel, getRom } from '../FileLoader/files';
 import {
 	convertLevelToLatestVersion,
 	CURRENT_VERSION,
@@ -53,7 +53,10 @@ import {
 import { flattenCells } from '../../levelData/util';
 import { getEntityTileBounds, pointIsInside } from './util';
 import { logError } from '../../reporting/logError';
-import { parseBinaryLevel } from '../../levelData/parseBinaryLevel';
+import {
+	parseBinaryEReaderLevel,
+	parseBinaryInGameLevel,
+} from '../../levelData/parseBinaryLevel';
 import { PendingObject } from '../../levelData/createLevelData';
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
@@ -2032,7 +2035,9 @@ const loadLevel = (id: string): LevelThunk => async (dispatch) => {
 	}
 };
 
-const loadBinaryLevel = (levelFile: File): LevelThunk => async (dispatch) => {
+const loadBinaryEReaderLevel = (levelFile: File): LevelThunk => async (
+	dispatch
+) => {
 	try {
 		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
 		dispatch(editorSlice.actions.setLevelName(''));
@@ -2043,13 +2048,30 @@ const loadBinaryLevel = (levelFile: File): LevelThunk => async (dispatch) => {
 		reader.onloadend = () => {
 			const data = new Uint8Array(reader.result as ArrayBuffer);
 
-			const result = parseBinaryLevel(data);
+			const result = parseBinaryEReaderLevel(data);
 			dispatch(editorSlice.actions.setLevelDataFromLoad(result.levelData));
 			dispatch(editorSlice.actions.setLevelName(result.name));
 			dispatch(editorSlice.actions.setLoadLevelState('success'));
 		};
 
 		reader.readAsArrayBuffer(levelFile);
+	} catch (e) {
+		dispatch(editorSlice.actions.setLoadLevelState('error'));
+	}
+};
+
+const loadBinaryInGameLevel = (levelId: '1-1'): LevelThunk => async (
+	dispatch
+) => {
+	try {
+		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
+		dispatch(editorSlice.actions.setLevelName(''));
+		dispatch(editorSlice.actions.setLoadLevelState('loading'));
+
+		const result = parseBinaryInGameLevel(levelId, getRom()!);
+		dispatch(editorSlice.actions.setLevelDataFromLoad(result.levelData));
+		dispatch(editorSlice.actions.setLevelName(result.name));
+		dispatch(editorSlice.actions.setLoadLevelState('success'));
 	} catch (e) {
 		dispatch(editorSlice.actions.setLoadLevelState('error'));
 	}
@@ -2445,7 +2467,8 @@ export {
 	saveLevel,
 	saveLevelCopy,
 	loadLevel,
-	loadBinaryLevel,
+	loadBinaryEReaderLevel,
+	loadBinaryInGameLevel,
 	loadFromLocalStorage,
 	loadExampleLevel,
 	loadBlankLevel,

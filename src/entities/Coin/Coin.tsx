@@ -2,6 +2,7 @@ import type { Entity } from '../types';
 import {
 	encodeObjectSets,
 	getBankParam1,
+	parseCellObjectsParam1Width,
 	parseCellObjectsParam1WidthParam2Height,
 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
@@ -58,7 +59,15 @@ const Coin: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseCellObjectsParam1WidthParam2Height(data, offset, this);
+		const singleDimResult = parseCellObjectsParam1Width(data, offset, this);
+
+		if (singleDimResult) {
+			if (data[offset + 4] >= 0x40) {
+				return singleDimResult;
+			} else {
+				return parseCellObjectsParam1WidthParam2Height(data, offset, this);
+			}
+		}
 	},
 
 	simpleRender(size) {

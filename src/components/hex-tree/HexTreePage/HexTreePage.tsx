@@ -29,7 +29,7 @@ import { HexEditor } from './HexEditor';
 import { ECoin } from './ECoin';
 import { PlainIconButton } from '../../PlainIconButton';
 import cloneDeep from 'lodash/cloneDeep';
-import { InGameLevel, inGameLevels } from '../inGameLevels';
+import { InGameLevel, inGameLevels } from '../../../levelData/inGameLevels';
 
 function getInGameLevelName(igl: InGameLevel): string {
 	if (igl.name) {
