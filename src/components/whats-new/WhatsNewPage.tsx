@@ -99,6 +99,7 @@ function WhatsNewPage() {
 				<NewEntry title="New Entities" date="2022-02-06">
 					<ul>
 						<li>Camera Nudge</li>
+						<li>Fortress Axe</li>
 					</ul>
 					<p>
 						Camera nudge (in meta category) is experimental, but give it a try

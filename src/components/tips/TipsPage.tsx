@@ -11,6 +11,7 @@ import eraseForFloorPng from './eraseForFloor.png';
 import advanceCoinsInHudPng from './advanceCoinsInHud.png';
 import advanceCoinPositioningPng from './advanceCoinPositioning.png';
 import advanceCoinHudGapPng from './advanceCoinHudGap.png';
+import axeSetupPng from './axeSetup.png';
 
 import styles from './TipsPage.module.css';
 import { entityMap } from '../../entities/entityMap';
@@ -364,6 +365,24 @@ function TipsPage() {
 						</ul>
 						You can avoid this problem by just adding more stuff to the room.
 						Often just one more entity fixes it.
+					</p>
+				</TipEntry>
+				<TipEntry title="How to setup the axe">
+					<p>
+						The axe requires a pretty specific setup to work correctly. Here is
+						one setup that will work.
+						<img
+							className="my-4"
+							src={axeSetupPng}
+							alt="A setup for the axe"
+							width={549}
+							height={206}
+						/>
+						The scroll stop 16 tiles away from the axe seems to be key, without
+						it the level often glitches. The bridge ideally should be 13 tiles
+						long, as that is how much will get destroyed. The fortress bricks
+						are not necessary, any solid tile will do. Classic Bowser is
+						required, without him the game soft locks waiting for him to die.
 					</p>
 				</TipEntry>
 			</div>

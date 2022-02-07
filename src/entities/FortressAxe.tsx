@@ -5,12 +5,12 @@ import { ANY_OBJECT_SET } from './constants';
 import { parseSimpleSprite } from './util';
 
 const FortressAxe: Entity = {
-	paletteCategory: 'binary',
+	paletteCategory: 'object',
 	paletteInfo: {
 		title: 'Fortress Axe',
-		description: 'Send Bowser to his death',
-		warning:
-			'More research on this is needed, but if you try it, you need the whole setup: classic Bowser, lava, the bridge, and space for Mario to automatically walk',
+		description:
+			'Send Bowser to his death. The axe is very limited and requires a specific setup, read to learn more...',
+		helpId: 'how-to-setup-the-axe',
 	},
 
 	objectSets: ANY_OBJECT_SET,
