@@ -514,6 +514,18 @@ function getObjectAndGraphicSetForInGameLevel(
 	return { objectSet, gfxSet };
 }
 
+function parsePlayerFromInGameLevel(header: Uint8Array): NewEditorEntity {
+	// TODO: these don't seem correct at all
+	const y = header[4] >> 4;
+	const x = header[5] & 0xf;
+
+	return {
+		type: 'Player',
+		x: x * TILE_SIZE,
+		y: y * TILE_SIZE,
+	};
+}
+
 function parseBinaryInGameLevel(
 	levelId: '1-1',
 	rom: Uint8Array
@@ -543,13 +555,16 @@ function parseBinaryInGameLevel(
 		rom
 	);
 
+	const objectHeader = rom.slice(inGameLevel.root, inGameLevel.root + 15);
+	const player = parsePlayerFromInGameLevel(objectHeader);
+
 	const { objectEntities, cellEntities } = parseObjects(
 		rom.slice(inGameLevel.root + 15),
 		objectSet,
 		gfxSet
 	);
 
-	const allNonCellEntities = newSpriteEntities.concat(objectEntities);
+	const allNonCellEntities = newSpriteEntities.concat(objectEntities, player);
 
 	adjustY(cellEntities);
 	adjustY(allNonCellEntities);
@@ -610,7 +625,7 @@ function parseBinaryInGameLevel(
 			matrix: stageMatrixResult.matrix,
 		},
 
-		roomTileHeight: 27,
+		roomTileHeight: 26,
 		roomTileWidth: 128,
 	};
 
