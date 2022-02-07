@@ -37,8 +37,11 @@ unknownObjectDefs.set('1-1', [
 	{ id: 0x1, byteLength: 4 },
 	{ id: 0x2, byteLength: 4 },
 	{ id: 0x3, byteLength: 4 },
-	{ id: 0x5c, byteLength: 4 },
+	{ id: 0x5, byteLength: 4 },
+	{ id: 0xa, byteLength: 4 },
 	{ id: 0xb, byteLength: 5 },
+	{ id: 0x5b, byteLength: 4 },
+	{ id: 0x5c, byteLength: 4 },
 ]);
 
 const ENTITIES = Object.freeze(Object.values(entityMap));

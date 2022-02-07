@@ -483,7 +483,9 @@ export function parseParam1WidthParam2HeightEntityObject(
 	offset: number,
 	target: Entity
 ): ReturnType<Required<Entity>['parseObject']> {
-	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
+	const ids = [target.objectId].concat(target.alternateObjectIds ?? []);
+
+	if (data[offset] >= 0x40 && ids.includes(data[offset + 3])) {
 		const width = parseParamFromBank(data[offset]);
 		const y = data[offset + 1];
 		const x = data[offset + 2];

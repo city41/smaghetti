@@ -1,9 +1,14 @@
 import React from 'react';
 import type { Entity } from './types';
-import { encodeObjectSets, getBankParam1 } from './util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseParam1WidthParam2HeightEntityObject,
+} from './util';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { ResizableRect } from '../components/ResizableRect';
 import { HammerButton } from './detailPanes/HammerButton';
+import invert from 'lodash/invert';
 
 const RECT_CLASSES = [
 	[
@@ -38,6 +43,8 @@ const overlayColorToCss: Record<Color, string> = {
 	green: '#90c868',
 	blue: '#70d8f8',
 };
+
+const objectIdToColor = invert(colorToObjectId) as Record<number, Color>;
 
 const colorCycle: Color[] = Object.keys(colorToObjectId) as Color[];
 
@@ -96,6 +103,41 @@ const ColorfulMetalBox: Entity = {
 		const objectId = colorToObjectId[color] ?? colorToObjectId.white;
 
 		return [getBankParam1(1, width), y, x, objectId, height];
+	},
+
+	parseObject(data, offset) {
+		const result = parseParam1WidthParam2HeightEntityObject(data, offset, this);
+
+		if (result) {
+			const e = result.entities[0];
+
+			const heightByte = data[offset + 4];
+
+			let fixedOffset = result.offset;
+			let height = e.settings!.height;
+
+			if (heightByte >= 0x40) {
+				// this means the box is 4 bytes, and has a default height of 2
+				fixedOffset -= 1;
+				height = 2;
+			}
+
+			return {
+				...result,
+				entities: [
+					{
+						...e,
+						settings: {
+							...result.entities[0].settings,
+							width: e.settings!.width - 1,
+							height,
+							color: objectIdToColor[data[offset + 3]],
+						},
+					},
+				],
+				offset: fixedOffset,
+			};
+		}
 	},
 
 	simpleRender(size) {
