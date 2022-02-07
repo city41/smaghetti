@@ -718,6 +718,11 @@ function getRoom(
 		);
 	}, []);
 
+	const levelSettingsData = getLevelSettings(currentRoom, allEntities);
+	const transportData = getTransports(roomIndex, allEntities, allRooms);
+	const spriteHeader = [0x0];
+	const sprites = getSprites(allEntities, currentRoom);
+
 	if (process.env.NODE_ENV !== 'production') {
 		// eslint-disable-next-line no-console
 		console.log(
@@ -726,12 +731,9 @@ function getRoom(
 		);
 		// eslint-disable-next-line no-console
 		console.log('objectData', objectData.map((b) => b.toString(16)).join(','));
+		// eslint-disable-next-line no-console
+		console.log('spriteData', sprites.map((b) => b.toString(16)).join(','));
 	}
-
-	const levelSettingsData = getLevelSettings(currentRoom, allEntities);
-	const transportData = getTransports(roomIndex, allEntities, allRooms);
-	const spriteHeader = [0x0];
-	const sprites = getSprites(allEntities, currentRoom);
 
 	return {
 		objects: objectHeader.concat(objectData, [0xff]),

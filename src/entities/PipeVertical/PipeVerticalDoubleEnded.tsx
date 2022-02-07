@@ -14,6 +14,7 @@ import { Resizer } from '../../components/Resizer';
 import styles from '../../components/Resizer/ResizingStyles.module.css';
 
 const PipeVerticalDoubleEnded: Entity = {
+	experimental: true,
 	paletteCategory: 'transport',
 	paletteInfo: {
 		title: 'Pipe - Vertical Double Ended',

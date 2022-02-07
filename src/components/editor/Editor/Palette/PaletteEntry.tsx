@@ -1,9 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-import { IconAddCircle, IconRemoveCircle } from '../../../../icons';
+import {
+	IconAddCircle,
+	IconExperiment,
+	IconRemoveCircle,
+} from '../../../../icons';
 
 import styles from './PaletteEntry.module.css';
 import { entityMap, EntityType } from '../../../../entities/entityMap';
+import { Entity } from '../../../../entities/types';
 
 type PaletteEntryProps = {
 	className?: string;
@@ -34,8 +39,9 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 	incompatible,
 	disabled,
 }) => {
-	const entityDef = entityMap[entry];
+	const entityDef = entityMap[entry] as Entity;
 	const item = entityDef.simpleRender(50);
+	const experimental = !!entityDef.experimental;
 
 	return (
 		<div
@@ -52,9 +58,13 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 			<div
 				className={clsx('w-full h-full grid place-items-center p-1', {
 					'opacity-20 hover:opacity-100': incompatible && !isCurrent,
+					relative: experimental,
 				})}
 			>
 				{item}
+				{experimental && (
+					<IconExperiment className="absolute -left-1 -bottom-1 w-5 h-5 p-0.5 bg-red-600 text-white" />
+				)}
 			</div>
 
 			{showAdd && !incompatible && (

@@ -13,6 +13,7 @@ import {
 	PaletteCategory,
 	PaletteSubcategory,
 } from '../../../../entities/types';
+import { IconExperiment } from '../../../../icons';
 
 type PaletteChoiceModalProps = {
 	isOpen: boolean;
@@ -223,6 +224,10 @@ function PaletteChoiceModal({
 
 	const currentEntries = allEntries[tabs[currentTabIndex].category] || {};
 
+	const experimentalIcon = (
+		<IconExperiment className="w-5 h-5 p-0.5 bg-red-600 text-white" />
+	);
+
 	return (
 		<Modal
 			className={clsx(styles.modal, 'overflow-y-hidden')}
@@ -298,7 +303,12 @@ function PaletteChoiceModal({
 
 				<div className="flex flex-col text-white rounded-br-xl rounded-tr-xl px-4 py-8 -mt-3 -mb-8 -mr-4 bg-gray-900">
 					{currentEntry && (
-						<h2 className="font-bold mb-4">{currentEntry.info.title}</h2>
+						<h2 className="font-bold mb-4 flex flex-row items-center gap-x-2">
+							{currentEntry &&
+								entityMap[currentEntry.entry].experimental &&
+								experimentalIcon}
+							{currentEntry.info.title}
+						</h2>
 					)}
 					{currentEntry && (
 						<div className="space-y-4">
@@ -352,8 +362,12 @@ function PaletteChoiceModal({
 						</>
 					)}
 				</div>
-				<div className="text-xs text-center text-gray-300 -mb-2 pt-1">
-					Hold shift when adding to keep chooser open
+				<div className="flex flex-row justify-between items-center text-xs text-gray-300 -mb-2 pt-1 px-4">
+					<div>Hold shift when adding to keep chooser open</div>
+					<div className="flex flex-row items-center gap-x-1">
+						{experimentalIcon}
+						<div>experimental, its behaviour may change in the future</div>
+					</div>
 				</div>
 			</div>
 		</Modal>

@@ -157,6 +157,10 @@ type Entity = {
 	 * If this is absent, the entity will be placed in "unfinished"
 	 */
 	paletteCategory?: PaletteCategory;
+	/**
+	 * if true, the UI will warn the user that this entity may change, mostly in the Palette and PaletteChoiceModal
+	 */
+	experimental?: boolean;
 
 	paletteInfo: {
 		title: string;

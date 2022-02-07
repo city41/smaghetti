@@ -19,7 +19,7 @@ type Direction = 'x' | 'y';
 type PublicResizerProps = {
 	className?: string;
 	style?: CSSProperties;
-	size: Point;
+	size: number | Point;
 	increment: number | Point;
 	axis: Axis;
 	onSizeChange: (newSize: Point) => void;
@@ -43,6 +43,12 @@ const CSSProperty: Record<Direction, string> = {
 	y: 'top',
 };
 
+function otherAxis(a: Axis): 'x' | 'y' {
+	if (a === 'x') return 'y';
+
+	return 'x';
+}
+
 function Resizer({
 	className,
 	style,
@@ -56,7 +62,11 @@ function Resizer({
 }: PublicResizerProps & InternalResizerProps) {
 	const start = useRef<Point>({ x: 0, y: 0 });
 	const current = useRef<Point>({ x: 0, y: 0 });
-	const sizeRef = useRef<Point>(size);
+	const sizeRef = useRef<Point>(
+		typeof size === 'number'
+			? ({ [axis]: size, [otherAxis(axis)]: 0 } as Point)
+			: size
+	);
 	const scaleRef = useRef<number>(scale);
 	const axisRef = useRef<Axis>(axis);
 	const onResizeEndRef = useRef<undefined | (() => void)>(onResizeEnd);
@@ -75,8 +85,12 @@ function Resizer({
 		}
 
 		if (sizeRef.current) {
-			sizeRef.current.x = size.x;
-			sizeRef.current.y = size.y;
+			if (typeof size === 'number') {
+				sizeRef.current[axis as 'x' | 'y'] = size;
+			} else {
+				sizeRef.current.x = size.x;
+				sizeRef.current.y = size.y;
+			}
 		}
 	}, [size]);
 
