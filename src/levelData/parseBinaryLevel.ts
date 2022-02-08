@@ -222,13 +222,14 @@ function parseEReaderRoomObjects(
 	// when getting the objects, skip past the header
 	const objectData = levelBytes.slice(objectOffset + OBJECT_HEADER_SIZE);
 
-	return parseObjects(objectData, objectSet, gfxSet);
+	return parseObjects(objectData, objectSet, gfxSet, 0xff);
 }
 
 function parseObjects(
 	objectData: Uint8Array,
 	objectSet: number,
-	gfxSet: number
+	gfxSet: number,
+	delimiter: 0xff | 0x80
 ): { objectEntities: NewEditorEntity[]; cellEntities: NewEditorEntity[] } {
 	// eslint-disable-next-line no-console
 	console.log('parseObjects: object set', objectSet, 'gfx set', gfxSet);
@@ -240,7 +241,7 @@ function parseObjects(
 
 	let offset = 0;
 
-	while (offset < objectData.length && objectData[offset] !== 0xff) {
+	while (offset < objectData.length && objectData[offset] !== delimiter) {
 		const result = parseObjectEntity(objectData, offset, encodedObjectSet);
 
 		if (result) {
@@ -587,7 +588,8 @@ function parseBinaryInGameLevel(
 	const { objectEntities, cellEntities } = parseObjects(
 		rom.slice(inGameLevel.root + 15),
 		objectSet,
-		gfxSet
+		gfxSet,
+		0x80
 	);
 
 	const allNonCellEntities = newSpriteEntities.concat(objectEntities, player);
