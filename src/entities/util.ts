@@ -660,9 +660,10 @@ export function parseCellObjectsParam1HeightParam2Width(
 export function parseCellObjectsParam1Width(
 	data: Uint8Array,
 	offset: number,
-	target: Entity
+	target: Entity,
+	ids: number[] = [target.objectId]
 ): ReturnType<Required<Entity>['parseObject']> {
-	if (data[offset] >= 0x40 && data[offset + 3] === target.objectId) {
+	if (data[offset] >= 0x40 && ids.includes(data[offset + 3])) {
 		const width = parseParamFromBank(data[offset]);
 		const y = data[offset + 1];
 		const x = data[offset + 2];

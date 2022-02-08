@@ -57,7 +57,13 @@ const LakituCloud: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseCellObjectsParam1Width(data, offset, this);
+		return parseCellObjectsParam1Width(
+			data,
+			offset,
+			this,
+			// sometimes the game uses 0xa
+			this.alternateObjectIds!
+		);
 	},
 
 	simpleRender(size) {
