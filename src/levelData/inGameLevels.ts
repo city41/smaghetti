@@ -403,5 +403,8 @@ const inGameLevels: InGameLevel[] = [
 	...potentialSpriteStarts.map((pss) => ({ sprites: pss })),
 ];
 
-export { inGameLevels };
-export type { InGameLevel };
+const loadableLevels = ['1-1', '2-1', '7-6'] as const;
+type InGameLevelId = typeof loadableLevels[number];
+
+export { inGameLevels, loadableLevels };
+export type { InGameLevel, InGameLevelId };

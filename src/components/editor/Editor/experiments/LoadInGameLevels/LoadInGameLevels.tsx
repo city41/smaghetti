@@ -1,11 +1,13 @@
 import React from 'react';
+import {
+	InGameLevelId,
+	loadableLevels,
+} from '../../../../../levelData/inGameLevels';
 import { Button } from '../../../../Button';
 
 type InternalLoadInGameLevelsProps = {
-	onLoad: (levelId: '1-1' | '2-1') => void;
+	onLoad: (levelId: InGameLevelId) => void;
 };
-
-const levels = ['1-1', '2-1'] as const;
 
 function LoadInGameLevels({ onLoad }: InternalLoadInGameLevelsProps) {
 	return (
@@ -16,7 +18,7 @@ function LoadInGameLevels({ onLoad }: InternalLoadInGameLevelsProps) {
 			</div>
 
 			<div className="mt-2 flex flex-row gap-x-4 items-center justify-center">
-				{levels.map((level) => {
+				{loadableLevels.map((level) => {
 					return (
 						<Button
 							key={level}

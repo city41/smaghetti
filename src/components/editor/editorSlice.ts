@@ -58,6 +58,7 @@ import {
 	parseBinaryInGameLevel,
 } from '../../levelData/parseBinaryLevel';
 import { PendingObject } from '../../levelData/createLevelData';
+import { InGameLevelId } from '../../levelData/inGameLevels';
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
 
@@ -2060,7 +2061,7 @@ const loadBinaryEReaderLevel = (levelFile: File): LevelThunk => async (
 	}
 };
 
-const loadBinaryInGameLevel = (levelId: '1-1' | '2-1'): LevelThunk => async (
+const loadBinaryInGameLevel = (levelId: InGameLevelId): LevelThunk => async (
 	dispatch
 ) => {
 	try {

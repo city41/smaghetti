@@ -19,7 +19,7 @@ import isEqual from 'lodash/isEqual';
 import { encodeObjectSets } from '../entities/util';
 import { TILE_SIZE } from '../tiles/constants';
 import { getSpriteLength } from './spriteLengths';
-import { inGameLevels } from './inGameLevels';
+import { InGameLevelId, inGameLevels } from './inGameLevels';
 
 type ParseBinaryResult = {
 	levelData: LevelData;
@@ -546,8 +546,14 @@ function parsePlayerFromInGameLevel(header: Uint8Array): NewEditorEntity {
 	};
 }
 
+function parseInGameLevelTileWidth(header: Uint8Array): number {
+	const nibble = header[4] & 0xf;
+
+	return nibble * 16;
+}
+
 function parseBinaryInGameLevel(
-	levelId: '1-1' | '2-1',
+	levelId: InGameLevelId,
 	rom: Uint8Array
 ): ParseBinaryResult {
 	const inGameLevel = inGameLevels.find((igl) => igl.name === levelId);
@@ -646,7 +652,7 @@ function parseBinaryInGameLevel(
 		},
 
 		roomTileHeight: 26,
-		roomTileWidth: 128,
+		roomTileWidth: parseInGameLevelTileWidth(objectHeader),
 	};
 
 	return {
