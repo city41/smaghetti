@@ -43,6 +43,15 @@ unknownObjectDefs.set('1-1', [
 	{ id: 0x5b, byteLength: 4 },
 	{ id: 0x5c, byteLength: 4 },
 ]);
+unknownObjectDefs.set('9-9', [
+	{ id: 0x36, byteLength: 4 },
+	{ id: 0x5b, byteLength: 4 },
+	{ id: 0x5c, byteLength: 4 },
+	{ id: 0x9, byteLength: 4 },
+	{ id: 0x12, byteLength: 4 },
+	{ id: 0x37, byteLength: 4 },
+	{ id: 0x38, byteLength: 4 },
+]);
 
 const ENTITIES = Object.freeze(Object.values(entityMap));
 
@@ -538,7 +547,7 @@ function parsePlayerFromInGameLevel(header: Uint8Array): NewEditorEntity {
 }
 
 function parseBinaryInGameLevel(
-	levelId: '1-1',
+	levelId: '1-1' | '2-1',
 	rom: Uint8Array
 ): ParseBinaryResult {
 	const inGameLevel = inGameLevels.find((igl) => igl.name === levelId);

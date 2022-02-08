@@ -2060,7 +2060,7 @@ const loadBinaryEReaderLevel = (levelFile: File): LevelThunk => async (
 	}
 };
 
-const loadBinaryInGameLevel = (levelId: '1-1'): LevelThunk => async (
+const loadBinaryInGameLevel = (levelId: '1-1' | '2-1'): LevelThunk => async (
 	dispatch
 ) => {
 	try {

@@ -16,13 +16,14 @@ import { objectSets } from './objectSets';
 import invert from 'lodash/invert';
 
 const payloadToObjectId = {
-	CapeFeather: 0x44,
-	CoinCache: 0x14,
-	CoinSnake: 0x47,
-	Leaf: 0x11,
 	FireFlower: 0x10,
-	PWing: 0x55,
+	Leaf: 0x11,
+	StarMan: 0x12,
+	CoinCache: 0x14,
 	Shoe: 0x43,
+	CapeFeather: 0x44,
+	CoinSnake: 0x47,
+	PWing: 0x55,
 };
 
 const objectIdToPayload = invert(payloadToObjectId) as Record<

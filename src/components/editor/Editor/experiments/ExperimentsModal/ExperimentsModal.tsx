@@ -3,7 +3,7 @@ import { IconAlert } from '../../../../../icons';
 import { Modal } from '../../../../Modal';
 import { BinaryEReaderLevels } from '../BinaryEReaderLevels';
 import { Overwrite1_1 } from '../Overwrite1_1';
-import { Load1_1 } from '../Load1_1';
+import { LoadInGameLevels } from '../LoadInGameLevels';
 
 type ExperimentsModalProps = {
 	isOpen: boolean;
@@ -25,7 +25,7 @@ function ExperimentsModal({ isOpen, onRequestClose }: ExperimentsModalProps) {
 				</p>
 				<BinaryEReaderLevels onRequestClose={onRequestClose} />
 				<Overwrite1_1 />
-				<Load1_1 onRequestClose={onRequestClose} />
+				<LoadInGameLevels onRequestClose={onRequestClose} />
 			</div>
 		</Modal>
 	);
