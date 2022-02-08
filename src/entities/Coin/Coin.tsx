@@ -59,14 +59,11 @@ const Coin: Entity = {
 	},
 
 	parseObject(data, offset) {
-		const singleDimResult = parseCellObjectsParam1Width(data, offset, this);
-
-		if (singleDimResult) {
-			if (data[offset + 4] >= 0x40) {
-				return singleDimResult;
-			} else {
-				return parseCellObjectsParam1WidthParam2Height(data, offset, this);
-			}
+		// next byte is a bank? then this is a single dim, 4 byte, coin
+		if (data[offset + 4] >= 0x40 || data[offset + 4] === 0) {
+			return parseCellObjectsParam1Width(data, offset, this);
+		} else {
+			return parseCellObjectsParam1WidthParam2Height(data, offset, this);
 		}
 	},
 

@@ -256,6 +256,17 @@ function parseObjects(
 			} else {
 				cellEntities.push(...result.entities);
 			}
+
+			// eslint-disable-next-line no-console
+			console.log(
+				'parseObjects: consumed %s, got: %s',
+				'[' +
+					Array.from(objectData.slice(offset, result.offset))
+						.map((b) => b.toString(16))
+						.join(',') +
+					']',
+				result.entities.map((e) => `${e.type}(${e.x},${e.y})`).join(',')
+			);
 			offset = result.offset;
 		} else {
 			const unknownObjectResult = parseUnknownObject(
@@ -284,8 +295,8 @@ function parseObjects(
 				);
 				// eslint-disable-next-line no-console
 				console.warn(
-					'parseObjects: remaining bytes',
-					getRemainingObjectBytes(objectData, offset)
+					'parseObjects: remaining bytes, backed up 8:::',
+					getRemainingObjectBytes(objectData, offset - 8)
 				);
 
 				return { objectEntities, cellEntities };
