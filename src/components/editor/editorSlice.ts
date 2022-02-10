@@ -2055,6 +2055,7 @@ const loadBinaryEReaderLevel = (levelFile: File): LevelThunk => async (
 			const result = parseBinaryEReaderLevel(data);
 			dispatch(editorSlice.actions.setLevelDataFromLoad(result.levelData));
 			dispatch(editorSlice.actions.setLevelName(result.name));
+			dispatch(editorSlice.actions.viewportToEntireRoom());
 			dispatch(editorSlice.actions.setLoadLevelState('success'));
 		};
 
@@ -2075,6 +2076,7 @@ const loadBinaryInGameLevel = (levelId: string): LevelThunk => async (
 		const result = parseBinaryInGameLevel(levelId, getRom()!);
 		dispatch(editorSlice.actions.setLevelDataFromLoad(result.levelData));
 		dispatch(editorSlice.actions.setLevelName(result.name));
+		dispatch(editorSlice.actions.viewportToEntireRoom());
 		dispatch(editorSlice.actions.setLoadLevelState('success'));
 	} catch (e) {
 		dispatch(editorSlice.actions.setLoadLevelState('error'));
