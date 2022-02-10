@@ -100,12 +100,13 @@ const WoodBlock: Entity = {
 		}
 	},
 
-	parseObject(data, offset) {
+	parseObject(data, offset, inGame) {
 		if (
+			inGame &&
 			data[offset] >= 0x40 &&
 			(data[offset + 4] >= 0x40 || data[offset + 4] === 0)
 		) {
-			// this is a four byte wood block with default height of 1 and no payload
+			// this is an in game, four byte wood block with default height of 1 and no payload
 			return parseCellObjectsParam1Width(data, offset, this);
 		} else {
 			return parsePotentialPayloadObject(

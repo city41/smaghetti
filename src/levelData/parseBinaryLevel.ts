@@ -4,6 +4,7 @@ import { Entity } from '../entities/types';
 import {
 	MUSIC_VALUES,
 	ROOM_BACKGROUND_SETTINGS,
+	ROOM_BLOCKPATH_POINTERS,
 	ROOM_LEVELSETTING_POINTERS,
 	ROOM_OBJECT_POINTERS,
 	ROOM_SPRITE_POINTERS,
@@ -19,7 +20,7 @@ import isEqual from 'lodash/isEqual';
 import { encodeObjectSets } from '../entities/util';
 import { TILE_SIZE } from '../tiles/constants';
 import { getSpriteLength } from './spriteLengths';
-import { InGameLevelId, inGameLevels } from './inGameLevels';
+import { inGameLevels } from './inGameLevels';
 
 type ParseBinaryResult = {
 	levelData: LevelData;
@@ -98,11 +99,13 @@ function parseEReaderRoomSprites(
 ): NewEditorEntity[] {
 	const view = new DataView(levelBytes.buffer);
 	const spritePointer = ROOM_SPRITE_POINTERS[index];
+	const blockPathMovementPointer = ROOM_BLOCKPATH_POINTERS[index];
 
 	const spriteOffset = view.getUint16(spritePointer, true);
+	const blockPathOffset = view.getUint16(blockPathMovementPointer, true);
 
 	// sprites always have a leading zero for some reason
-	const spriteData = levelBytes.slice(spriteOffset + 1);
+	const spriteData = levelBytes.slice(spriteOffset + 1, blockPathOffset);
 
 	return parseSprites(spriteData);
 }
@@ -152,13 +155,14 @@ function hasObjectSet(entity: Entity, encodedObjectSet: number): boolean {
 function parseObjectEntity(
 	levelBytes: Uint8Array,
 	offset: number,
-	encodedObjectSet: number
+	encodedObjectSet: number,
+	inGame: boolean
 ): { entities: NewEditorEntity[]; offset: number } | null {
 	for (let i = 0; i < ENTITIES.length; ++i) {
 		const entity = ENTITIES[i];
 
 		if (entity.parseObject && hasObjectSet(entity, encodedObjectSet)) {
-			const result = entity.parseObject(levelBytes, offset);
+			const result = entity.parseObject(levelBytes, offset, inGame);
 
 			if (result) {
 				return result;
@@ -220,16 +224,32 @@ function parseEReaderRoomObjects(
 	const objectSet = levelBytes[levelSettingsOffset + 12];
 
 	// when getting the objects, skip past the header
-	const objectData = levelBytes.slice(objectOffset + OBJECT_HEADER_SIZE);
+	const objectData = levelBytes.slice(
+		objectOffset + OBJECT_HEADER_SIZE,
+		levelSettingsOffset
+	);
 
-	return parseObjects(objectData, objectSet, gfxSet, 0xff);
+	return parseObjects(objectData, objectSet, gfxSet, false);
+}
+
+function attemptToFindStartOfNextObject(
+	objectData: Uint8Array,
+	offset: number
+): number {
+	const fourAhead = objectData[offset + 4];
+
+	if (fourAhead === 0 || fourAhead >= 0x40) {
+		return offset + 4;
+	} else {
+		return offset + 5;
+	}
 }
 
 function parseObjects(
 	objectData: Uint8Array,
 	objectSet: number,
 	gfxSet: number,
-	delimiter: 0xff | 0x80
+	inGame: boolean
 ): { objectEntities: NewEditorEntity[]; cellEntities: NewEditorEntity[] } {
 	// eslint-disable-next-line no-console
 	console.log('parseObjects: object set', objectSet, 'gfx set', gfxSet);
@@ -241,8 +261,13 @@ function parseObjects(
 
 	let offset = 0;
 
-	while (offset < objectData.length && objectData[offset] !== delimiter) {
-		const result = parseObjectEntity(objectData, offset, encodedObjectSet);
+	while (offset < objectData.length) {
+		const result = parseObjectEntity(
+			objectData,
+			offset,
+			encodedObjectSet,
+			inGame
+		);
 
 		if (result) {
 			if (result.entities.length === 0) {
@@ -305,11 +330,18 @@ function parseObjects(
 				);
 				// eslint-disable-next-line no-console
 				console.warn(
-					'parseObjects: remaining bytes, backed up 8:::',
-					getRemainingObjectBytes(objectData, offset - 8)
+					'parseObjects: remaining bytes',
+					getRemainingObjectBytes(objectData, offset)
 				);
 
-				return { objectEntities, cellEntities };
+				offset = attemptToFindStartOfNextObject(objectData, offset);
+				// eslint-disable-next-line no-console
+				console.warn(
+					'moved forward attempting to find next object, offset:',
+					offset
+				);
+
+				// return { objectEntities, cellEntities };
 			}
 		}
 	}
@@ -554,7 +586,7 @@ function parseInGameLevelTileWidth(header: Uint8Array): number {
 }
 
 function parseBinaryInGameLevel(
-	levelId: InGameLevelId,
+	levelId: string,
 	rom: Uint8Array
 ): ParseBinaryResult {
 	const inGameLevel = inGameLevels.find((igl) => igl.name === levelId);
@@ -563,17 +595,21 @@ function parseBinaryInGameLevel(
 		throw new Error(`Failed to get InGameLevel entry for ${levelId}`);
 	}
 
-	if (inGameLevel.sprites === undefined) {
-		throw new Error(`InGameLevel entry for ${levelId} has no sprite offset`);
-	}
+	let newSpriteEntities: NewEditorEntity[] = [];
+	let player: NewEditorEntity[] = [];
+	let objectEntities: NewEditorEntity[] = [];
+	let cellEntities: NewEditorEntity[] = [];
+	let roomTileWidth = 128;
 
 	if (inGameLevel.root === undefined) {
 		throw new Error(`InGameLevel entry for ${levelId} has no root`);
 	}
 
-	// sprites always start with a leading zero, skip past it
-	const spriteData = rom.slice(inGameLevel.sprites + 1);
-	const newSpriteEntities = parseSprites(spriteData);
+	if (inGameLevel.sprites) {
+		// sprites always start with a leading zero, skip past it
+		const spriteData = rom.slice(inGameLevel.sprites + 1);
+		newSpriteEntities = parseSprites(spriteData);
+	}
 
 	let idCounter = 1;
 
@@ -582,15 +618,29 @@ function parseBinaryInGameLevel(
 		rom
 	);
 
-	const objectHeader = rom.slice(inGameLevel.root, inGameLevel.root + 15);
-	const player = parsePlayerFromInGameLevel(objectHeader);
+	if (inGameLevel.root) {
+		const objectHeader = rom.slice(inGameLevel.root, inGameLevel.root + 15);
+		const playerEntity = parsePlayerFromInGameLevel(objectHeader);
+		player = [playerEntity];
 
-	const { objectEntities, cellEntities } = parseObjects(
-		rom.slice(inGameLevel.root + 15),
-		objectSet,
-		gfxSet,
-		0x80
-	);
+		// in game levels seem to switch to something else when you hit 0x80, at least 1-1 does
+		// so far not sure what that is.
+		const endIndexFF = rom.indexOf(0xff, inGameLevel.root + 15);
+		const endIndex80 = rom.indexOf(0x80, inGameLevel.root + 15);
+
+		const endIndex =
+			endIndex80 > 0 ? Math.min(endIndex80, endIndexFF) : endIndexFF;
+
+		const parseObjectsResult = parseObjects(
+			rom.slice(inGameLevel.root + 15, endIndex),
+			objectSet,
+			gfxSet,
+			true
+		);
+		objectEntities = parseObjectsResult.objectEntities;
+		cellEntities = parseObjectsResult.cellEntities;
+		roomTileWidth = parseInGameLevelTileWidth(objectHeader);
+	}
 
 	const allNonCellEntities = newSpriteEntities.concat(objectEntities, player);
 
@@ -654,7 +704,7 @@ function parseBinaryInGameLevel(
 		},
 
 		roomTileHeight: 26,
-		roomTileWidth: parseInGameLevelTileWidth(objectHeader),
+		roomTileWidth,
 	};
 
 	return {

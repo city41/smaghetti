@@ -4,6 +4,9 @@ type InGameLevel = {
 	sprites?: number;
 };
 
+type LoadableInGameLevel = Required<Omit<InGameLevel, 'sprites'>> &
+	InGameLevel['sprites'];
+
 const potentialSpriteStarts = [
 	// 0x157039,
 	// 0x15703f,
@@ -403,8 +406,9 @@ const inGameLevels: InGameLevel[] = [
 	...potentialSpriteStarts.map((pss) => ({ sprites: pss })),
 ];
 
-const loadableLevels = ['1-1', '2-1', '7-6'] as const;
-type InGameLevelId = typeof loadableLevels[number];
+const loadableLevels = inGameLevels.filter(
+	(igl) => !!(igl.name && igl.root)
+) as LoadableInGameLevel[];
 
 export { inGameLevels, loadableLevels };
-export type { InGameLevel, InGameLevelId };
+export type { InGameLevel };

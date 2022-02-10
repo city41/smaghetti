@@ -99,9 +99,10 @@ const Brick: Entity = {
 		}
 	},
 
-	parseObject(data, offset) {
-		// next byte is a bank? then this is a single dim, 4 byte, brick
+	parseObject(data, offset, inGame) {
+		// in game and next byte is a bank? then this is a single dim, 4 byte, brick
 		if (
+			inGame &&
 			data[offset] >= 0x40 &&
 			(data[offset + 4] >= 0x40 || data[offset + 4] === 0)
 		) {

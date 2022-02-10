@@ -105,7 +105,7 @@ const ColorfulMetalBox: Entity = {
 		return [getBankParam1(1, width), y, x, objectId, height];
 	},
 
-	parseObject(data, offset) {
+	parseObject(data, offset, inGame) {
 		const result = parseParam1WidthParam2HeightEntityObject(data, offset, this);
 
 		if (result) {
@@ -116,8 +116,9 @@ const ColorfulMetalBox: Entity = {
 			let fixedOffset = result.offset;
 			let height = e.settings!.height;
 
-			if (heightByte >= 0x40) {
+			if (inGame && heightByte >= 0x40) {
 				// this means the box is 4 bytes, and has a default height of 2
+				// in game levels do this, but e-reader levels do not
 				fixedOffset -= 1;
 				height = 2;
 			}

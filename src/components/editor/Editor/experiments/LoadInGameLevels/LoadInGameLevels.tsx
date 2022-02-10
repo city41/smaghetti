@@ -1,12 +1,8 @@
 import React from 'react';
-import {
-	InGameLevelId,
-	loadableLevels,
-} from '../../../../../levelData/inGameLevels';
-import { Button } from '../../../../Button';
+import { loadableLevels } from '../../../../../levelData/inGameLevels';
 
 type InternalLoadInGameLevelsProps = {
-	onLoad: (levelId: InGameLevelId) => void;
+	onLoad: (levelId: string) => void;
 };
 
 function LoadInGameLevels({ onLoad }: InternalLoadInGameLevelsProps) {
@@ -18,18 +14,25 @@ function LoadInGameLevels({ onLoad }: InternalLoadInGameLevelsProps) {
 			</div>
 
 			<div className="mt-2 flex flex-row gap-x-4 items-center justify-center">
-				{loadableLevels.map((level) => {
-					return (
-						<Button
-							key={level}
-							onClick={() => {
-								onLoad(level);
-							}}
-						>
-							Load {level}
-						</Button>
-					);
-				})}
+				<select
+					className="text-black"
+					onChange={(e) => {
+						const levelName = e.target.value;
+
+						if (levelName !== '-') {
+							onLoad(levelName);
+						}
+					}}
+				>
+					<option value="-">choose a level</option>
+					{loadableLevels.map((level) => {
+						return (
+							<option key={level.name} value={level.name}>
+								{level.name}
+							</option>
+						);
+					})}
+				</select>
 			</div>
 		</div>
 	);

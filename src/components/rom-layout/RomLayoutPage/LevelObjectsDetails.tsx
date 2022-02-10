@@ -61,7 +61,7 @@ const parseObjects = memoize(async function _parseObjects(
 						(os) => decodeObjectSet(os)[0] === objectSet
 					))
 			) {
-				parseResult = entityDef.parseObject(rom, offset);
+				parseResult = entityDef.parseObject(rom, offset, true);
 			}
 		}
 

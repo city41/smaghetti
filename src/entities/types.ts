@@ -240,7 +240,8 @@ type Entity = {
 	 */
 	parseObject?: (
 		data: Uint8Array,
-		offset: number
+		offset: number,
+		inGame: boolean
 	) => void | { entities: NewEditorEntity[]; offset: number };
 
 	/**
