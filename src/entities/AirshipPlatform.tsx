@@ -1,7 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import type { Entity } from './types';
-import { encodeObjectSets } from './util';
+import {
+	encodeObjectSets,
+	parseParam1HeightParam2WidthEntityObject,
+} from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET, OBJECT_PRIORITY_LOWEST } from './constants';
 
@@ -287,6 +290,11 @@ const AirshipPlatform: Entity = {
 			: [0, y, x, 0x2a];
 
 		return bodyBytes.concat(leftCapBytes);
+	},
+
+	parseObject(data, offset) {
+		// todo, figure out the caps
+		return parseParam1HeightParam2WidthEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {
