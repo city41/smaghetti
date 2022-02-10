@@ -35,6 +35,10 @@ import {
 	reducer as romLayoutReducer,
 	RomLayoutState,
 } from './components/rom-layout/romLayoutSlice';
+import {
+	reducer as experimentsReducer,
+	ExperimentsState,
+} from './components/editor/Editor/experiments/experimentsSlice';
 
 type AppState = {
 	editor: EditorState;
@@ -45,6 +49,7 @@ type AppState = {
 	hexTree: HexTreeState;
 	levels: LevelsState;
 	romLayout: RomLayoutState;
+	experiments: ExperimentsState;
 };
 
 const rootReducer = combineReducers({
@@ -56,6 +61,7 @@ const rootReducer = combineReducers({
 	hexTree: hexTreeReducer,
 	levels: levelsReducer,
 	romLayout: romLayoutReducer,
+	experiments: experimentsReducer,
 });
 
 const store = configureStore({

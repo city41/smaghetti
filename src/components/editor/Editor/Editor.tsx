@@ -25,6 +25,7 @@ import styles from './Editor.module.css';
 import { LoadingBar } from '../../LoadingBar';
 import { EarlyStarburst } from '../../EarlyStarburst';
 import { EntityAndProblemList } from './EntityAndProblemList';
+import { InGameLevelsChooser } from './experiments/LoadInGameLevels/InGameLevelsChooser';
 
 type EditorProps = {
 	publishedLevelToLoad?: string;
@@ -40,6 +41,7 @@ type EditorProps = {
 		| 'legacy';
 	levelName?: string;
 	creatorName?: string;
+	inGameBinaryLevelChooser?: boolean;
 };
 
 const TILE_MOUSE_IS_OVER_ID = '__tile_mouse_is_over_id__';
@@ -57,6 +59,7 @@ function Editor({
 	publishedLevelToLoad,
 	levelName,
 	creatorName,
+	inGameBinaryLevelChooser,
 }: EditorProps) {
 	const router = useRouter();
 	const [isChoosingLevel, setIsChoosingLevel] = useState(false);
@@ -193,6 +196,7 @@ function Editor({
 						styles.chrome,
 						'fixed z-10 top-0 left-0 w-full h-full grid pointer-events-none'
 					)}
+					id="smaghetti-editor"
 				>
 					<div className="flex flex-col pointer-events-auto shadow-lg col-span-2">
 						<div className="flex flex-row">
@@ -242,6 +246,11 @@ function Editor({
 							onProblemClick={handleProblemClick}
 							tileMouseIsOverId={TILE_MOUSE_IS_OVER_ID}
 						/>
+					)}
+					{inGameBinaryLevelChooser && (
+						<div className="fixed right-4 bottom-8 pointer-events-auto p-4 bg-yellow-700">
+							<InGameLevelsChooser />
+						</div>
 					)}
 				</div>
 				<div

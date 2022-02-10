@@ -2,7 +2,7 @@ import React from 'react';
 
 import { LoadInGameLevels } from './LoadInGameLevels';
 import { dispatch } from '../../../../../store';
-import { loadBinaryInGameLevel } from '../../../editorSlice';
+import { enableInGameBinaryLevelChooser } from '../experimentsSlice';
 
 type ConnectedLoadInGameLevelsProps = {
 	onRequestClose: () => void;
@@ -11,12 +11,12 @@ type ConnectedLoadInGameLevelsProps = {
 function ConnectedLoadInGameLevels({
 	onRequestClose,
 }: ConnectedLoadInGameLevelsProps) {
-	function handleLoad(level: string) {
-		dispatch(loadBinaryInGameLevel(level));
+	function handleEnable() {
+		dispatch(enableInGameBinaryLevelChooser());
 		onRequestClose();
 	}
 
-	return <LoadInGameLevels onLoad={handleLoad} />;
+	return <LoadInGameLevels onEnable={handleEnable} />;
 }
 
 export { ConnectedLoadInGameLevels };
