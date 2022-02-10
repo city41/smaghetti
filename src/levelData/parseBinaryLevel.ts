@@ -596,6 +596,31 @@ function parseInGameLevelTileWidth(header: Uint8Array): number {
 	return nibble * 16;
 }
 
+/**
+ * this is a hacky function which hopefully ultimately goes away.
+ * in game levels seem to have mysterious sections denoted by 0x80
+ * this function patchs those sections out in the pursuit of hopefully
+ * learning more
+ * see: https://github.com/city41/smaghetti/discussions/166
+ */
+function patchOut0x80Data(objectData: Uint8Array, levelId: string) {
+	switch (levelId) {
+		case '1-1': {
+			const data = Array.from(objectData);
+			const first80I = data.indexOf(0x80);
+			const second801 = data.indexOf(0x80, first80I + 1);
+			data.splice(second801, 4);
+
+			return new Uint8Array(data);
+		}
+		case '4-2': {
+			return objectData.slice(1);
+		}
+	}
+
+	return objectData;
+}
+
 function parseBinaryInGameLevel(
 	levelId: string,
 	rom: Uint8Array
@@ -634,16 +659,12 @@ function parseBinaryInGameLevel(
 		const playerEntity = parsePlayerFromInGameLevel(objectHeader);
 		player = [playerEntity];
 
-		// in game levels seem to switch to something else when you hit 0x80, at least 1-1 does
-		// so far not sure what that is.
-		const endIndexFF = rom.indexOf(0xff, inGameLevel.root + 15);
-		const endIndex80 = rom.indexOf(0x80, inGameLevel.root + 15);
+		const endIndex = rom.indexOf(0xff, inGameLevel.root + 15);
 
-		const endIndex =
-			endIndex80 > 0 ? Math.min(endIndex80, endIndexFF) : endIndexFF;
+		const objectData = rom.slice(inGameLevel.root + 15, endIndex);
 
 		const parseObjectsResult = parseObjects(
-			rom.slice(inGameLevel.root + 15, endIndex),
+			patchOut0x80Data(objectData, levelId),
 			objectSet,
 			gfxSet,
 			true
