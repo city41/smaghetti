@@ -573,7 +573,7 @@ function getObjectAndGraphicSetForInGameLevel(
 	rom: Uint8Array
 ): { objectSet: number; gfxSet: number } {
 	const objectSet = rom[root + 6] & 0xf;
-	const gfxSet = rom[root + 7];
+	const gfxSet = rom[root + 7] & 0x1f;
 
 	return { objectSet, gfxSet };
 }
