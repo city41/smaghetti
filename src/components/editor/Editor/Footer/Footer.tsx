@@ -12,6 +12,7 @@ import { MarioLuigiToggle } from './MarioLuigiToggle';
 type PublicFooterProps = {
 	className?: string;
 	style?: CSSProperties;
+	tileMouseIsOver: null | Point;
 	onProblemClick: () => void;
 };
 
@@ -27,6 +28,7 @@ const memoCompress = memoize(compress);
 const Footer = memo(function Footer({
 	className,
 	style,
+	tileMouseIsOver,
 	level,
 	playAsCharacter,
 	onPlayAsCharacterToggle,
@@ -42,7 +44,7 @@ const Footer = memo(function Footer({
 		<div
 			className={clsx(
 				className,
-				'bg-gray-700 px-4 py-1 flex flex-row justify-end items-center'
+				'bg-gray-700 px-4 py-1 flex flex-row gap-x-2 justify-end items-center'
 			)}
 			style={style}
 		>
@@ -61,8 +63,10 @@ const Footer = memo(function Footer({
 				byteSize={byteSize}
 				ranges={[2024, 2070, 2110]}
 			/>
+			<div className="text-xs text-gray-400 w-16 text-center">
+				({tileMouseIsOver?.x ?? '-'}, {tileMouseIsOver?.y ?? '-'})
+			</div>
 			<PlainIconButton
-				className="ml-4"
 				size="small"
 				icon={IconExperiment}
 				label="show experiments"

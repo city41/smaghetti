@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -12,10 +12,8 @@ import {
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { AppState, dispatch } from '../../../../store';
 
-import { Canvas, CanvasProps } from './Canvas';
+import { Canvas, PublicCanvasProps } from './Canvas';
 import { entityMap } from '../../../../entities/entityMap';
-
-type ConnectedCanvasProps = Partial<CanvasProps>;
 
 const actions = bindActionCreators(
 	{
@@ -28,7 +26,7 @@ const actions = bindActionCreators(
 	dispatch
 );
 
-const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
+function ConnectedCanvas(props: PublicCanvasProps) {
 	const {
 		currentPaletteEntry,
 		actors,
@@ -99,6 +97,6 @@ const ConnectedCanvas: FunctionComponent<ConnectedCanvasProps> = (props) => {
 			{...props}
 		/>
 	);
-};
+}
 
 export { ConnectedCanvas };

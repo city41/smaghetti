@@ -23,14 +23,19 @@ import { entityMap, EntityType } from '../../../../entities/entityMap';
 import styles from './Canvas.module.css';
 import { LevelBackground } from '../../../LevelBackground';
 import { OBJECT_PRIORITY_MIDDLE } from '../../../../entities/constants';
+import isEqual from 'lodash/isEqual';
 
 type OnPaintedArg = {
 	points: Point[];
 	newGroup: boolean;
 };
 
-type CanvasProps = {
+type PublicCanvasProps = {
 	className?: string;
+	onMouseOverTileChange: (tile: Point) => void;
+};
+
+type InternalCanvasProps = {
 	width: number;
 	height: number;
 	scale: number;
@@ -365,7 +370,8 @@ const Canvas = memo(function Canvas({
 	onPainted,
 	onDeleteFocused,
 	onEntitySettingsChange,
-}: CanvasProps) {
+	onMouseOverTileChange,
+}: InternalCanvasProps & PublicCanvasProps) {
 	const [divRef, setDivRef] = useState<HTMLDivElement | null>(null);
 	const [mouseDown, setMouseDown] = useState(false);
 	const entityGhostRef = useRef<HTMLDivElement | null>(null);
@@ -505,6 +511,13 @@ const Canvas = memo(function Canvas({
 						const mousePoint = getMousePoint(e);
 						lastMousePoint.current = mousePoint;
 						sendPaint(mousePoint, true);
+
+						const mouseOverTileCoord = {
+							x: snap(mousePoint.x, TILE_SIZE),
+							y: snap(mousePoint.y, TILE_SIZE),
+						};
+
+						onMouseOverTileChange(mouseOverTileCoord);
 					}
 				}}
 				onMouseUp={() => {
@@ -512,16 +525,26 @@ const Canvas = memo(function Canvas({
 					lastMousePoint.current = null;
 				}}
 				onMouseMove={(e) => {
+					const mousePoint = getMousePoint(e);
+					const mouseOverTileCoord = {
+						x: snap(mousePoint.x, TILE_SIZE),
+						y: snap(mousePoint.y, TILE_SIZE),
+					};
+
 					if (mouseDown) {
-						sendPaint(getMousePoint(e), false);
+						sendPaint(mousePoint, false);
 					} else {
-						const ghostPoint = getMousePoint(e);
 						if (entityGhostRef.current && currentPaletteEntry) {
-							entityGhostRef.current.style.left =
-								snap(ghostPoint.x, TILE_SIZE) + 'px';
-							entityGhostRef.current.style.top =
-								snap(ghostPoint.y, TILE_SIZE) + 'px';
+							entityGhostRef.current.style.left = mouseOverTileCoord.x + 'px';
+							entityGhostRef.current.style.top = mouseOverTileCoord.y + 'px';
 						}
+					}
+
+					if (!isEqual(lastMousePoint.current, mousePoint)) {
+						onMouseOverTileChange({
+							x: mouseOverTileCoord.x / TILE_SIZE,
+							y: mouseOverTileCoord.y / TILE_SIZE,
+						});
 					}
 				}}
 				onMouseLeave={() => {
@@ -605,4 +628,4 @@ const Canvas = memo(function Canvas({
 });
 
 export { Canvas };
-export type { CanvasProps };
+export type { PublicCanvasProps };

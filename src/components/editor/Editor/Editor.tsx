@@ -64,6 +64,7 @@ function Editor({
 	const [showEntityAndProblemList, setShowEntityAndProblemList] = useState(
 		false
 	);
+	const [tileMouseIsOver, setTileMouseIsOver] = useState<null | Point>(null);
 
 	const dispatch = useDispatch();
 
@@ -181,7 +182,13 @@ function Editor({
 							checkeredBackground
 						/>
 						<CanvasOffsetContainer preventPanClicks={mode !== 'managing-rooms'}>
-							{mode !== 'managing-rooms' && <Canvas />}
+							{mode !== 'managing-rooms' && (
+								<Canvas
+									onMouseOverTileChange={(p) => {
+										setTileMouseIsOver(p);
+									}}
+								/>
+							)}
 							{mode === 'managing-rooms' && <ManageLevel />}
 						</CanvasOffsetContainer>
 					</div>
@@ -238,6 +245,7 @@ function Editor({
 							style={FOOTER_STYLE}
 							className="w-full pointer-events-auto"
 							onProblemClick={handleProblemClick}
+							tileMouseIsOver={tileMouseIsOver}
 						/>
 					)}
 				</div>
