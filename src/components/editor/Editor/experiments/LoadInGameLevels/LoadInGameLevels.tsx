@@ -28,7 +28,7 @@ function LoadInGameLevels({ onLoad }: InternalLoadInGameLevelsProps) {
 					{loadableLevels.map((level) => {
 						return (
 							<option key={level.name} value={level.name}>
-								{level.name}
+								{level.name} (objects{level.sprites && ' & sprites'})
 							</option>
 						);
 					})}

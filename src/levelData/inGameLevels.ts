@@ -5,7 +5,7 @@ type InGameLevel = {
 };
 
 type LoadableInGameLevel = Required<Omit<InGameLevel, 'sprites'>> &
-	InGameLevel['sprites'];
+	Pick<InGameLevel, 'sprites'>;
 
 const potentialSpriteStarts = [
 	// 0x157039,
