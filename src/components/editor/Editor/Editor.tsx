@@ -42,6 +42,7 @@ type EditorProps = {
 	creatorName?: string;
 };
 
+const TILE_MOUSE_IS_OVER_ID = '__tile_mouse_is_over_id__';
 const FOOTER_STYLE = { gridColumn: '1 / -1', gridRow: '3' };
 
 function toFreshEditor() {
@@ -64,8 +65,6 @@ function Editor({
 	const [showEntityAndProblemList, setShowEntityAndProblemList] = useState(
 		false
 	);
-	const [tileMouseIsOver, setTileMouseIsOver] = useState<null | Point>(null);
-
 	const dispatch = useDispatch();
 
 	const firstRender = useFirstRender();
@@ -183,11 +182,7 @@ function Editor({
 						/>
 						<CanvasOffsetContainer preventPanClicks={mode !== 'managing-rooms'}>
 							{mode !== 'managing-rooms' && (
-								<Canvas
-									onMouseOverTileChange={(p) => {
-										setTileMouseIsOver(p);
-									}}
-								/>
+								<Canvas tileMouseIsOverId={TILE_MOUSE_IS_OVER_ID} />
 							)}
 							{mode === 'managing-rooms' && <ManageLevel />}
 						</CanvasOffsetContainer>
@@ -245,7 +240,7 @@ function Editor({
 							style={FOOTER_STYLE}
 							className="w-full pointer-events-auto"
 							onProblemClick={handleProblemClick}
-							tileMouseIsOver={tileMouseIsOver}
+							tileMouseIsOverId={TILE_MOUSE_IS_OVER_ID}
 						/>
 					)}
 				</div>

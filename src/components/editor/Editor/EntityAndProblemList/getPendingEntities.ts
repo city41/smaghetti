@@ -19,7 +19,7 @@ export function getPendingEntities(
 	const pendingSprites = sprites.map((s) => {
 		return {
 			x: s.x / TILE_SIZE,
-			y: s.y / TILE_SIZE,
+			y: s.y / TILE_SIZE + 1,
 			w: 1,
 			h: 1,
 			entity: s,

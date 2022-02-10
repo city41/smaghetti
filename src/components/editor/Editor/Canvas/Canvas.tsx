@@ -32,7 +32,7 @@ type OnPaintedArg = {
 
 type PublicCanvasProps = {
 	className?: string;
-	onMouseOverTileChange: (tile: Point) => void;
+	tileMouseIsOverId: string;
 };
 
 type InternalCanvasProps = {
@@ -370,7 +370,7 @@ const Canvas = memo(function Canvas({
 	onPainted,
 	onDeleteFocused,
 	onEntitySettingsChange,
-	onMouseOverTileChange,
+	tileMouseIsOverId,
 }: InternalCanvasProps & PublicCanvasProps) {
 	const [divRef, setDivRef] = useState<HTMLDivElement | null>(null);
 	const [mouseDown, setMouseDown] = useState(false);
@@ -512,12 +512,13 @@ const Canvas = memo(function Canvas({
 						lastMousePoint.current = mousePoint;
 						sendPaint(mousePoint, true);
 
-						const mouseOverTileCoord = {
-							x: snap(mousePoint.x, TILE_SIZE),
-							y: snap(mousePoint.y, TILE_SIZE),
-						};
+						const tileMouseEl = document.querySelector(`#${tileMouseIsOverId}`);
 
-						onMouseOverTileChange(mouseOverTileCoord);
+						if (tileMouseEl) {
+							tileMouseEl.innerHTML = `(${
+								snap(mousePoint.x, TILE_SIZE) / TILE_SIZE
+							}, ${snap(mousePoint.x, TILE_SIZE) / TILE_SIZE})`;
+						}
 					}
 				}}
 				onMouseUp={() => {
@@ -541,10 +542,13 @@ const Canvas = memo(function Canvas({
 					}
 
 					if (!isEqual(lastMousePoint.current, mousePoint)) {
-						onMouseOverTileChange({
-							x: mouseOverTileCoord.x / TILE_SIZE,
-							y: mouseOverTileCoord.y / TILE_SIZE,
-						});
+						const tileMouseEl = document.querySelector(`#${tileMouseIsOverId}`);
+
+						if (tileMouseEl) {
+							tileMouseEl.innerHTML = `(${mouseOverTileCoord.x / TILE_SIZE}, ${
+								mouseOverTileCoord.y / TILE_SIZE
+							})`;
+						}
 					}
 				}}
 				onMouseLeave={() => {
