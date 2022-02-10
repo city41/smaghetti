@@ -173,7 +173,41 @@ function parseObjectEntity(
 	return null;
 }
 
-function parseUnknownObject(
+function parseUnknownInGameObject(
+	objectData: Uint8Array,
+	offset: number
+): { entity: NewEditorEntity; offset: number } | null {
+	const fourAheadValue = objectData[offset + 4];
+
+	let size = 4;
+	if (fourAheadValue != 0 && fourAheadValue < 0x40) {
+		size = 5;
+	}
+
+	if (offset + size > objectData.length) {
+		return null;
+	}
+
+	const objectId = objectData[offset + 3];
+	const x = objectData[offset + 2];
+	const y = objectData[offset + 1];
+
+	return {
+		entity: {
+			type: 'Unknown',
+			x: x * TILE_SIZE,
+			y: y * TILE_SIZE,
+			settings: {
+				type: 'object',
+				objectId,
+				rawBytes: Array.from(objectData.subarray(offset, offset + size)),
+			},
+		} as const,
+		offset: offset + size,
+	};
+}
+
+function parseUnknownEReaderObject(
 	bytes: Uint8Array,
 	offset: number,
 	objectSet: number,
@@ -230,19 +264,6 @@ function parseEReaderRoomObjects(
 	);
 
 	return parseObjects(objectData, objectSet, gfxSet, false);
-}
-
-function attemptToFindStartOfNextObject(
-	objectData: Uint8Array,
-	offset: number
-): number {
-	const fourAhead = objectData[offset + 4];
-
-	if (fourAhead === 0 || fourAhead >= 0x40) {
-		return offset + 4;
-	} else {
-		return offset + 5;
-	}
 }
 
 function parseObjects(
@@ -304,12 +325,9 @@ function parseObjects(
 			);
 			offset = result.offset;
 		} else {
-			const unknownObjectResult = parseUnknownObject(
-				objectData,
-				offset,
-				objectSet,
-				gfxSet
-			);
+			const unknownObjectResult = inGame
+				? parseUnknownInGameObject(objectData, offset)
+				: parseUnknownEReaderObject(objectData, offset, objectSet, gfxSet);
 
 			if (unknownObjectResult) {
 				// eslint-disable-next-line no-console
@@ -324,7 +342,7 @@ function parseObjects(
 			} else {
 				// eslint-disable-next-line no-console
 				console.warn(
-					`parseObjects: unknown object encountered after ${
+					`parseObjects: unknown, uncapturable, object encountered after ${
 						objectEntities.length + cellEntities.length
 					} successes`
 				);
@@ -334,14 +352,7 @@ function parseObjects(
 					getRemainingObjectBytes(objectData, offset)
 				);
 
-				offset = attemptToFindStartOfNextObject(objectData, offset);
-				// eslint-disable-next-line no-console
-				console.warn(
-					'moved forward attempting to find next object, offset:',
-					offset
-				);
-
-				// return { objectEntities, cellEntities };
+				return { objectEntities, cellEntities };
 			}
 		}
 	}
@@ -613,12 +624,12 @@ function parseBinaryInGameLevel(
 
 	let idCounter = 1;
 
-	const { objectSet, gfxSet } = getObjectAndGraphicSetForInGameLevel(
-		inGameLevel.root,
-		rom
-	);
-
 	if (inGameLevel.root) {
+		const { objectSet, gfxSet } = getObjectAndGraphicSetForInGameLevel(
+			inGameLevel.root,
+			rom
+		);
+
 		const objectHeader = rom.slice(inGameLevel.root, inGameLevel.root + 15);
 		const playerEntity = parsePlayerFromInGameLevel(objectHeader);
 		player = [playerEntity];
