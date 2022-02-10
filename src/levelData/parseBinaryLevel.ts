@@ -593,7 +593,7 @@ function parsePlayerFromInGameLevel(header: Uint8Array): NewEditorEntity {
 function parseInGameLevelTileWidth(header: Uint8Array): number {
 	const nibble = header[4] & 0xf;
 
-	return nibble * 16;
+	return (nibble + 1) * 16;
 }
 
 /**
