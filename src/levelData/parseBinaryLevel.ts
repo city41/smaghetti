@@ -307,10 +307,10 @@ function parseObjects(
 				return { objectEntities, cellEntities };
 			}
 
-			if (entityMap[result.entities[0].type].editorType === 'entity') {
-				objectEntities.push(...result.entities);
-			} else {
+			if (entityMap[result.entities[0].type].editorType === 'cell') {
 				cellEntities.push(...result.entities);
+			} else {
+				objectEntities.push(...result.entities);
 			}
 
 			// eslint-disable-next-line no-console

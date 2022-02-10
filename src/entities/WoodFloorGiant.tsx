@@ -73,7 +73,26 @@ const WoodFloorGiant: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseParam1WidthEntityObject(data, offset, this);
+		const result = parseParam1WidthEntityObject(data, offset, this);
+
+		if (result) {
+			const e = result.entities[0];
+
+			// double the width and set logical width, since this entity
+			// is unusual in that its binary width is in units of two tiles instead of one
+			return {
+				...result,
+				entities: [
+					{
+						...e,
+						settings: {
+							width: e.settings!.width * 2,
+							logicalWidth: e.settings!.width,
+						},
+					},
+				],
+			};
+		}
 	},
 
 	simpleRender(size) {

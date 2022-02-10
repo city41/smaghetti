@@ -2,7 +2,8 @@ import type { Entity } from './types';
 import {
 	encodeObjectSets,
 	getBankParam1,
-	parseCellObjectsParam1WidthParam2Height,
+	parseDoubleCellObjectsParam1Width,
+	parseDoubleCellObjectsParam1WidthParam2Height,
 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
@@ -65,8 +66,12 @@ const WoodBlockGiant: Entity = {
 		return [getBankParam1(1, w), y, x, this.objectId, h];
 	},
 
-	parseObject(data, offset) {
-		return parseCellObjectsParam1WidthParam2Height(data, offset, this);
+	parseObject(data, offset, inGame) {
+		if ((inGame && data[offset + 4] >= 0x40) || data[offset + 4] === 0) {
+			return parseDoubleCellObjectsParam1Width(data, offset, this);
+		} else {
+			return parseDoubleCellObjectsParam1WidthParam2Height(data, offset, this);
+		}
 	},
 
 	simpleRender(size) {

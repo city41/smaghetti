@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import {
 	encodeObjectSets,
 	getBankParam1,
-	parseCellObjectsParam1Width,
+	parseDoubleCellObjectsParam1Width,
 } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
@@ -76,7 +76,7 @@ const LakituCloudGiant: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseCellObjectsParam1Width(data, offset, this);
+		return parseDoubleCellObjectsParam1Width(data, offset, this);
 	},
 
 	simpleRender(size) {
