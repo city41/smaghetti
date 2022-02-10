@@ -1249,22 +1249,26 @@ const editorSlice = createSlice({
 						break;
 					}
 					case 'draw': {
-						drawAt(
-							currentLayer!,
-							tilePoint,
-							currentRoom.currentPaletteEntry!,
-							state
-						);
+						if (currentLayer) {
+							drawAt(
+								currentLayer,
+								tilePoint,
+								currentRoom.currentPaletteEntry!,
+								state
+							);
+						}
 						break;
 					}
 					case 'fill': {
-						fillAt(
-							currentLayer!,
-							tilePoint,
-							currentRoom.currentPaletteEntry!,
-							currentRoom.roomTileWidth,
-							currentRoom.roomTileHeight
-						);
+						if (currentLayer) {
+							fillAt(
+								currentLayer,
+								tilePoint,
+								currentRoom.currentPaletteEntry!,
+								currentRoom.roomTileWidth,
+								currentRoom.roomTileHeight
+							);
+						}
 						break;
 					}
 				}
