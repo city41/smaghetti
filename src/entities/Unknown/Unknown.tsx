@@ -24,7 +24,7 @@ const Unknown: Entity = {
 			return [];
 		}
 
-		return settings.rawBytes as number[];
+		return (settings.rawBytes ?? []) as number[];
 	},
 
 	toObjectBinary({ settings }) {
@@ -32,7 +32,7 @@ const Unknown: Entity = {
 			return [];
 		}
 
-		return settings.rawBytes as number[];
+		return (settings.rawBytes ?? []) as number[];
 	},
 
 	simpleRender(size) {
