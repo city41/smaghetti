@@ -596,6 +596,28 @@ function parseInGameLevelTileWidth(header: Uint8Array): number {
 	return (nibble + 1) * 16;
 }
 
+function parseInGameLevelBGGraphic(header: Uint8Array): number {
+	return header[10];
+}
+
+type InGameObjectHeader = {
+	player: NewEditorEntity;
+	roomTileWidth: number;
+	bgGraphic: number;
+};
+
+function parseInGameLevelObjectHeader(header: Uint8Array): InGameObjectHeader {
+	const roomTileWidth = parseInGameLevelTileWidth(header);
+	const player = parsePlayerFromInGameLevel(header);
+	const bgGraphic = parseInGameLevelBGGraphic(header);
+
+	return {
+		roomTileWidth,
+		player,
+		bgGraphic,
+	};
+}
+
 /**
  * this is a hacky function which hopefully ultimately goes away.
  * in game levels seem to have mysterious sections denoted by 0x80
@@ -631,15 +653,11 @@ function parseBinaryInGameLevel(
 		throw new Error(`Failed to get InGameLevel entry for ${levelId}`);
 	}
 
-	let newSpriteEntities: NewEditorEntity[] = [];
-	let player: NewEditorEntity[] = [];
-	let objectEntities: NewEditorEntity[] = [];
-	let cellEntities: NewEditorEntity[] = [];
-	let roomTileWidth = 128;
-
 	if (inGameLevel.root === undefined) {
 		throw new Error(`InGameLevel entry for ${levelId} has no root`);
 	}
+
+	let newSpriteEntities: NewEditorEntity[] = [];
 
 	if (inGameLevel.sprites) {
 		// sprites always start with a leading zero, skip past it
@@ -649,30 +667,27 @@ function parseBinaryInGameLevel(
 
 	let idCounter = 1;
 
-	if (inGameLevel.root) {
-		const { objectSet, gfxSet } = getObjectAndGraphicSetForInGameLevel(
-			inGameLevel.root,
-			rom
-		);
+	const { objectSet, gfxSet } = getObjectAndGraphicSetForInGameLevel(
+		inGameLevel.root,
+		rom
+	);
 
-		const objectHeader = rom.slice(inGameLevel.root, inGameLevel.root + 15);
-		const playerEntity = parsePlayerFromInGameLevel(objectHeader);
-		player = [playerEntity];
+	const objectHeader = rom.slice(inGameLevel.root, inGameLevel.root + 15);
 
-		const endIndex = rom.indexOf(0xff, inGameLevel.root + 15);
+	const endIndex = rom.indexOf(0xff, inGameLevel.root + 15);
+	const objectData = rom.slice(inGameLevel.root + 15, endIndex);
 
-		const objectData = rom.slice(inGameLevel.root + 15, endIndex);
-
-		const parseObjectsResult = parseObjects(
-			patchOut0x80Data(objectData, levelId),
-			objectSet,
-			gfxSet,
-			true
-		);
-		objectEntities = parseObjectsResult.objectEntities;
-		cellEntities = parseObjectsResult.cellEntities;
-		roomTileWidth = parseInGameLevelTileWidth(objectHeader);
-	}
+	const parseObjectsResult = parseObjects(
+		patchOut0x80Data(objectData, levelId),
+		objectSet,
+		gfxSet,
+		true
+	);
+	const objectEntities = parseObjectsResult.objectEntities;
+	const cellEntities = parseObjectsResult.cellEntities;
+	const { roomTileWidth, player, bgGraphic } = parseInGameLevelObjectHeader(
+		objectHeader
+	);
 
 	const allNonCellEntities = newSpriteEntities.concat(objectEntities, player);
 
@@ -723,6 +738,7 @@ function parseBinaryInGameLevel(
 	const room: RoomData = {
 		settings: {
 			...ROOM_BACKGROUND_SETTINGS.plains,
+			bgGraphic,
 			music: MUSIC_VALUES.Plains,
 		},
 		paletteEntries: [],
