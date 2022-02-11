@@ -682,7 +682,7 @@ export function parsePayloadCellObjectParam1Width(
 				type,
 				x: x + w,
 				y,
-				setting: {
+				settings: {
 					payload,
 				},
 			});
