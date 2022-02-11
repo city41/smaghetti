@@ -144,7 +144,10 @@ const BuriedVegetable: Entity = {
 						}}
 					/>
 				)}
-				<PayloadViewDetails payload={settings.payload} />
+				<PayloadViewDetails
+					className="top-0 right-0"
+					payload={settings.payload}
+				/>
 			</div>
 		);
 
