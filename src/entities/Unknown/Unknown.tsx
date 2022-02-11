@@ -53,7 +53,7 @@ const Unknown: Entity = {
 				style={{ width: TILE_SIZE, height: TILE_SIZE, fontSize: 4 }}
 			>
 				<div>{settings.type}</div>
-				<div>{settings.objectId.toString(16)}</div>
+				<div>{settings.objectId?.toString(16)}</div>
 			</div>
 		);
 
@@ -69,7 +69,7 @@ const Unknown: Entity = {
 	},
 
 	getProblem({ settings }) {
-		return `Unknown ${settings?.type}, ${settings?.objectId.toString(16)}`;
+		return `Unknown ${settings?.type}, ${settings?.objectId?.toString(16)}`;
 	},
 };
 
