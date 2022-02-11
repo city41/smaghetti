@@ -59,7 +59,7 @@ const Unknown: Entity = {
 
 		if (showDetails) {
 			return (
-				<UnknownDetails rawBytes={settings.rawBytes as number[]}>
+				<UnknownDetails rawBytes={(settings.rawBytes ?? []) as number[]}>
 					{body}
 				</UnknownDetails>
 			);
