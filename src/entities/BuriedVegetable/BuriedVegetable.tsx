@@ -1,7 +1,11 @@
 import React from 'react';
 
 import type { Entity } from '../types';
-import { encodeObjectSets } from '../util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parsePayloadCellObjectParam1Width,
+} from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
 import { PayloadViewDetails } from '../detailPanes/PayloadViewDetails';
 import { ResourceType } from '../../resources/resourceMap';
@@ -10,6 +14,26 @@ import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { objectSets } from './objectSets';
 import { ECoinPaintBrushButton } from '../ECoin/ECoinPaintBrushButton';
 import { ECoinPaletteData, ECoinTileData } from '../ECoin/ECoinData';
+import invert from 'lodash/invert';
+
+const payloadToObjectId = {
+	Coin: 0x63,
+	CoinCache: 0x64,
+	GiantVegetable: 0x5a,
+	KoopaShell: 0x7e,
+	// monty mole is now its own entity, BuriedVegetableMontyMole
+	// MontyMole: 0x69,
+	OneUpMushroom: 0x65,
+	PoisonMushroom: 0x67,
+	RegularVegetable: 0x5b,
+	SmallVegetable: 0x5c,
+	ECoin: 0x66,
+};
+
+const objectIdToPayload = invert(payloadToObjectId) as Record<
+	number,
+	EntityType | ResourceType
+>;
 
 const BuriedVegetable: Entity = {
 	paletteCategory: 'terrain',
@@ -24,24 +48,12 @@ const BuriedVegetable: Entity = {
 	editorType: 'cell',
 
 	defaultSettings: { payload: 'SmallVegetable' },
-	dimensions: 'none',
+	dimensions: 'x',
 	// empty veggie, nothing comes up
 	objectId: 0x66,
 	payloadBank: 1,
 	emptyBank: 1,
-	payloadToObjectId: {
-		Coin: 0x63,
-		CoinCache: 0x64,
-		GiantVegetable: 0x5a,
-		KoopaShell: 0x7e,
-		// monty mole is now its own entity, BuriedVegetableMontyMole
-		// MontyMole: 0x69,
-		OneUpMushroom: 0x65,
-		PoisonMushroom: 0x67,
-		RegularVegetable: 0x5b,
-		SmallVegetable: 0x5c,
-		ECoin: 0x66,
-	},
+	payloadToObjectId,
 
 	resource: {
 		palettes: [
@@ -71,14 +83,23 @@ const BuriedVegetable: Entity = {
 		],
 	},
 
-	toObjectBinary({ x, y, settings }) {
+	toObjectBinary({ x, y, w, settings }) {
 		const payloadToObjectId = this.payloadToObjectId!;
 
 		const objectId =
 			payloadToObjectId[settings.payload as keyof typeof payloadToObjectId]! ??
 			this.objectId;
 
-		return [0x40, y, x, objectId];
+		return [getBankParam1(1, w), y, x, objectId];
+	},
+
+	parseObject(data, offset) {
+		return parsePayloadCellObjectParam1Width(
+			data,
+			offset,
+			objectIdToPayload,
+			this
+		);
 	},
 
 	// TODO: parseSprite for e-coin

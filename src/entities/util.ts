@@ -628,7 +628,7 @@ export function parsePayloadObject(
 	data: Uint8Array,
 	offset: number,
 	bankByte: number,
-	objectIdToPayload: Record<number, ResourceType>,
+	objectIdToPayload: Record<number, ResourceType | EntityType>,
 	target: Entity
 ) {
 	const objectId = data[offset + 3];
@@ -652,6 +652,43 @@ export function parsePayloadObject(
 					},
 				},
 			],
+			offset: offset + 4,
+		};
+	}
+}
+
+export function parsePayloadCellObjectParam1Width(
+	data: Uint8Array,
+	offset: number,
+	objectIdToPayload: Record<number, ResourceType | EntityType>,
+	target: Entity
+) {
+	const objectId = data[offset + 3];
+
+	if (
+		data[offset] >= 0x40 &&
+		Object.keys(objectIdToPayload).includes(objectId.toString())
+	) {
+		const y = data[offset + 1];
+		const x = data[offset + 2];
+		const width = parseParamFromBank(data[offset]);
+
+		const entities = [];
+		const type = getType(target);
+		const payload = objectIdToPayload[objectId];
+
+		for (let w = 0; w <= width; ++w) {
+			entities.push({
+				type,
+				x: x + w,
+				y,
+				setting: {
+					payload,
+				},
+			});
+		}
+		return {
+			entities,
 			offset: offset + 4,
 		};
 	}
