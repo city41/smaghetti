@@ -122,7 +122,7 @@ function parseSprites(spriteData: Uint8Array): NewEditorEntity[] {
 		if (result) {
 			entities.push(result.entity);
 			offset = result.offset;
-		} else {
+		} else if (offset < spriteData.byteLength - 4) {
 			const objectId = spriteData[offset + 1];
 			const bank = spriteData[offset];
 			const length = getSpriteLength(objectId, bank);
@@ -140,6 +140,8 @@ function parseSprites(spriteData: Uint8Array): NewEditorEntity[] {
 				},
 			});
 			offset += length;
+		} else {
+			return entities;
 		}
 	}
 
@@ -804,4 +806,4 @@ function parseBinaryInGameLevel(
 	};
 }
 
-export { parseBinaryEReaderLevel, parseBinaryInGameLevel };
+export { parseBinaryEReaderLevel, parseBinaryInGameLevel, parseSprites };

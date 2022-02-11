@@ -56,6 +56,7 @@ import { logError } from '../../reporting/logError';
 import {
 	parseBinaryEReaderLevel,
 	parseBinaryInGameLevel,
+	parseSprites,
 } from '../../levelData/parseBinaryLevel';
 import { PendingObject } from '../../levelData/createLevelData';
 
@@ -1924,6 +1925,38 @@ const editorSlice = createSlice({
 				}
 			}
 		},
+		applyPotentialSpriteStart(
+			state: InternalEditorState,
+			action: PayloadAction<number>
+		) {
+			const offset = action.payload;
+			const rom = getRom()!;
+
+			let endOffset = rom.indexOf(0xff, offset);
+			if (endOffset < 0) {
+				endOffset = Math.min(rom.length, offset + 128);
+			}
+
+			const spriteData = rom.slice(offset, endOffset);
+			const sprites = parseSprites(spriteData);
+
+			const idSprites = sprites.map((s) => {
+				return {
+					...s,
+					id: idCounter++,
+				};
+			});
+
+			const currentRoom = getCurrentRoom(state);
+
+			// unknown defaults to actor/entity, and we dont want to blow away any unknown
+			// objects, so grab them and stick them back on
+			const existingUnknownObjects = currentRoom.actors.entities.filter(
+				(e) => e.type === 'Unknown' && e?.settings?.type === 'object'
+			);
+
+			currentRoom.actors.entities = idSprites.concat(existingUnknownObjects);
+		},
 	},
 });
 
@@ -2065,9 +2098,7 @@ const loadBinaryEReaderLevel = (levelFile: File): LevelThunk => async (
 	}
 };
 
-const loadBinaryInGameLevel = (levelId: string): LevelThunk => async (
-	dispatch
-) => {
+const loadBinaryInGameLevel = (levelId: string): LevelThunk => (dispatch) => {
 	try {
 		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
 		dispatch(editorSlice.actions.setLevelName(''));
@@ -2230,6 +2261,7 @@ const {
 	clearFocusedEntity,
 	scrollToEntity,
 	setEntitySettings,
+	applyPotentialSpriteStart,
 	eraseLevel,
 } = editorSlice.actions;
 
@@ -2470,6 +2502,7 @@ export {
 	clearFocusedEntity,
 	scrollToEntity,
 	setEntitySettings,
+	applyPotentialSpriteStart,
 	saveLevel,
 	saveLevelCopy,
 	loadLevel,

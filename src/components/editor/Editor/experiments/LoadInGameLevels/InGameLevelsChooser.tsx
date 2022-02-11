@@ -1,11 +1,17 @@
 import React from 'react';
-import { loadableLevels } from '../../../../../levelData/inGameLevels';
+import {
+	loadableLevels,
+	potentialSpriteStarts,
+} from '../../../../../levelData/inGameLevels';
 import { dispatch } from '../../../../../store';
-import { loadBinaryInGameLevel } from '../../../editorSlice';
+import {
+	loadBinaryInGameLevel,
+	applyPotentialSpriteStart,
+} from '../../../editorSlice';
 
 function InGameLevelsChooser() {
 	return (
-		<div className="mt-2 flex flex-row gap-x-4 items-center justify-center">
+		<div className="mt-2 flex flex-col gap-y-4 items-center justify-center">
 			<select
 				className="text-black"
 				onChange={(e) => {
@@ -21,6 +27,26 @@ function InGameLevelsChooser() {
 					return (
 						<option key={level.name} value={level.name}>
 							{level.name} (objects{level.sprites && ' & sprites'})
+						</option>
+					);
+				})}
+			</select>
+			<div>potential sprite starts</div>
+			<select
+				className="text-black"
+				onChange={(e) => {
+					const spriteStart = parseInt(e.target.value);
+
+					if (!isNaN(spriteStart)) {
+						dispatch(applyPotentialSpriteStart(spriteStart));
+					}
+				}}
+			>
+				<option value="-">-</option>
+				{potentialSpriteStarts.map((ss) => {
+					return (
+						<option key={ss} value={ss}>
+							0x{ss.toString(16)}
 						</option>
 					);
 				})}

@@ -403,12 +403,11 @@ const inGameLevels: InGameLevel[] = [
 
 		sprites: 0x158b82,
 	},
-	...potentialSpriteStarts.map((pss) => ({ sprites: pss })),
 ];
 
 const loadableLevels = inGameLevels.filter(
 	(igl) => !!(igl.name && igl.root)
 ) as LoadableInGameLevel[];
 
-export { inGameLevels, loadableLevels };
+export { inGameLevels, loadableLevels, potentialSpriteStarts };
 export type { InGameLevel };
