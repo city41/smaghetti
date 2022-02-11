@@ -21,6 +21,7 @@ import { encodeObjectSets } from '../entities/util';
 import { TILE_SIZE } from '../tiles/constants';
 import { getSpriteLength } from './spriteLengths';
 import { inGameLevels } from './inGameLevels';
+import inRange from 'lodash/inRange';
 
 type ParseBinaryResult = {
 	levelData: LevelData;
@@ -578,15 +579,52 @@ function getObjectAndGraphicSetForInGameLevel(
 	return { objectSet, gfxSet };
 }
 
+const rawYToYposition: Record<number, number> = {
+	0: 18,
+	1: 18,
+	2: 5,
+	3: 5,
+	4: 0,
+	5: 0,
+	6: 16,
+	7: 16,
+	8: 4,
+	9: 4,
+	0xa: 8,
+	0xb: 8,
+	0xc: 12,
+	0xd: 12,
+	0xe: 19,
+	0xf: 19,
+};
+
 function parsePlayerFromInGameLevel(header: Uint8Array): NewEditorEntity {
 	// TODO: these don't seem correct at all
-	const y = header[4] >> 4;
-	const x = header[5] & 0xf;
+	const rawY = header[4] >> 4;
+	const rawX = header[5] & 0xf;
+
+	let x = 0;
+
+	if (inRange(rawX, 0, 0x20) || inRange(rawX, 0x80, 0xa0)) {
+		x = 1;
+	}
+
+	if (inRange(rawX, 0x20, 0x40) || inRange(rawX, 0xa0, 0xc0)) {
+		x = 7;
+	}
+
+	if (inRange(rawX, 0x40, 0x60) || inRange(rawX, 0xc0, 0xe0)) {
+		x = 0xd;
+	}
+
+	if (inRange(rawX, 0x60, 0x80) || inRange(rawX, 0xe0, 0x100)) {
+		x = 0;
+	}
 
 	return {
 		type: 'Player',
 		x: x * TILE_SIZE,
-		y: y * TILE_SIZE,
+		y: ((rawYToYposition[rawY] ?? 0) + 6) * TILE_SIZE,
 	};
 }
 
