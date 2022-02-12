@@ -17,11 +17,21 @@ const experimentsSlice = createSlice({
 		enableInGameBinaryLevelChooser(state: ExperimentsState) {
 			state.inGameBinaryLevelChooser = true;
 		},
+		disableInGameBinaryLevelChooser(state: ExperimentsState) {
+			state.inGameBinaryLevelChooser = false;
+		},
 	},
 });
 
 const reducer = experimentsSlice.reducer;
-const { enableInGameBinaryLevelChooser } = experimentsSlice.actions;
+const {
+	enableInGameBinaryLevelChooser,
+	disableInGameBinaryLevelChooser,
+} = experimentsSlice.actions;
 
-export { reducer, enableInGameBinaryLevelChooser };
+export {
+	reducer,
+	enableInGameBinaryLevelChooser,
+	disableInGameBinaryLevelChooser,
+};
 export type { ExperimentsState };

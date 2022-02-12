@@ -1,17 +1,20 @@
 import React from 'react';
+import { IconClose } from '../../../../../icons';
 import {
 	loadableLevels,
 	potentialSpriteStarts,
 } from '../../../../../levelData/inGameLevels';
 import { dispatch } from '../../../../../store';
+import { PlainIconButton } from '../../../../PlainIconButton';
 import {
 	loadBinaryInGameLevel,
 	applyPotentialSpriteStart,
 } from '../../../editorSlice';
+import { disableInGameBinaryLevelChooser } from '../experimentsSlice';
 
 function InGameLevelsChooser() {
 	return (
-		<div className="mt-2 flex flex-col gap-y-4 items-center justify-center">
+		<div className="relative mt-2 flex flex-col gap-y-4 items-center justify-center">
 			<div>objects and sprites</div>
 			<select
 				className="text-black"
@@ -76,6 +79,14 @@ function InGameLevelsChooser() {
 					);
 				})}
 			</select>
+			<PlainIconButton
+				className="absolute right-0 top-0"
+				label="close"
+				icon={IconClose}
+				onClick={() => {
+					dispatch(disableInGameBinaryLevelChooser());
+				}}
+			/>
 		</div>
 	);
 }
