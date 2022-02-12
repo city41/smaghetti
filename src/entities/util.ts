@@ -631,7 +631,7 @@ export function parsePayloadObject(
 	objectIdToPayload: Record<number, ResourceType | EntityType>,
 	target: Entity
 ) {
-	if (offset >= data.byteLength - 4) {
+	if (offset > data.byteLength - 4) {
 		return;
 	}
 
@@ -667,7 +667,7 @@ export function parsePayloadCellObjectParam1Width(
 	objectIdToPayload: Record<number, ResourceType | EntityType>,
 	target: Entity
 ) {
-	if (offset >= data.byteLength - 4) {
+	if (offset > data.byteLength - 4) {
 		return;
 	}
 
@@ -818,7 +818,7 @@ export function parsePotentialPayloadObject(
 	objectIdToPayload: Record<number, ResourceType>,
 	target: Entity
 ): ReturnType<Required<Entity>['parseObject']> {
-	if (offset >= data.byteLength - 4) {
+	if (offset > data.byteLength - 4) {
 		return;
 	}
 
