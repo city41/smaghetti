@@ -19,20 +19,33 @@ const Unknown: Entity = {
 	dimensions: 'none',
 	objectId: 0,
 
-	toSpriteBinary({ settings }) {
+	toSpriteBinary({ settings, x, y }) {
 		if (settings.type === 'object') {
 			return [];
 		}
+		const rawBytes = [...(settings.rawBytes ?? [])];
 
-		return (settings.rawBytes ?? []) as number[];
+		if (rawBytes.length >= 4) {
+			rawBytes[2] = x;
+			rawBytes[3] = y;
+		}
+
+		return rawBytes;
 	},
 
-	toObjectBinary({ settings }) {
+	toObjectBinary({ settings, x, y }) {
 		if (settings.type === 'sprite') {
 			return [];
 		}
 
-		return (settings.rawBytes ?? []) as number[];
+		const rawBytes = [...(settings.rawBytes ?? [])];
+
+		if (rawBytes.length >= 4) {
+			rawBytes[1] = y;
+			rawBytes[2] = x;
+		}
+
+		return rawBytes;
 	},
 
 	simpleRender(size) {
