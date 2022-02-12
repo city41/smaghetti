@@ -660,12 +660,12 @@ function parseInGameLevelObjectHeader(header: Uint8Array): InGameObjectHeader {
 
 /**
  * this is a hacky function which hopefully ultimately goes away.
- * in game levels seem to have mysterious sections denoted by 0x80
+ * in game levels seem to have mysterious sections denoted by 0x8x
  * this function patchs those sections out in the pursuit of hopefully
  * learning more
  * see: https://github.com/city41/smaghetti/discussions/166
  */
-function patchOut0x80Data(objectData: Uint8Array, levelId: string) {
+function patchOut0x8xData(objectData: Uint8Array, levelId: string) {
 	switch (levelId) {
 		case '1-1': {
 			const data = Array.from(objectData);
@@ -675,7 +675,9 @@ function patchOut0x80Data(objectData: Uint8Array, levelId: string) {
 
 			return new Uint8Array(data);
 		}
+		case '3-9': // starts with 0x8f
 		case '4-2': {
+			// starts with 0x80
 			return objectData.slice(1);
 		}
 	}
@@ -718,7 +720,7 @@ function parseBinaryInGameLevel(
 	const objectData = rom.slice(inGameLevel.root + 15, endIndex);
 
 	const parseObjectsResult = parseObjects(
-		patchOut0x80Data(objectData, levelId),
+		patchOut0x8xData(objectData, levelId),
 		objectSet,
 		gfxSet,
 		true

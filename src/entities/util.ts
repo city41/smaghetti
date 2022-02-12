@@ -663,6 +663,10 @@ export function parsePayloadCellObjectParam1Width(
 	objectIdToPayload: Record<number, ResourceType | EntityType>,
 	target: Entity
 ) {
+	if (offset >= data.byteLength - 4) {
+		return;
+	}
+
 	const objectId = data[offset + 3];
 
 	if (

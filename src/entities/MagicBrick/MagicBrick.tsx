@@ -2,6 +2,7 @@ import type { Entity } from '../types';
 import {
 	encodeObjectSets,
 	getBankParam1,
+	parseCellObjectsParam1Width,
 	parseCellObjectsParam1WidthParam2Height,
 } from '../util';
 import { TILE_SIZE } from '../../tiles/constants';
@@ -56,8 +57,17 @@ const MagicBrick: Entity = {
 		return [getBankParam1(1, w), y, x, this.objectId, h];
 	},
 
-	parseObject(data, offset) {
-		return parseCellObjectsParam1WidthParam2Height(data, offset, this);
+	parseObject(data, offset, inGame) {
+		if (
+			inGame &&
+			data[offset] >= 0x40 &&
+			(data[offset + 4] >= 0x40 || data[offset + 4] === 0)
+		) {
+			// this is an in game, four byte magic brick with default height of 1
+			return parseCellObjectsParam1Width(data, offset, this);
+		} else {
+			return parseCellObjectsParam1WidthParam2Height(data, offset, this);
+		}
 	},
 
 	simpleRender(size) {

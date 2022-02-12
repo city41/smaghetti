@@ -1952,12 +1952,16 @@ const editorSlice = createSlice({
 			const currentRoom = getCurrentRoom(state);
 
 			// unknown defaults to actor/entity, and we dont want to blow away any unknown
-			// objects, so grab them and stick them back on
-			const existingUnknownObjects = currentRoom.actors.entities.filter(
-				(e) => e.type === 'Unknown' && e?.settings?.type === 'object'
+			// objects, nor the player, so grab them and stick them back on
+			const existingUnknownObjectsAndPlayer = currentRoom.actors.entities.filter(
+				(e) =>
+					e.type === 'Player' ||
+					(e.type === 'Unknown' && e?.settings?.type === 'object')
 			);
 
-			currentRoom.actors.entities = idSprites.concat(existingUnknownObjects);
+			currentRoom.actors.entities = idSprites.concat(
+				existingUnknownObjectsAndPlayer
+			);
 		},
 	},
 });
