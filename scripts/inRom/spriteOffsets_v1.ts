@@ -1,0 +1,302 @@
+// this data was taken from the bottom of reference/SMA4Notes.txt
+//
+// each of these addresses are potentially the start of the sprite list for
+// levels in the game
+//
+// these addresses are for the 1.0 version of the rom
+//
+// this script formats these addresses into something javascript-ish and also adds
+// 2092 to each address to (hopefully) get the 1.1 address. That delta seems to be
+// working well for object and sprite list pointers
+
+const input = `1567F0
+1567F2
+1567F6
+1567F8
+1567FA
+1567FC
+1567FE
+156800
+156802
+156804
+156806
+156808
+15680A
+15680C
+15680E
+156814
+15681A
+15682C
+15683E
+156844
+156886
+156894
+156896
+156898
+15689A
+15689C
+15689E
+1568B8
+1568C2
+156930
+156936
+15693C
+156942
+156948
+15694E
+156954
+15695A
+156960
+156966
+15696C
+156972
+156978
+15697E
+156984
+15698A
+156990
+156996
+15699C
+1569A2
+1569A8
+1569AE
+1569B4
+1569BA
+1569D4
+156A3D
+156A43
+156A81
+156AEB
+156B25 : 7-1
+156B35 : 7-7
+156B45 : 4-6
+156BAF
+156C25 : 1-3
+156C63
+156C6D
+156C7C : 7-8
+156CFC : 3-9
+156D80
+156D86 : 7-6
+156D8C : 7-4
+156DA2 : 5-1
+156E1A
+156E39
+156E3F : 8-1
+156EE5 : 3-7
+156F47
+156F4D
+156F97
+156FE5 : 1-1
+15701F : 7-5
+15702F
+157035 : 1-5 Ending
+15703B
+15705D
+157063 : 1-4 Ending
+15706D
+15706F : 3-3
+157095
+15709B
+157107
+15713A
+1571AB
+1571B9
+157267 : 1-2
+1572D3
+1572F1 : 7-3
+15733B : 1-Hammer Bros.
+157345
+157377
+157385
+1573A7
+1573DD
+157437
+157461
+1574AB : 2-Desert
+1574D5
+157547 : 2-2
+157581 : 5-2
+1575F7 : 8-2
+157631 : 1-5
+15767F : 3-8
+15769D
+1576B5
+1576B7
+1576BD
+1576E3
+1576F9
+157703
+15771D
+15774B
+157755 : 3-4
+157797 : 6-8
+1577E9 : 3-2
+15782F
+15783D : 3-6
+157867
+157871 : 6-3
+1578BB : 6-Fortress 2
+157909
+15790F : 6-5
+157929
+15796B : 5-5
+1579A9
+1579BB
+1579CD : 6-2
+157A1B
+157A61 : 6-1
+157A8F
+157ABD
+157AC3 : 1-6
+157AF5 : 1-4
+157B43 : 6-4
+157B89
+157BCF
+157BDD : 6-6
+157BF1 : 6-10
+157C35 : 6-7
+157C4B
+157C55 : 6-9
+157C5F
+157C9A
+157CEC
+157D54
+157D8F : 3-5
+157E15
+157E29 : 3-1
+157E5B
+157E6F
+157E91 : 5-8
+157EA7
+157EB1
+157EC3 : 4-1
+157F07
+157F31 : 5-7
+157F93 : 4-3
+157F9D : 4-2
+157FDB : 5-6
+158029 : 5-9
+15807B : 4-4
+158095
+15809B : 1-3 Bonus Area
+1580A1
+1580A7
+1580B7
+1580C1 : 4-5
+15812D
+158133 : 1-5 Bonus Area
+158139
+158148 : 5-4
+158186
+1581B8
+1581EE
+15820C
+158228
+15823A
+158248
+15825C
+158270
+15827A
+158280 : 2-Pyramid
+15829E
+1582A4 : 7-2
+158348 : 2-Hammer Bros.
+158356 : 2-Hammer Bros.
+158360
+158366 : 7-9
+1583E0 : 2-1
+15842A : 2-5
+158468 : 2-3
+1584F8 : 2-Fortress
+15854B : 2-Fortress (Spike room)
+15855E : 2-4
+1585BA
+1585D8
+1585DE
+1585E4 : Castle Room
+1585EA : 5-Fortress 2
+1585F5
+158677
+158695
+1586A3 : 1-Fortress
+1586D2 : 1-Fortress (Spike room)
+1586F7 : 3-Fortress 2
+158731
+15875C : 3-Fortress 1
+1587A9
+1587CB : 5-Fortress 1
+158829
+158834
+158856 : 7-Fortress 2
+1588CC
+1588F2 : 6-Fortress 3
+158935
+158947 : 6-Fortress 1
+15897A
+15899C : 7-Fortress 1
+1589BD
+1589D7
+1589E7 : 4-Fortress 2
+158A37 : 4-Fortress 1
+158A73 : 8-Fortress
+158ACC
+158B2B
+158BBE
+158C12
+158C98 : Anchors Away
+158C9E
+158CA4
+158CFA : 1-Airship
+158D38 : 2-Airship
+158D82
+158DD4
+158E36
+158E70
+158EDA
+158F48
+158FAE
+15901C
+159096 : 1-Airship (boss room)
+15909C : 2-Airship (boss room)
+1590A2
+1590A8
+1590AE
+1590B4
+1590BA
+1590C8
+1590D6
+1590DC
+1590E2
+1590E8
+1590F6
+159130`;
+
+const lines = input.split('\n');
+
+const entries = lines.map((line) => {
+	const splits = line.split(':');
+
+	const offset = parseInt(splits[0].trim(), 16) + 2092;
+	const name = splits[1]?.trim() ?? '';
+
+	if (name) {
+		return { offset, name };
+	} else {
+		return { offset };
+	}
+});
+
+entries.forEach((e) => {
+	let src = `{ offset: 0x${e.offset.toString(16)}`;
+
+	if (e.name) {
+		src += `, name: "${e.name}"`;
+	}
+
+	src += ' },';
+
+	console.log(src);
+});
+
+export {};

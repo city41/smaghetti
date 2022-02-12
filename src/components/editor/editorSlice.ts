@@ -1937,13 +1937,15 @@ const editorSlice = createSlice({
 				endOffset = Math.min(rom.length, offset + 128);
 			}
 
-			const spriteData = rom.slice(offset, endOffset);
+			// + 1 to skip past the leading zero
+			const spriteData = rom.slice(offset + 1, endOffset);
 			const sprites = parseSprites(spriteData);
 
 			const idSprites = sprites.map((s) => {
 				return {
 					...s,
 					id: idCounter++,
+					y: s.y - TILE_SIZE,
 				};
 			});
 

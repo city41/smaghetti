@@ -45,8 +45,8 @@ function InGameLevelsChooser() {
 				<option value="-">-</option>
 				{potentialSpriteStarts.map((ss) => {
 					return (
-						<option key={ss} value={ss}>
-							0x{ss.toString(16)}
+						<option key={ss.offset} value={ss.offset}>
+							0x{ss.offset.toString(16)} {ss.name}
 						</option>
 					);
 				})}
