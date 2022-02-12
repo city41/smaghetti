@@ -6,7 +6,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import {
 	encodeObjectSets,
 	getBankParam1,
-	parseCellObjectsParam1Width,
+	parseParam1WidthEntityObject,
 } from './util';
 import { Resizer } from '../components/Resizer';
 
@@ -70,7 +70,7 @@ const WoodColumn: Entity = {
 	},
 
 	parseObject(data, offset) {
-		return parseCellObjectsParam1Width(data, offset, this);
+		return parseParam1WidthEntityObject(data, offset, this);
 	},
 
 	simpleRender(size) {
