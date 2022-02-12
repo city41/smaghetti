@@ -23,6 +23,7 @@ type RomFileState =
 	| 'loading'
 	| 'success'
 	| 'checksum-error'
+	| 'wrong-version-error'
 	| 'error';
 type OtherFilesState = 'loading' | 'success' | 'error';
 
@@ -42,6 +43,8 @@ type FileLoaderState = {
 };
 
 const SMA4_SHA = '532f3307021637474b6dd37da059ca360f612337';
+// the sha for the old v1 version of the rom
+const SMA4_V1_SHA = '69e81f41394f02d64cad206adb26b3cd43690770';
 
 const defaultInitialState: FileLoaderState = {
 	romFileState: 'not-chosen',
@@ -146,7 +149,9 @@ const loadRom = (file: File): FileLoaderThunk => async (dispatch) => {
 
 			const sha = sha1(romFile);
 
-			if (sha !== SMA4_SHA) {
+			if (sha === SMA4_V1_SHA) {
+				dispatch(fileLoaderSlice.actions.romState('wrong-version-error'));
+			} else if (sha !== SMA4_SHA) {
 				dispatch(fileLoaderSlice.actions.romState('checksum-error'));
 			} else {
 				setRom(romFile);

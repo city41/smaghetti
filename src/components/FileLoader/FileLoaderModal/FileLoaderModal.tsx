@@ -16,6 +16,7 @@ type InternalFileLoaderModalProps = {
 		| 'loading'
 		| 'success'
 		| 'checksum-error'
+		| 'wrong-version-error'
 		| 'error';
 	otherFilesState: 'loading' | 'success' | 'error';
 	onRomFileChosen: (romFile: File) => void;
@@ -124,14 +125,21 @@ function BaseFiles({
 				</div>
 			);
 			break;
+		case 'wrong-version-error':
 		case 'checksum-error':
 			romBody = (
 				<DropZone onFileChosen={cacheRomThenOnChosen}>
 					<div className="flex flex-row">
 						<IconExclamationCircle className="text-2xl text-red-200" />
 						<div className="ml-2">
-							Checksum failed,
-							<br /> wrong ROM?
+							{romFileState === 'wrong-version-error' ? (
+								'This is the 1.0 version, Smaghetti needs 1.1'
+							) : (
+								<>
+									Checksum failed,
+									<br /> wrong ROM?
+								</>
+							)}
 						</div>
 					</div>
 					<label className="italic cursor-pointer hover:bg-gray-700 mt-4">
