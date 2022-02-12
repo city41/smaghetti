@@ -631,6 +631,10 @@ export function parsePayloadObject(
 	objectIdToPayload: Record<number, ResourceType | EntityType>,
 	target: Entity
 ) {
+	if (offset >= data.byteLength - 4) {
+		return;
+	}
+
 	const objectId = data[offset + 3];
 
 	if (
@@ -814,6 +818,10 @@ export function parsePotentialPayloadObject(
 	objectIdToPayload: Record<number, ResourceType>,
 	target: Entity
 ): ReturnType<Required<Entity>['parseObject']> {
+	if (offset >= data.byteLength - 4) {
+		return;
+	}
+
 	const objectId = data[offset + 3];
 
 	// no payload? it's a rectangle of objects
