@@ -59,7 +59,7 @@ function getDirection(settings: EditorEntitySettings): Direction {
 const Cannon: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		subCategory: 'enemy-airship',
+		subCategory: 'enemy-bowsers-army',
 		title: 'Cannon',
 	},
 

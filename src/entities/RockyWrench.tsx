@@ -7,7 +7,7 @@ import { parseSimpleSprite } from './util';
 const RockyWrench: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		subCategory: 'enemy-airship',
+		subCategory: 'enemy-bowsers-army',
 		title: 'Rocky Wrench',
 	},
 

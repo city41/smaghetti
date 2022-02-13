@@ -31,7 +31,7 @@ function isBurner(
 const Burner: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		subCategory: 'enemy-airship',
+		subCategory: 'enemy-bowsers-army',
 		title: 'Burner',
 		description: 'Shoots fire',
 	},

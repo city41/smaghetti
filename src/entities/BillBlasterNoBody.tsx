@@ -7,7 +7,7 @@ import { ANY_BELOW_0x16 } from './constants';
 const BillBlasterNoBody: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		subCategory: 'enemy-airship',
+		subCategory: 'enemy-bowsers-army',
 		title: 'Bill Blaster - Airship',
 		description:
 			'A Bill Blaster that does not have a body. Nintendo uses these in airship levels. Normal Bill Blasters are found in the common section.',

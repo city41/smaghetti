@@ -24,7 +24,7 @@ const spriteIdToDirection = invert(directionToObjectId) as Record<
 const GiantCannonBall: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		subCategory: 'enemy-airship',
+		subCategory: 'enemy-bowsers-army',
 		title: 'Giant Cannon Ball',
 		description:
 			'Normally fired from a pipe, but maybe you can get more creative with it.',

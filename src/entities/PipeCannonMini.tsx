@@ -9,7 +9,7 @@ const PipeCannonMini: Entity = {
 	...PipeHorizontalMini,
 	paletteCategory: 'enemy',
 	paletteInfo: {
-		subCategory: 'enemy-airship',
+		subCategory: 'enemy-bowsers-army',
 		title: 'Pipe - Cannon Mini',
 		description:
 			'Fires cannon balls. Just want a pipe? Check out Pipe Horizontal Mini in the terrain section',

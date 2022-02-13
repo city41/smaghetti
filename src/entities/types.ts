@@ -90,7 +90,7 @@ type PaletteSubcategory =
 	| 'enemy-pixel-positioned'
 	| 'enemy-piranha'
 	| 'enemy-fortress'
-	| 'enemy-airship'
+	| 'enemy-bowsers-army'
 	| 'enemy-desert'
 	| 'enemy-water'
 	| 'enemy-winter'
