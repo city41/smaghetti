@@ -356,3 +356,5 @@ export const ROOM_BACKGROUND_SETTINGS: Record<
 		bgExtraColorAndEffect: BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES.none,
 	},
 };
+
+export const IN_GAME_LEVEL_HEADER_SIZE = 11;

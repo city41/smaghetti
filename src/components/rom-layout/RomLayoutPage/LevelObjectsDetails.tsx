@@ -10,6 +10,7 @@ import { RoomThumbnail } from '../../RoomThumbnail';
 import { IconSave } from '../../../icons';
 import {
 	BACKGROUND_GRAPHIC_VALUES,
+	IN_GAME_LEVEL_HEADER_SIZE,
 	MUSIC_VALUES,
 } from '../../../levelData/constants';
 
@@ -243,7 +244,11 @@ function LevelObjectsDetails({ offset, size }: LevelObjectsDetailsProps) {
 
 		body = (
 			<div className="w-full overflow-auto">
-				<Header bytes={Array.from(rom.slice(offset - 15, offset))} />
+				<Header
+					bytes={Array.from(
+						rom.slice(offset - IN_GAME_LEVEL_HEADER_SIZE, offset)
+					)}
+				/>
 				<div className="my-2 bg-gray-600 text-white">{levelBytes}</div>
 				<RoomThumbnail
 					className="bg-gray-600"

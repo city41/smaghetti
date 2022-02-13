@@ -8,6 +8,7 @@ import {
 	ROOM_LEVELSETTING_POINTERS,
 	ROOM_OBJECT_POINTERS,
 	ROOM_SPRITE_POINTERS,
+	IN_GAME_LEVEL_HEADER_SIZE,
 } from './constants';
 import {
 	ECOIN_TILE_SIZE,
@@ -675,12 +676,6 @@ function patchOutUnknownData(objectData: Uint8Array, levelId: string) {
 
 			return new Uint8Array(data);
 		}
-		case '3-9': // starts with 0x8f
-		case '4-2': // starts with 0x80
-		case '6-1': {
-			// starts with 0xb
-			return objectData.slice(1);
-		}
 	}
 
 	return objectData;
@@ -715,10 +710,19 @@ function parseBinaryInGameLevel(
 		rom
 	);
 
-	const objectHeader = rom.slice(inGameLevel.root, inGameLevel.root + 15);
+	const objectHeader = rom.slice(
+		inGameLevel.root,
+		inGameLevel.root + IN_GAME_LEVEL_HEADER_SIZE
+	);
 
-	const endIndex = rom.indexOf(0xff, inGameLevel.root + 15);
-	const objectData = rom.slice(inGameLevel.root + 15, endIndex);
+	const endIndex = rom.indexOf(
+		0xff,
+		inGameLevel.root + IN_GAME_LEVEL_HEADER_SIZE
+	);
+	const objectData = rom.slice(
+		inGameLevel.root + IN_GAME_LEVEL_HEADER_SIZE,
+		endIndex
+	);
 
 	const parseObjectsResult = parseObjects(
 		patchOutUnknownData(objectData, levelId),

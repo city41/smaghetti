@@ -34,6 +34,7 @@ import {
 import {
 	BACKGROUND_EXTRA_COLOR_AND_EFFECT_VALUES,
 	BACKGROUND_GRAPHIC_VALUES,
+	IN_GAME_LEVEL_HEADER_SIZE,
 	MUSIC_VALUES,
 	ROOM_AUTOSCROLL_POINTERS,
 	ROOM_BLOCKPATH_POINTERS,
@@ -483,7 +484,13 @@ function parseInGameLevelToTree(
 				rawBytes: [],
 			},
 			objects: level.root
-				? parseObjects(rom, level.root + 15, objectSet, [], [])
+				? parseObjects(
+						rom,
+						level.root + IN_GAME_LEVEL_HEADER_SIZE,
+						objectSet,
+						[],
+						[]
+				  )
 				: [],
 			pendingRawBytes: [],
 		},

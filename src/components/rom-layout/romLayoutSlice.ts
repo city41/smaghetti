@@ -10,6 +10,7 @@ import { getRom } from '../FileLoader/files';
 import { inGameLevels } from '../../levelData/inGameLevels';
 import { ROM_SIZE } from './constants';
 import { CompressedTilesRomSection, RomSection } from './types';
+import { IN_GAME_LEVEL_HEADER_SIZE } from '../../levelData/constants';
 
 type RomLayoutState = {
 	sections: RomSection[];
@@ -82,8 +83,8 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch) => {
 		if (igl.root) {
 			sections.push({
 				label: igl.name ?? '?',
-				start: igl.root + 15,
-				size: getSize(rom, igl.root + 15),
+				start: igl.root + IN_GAME_LEVEL_HEADER_SIZE,
+				size: getSize(rom, igl.root + IN_GAME_LEVEL_HEADER_SIZE),
 				type: 'level-objects',
 			} as const);
 		}
