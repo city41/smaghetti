@@ -10,6 +10,8 @@ import { HammerButton } from './detailPanes/HammerButton';
 const directions = ['up-left', 'up-right', 'down-right', 'down-left'] as const;
 type Direction = typeof directions[number];
 
+const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
 const directionToObjectId: Record<Direction, number> = {
 	'up-left': 0x6,
 	'up-right': 0x7,
@@ -62,7 +64,14 @@ const Cannon: Entity = {
 	},
 
 	objectSets: encodeObjectSets([[10, 10]]),
-	spriteGraphicSets: [1, -1, -1, 0, -1, -1],
+	spriteGraphicSets: [
+		graphicSets,
+		graphicSets,
+		-1,
+		0,
+		graphicSets,
+		graphicSets,
+	],
 	layer: 'actor',
 	editorType: 'entity',
 	dimensions: 'none',
@@ -196,7 +205,7 @@ const Cannon: Entity = {
 
 		// somehow got in a bad state, a downward cannon that was told
 		// to fire bobombs. bobombs can only fire up, so just bail
-		if (payload.includes('Bobomb') && direction.startsWith('down')) {
+		if (payload === 'Bobomb' && direction.startsWith('down')) {
 			return [];
 		}
 
@@ -269,7 +278,7 @@ const Cannon: Entity = {
 					payloads={
 						direction.startsWith('down')
 							? ['CannonBall']
-							: ['CannonBall', 'CannonBobomb']
+							: ['CannonBall', 'Bobomb']
 					}
 					disabledPayloads={direction.startsWith('down') ? ['Bobomb'] : []}
 				>

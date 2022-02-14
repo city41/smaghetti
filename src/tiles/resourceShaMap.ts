@@ -448,7 +448,6 @@ export const resourceShaMap: Record<string, string> = {
   "BrickGoomba": "333ff2d12d1872cf41aa22b8fe4a6b1be29fdd1f",
   "BulletBill": "ef20e0446d992d2acb5194738140276caffc06d1",
   "CannonBall": "cdd345b6e163937c53dec105f0bffaec38f8f52c",
-  "CannonBobomb": "ef1521b01ebc82ef3dfbe7c59d99e268f13a6e56",
   "ChargingChuckBody": "9e50fe56d51a22834699e77023e20f9df6c3587b",
   "ChargingChuckHead": "b2a97af94d2fb28704ea5b81183722be92dfa8c8",
   "ClimbingVineHead": "15a088938e617e9d5c947c356d5a89208a971424",

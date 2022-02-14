@@ -19,7 +19,6 @@ import { BowserFireStatueHead } from './BowserFireStatueHead';
 import { BrickGoomba } from './BrickGoomba';
 import { BulletBill } from './BulletBill';
 import { CannonBall } from './CannonBall';
-import { CannonBobomb } from './CannonBobomb';
 import { ChargingChuckBody } from './ChargingChuckBody';
 import { ChargingChuckHead } from './ChargingChuckHead';
 import { ClimbingVineHead } from './ClimbingVineHead';
@@ -151,7 +150,6 @@ const resourceMap = {
 	BrickGoomba,
 	BulletBill,
 	CannonBall,
-	CannonBobomb,
 	ChargingChuckBody,
 	ChargingChuckHead,
 	ClimbingVineHead,
