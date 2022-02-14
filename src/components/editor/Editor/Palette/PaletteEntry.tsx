@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import {
 	IconAddCircle,
+	IconCancel,
 	IconExperiment,
 	IconRemoveCircle,
 } from '../../../../icons';
@@ -64,6 +65,9 @@ const PaletteEntry: FunctionComponent<PaletteEntryProps> = ({
 				{item}
 				{experimental && (
 					<IconExperiment className="absolute -left-1 -bottom-1 w-5 h-5 p-0.5 bg-red-600 text-white" />
+				)}
+				{entityDef.deprecated && (
+					<IconCancel className="absolute -left-1 -bottom-1 w-5 h-5 p-0.5 bg-red-600 text-white" />
 				)}
 			</div>
 

@@ -111,4 +111,5 @@ export {
 export {
 	TiZoomIn as IconZoomIn,
 	TiZoomOut as IconZoomOut,
+	TiCancel as IconCancel,
 } from 'react-icons/ti';

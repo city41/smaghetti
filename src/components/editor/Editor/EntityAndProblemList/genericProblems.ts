@@ -8,6 +8,13 @@ import { EntityProblem } from '../../../../entities/types';
 function getGenericProblem(entity: EditorEntity): EntityProblem | undefined {
 	const entityDef = entityMap[entity.type];
 
+	if (entityDef.deprecated) {
+		return {
+			severity: 'warning',
+			message: entityDef.deprecated,
+		} as const;
+	}
+
 	// trying to place an object where x < 0 always corrupts it
 	if (
 		!!entityDef.toObjectBinary &&

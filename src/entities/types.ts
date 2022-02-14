@@ -102,6 +102,11 @@ type PaletteSubcategory =
 
 type Entity = {
 	/**
+	 * if an entity is deprecated, this string explains why and/or alternatives for the user
+	 */
+	deprecated?: string;
+
+	/**
 	 * a flag to indicate if this entity has had its object sets dumped to 0x20
 	 *
 	 * earlier in smaghetti, object set dumping only went up to 0x10. We now realize

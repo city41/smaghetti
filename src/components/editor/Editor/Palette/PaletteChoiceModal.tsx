@@ -13,7 +13,7 @@ import {
 	PaletteCategory,
 	PaletteSubcategory,
 } from '../../../../entities/types';
-import { IconExperiment } from '../../../../icons';
+import { IconCancel, IconExperiment } from '../../../../icons';
 
 type PaletteChoiceModalProps = {
 	isOpen: boolean;
@@ -228,6 +228,10 @@ function PaletteChoiceModal({
 		<IconExperiment className="w-5 h-5 p-0.5 bg-red-600 text-white" />
 	);
 
+	const deprecatedIcon = (
+		<IconCancel className="w-5 h-5 p-0.5 bg-red-600 text-white" />
+	);
+
 	return (
 		<Modal
 			className={clsx(styles.modal, 'overflow-y-hidden')}
@@ -307,6 +311,9 @@ function PaletteChoiceModal({
 							{currentEntry &&
 								entityMap[currentEntry.entry].experimental &&
 								experimentalIcon}
+							{currentEntry &&
+								entityMap[currentEntry.entry].deprecated &&
+								deprecatedIcon}
 							{currentEntry.info.title}
 						</h2>
 					)}
@@ -328,9 +335,14 @@ function PaletteChoiceModal({
 							)}
 						</div>
 					)}
-					{currentEntry?.info?.warning && (
+					{!!(
+						currentEntry &&
+						(currentEntry.info?.warning ??
+							entityMap[currentEntry.entry].deprecated)
+					) && (
 						<div className="mt-4 bg-red-100 text-red-700 p-2 text-xs">
-							{currentEntry.info.warning}
+							{currentEntry.info?.warning ??
+								entityMap[currentEntry.entry].deprecated}
 						</div>
 					)}
 					{currentEntry && !isCompatible(currentEntry.entry, validEntityTypes) && (

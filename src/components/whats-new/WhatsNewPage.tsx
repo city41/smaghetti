@@ -96,6 +96,23 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Cannon has been deprecated"
+					date="2022-02-14"
+					alertingChange
+				>
+					<p>
+						Since Cannon let you choose bobomb or cannon ball, it ended up only
+						allowing the compatibility that works for both of them, limiting its
+						usability.
+					</p>
+					<p>
+						I have added &quot;Cannon - Fires Bobomb&quot; and &quot;Cannon -
+						Fires CannonBall&quot; to replace it. If you are using Cannon in
+						your level, switching to these new types will increase compatibility
+						in your level, possibly allowing you to use more types of entities.
+					</p>
+				</NewEntry>
 				<NewEntry title="Camera Nudge left and right" date="2022-02-07">
 					<p>
 						Camera Nudge can now nudge left and right. It also now sports the

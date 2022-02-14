@@ -10,8 +10,6 @@ import { HammerButton } from './detailPanes/HammerButton';
 const directions = ['up-left', 'up-right', 'down-right', 'down-left'] as const;
 type Direction = typeof directions[number];
 
-const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-
 const directionToObjectId: Record<Direction, number> = {
 	'up-left': 0x6,
 	'up-right': 0x7,
@@ -56,7 +54,11 @@ function getDirection(settings: EditorEntitySettings): Direction {
 	return direction;
 }
 
+const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
 const Cannon: Entity = {
+	deprecated:
+		'Use "Cannon - Fires Cannon Ball" and/or "Cannon - Fires Bobomb" instead',
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-bowsers-army',
@@ -81,117 +83,6 @@ const Cannon: Entity = {
 	defaultSettings: { direction: 'up-left', payload: 'CannonBall' },
 	emptyBank: 0,
 
-	resources: {
-		CannonUpLeft: {
-			palettes: [
-				[
-					0x7f96,
-					0x7fff,
-					0x0,
-					0x39ce,
-					0x4a52,
-					0x6318,
-					0x77bd,
-					0x267c,
-					0x435f,
-					0x5bbf,
-					0x3d89,
-					0x4a0d,
-					0x5650,
-					0x62b2,
-					0x6f15,
-					0x7778,
-				],
-			],
-			romOffset: 0x16ea40,
-			tiles: [
-				[320, 321],
-				[336, 337],
-			],
-		},
-		CannonUpRight: {
-			palettes: [
-				[
-					0x7f96,
-					0x7fff,
-					0x0,
-					0x39ce,
-					0x4a52,
-					0x6318,
-					0x77bd,
-					0x267c,
-					0x435f,
-					0x5bbf,
-					0x3d89,
-					0x4a0d,
-					0x5650,
-					0x62b2,
-					0x6f15,
-					0x7778,
-				],
-			],
-			romOffset: 0x16ea40,
-			tiles: [
-				[323, 324],
-				[339, 340],
-			],
-		},
-		CannonDownRight: {
-			palettes: [
-				[
-					0x7f96,
-					0x7fff,
-					0x0,
-					0x39ce,
-					0x4a52,
-					0x6318,
-					0x77bd,
-					0x267c,
-					0x435f,
-					0x5bbf,
-					0x3d89,
-					0x4a0d,
-					0x5650,
-					0x62b2,
-					0x6f15,
-					0x7778,
-				],
-			],
-			romOffset: 0x16ea40,
-			tiles: [
-				[366, 367],
-				[382, 383],
-			],
-		},
-		CannonDownLeft: {
-			palettes: [
-				[
-					0x7f96,
-					0x7fff,
-					0x0,
-					0x39ce,
-					0x4a52,
-					0x6318,
-					0x77bd,
-					0x267c,
-					0x435f,
-					0x5bbf,
-					0x3d89,
-					0x4a0d,
-					0x5650,
-					0x62b2,
-					0x6f15,
-					0x7778,
-				],
-			],
-			romOffset: 0x16ea40,
-			tiles: [
-				[364, 365],
-				[380, 381],
-			],
-		},
-	},
-
 	toObjectBinary({ x, y, settings }) {
 		const direction = getDirection(settings);
 		const objectId = directionToObjectId[direction];
@@ -205,7 +96,7 @@ const Cannon: Entity = {
 
 		// somehow got in a bad state, a downward cannon that was told
 		// to fire bobombs. bobombs can only fire up, so just bail
-		if (payload === 'Bobomb' && direction.startsWith('down')) {
+		if (payload.includes('Bobomb') && direction.startsWith('down')) {
 			return [];
 		}
 
@@ -278,7 +169,7 @@ const Cannon: Entity = {
 					payloads={
 						direction.startsWith('down')
 							? ['CannonBall']
-							: ['CannonBall', 'Bobomb']
+							: ['CannonBall', 'CannonBobomb']
 					}
 					disabledPayloads={direction.startsWith('down') ? ['Bobomb'] : []}
 				>

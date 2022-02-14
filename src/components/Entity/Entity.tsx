@@ -6,6 +6,7 @@ import focusedStyles from '../../styles/focused.module.css';
 import { TILE_SIZE } from '../../tiles/constants';
 import { getEntityTileBounds } from '../editor/util';
 import { IconAlert } from '../../icons';
+import { getGenericProblem } from '../editor/Editor/EntityAndProblemList/genericProblems';
 
 type EntityProps = {
 	className?: string;
@@ -70,7 +71,8 @@ function Entity({
 	const problem =
 		room &&
 		rooms &&
-		(entityDef.getProblem?.({ settings, entity, room, allRooms: rooms }) ||
+		(getGenericProblem(entity) ||
+			entityDef.getProblem?.({ settings, entity, room, allRooms: rooms }) ||
 			getTwoColumnWarning(entity, room));
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

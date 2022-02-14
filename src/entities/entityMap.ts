@@ -76,6 +76,8 @@ import { BuzzyBeetlePixelPositioned } from './BuzzyBeetlePixelPositioned';
 import { Cactus } from './Cactus';
 import { CameraNudge } from './CameraNudge';
 import { Cannon } from './Cannon';
+import { CannonFiresBall } from './CannonFiresBall';
+import { CannonFiresBobomb } from './CannonFiresBobomb';
 import { CannonRotating } from './CannonRotating';
 import { CannonWallMounted } from './CannonWallMounted';
 import { CapeFeather } from './CapeFeather';
@@ -486,6 +488,8 @@ const entityMap = {
 	Cactus,
 	CameraNudge,
 	Cannon,
+	CannonFiresBall,
+	CannonFiresBobomb,
 	CannonRotating,
 	CannonWallMounted,
 	CapeFeather,
