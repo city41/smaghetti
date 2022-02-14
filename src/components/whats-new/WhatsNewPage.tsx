@@ -96,6 +96,17 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Cannon compatibility bug fix"
+					date="2022-02-13"
+					alertingChange
+				>
+					<p>
+						Cannon&apos;s compatibility was not calculated correctly before.
+						This is now fixed, but you may find your level glitched if it has
+						cannons in it.
+					</p>
+				</NewEntry>
 				<NewEntry title="Camera Nudge left and right" date="2022-02-07">
 					<p>
 						Camera Nudge can now nudge left and right. It also now sports the
