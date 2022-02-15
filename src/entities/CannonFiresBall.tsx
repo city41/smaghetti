@@ -178,7 +178,7 @@ const CannonFiresBall: Entity = {
 	simpleRender(size) {
 		return (
 			<div
-				className="CannonUpLeft-bg bg-cover"
+				className="relative CannonUpLeft-bg bg-cover"
 				style={{ width: size, height: size }}
 			>
 				<div className="absolute bottom-0 right-0 w-1/2 h-1/2 CannonBall-bg bg-cover bg-gray-800 rounded" />
