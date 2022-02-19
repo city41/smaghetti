@@ -259,6 +259,21 @@ type Entity = {
 	) => void | { entity: NewEditorEntity; offset: number };
 
 	/**
+	 * Called during the second pass of binary parsing. All previously
+	 * parsed data is passed in, and the return result is a "patch"
+	 * to apply to the parsed level. This is used by more complex entities
+	 * that may be both objects and sprites, or perhaps objects with transports,
+	 * e-coin data or snake data. This enables them to do an initial parse with
+	 * parseObject/Sprite, and then pull their pieces together into a final entity
+	 */
+	parseFinalize?: (
+		entities: EditorEntity[],
+		transports: EditorTransport[],
+		eCoinData?: number[],
+		snakeData?: number[]
+	) => void | { add: NewEditorEntity[]; remove: number[] };
+
+	/**
 	 * Entities can implement this to emit warnings.
 	 * If they have a warning, they will get rendered with a warning
 	 * icon and a red border, clicking the icon shows the warning.
