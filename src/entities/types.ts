@@ -267,11 +267,11 @@ type Entity = {
 	 * parseObject/Sprite, and then pull their pieces together into a final entity
 	 */
 	parseFinalize?: (
-		entities: EditorEntity[],
-		transports: EditorTransport[],
-		eCoinData?: number[],
-		snakeData?: number[]
-	) => void | { add: NewEditorEntity[]; remove: number[] };
+		entities: NewEditorEntity[]
+		// transports: EditorTransport[],
+		// eCoinData?: number[],
+		// snakeData?: number[]
+	) => void | { add: NewEditorEntity[]; remove: NewEditorEntity[] };
 
 	/**
 	 * Entities can implement this to emit warnings.

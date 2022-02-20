@@ -23,6 +23,12 @@ import { TILE_SIZE } from '../tiles/constants';
 import { getSpriteLength } from './spriteLengths';
 import { inGameLevels } from './inGameLevels';
 import inRange from 'lodash/inRange';
+import without from 'lodash/without';
+
+type ParseFinalizeResult = {
+	add: NewEditorEntity[];
+	remove: NewEditorEntity[];
+};
 
 type ParseBinaryResult = {
 	levelData: LevelData;
@@ -464,6 +470,28 @@ function adjustY(entities: NewEditorEntity[]): void {
 	});
 }
 
+function parseFinalize(entities: NewEditorEntity[]): ParseFinalizeResult {
+	return Object.values(entityMap).reduce<ParseFinalizeResult>(
+		(building, entityDef) => {
+			if (!entityDef.parseFinalize) {
+				return building;
+			}
+
+			const diff = entityDef.parseFinalize(entities);
+
+			if (!diff) {
+				return building;
+			}
+
+			return {
+				add: building.add.concat(diff.add),
+				remove: building.remove.concat(diff.remove),
+			};
+		},
+		{ add: [], remove: [] }
+	);
+}
+
 function parseRoom(
 	levelBytes: Uint8Array,
 	index: number,
@@ -479,9 +507,28 @@ function parseRoom(
 		levelBytes,
 		index
 	);
-	const allNonCellEntities = spriteEntities.concat(objectEntities, player);
 
-	adjustY(cellEntities);
+	const finalizeDiffs = parseFinalize(
+		spriteEntities.concat(objectEntities, cellEntities)
+	);
+
+	const allNonCellEntities = without(
+		spriteEntities.concat(
+			objectEntities,
+			player,
+			finalizeDiffs.add.filter((e) => entityMap[e.type].editorType !== 'cell')
+		),
+		...finalizeDiffs.remove
+	);
+
+	const allCellEntities = without(
+		cellEntities.concat(
+			finalizeDiffs.add.filter((e) => entityMap[e.type].editorType === 'cell')
+		),
+		...finalizeDiffs.remove
+	);
+
+	adjustY(allCellEntities);
 	adjustY(allNonCellEntities);
 
 	const actorSpriteEntities = allNonCellEntities.reduce<EditorEntity[]>(
@@ -512,10 +559,10 @@ function parseRoom(
 		[]
 	);
 
-	const stageCells = cellEntities.filter(
+	const stageCells = allCellEntities.filter(
 		(c) => entityMap[c.type].layer === 'stage'
 	);
-	const actorCells = cellEntities.filter(
+	const actorCells = allCellEntities.filter(
 		(c) => entityMap[c.type].layer === 'actor'
 	);
 

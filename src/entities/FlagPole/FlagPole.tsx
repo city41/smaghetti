@@ -1,10 +1,18 @@
 import React from 'react';
 import type { Entity } from '../types';
 import { TILE_SIZE } from '../../tiles/constants';
-import { encodeObjectSets, getBankParam1 } from '../util';
+import {
+	encodeObjectSets,
+	getBankParam1,
+	parseParam1HeightEntityObject,
+	parseSimpleSprite,
+} from '../util';
 import { objectSets } from './objectSets';
 import { TileSpace } from '../TileSpace';
 import { Resizer } from '../../components/Resizer';
+import clamp from 'lodash/clamp';
+import groupBy from 'lodash/groupBy';
+import merge from 'lodash/merge';
 
 const MIN_HEIGHT = 3;
 // six bits of space for height, plus 3, with one more buffer for safety
@@ -24,6 +32,7 @@ const FlagPole: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x1c,
+	alternateObjectIds: [0x7f],
 
 	defaultSettings: { height: MIN_HEIGHT + 1 },
 
@@ -59,14 +68,72 @@ const FlagPole: Entity = {
 		return [1, this.objectId, x, y + 1];
 	},
 
+	parseSprite(data, offset) {
+		const result = parseSimpleSprite(data, offset, 1, this);
+
+		if (result) {
+			return {
+				...result,
+				entity: {
+					...result.entity,
+					y: result.entity.y - TILE_SIZE,
+				},
+			};
+		}
+	},
+
 	toObjectBinary({ x, y, settings }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 		return [
-			getBankParam1(1, Math.min(Math.max(height, MIN_HEIGHT), MAX_HEIGHT) - 3),
+			getBankParam1(1, clamp(height, MIN_HEIGHT, MAX_HEIGHT) - 3),
 			y,
 			x,
 			0x7f,
 		];
+	},
+
+	parseObject(data, offset) {
+		const result = parseParam1HeightEntityObject(data, offset, this);
+
+		if (result) {
+			const [e] = result.entities;
+			return {
+				...result,
+				entities: [
+					{
+						...e,
+						settings: {
+							...e.settings,
+							height: e.settings!.height + 2,
+						},
+					},
+				],
+			};
+		}
+	},
+
+	parseFinalize(entities) {
+		const flagPoleEntities = entities.filter((e) => e.type === 'FlagPole');
+		const grouped = groupBy(flagPoleEntities, (e) => `${e.x}-${e.y}`);
+
+		const diff = Object.values(grouped).reduce<{
+			add: NewEditorEntity[];
+			remove: NewEditorEntity[];
+		}>(
+			(building, group) => {
+				if (group.length < 2) {
+					return building;
+				}
+
+				return {
+					add: [...building.add, merge({}, group[0], group[1])],
+					remove: [...building.remove, ...group],
+				};
+			},
+			{ add: [], remove: [] }
+		);
+
+		return diff;
 	},
 
 	simpleRender(size) {
