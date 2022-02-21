@@ -18,7 +18,7 @@ const BulletBillTargetingGenerator: Entity = {
 	spriteGraphicSets: [-1, -1, -1, -1, 4, ANY_BELOW_0x16],
 	layer: 'actor',
 	editorType: 'entity',
-	objectId: 0x5,
+	objectId: 0x1,
 	emptyBank: 0,
 	dimensions: 'none',
 
