@@ -19,12 +19,13 @@ const orientationToObjectId: Record<Orientation, number> = {
 
 const allBut1 = [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-const BillBlaster: Entity = {
+const BillBlasterMissile: Entity = {
 	paletteCategory: 'enemy',
 	paletteInfo: {
 		subCategory: 'enemy-common',
-		title: 'Bill Blaster',
-		description: 'Shoots Bullet Bills',
+		title: 'Bill Blaster - Missile',
+		description:
+			'Shoots Missile Bills, which turn around and go after Mario more aggressively',
 	},
 
 	objectSets: ANY_OBJECT_SET,
@@ -39,90 +40,6 @@ const BillBlaster: Entity = {
 
 	defaultSettings: { height: 2, orientation: 'up' },
 
-	resources: {
-		BillBlasterBarrel: {
-			romOffset: 0x16ad5c,
-			palettes: [
-				[
-					0x7f96,
-					0x7fff,
-					0x0,
-					0x39ce,
-					0x4a52,
-					0x6318,
-					0x77bd,
-					0x267c,
-					0x435f,
-					0x5bbf,
-					0x3d89,
-					0x4a0d,
-					0x5650,
-					0x62b2,
-					0x6f15,
-					0x7778,
-				],
-			],
-			tiles: [
-				[456, 458],
-				[457, 459],
-			],
-		},
-		BillBlasterNeck: {
-			romOffset: 0x16ad5c,
-			palettes: [
-				[
-					0x7f96,
-					0x7fff,
-					0x0,
-					0x39ce,
-					0x4a52,
-					0x6318,
-					0x77bd,
-					0x267c,
-					0x435f,
-					0x5bbf,
-					0x3d89,
-					0x4a0d,
-					0x5650,
-					0x62b2,
-					0x6f15,
-					0x7778,
-				],
-			],
-			tiles: [
-				[460, 462],
-				[461, 463],
-			],
-		},
-		BillBlasterBody: {
-			romOffset: 0x16ad5c,
-			palettes: [
-				[
-					0x7f96,
-					0x7fff,
-					0x0,
-					0x39ce,
-					0x4a52,
-					0x6318,
-					0x77bd,
-					0x267c,
-					0x435f,
-					0x5bbf,
-					0x3d89,
-					0x4a0d,
-					0x5650,
-					0x62b2,
-					0x6f15,
-					0x7778,
-				],
-			],
-			tiles: [
-				[472, 473],
-				[472, 473],
-			],
-		},
-	},
-
 	toSpriteBinary({ x, y, settings }) {
 		const height = (settings.height ?? this.defaultSettings!.height) as number;
 		const orientation = (settings.orientation ??
@@ -130,7 +47,7 @@ const BillBlaster: Entity = {
 
 		const yOffset = orientation === 'down' ? height - 1 : 0;
 
-		return [1, 0x90, x, y + yOffset];
+		return [1, 0x91, x, y + yOffset];
 	},
 
 	toObjectBinary({ x, y, settings }) {
@@ -155,9 +72,12 @@ const BillBlaster: Entity = {
 		};
 
 		return (
-			<div className="flex flex-col items-center" style={style}>
+			<div className="relative flex flex-col items-center" style={style}>
 				<div className="BillBlasterBarrel-bg bg-cover" style={pieceStyle} />
 				<div className="BillBlasterNeck-bg bg-cover" style={pieceStyle} />
+				<div className="absolute -bottom-3 left-0 w-full text-center bg-black text-white text-xs">
+					Missile
+				</div>
 			</div>
 		);
 	},
@@ -216,7 +136,7 @@ const BillBlaster: Entity = {
 			>
 				<div className="relative flex flex-col" style={orientationStyle}>
 					<div
-						className="absolute right-0 BulletBill-bg bg-cover"
+						className="absolute right-0 BulletBillMissile-bg bg-cover"
 						style={{ ...bulletBillStyle, ...orientationStyle }}
 					/>
 					{barrel}
@@ -253,4 +173,4 @@ const BillBlaster: Entity = {
 	},
 };
 
-export { BillBlaster };
+export { BillBlasterMissile };
