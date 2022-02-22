@@ -6,6 +6,7 @@ import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { TileSpace } from './TileSpace';
 
 const TanMetalBricksSmallPyramid: Entity = {
+	experimental: true,
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-desert',

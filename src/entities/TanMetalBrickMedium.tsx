@@ -5,6 +5,7 @@ import React from 'react';
 import { ANY_SPRITE_GRAPHIC_SET } from './constants';
 
 const TanMetalBrickMedium: Entity = {
+	experimental: true,
 	paletteCategory: 'terrain',
 	paletteInfo: {
 		subCategory: 'terrain-desert',
