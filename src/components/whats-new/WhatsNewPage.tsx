@@ -100,9 +100,7 @@ function WhatsNewPage() {
 					<p>There are a whole bunch more music options now.</p>
 					<p>
 						Thanks to Wanderer for finding this info, and also to Saiyan48 who
-						may have been the person to originally find all of this? Does anyone
-						know? A lot of the older SMA4 documents don&apos;t indicate who
-						wrote them.
+						originally mined all of this.
 					</p>
 				</NewEntry>
 				<NewEntry title="New Entities" date="2022-02-22">
