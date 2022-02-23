@@ -122,7 +122,7 @@ const potentialSpriteStarts = [
 	{ offset: 0x158247 },
 	{ offset: 0x1582bb },
 	{ offset: 0x1582e9 },
-	{ offset: 0x1583b5 },
+	{ offset: 0x1583b5, name: 'unused level 7' },
 	{ offset: 0x1583fb },
 	// skipped: 6-6 objects don't parse well
 	{ offset: 0x158409, name: '6-6' },
