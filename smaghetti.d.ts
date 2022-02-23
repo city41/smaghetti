@@ -105,36 +105,6 @@ type RoomBackgroundSettings = {
 	unknownThirdHeaderByte?: number;
 };
 
-type MusicTrack =
-	| 'Plains'
-	| 'Underground/Bonus'
-	| 'Underwater'
-	| 'Fortress'
-	| 'Boss Battle'
-	| 'Airship'
-	| 'Hammer bros'
-	| 'Mushroom House'
-	| 'Athletic'
-	| 'Castle room'
-	| 'Sky'
-	| 'Underground'
-	| 'Classic Plains'
-	| 'Classic Underground'
-	| 'Classic Underwater'
-	| 'Classic Castle'
-	| 'Ghost House'
-	| 'Silence'
-	| 'Game Select Menu'
-	| 'Bonus Room'
-	| 'Credits'
-	| 'e-Reader Connect Screen'
-	| 'Game Over'
-	| 'SMW P-Switch Music'
-	| 'Music Box'
-	| 'Level Finished'
-	| 'World 5 Map'
-	| 'World 8 Map';
-
 type RoomSettings = RoomBackgroundSettings & {
 	music: number;
 	wrapAround?: boolean;

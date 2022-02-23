@@ -96,6 +96,15 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Music" date="2022-02-22">
+					<p>There are a whole bunch more music options now.</p>
+					<p>
+						Thanks to Wanderer for finding this info, and also to Saiyan48 who
+						may have been the person to originally find all of this? Does anyone
+						know? A lot of the older SMA4 documents don&apos;t indicate who
+						wrote them.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2022-02-22">
 					<ul>
 						<li>Bill Blaster - Targeting</li>
