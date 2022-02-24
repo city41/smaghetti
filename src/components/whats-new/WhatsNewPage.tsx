@@ -96,6 +96,15 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Save a copy moved" date="2022-02-23">
+					<p>
+						Saving a copy of your level is now moved over next to the
+						level&apos;s name in the upper left corner. This is just a quick fix
+						because I am pretty sure people were accidentally making copies with
+						the way it was set up before. When I get more time I will fix this
+						problem in a better way.
+					</p>
+				</NewEntry>
 				<NewEntry title="New Music" date="2022-02-22">
 					<p>There are a whole bunch more music options now.</p>
 					<p>
