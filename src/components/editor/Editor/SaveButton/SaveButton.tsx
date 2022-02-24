@@ -12,7 +12,6 @@ type PublicSaveButtonProps = {
 
 type InternalSaveButtonProps = {
 	onSaveClick: () => void;
-	onSaveACopyClick?: () => void;
 	saveLevelState: 'dormant' | 'saving' | 'success' | 'error';
 };
 
@@ -21,7 +20,6 @@ const SaveButton = memo(function SaveButton({
 	disabled,
 	disabledExplicitly,
 	onSaveClick,
-	onSaveACopyClick,
 	saveLevelState,
 }: PublicSaveButtonProps & InternalSaveButtonProps) {
 	const toast =
@@ -41,7 +39,7 @@ const SaveButton = memo(function SaveButton({
 		<>
 			{toast}
 			<PlainIconButton
-				className={clsx(className, { 'relative group': !!onSaveACopyClick })}
+				className={className}
 				size="large"
 				label={
 					disabledExplicitly
@@ -52,24 +50,7 @@ const SaveButton = memo(function SaveButton({
 				icon={IconSave}
 				loading={saveLevelState === 'saving'}
 				disabled={disabled || disabledExplicitly}
-			>
-				{!!onSaveACopyClick && !disabled && !disabledExplicitly && (
-					<a
-						className="absolute z-10 hidden group-hover:block w-28 h-8 bg-yellow-800 -bottom-8 text-sm pt-1 hover:bg-blue-600"
-						onClick={(e) => {
-							e.stopPropagation();
-							e.preventDefault();
-							onSaveACopyClick();
-						}}
-						onFocus={(e) => {
-							e.preventDefault();
-							e.target.blur();
-						}}
-					>
-						or save a copy
-					</a>
-				)}
-			</PlainIconButton>
+			></PlainIconButton>
 		</>
 	);
 });

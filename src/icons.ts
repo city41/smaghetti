@@ -25,6 +25,7 @@ export {
 } from 'react-icons/bs';
 
 export {
+	FaRegCopy as IconCopy,
 	FaWater as IconWater,
 	FaQuestion as IconQuestion,
 	FaGamepad as IconGamepad,

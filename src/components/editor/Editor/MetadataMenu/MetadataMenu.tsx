@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { PlainIconButton } from '../../../PlainIconButton';
 import { Button } from '../../../Button';
-import { IconPencil } from '../../../../icons';
+import { IconCopy, IconPencil } from '../../../../icons';
 
 type PublicMetadataMenuProps = {
 	className?: string;
@@ -17,6 +17,7 @@ type InternalMetadataMenuProps = {
 	roomCount: number;
 	onRoomIndexChange: (newIndex: number) => void;
 	onManageLevelClick: () => void;
+	onSaveLevelCopy?: () => void;
 };
 
 function RoomButton({
@@ -56,6 +57,7 @@ function MetadataMenu({
 	roomCount,
 	onRoomIndexChange,
 	onManageLevelClick,
+	onSaveLevelCopy,
 }: PublicMetadataMenuProps & InternalMetadataMenuProps) {
 	useHotkeys(
 		'r',
@@ -86,7 +88,17 @@ function MetadataMenu({
 					invisible: isManagingLevel,
 				})}
 			>
-				<div className="w-40 truncate">{levelName}</div>
+				<div className="w-44 truncate flex flex-row items-center gap-x-1">
+					{onSaveLevelCopy && (
+						<PlainIconButton
+							size="small"
+							icon={IconCopy}
+							label="save a copy"
+							onClick={onSaveLevelCopy}
+						/>
+					)}
+					{levelName}
+				</div>
 				<div className="flex flex-row space-x-2 items-center">
 					<div className="text-gray-500 text-xs">room</div>
 					{[0, 1, 2, 3].map((ri) => {

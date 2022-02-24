@@ -25,13 +25,3 @@ export const SaveSuccess = () => {
 export const SaveError = () => {
 	return <SaveButton onSaveClick={() => {}} saveLevelState="error" />;
 };
-
-export const WithSaveACopy = () => {
-	return (
-		<SaveButton
-			onSaveClick={() => {}}
-			onSaveACopyClick={() => {}}
-			saveLevelState="dormant"
-		/>
-	);
-};

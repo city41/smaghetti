@@ -2,7 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { setCurrentRoomIndex, toggleManageLevelMode } from '../../editorSlice';
+import {
+	setCurrentRoomIndex,
+	toggleManageLevelMode,
+	saveLevelCopy,
+} from '../../editorSlice';
 import { AppState, dispatch } from '../../../../store';
 
 import { MetadataMenu } from './MetadataMenu';
@@ -18,11 +22,16 @@ const actions = bindActionCreators(
 
 function ConnectedMetadataMenu(props: PublicMetadataMenuProps) {
 	const {
+		savedLevelId,
 		name,
 		currentRoomIndex,
 		rooms,
 		storedForManageLevelMode,
 	} = useSelector((s: AppState) => s.editor.present);
+
+	function handleSaveLevelCopy() {
+		dispatch(saveLevelCopy());
+	}
 
 	return (
 		<MetadataMenu
@@ -32,6 +41,7 @@ function ConnectedMetadataMenu(props: PublicMetadataMenuProps) {
 			currentRoomIndex={currentRoomIndex}
 			roomCount={rooms.length}
 			{...actions}
+			onSaveLevelCopy={savedLevelId ? handleSaveLevelCopy : undefined}
 		/>
 	);
 }
