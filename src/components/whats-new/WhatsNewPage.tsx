@@ -96,6 +96,15 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="New Entities" date="2022-02-23">
+					<ul>
+						<li>Cheep Cheep - Double Jump</li>
+					</ul>
+					<p>
+						Thanks to Bryce and Solar Magic Advance (LuigiBlood) for finding
+						this one!
+					</p>
+				</NewEntry>
 				<NewEntry title="Save a copy moved" date="2022-02-23">
 					<p>
 						Saving a copy of your level is now moved over next to the
