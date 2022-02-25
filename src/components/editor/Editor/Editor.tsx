@@ -215,7 +215,11 @@ function Editor({
 							<Palette disabled={isPlaying || mode === 'managing-rooms'} />
 							<Layers disabled={isPlaying || mode === 'managing-rooms'} />
 							<div className="grid grid-rows-3 items-stretch">
-								<MetadataMenu className="row-span-2" disabled={isPlaying} />
+								<MetadataMenu
+									className="row-span-2"
+									disabled={isPlaying}
+									disableSaving={!!publishedLevelToLoad}
+								/>
 								<PageMenu onLevelsClicked={handleLevelsClick} />
 							</div>
 						</div>

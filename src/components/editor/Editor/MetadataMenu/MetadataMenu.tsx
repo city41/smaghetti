@@ -8,6 +8,7 @@ import { IconCopy, IconPencil } from '../../../../icons';
 type PublicMetadataMenuProps = {
 	className?: string;
 	disabled?: boolean;
+	disableSaving?: boolean;
 };
 
 type InternalMetadataMenuProps = {
@@ -52,6 +53,7 @@ function MetadataMenu({
 	isManagingLevel,
 	className,
 	disabled,
+	disableSaving,
 	levelName,
 	currentRoomIndex,
 	roomCount,
@@ -89,7 +91,7 @@ function MetadataMenu({
 				})}
 			>
 				<div className="w-44 truncate flex flex-row items-center gap-x-1">
-					{onSaveLevelCopy && (
+					{onSaveLevelCopy && !disableSaving && (
 						<PlainIconButton
 							size="small"
 							icon={IconCopy}
