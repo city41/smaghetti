@@ -192,17 +192,17 @@ public class GhidraSMA4Loader extends AbstractLibrarySupportLoader {
 			api.createLabel(api.toAddr(0x4000158), "JOYSTAT", true);
 			
 			// GBA ROM header
-			mem.createInitializedBlock("Header: Nintendo Logo", api.toAddr(0x8000004), provider.getInputStream(0x4), 156, monitor, false).setExecute(false).setWrite(false);
-			mem.createInitializedBlock("Header: Game Title", api.toAddr(0x80000a0), provider.getInputStream(0xa0), 12, monitor, false).setExecute(false).setWrite(false);
-			mem.createInitializedBlock("Header: Game Code", api.toAddr(0x80000ac), provider.getInputStream(0xac), 4, monitor, false).setExecute(false).setWrite(false);
-			mem.createInitializedBlock("Header: Maker Code", api.toAddr(0x80000b0), provider.getInputStream(0xb0), 2, monitor, false).setExecute(false).setWrite(false);
-			mem.createInitializedBlock("Header: Magic Number", api.toAddr(0x80000b2), provider.getInputStream(0xb2), 1, monitor, false).setExecute(false).setWrite(false);
-			mem.createInitializedBlock("Header: Main Unit Code", api.toAddr(0x80000b3), provider.getInputStream(0xb3), 1, monitor, false).setExecute(false).setWrite(false);
-			mem.createInitializedBlock("Header: Device Type", api.toAddr(0x80000b4), provider.getInputStream(0xb4), 1, monitor, false).setExecute(false).setWrite(false);
-			mem.createInitializedBlock("Header: Reserved", api.toAddr(0x80000b5), provider.getInputStream(0xb5), 7, monitor, false).setExecute(false).setWrite(false);
-			mem.createInitializedBlock("Header: Software Version", api.toAddr(0x80000bc), provider.getInputStream(0xbc), 1, monitor, false).setExecute(false).setWrite(false);
-			mem.createInitializedBlock("Header: Checksum", api.toAddr(0x80000bd), provider.getInputStream(0xbd), 1, monitor, false).setExecute(false).setWrite(false);
-			mem.createInitializedBlock("Header: Reserved", api.toAddr(0x80000be), provider.getInputStream(0xbe), 2, monitor, false).setExecute(false).setWrite(false);
+			mem.createInitializedBlock("Header: Nintendo Logo", api.toAddr(0x8000004), provider.getInputStream(0x4), 156, monitor, false).setExecute(false);
+			mem.createInitializedBlock("Header: Game Title", api.toAddr(0x80000a0), provider.getInputStream(0xa0), 12, monitor, false).setExecute(false);
+			mem.createInitializedBlock("Header: Game Code", api.toAddr(0x80000ac), provider.getInputStream(0xac), 4, monitor, false).setExecute(false);
+			mem.createInitializedBlock("Header: Maker Code", api.toAddr(0x80000b0), provider.getInputStream(0xb0), 2, monitor, false).setExecute(false);
+			mem.createInitializedBlock("Header: Magic Number", api.toAddr(0x80000b2), provider.getInputStream(0xb2), 1, monitor, false).setExecute(false);
+			mem.createInitializedBlock("Header: Main Unit Code", api.toAddr(0x80000b3), provider.getInputStream(0xb3), 1, monitor, false).setExecute(false);
+			mem.createInitializedBlock("Header: Device Type", api.toAddr(0x80000b4), provider.getInputStream(0xb4), 1, monitor, false).setExecute(false);
+			mem.createInitializedBlock("Header: Reserved", api.toAddr(0x80000b5), provider.getInputStream(0xb5), 7, monitor, false).setExecute(false);
+			mem.createInitializedBlock("Header: Software Version", api.toAddr(0x80000bc), provider.getInputStream(0xbc), 1, monitor, false).setExecute(false);
+			mem.createInitializedBlock("Header: Checksum", api.toAddr(0x80000bd), provider.getInputStream(0xbd), 1, monitor, false).setExecute(false);
+			mem.createInitializedBlock("Header: Reserved", api.toAddr(0x80000be), provider.getInputStream(0xbe), 2, monitor, false).setExecute(false);
 			
 			// IRAM values, from addresses.txt created by FL4SHK
 			// https://www.smwcentral.net/?p=viewthread&t=62530&page=1&pid=1020242#p1020242

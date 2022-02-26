@@ -25,7 +25,7 @@ From this directory invoke
 
 `gradle -PGHIDRA_INSTALL_DIR=<absolute path to your ghidra install>`
 
-For me it is `ghidra -PGHIDRA_INSTALL_DIR=/home/matt/ghidra/ghidra_10.0.2_PUBLIC`
+For me it is `gradle -PGHIDRA_INSTALL_DIR=/home/matt/ghidra/ghidra_10.0.2_PUBLIC`
 
 ### build error related to archiveBaseName?
 
