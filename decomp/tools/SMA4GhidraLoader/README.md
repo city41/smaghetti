@@ -1,6 +1,6 @@
 # SMA4 Ghidra Loader
 
-This is a plugin for Ghidra that loads a US 1.1 SMA4 ROm into Ghidra with many SMA4 specific things defined.
+This is a plugin for Ghidra that loads a US 1.1 SMA4 ROM into Ghidra with many SMA4 specific things defined.
 
 ## Adding the SMA4 specific blocks
 
@@ -23,7 +23,7 @@ You will also need a local install of Ghidra. Get it from [their releases](https
 
 From this directory invoke
 
-`gradle -PGHIDRA_INSTALL_DIR=<absolute path to your gidra install>`
+`gradle -PGHIDRA_INSTALL_DIR=<absolute path to your ghidra install>`
 
 For me it is `ghidra -PGHIDRA_INSTALL_DIR=/home/matt/ghidra/ghidra_10.0.2_PUBLIC`
 
