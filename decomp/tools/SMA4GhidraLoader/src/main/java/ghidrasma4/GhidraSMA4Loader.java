@@ -204,6 +204,36 @@ public class GhidraSMA4Loader extends AbstractLibrarySupportLoader {
 			mem.createInitializedBlock("Header: Checksum", api.toAddr(0x80000bd), provider.getInputStream(0xbd), 1, monitor, false).setExecute(false).setWrite(false);
 			mem.createInitializedBlock("Header: Reserved", api.toAddr(0x80000be), provider.getInputStream(0xbe), 2, monitor, false).setExecute(false).setWrite(false);
 			
+			// IRAM values, from addresses.txt created by FL4SHK
+			// https://www.smwcentral.net/?p=viewthread&t=62530&page=1&pid=1020242#p1020242
+			api.createLabel(api.toAddr(0x3003d0b), "TIMER_HUNDREDS", true);
+			api.createLabel(api.toAddr(0x3003d0c), "TIMER_TENS", true);
+			api.createLabel(api.toAddr(0x3003d0d), "TIMER_ONES", true);
+			api.createLabel(api.toAddr(0x3003d0e), "TIMER_UNKNOWN", true);
+
+			api.createLabel(api.toAddr(0x3004034), "MARIO_CARRY_ITEM_FLAG", true);
+			api.createLabel(api.toAddr(0x3004d21), "MARIO_CARRY_ITEM_FLAG_MIRROR1", true);
+			api.createLabel(api.toAddr(0x3003f50), "MARIO_CARRY_ITEM_FLAG_MIRROR2", true);
+			api.createLabel(api.toAddr(0x3003f77), "MARIO_CARRY_ITEM_FLAG_MIRROR3", true);
+			api.createLabel(api.toAddr(0x3004035), "MARIO_CARRY_BOOMERANG_FLAG", true);
+			api.createLabel(api.toAddr(0x3003f70), "MARIO_DUCKING_FLAG", true);
+			api.createLabel(api.toAddr(0x3003f5d), "MARIO_IN_AIR_FLAG", true);
+			api.createLabel(api.toAddr(0x3003f5f), "MARIO_POWERUP", true);
+			api.createLabel(api.toAddr(0x3003fb4), "MARIO_COLLIDING_BITMASK", true);
+			api.createLabel(api.toAddr(0x3003f60), "MARIO_SPRITE_FRAME", true);
+			api.createLabel(api.toAddr(0x3003f5e), "MARIO_SPRITE_FRAME_RELATED", true);
+
+			api.createLabel(api.toAddr(0x3002dd0), "BOOMERANGE_Y", true);
+			api.createLabel(api.toAddr(0x3003350), "BOOMERANGE_Y_MIRROR1", true);
+
+			api.createLabel(api.toAddr(0x3004c76), "SPRITE_SLOT_1", true);
+			api.createLabel(api.toAddr(0x30046c8), "SPRITE_ID_RELATED", true);
+
+			api.createLabel(api.toAddr(0x3003754), "SCROLL_Y_RELATED", true);
+			api.createLabel(api.toAddr(0x3003758), "SCROLL_X_RELATED", true);
+			
+			
+			
 
 		} catch (Exception e) {
 			log.appendException(e);
