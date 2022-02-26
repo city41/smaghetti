@@ -9,7 +9,7 @@ import ghidra.util.task.TaskMonitor;
 
 public class AddSMA4MemoryBlocks {
 	public static void addCalls(Memory mem, FlatProgramAPI api, ByteProvider provider, TaskMonitor monitor) throws Exception {
-mem.createInitializedBlock("code", api.toAddr(0x8000000), provider.getInputStream(0x0), 0x131fe0, monitor, false).setExecute(true);
+mem.createInitializedBlock("rom", api.toAddr(0x80000c0), provider.getInputStream(0xc0), 0x131f20, monitor, false).setExecute(true);
 mem.createInitializedBlock("LZ77 tiles", api.toAddr(0x8131fe0), provider.getInputStream(0x131fe0), 0x2124, monitor, false).setExecute(false);
 mem.createInitializedBlock("LZ77 tiles", api.toAddr(0x8134104), provider.getInputStream(0x134104), 0x1714, monitor, false).setExecute(false);
 mem.createInitializedBlock("gap?", api.toAddr(0x8135818), provider.getInputStream(0x135818), 0x2df50, monitor, false).setExecute(true);
@@ -150,6 +150,6 @@ mem.createInitializedBlock("gap?", api.toAddr(0x824b9db), provider.getInputStrea
 mem.createInitializedBlock("LZ77 tiles", api.toAddr(0x825f514), provider.getInputStream(0x25f514), 0x1626, monitor, false).setExecute(false);
 mem.createInitializedBlock("gap?", api.toAddr(0x8260b3a), provider.getInputStream(0x260b3a), 0x2fba, monitor, false).setExecute(true);
 mem.createInitializedBlock("LZ77 tiles", api.toAddr(0x8263af4), provider.getInputStream(0x263af4), 0x184, monitor, false).setExecute(false);
-mem.createInitializedBlock("code", api.toAddr(0x8263c78), provider.getInputStream(0x263c78), 0x17d983, monitor, false).setExecute(true);
+mem.createInitializedBlock("rom", api.toAddr(0x8263c78), provider.getInputStream(0x263c78), 0x17d983, monitor, false).setExecute(true);
 	}
 }

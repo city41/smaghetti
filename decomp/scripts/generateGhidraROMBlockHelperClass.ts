@@ -28,7 +28,8 @@ function blockCall(
 }
 
 function generateJavaCalls(pages: TilePage[]): string {
-	const initialCall = blockCall('rom', 0, pages[0].address, true);
+	// the header goes from 0 -> 0xc0
+	const initialCall = blockCall('rom', 0xc0, pages[0].address - 0xc0, true);
 
 	const calls = pages.reduce<string>((building, page, i, a) => {
 		const nextPage = a[i + 1];
