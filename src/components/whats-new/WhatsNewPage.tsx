@@ -96,6 +96,34 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Smaghetti aint dead..."
+					date="2022-03-03"
+					alertingChange
+				>
+					<p>
+						I need to put Smaghetti on the back burner for a while. And when I
+						do get back to working on it again, I am planning to really focusing
+						on some difficult reverse engineering stuff. So I doubt there will
+						be any updates for a while. But rest assured, I still plan to make
+						Smaghetti as awesome as I can.
+					</p>
+					<p>
+						Want to keep chatting Smaghetti? Check out the{' '}
+						<a
+							href="https://discord.gg/wBVE4yyWhM"
+							rel="noreferrer noopener"
+							target="_blank"
+						>
+							Discord server
+						</a>
+					</p>
+					<img
+						className="block mx-auto pt-4"
+						src={ripVanFishSleepsPng}
+						alt="Rip Van Fish sleeping"
+					/>
+				</NewEntry>
 				<NewEntry title="New Entities" date="2022-02-23">
 					<ul>
 						<li>Cheep Cheep - Double Jump</li>
