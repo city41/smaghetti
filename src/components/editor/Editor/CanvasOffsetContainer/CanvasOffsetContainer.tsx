@@ -44,6 +44,8 @@ function CanvasOffsetContainer({
 	const lastMousePoint = useRef<Point | null>(null);
 	const mouseDownRef = useRef(false);
 	const selectBoxRef = useRef<HTMLDivElement | null>(null);
+	const mouseModeRef = useRef(mouseMode);
+	const dragOffsetRef = useRef(dragOffset);
 
 	useEffect(() => {
 		function handleKeyDown(e: KeyboardEvent) {
@@ -136,13 +138,13 @@ function CanvasOffsetContainer({
 				return;
 			}
 
-			if (mouseMode !== 'pan' && mouseMode !== 'select') {
+			if (mouseModeRef.current !== 'pan' && mouseModeRef.current !== 'select') {
 				return;
 			}
 
 			selectBoxRef.current!.style.display = 'none';
 
-			if (mouseMode === 'pan') {
+			if (mouseModeRef.current === 'pan') {
 				onPan({
 					x: e.clientX - lastMousePoint.current!.x,
 					y: e.clientY - lastMousePoint.current!.y,
@@ -157,10 +159,18 @@ function CanvasOffsetContainer({
 				// and dragging them. when selecting, we want to maximize the rectangle. but when
 				// dragging, the rectangle should be {(startPoint), (currentPoint)}
 
-				const upperLeftX = dragOffset ? lastMousePoint.current.x : e.clientX;
-				const upperLeftY = dragOffset ? lastMousePoint.current.y : e.clientY;
-				const lowerRightX = dragOffset ? e.clientX : lastMousePoint.current.x;
-				const lowerRightY = dragOffset ? e.clientY : lastMousePoint.current.y;
+				const upperLeftX = dragOffsetRef.current
+					? lastMousePoint.current.x
+					: e.clientX;
+				const upperLeftY = dragOffsetRef.current
+					? lastMousePoint.current.y
+					: e.clientY;
+				const lowerRightX = dragOffsetRef.current
+					? e.clientX
+					: lastMousePoint.current.x;
+				const lowerRightY = dragOffsetRef.current
+					? e.clientY
+					: lastMousePoint.current.y;
 
 				const bounds = {
 					upperLeft: {
@@ -175,7 +185,7 @@ function CanvasOffsetContainer({
 
 				onSelectDrag({ bounds, startingPoint: startingMousePoint.current! });
 
-				if (!dragOffset) {
+				if (!dragOffsetRef.current) {
 					selectBoxRef.current!.style.top = bounds.upperLeft.y + 'px';
 					selectBoxRef.current!.style.left = bounds.upperLeft.x + 'px';
 					selectBoxRef.current!.style.width =
@@ -196,7 +206,12 @@ function CanvasOffsetContainer({
 			document.removeEventListener('mouseup', handleMouseUp);
 			document.removeEventListener('mouseleave', handleMouseUp);
 		};
-	}, [mouseMode, dragOffset, onSelectDrag, onPan, onDragComplete]);
+	}, []);
+
+	useEffect(() => {
+		mouseModeRef.current = mouseMode;
+		dragOffsetRef.current = dragOffset;
+	}, [mouseMode, dragOffset]);
 
 	const handleMouseDown = (e: React.MouseEvent) => {
 		// TODO: HACK! bailing if a modal is open is strange. but mouse down causes strange interactions as
