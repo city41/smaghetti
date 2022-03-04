@@ -86,8 +86,6 @@ public class GhidraSMA4Loader extends AbstractLibrarySupportLoader {
             AddSMA4MemoryBlocks.addCalls(mem, api, provider, monitor);
 
 			
-			api.addEntryPoint(api.toAddr(0x8000000));
-			api.createFunction(api.toAddr(0x8000000), "_entry");
 			
 			// Create GBA I/O Map			
 			api.createLabel(api.toAddr(0x4000000), "DISPCNT", true);
@@ -191,6 +189,7 @@ public class GhidraSMA4Loader extends AbstractLibrarySupportLoader {
 			api.createLabel(api.toAddr(0x4000154), "JOY_TRANS", true);
 			api.createLabel(api.toAddr(0x4000158), "JOYSTAT", true);
 			
+
 			// GBA ROM header
 			mem.createInitializedBlock("Header: Nintendo Logo", api.toAddr(0x8000004), provider.getInputStream(0x4), 156, monitor, false).setExecute(false);
 			mem.createInitializedBlock("Header: Game Title", api.toAddr(0x80000a0), provider.getInputStream(0xa0), 12, monitor, false).setExecute(false);
@@ -232,8 +231,10 @@ public class GhidraSMA4Loader extends AbstractLibrarySupportLoader {
 			api.createLabel(api.toAddr(0x3003754), "SCROLL_Y_RELATED", true);
 			api.createLabel(api.toAddr(0x3003758), "SCROLL_X_RELATED", true);
 			
-			
-			
+			// entry point
+			mem.createInitializedBlock("Entry branch", api.toAddr(0x8000000), provider.getInputStream(0), 4, monitor, false).setExecute(true);
+			api.addEntryPoint(api.toAddr(0x8000000));
+			api.createFunction(api.toAddr(0x8000000), "_entry");
 
 		} catch (Exception e) {
 			log.appendException(e);
