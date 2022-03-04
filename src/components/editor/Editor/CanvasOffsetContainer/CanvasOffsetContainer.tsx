@@ -1,4 +1,10 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, {
+	ReactNode,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import clsx from 'clsx';
 
 import { MouseMode } from '../../editorSlice';
@@ -110,11 +116,19 @@ function CanvasOffsetContainer({
 			mouseDownRef.current = false;
 			selectBoxRef.current!.style.display = 'none';
 
-			if (lastMousePoint.current && mouseMode === 'select') {
-				const upperLeftX = dragOffset ? lastMousePoint.current.x : e.clientX;
-				const upperLeftY = dragOffset ? lastMousePoint.current.y : e.clientY;
-				const lowerRightX = dragOffset ? e.clientX : lastMousePoint.current.x;
-				const lowerRightY = dragOffset ? e.clientY : lastMousePoint.current.y;
+			if (lastMousePoint.current && mouseModeRef.current === 'select') {
+				const upperLeftX = dragOffsetRef.current
+					? lastMousePoint.current.x
+					: e.clientX;
+				const upperLeftY = dragOffsetRef.current
+					? lastMousePoint.current.y
+					: e.clientY;
+				const lowerRightX = dragOffsetRef.current
+					? e.clientX
+					: lastMousePoint.current.x;
+				const lowerRightY = dragOffsetRef.current
+					? e.clientY
+					: lastMousePoint.current.y;
 
 				const bounds = {
 					upperLeft: {
@@ -213,12 +227,12 @@ function CanvasOffsetContainer({
 		dragOffsetRef.current = dragOffset;
 	}, [mouseMode, dragOffset]);
 
-	const handleMouseDown = (e: React.MouseEvent) => {
+	const handleMouseDown = useCallback((e: React.MouseEvent) => {
 		// TODO: HACK! bailing if a modal is open is strange. but mouse down causes strange interactions as
 		// can't tell if the user wants to drag or is interacting with a detail pane
 		if (
 			e.button !== 0 ||
-			(mouseMode !== 'pan' && mouseMode !== 'select') ||
+			(mouseModeRef.current !== 'pan' && mouseModeRef.current !== 'select') ||
 			document.body.classList.contains(MODAL_OPEN_CLASS) ||
 			(e.target as HTMLElement).tagName.toLowerCase() === 'input'
 		) {
@@ -234,10 +248,10 @@ function CanvasOffsetContainer({
 			lowerRight: { ...lastMousePoint.current },
 		};
 		onSelectDrag({ bounds, startingPoint: startingMousePoint.current });
-	};
+	}, []);
 
 	const handleMouseDownCapture = (e: React.MouseEvent) => {
-		if (mouseMode === 'pan' && preventPanClicks) {
+		if (mouseModeRef.current === 'pan' && preventPanClicks) {
 			e.stopPropagation();
 			e.preventDefault();
 			handleMouseDown(e);
@@ -257,7 +271,7 @@ function CanvasOffsetContainer({
 				checkerboardStyles.checkerboard,
 				'relative overflow-hidden w-full h-full',
 				{
-					[styles.pan]: mouseMode === 'pan',
+					[styles.pan]: mouseModeRef.current === 'pan',
 					[styles.panning]: mouseDownRef.current,
 					[styles.copying]: shiftDown && mouseDownRef.current,
 				}
