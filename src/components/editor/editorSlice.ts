@@ -172,6 +172,10 @@ function _scrollToEntity(state: InternalEditorState, room: number, id: number) {
 	const currentRoom = getCurrentRoom(state);
 	currentRoom.scale = initialScale;
 
+	currentRoom.canIncreaseScale =
+		scales.indexOf(initialScale) < scales.length - 1;
+	currentRoom.canDecreaseScale = scales.indexOf(initialScale) > 0;
+
 	const entities = currentRoom.actors.entities.concat(
 		flattenCells(currentRoom.actors.matrix),
 		currentRoom.stage.entities,

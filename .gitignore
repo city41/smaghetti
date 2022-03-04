@@ -50,3 +50,4 @@ yarn-error.log*
 # binary files
 /binaryLevels
 
+.gradle
