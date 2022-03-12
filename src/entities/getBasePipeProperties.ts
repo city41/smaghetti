@@ -2,6 +2,15 @@ import { DestinationSetProps } from '../components/Transport/TransportDestinatio
 import { getEntityTileBounds, pointIsInside } from '../components/editor/util';
 import { TILE_SIZE } from '../tiles/constants';
 
+const destinationPipeTypes: EntityType[] = [
+	'PipeVertical',
+	'PipeHorizontal',
+	'PipeVerticalGiant',
+	'PipeAirshipVertical',
+	'PipeAirshipDown',
+	'PipeVerticalDoubleEnded',
+];
+
 function getPipeExitType(
 	destination: DestinationSetProps,
 	rooms: RoomData[]
@@ -10,7 +19,10 @@ function getPipeExitType(
 
 	// there should be a pipe at the destination
 	const destPipe = destRoom.stage.entities.find((e) => {
-		return pointIsInside(destination, getEntityTileBounds(e));
+		return (
+			destinationPipeTypes.includes(e.type) &&
+			pointIsInside(destination, getEntityTileBounds(e))
+		);
 	});
 
 	if (!destPipe) {
