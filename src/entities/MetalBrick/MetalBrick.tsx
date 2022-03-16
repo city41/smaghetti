@@ -15,7 +15,7 @@ const MetalBrick: Entity = {
 		subCategory: 'terrain-basic',
 		title: 'Gray Brick',
 		description:
-			"A brick that Super Mario can't break, but Tanooki statue and Hammer Suit Mario can.",
+			"A brick that Super Mario can't break, but Tanooki statue Mario and Hammer Suit Mario can.",
 	},
 
 	objectSets: encodeObjectSets(objectSets),
