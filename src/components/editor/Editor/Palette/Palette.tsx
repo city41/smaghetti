@@ -8,6 +8,7 @@ import { PaletteEntry as PaletteEntryCmp } from './PaletteEntry';
 import { PaletteChoiceModal } from './PaletteChoiceModal';
 
 import { EntityType } from '../../../../entities/entityMap';
+import { UnfocusableButton } from '../../../Button/UnfocusableButton';
 
 type PublicPaletteProps = {
 	className?: string;
@@ -83,7 +84,7 @@ function Palette({
 				'flex flex-row items-center justify-center overflow-auto bg-gray-200'
 			)}
 		>
-			<button
+			<UnfocusableButton
 				className={clsx(
 					'bg-gray-200 text-gray-700 px-4 h-full outline-none flex flex-col items-center justify-center',
 					{
@@ -95,14 +96,10 @@ function Palette({
 					setModalOpen(true);
 				}}
 				disabled={disabled}
-				onFocus={(e) => {
-					e.preventDefault();
-					e.target.blur();
-				}}
 			>
 				<IconPlus className="w-6 h-6" />
 				<div className="text-xs">add</div>
-			</button>
+			</UnfocusableButton>
 			<div className="thinScrollbar overflow-x-auto h-full flex flex-row items-center flex-1 pb-1 ml-1">
 				{entries}
 			</div>

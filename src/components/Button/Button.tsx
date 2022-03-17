@@ -1,5 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
 import clsx from 'clsx';
+import { UnfocusableButton } from './UnfocusableButton';
 
 type ButtonProps = Omit<JSX.IntrinsicElements['button'], 'ref'> & {
 	className?: string;
@@ -17,7 +18,7 @@ function Button({
 	...rest
 }: ButtonProps): ReactElement {
 	return (
-		<button
+		<UnfocusableButton
 			className={clsx(className, 'px-2 py-1', {
 				'hover:bg-green-300 hover:text-green-900':
 					!disabled && variant !== 'destructive',
@@ -38,7 +39,7 @@ function Button({
 			{...rest}
 		>
 			{children}
-		</button>
+		</UnfocusableButton>
 	);
 }
 

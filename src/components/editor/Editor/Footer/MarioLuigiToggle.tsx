@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import { UnfocusableButton } from '../../../Button/UnfocusableButton';
 
 type MarioLuigiToggle = {
 	className?: string;
@@ -13,13 +14,9 @@ function MarioLuigiToggle({
 	onClick,
 }: MarioLuigiToggle) {
 	return (
-		<button
+		<UnfocusableButton
 			className={clsx(className, 'flex flex-row')}
 			onClick={onClick}
-			onFocus={(e) => {
-				e.preventDefault();
-				e.target.blur();
-			}}
 		>
 			<div
 				className={clsx('w-4 h-4 bg-cover', {
@@ -33,7 +30,7 @@ function MarioLuigiToggle({
 					'LuigiLetterIconInactive-bg': currentValue !== 'luigi',
 				})}
 			/>
-		</button>
+		</UnfocusableButton>
 	);
 }
 
