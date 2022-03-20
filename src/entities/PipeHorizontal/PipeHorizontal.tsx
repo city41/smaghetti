@@ -6,15 +6,15 @@ import { TILE_SIZE } from '../../tiles/constants';
 import { ANY_SPRITE_GRAPHIC_SET } from '../constants';
 import { Resizer } from '../../components/Resizer';
 import { objectSets } from './objectSets';
+import { IconArrowRight, IconArrowLeft } from '../../icons';
+import type { IconType } from '../../icons';
 
 import styles from '../../components/Resizer/ResizingStyles.module.css';
 import { TransportSource } from '../../components/Transport/TransportSource';
 import { getBasePipeProperties } from '../getBasePipeProperties';
-import { HammerButton } from '../detailPanes/HammerButton';
 import invert from 'lodash/invert';
 
-const directions = ['right', 'left'] as const;
-type PipeDirection = typeof directions[number];
+type PipeDirection = 'right' | 'left';
 
 const transportDirectionToObjectId: Record<PipeDirection, number> = {
 	right: 0x1e,
@@ -33,6 +33,13 @@ const nonTransportDirectionToObjectId: Record<PipeDirection, number> = {
 const objectIdToNonTransportDirection = invert(
 	nonTransportDirectionToObjectId
 ) as Record<number, PipeDirection>;
+
+const directionIcons: Record<PipeDirection, IconType> = {
+	right: IconArrowRight,
+	left: IconArrowLeft,
+};
+
+const directions = ['right', 'left'];
 
 const PipeHorizontal: Entity = {
 	...getBasePipeProperties('PipeHorizontal'),
@@ -121,6 +128,7 @@ const PipeHorizontal: Entity = {
 		};
 
 		const size = { x: width, y: 1 };
+		const DirectionIcon = directionIcons[direction];
 
 		const leftLip = (
 			<div
@@ -138,13 +146,18 @@ const PipeHorizontal: Entity = {
 								onSettingsChange({ destination: newDestination });
 							}}
 						/>
-						<HammerButton
-							currentValue={direction}
-							values={directions}
-							onNewValue={(newDirection) => {
-								onSettingsChange({ direction: newDirection });
+						<button
+							onMouseDown={(e) => {
+								e.preventDefault();
+								e.stopPropagation();
+
+								const curDirIndex = directions.indexOf(direction);
+								const nexDirIndex = (curDirIndex + 1) % directions.length;
+								onSettingsChange({ direction: directions[nexDirIndex] });
 							}}
-						/>
+						>
+							<DirectionIcon className="w-1.5 h-1.5 text-white bg-blue-500" />
+						</button>
 					</>
 				)}
 			</div>
