@@ -27,10 +27,11 @@ function HammerButton<T extends string | number | symbol>({
 			style={style}
 			className={clsx(
 				className,
-				'absolute top-0 left-0 w-full h-full grid place-items-center z-10'
+				'absolute top-0 left-0 w-full h-full grid place-items-center z-10 pointer-events-none'
 			)}
 		>
 			<button
+				className="pointer-events-auto"
 				onMouseDown={(e) => {
 					e.preventDefault();
 					e.stopPropagation();

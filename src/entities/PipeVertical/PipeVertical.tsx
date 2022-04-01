@@ -10,8 +10,7 @@ import { objectSets } from './objectSets';
 import styles from '../../components/Resizer/ResizingStyles.module.css';
 import { TransportSource } from '../../components/Transport/TransportSource';
 import { getBasePipeProperties } from '../getBasePipeProperties';
-import { IconArrowUp, IconArrowDown } from '../../icons';
-import type { IconType } from '../../icons';
+import { HammerButton } from '../detailPanes/HammerButton';
 import invert from 'lodash/invert';
 
 type PipeDirection = 'up' | 'down';
@@ -33,11 +32,6 @@ const nonTransportDirectionToObjectId: Record<PipeDirection, number> = {
 const objectIdToNonTransportDirection = invert(
 	nonTransportDirectionToObjectId
 ) as Record<number, PipeDirection>;
-
-const directionIcons: Record<PipeDirection, IconType> = {
-	up: IconArrowUp,
-	down: IconArrowDown,
-};
 
 const directions = ['up', 'down'];
 
@@ -124,7 +118,6 @@ const PipeVertical: Entity = {
 		};
 
 		const size = { x: 1, y: height };
-		const DirectionIcon = directionIcons[direction];
 
 		const upperLip = (
 			<div
@@ -142,18 +135,13 @@ const PipeVertical: Entity = {
 								onSettingsChange({ destination: newDestination });
 							}}
 						/>
-						<button
-							onMouseDown={(e) => {
-								e.preventDefault();
-								e.stopPropagation();
-
-								const curDirIndex = directions.indexOf(direction);
-								const nexDirIndex = (curDirIndex + 1) % directions.length;
-								onSettingsChange({ direction: directions[nexDirIndex] });
+						<HammerButton
+							currentValue={direction}
+							values={directions}
+							onNewValue={(newDirection) => {
+								onSettingsChange({ direction: newDirection });
 							}}
-						>
-							<DirectionIcon className="w-1.5 h-1.5 text-white bg-blue-500" />
-						</button>
+						/>
 					</>
 				)}
 			</div>
