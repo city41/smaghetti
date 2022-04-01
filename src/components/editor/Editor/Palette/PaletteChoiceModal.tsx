@@ -489,7 +489,8 @@ function PaletteChoiceModal({
 				<div>
 					{isSearching ? (
 						<>
-							Press <span className="font-bold">esc</span> to exit search
+							Press <span className="font-bold">esc</span> or{' '}
+							<span className="font-bold">/</span> to exit search
 						</>
 					) : (
 						<>
