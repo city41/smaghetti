@@ -4,6 +4,8 @@ import React from 'react';
 import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET } from './constants';
 import { parseSimpleSprite } from './util';
+import { KoopalingViewDetails } from './detailPanes/KoopalingViewDetails';
+import { KoopalingEditDetails } from './detailPanes/KoopalingEditDetails';
 
 const graphicSets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -27,6 +29,7 @@ const BoomBoom: Entity = {
 	editorType: 'entity',
 	dimensions: 'none',
 	objectId: 0x13,
+	defaultSettings: { stompCount: 3, fireballCount: 5 },
 
 	resource: {
 		palettes: [
@@ -72,10 +75,13 @@ const BoomBoom: Entity = {
 		],
 	},
 
-	toSpriteBinary({ x, y }) {
-		// 3 and 5 are likely the same params as koopalings have
-		// TODO: details pain for those params
-		return [1, this.objectId, x, y, 3, 5];
+	toSpriteBinary({ x, y, settings }) {
+		const stompCount = (settings.stompCount ??
+			this.defaultSettings!.stompCount) as number;
+		const fireballCount = (settings.fireballCount ??
+			this.defaultSettings!.fireballCount) as number;
+
+		return [1, this.objectId, x, y, stompCount, fireballCount];
 	},
 
 	parseSprite(data, offset) {
@@ -102,7 +108,12 @@ const BoomBoom: Entity = {
 		);
 	},
 
-	render() {
+	render({ showDetails, settings, onSettingsChange }) {
+		const stompCount = (settings.stompCount ??
+			this.defaultSettings!.stompCount) as number;
+		const fireballCount = (settings.fireballCount ??
+			this.defaultSettings!.fireballCount) as number;
+
 		const style = {
 			width: TILE_SIZE * 2,
 			height: TILE_SIZE * 2,
@@ -112,11 +123,36 @@ const BoomBoom: Entity = {
 			backgroundSize: '100%',
 		};
 
-		return (
-			<div className="BoomBoom-bg bg-no-repeat" style={style}>
-				<TileSpace />
+		const spaceStyle = {
+			width: TILE_SIZE,
+			height: TILE_SIZE,
+			top: 0,
+			left: 0,
+		};
+
+		const body = (
+			<div className="relative BoomBoom-bg bg-no-repeat" style={style}>
+				<TileSpace className="absolute" style={spaceStyle} />
+				<KoopalingViewDetails
+					stompCount={stompCount}
+					fireballCount={fireballCount}
+				/>
 			</div>
 		);
+
+		if (showDetails) {
+			return (
+				<KoopalingEditDetails
+					currentStompCount={stompCount}
+					currentFireballCount={fireballCount}
+					onSettingsChange={onSettingsChange}
+				>
+					{body}
+				</KoopalingEditDetails>
+			);
+		} else {
+			return body;
+		}
 	},
 };
 

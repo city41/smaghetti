@@ -96,6 +96,12 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Boom Boom details" date="2022-04-07">
+					<p>
+						Just like the Koopalings, you can now choose how many stomps and
+						fireballs it takes to kill Boom Boom
+					</p>
+				</NewEntry>
 				<NewEntry title="Entity Search" date="2022-03-31">
 					<p>
 						The item chooser now has a simple search. Press &apos;/&apos; when
