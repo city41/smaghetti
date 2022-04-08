@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -68,6 +68,35 @@ function Editor({
 	const [showEntityAndProblemList, setShowEntityAndProblemList] = useState(
 		false
 	);
+
+	const toolboxRef = useRef<HTMLDivElement | null>(null);
+
+	const [usableWindowArea, setUsableWindowArea] = useState<{
+		width: number;
+		height: number;
+	}>({
+		width: typeof window !== 'undefined' ? window.innerWidth : 0,
+		height: typeof window !== 'undefined' ? window.innerHeight : 0,
+	});
+
+	useEffect(() => {
+		function handleWindowResize() {
+			if (toolboxRef.current) {
+				const toolboxBounds = toolboxRef.current.getBoundingClientRect();
+
+				setUsableWindowArea({
+					width: window.innerWidth,
+					height: window.innerHeight - toolboxBounds.height * 2,
+				});
+			}
+		}
+
+		handleWindowResize();
+		window.addEventListener('resize', handleWindowResize);
+
+		return () => window.removeEventListener('resize', handleWindowResize);
+	}, [setUsableWindowArea]);
+
 	const dispatch = useDispatch();
 
 	const firstRender = useFirstRender();
@@ -182,6 +211,7 @@ function Editor({
 							className="border border-black"
 							isPlaying={isPlaying}
 							checkeredBackground
+							usableWindowArea={usableWindowArea}
 						/>
 						<CanvasOffsetContainer preventPanClicks={mode !== 'managing-rooms'}>
 							{mode !== 'managing-rooms' && (
@@ -198,7 +228,10 @@ function Editor({
 					)}
 					id="smaghetti-editor"
 				>
-					<div className="flex flex-col pointer-events-auto shadow-lg col-span-2">
+					<div
+						ref={toolboxRef}
+						className="flex flex-col pointer-events-auto shadow-lg col-span-2"
+					>
 						<div className="flex flex-row">
 							<Toolbox
 								className="flex-1"

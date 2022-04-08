@@ -14,6 +14,7 @@ import { moveRoomToFront } from './moveRoomToFront';
 type LevelPlayerProps = {
 	className?: string;
 	isPlaying: boolean;
+	usableWindowArea: { width: number; height: number };
 	checkeredBackground: boolean;
 	children?: ReactNode;
 };

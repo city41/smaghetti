@@ -1,7 +1,7 @@
 import { TILE_SIZE } from '../../tiles/constants';
 
-const GBA_SCREEN_WIDTH = 240;
-const GBA_SCREEN_HEIGHT = 160;
+export const GBA_SCREEN_WIDTH = 240;
+export const GBA_SCREEN_HEIGHT = 160;
 
 // when telling sma4 how wide a room is, it's a number * this increment
 export const ROOM_WIDTH_INCREMENT = 16;
