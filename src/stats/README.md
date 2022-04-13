@@ -4,7 +4,7 @@ This directory primarily contains stats.ts, a file of various statistics about S
 
 ## How to generate stats.ts
 
-`PGHOST=<postgres-host> PGPORT=5432 PGUSER=postgres PGPASSWORD=<supabase-db-password> TS_NODE_FILES=true yarn run-ts-node scripts/generateStats.ts`
+`DATABASE_URL="postgres://postgres:<password from 1password>@<db host from supabase>:5432/postgres" TS_NODE_FILES=true yarn run-ts-node scripts/generateStats.ts`
 
 ## How to add more statistics
 
