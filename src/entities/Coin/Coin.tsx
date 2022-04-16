@@ -76,6 +76,14 @@ const Coin: Entity = {
 	render() {
 		return this.simpleRender(TILE_SIZE);
 	},
+
+	getProblem({ room }) {
+		const water = room.stage.entities.find((e) => e.type === 'Water');
+
+		if (water) {
+			return 'Normal coins create "air pockets" in the water, use Coin - Water instead';
+		}
+	},
 };
 
 export { Coin };
