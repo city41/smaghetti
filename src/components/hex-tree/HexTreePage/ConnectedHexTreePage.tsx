@@ -105,6 +105,7 @@ const EMPTY_ROOM: LevelTreeRoom = {
 	},
 	autoScroll: {
 		rawBytes: [],
+		entries: [],
 	},
 	blockPaths: {
 		rawBytes: [],

@@ -1,3 +1,4 @@
+import { LevelAutoScrollEntry } from '../../levelData/parseAutoScrollEntriesFromLevelFile';
 import { ParsedLevelSettings } from '../../levelData/parseLevelSettingsFromLevelFile';
 
 type RoomIndex = 0 | 1 | 2 | 3;
@@ -67,6 +68,7 @@ type LevelTreeRoom = {
 	};
 	autoScroll: {
 		rawBytes: number[];
+		entries: LevelAutoScrollEntry[];
 	};
 	exclude?: boolean;
 };
@@ -170,12 +172,21 @@ type TransportPatch = {
 	bytes: number[];
 };
 
+type AutoScrollEntryPatch = {
+	type: 'autoScroll';
+	roomIndex: RoomIndex;
+	autoScrollEntryIndex: number;
+	offset: number;
+	bytes: number[];
+};
+
 type Patch =
 	| LevelSettingsPatch
 	| SpritePatch
 	| ObjectPatch
 	| ObjectHeaderPatch
-	| TransportPatch;
+	| TransportPatch
+	| AutoScrollEntryPatch;
 
 type Add = {
 	type: 'sprite' | 'object' | 'transport';
@@ -195,6 +206,7 @@ export type {
 	ObjectPatch,
 	SpritePatch,
 	TransportPatch,
+	AutoScrollEntryPatch,
 	LevelSettingsPatch,
 	Patch,
 	Add,

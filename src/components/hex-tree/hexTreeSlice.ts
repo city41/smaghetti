@@ -13,11 +13,16 @@ import {
 	parseSpritesFromLevelFile,
 } from '../../levelData/parseSpritesFromLevelFile';
 import {
+	parseAutoScrollEntries,
+	parseAutoScrollEntriesFromLevelFile,
+} from '../../levelData/parseAutoScrollEntriesFromLevelFile';
+import {
 	parseTransport,
 	parseTransportsFromLevelFile,
 } from '../../levelData/parseTransportsFromLevelFile';
 import {
 	Add,
+	AutoScrollEntryPatch,
 	ByteSizes,
 	ExcludeAfter,
 	Exclusion,
@@ -292,6 +297,19 @@ const hexTreeSlice = createSlice({
 					rawBytes,
 				};
 			}
+
+			if (type === 'autoScroll') {
+				const { autoScrollEntryIndex } = action.payload as AutoScrollEntryPatch;
+				const rawBytes = room.autoScroll.rawBytes;
+				rawBytes.splice(
+					autoScrollEntryIndex * 3 + offset,
+					bytes.length,
+					...bytes
+				);
+				const newEntries = parseAutoScrollEntries(new Uint8Array(rawBytes), 0);
+
+				room.autoScroll.entries = newEntries;
+			}
 		},
 		toggleExcludeAfter(
 			state: HexTreeState,
@@ -446,6 +464,7 @@ function parseRoom(
 					autoScrollEndAddress
 				)
 			),
+			entries: parseAutoScrollEntriesFromLevelFile(data, roomIndex),
 		},
 	};
 }
@@ -516,6 +535,7 @@ function parseInGameLevelToTree(
 		},
 		autoScroll: {
 			rawBytes: [],
+			entries: [],
 		},
 		blockPaths: {
 			rawBytes: [],

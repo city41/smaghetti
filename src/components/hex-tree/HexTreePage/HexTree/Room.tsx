@@ -20,6 +20,7 @@ import { LevelTransport } from './LevelTransport';
 import useClipboard from 'react-use-clipboard';
 import { LevelSettings } from './LevelSettings';
 import { ObjectHeader } from './ObjectHeader';
+import { LevelAutoScrollEntry } from './LevelAutoScrollEntry';
 
 type RoomProps = {
 	className?: string;
@@ -288,6 +289,23 @@ function Room({
 		);
 	});
 
+	const autoscrolls = room.autoScroll.entries.map((e, i) => {
+		return (
+			<LevelAutoScrollEntry
+				entry={e}
+				onPatch={({ offset, bytes }) => {
+					onPatch({
+						type: 'autoScroll',
+						roomIndex,
+						autoScrollEntryIndex: i,
+						offset,
+						bytes,
+					});
+				}}
+			/>
+		);
+	});
+
 	const jumpLinks = [
 		'objects',
 		'level-settings',
@@ -346,7 +364,7 @@ function Room({
 			{sprites}
 			<h3 className="sticky z-10 top-10 bg-gray-700 py-1 pl-2">Autoscroll</h3>
 			<div id={`autoscroll-room-${roomIndex}`} />
-			<div>{room.autoScroll.rawBytes.join(' ')}</div>
+			{autoscrolls}
 		</div>
 	);
 }
