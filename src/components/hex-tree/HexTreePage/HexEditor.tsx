@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 import { convertCharacterToASCII } from '../../../levelData/util';
 import {
+	ROOM_AUTOSCROLL_POINTERS,
 	ROOM_BLOCKPATH_POINTERS,
 	ROOM_OBJECT_HEADER_SIZE_IN_BYTES,
 	ROOM_OBJECT_POINTERS,
@@ -33,6 +34,7 @@ const categoryClasses = {
 	'blockpath-movement-ptr': 'bg-pink-700 text-white',
 	'blockpath-data': 'bg-pink-700 text-white',
 	'autoscroll-data-ptr': 'bg-indigo-800 text-white',
+	'autoscroll-data': 'bg-indigo-800 text-white',
 };
 
 function getPointerAddress(data: Uint8Array, leastSigIndex: number): number {
@@ -137,7 +139,30 @@ function getObjectCellMetaData(data: Uint8Array): Record<number, CellMetaData> {
 		return building;
 	}, {});
 
-	return { ...objectCells, ...blockPathCells };
+	const autoScrollCells = ROOM_AUTOSCROLL_POINTERS.reduce<
+		Record<number, CellMetaData>
+	>((building, value, roomIndex) => {
+		building[value] = {
+			category: 'autoscroll-data-ptr',
+			label: `Room ${roomIndex} autoscroll data pointer`,
+		};
+
+		building[value + 1] = {
+			category: 'autoscroll-data-ptr',
+			label: `Room ${roomIndex} autoscroll data pointer`,
+		};
+
+		const destAddr = getPointerAddress(data, value);
+
+		building[destAddr] = {
+			category: 'autoscroll-data',
+			label: `Room ${roomIndex} start of autoscroll data`,
+		};
+
+		return building;
+	}, {});
+
+	return { ...objectCells, ...blockPathCells, ...autoScrollCells };
 }
 
 function getSpriteCellMetaData(data: Uint8Array): Record<number, CellMetaData> {
