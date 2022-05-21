@@ -95,7 +95,7 @@ function HexTree({
 
 	return (
 		<div className="relative mt-8">
-			<div className="h-96 overflow-auto">{rooms}</div>
+			<div className="h-full overflow-auto">{rooms}</div>
 			<div className="flex flex-row space-x-6 my-2 pl-2 absolute right-8 top-0.5 z-10">
 				{roomButtons}
 			</div>
