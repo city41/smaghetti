@@ -31,7 +31,7 @@ function parseAutoScrollEntriesFromLevelFile(
 	const view = new DataView(levelData.buffer);
 
 	const pointer = ROOM_AUTOSCROLL_POINTERS[roomIndex];
-	let autoScrollIndex = view.getUint16(pointer, true);
+	const autoScrollIndex = view.getUint16(pointer, true);
 
 	return parseAutoScrollEntries(levelData, autoScrollIndex);
 }

@@ -292,6 +292,7 @@ function Room({
 	const autoscrolls = room.autoScroll.entries.map((e, i) => {
 		return (
 			<LevelAutoScrollEntry
+				key={i}
 				entry={e}
 				onPatch={({ offset, bytes }) => {
 					onPatch({
