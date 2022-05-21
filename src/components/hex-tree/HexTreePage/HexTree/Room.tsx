@@ -288,27 +288,31 @@ function Room({
 		);
 	});
 
-	const jumpLinks = ['objects', 'level-settings', 'transports', 'sprites'].map(
-		(type) => {
-			return (
-				<a
-					className="cursor-pointer hover:underline"
-					key={type}
-					onClick={() => {
-						const target = document.getElementById(`${type}-room-${roomIndex}`);
-						if (target) {
-							target.scrollIntoView({ block: 'center' });
-						}
-					}}
-				>
-					{type}
-				</a>
-			);
-		}
-	);
+	const jumpLinks = [
+		'objects',
+		'level-settings',
+		'transports',
+		'sprites',
+		'autoscroll',
+	].map((type) => {
+		return (
+			<a
+				className="cursor-pointer hover:underline"
+				key={type}
+				onClick={() => {
+					const target = document.getElementById(`${type}-room-${roomIndex}`);
+					if (target) {
+						target.scrollIntoView({ block: 'center' });
+					}
+				}}
+			>
+				{type}
+			</a>
+		);
+	});
 
 	return (
-		<div className={clsx(className, 'relative')}>
+		<div className={className}>
 			<h2 className="bg-gray-300 text-gray-900 text-xl font-bold p-2 sticky z-10 top-0 flex flex-row items-center">
 				Room {roomIndex}
 				<div className="mx-2 space-x-2 text-sm font-normal text-gray-800">
@@ -340,6 +344,9 @@ function Room({
 			<h3 className="sticky z-10 top-10 bg-gray-700 py-1 pl-2">Sprites</h3>
 			<div id={`sprites-room-${roomIndex}`} />
 			{sprites}
+			<h3 className="sticky z-10 top-10 bg-gray-700 py-1 pl-2">Autoscroll</h3>
+			<div id={`autoscroll-room-${roomIndex}`} />
+			<div>{room.autoScroll.rawBytes.join(' ')}</div>
 		</div>
 	);
 }

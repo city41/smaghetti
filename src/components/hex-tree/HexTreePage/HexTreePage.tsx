@@ -282,7 +282,7 @@ function HexTreePage({
 						);
 					})}
 				</ul>
-				<div className="overflow-auto px-16 xpt-4 xborder-t-4 bg-gray-900">
+				<div className="relative overflow-auto px-16 xpt-4 xborder-t-4 bg-gray-900">
 					{tabBody}
 				</div>
 			</div>
