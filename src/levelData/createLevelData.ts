@@ -18,7 +18,7 @@ type Room = {
 	transportData: number[];
 	sprites: number[];
 	blockPathMovementData: number[];
-	autoScrollMovementData: number[];
+	autoscrollMovementData: number[];
 };
 
 const exitTypeToCategoryByte: Record<EditorTransport['exitType'], number> = {
@@ -679,6 +679,32 @@ function getBlockPathMovementData(room: RoomData): number[] {
 	return [headerByte].concat(blockPathData, [0xff]);
 }
 
+function getAutoscrollEntries(room: RoomData): number[] {
+	const vectors = room.actors.entities.filter(
+		(e) => e.type === 'AutoscrollVector'
+	);
+
+	if (!vectors.length) {
+		return [];
+	}
+
+	return vectors.reduce<number[]>(
+		(building, vector) => {
+			const to = (vector.settings?.to ?? { x: 0, y: 0 }) as Point;
+
+			return building.concat([
+				vector.x / TILE_SIZE + to.x,
+				vector.y / TILE_SIZE + to.y,
+				9,
+			]);
+		},
+		// this is the "seed" entry, as with less than 2 entries no scrolling happens
+		// in most Nintendo made levels, this entry has values, but 0,0,0 does work
+		// for simple scrolling at least
+		[0, 0, 0]
+	);
+}
+
 function getRoom(
 	levelSettings: LevelSettings,
 	roomIndex: number,
@@ -722,6 +748,7 @@ function getRoom(
 	const transportData = getTransports(roomIndex, allEntities, allRooms);
 	const spriteHeader = [0x0];
 	const sprites = getSprites(allEntities, currentRoom);
+	const autoscrollMovementData = getAutoscrollEntries(currentRoom);
 
 	if (process.env.NODE_ENV !== 'production') {
 		// eslint-disable-next-line no-console
@@ -733,6 +760,11 @@ function getRoom(
 		console.log('objectData', objectData.map((b) => b.toString(16)).join(','));
 		// eslint-disable-next-line no-console
 		console.log('spriteData', sprites.map((b) => b.toString(16)).join(','));
+		// eslint-disable-next-line no-console
+		console.log(
+			'autoscrollMovementData',
+			autoscrollMovementData.map((b) => b.toString(16)).join(',')
+		);
 	}
 
 	return {
@@ -741,7 +773,7 @@ function getRoom(
 		transportData,
 		sprites: spriteHeader.concat(sprites, [0xff]),
 		blockPathMovementData: getBlockPathMovementData(currentRoom),
-		autoScrollMovementData: [0xff],
+		autoscrollMovementData: autoscrollMovementData.concat([0xff, 0xff]),
 	};
 }
 
@@ -770,7 +802,7 @@ function getFullRoomData(rooms: Room[]): number[] {
 			room.transportData,
 			room.sprites,
 			room.blockPathMovementData,
-			room.autoScrollMovementData
+			room.autoscrollMovementData
 		);
 	}, []);
 }
@@ -833,7 +865,7 @@ function createLevelData(level: LevelToLoadInGBA): Uint8Array {
 			pointer = setPointer(
 				pointers,
 				base + 0,
-				pointer + rooms[roomIndex - 1].autoScrollMovementData.length
+				pointer + rooms[roomIndex - 1].autoscrollMovementData.length
 			);
 		}
 

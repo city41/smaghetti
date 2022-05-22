@@ -1,9 +1,9 @@
 import React from 'react';
-import type { Entity } from './types';
-import { TILE_SIZE } from '../tiles/constants';
-import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
-import { parseSimpleSprite } from './util';
-import { IconArrowRight } from '../icons';
+import type { Entity } from '../types';
+import { TILE_SIZE } from '../../tiles/constants';
+import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from '../constants';
+import { parseSimpleSprite } from '../util';
+import { IconArrowRight } from '../../icons';
 
 const AutoscrollHorizontal: Entity = {
 	paletteInfo: {

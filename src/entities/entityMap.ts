@@ -10,7 +10,8 @@ import { AngrySun } from './AngrySun';
 import { ArrowFloor } from './ArrowFloor';
 import { ArrowLift } from './ArrowLift';
 import { ArrowSign } from './ArrowSign';
-import { AutoscrollHorizontal } from './AutoscrollHorizontal';
+import { AutoscrollHorizontal } from './Autoscroll/AutoscrollHorizontal';
+import { AutoscrollVector } from './Autoscroll/AutoscrollVector';
 import { BackgroundHillsStripedLarge } from './BackgroundHillsStripedLarge';
 import { BackgroundHillsStripedMedium } from './BackgroundHillsStripedMedium';
 import { BackgroundHillsStripedSmall } from './BackgroundHillsStripedSmall';
@@ -426,6 +427,7 @@ const entityMap = {
 	ArrowLift,
 	ArrowSign,
 	AutoscrollHorizontal,
+	AutoscrollVector,
 	BackgroundHillsStripedLarge,
 	BackgroundHillsStripedMedium,
 	BackgroundHillsStripedSmall,
