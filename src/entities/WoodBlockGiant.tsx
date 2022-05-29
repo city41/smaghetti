@@ -67,7 +67,9 @@ const WoodBlockGiant: Entity = {
 	},
 
 	parseObject(data, offset, inGame) {
-		if ((inGame && data[offset + 4] >= 0x40) || data[offset + 4] === 0) {
+		// if in game this might be a four byte object, based on if the
+		// fifth byte looks to be a bank byte
+		if (inGame && (data[offset + 4] >= 0x40 || data[offset + 4] === 0)) {
 			return parseDoubleCellObjectsParam1Width(data, offset, this);
 		} else {
 			return parseDoubleCellObjectsParam1WidthParam2Height(data, offset, this);

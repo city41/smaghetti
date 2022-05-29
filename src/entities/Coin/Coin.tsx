@@ -59,8 +59,9 @@ const Coin: Entity = {
 	},
 
 	parseObject(data, offset, inGame) {
-		// in game and next byte is a bank? then this is a single dim, 4 byte, coin
-		if ((inGame && data[offset + 4] >= 0x40) || data[offset + 4] === 0) {
+		// if in game this might be a four byte object, based on if the
+		// fifth byte looks to be a bank byte
+		if (inGame && (data[offset + 4] >= 0x40 || data[offset + 4] === 0)) {
 			return parseCellObjectsParam1Width(data, offset, this);
 		} else {
 			return parseCellObjectsParam1WidthParam2Height(data, offset, this);
