@@ -2,7 +2,7 @@ import type { Entity } from './types';
 import { encodeObjectSets, parseSimpleObject } from './util';
 import { TILE_SIZE } from '../tiles/constants';
 import React from 'react';
-import { ANY_SPRITE_GRAPHIC_SET } from './constants';
+import { ANY_SPRITE_GRAPHIC_SET, OBJECT_PRIORITY_LOWEST } from './constants';
 import { TileSpace } from './TileSpace';
 
 const BackgroundHillsTexturedLarge: Entity = {
@@ -23,6 +23,7 @@ const BackgroundHillsTexturedLarge: Entity = {
 	emptyBank: 0,
 	width: 6,
 	height: 8,
+	objectPriority: OBJECT_PRIORITY_LOWEST,
 
 	resource: {
 		palettes: [
