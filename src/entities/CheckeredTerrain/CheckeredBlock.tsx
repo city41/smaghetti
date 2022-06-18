@@ -15,7 +15,7 @@ const CheckeredBlock: Entity = {
 	editorType: 'cell',
 	dimensions: 'none',
 	param1: 'other',
-	param2: 'width',
+	param2: 'ignored',
 	objectId: 0x4f,
 	emptyBank: 1,
 	objectSets: encodeObjectSets([
