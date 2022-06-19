@@ -267,7 +267,8 @@ type LocalItem = {
 
 async function extractResourcesToStylesheet(
 	rom: Uint8Array,
-	resources: Partial<Record<EntityType | ResourceType, Resource>>
+	resources: Partial<Record<EntityType | ResourceType, Resource>>,
+	onExtractionDone: (name: string) => void
 ): Promise<void> {
 	let css = '';
 
@@ -304,6 +305,8 @@ async function extractResourcesToStylesheet(
 		}
 
 		css = `${css}\n.${resourceName}-bg { background-image: url(${dataUrl}); }`;
+
+		onExtractionDone(resourceName);
 	}
 
 	const textNode = document.createTextNode(css);

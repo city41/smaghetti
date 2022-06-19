@@ -21,7 +21,12 @@ type InternalFileLoaderModalProps = {
 		| 'error';
 	otherFilesState: 'loading' | 'success' | 'error';
 	onRomFileChosen: (romFile: File) => void;
-	extractionState: 'not-started' | 'extracting' | 'complete';
+	overallExtractionState: 'not-started' | 'extracting' | 'complete';
+	extractionGraphicState: {
+		done: number;
+		total: number;
+		mostRecentlyFinished: string | null;
+	};
 };
 
 const ROM_KEY = 'sma4_rom';
@@ -218,11 +223,19 @@ function BaseFiles({
 	);
 }
 
-function ExtractingResources() {
+function ExtractingResources({
+	done,
+	total,
+	mostRecentlyFinished,
+}: {
+	done: number;
+	total: number;
+	mostRecentlyFinished: string | null;
+}) {
 	return (
 		<div>
-			Extracting Graphics ...
-			<LoadingBar percent={100} />
+			Extracting Graphics: {mostRecentlyFinished}
+			<LoadingBar percent={(done / total) * 100} />
 		</div>
 	);
 }
@@ -233,7 +246,8 @@ function FileLoaderModal({
 	otherFilesState,
 	romFileState,
 	onRomFileChosen,
-	extractionState,
+	overallExtractionState,
+	extractionGraphicState,
 }: InternalFileLoaderModalProps & PublicFileLoaderModalProps) {
 	useEffect(() => {
 		localForage.getItem<File>(ROM_KEY).then((cachedRomFile) => {
@@ -244,7 +258,7 @@ function FileLoaderModal({
 	}, []);
 
 	let body;
-	if (extractionState === 'not-started') {
+	if (overallExtractionState === 'not-started') {
 		body = (
 			<BaseFiles
 				romFileState={romFileState}
@@ -253,7 +267,7 @@ function FileLoaderModal({
 			/>
 		);
 	} else {
-		body = <ExtractingResources />;
+		body = <ExtractingResources {...extractionGraphicState} />;
 	}
 
 	return (

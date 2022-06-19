@@ -6,39 +6,3 @@
 	height: var(--bar-height);
 	@apply bg-blue-300 border border-white;
 }
-
-@keyframes animateBar {
-	0% {
-		background-position: 0 0;
-	}
-	100% {
-		background-position: calc(var(--bar-height) * 3) 0;
-	}
-}
-
-.bar {
-	@apply h-full bg-blue-300;
-
-	--direction: var(--diagonal-hover-direction, 36.87deg);
-	--color: #dbeafe;
-
-	background-image: linear-gradient(
-		var(--direction),
-		var(--color) 16.5%,
-		transparent 16.6%,
-		transparent 33%,
-		var(--color) 33.1%,
-		var(--color) 49.5%,
-		transparent 49.6%,
-		transparent 66%,
-		var(--color) 66.1%,
-		var(--color) 82%,
-		transparent 82.1%,
-		transparent 100%
-	);
-	background-size: calc(var(--bar-height) * 3) calc(var(--bar-height) * 4);
-	background-repeat: repeat-x;
-	background-position: 0 50%;
-
-	animation: animateBar 2s linear 0s infinite;
-}

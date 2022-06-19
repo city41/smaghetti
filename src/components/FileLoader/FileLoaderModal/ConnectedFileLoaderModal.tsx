@@ -21,9 +21,12 @@ const actions = bindActionCreators(
 );
 
 function ConnectedFileLoaderModal(props: PublicFileLoaderModalProps) {
-	const { overallExtractionState, romFileState, otherFilesState } = useSelector(
-		(state: AppState) => state.fileLoader
-	);
+	const {
+		overallExtractionState,
+		romFileState,
+		otherFilesState,
+		extractionGraphicState,
+	} = useSelector((state: AppState) => state.fileLoader);
 
 	useEffect(() => {
 		dispatch(loadEmptySave());
@@ -45,9 +48,10 @@ function ConnectedFileLoaderModal(props: PublicFileLoaderModalProps) {
 	return (
 		<FileLoaderModal
 			{...props}
-			extractionState={overallExtractionState}
+			overallExtractionState={overallExtractionState}
 			romFileState={romFileState}
 			otherFilesState={otherFilesState}
+			extractionGraphicState={extractionGraphicState}
 			{...actions}
 		/>
 	);

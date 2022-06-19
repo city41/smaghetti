@@ -6,6 +6,7 @@ function ConnectedSettingsPage() {
 	async function handleClearRom() {
 		try {
 			await localForage.clear();
+			window.location.href = '/editor';
 		} catch (e) {
 			// eslint-disable-next-line no-console
 			console.error('localForage error', e);

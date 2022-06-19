@@ -40,7 +40,11 @@ type FileLoaderState = {
 	otherFilesState: OtherFilesState;
 	allFilesReady: boolean;
 	overallExtractionState: ExtractionState;
-	extractedGraphicsState: Partial<Record<EntityType, ExtractionState>>;
+	extractionGraphicState: {
+		done: number;
+		total: number;
+		mostRecentlyFinished: string | null;
+	};
 };
 
 const SMA4_SHA = '532f3307021637474b6dd37da059ca360f612337';
@@ -57,7 +61,11 @@ const defaultInitialState: FileLoaderState = {
 	otherFilesState: 'loading',
 	allFilesReady: false,
 	overallExtractionState: 'not-started',
-	extractedGraphicsState: {},
+	extractionGraphicState: {
+		done: 0,
+		total: 0,
+		mostRecentlyFinished: null,
+	},
 };
 
 const initialState = defaultInitialState;
@@ -125,16 +133,22 @@ const fileLoaderSlice = createSlice({
 			state.overallExtractionState = action.payload;
 			settleState(state);
 		},
-		resourceExtractionState(
+		setExtractionSize(
 			state: FileLoaderState,
 			action: PayloadAction<{
-				type: EntityType;
-				state: ExtractionState;
+				done: number;
+				total: number;
 			}>
 		) {
-			const { type, state: extractionState } = action.payload;
+			const { done, total } = action.payload;
 
-			state.extractedGraphicsState[type] = extractionState;
+			state.extractionGraphicState.done = done;
+			state.extractionGraphicState.total = total;
+		},
+		finishedExtracting(state: FileLoaderState, action: PayloadAction<string>) {
+			const mostRecentlyFinished = action.payload;
+			state.extractionGraphicState.mostRecentlyFinished = mostRecentlyFinished;
+			state.extractionGraphicState.done += 1;
 		},
 	},
 });
@@ -201,8 +215,8 @@ const loadEmptySave = (): FileLoaderThunk => async (dispatch) => {
 				console.error('failed to load empty save', e);
 				logError({
 					context: 'fileLoaderSlice#loadEmptySave,first catch',
-					message: e?.message ?? 'no message',
-					stack: e?.stack,
+					message: (e as Error)?.message ?? 'no message',
+					stack: (e as Error)?.stack,
 				});
 				dispatch(fileLoaderSlice.actions.emptySaveState('error'));
 			});
@@ -210,8 +224,8 @@ const loadEmptySave = (): FileLoaderThunk => async (dispatch) => {
 		console.error('failed to load empty save', e);
 		logError({
 			context: 'fileLoaderSlice#loadEmptySave,second catch',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
+			message: (e as Error)?.message ?? 'no message',
+			stack: (e as Error)?.stack,
 		});
 		dispatch(fileLoaderSlice.actions.emptySaveState('error'));
 	}
@@ -236,8 +250,8 @@ const loadSaveState = (): FileLoaderThunk => async (dispatch) => {
 		console.error('failed to load save state json', e);
 		logError({
 			context: 'fileLoaderSlice#loadSaveState,catch',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
+			message: (e as Error)?.message ?? 'no message',
+			stack: (e as Error)?.stack,
 		});
 		dispatch(fileLoaderSlice.actions.saveStateJsonState('error'));
 	}
@@ -260,8 +274,8 @@ const loadExampleLevel = (): FileLoaderThunk => async (dispatch) => {
 				console.error('failed to load example level', e);
 				logError({
 					context: 'fileLoaderSlice#loadExampleLevel,first catch',
-					message: e?.message ?? 'no message',
-					stack: e?.stack,
+					message: (e as Error)?.message ?? 'no message',
+					stack: (e as Error)?.stack,
 				});
 				dispatch(fileLoaderSlice.actions.exampleLevelState('error'));
 			});
@@ -269,8 +283,8 @@ const loadExampleLevel = (): FileLoaderThunk => async (dispatch) => {
 		console.error('failed to load example level', e);
 		logError({
 			context: 'fileLoaderSlice#loadExampleLevel,second catch',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
+			message: (e as Error)?.message ?? 'no message',
+			stack: (e as Error)?.stack,
 		});
 		dispatch(fileLoaderSlice.actions.exampleLevelState('error'));
 	}
@@ -304,8 +318,8 @@ const loadBios = (): FileLoaderThunk => async (dispatch) => {
 				console.error('failed to load bios', e);
 				logError({
 					context: 'fileLoaderSlice#loadBios,first catch',
-					message: e?.message ?? 'no message',
-					stack: e?.stack,
+					message: (e as Error)?.message ?? 'no message',
+					stack: (e as Error)?.stack,
 				});
 				dispatch(fileLoaderSlice.actions.biosState('error'));
 			});
@@ -313,8 +327,8 @@ const loadBios = (): FileLoaderThunk => async (dispatch) => {
 		console.error('failed to load bios', e);
 		logError({
 			context: 'fileLoaderSlice#loadBios,second catch',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
+			message: (e as Error)?.message ?? 'no message',
+			stack: (e as Error)?.stack,
 		});
 		dispatch(fileLoaderSlice.actions.biosState('error'));
 	}
@@ -346,10 +360,25 @@ const extract = (): FileLoaderThunk => async (dispatch) => {
 		return building;
 	}, {});
 
-	await extractResourcesToStylesheet(rom, {
+	const allResources = {
 		...entityResourceMap,
 		...resourceMap,
-	});
+	};
+
+	dispatch(
+		fileLoaderSlice.actions.setExtractionSize({
+			done: 0,
+			total: Object.keys(allResources).length,
+		})
+	);
+
+	await extractResourcesToStylesheet(
+		rom,
+		allResources,
+		(extractedName: string) => {
+			dispatch(fileLoaderSlice.actions.finishedExtracting(extractedName));
+		}
+	);
 
 	dispatch(fileLoaderSlice.actions.overallExtractionState('complete'));
 };

@@ -14,7 +14,7 @@ const LoadingBar: FunctionComponent<LoadingBarProps> = ({
 }) => {
 	return (
 		<div className={clsx(className, styles.root)}>
-			<div className={styles.bar} style={{ width: `${percent}%` }} />
+			<div className="h-full bg-blue-500" style={{ width: `${percent}%` }} />
 		</div>
 	);
 };
