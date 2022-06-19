@@ -1,8 +1,14 @@
 import { Action, createSlice, ThunkAction } from '@reduxjs/toolkit';
 import _ from 'lodash';
+import { compress } from '../../../../levelData/compress';
 import { createLevelData } from '../../../../levelData/createLevelData';
 import { sendBlobToAnchorTag } from '../../../../levelData/downloadLevelAsSaveFile';
-import { createOverwrite1_1IPSPatch } from '../../../../levelData/level1_1';
+import {
+	createOverwrite1_1IPSPatch,
+	createOverwriteClassic1_1InVCVersionIPSPatch,
+} from '../../../../levelData/level1_1';
+import { MAX_LEVEL_NAME_SIZE } from '../../../../levelData/typesAndConstants';
+import { convertASCIIToLevelName } from '../../../../levelData/util';
 import { AppState } from '../../../../store';
 
 type ExperimentsState = {
@@ -55,6 +61,50 @@ const downloadIPS = (): ExperimentThunk => (_dispatch, getState) => {
 	sendBlobToAnchorTag(fileBlob, 'sma4_1_1_overwrite.ips');
 };
 
+const downloadOverwriteClassic1_1InVCVersionIPS = (): ExperimentThunk => (
+	_dispatch,
+	getState
+) => {
+	const appState = getState();
+
+	const name = appState.editor.present.name;
+	const level: LevelToLoadInGBA = {
+		name,
+		data: {
+			rooms: appState.editor.present.rooms,
+			settings: appState.editor.present.settings,
+		},
+	};
+
+	const levelData = createLevelData(level);
+	const compressed1 = compress(levelData, 0);
+	const compressed2 = compress(levelData, 0x80);
+
+	const compressed =
+		compressed1.length < compressed2.length ? compressed1 : compressed2;
+
+	const nameAsBinary = convertASCIIToLevelName(name);
+
+	if (nameAsBinary.length < MAX_LEVEL_NAME_SIZE) {
+		nameAsBinary.push(0xff);
+
+		while (nameAsBinary.length < MAX_LEVEL_NAME_SIZE) {
+			nameAsBinary.push(0);
+		}
+	}
+
+	const ips = createOverwriteClassic1_1InVCVersionIPSPatch(
+		compressed,
+		nameAsBinary
+	);
+
+	const fileBlob = new Blob([ips.buffer], {
+		type: 'application/octet-stream',
+	});
+
+	sendBlobToAnchorTag(fileBlob, 'sma4_classic1_1_wiiu_vc_overwrite.ips');
+};
+
 const reducer = experimentsSlice.reducer;
 const {
 	enableInGameBinaryLevelChooser,
@@ -66,5 +116,6 @@ export {
 	enableInGameBinaryLevelChooser,
 	disableInGameBinaryLevelChooser,
 	downloadIPS,
+	downloadOverwriteClassic1_1InVCVersionIPS,
 };
 export type { ExperimentsState };
