@@ -18,8 +18,9 @@ import {
 	userOrders,
 } from './categories';
 import { TagPicker } from './TagPicker';
+import { MAX_LEVEL_DATA } from '../../../levelData/typesAndConstants';
 
-export const MAX_LEVELS_IN_SAVE = 32;
+export const MAX_LEVELS_IN_SAVE = MAX_LEVEL_DATA;
 
 type PublicLevels2PageProps = {
 	currentSlug: CategorySlug;
