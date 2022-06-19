@@ -18,9 +18,8 @@ import {
 	userOrders,
 } from './categories';
 import { TagPicker } from './TagPicker';
-import { MAX_LEVEL_DATA } from '../../../levelData/typesAndConstants';
 
-export const MAX_LEVELS_IN_SAVE = MAX_LEVEL_DATA - 1;
+export const MAX_LEVELS_IN_SAVE = 32;
 
 type PublicLevels2PageProps = {
 	currentSlug: CategorySlug;
@@ -43,11 +42,6 @@ type InternalLevels2PageProps = {
 	onPreviousClick: () => void;
 	onVoteClick: (level: LevelWithVoting) => void;
 };
-
-const maxLevelsPerSave =
-	typeof window !== 'undefined' && window.location.search.includes('moLevels')
-		? 72
-		: 32;
 
 function Levels2Page({
 	allFilesReady,
@@ -159,7 +153,10 @@ function Levels2Page({
 										isChosen={chosenLevels.includes(l)}
 										areFilesReady={allFilesReady}
 										onChosenChange={(newChosen) => {
-											if (newChosen && chosenLevels.length < maxLevelsPerSave) {
+											if (
+												newChosen &&
+												chosenLevels.length < MAX_LEVELS_IN_SAVE
+											) {
 												setChosenLevels((cl) => cl.concat(l));
 											} else {
 												setChosenLevels((cl) => cl.filter((cll) => cll !== l));
