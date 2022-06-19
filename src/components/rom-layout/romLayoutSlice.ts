@@ -11,6 +11,10 @@ import { inGameLevels } from '../../levelData/inGameLevels';
 import { ROM_SIZE } from './constants';
 import { CompressedTilesRomSection, RomSection } from './types';
 import { IN_GAME_LEVEL_HEADER_SIZE } from '../../levelData/constants';
+import {
+	FIRST_LEVEL_NAME_OFFSET,
+	OFFSET_AFTER_NAME_TABLE,
+} from '../../../scripts/wiiu/constants';
 
 type RomLayoutState = {
 	sections: RomSection[];
@@ -57,7 +61,8 @@ function getSize(rom: Uint8Array, offset: number): number {
 	return size;
 }
 
-const loadSections = (): RomLayoutThunkAction => async (dispatch) => {
+const loadSections = (): RomLayoutThunkAction => async (dispatch, getState) => {
+	const { wiiUMode } = getState().fileLoader;
 	const rom = getRom();
 
 	if (!rom) {
@@ -101,9 +106,46 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch) => {
 		return building.concat(sections);
 	}, []);
 
-	const allSections: RomSection[] = (compressedTileSections as RomSection[]).concat(
+	let allSections = (compressedTileSections as RomSection[]).concat(
 		levelSections
 	);
+	if (wiiUMode) {
+		const compressedLevelSections: RomSection[] = [];
+
+		for (let i = 0; i < 72; ++i) {
+			compressedLevelSections.push({
+				label: 'e-reader lvl ' + i,
+				start: 0x400008 + 0x800 * i,
+				size: 0x800,
+				type: 'compressed-e-level',
+			});
+		}
+
+		const levelNameTableSection: RomSection = {
+			label: 'level name table',
+			start: FIRST_LEVEL_NAME_OFFSET,
+			size: OFFSET_AFTER_NAME_TABLE - FIRST_LEVEL_NAME_OFFSET,
+			type: 'level-name-table',
+		};
+
+		const eCoinSections: RomSection[] = [];
+
+		const ecoinStart = 0x425040;
+
+		for (let c = 0; c < 8; ++c) {
+			eCoinSections.push({
+				label: 'e-coin ' + c,
+				start: ecoinStart + 288 * c,
+				size: 288,
+				type: 'e-coin',
+			});
+		}
+
+		allSections = allSections
+			.concat(compressedLevelSections)
+			.concat(levelNameTableSection)
+			.concat(eCoinSections);
+	}
 
 	dispatch(romLayoutSlice.actions.setSections(allSections.sort(sortByStart)));
 };

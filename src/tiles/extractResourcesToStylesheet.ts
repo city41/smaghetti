@@ -48,7 +48,7 @@ function gba16ToRgb(gba16: number): [number, number, number] {
 	return [red8, green8, blue8];
 }
 
-const DEFAULT_PALETTE: number[] = (function () {
+export const DEFAULT_PALETTE: number[] = (function () {
 	const p = [];
 	for (let i = 0; i < 16; ++i) {
 		const red = Math.floor((i / 15) * 255);

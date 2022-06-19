@@ -21,7 +21,7 @@ function gbaToBgColor(gbaColor: [number, number]): string {
 	return `rgb(${asRgbArray[0]}, ${asRgbArray[1]}, ${asRgbArray[2]})`;
 }
 
-const ECOIN_TILES = [
+export const ECOIN_TILES = [
 	[0, 1, 2],
 	[3, 4, 5],
 	[6, 7, 8],

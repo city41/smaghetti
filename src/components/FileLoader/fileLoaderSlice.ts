@@ -25,12 +25,14 @@ type RomFileState =
 	| 'checksum-error'
 	| 'wrong-version-error'
 	| 'wiiu-version-error'
+	| 'sma4-11-version-error'
 	| 'error';
 type OtherFilesState = 'loading' | 'success' | 'error';
 
 type ExtractionState = 'not-started' | 'extracting' | 'complete';
 
 type FileLoaderState = {
+	wiiUMode: boolean;
 	romFileState: RomFileState;
 	biosFileState: OtherFilesState;
 	emptySaveFileState: OtherFilesState;
@@ -53,6 +55,7 @@ const SMA4_V1_SHA = '69e81f41394f02d64cad206adb26b3cd43690770';
 const WIIU_SHA = 'dd2879329ec52bd5372f26b75297a67f1a81215a';
 
 const defaultInitialState: FileLoaderState = {
+	wiiUMode: false,
 	romFileState: 'not-chosen',
 	biosFileState: 'loading',
 	emptySaveFileState: 'loading',
@@ -96,6 +99,9 @@ const fileLoaderSlice = createSlice({
 	name: 'fileLoader',
 	initialState,
 	reducers: {
+		wiiUMode(state: FileLoaderState) {
+			state.wiiUMode = true;
+		},
 		// reducers related to the base files
 		biosState(state: FileLoaderState, action: PayloadAction<OtherFilesState>) {
 			state.biosFileState = action.payload;
@@ -155,7 +161,7 @@ const fileLoaderSlice = createSlice({
 
 type FileLoaderThunk = ThunkAction<void, AppState, null, Action>;
 
-const loadRom = (file: File): FileLoaderThunk => async (dispatch) => {
+const loadRom = (file: File): FileLoaderThunk => async (dispatch, getState) => {
 	try {
 		dispatch(fileLoaderSlice.actions.romState('loading'));
 
@@ -165,15 +171,30 @@ const loadRom = (file: File): FileLoaderThunk => async (dispatch) => {
 
 			const sha = sha1(romFile);
 
-			if (sha === SMA4_V1_SHA) {
-				dispatch(fileLoaderSlice.actions.romState('wrong-version-error'));
-			} else if (sha === WIIU_SHA) {
-				dispatch(fileLoaderSlice.actions.romState('wiiu-version-error'));
-			} else if (sha !== SMA4_SHA) {
-				dispatch(fileLoaderSlice.actions.romState('checksum-error'));
+			const { wiiUMode } = getState().fileLoader;
+
+			if (wiiUMode) {
+				if (sha === SMA4_V1_SHA) {
+					dispatch(fileLoaderSlice.actions.romState('wrong-version-error'));
+				} else if (sha === SMA4_SHA) {
+					dispatch(fileLoaderSlice.actions.romState('sma4-11-version-error'));
+				} else if (sha !== WIIU_SHA) {
+					dispatch(fileLoaderSlice.actions.romState('checksum-error'));
+				} else {
+					setRom(romFile);
+					dispatch(fileLoaderSlice.actions.romState('success'));
+				}
 			} else {
-				setRom(romFile);
-				dispatch(fileLoaderSlice.actions.romState('success'));
+				if (sha === SMA4_V1_SHA) {
+					dispatch(fileLoaderSlice.actions.romState('wrong-version-error'));
+				} else if (sha === WIIU_SHA) {
+					dispatch(fileLoaderSlice.actions.romState('wiiu-version-error'));
+				} else if (sha !== SMA4_SHA) {
+					dispatch(fileLoaderSlice.actions.romState('checksum-error'));
+				} else {
+					setRom(romFile);
+					dispatch(fileLoaderSlice.actions.romState('success'));
+				}
 			}
 		});
 
@@ -387,6 +408,8 @@ const reducer = fileLoaderSlice.reducer;
 
 export type { FileLoaderState, OtherFilesState, ExtractionState };
 
+const { wiiUMode } = fileLoaderSlice.actions;
+
 export {
 	reducer,
 	loadBios,
@@ -395,4 +418,5 @@ export {
 	loadSaveState,
 	loadExampleLevel,
 	extract,
+	wiiUMode,
 };

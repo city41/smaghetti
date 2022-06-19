@@ -58,6 +58,10 @@ function NextToolsIndexPage() {
 						the ROM which can be code, data, graphics, audio, etc. Brand new and
 						has a loooooong ways to go.
 					</li>
+					<li>
+						<a href="./wiiu-rom-layout">WII-U ROM Layout</a>: just like ROM
+						Layout above, but using the WII-U Virtual Console version of the ROM
+					</li>
 				</ul>
 			</div>
 		</Root>

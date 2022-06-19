@@ -11,10 +11,18 @@ import { LevelSpritesDetails } from './LevelSpritesDetails';
 
 import styles from './RomLayoutPage.module.css';
 import { SectionPercentage } from './SectionPercentage';
+import { PalettedEntity } from '../../palettes/PalettesPage/PalettedEntity';
+import { getRom } from '../../FileLoader/files';
+import { ECOIN_TILES } from '../../hex-tree/HexTreePage/ECoin';
+import {
+	DEFAULT_PALETTE,
+	extractResourceTileData,
+} from '../../../tiles/extractResourcesToStylesheet';
 
 type RomLayoutPageProps = {
 	allFilesReady: boolean;
 	sections: RomSection[];
+	wiiUMode?: boolean;
 };
 
 function Details({ section }: { section: RomSection }) {
@@ -47,6 +55,19 @@ function RomSectionCmp({ section }: { section: RomSection }) {
 				<LevelObjectsPreview offset={section.start} size={section.size} />
 			);
 			break;
+		case 'e-coin': {
+			const rom = getRom();
+			const extractedPixelData = extractResourceTileData(rom!, {
+				romOffset: section.start,
+				tiles: ECOIN_TILES,
+				palettes: [DEFAULT_PALETTE],
+			});
+
+			preview = (
+				<PalettedEntity entity={extractedPixelData} palette={DEFAULT_PALETTE} />
+			);
+			break;
+		}
 		default:
 			preview = '-';
 	}
@@ -76,20 +97,32 @@ function RomSectionCmp({ section }: { section: RomSection }) {
 	);
 }
 
-const sectionTypes: RomSectionType[] = [
+const gbaSectionTypes: RomSectionType[] = [
 	'compressed-tiles',
 	'level-objects',
 	'level-sprites',
 ];
 
-function RomLayoutPage({ allFilesReady, sections }: RomLayoutPageProps) {
+const wiiUiSectionTypes: RomSectionType[] = gbaSectionTypes.concat([
+	'level-name-table',
+	'compressed-e-level',
+	'e-coin',
+]);
+
+function RomLayoutPage({
+	allFilesReady,
+	sections,
+	wiiUMode,
+}: RomLayoutPageProps) {
 	const [sectionToShow, setSectionToShow] = useState<RomSectionType | null>(
 		null
 	);
 
+	const sectionTypes = wiiUMode ? wiiUiSectionTypes : gbaSectionTypes;
+
 	return (
 		<>
-			<FileLoaderModal isOpen={!allFilesReady} />
+			<FileLoaderModal isOpen={!allFilesReady} wiiUMode={wiiUMode} />
 
 			<div className="max-w-2xl mx-auto my-16">
 				<p className="bg-green-700 text-white p-2">

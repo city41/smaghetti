@@ -8,6 +8,7 @@ import { IconCheckCircle, IconExclamationCircle } from '../../../icons';
 type PublicFileLoaderModalProps = {
 	isOpen: boolean;
 	onRequestClose?: () => void;
+	wiiUMode?: boolean;
 };
 
 type InternalFileLoaderModalProps = {
@@ -18,6 +19,7 @@ type InternalFileLoaderModalProps = {
 		| 'checksum-error'
 		| 'wrong-version-error'
 		| 'wiiu-version-error'
+		| 'sma4-11-version-error'
 		| 'error';
 	otherFilesState: 'loading' | 'success' | 'error';
 	onRomFileChosen: (romFile: File) => void;
@@ -133,6 +135,7 @@ function BaseFiles({
 			break;
 		case 'wrong-version-error':
 		case 'wiiu-version-error':
+		case 'sma4-11-version-error':
 		case 'checksum-error':
 			romBody = (
 				<DropZone onFileChosen={cacheRomThenOnChosen}>
@@ -143,6 +146,8 @@ function BaseFiles({
 								'This is the 1.0 version, Smaghetti needs 1.1'
 							) : romFileState === 'wiiu-version-error' ? (
 								'This is the Wii U version, Smaghetti needs 1.1'
+							) : romFileState === 'sma4-11-version-error' ? (
+								'This is the 1.1 GBA version, the Wii-U version is needed here'
 							) : (
 								<>
 									Checksum failed,
