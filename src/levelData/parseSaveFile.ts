@@ -5,7 +5,7 @@ import {
 	MAX_ECOIN_TABLE,
 	MAX_LEVEL_DATA,
 	MAX_LEVEL_RECORDS,
-	MAX_NAME_SIZE,
+	MAX_LEVEL_NAME_SIZE,
 	OFFSET_ECOIN,
 	OFFSET_ACECOIN,
 	OFFSET_LEVELINFO,
@@ -20,8 +20,8 @@ import { convertLevelNameToASCII, getLevelDataAddress } from './util';
 function getLevelName(saveData: Uint8Array, index: number): Uint8Array {
 	const name: number[] = [];
 
-	for (let i = 0; i < MAX_NAME_SIZE; ++i) {
-		const letter = saveData[OFFSET_NAME + index * MAX_NAME_SIZE + i];
+	for (let i = 0; i < MAX_LEVEL_NAME_SIZE; ++i) {
+		const letter = saveData[OFFSET_NAME + index * MAX_LEVEL_NAME_SIZE + i];
 
 		name.push(letter);
 

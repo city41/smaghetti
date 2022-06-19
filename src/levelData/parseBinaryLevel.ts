@@ -13,7 +13,7 @@ import {
 import {
 	ECOIN_TILE_SIZE,
 	LEVEL_ECOIN_TILE_OFFSET,
-	MAX_NAME_SIZE,
+	MAX_LEVEL_NAME_SIZE,
 	OBJECT_HEADER_SIZE,
 } from './typesAndConstants';
 import { convertLevelNameToASCII } from './util';
@@ -69,7 +69,7 @@ function parseLevelName(levelBytes: Uint8Array): string {
 		levelBytes[0] === 0 ? 0x40 : LEVEL_ECOIN_TILE_OFFSET + ECOIN_TILE_SIZE;
 
 	return convertLevelNameToASCII(
-		levelBytes.subarray(nameOffset, nameOffset + MAX_NAME_SIZE)
+		levelBytes.subarray(nameOffset, nameOffset + MAX_LEVEL_NAME_SIZE)
 	);
 }
 

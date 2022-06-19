@@ -8,7 +8,7 @@ import {
 	OFFSET_ECOIN_TILE_DATA,
 	ECOIN_PALETTE_SIZE,
 	ECOIN_TILE_SIZE,
-	MAX_NAME_SIZE,
+	MAX_LEVEL_NAME_SIZE,
 	MAX_DATA_SIZE,
 	MAX_SAVE_SIZE,
 	OFFSET_ECOIN,
@@ -82,14 +82,14 @@ function saveLevelRecords(saveData: Uint8Array, saveFile: SaveFile) {
 		// Name
 		let terminate = 0;
 		let emptyname = 1;
-		for (let j = 0; j < MAX_NAME_SIZE; j++) {
+		for (let j = 0; j < MAX_LEVEL_NAME_SIZE; j++) {
 			if (!terminate) {
-				saveData[OFFSET_NAME + i * MAX_NAME_SIZE + j] =
+				saveData[OFFSET_NAME + i * MAX_LEVEL_NAME_SIZE + j] =
 					levelRecords[i].info.name[j];
 				if (levelRecords[i].info.name[j] == 0xff) terminate = 1;
 				else emptyname = 0;
 			} else {
-				saveData[OFFSET_NAME + i * MAX_NAME_SIZE + j] = 0;
+				saveData[OFFSET_NAME + i * MAX_LEVEL_NAME_SIZE + j] = 0;
 			}
 		}
 
@@ -398,7 +398,7 @@ function findFreeLevelDataID(saveFile: SaveFile): number {
 
 function compareLevelInfo(info1: ELevelInfo, info2: ELevelInfo): boolean {
 	// Name
-	for (let i = 0; i < MAX_NAME_SIZE; i++) {
+	for (let i = 0; i < MAX_LEVEL_NAME_SIZE; i++) {
 		if (info1.name[i] != info2.name[i]) {
 			return false;
 		} else if (info1.name[i] == 0xff && info2.name[i] == 0xff) {

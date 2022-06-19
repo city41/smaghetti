@@ -62,6 +62,7 @@ import { deserialize } from '../../level/deserialize';
 import { convertLevelToLatestVersion } from '../../level/versioning/convertLevelToLatestVersion';
 import { getRom } from '../FileLoader/files';
 import { InGameLevel } from '../../levelData/inGameLevels';
+import { MAX_LEVEL_NAME_SIZE } from '../../levelData/typesAndConstants';
 
 type HexTreeMode = 'rom' | 'e-reader';
 
@@ -125,7 +126,7 @@ function getLevelName(data: number[]): string {
 	while (
 		address < data.length &&
 		data[address] !== 0xff &&
-		address < start + 21
+		address < start + MAX_LEVEL_NAME_SIZE
 	) {
 		const char = convertCharacterToASCII(data[address]);
 		chars.push(char);

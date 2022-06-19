@@ -11,6 +11,7 @@ import { MUSIC_VALUES } from '../../../../levelData/constants';
 import { LEVEL_TAGS, ROOM_WIDTH_INCREMENT } from '../../constants';
 import { IconTrash, IconHammer } from '../../../../icons';
 import _ from 'lodash';
+import { MAX_LEVEL_NAME_SIZE } from '../../../../levelData/typesAndConstants';
 
 type Help = {
 	title: string;
@@ -198,11 +199,11 @@ function ManageLevel({
 							value={levelName}
 							onChange={(e) => onLevelNameChange(e.target.value)}
 						/>
-						{levelName.length > 21 && (
+						{levelName.length > MAX_LEVEL_NAME_SIZE && (
 							<div className="text-gray-400 text-xs p-0.5">
 								only{' '}
 								<span className="font-bold underline">
-									{levelName.substr(0, 21)}
+									{levelName.substr(0, MAX_LEVEL_NAME_SIZE)}
 								</span>{' '}
 								will show up in the game
 							</div>

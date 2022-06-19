@@ -1,0 +1,6 @@
+import { MAX_LEVEL_NAME_SIZE } from '../../src/levelData/typesAndConstants';
+
+export const WIIU_EREADER_LEVEL_COUNT = 38;
+export const FIRST_LEVEL_NAME_OFFSET = 0x424000;
+export const LAST_LEVEL_NAME_OFFSET =
+	FIRST_LEVEL_NAME_OFFSET + WIIU_EREADER_LEVEL_COUNT * MAX_LEVEL_NAME_SIZE;

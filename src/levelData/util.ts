@@ -1,4 +1,4 @@
-import { ECoinInfo, MAX_NAME_SIZE } from './typesAndConstants';
+import { ECoinInfo, MAX_LEVEL_NAME_SIZE } from './typesAndConstants';
 import { asciiToEReader } from './asciiToEReader';
 import { TILE_SIZE } from '../tiles/constants';
 import { entityMap } from '../entities/entityMap';
@@ -119,7 +119,7 @@ export function extractName(
 	const nameStart = eCoinID === 0 ? 0x40 : 0x180;
 	let name: number[] = [];
 
-	for (let i = 0; i < MAX_NAME_SIZE; ++i) {
+	for (let i = 0; i < MAX_LEVEL_NAME_SIZE; ++i) {
 		name.push(inputData[nameStart + i]);
 
 		if (name[name.length - 1] === 0xff) {
