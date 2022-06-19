@@ -17,6 +17,7 @@ type InternalFileLoaderModalProps = {
 		| 'success'
 		| 'checksum-error'
 		| 'wrong-version-error'
+		| 'wiiu-version-error'
 		| 'error';
 	otherFilesState: 'loading' | 'success' | 'error';
 	onRomFileChosen: (romFile: File) => void;
@@ -126,6 +127,7 @@ function BaseFiles({
 			);
 			break;
 		case 'wrong-version-error':
+		case 'wiiu-version-error':
 		case 'checksum-error':
 			romBody = (
 				<DropZone onFileChosen={cacheRomThenOnChosen}>
@@ -134,6 +136,8 @@ function BaseFiles({
 						<div className="ml-2">
 							{romFileState === 'wrong-version-error' ? (
 								'This is the 1.0 version, Smaghetti needs 1.1'
+							) : romFileState === 'wiiu-version-error' ? (
+								'This is the Wii U version, Smaghetti needs 1.1'
 							) : (
 								<>
 									Checksum failed,

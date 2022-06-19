@@ -24,6 +24,7 @@ type RomFileState =
 	| 'success'
 	| 'checksum-error'
 	| 'wrong-version-error'
+	| 'wiiu-version-error'
 	| 'error';
 type OtherFilesState = 'loading' | 'success' | 'error';
 
@@ -45,6 +46,7 @@ type FileLoaderState = {
 const SMA4_SHA = '532f3307021637474b6dd37da059ca360f612337';
 // the sha for the old v1 version of the rom
 const SMA4_V1_SHA = '69e81f41394f02d64cad206adb26b3cd43690770';
+const WIIU_SHA = 'dd2879329ec52bd5372f26b75297a67f1a81215a';
 
 const defaultInitialState: FileLoaderState = {
 	romFileState: 'not-chosen',
@@ -151,6 +153,8 @@ const loadRom = (file: File): FileLoaderThunk => async (dispatch) => {
 
 			if (sha === SMA4_V1_SHA) {
 				dispatch(fileLoaderSlice.actions.romState('wrong-version-error'));
+			} else if (sha === WIIU_SHA) {
+				dispatch(fileLoaderSlice.actions.romState('wiiu-version-error'));
 			} else if (sha !== SMA4_SHA) {
 				dispatch(fileLoaderSlice.actions.romState('checksum-error'));
 			} else {
