@@ -1,7 +1,11 @@
 import 'ignore-styles';
 import * as fs from 'fs';
 import * as path from 'path';
-import { FIRST_LEVEL_NAME_OFFSET, WIIU_EREADER_LEVEL_COUNT } from './constants';
+import {
+	FIRST_LEVEL_NAME_OFFSET,
+	// OFFSET_AFTER_NAME_TABLE,
+	WIIU_EREADER_LEVEL_COUNT,
+} from './constants';
 import { convertLevelNameToASCII } from '../../src/levelData/util';
 import { toHexString } from '../../src/components/hex-tree/HexTreePage/util';
 
@@ -11,9 +15,22 @@ function dumpLevelNames(romData: Uint8Array) {
 
 		const name = convertLevelNameToASCII(romData.slice(offset, offset + 21));
 
-		console.log(toHexString(offset), name);
+		console.log(toHexString(offset), name || '<blank>');
 	}
 }
+
+// function dumpAfterNames(romData: Uint8Array) {
+// 	const slice = romData.slice(
+// 		OFFSET_AFTER_NAME_TABLE,
+// 		OFFSET_AFTER_NAME_TABLE + 1024
+// 	);
+
+// 	const hexStrings = Array.from(slice).map((b) => toHexString(b));
+// 	console.log('after level names');
+// 	console.log(hexStrings.join(' '));
+
+// 	console.log('OFFSET_AFTER_NAME_TABLE', toHexString(OFFSET_AFTER_NAME_TABLE));
+// }
 
 function usage() {
 	console.error(
