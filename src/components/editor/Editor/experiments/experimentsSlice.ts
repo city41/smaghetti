@@ -5,9 +5,8 @@ import { createLevelData } from '../../../../levelData/createLevelData';
 import { sendBlobToAnchorTag } from '../../../../levelData/downloadLevelAsSaveFile';
 import {
 	createOverwrite1_1IPSPatch,
-	createOverwriteClassic1_1InVCVersionIPSPatch,
-} from '../../../../levelData/level1_1';
-import { MAX_LEVEL_NAME_SIZE } from '../../../../levelData/typesAndConstants';
+	createVCIPSPatch,
+} from '../../../../levelData/ipsPatches';
 import { convertASCIIToLevelName } from '../../../../levelData/util';
 import { AppState } from '../../../../store';
 
@@ -84,19 +83,7 @@ const downloadOverwriteClassic1_1InVCVersionIPS = (): ExperimentThunk => (
 		compressed1.length < compressed2.length ? compressed1 : compressed2;
 
 	const nameAsBinary = convertASCIIToLevelName(name);
-
-	if (nameAsBinary.length < MAX_LEVEL_NAME_SIZE) {
-		nameAsBinary.push(0xff);
-
-		while (nameAsBinary.length < MAX_LEVEL_NAME_SIZE) {
-			nameAsBinary.push(0);
-		}
-	}
-
-	const ips = createOverwriteClassic1_1InVCVersionIPSPatch(
-		compressed,
-		nameAsBinary
-	);
+	const ips = createVCIPSPatch([compressed], [nameAsBinary]);
 
 	const fileBlob = new Blob([ips.buffer], {
 		type: 'application/octet-stream',

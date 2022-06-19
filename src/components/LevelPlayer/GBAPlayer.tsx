@@ -6,7 +6,7 @@ import { injectLevelIntoSave } from '../../levelData/injectLevelIntoSave';
 
 import styles from './GBAPlayer.module.css';
 import { ECoinInfo } from '../../levelData/typesAndConstants';
-import { overwriteLevel1_1 } from '../../levelData/level1_1';
+import { overwriteLevel1_1 } from '../../levelData/overwrite1_1';
 
 type GBAPlayerProps = {
 	className?: string;
