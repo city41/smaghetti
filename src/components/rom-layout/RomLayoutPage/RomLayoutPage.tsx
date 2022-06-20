@@ -8,6 +8,7 @@ import { LevelObjectsPreview } from './LevelObjectsPreview';
 import { LevelObjectsDetails } from './LevelObjectsDetails';
 import { LevelSpritesPreview } from './LevelSpritesPreview';
 import { LevelSpritesDetails } from './LevelSpritesDetails';
+import { LevelNameTableDetails } from './LevelNameTableDetails';
 
 import styles from './RomLayoutPage.module.css';
 import { SectionPercentage } from './SectionPercentage';
@@ -25,6 +26,13 @@ type RomLayoutPageProps = {
 	wiiUMode?: boolean;
 };
 
+const HAS_DETAILS: RomSectionType[] = [
+	'compressed-tiles',
+	'level-sprites',
+	'level-objects',
+	'level-name-table',
+];
+
 function Details({ section }: { section: RomSection }) {
 	switch (section.type) {
 		case 'compressed-tiles':
@@ -33,8 +41,12 @@ function Details({ section }: { section: RomSection }) {
 			return <LevelSpritesDetails offset={section.start} />;
 		case 'level-objects':
 			return <LevelObjectsDetails offset={section.start} size={section.size} />;
+		case 'level-name-table':
+			return (
+				<LevelNameTableDetails offset={section.start} size={section.size} />
+			);
 		default:
-			return <>details</>;
+			return null;
 	}
 }
 
@@ -76,9 +88,11 @@ function RomSectionCmp({ section }: { section: RomSection }) {
 		<>
 			<tr className={section.type}>
 				<td>
-					<Button onClick={() => setShowDetails((d) => !d)}>
-						{showDetails ? '-' : '+'}
-					</Button>
+					{HAS_DETAILS.includes(section.type) && (
+						<Button onClick={() => setShowDetails((d) => !d)}>
+							{showDetails ? '-' : '+'}
+						</Button>
+					)}
 				</td>
 				<td>0x{section.start.toString(16)}</td>
 				<td>0x{section.size.toString(16)}</td>
