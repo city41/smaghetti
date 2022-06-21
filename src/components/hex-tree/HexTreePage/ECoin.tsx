@@ -39,10 +39,12 @@ function ECoin({ data }: ECoinProps) {
 		);
 		const paletteEntries = [];
 		const palette16Bit: Tuple<number, 16> = [];
+		const palette16BitRaw: Tuple<number, 16> = [];
 
 		for (let i = 0; i < palette.length; i += 2) {
 			paletteEntries.push(palette.slice(i, i + 2).reverse());
 			palette16Bit.push((palette[i + 1] << 8) | palette[i]);
+			palette16BitRaw.push(palette[i], palette[i + 1]);
 		}
 
 		const extractedPixelData = extractResourceTileData(data, {
@@ -73,6 +75,12 @@ function ECoin({ data }: ECoinProps) {
 						</div>
 					))}
 				</div>
+				<p>(Displayed raw, little endian)</p>
+				<div className="flex flex-row flex-wrap gap-x-2">
+					<div className="bg-gray-400 px-1">
+						{bytesToHexString(palette16BitRaw)}
+					</div>
+				</div>
 				<h2>Coin</h2>
 				<PalettedEntity
 					className="w-16 h-16"
@@ -81,11 +89,9 @@ function ECoin({ data }: ECoinProps) {
 				/>
 				<p>(Displayed raw, little endian)</p>
 				<div className="flex flex-row flex-wrap gap-x-2">
-					{rawPixelData.map((pe, i) => (
-						<div key={i} className="bg-gray-400 px-1">
-							{bytesToHexString([pe])}
-						</div>
-					))}
+					<div className="bg-gray-400 px-1">
+						{bytesToHexString(rawPixelData)}
+					</div>
 				</div>
 			</div>
 		);

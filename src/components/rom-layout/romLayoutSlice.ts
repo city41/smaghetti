@@ -15,6 +15,7 @@ import {
 	FIRST_LEVEL_NAME_OFFSET,
 	OFFSET_AFTER_NAME_TABLE,
 } from '../../../scripts/wiiu/constants';
+import { ECOIN_PALETTE_SIZE } from '../../levelData/typesAndConstants';
 
 type RomLayoutState = {
 	sections: RomSection[];
@@ -141,10 +142,23 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch, getState) => {
 			});
 		}
 
+		const ecoinPaletteSections: RomSection[] = [];
+		const ecoinPaletteStart = 0x426b40;
+
+		for (let i = 0; i < 8; ++i) {
+			ecoinPaletteSections.push({
+				label: 'e-coin-palette' + i,
+				start: ecoinPaletteStart + ECOIN_PALETTE_SIZE * i,
+				size: ECOIN_PALETTE_SIZE,
+				type: 'e-coin-palette',
+			});
+		}
+
 		allSections = allSections
 			.concat(compressedLevelSections)
 			.concat(levelNameTableSection)
-			.concat(eCoinSections);
+			.concat(eCoinSections)
+			.concat(ecoinPaletteSections);
 	}
 
 	dispatch(romLayoutSlice.actions.setSections(allSections.sort(sortByStart)));

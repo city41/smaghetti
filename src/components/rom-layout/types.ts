@@ -31,11 +31,17 @@ export type ECoinSection = BaseRomSection & {
 	type: 'e-coin';
 };
 
+export type ECoinPaletteSection = BaseRomSection & {
+	type: 'e-coin-palette';
+};
+
 export type RomSection =
 	| CompressedTilesRomSection
 	| LevelObjectsRomSection
 	| LevelSpritesRomSection
 	| LevelNameTableSection
 	| CompressELevelSection
-	| ECoinSection;
+	| ECoinSection
+	| ECoinPaletteSection;
+
 export type RomSectionType = RomSection['type'];

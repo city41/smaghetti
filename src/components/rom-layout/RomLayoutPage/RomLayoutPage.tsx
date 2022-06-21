@@ -9,17 +9,17 @@ import { LevelObjectsDetails } from './LevelObjectsDetails';
 import { LevelSpritesPreview } from './LevelSpritesPreview';
 import { LevelSpritesDetails } from './LevelSpritesDetails';
 import { LevelNameTableDetails } from './LevelNameTableDetails';
+import { PalettePreview } from './PalettePreview';
 
 import styles from './RomLayoutPage.module.css';
 import { SectionPercentage } from './SectionPercentage';
 import { PalettedEntity } from '../../palettes/PalettesPage/PalettedEntity';
 import { getRom } from '../../FileLoader/files';
 import { ECOIN_TILES } from '../../hex-tree/HexTreePage/ECoin';
-import {
-	DEFAULT_PALETTE,
-	extractResourceTileData,
-} from '../../../tiles/extractResourcesToStylesheet';
+import { extractResourceTileData } from '../../../tiles/extractResourcesToStylesheet';
 import { toHexString } from '../../hex-tree/HexTreePage/util';
+import { ECOIN_PALETTE_SIZE } from '../../../levelData/typesAndConstants';
+import { bytesToHexString } from '../../hex-tree/HexTreePage/HexTree/ByteInputField';
 
 type RomLayoutPageProps = {
 	allFilesReady: boolean;
@@ -32,6 +32,7 @@ const HAS_DETAILS: RomSectionType[] = [
 	'level-sprites',
 	'level-objects',
 	'level-name-table',
+	'e-coin-palette',
 ];
 
 function Details({ section }: { section: RomSection }) {
@@ -46,6 +47,13 @@ function Details({ section }: { section: RomSection }) {
 			return (
 				<LevelNameTableDetails offset={section.start} size={section.size} />
 			);
+		case 'e-coin-palette': {
+			const palette = Array.from(
+				getRom()!.slice(section.start, section.start + section.size)
+			);
+
+			return <div>{bytesToHexString(palette)}</div>;
+		}
 		default:
 			return null;
 	}
@@ -69,16 +77,30 @@ function RomSectionCmp({ section }: { section: RomSection }) {
 			);
 			break;
 		case 'e-coin': {
-			const rom = getRom();
-			const extractedPixelData = extractResourceTileData(rom!, {
+			const rom = getRom()!;
+			const palette = Array.from(
+				rom.slice(0x426b40, 0x426b40 + ECOIN_PALETTE_SIZE)
+			);
+			const palette16Bit: Tuple<number, 16> = [];
+
+			for (let i = 0; i < palette.length; i += 2) {
+				palette16Bit.push((palette[i + 1] << 8) | palette[i]);
+			}
+
+			const extractedPixelData = extractResourceTileData(rom, {
 				romOffset: section.start,
 				tiles: ECOIN_TILES,
-				palettes: [DEFAULT_PALETTE],
+				palettes: [palette],
 			});
 
 			preview = (
-				<PalettedEntity entity={extractedPixelData} palette={DEFAULT_PALETTE} />
+				<PalettedEntity entity={extractedPixelData} palette={palette16Bit} />
 			);
+
+			break;
+		}
+		case 'e-coin-palette': {
+			preview = <PalettePreview offset={section.start} size={section.size} />;
 			break;
 		}
 		case 'compressed-e-level': {
@@ -128,6 +150,7 @@ const wiiUiSectionTypes: RomSectionType[] = gbaSectionTypes.concat([
 	'level-name-table',
 	'compressed-e-level',
 	'e-coin',
+	'e-coin-palette',
 ]);
 
 function RomLayoutPage({
