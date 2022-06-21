@@ -121,7 +121,7 @@ function BaseFiles({
 			romBody = (
 				<div className="px-4">
 					loading ROM
-					<LoadingBar percent={100} />
+					<LoadingBar percent={-1} />
 				</div>
 			);
 			break;
@@ -191,7 +191,7 @@ function BaseFiles({
 			otherFilesBody = (
 				<div>
 					loading other needed files
-					<LoadingBar percent={100} />
+					<LoadingBar percent={-1} />
 				</div>
 			);
 			break;

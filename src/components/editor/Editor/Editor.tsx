@@ -303,7 +303,7 @@ function Editor({
 					<div className="fixed top-0 left-0 w-screen h-screen opacity-75 bg-gray-700 z-10" />
 					<div className="fixed top-1/3 left-1/3 w-1/3 grid place-items-center z-10">
 						<div>Loading level data ...</div>
-						<LoadingBar className="w-48" percent={100} />
+						<LoadingBar className="w-48" percent={-1} />
 					</div>
 				</>
 			)}

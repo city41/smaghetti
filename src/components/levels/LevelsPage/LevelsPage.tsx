@@ -85,7 +85,7 @@ function LevelsPage({
 	switch (loadState) {
 		case 'dormant':
 		case 'loading':
-			body = <LoadingBar percent={100} />;
+			body = <LoadingBar percent={-1} />;
 			break;
 		case 'error':
 			body = (

@@ -57,7 +57,7 @@ function ECoinsPage({
 					)}
 				>
 					{loadingState === 'loading' && (
-						<LoadingBar className="flex-1" percent={100} />
+						<LoadingBar className="flex-1" percent={-1} />
 					)}
 					{loadingState === 'success' && (
 						<>

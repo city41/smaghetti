@@ -10,8 +10,8 @@ const meta: Meta = {
 
 export default meta;
 
-export const Basic = () => {
-	return <LoadingBar percent={100} />;
+export const Indeterminate = () => {
+	return <LoadingBar percent={-1} />;
 };
 
 export const Filling = () => {

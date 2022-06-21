@@ -143,7 +143,7 @@ function Levels2Page({
 							'mt-8': !currentCategory?.subtitle,
 						})}
 					>
-						{loadingState === 'loading' && <LoadingBar percent={100} />}
+						{loadingState === 'loading' && <LoadingBar percent={-1} />}
 						{loadingState === 'success' && (
 							<>
 								{levels.map((l) => (

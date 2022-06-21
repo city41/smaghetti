@@ -39,7 +39,7 @@ function SaveFileList({
 	let body;
 
 	if (emptySaveFileState === 'loading') {
-		body = <LoadingBar className="col-span-2" percent={100} />;
+		body = <LoadingBar className="col-span-2" percent={-1} />;
 	} else if (emptySaveFileState === 'error') {
 		body = (
 			<div className="bg-red-200 text-red-900 col-span-2 p-1">
