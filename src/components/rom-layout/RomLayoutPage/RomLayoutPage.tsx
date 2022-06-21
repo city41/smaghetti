@@ -19,6 +19,7 @@ import {
 	DEFAULT_PALETTE,
 	extractResourceTileData,
 } from '../../../tiles/extractResourcesToStylesheet';
+import { toHexString } from '../../hex-tree/HexTreePage/util';
 
 type RomLayoutPageProps = {
 	allFilesReady: boolean;
@@ -78,6 +79,12 @@ function RomSectionCmp({ section }: { section: RomSection }) {
 			preview = (
 				<PalettedEntity entity={extractedPixelData} palette={DEFAULT_PALETTE} />
 			);
+			break;
+		}
+		case 'compressed-e-level': {
+			const header = getRom()!.slice(section.start, section.start + 8);
+			const headerHex = Array.from(header).map(toHexString);
+			preview = <div>{headerHex.join(' ')} A S R O</div>;
 			break;
 		}
 		default:

@@ -115,8 +115,8 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch, getState) => {
 		for (let i = 0; i < 72; ++i) {
 			compressedLevelSections.push({
 				label: 'e-reader lvl ' + i,
-				start: 0x400008 + 0x800 * i,
-				size: 0x800,
+				start: 0x400000 + 0x800 * i,
+				size: 0x808,
 				type: 'compressed-e-level',
 			});
 		}
