@@ -10,6 +10,7 @@ import { LevelSpritesPreview } from './LevelSpritesPreview';
 import { LevelSpritesDetails } from './LevelSpritesDetails';
 import { LevelNameTableDetails } from './LevelNameTableDetails';
 import { PalettePreview } from './PalettePreview';
+import { AceCoinTotalDetails } from './AceCoinTotalDetails';
 
 import styles from './RomLayoutPage.module.css';
 import { SectionPercentage } from './SectionPercentage';
@@ -27,12 +28,27 @@ type RomLayoutPageProps = {
 	wiiUMode?: boolean;
 };
 
+const gbaSectionTypes: RomSectionType[] = [
+	'compressed-tiles',
+	'level-objects',
+	'level-sprites',
+];
+
+const wiiUiSectionTypes: RomSectionType[] = gbaSectionTypes.concat([
+	'level-name-table',
+	'compressed-e-level',
+	'e-coin',
+	'e-coin-palette',
+	'ace-coin-total-section',
+]);
+
 const HAS_DETAILS: RomSectionType[] = [
 	'compressed-tiles',
 	'level-sprites',
 	'level-objects',
 	'level-name-table',
 	'e-coin-palette',
+	'ace-coin-total-section',
 ];
 
 function Details({ section }: { section: RomSection }) {
@@ -54,6 +70,8 @@ function Details({ section }: { section: RomSection }) {
 
 			return <div>{bytesToHexString(palette)}</div>;
 		}
+		case 'ace-coin-total-section':
+			return <AceCoinTotalDetails offset={section.start} size={section.size} />;
 		default:
 			return null;
 	}
@@ -139,19 +157,6 @@ function RomSectionCmp({ section }: { section: RomSection }) {
 		</>
 	);
 }
-
-const gbaSectionTypes: RomSectionType[] = [
-	'compressed-tiles',
-	'level-objects',
-	'level-sprites',
-];
-
-const wiiUiSectionTypes: RomSectionType[] = gbaSectionTypes.concat([
-	'level-name-table',
-	'compressed-e-level',
-	'e-coin',
-	'e-coin-palette',
-]);
 
 function RomLayoutPage({
 	allFilesReady,

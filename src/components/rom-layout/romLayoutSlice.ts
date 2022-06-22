@@ -9,7 +9,11 @@ import { extractCompressedTilesFromRom } from '../../tiles/extractCompressedTile
 import { getRom } from '../FileLoader/files';
 import { inGameLevels } from '../../levelData/inGameLevels';
 import { ROM_SIZE } from './constants';
-import { CompressedTilesRomSection, RomSection } from './types';
+import {
+	AceCoinTotalSection,
+	CompressedTilesRomSection,
+	RomSection,
+} from './types';
 import { IN_GAME_LEVEL_HEADER_SIZE } from '../../levelData/constants';
 import {
 	FIRST_LEVEL_NAME_OFFSET,
@@ -154,11 +158,18 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch, getState) => {
 			});
 		}
 
+		const aceCoinTotalSection: AceCoinTotalSection = {
+			type: 'ace-coin-total-section',
+			start: 0x424600,
+			size: 72,
+		};
+
 		allSections = allSections
 			.concat(compressedLevelSections)
 			.concat(levelNameTableSection)
 			.concat(eCoinSections)
-			.concat(ecoinPaletteSections);
+			.concat(ecoinPaletteSections)
+			.concat(aceCoinTotalSection);
 	}
 
 	dispatch(romLayoutSlice.actions.setSections(allSections.sort(sortByStart)));
