@@ -13,6 +13,7 @@ import {
 	AceCoinTotalSection,
 	CompressedTilesRomSection,
 	RomSection,
+	UnknownLevelRecordSection,
 } from './types';
 import { IN_GAME_LEVEL_HEADER_SIZE } from '../../levelData/constants';
 import {
@@ -164,12 +165,31 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch, getState) => {
 			size: 72,
 		};
 
+		const unknownLevelRecordSections: UnknownLevelRecordSection[] = [
+			{
+				type: 'unknown-level-record-section',
+				start: 0x424648,
+				size: 72,
+			},
+			{
+				type: 'unknown-level-record-section',
+				start: 0x424690,
+				size: 72,
+			},
+			{
+				type: 'unknown-level-record-section',
+				start: 0x4246d8,
+				size: 72,
+			},
+		];
+
 		allSections = allSections
 			.concat(compressedLevelSections)
 			.concat(levelNameTableSection)
 			.concat(eCoinSections)
 			.concat(ecoinPaletteSections)
-			.concat(aceCoinTotalSection);
+			.concat(aceCoinTotalSection)
+			.concat(unknownLevelRecordSections);
 	}
 
 	dispatch(romLayoutSlice.actions.setSections(allSections.sort(sortByStart)));

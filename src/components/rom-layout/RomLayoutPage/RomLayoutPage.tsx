@@ -40,6 +40,7 @@ const wiiUiSectionTypes: RomSectionType[] = gbaSectionTypes.concat([
 	'e-coin',
 	'e-coin-palette',
 	'ace-coin-total-section',
+	'unknown-level-record-section',
 ]);
 
 const HAS_DETAILS: RomSectionType[] = [
@@ -49,6 +50,7 @@ const HAS_DETAILS: RomSectionType[] = [
 	'level-name-table',
 	'e-coin-palette',
 	'ace-coin-total-section',
+	'unknown-level-record-section',
 ];
 
 function Details({ section }: { section: RomSection }) {
@@ -72,6 +74,12 @@ function Details({ section }: { section: RomSection }) {
 		}
 		case 'ace-coin-total-section':
 			return <AceCoinTotalDetails offset={section.start} size={section.size} />;
+		case 'unknown-level-record-section': {
+			const bytes = Array.from(
+				getRom()!.slice(section.start, section.start + section.size)
+			);
+			return <div>{bytesToHexString(bytes)}</div>;
+		}
 		default:
 			return null;
 	}

@@ -39,6 +39,10 @@ export type AceCoinTotalSection = BaseRomSection & {
 	type: 'ace-coin-total-section';
 };
 
+export type UnknownLevelRecordSection = BaseRomSection & {
+	type: 'unknown-level-record-section';
+};
+
 export type RomSection =
 	| CompressedTilesRomSection
 	| LevelObjectsRomSection
@@ -47,6 +51,7 @@ export type RomSection =
 	| CompressELevelSection
 	| ECoinSection
 	| ECoinPaletteSection
-	| AceCoinTotalSection;
+	| AceCoinTotalSection
+	| UnknownLevelRecordSection;
 
 export type RomSectionType = RomSection['type'];
