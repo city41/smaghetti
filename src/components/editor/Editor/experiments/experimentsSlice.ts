@@ -1,7 +1,10 @@
 import { Action, createSlice, ThunkAction } from '@reduxjs/toolkit';
 import _ from 'lodash';
 import { compress } from '../../../../levelData/compress';
-import { createLevelData } from '../../../../levelData/createLevelData';
+import {
+	createLevelData,
+	getAllEntities,
+} from '../../../../levelData/createLevelData';
 import { sendBlobToAnchorTag } from '../../../../levelData/downloadLevelAsSaveFile';
 import {
 	createOverwrite1_1IPSPatch,
@@ -75,6 +78,14 @@ const downloadOverwriteClassic1_1InVCVersionIPS = (): ExperimentThunk => (
 		},
 	};
 
+	const allEntities = getAllEntities(level.data.rooms);
+
+	const aceCoinCount =
+		allEntities.filter((e) => e.type === 'AceCoin').length +
+		allEntities.filter(
+			(e) => e.type === 'Bubble' && e.settings?.payload === 'AceCoin'
+		).length;
+
 	const levelData = createLevelData(level);
 	const compressed1 = compress(levelData, 0);
 	const compressed2 = compress(levelData, 0x80);
@@ -83,7 +94,7 @@ const downloadOverwriteClassic1_1InVCVersionIPS = (): ExperimentThunk => (
 		compressed1.length < compressed2.length ? compressed1 : compressed2;
 
 	const nameAsBinary = convertASCIIToLevelName(name);
-	const ips = createVCIPSPatch([compressed], [nameAsBinary]);
+	const ips = createVCIPSPatch([compressed], [nameAsBinary], [aceCoinCount]);
 
 	const fileBlob = new Blob([ips.buffer], {
 		type: 'application/octet-stream',

@@ -933,6 +933,7 @@ function createLevelData(level: LevelToLoadInGBA): Uint8Array {
 
 export {
 	createLevelData,
+	getAllEntities,
 	getLevelName,
 	setPointer,
 	getPendingObjects,

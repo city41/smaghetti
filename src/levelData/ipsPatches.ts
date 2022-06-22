@@ -59,11 +59,15 @@ export function createOverwrite1_1IPSPatch(level: Uint8Array): Uint8Array {
 
 export function createVCIPSPatch(
 	compressedLevels: Uint8Array[],
-	nameBinaries: number[][]
+	nameBinaries: number[][],
+	aceCoinTotals: number[]
 ): Uint8Array {
-	if (compressedLevels.length !== nameBinaries.length) {
+	if (
+		compressedLevels.length !== nameBinaries.length ||
+		compressedLevels.length !== aceCoinTotals.length
+	) {
 		throw new Error(
-			`createVCIPSPatch, different number of levels (${compressedLevels.length}), vs names (${nameBinaries.length})`
+			`createVCIPSPatch, different number of levels (${compressedLevels.length}), vs names (${nameBinaries.length}, vs ace coint totals (${aceCoinTotals.length}))`
 		);
 	}
 
@@ -93,7 +97,18 @@ export function createVCIPSPatch(
 			...pad(Array.from(compressedLevel), 0x800),
 		];
 
-		ipsData = [...ipsData, ...levelNameTablePatch, ...compressedLevelPatch];
+		const aceCoinTotalPatch = [
+			...toBytes(0x424600 + i, 3),
+			...toBytes(1, 2),
+			aceCoinTotals[i] << 5,
+		];
+
+		ipsData = [
+			...ipsData,
+			...levelNameTablePatch,
+			...compressedLevelPatch,
+			...aceCoinTotalPatch,
+		];
 	}
 
 	ipsData = [...ipsData, ...IPS_EOF];
