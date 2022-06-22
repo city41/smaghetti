@@ -5,7 +5,7 @@ import {
 	extractCompressedTilesFromRom,
 	TilePage,
 } from '../../src/tiles/extractCompressedTilesFromRom';
-import { ROM_SIZE } from '../../src/components/rom-layout/constants';
+import { ROM_SIZE_1_1 } from '../../src/components/rom-layout/constants';
 
 function hex(num: number): string {
 	return `0x` + num.toString(16);
@@ -56,7 +56,7 @@ function generateJavaCalls(pages: TilePage[]): string {
 
 	const lastPage = pages[pages.length - 1];
 	const start = lastPage.address + lastPage.compressedLength;
-	const remainingSpace = ROM_SIZE - start + 1;
+	const remainingSpace = ROM_SIZE_1_1 - start + 1;
 	const finalCall = blockCall('rom', start, remainingSpace, true);
 
 	return initialCall + '\n' + calls + finalCall;

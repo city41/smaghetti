@@ -8,7 +8,6 @@ import { AppState } from '../../store';
 import { extractCompressedTilesFromRom } from '../../tiles/extractCompressedTilesFromRom';
 import { getRom } from '../FileLoader/files';
 import { inGameLevels } from '../../levelData/inGameLevels';
-import { ROM_SIZE } from './constants';
 import {
 	AceCoinTotalSection,
 	CompressedTilesRomSection,
@@ -31,7 +30,7 @@ type RomLayoutState = {
 const defaultInitialState: RomLayoutState = {
 	sections: [],
 	sectionsTotalSize: 0,
-	romSize: ROM_SIZE,
+	romSize: 0,
 };
 
 const initialState = defaultInitialState;
@@ -46,6 +45,9 @@ const romLayoutSlice = createSlice({
 			state.sectionsTotalSize = state.sections.reduce<number>((building, s) => {
 				return building + s.size;
 			}, 0);
+		},
+		setRomSize(state: RomLayoutState, action: PayloadAction<number>) {
+			state.romSize = action.payload;
 		},
 	},
 });
@@ -193,6 +195,7 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch, getState) => {
 	}
 
 	dispatch(romLayoutSlice.actions.setSections(allSections.sort(sortByStart)));
+	dispatch(romLayoutSlice.actions.setRomSize(getRom()!.length));
 };
 
 const reducer = romLayoutSlice.reducer;
