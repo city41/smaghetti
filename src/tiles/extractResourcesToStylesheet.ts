@@ -306,7 +306,12 @@ async function extractResourcesToStylesheet(
 
 		css = `${css}\n.${resourceName}-bg { background-image: url(${dataUrl}); }`;
 
-		onExtractionDone(resourceName);
+		if (!localItem) {
+			// only show progress when the user first loads a ROM
+			// TODO: this is a hack because updating progress redraws the whole editor
+			// and so extraction is significantly slowed down
+			onExtractionDone(resourceName);
+		}
 	}
 
 	const textNode = document.createTextNode(css);
