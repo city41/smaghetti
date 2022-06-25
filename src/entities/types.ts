@@ -225,7 +225,8 @@ type Entity = {
 	getTransports?: (args: getTransportProps) => EditorTransport[];
 	simpleRender: (size: number) => ReactElement;
 	render: (arg: renderProps) => ReactElement | null;
-	getECoinData?: (entity: EditorEntity) => number[] | undefined;
+	getECoinTileData?: (entity: EditorEntity) => number[] | undefined;
+	getECoinPaletteData?: (entity: EditorEntity) => number[] | undefined;
 
 	/**
 	 * Used to take SMA4 object bytes as found in a level

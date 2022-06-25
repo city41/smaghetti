@@ -131,9 +131,9 @@ function LevelRow({
 
 	const hasECoin = level.data.rooms.some(
 		(r) =>
-			r.stage.entities.some((e) => entityMap[e.type].getECoinData?.(e)) ||
+			r.stage.entities.some((e) => entityMap[e.type].getECoinTileData?.(e)) ||
 			r.stage.matrix.some((r) =>
-				r?.some((c) => c && entityMap[c.type].getECoinData?.(c))
+				r?.some((c) => c && entityMap[c.type].getECoinTileData?.(c))
 			)
 	);
 

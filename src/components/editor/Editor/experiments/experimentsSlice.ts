@@ -1,5 +1,6 @@
 import { Action, createSlice, ThunkAction } from '@reduxjs/toolkit';
 import _ from 'lodash';
+import { entityMap } from '../../../../entities/entityMap';
 import { compress } from '../../../../levelData/compress';
 import {
 	createLevelData,
@@ -94,7 +95,21 @@ const downloadOverwriteClassic1_1InVCVersionIPS = (): ExperimentThunk => (
 		compressed1.length < compressed2.length ? compressed1 : compressed2;
 
 	const nameAsBinary = convertASCIIToLevelName(name);
-	const ips = createVCIPSPatch([compressed], [nameAsBinary], [aceCoinCount]);
+
+	const eCoinDataProvider = allEntities.find((e) =>
+		entityMap[e.type].getECoinTileData?.(e)
+	);
+
+	const eCoinTileData = eCoinDataProvider
+		? entityMap[eCoinDataProvider.type].getECoinTileData!(eCoinDataProvider)!
+		: null;
+
+	const ips = createVCIPSPatch(
+		[compressed],
+		[nameAsBinary],
+		[aceCoinCount],
+		[eCoinTileData]
+	);
 
 	const fileBlob = new Blob([ips.buffer], {
 		type: 'application/octet-stream',

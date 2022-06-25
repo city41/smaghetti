@@ -832,7 +832,7 @@ function createLevelData(level: LevelToLoadInGBA): Uint8Array {
 		).length;
 
 	const eCoinDataProvider = allEntities.find((e) =>
-		entityMap[e.type].getECoinData?.(e)
+		entityMap[e.type].getECoinTileData?.(e)
 	);
 
 	const header = getHeader(eCoinDataProvider ? 1 : 0, aceCoinCount);
@@ -841,10 +841,15 @@ function createLevelData(level: LevelToLoadInGBA): Uint8Array {
 	// empty bytes between pointer and name so that name starts at 0x40
 	const nullBytes = new Array(11).fill(0);
 
-	const eCoinData = eCoinDataProvider
-		? entityMap[eCoinDataProvider.type].getECoinData!(eCoinDataProvider)!
+	const eCoinTileData = eCoinDataProvider
+		? entityMap[eCoinDataProvider.type].getECoinTileData!(eCoinDataProvider)!
 		: [];
 
+	const eCoinPaletteData = eCoinDataProvider
+		? entityMap[eCoinDataProvider.type].getECoinPaletteData!(eCoinDataProvider)!
+		: [];
+
+	const eCoinData = eCoinPaletteData.concat(eCoinTileData);
 	const name = getLevelName(level.name);
 
 	const pointerOffset =

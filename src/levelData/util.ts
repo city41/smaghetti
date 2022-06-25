@@ -160,7 +160,7 @@ export function getECoinInfo(level: LevelToLoadInGBA): ECoinInfo | null {
 		);
 
 		const eCoinDataProvider = roomEntities.find((e) =>
-			entityMap[e.type].getECoinData?.(e)
+			entityMap[e.type].getECoinTileData?.(e)
 		);
 
 		if (eCoinDataProvider) {

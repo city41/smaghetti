@@ -19,7 +19,10 @@ import {
 	FIRST_LEVEL_NAME_OFFSET,
 	OFFSET_AFTER_NAME_TABLE,
 } from '../../../scripts/wiiu/constants';
-import { ECOIN_PALETTE_SIZE } from '../../levelData/typesAndConstants';
+import {
+	ECOIN_PALETTE_SIZE,
+	ECOIN_TILE_SIZE,
+} from '../../levelData/typesAndConstants';
 
 type RomLayoutState = {
 	sections: RomSection[];
@@ -70,7 +73,7 @@ function getSize(rom: Uint8Array, offset: number): number {
 }
 
 const loadSections = (): RomLayoutThunkAction => async (dispatch, getState) => {
-	const { wiiUMode } = getState().fileLoader;
+	const { mode } = getState().fileLoader;
 	const rom = getRom();
 
 	if (!rom) {
@@ -117,7 +120,7 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch, getState) => {
 	let allSections = (compressedTileSections as RomSection[]).concat(
 		levelSections
 	);
-	if (wiiUMode) {
+	if (mode === 'wiiu' || mode === 'any') {
 		const compressedLevelSections: RomSection[] = [];
 
 		for (let i = 0; i < 72; ++i) {
@@ -144,7 +147,7 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch, getState) => {
 			eCoinSections.push({
 				label: 'e-coin ' + c,
 				start: ecoinStart + 288 * c,
-				size: 288,
+				size: ECOIN_TILE_SIZE,
 				type: 'e-coin',
 			});
 		}

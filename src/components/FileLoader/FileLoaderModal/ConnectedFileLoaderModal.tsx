@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { AppState, dispatch } from '../../../store';
 import { FileLoaderModal, PublicFileLoaderModalProps } from './FileLoaderModal';
 import {
-	wiiUMode,
+	setMode,
 	loadBios,
 	loadRom,
 	loadEmptySave,
@@ -37,10 +37,8 @@ function ConnectedFileLoaderModal(props: PublicFileLoaderModalProps) {
 	}, []);
 
 	useEffect(() => {
-		if (props.wiiUMode) {
-			dispatch(wiiUMode());
-		}
-	}, [props.wiiUMode]);
+		dispatch(setMode(props.mode));
+	}, [props.mode]);
 
 	useEffect(() => {
 		if (

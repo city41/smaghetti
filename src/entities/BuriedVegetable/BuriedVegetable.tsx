@@ -112,10 +112,18 @@ const BuriedVegetable: Entity = {
 		}
 	},
 
-	getECoinData(entity) {
+	getECoinTileData(entity) {
 		if (entity.settings?.payload === 'ECoin') {
 			const coinData = (entity.settings?.coinData ?? ECoinTileData) as number[];
-			return ECoinPaletteData.concat(coinData);
+			// returns either the custom made data, or the default smaghetti coin
+			return coinData ?? ECoinTileData;
+		}
+	},
+
+	getECoinPaletteData(entity: EditorEntity) {
+		if (entity.settings?.payload === 'ECoin') {
+			// so far all ecoins use the standard ecoin palette
+			return ECoinPaletteData;
 		}
 	},
 

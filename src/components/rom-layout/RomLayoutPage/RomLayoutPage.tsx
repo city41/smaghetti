@@ -25,7 +25,7 @@ import { bytesToHexString } from '../../hex-tree/HexTreePage/HexTree/ByteInputFi
 type RomLayoutPageProps = {
 	allFilesReady: boolean;
 	sections: RomSection[];
-	wiiUMode?: boolean;
+	mode: '1.1' | 'wiiu' | 'any';
 };
 
 const gbaSectionTypes: RomSectionType[] = [
@@ -166,20 +166,16 @@ function RomSectionCmp({ section }: { section: RomSection }) {
 	);
 }
 
-function RomLayoutPage({
-	allFilesReady,
-	sections,
-	wiiUMode,
-}: RomLayoutPageProps) {
+function RomLayoutPage({ allFilesReady, sections, mode }: RomLayoutPageProps) {
 	const [sectionToShow, setSectionToShow] = useState<RomSectionType | null>(
 		null
 	);
 
-	const sectionTypes = wiiUMode ? wiiUiSectionTypes : gbaSectionTypes;
+	const sectionTypes = mode === '1.1' ? gbaSectionTypes : wiiUiSectionTypes;
 
 	return (
 		<>
-			<FileLoaderModal isOpen={!allFilesReady} wiiUMode={wiiUMode} />
+			<FileLoaderModal isOpen={!allFilesReady} mode={mode} />
 
 			<div className="max-w-2xl mx-auto my-16">
 				<p className="bg-green-700 text-white p-2">

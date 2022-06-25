@@ -16,7 +16,11 @@ function ConnectedWiiURomLayoutPage() {
 	}, [allFilesReady]);
 
 	return (
-		<RomLayoutPage allFilesReady={allFilesReady} sections={sections} wiiUMode />
+		<RomLayoutPage
+			allFilesReady={allFilesReady}
+			sections={sections}
+			mode="any"
+		/>
 	);
 }
 

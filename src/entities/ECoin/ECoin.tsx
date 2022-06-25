@@ -54,9 +54,15 @@ const ECoin: Entity = {
 		return [0, this.objectId, x, y, 1];
 	},
 
-	getECoinData(entity: EditorEntity) {
+	getECoinTileData(entity: EditorEntity) {
 		const coinData = (entity.settings?.coinData ?? ECoinTileData) as number[];
-		return ECoinPaletteData.concat(coinData);
+		// returns either the custom made data, or the default smaghetti coin
+		return coinData ?? ECoinTileData;
+	},
+
+	getECoinPaletteData(_entity: EditorEntity) {
+		// so far all ecoins use the standard ecoin palette
+		return ECoinPaletteData;
 	},
 
 	simpleRender(size) {

@@ -8,7 +8,7 @@ import { IconCheckCircle, IconExclamationCircle } from '../../../icons';
 type PublicFileLoaderModalProps = {
 	isOpen: boolean;
 	onRequestClose?: () => void;
-	wiiUMode?: boolean;
+	mode?: '1.1' | 'wiiu' | 'both' | 'any';
 };
 
 type InternalFileLoaderModalProps = {
@@ -73,13 +73,15 @@ function DropZone({
 }
 
 function BaseFiles({
+	mode,
 	romFileState,
 	otherFilesState,
 	onRomFileChosen,
 }: Pick<
 	InternalFileLoaderModalProps,
 	'romFileState' | 'otherFilesState' | 'onRomFileChosen'
->) {
+> &
+	Pick<PublicFileLoaderModalProps, 'mode'>) {
 	function cacheRomThenOnChosen(romFile: File) {
 		localForage.setItem<File>(ROM_KEY, romFile);
 		onRomFileChosen(romFile);
@@ -143,7 +145,7 @@ function BaseFiles({
 						<IconExclamationCircle className="text-2xl text-red-200" />
 						<div className="ml-2">
 							{romFileState === 'wrong-version-error' ? (
-								'This is the 1.0 version, Smaghetti needs 1.1'
+								`This is the 1.0 version, Smaghetti needs the ${mode} version`
 							) : romFileState === 'wiiu-version-error' ? (
 								'This is the Wii U version, Smaghetti needs 1.1'
 							) : romFileState === 'sma4-11-version-error' ? (
@@ -248,6 +250,7 @@ function ExtractingResources({
 function FileLoaderModal({
 	isOpen,
 	onRequestClose,
+	mode,
 	otherFilesState,
 	romFileState,
 	onRomFileChosen,
@@ -266,6 +269,7 @@ function FileLoaderModal({
 	if (overallExtractionState === 'not-started') {
 		body = (
 			<BaseFiles
+				mode={mode}
 				romFileState={romFileState}
 				otherFilesState={otherFilesState}
 				onRomFileChosen={onRomFileChosen}

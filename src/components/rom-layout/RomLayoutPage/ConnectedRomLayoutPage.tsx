@@ -15,7 +15,13 @@ function ConnectedRomLayoutPage() {
 		}
 	}, [allFilesReady]);
 
-	return <RomLayoutPage allFilesReady={allFilesReady} sections={sections} />;
+	return (
+		<RomLayoutPage
+			allFilesReady={allFilesReady}
+			sections={sections}
+			mode="1.1"
+		/>
+	);
 }
 
 export { ConnectedRomLayoutPage };
