@@ -128,7 +128,32 @@ export function createVCIPSPatch(
 		];
 	}
 
-	ipsData = [...ipsData, ...IPS_EOF];
+	// get playable bits table
+	let levelCount = compressedLevels.length;
+	const playableBitsBytes = [];
+
+	while (levelCount > 8) {
+		playableBitsBytes.push(0xff);
+		levelCount -= 8;
+	}
+
+	if (levelCount > 0) {
+		const bitString = new Array(levelCount).fill('1').join('');
+		const bitStringByte = parseInt(bitString, 2);
+		playableBitsBytes.push(bitStringByte);
+	}
+
+	while (playableBitsBytes.length < 8) {
+		playableBitsBytes.push(0);
+	}
+
+	const playableBitsPatch = [
+		...toBytes(0x424690, 3),
+		...toBytes(playableBitsBytes.length, 2),
+		...playableBitsBytes,
+	];
+
+	ipsData = [...ipsData, ...playableBitsPatch, ...IPS_EOF];
 
 	return new Uint8Array(ipsData);
 }

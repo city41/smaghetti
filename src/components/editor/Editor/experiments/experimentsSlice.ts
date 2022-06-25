@@ -104,11 +104,23 @@ const downloadOverwriteClassic1_1InVCVersionIPS = (): ExperimentThunk => (
 		? entityMap[eCoinDataProvider.type].getECoinTileData!(eCoinDataProvider)!
 		: null;
 
+	const compressedLevels = [];
+	const names = [];
+	const aceCoins = [];
+	const eCoinTileDatas = [];
+
+	for (let i = 0; i < 1; ++i) {
+		compressedLevels.push(compressed);
+		names.push(nameAsBinary);
+		aceCoins.push(aceCoinCount);
+		eCoinTileDatas.push(eCoinTileData);
+	}
+
 	const ips = createVCIPSPatch(
-		[compressed],
-		[nameAsBinary],
-		[aceCoinCount],
-		[eCoinTileData]
+		compressedLevels,
+		names,
+		aceCoins,
+		eCoinTileDatas
 	);
 
 	const fileBlob = new Blob([ips.buffer], {
