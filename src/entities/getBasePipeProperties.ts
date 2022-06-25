@@ -108,6 +108,7 @@ export function getBasePipeProperties(type: EntityType) {
 			const dest = settings.destination as DestinationSetProps;
 
 			let sourceY = y;
+			let sourceX = x;
 
 			if (type === 'PipeVertical' || type === 'PipeAirshipVertical') {
 				if (settings.direction === 'up') {
@@ -117,13 +118,17 @@ export function getBasePipeProperties(type: EntityType) {
 				}
 			}
 
+			if (type === 'PipeHorizontal' && settings.direction === 'right') {
+				sourceX = x + settings.width - 2;
+			}
+
 			if (dest) {
 				return [
 					{
 						destRoom: dest.room,
 						destX: dest.x,
 						destY: dest.y,
-						x,
+						x: sourceX,
 						y: sourceY,
 						room,
 						exitCategory: 'pipe',
