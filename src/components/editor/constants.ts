@@ -23,6 +23,8 @@ export const MIN_ROOM_TILE_HEIGHT = PLAY_WINDOW_TILE_HEIGHT;
 
 // 64 and up causes the map to wrap, and corrupts the level
 export const MAX_ROOM_TILE_HEIGHT = 63;
+// a room must be wrap-around to be taller than 63.
+export const MAX_WRAP_AROUND_ROOM_TILE_HEIGHT = 100;
 
 export const LEVEL_TAGS = [
 	'-',

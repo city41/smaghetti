@@ -24,6 +24,7 @@ import {
 	MIN_ROOM_TILE_HEIGHT,
 	MAX_ROOM_TILE_HEIGHT,
 	PLAY_WINDOW_TILE_WIDTH,
+	MAX_WRAP_AROUND_ROOM_TILE_HEIGHT,
 } from './constants';
 import { getPlayerScaleFromWindow } from '../../util/getPlayerScaleFromWindow';
 import { saveLevel as saveLevelMutation } from '../../remoteData/saveLevel';
@@ -1500,6 +1501,10 @@ const editorSlice = createSlice({
 				room.roomTileWidth = PLAY_WINDOW_TILE_WIDTH;
 			} else {
 				room.roomTileWidth = Math.max(room.roomTileWidth, ROOM_WIDTH_INCREMENT);
+				room.roomTileHeight = Math.min(
+					room.roomTileHeight,
+					MAX_ROOM_TILE_HEIGHT
+				);
 			}
 		},
 		tagChange(
@@ -1538,10 +1543,13 @@ const editorSlice = createSlice({
 			}
 
 			if (height) {
+				const maxRoomTileHeight = room.settings.wrapAround
+					? MAX_WRAP_AROUND_ROOM_TILE_HEIGHT
+					: MAX_ROOM_TILE_HEIGHT;
 				room.roomTileHeight = clamp(
 					height,
 					MIN_ROOM_TILE_HEIGHT,
-					MAX_ROOM_TILE_HEIGHT
+					maxRoomTileHeight
 				);
 			}
 		},
