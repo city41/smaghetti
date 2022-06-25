@@ -95,9 +95,17 @@ export function createVCIPSPatch(
 		];
 
 		const compressedLevelPatch = [
-			...toBytes(0x400008 + 0x800 * i, 3),
+			...toBytes(0x400000 + 0x800 * i, 3),
 			...toBytes(0x800, 2),
-			...pad(Array.from(compressedLevel), 0x800),
+			i + 1,
+			0,
+			0xff,
+			0xff,
+			0xff,
+			0xff,
+			0xff,
+			0,
+			...pad(Array.from(compressedLevel), 0x800 - 8),
 		];
 
 		const aceCoinTotalPatch = [
@@ -153,7 +161,26 @@ export function createVCIPSPatch(
 		...playableBitsBytes,
 	];
 
-	ipsData = [...ipsData, ...playableBitsPatch, ...IPS_EOF];
+	const recordIdBytes = new Array(72).fill(0).map((_, i) => {
+		if (compressedLevels[i]) {
+			return i + 1;
+		} else {
+			return 0;
+		}
+	});
+
+	const recordIdTablePatch = [
+		...toBytes(0x424648, 3),
+		...toBytes(recordIdBytes.length, 2),
+		...recordIdBytes,
+	];
+
+	ipsData = [
+		...ipsData,
+		...playableBitsPatch,
+		...recordIdTablePatch,
+		...IPS_EOF,
+	];
 
 	return new Uint8Array(ipsData);
 }

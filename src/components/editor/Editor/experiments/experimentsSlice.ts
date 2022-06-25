@@ -109,7 +109,7 @@ const downloadOverwriteClassic1_1InVCVersionIPS = (): ExperimentThunk => (
 	const aceCoins = [];
 	const eCoinTileDatas = [];
 
-	for (let i = 0; i < 1; ++i) {
+	for (let i = 0; i < 38; ++i) {
 		compressedLevels.push(compressed);
 		names.push(nameAsBinary);
 		aceCoins.push(aceCoinCount);
