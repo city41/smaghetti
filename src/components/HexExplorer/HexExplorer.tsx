@@ -29,53 +29,67 @@ type HexExplorerProps = {
 function HexExplorer({
 	className,
 	bytes,
-	chunkSize = 24,
+	chunkSize = 32,
 	onBytesChange,
 }: HexExplorerProps) {
-	const chunks: number[][] = [];
+	const rows: number[][] = [];
 
 	for (let i = 0; i < bytes.length; i += chunkSize) {
 		const row = Array.from(bytes.slice(i, i + chunkSize));
-		chunks.push(row);
+		rows.push(row);
 	}
 
-	const cellRenderer: GridCellRenderer = ({
-		columnIndex,
-		key,
-		rowIndex,
-		style,
-	}) => {
-		const value = chunks[rowIndex]?.[columnIndex];
+	// const cellRenderer: GridCellRenderer = ({
+	// 	columnIndex,
+	// 	key,
+	// 	rowIndex,
+	// 	style,
+	// }) => {
+	// 	const value = rows[rowIndex]?.[columnIndex];
+
+	// 	return (
+	// 		typeof value === 'number' && (
+	// 			<ByteInputField
+	// 				key={key}
+	// 				style={style}
+	// 				fullInput
+	// 				value={[rows[rowIndex][columnIndex]]}
+	// 				onChange={() => {}}
+	// 			/>
+	// 		)
+	// 	);
+	// };
+
+	const rowEls = rows.map((r, i) => {
+		const byteEls = r.map((b, bi) => {
+			return <ByteInputField key={bi} value={[b]} onChange={() => {}} />;
+		});
 
 		return (
-			typeof value === 'number' && (
-				<ByteInputField
-					key={key}
-					style={style}
-					fullInput
-					value={[chunks[rowIndex][columnIndex]]}
-					onChange={() => {}}
-				/>
-			)
+			<div key={i} className="w-full flex flex-row gap-x-1 justify-evenly">
+				{byteEls}
+			</div>
 		);
-	};
+	});
 
-	return (
-		<AutoSizer>
-			{({ width, height }) => (
-				<Grid
-					cellRenderer={cellRenderer}
-					columnCount={chunkSize}
-					columnWidth={width / (chunkSize + 1)}
-					columnHeight={100}
-					rowCount={chunks.length}
-					rowHeight={30}
-					width={width}
-					height={height}
-				/>
-			)}
-		</AutoSizer>
-	);
+	return <div className="w-full flex flex-col gap-y-1">{rowEls}</div>;
+
+	// return (
+	// 	<AutoSizer>
+	// 		{({ width, height }) => (
+	// 			<Grid
+	// 				cellRenderer={cellRenderer}
+	// 				columnCount={chunkSize}
+	// 				columnWidth={width / (chunkSize + 1)}
+	// 				columnHeight={100}
+	// 				rowCount={rows.length}
+	// 				rowHeight={30}
+	// 				width={width}
+	// 				height={height}
+	// 			/>
+	// 		)}
+	// 	</AutoSizer>
+	// );
 }
 
 export { HexExplorer };

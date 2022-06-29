@@ -41,7 +41,7 @@ function ByteInputField({
 		>
 			<input
 				className={clsx('invert', {
-					'w-12': !fullInput,
+					'w-8': !fullInput,
 					'w-full': fullInput,
 				})}
 				type="text"
