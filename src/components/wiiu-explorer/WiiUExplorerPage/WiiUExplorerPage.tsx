@@ -6,7 +6,13 @@ type WiiUExplorerPageProps = {
 };
 
 function WiiUExplorerPage({ bytes }: WiiUExplorerPageProps) {
-	return <HexExplorer bytes={bytes} />;
+	console.log('bytes.length', bytes.length);
+	return (
+		<div>
+			h-e
+			<HexExplorer bytes={bytes} />
+		</div>
+	);
 }
 
 export { WiiUExplorerPage };

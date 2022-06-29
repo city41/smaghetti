@@ -22,6 +22,10 @@ type HexExplorerProps = {
 
 function HexExplorer({ className, bytes, onBytesChange }: HexExplorerProps) {
 	const byteFields = Array.from(bytes).map((b, i) => {
+		if (i > 1000) {
+			return null;
+		}
+
 		return (
 			<ByteInputField
 				key={i}

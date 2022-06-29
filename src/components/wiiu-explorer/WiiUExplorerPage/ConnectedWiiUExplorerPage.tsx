@@ -12,7 +12,7 @@ function ConnectedWiiUExplorerPage() {
 	if (allFilesReady) {
 		return <WiiUExplorerPage bytes={getRom()!} />;
 	} else {
-		return <FileLoaderModal isOpen />;
+		return <FileLoaderModal isOpen mode="wiiu" />;
 	}
 }
 
