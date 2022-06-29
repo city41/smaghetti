@@ -32,7 +32,7 @@ function main() {
 	}
 
 	const romPath = process.argv[2];
-	const byteString = process.argv[3];
+	const byteString = process.argv[3].replace(/,/g, ' ');
 
 	if (!romPath || !byteString) {
 		usage();
@@ -74,7 +74,7 @@ function main() {
 			const slice = romData.slice(i, i + bytes.length);
 			const foundBytes = Array.from(slice)
 				.map((b) => b.toString(16))
-				.join(',');
+				.join(' ');
 
 			console.log('match at', i.toString(16), foundBytes);
 		}
