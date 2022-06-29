@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
+import { ByteInputField } from './ByteInputField';
 
 type OnBytesChangeProps = {
 	address: number;
@@ -15,12 +16,28 @@ type OnAnnotationprops = {
 type HexExplorerProps = {
 	className?: string;
 	bytes: number[] | Uint8Array;
-	onBytesChange: (props: OnBytesChangeProps) => void;
-	onAnnotation: (props: OnAnnotationprops) => void;
+	onBytesChange?: (props: OnBytesChangeProps) => void;
+	onAnnotation?: (props: OnAnnotationprops) => void;
 };
 
-function HexExplorer({ className }: HexExplorerProps) {
-	return <div className={clsx(className)}>hex explorer</div>;
+function HexExplorer({ className, bytes, onBytesChange }: HexExplorerProps) {
+	const byteFields = Array.from(bytes).map((b, i) => {
+		return (
+			<ByteInputField
+				key={i}
+				value={[b]}
+				onChange={(newBytes) => {
+					onBytesChange?.({ address: i, bytes: newBytes });
+				}}
+			/>
+		);
+	});
+
+	return (
+		<div className={clsx(className, 'flex flex-row flex-wrap gap-1')}>
+			{byteFields}
+		</div>
+	);
 }
 
 export { HexExplorer };
