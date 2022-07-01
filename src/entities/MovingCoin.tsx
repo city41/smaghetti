@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Entity } from './types';
 import { TILE_SIZE } from '../tiles/constants';
-import { TileSpace } from './TileSpace';
 import { ANY_OBJECT_SET, ANY_SPRITE_GRAPHIC_SET } from './constants';
 import { parseSimpleSprite } from './util';
 
