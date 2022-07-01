@@ -42,7 +42,7 @@ const BulletBillTargetingGenerator: Entity = {
 		return (
 			<GeneratorFrame
 				size={size}
-				resourceClassName="BulletBill-bg bg-no-repeat"
+				resourceClassName="BulletBillTargeting-bg bg-no-repeat"
 				resourceStyle={style}
 			/>
 		);

@@ -142,7 +142,7 @@ const BillBlasterTargeting: Entity = {
 			>
 				<div className="relative flex flex-col" style={orientationStyle}>
 					<div
-						className="absolute right-0 BulletBill-bg bg-cover"
+						className="absolute right-0 BulletBillTargeting-bg bg-cover"
 						style={{ ...bulletBillStyle, ...bulletBillRotateStyle }}
 					/>
 					{barrel}

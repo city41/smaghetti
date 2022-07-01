@@ -237,6 +237,7 @@ import { MetalDonutFloor } from './MetalDonutFloor';
 import { MetalMushroom } from './MetalMushroom';
 import { MontyMole } from './MontyMole';
 import { Morton } from './Morton';
+import { MovingCoin } from './MovingCoin';
 import { Muncher } from './Muncher';
 import { MuncherStrip } from './MuncherStrip';
 import { Mushroom } from './Mushroom';
@@ -335,6 +336,7 @@ import { ScrollStopVerticalEnable } from './ScrollStopVerticalEnable';
 import { Seaweed } from './Seaweed';
 import { SeeSawPlatform } from './SeeSawPlatform';
 import { ShoeGoomba } from './ShoeGoomba';
+import { SilverCoin } from './SilverCoin';
 import { SilverPSwitch } from './SilverPSwitch';
 import { SimpleBlackDoor } from './SimpleBlackDoor';
 import { SledgeBro } from './SledgeBro';
@@ -654,6 +656,7 @@ const entityMap = {
 	MetalMushroom,
 	MontyMole,
 	Morton,
+	MovingCoin,
 	Muncher,
 	MuncherStrip,
 	Mushroom,
@@ -752,6 +755,7 @@ const entityMap = {
 	Seaweed,
 	SeeSawPlatform,
 	ShoeGoomba,
+	SilverCoin,
 	SilverPSwitch,
 	SimpleBlackDoor,
 	SledgeBro,
