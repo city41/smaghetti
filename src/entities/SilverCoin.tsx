@@ -8,7 +8,9 @@ const SilverCoin: Entity = {
 	paletteCategory: 'object',
 	paletteInfo: {
 		title: 'Silver Coin',
-		description: 'Coins generated from Silver P-Switches. Collect 7 or more to gain extra lives.',
+		description:
+			'Coins generated from Silver P-Switches. Collect 7 or more to gain extra lives.',
+		warning: 'These have been known to cause strange bugs. Use with caution.',
 	},
 
 	objectSets: ANY_OBJECT_SET,
