@@ -9,7 +9,9 @@ type ByteInputFieldProps = {
 	style?: CSSProperties;
 	value: number[];
 	onChange: (newValue: number[]) => void;
+	onFocus: () => void;
 	fullInput?: boolean;
+	labelIndex: number;
 };
 
 function bytesToHexString(data: number[]) {
@@ -25,7 +27,9 @@ function ByteInputField({
 	style,
 	value,
 	onChange,
+	onFocus,
 	fullInput,
+	labelIndex,
 }: ByteInputFieldProps) {
 	const [bytesString, setBytesString] = useState(bytesToHexString(value));
 	const [hasFocus, setHasFocus] = useState(false);
@@ -36,7 +40,10 @@ function ByteInputField({
 
 	return (
 		<div
-			className={clsx(className, 'text-sm flex flex-row items-center')}
+			className={clsx(className, 'text-sm flex flex-row items-center', {
+				'border border-yellow-400': labelIndex !== -1 && labelIndex & 1,
+				'border border-green-400': labelIndex !== -1 && !(labelIndex & 1),
+			})}
 			style={style}
 		>
 			<input
@@ -46,7 +53,10 @@ function ByteInputField({
 				})}
 				type="text"
 				value={bytesString}
-				onFocus={() => setHasFocus(true)}
+				onFocus={() => {
+					setHasFocus(true);
+					onFocus?.();
+				}}
 				onChange={(e) => {
 					setBytesString(e.target.value);
 				}}

@@ -29,20 +29,14 @@ function ConnectedWiiUExplorerPage() {
 
 	useEffect(() => {
 		if (curRomData.length) {
-			setCurSections([
-				{
-					offset: 0x400000,
-					bytes: curRomData.slice(0x400000, 0x413020),
-				},
-				{
-					offset: 0x424000,
-					bytes: curRomData.slice(0x424000, 0x426c40),
-				},
-				{
-					offset: 0x426c40,
-					bytes: curRomData.slice(0x426c40, 0x430000),
-				},
-			]);
+			const sections = [];
+			for (let i = 0x400000; i < 0x430000; i += 0x6000) {
+				sections.push({
+					offset: i,
+					bytes: curRomData.slice(i, i + 0x6000),
+				});
+			}
+			setCurSections(sections);
 		}
 	}, [curRomData]);
 

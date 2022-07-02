@@ -55,6 +55,43 @@ const SCRIPT = [
 	},
 ];
 
+const levelLabels = [];
+
+for (let i = 0; i < 72; ++i) {
+	levelLabels.push({
+		start: 0x400000 + i * 0x800,
+		size: 0x800,
+		label: 'compressed level ' + i,
+	});
+}
+
+const levelNameLabels = [];
+
+for (let i = 0; i < 72; ++i) {
+	levelNameLabels.push({
+		start: 0x424000 + i * 21,
+		size: 21,
+		label: 'level name ' + i,
+	});
+}
+
+const labels = [
+	...levelLabels,
+	...levelNameLabels,
+	{ start: 0x424600, size: 72, label: 'level ace coin total table' },
+	{ start: 0x424648, size: 72, label: 'level record id table?' },
+	{ start: 0x425040, size: 0x120 * 8, label: 'e-coin tiles' },
+	{ start: 0x426b40, size: 0x20 * 8, label: 'e-coin palettes' },
+];
+
+function getAnnotationFor(address: number) {
+	const label = labels.find(
+		(l) => l.start <= address && l.start + l.size > address
+	);
+
+	return label?.label;
+}
+
 function WiiUExplorerPage({
 	sections,
 	rom,
@@ -63,6 +100,7 @@ function WiiUExplorerPage({
 }: WiiUExplorerPageProps) {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const [currentTabIndex, setCurrentTabIndex] = useState(0);
+	const [hoverAddress, setHoverAddress] = useState(-1);
 
 	useEffect(() => {
 		if (rom.length > 0) {
@@ -82,29 +120,37 @@ function WiiUExplorerPage({
 	return (
 		<div>
 			<input
+				className="fixed right-0 top-0"
 				type="file"
 				style={{ color: 'white !important' }}
 				accept=".gba"
 				onChange={handleRomFile}
 			/>
 			{rom.length > 0 && (
-				<GBAPlayer
-					romFile={rom}
-					levelData={null}
-					ecoinInfo={null}
-					biosFile={getBios()!}
-					emptySaveFile={getEmptySave()!}
-					saveState={getSaveState()!}
-					isPlaying={false}
-					playAs="mario"
-					scale={1}
-					canvasRef={canvasRef}
-					neverShowCrashScreen
-				/>
+				<div className="fixed top-0 left-0 z-10">
+					<GBAPlayer
+						romFile={rom}
+						levelData={null}
+						ecoinInfo={null}
+						biosFile={getBios()!}
+						emptySaveFile={getEmptySave()!}
+						saveState={getSaveState()!}
+						isPlaying={false}
+						playAs="mario"
+						scale={1}
+						canvasRef={canvasRef}
+						neverShowCrashScreen
+					/>
+				</div>
 			)}
 			{sections.length > currentTabIndex && (
 				<>
-					<ul className={clsx(tabStyles.tabs, 'mx-16 mt-16')}>
+					{hoverAddress > -1 && (
+						<div className="fixed top-0 left-0 w-full mx-auto my-2 text-center">
+							{hoverAddress.toString(16)}: {getAnnotationFor(hoverAddress)}
+						</div>
+					)}
+					<ul className={clsx(tabStyles.tabs, 'mx-16 mt-48')}>
 						{sections.map((s, i) => {
 							return (
 								<li
@@ -120,15 +166,13 @@ function WiiUExplorerPage({
 							);
 						})}
 					</ul>
-					<div className="relative overflow-auto px-16 xpt-4 xborder-t-4 bg-gray-900">
+					<div className="relative overflow-auto px-16 bg-gray-900 h-96">
 						<HexExplorer
+							labels={labels}
+							offset={sections[currentTabIndex].offset}
 							bytes={sections[currentTabIndex].bytes}
-							onBytesChange={({ address, bytes }) => {
-								onBytesChange?.({
-									address: address + sections[currentTabIndex].offset,
-									bytes,
-								});
-							}}
+							onFocus={(address) => setHoverAddress(address)}
+							onBytesChange={onBytesChange}
 						/>
 					</div>
 				</>
