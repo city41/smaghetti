@@ -8,7 +8,7 @@ import { IconCheckCircle, IconExclamationCircle } from '../../../icons';
 type PublicFileLoaderModalProps = {
 	isOpen: boolean;
 	onRequestClose?: () => void;
-	mode?: '1.1' | 'wiiu' | 'both' | 'any';
+	mode?: '1.1' | 'wiiu' | 'both' | 'any' | 'none';
 };
 
 type InternalFileLoaderModalProps = {

@@ -19,6 +19,7 @@ type Section = {
 type WiiUExplorerPageProps = {
 	sections: Section[];
 	rom: Uint8Array;
+	onRomFileChosen: (file: File) => void;
 	onBytesChange?: (props: OnBytesChangeProps) => void;
 };
 
@@ -57,64 +58,81 @@ const SCRIPT = [
 function WiiUExplorerPage({
 	sections,
 	rom,
+	onRomFileChosen,
 	onBytesChange,
 }: WiiUExplorerPageProps) {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
 	useEffect(() => {
-		setTimeout(() => {
-			window._gba.setRom(rom.buffer);
-			window._gba.defrost(cloneDeep(getSaveState()!));
-			window._gba.injectSaveFile(null, 'mario', SCRIPT);
-		}, 100);
+		if (rom.length > 0) {
+			setTimeout(() => {
+				window._gba.setRom(rom.buffer);
+				window._gba.defrost(cloneDeep(getSaveState()!));
+				window._gba.injectSaveFile(null, 'mario', SCRIPT);
+			}, 100);
+		}
 	}, [rom]);
 
-	const tabBody = (
-		<HexExplorer
-			bytes={sections[currentTabIndex].bytes}
-			onBytesChange={({ address, bytes }) => {
-				onBytesChange?.({
-					address: address + sections[currentTabIndex].offset,
-					bytes,
-				});
-			}}
-		/>
-	);
+	function handleRomFile(e: React.ChangeEvent<HTMLInputElement>) {
+		const file = e.target.files![0];
+		onRomFileChosen(file);
+	}
 
 	return (
 		<div>
-			<GBAPlayer
-				romFile={rom}
-				levelData={null}
-				ecoinInfo={null}
-				biosFile={getBios()!}
-				emptySaveFile={getEmptySave()!}
-				saveState={getSaveState()!}
-				isPlaying={false}
-				playAs="mario"
-				scale={1}
-				canvasRef={canvasRef}
-				neverShowCrashScreen
+			<input
+				type="file"
+				style={{ color: 'white !important' }}
+				accept=".gba"
+				onChange={handleRomFile}
 			/>
-			<ul className={clsx(tabStyles.tabs, 'mx-16 mt-16')}>
-				{sections.map((s, i) => {
-					return (
-						<li
-							key={s.offset}
-							className={clsx({
-								[tabStyles.currentTab]: currentTabIndex === i,
-							})}
-							onClick={() => setCurrentTabIndex(i)}
-						>
-							{s.offset.toString(16)}-{(s.offset + s.bytes.length).toString(16)}
-						</li>
-					);
-				})}
-			</ul>
-			<div className="relative overflow-auto px-16 xpt-4 xborder-t-4 bg-gray-900">
-				{tabBody}
-			</div>
+			{rom.length > 0 && (
+				<GBAPlayer
+					romFile={rom}
+					levelData={null}
+					ecoinInfo={null}
+					biosFile={getBios()!}
+					emptySaveFile={getEmptySave()!}
+					saveState={getSaveState()!}
+					isPlaying={false}
+					playAs="mario"
+					scale={1}
+					canvasRef={canvasRef}
+					neverShowCrashScreen
+				/>
+			)}
+			{sections.length > currentTabIndex && (
+				<>
+					<ul className={clsx(tabStyles.tabs, 'mx-16 mt-16')}>
+						{sections.map((s, i) => {
+							return (
+								<li
+									key={s.offset}
+									className={clsx({
+										[tabStyles.currentTab]: currentTabIndex === i,
+									})}
+									onClick={() => setCurrentTabIndex(i)}
+								>
+									{s.offset.toString(16)}-
+									{(s.offset + s.bytes.length).toString(16)}
+								</li>
+							);
+						})}
+					</ul>
+					<div className="relative overflow-auto px-16 xpt-4 xborder-t-4 bg-gray-900">
+						<HexExplorer
+							bytes={sections[currentTabIndex].bytes}
+							onBytesChange={({ address, bytes }) => {
+								onBytesChange?.({
+									address: address + sections[currentTabIndex].offset,
+									bytes,
+								});
+							}}
+						/>
+					</div>
+				</>
+			)}
 		</div>
 	);
 }

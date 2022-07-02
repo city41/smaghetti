@@ -23,7 +23,7 @@ import { logError } from '../../reporting/logError';
 // this is because the wii-u rom's first half is identical to the 1.1. rom
 // any allows any file at all. This is used by wiiu-rom-layout-page to allow
 // inspection of patched ROMs
-type RomMode = '1.1' | 'wiiu' | 'both' | 'any';
+type RomMode = '1.1' | 'wiiu' | 'both' | 'any' | 'none';
 
 type RomFileState =
 	| 'not-chosen'
@@ -98,7 +98,7 @@ function settleState(state: FileLoaderState) {
 
 	state.allFilesReady =
 		state.otherFilesState === 'success' &&
-		state.romFileState === 'success' &&
+		(state.mode === 'none' || state.romFileState === 'success') &&
 		state.overallExtractionState === 'complete';
 }
 

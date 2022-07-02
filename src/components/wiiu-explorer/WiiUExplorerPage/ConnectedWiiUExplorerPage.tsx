@@ -1,22 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-
-import { Section, WiiUExplorerPage } from './WiiUExplorerPage';
 import { AppState } from '../../../store';
 import { FileLoaderModal } from '../../FileLoader/FileLoaderModal';
-import { getRom } from '../../FileLoader/files';
+
+import { Section, WiiUExplorerPage } from './WiiUExplorerPage';
 
 function ConnectedWiiUExplorerPage() {
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
+
 	const [curSections, setCurSections] = useState<Section[]>([]);
 	const [curRomData, setCurRomData] = useState<number[]>([]);
 
-	useEffect(() => {
-		if (allFilesReady) {
-			const data = Array.from(getRom()!);
-			setCurRomData(data);
-		}
-	}, [allFilesReady]);
+	const handleRomFileChosen = useCallback(
+		function handleRomFileChosen(romFile: File) {
+			if (allFilesReady) {
+				const reader = new FileReader();
+
+				reader.onloadend = () => {
+					const data = new Uint8Array(reader.result as ArrayBuffer);
+					setCurRomData(Array.from(data));
+				};
+
+				reader.readAsArrayBuffer(romFile);
+			}
+		},
+		[allFilesReady]
+	);
 
 	useEffect(() => {
 		if (curRomData.length) {
@@ -54,16 +63,17 @@ function ConnectedWiiUExplorerPage() {
 		});
 	}
 
-	if (curSections.length > 0) {
+	if (!allFilesReady) {
+		return <FileLoaderModal isOpen mode="none" />;
+	} else {
 		return (
 			<WiiUExplorerPage
 				sections={curSections}
 				rom={new Uint8Array(curRomData)}
 				onBytesChange={handleBytesChange}
+				onRomFileChosen={handleRomFileChosen}
 			/>
 		);
-	} else {
-		return <FileLoaderModal isOpen mode="wiiu" />;
 	}
 }
 
