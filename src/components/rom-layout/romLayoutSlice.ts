@@ -186,6 +186,11 @@ const loadSections = (): RomLayoutThunkAction => async (dispatch, getState) => {
 				start: 0x4246d8,
 				size: 72,
 			},
+			{
+				type: 'unknown-level-record-section',
+				start: 0x4246f6,
+				size: 72,
+			},
 		];
 
 		allSections = allSections

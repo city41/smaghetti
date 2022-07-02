@@ -61,9 +61,14 @@ function main() {
 				return building.concat(bytes);
 			} else if (bs.includes('-')) {
 				const splits = bs.split('-');
-				return building.concat([
-					[parseInt(splits[0], 16), parseInt(splits[1], 16)],
-				]);
+				const repeat = splits[2] ? parseInt(splits[2], 10) : 0;
+
+				const bytes: Array<[number, number]> = [];
+				for (let r = 0; r < repeat; ++r) {
+					bytes.push([parseInt(splits[0], 16), parseInt(splits[1], 16)]);
+				}
+
+				return building.concat(bytes);
 			} else {
 				return building.concat([[parseInt(bs, 16), parseInt(bs, 16)]]);
 			}
