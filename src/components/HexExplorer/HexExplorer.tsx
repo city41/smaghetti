@@ -1,5 +1,7 @@
 import React from 'react';
 import { ByteInputField } from './ByteInputField';
+import { AutoSizer, Grid, GridCellRenderer } from 'react-virtualized';
+import 'react-virtualized/styles.css';
 
 type OnBytesChangeProps = {
 	address: number;
@@ -18,7 +20,7 @@ type HexExplorerProps = {
 
 function HexExplorer({
 	bytes,
-	chunkSize = 24,
+	chunkSize = 20,
 	labels,
 	offset,
 	onBytesChange,
@@ -27,17 +29,31 @@ function HexExplorer({
 	const rows: number[][] = [];
 
 	for (let i = 0; i < bytes.length; i += chunkSize) {
+		const address = i + offset;
 		const row = Array.from(bytes.slice(i, i + chunkSize));
-		rows.push(row);
+
+		rows.push([address, ...row]);
 	}
 
-	const rowEls = rows.map((r, i) => {
-		const byteEls = r.map((b, bi) => {
-			const address = i * chunkSize + bi + offset;
+	const cellRenderer: GridCellRenderer = ({
+		columnIndex,
+		key,
+		rowIndex,
+		style,
+	}) => {
+		const address = rowIndex * chunkSize + columnIndex + offset;
+		if (columnIndex === 0) {
+			return (
+				<div style={style} className="text-xs h-full grid place-items-center">
+					{rows[rowIndex][columnIndex].toString(16)}
+				</div>
+			);
+		} else if (typeof rows[rowIndex][columnIndex] === 'number') {
 			return (
 				<ByteInputField
-					key={bi}
-					value={[b]}
+					key={key}
+					style={style}
+					value={[rows[rowIndex][columnIndex]]}
 					labelIndex={labels.findIndex(
 						(l) => l.start <= address && l.start + l.size > address
 					)}
@@ -52,17 +68,26 @@ function HexExplorer({
 					}}
 				/>
 			);
-		});
+		} else {
+			return null;
+		}
+	};
 
-		return (
-			<div key={i} className="w-full flex flex-row gap-x-1 justify-evenly">
-				<span className="text-xs">{(i * chunkSize + offset).toString(16)}</span>
-				{byteEls}
-			</div>
-		);
-	});
-
-	return <div className="w-full flex flex-col gap-y-1">{rowEls}</div>;
+	return (
+		<AutoSizer>
+			{({ width, height }) => (
+				<Grid
+					cellRenderer={cellRenderer}
+					columnCount={chunkSize + 1}
+					columnWidth={width / (chunkSize + 2)}
+					height={height}
+					rowCount={rows.length}
+					rowHeight={30}
+					width={width}
+				/>
+			)}
+		</AutoSizer>
+	);
 }
 
 export { HexExplorer };

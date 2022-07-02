@@ -149,7 +149,7 @@ function WiiUExplorerPage({
 				</div>
 			)}
 			{sections.length > currentTabIndex && (
-				<>
+				<div className="flex flex-col" style={{ height: 'calc(100vh - 20px)' }}>
 					{hoverAddress > -1 && (
 						<div className="fixed top-0 left-0 w-full mx-auto my-2 text-center">
 							{hoverAddress.toString(16)}: {getAnnotationFor(hoverAddress)}
@@ -171,7 +171,7 @@ function WiiUExplorerPage({
 							);
 						})}
 					</ul>
-					<div className="relative overflow-auto px-16 bg-gray-900 h-96">
+					<div className="px-16 bg-gray-900 flex-1">
 						<HexExplorer
 							labels={labels}
 							offset={sections[currentTabIndex].offset}
@@ -180,7 +180,7 @@ function WiiUExplorerPage({
 							onBytesChange={onBytesChange}
 						/>
 					</div>
-				</>
+				</div>
 			)}
 		</div>
 	);
