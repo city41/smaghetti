@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { ByteInputField } from './ByteInputField';
 import { AutoSizer, Grid, GridCellRenderer } from 'react-virtualized';
 import 'react-virtualized/styles.css';
@@ -26,6 +26,24 @@ function HexExplorer({
 	onBytesChange,
 	onFocus,
 }: HexExplorerProps) {
+	const inputRef = useRef<HTMLInputElement | null>(null);
+	const [scrollToRow, setScrollToRow] = useState<number | undefined>();
+
+	function handleGoTo() {
+		const address = inputRef?.current?.value;
+
+		if (address) {
+			const adNum = parseInt(address, 16);
+
+			if (!isNaN(adNum) && adNum > 0) {
+				const flooredAddress = adNum - ((adNum - offset) % chunkSize);
+				const rowIndex = (flooredAddress - offset) / chunkSize;
+
+				setScrollToRow(rowIndex);
+			}
+		}
+	}
+
 	const rows: number[][] = [];
 
 	for (let i = 0; i < bytes.length; i += chunkSize) {
@@ -41,14 +59,19 @@ function HexExplorer({
 		rowIndex,
 		style,
 	}) => {
-		const address = rowIndex * chunkSize + columnIndex + offset;
 		if (columnIndex === 0) {
+			const address = rows[rowIndex][columnIndex];
 			return (
-				<div style={style} className="text-xs h-full grid place-items-center">
-					{rows[rowIndex][columnIndex].toString(16)}
+				<div
+					style={style}
+					className="text-xs h-full grid place-items-center"
+					data-address={address}
+				>
+					{address.toString(16)}
 				</div>
 			);
 		} else if (typeof rows[rowIndex][columnIndex] === 'number') {
+			const address = rows[rowIndex][0] + columnIndex;
 			return (
 				<ByteInputField
 					key={key}
@@ -74,19 +97,36 @@ function HexExplorer({
 	};
 
 	return (
-		<AutoSizer>
-			{({ width, height }) => (
-				<Grid
-					cellRenderer={cellRenderer}
-					columnCount={chunkSize + 1}
-					columnWidth={width / (chunkSize + 2)}
-					height={height}
-					rowCount={rows.length}
-					rowHeight={30}
-					width={width}
+		<div className="flex flex-col h-full">
+			<div className="flex flex-row my-2">
+				<input
+					ref={inputRef}
+					type="text"
+					className="w-48"
+					onKeyDown={(e) => {
+						if (e.key === 'Enter' || e.key === 'Return') {
+							handleGoTo();
+						}
+					}}
 				/>
-			)}
-		</AutoSizer>
+			</div>
+			<div className="flex-1">
+				<AutoSizer>
+					{({ width, height }) => (
+						<Grid
+							cellRenderer={cellRenderer}
+							columnCount={chunkSize + 1}
+							columnWidth={width / (chunkSize + 2)}
+							height={height}
+							rowCount={rows.length}
+							rowHeight={30}
+							width={width}
+							scrollToRow={scrollToRow}
+						/>
+					)}
+				</AutoSizer>
+			</div>
+		</div>
 	);
 }
 
