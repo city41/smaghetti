@@ -82,6 +82,7 @@ const labels = [
 	{ start: 0x424648, size: 72, label: 'level record id table?' },
 	{ start: 0x425040, size: 0x120 * 8, label: 'e-coin tiles' },
 	{ start: 0x426b40, size: 0x20 * 8, label: 'e-coin palettes' },
+	{ start: 0x424690, size: 9, label: 'playable bits' },
 ];
 
 function getAnnotationFor(address: number) {
