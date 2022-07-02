@@ -23,7 +23,7 @@ type WiiUExplorerPageProps = {
 };
 
 const A_BUTTON = 0;
-// const RIGHT_BUTTON = 4;
+const RIGHT_BUTTON = 4;
 
 const SCRIPT = [
 	{
@@ -33,32 +33,24 @@ const SCRIPT = [
 		frameDelay: 1,
 		input: A_BUTTON,
 	},
-	//
-	// for some reason in this context, mario is starting
-	// in the e-reader level spot. no idea why
-	//
-	// {
-	// 	// e-reader world
-	// 	description: 'first right in e-reader world',
-	// 	frameDelay: 90,
-	// 	input: RIGHT_BUTTON,
-	// },
-	// {
-	// 	// e-reader world
-	// 	description: 'second right in e-reader world',
-	// 	frameDelay: 16,
-	// 	input: RIGHT_BUTTON,
-	// },
+	{
+		// e-reader world
+		description: 'first right in e-reader world',
+		frameDelay: 90,
+		input: RIGHT_BUTTON,
+	},
+	{
+		// e-reader world
+		description: 'second right in e-reader world',
+		frameDelay: 16,
+		input: RIGHT_BUTTON,
+	},
 	{
 		// e-reader world
 		// choose to go into level menu
 		description: 'A to go into level menu',
-		frameDelay: 110,
+		frameDelay: 16,
 		input: A_BUTTON,
-	},
-	{
-		callbackWithStatus: 'level-ready',
-		ignoreInput: false,
 	},
 ];
 
