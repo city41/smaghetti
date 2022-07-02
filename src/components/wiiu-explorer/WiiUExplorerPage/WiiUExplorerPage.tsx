@@ -53,6 +53,10 @@ const SCRIPT = [
 		frameDelay: 16,
 		input: A_BUTTON,
 	},
+	{
+		callbackWithStatus: 'level-ready',
+		ignoreInput: false,
+	},
 ];
 
 const levelLabels = [];
