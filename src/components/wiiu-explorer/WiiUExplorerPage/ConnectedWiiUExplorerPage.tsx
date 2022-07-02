@@ -48,7 +48,6 @@ function ConnectedWiiUExplorerPage() {
 		bytes: number[];
 	}) {
 		setCurRomData((d) => {
-			console.log(address.toString(16));
 			const newData = [...d];
 			for (let i = 0; i < bytes.length; ++i) {
 				newData[address + i] = bytes[i];
