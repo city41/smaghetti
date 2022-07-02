@@ -1,5 +1,4 @@
 import React from 'react';
-import 'react-virtualized/styles.css';
 import { ByteInputField } from './ByteInputField';
 
 type OnBytesChangeProps = {
