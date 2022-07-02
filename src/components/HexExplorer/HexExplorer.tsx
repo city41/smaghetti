@@ -71,7 +71,7 @@ function HexExplorer({
 				</div>
 			);
 		} else if (typeof rows[rowIndex][columnIndex] === 'number') {
-			const address = rows[rowIndex][0] + columnIndex;
+			const address = rows[rowIndex][0] + columnIndex - 1;
 			return (
 				<ByteInputField
 					key={key}
