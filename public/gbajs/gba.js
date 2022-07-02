@@ -303,10 +303,17 @@ GameBoyAdvance.prototype.advanceFrame = function () {
 	}
 };
 
-GameBoyAdvance.prototype.injectSaveFile = function (saveFileBuffer, playAs) {
-	this.setSavedata(saveFileBuffer);
+GameBoyAdvance.prototype.injectSaveFile = function (
+	saveFileBuffer,
+	playAs,
+	script
+) {
+	if (saveFileBuffer) {
+		this.setSavedata(saveFileBuffer);
+	}
 	this.script =
-		playAs === 'mario' ? goIntoLevelScriptAsMario : goIntoLevelScriptAsLuigi;
+		script ||
+		(playAs === 'mario' ? goIntoLevelScriptAsMario : goIntoLevelScriptAsLuigi);
 	this.scriptIndex = 0;
 	this.runStable();
 };

@@ -14,7 +14,7 @@ type GBAPlayerProps = {
 	romFile: Uint8Array;
 	emptySaveFile: Uint8Array;
 	saveState: Record<string, unknown>;
-	levelData: Uint8Array;
+	levelData: Uint8Array | null;
 	ecoinInfo: ECoinInfo | null;
 	isPlaying: boolean;
 	playAs: PlayAsCharacter;
@@ -48,12 +48,14 @@ function GBAPlayer({
 			setGbaStatus(status);
 
 			if (status === 'ready-to-inject') {
-				const saveFileWithInjectedLevel = injectLevelIntoSave(
-					emptySaveFile,
-					levelData,
-					ecoinInfo
-				);
-				window._gba.injectSaveFile(saveFileWithInjectedLevel.buffer, playAs);
+				if (levelData) {
+					const saveFileWithInjectedLevel = injectLevelIntoSave(
+						emptySaveFile,
+						levelData,
+						ecoinInfo
+					);
+					window._gba.injectSaveFile(saveFileWithInjectedLevel.buffer, playAs);
+				}
 			}
 
 			if (status === 'crashed') {
@@ -71,7 +73,7 @@ function GBAPlayer({
 			canvasRef.current!.getContext('2d')!.imageSmoothingEnabled = false;
 
 			// @ts-ignore
-			if (window.overwrite1_1) {
+			if (window.overwrite1_1 && levelData) {
 				romFile = overwriteLevel1_1(romFile, levelData);
 			}
 

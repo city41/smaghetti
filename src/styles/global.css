@@ -19,7 +19,11 @@ body {
 }
 
 input {
-	@apply text-black !important;
+	@apply bg-white text-black !important;
+}
+
+input.invert {
+	@apply bg-black text-white !important;
 }
 
 .thinScrollbar::-webkit-scrollbar {
