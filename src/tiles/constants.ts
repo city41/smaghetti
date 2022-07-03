@@ -79,6 +79,7 @@ const TILE_TYPE_TO_SERIALIZE_ID_MAP: Partial<Record<EntityType, string>> = {
 	JelectroStill: 'Js',
 	LakituCloud: 'Lc',
 	LakituCloudAlternate: 'Lc*',
+	LakituCloudOrange: 'Lco',
 	LineTrackPulley: 'Ltp',
 	LogBridge: 'Lbg',
 	MagicBrick: 'Mgb',
