@@ -98,7 +98,8 @@ function HexExplorer({
 
 	return (
 		<div className="flex flex-col h-full">
-			<div className="flex flex-row my-2">
+			<div className="flex flex-row my-2 gap-x-2">
+				<div>Enter an address to jump there:</div>
 				<input
 					ref={inputRef}
 					type="text"
