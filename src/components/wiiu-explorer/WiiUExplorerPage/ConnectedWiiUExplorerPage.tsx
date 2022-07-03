@@ -34,7 +34,7 @@ function ConnectedWiiUExplorerPage() {
 		if (curRomData.length) {
 			setCurSection({
 				offset: 0x400000,
-				bytes: curRomData.slice(0x400000),
+				bytes: curRomData.slice(0x400000, 0x424a54),
 			});
 		}
 	}, [curRomData]);
