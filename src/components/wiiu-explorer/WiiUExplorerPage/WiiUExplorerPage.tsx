@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import { HexExplorer } from '../../HexExplorer';
-import tabStyles from '../../../styles/tabs.module.css';
 import { getBios, getEmptySave, getSaveState } from '../../FileLoader/files';
 import { cloneDeep } from 'lodash';
 import { GBAPlayer } from '../../LevelPlayer/GBAPlayer';
@@ -17,7 +16,7 @@ type Section = {
 };
 
 type WiiUExplorerPageProps = {
-	sections: Section[];
+	section: Section;
 	rom: Uint8Array;
 	onRomFileChosen: (file: File) => void;
 	onBytesChange?: (props: OnBytesChangeProps) => void;
@@ -100,13 +99,12 @@ function getAnnotationFor(address: number) {
 }
 
 function WiiUExplorerPage({
-	sections,
+	section,
 	rom,
 	onRomFileChosen,
 	onBytesChange,
 }: WiiUExplorerPageProps) {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
-	const [currentTabIndex, setCurrentTabIndex] = useState(0);
 	const [hoverAddress, setHoverAddress] = useState(-1);
 
 	useEffect(() => {
@@ -126,58 +124,49 @@ function WiiUExplorerPage({
 
 	return (
 		<div>
-			<input
-				className="fixed right-0 top-0"
-				type="file"
-				style={{ color: 'white !important' }}
-				accept=".gba"
-				onChange={handleRomFile}
-			/>
-			{rom.length > 0 && (
-				<div className="fixed top-0 left-0 z-10">
-					<GBAPlayer
-						romFile={rom}
-						levelData={null}
-						ecoinInfo={null}
-						biosFile={getBios()!}
-						emptySaveFile={getEmptySave()!}
-						saveState={getSaveState()!}
-						isPlaying={false}
-						playAs="mario"
-						scale={1}
-						canvasRef={canvasRef}
-						neverShowCrashScreen
-					/>
+			{section.bytes.length === 0 && (
+				<div className="w-full h-screen grid place-items-center">
+					<div>
+						<div>choose a SMA4 VC rom, either the original or patched</div>
+						<input
+							className={clsx({
+								'fixed right-0 top-0': section.bytes.length > 0,
+							})}
+							type="file"
+							style={{ color: 'white !important' }}
+							accept=".gba"
+							onChange={handleRomFile}
+						/>
+					</div>
 				</div>
 			)}
-			{sections.length > currentTabIndex && (
+			{rom.length > 0 && (
+				<GBAPlayer
+					romFile={rom}
+					levelData={null}
+					ecoinInfo={null}
+					biosFile={getBios()!}
+					emptySaveFile={getEmptySave()!}
+					saveState={getSaveState()!}
+					isPlaying={false}
+					playAs="mario"
+					scale={1}
+					canvasRef={canvasRef}
+					neverShowCrashScreen
+				/>
+			)}
+			{section.bytes.length > 0 && (
 				<div className="flex flex-col" style={{ height: 'calc(100vh - 20px)' }}>
 					{hoverAddress > -1 && (
 						<div className="fixed top-0 left-0 w-full mx-auto my-2 text-center">
 							{hoverAddress.toString(16)}: {getAnnotationFor(hoverAddress)}
 						</div>
 					)}
-					<ul className={clsx(tabStyles.tabs, 'mx-16 mt-48')}>
-						{sections.map((s, i) => {
-							return (
-								<li
-									key={s.offset}
-									className={clsx({
-										[tabStyles.currentTab]: currentTabIndex === i,
-									})}
-									onClick={() => setCurrentTabIndex(i)}
-								>
-									{s.offset.toString(16)}-
-									{(s.offset + s.bytes.length).toString(16)}
-								</li>
-							);
-						})}
-					</ul>
 					<div className="px-16 bg-gray-900 flex-1">
 						<HexExplorer
 							labels={labels}
-							offset={sections[currentTabIndex].offset}
-							bytes={sections[currentTabIndex].bytes}
+							offset={section.offset}
+							bytes={section.bytes}
 							onFocus={(address) => setHoverAddress(address)}
 							onBytesChange={onBytesChange}
 						/>

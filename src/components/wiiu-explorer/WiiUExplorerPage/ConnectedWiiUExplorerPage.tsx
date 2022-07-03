@@ -8,7 +8,10 @@ import { Section, WiiUExplorerPage } from './WiiUExplorerPage';
 function ConnectedWiiUExplorerPage() {
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
 
-	const [curSections, setCurSections] = useState<Section[]>([]);
+	const [curSection, setCurSection] = useState<Section>({
+		offset: 0,
+		bytes: [],
+	});
 	const [curRomData, setCurRomData] = useState<number[]>([]);
 
 	const handleRomFileChosen = useCallback(
@@ -29,14 +32,10 @@ function ConnectedWiiUExplorerPage() {
 
 	useEffect(() => {
 		if (curRomData.length) {
-			const sections = [];
-			for (let i = 0x400000; i < 0x430000; i += 0x400010) {
-				sections.push({
-					offset: i,
-					bytes: curRomData.slice(i, i + 0x400010),
-				});
-			}
-			setCurSections(sections);
+			setCurSection({
+				offset: 0x400000,
+				bytes: curRomData.slice(0x400000),
+			});
 		}
 	}, [curRomData]);
 
@@ -62,7 +61,7 @@ function ConnectedWiiUExplorerPage() {
 	} else {
 		return (
 			<WiiUExplorerPage
-				sections={curSections}
+				section={curSection}
 				rom={new Uint8Array(curRomData)}
 				onBytesChange={handleBytesChange}
 				onRomFileChosen={handleRomFileChosen}
