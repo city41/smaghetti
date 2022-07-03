@@ -156,7 +156,10 @@ function WiiUExplorerPage({
 				/>
 			)}
 			{section.bytes.length > 0 && (
-				<div className="flex flex-col" style={{ height: 'calc(100vh - 20px)' }}>
+				<div
+					className="flex flex-col"
+					style={{ height: 'calc(100vh - 200px)' }}
+				>
 					{hoverAddress > -1 && (
 						<div className="fixed top-0 left-0 w-full mx-auto my-2 text-center">
 							{hoverAddress.toString(16)}: {getAnnotationFor(hoverAddress)}
