@@ -113,6 +113,7 @@ import { CheckeredPlatformLeftCap } from './CheckeredTerrain/CheckeredPlatformLe
 import { CheckeredPlatformRightCap } from './CheckeredTerrain/CheckeredPlatformRightCap';
 import { CheckeredWallLeft } from './CheckeredTerrain/CheckeredWallLeft';
 import { CheckeredWallRight } from './CheckeredTerrain/CheckeredWallRight';
+import { CheepCheepFall } from './CheepCheepFall';
 import { CheepCheepHop } from './CheepCheepHop';
 import { CheepCheepDoubleJump } from './CheepCheepDoubleJump';
 import { Chest } from './Chest';
@@ -221,6 +222,7 @@ import { Lakitu } from './Lakitu';
 import { LakituCloud } from './LakituCloud';
 import { LakituCloudAlternate } from './LakituCloudAlternate';
 import { LakituCloudGiant } from './LakituCloudGiant';
+import { LakituCloudOrange } from './LakituCloudOrange';
 import { Larry } from './Larry';
 import { Lava } from './Lava';
 import { LavaLotus } from './LavaLotus';
@@ -241,6 +243,7 @@ import { MovingCoin } from './MovingCoin';
 import { Muncher } from './Muncher';
 import { MuncherStrip } from './MuncherStrip';
 import { Mushroom } from './Mushroom';
+import { MushroomBlink } from './MushroomBlink';
 import { MusicBlock } from './MusicBlock';
 import { MusicBlockThreeWay } from './MusicBlockThreeWay';
 import { MusicBlockWarp } from './MusicBlockWarp';
@@ -359,6 +362,7 @@ import { StalactiteFalling } from './StalactiteFalling';
 import { StalactiteSingle } from './StalactiteSingle';
 import { Stalagmite } from './Stalagmite';
 import { StarMan } from './StarMan';
+import { StarManNoLR } from './StarManNoLR';
 import { StoneFloor } from './StoneFloor';
 import { StonePlateau } from './StonePlateau';
 import { StoneSupport } from './StoneSupport';
@@ -532,6 +536,7 @@ const entityMap = {
 	CheckeredPlatformRightCap,
 	CheckeredWallLeft,
 	CheckeredWallRight,
+	CheepCheepFall,
 	CheepCheepHop,
 	CheepCheepDoubleJump,
 	Chest,
@@ -640,6 +645,7 @@ const entityMap = {
 	LakituCloud,
 	LakituCloudAlternate,
 	LakituCloudGiant,
+	LakituCloudOrange,
 	Larry,
 	Lava,
 	LavaLotus,
@@ -660,6 +666,7 @@ const entityMap = {
 	Muncher,
 	MuncherStrip,
 	Mushroom,
+	MushroomBlink,
 	MusicBlock,
 	MusicBlockThreeWay,
 	MusicBlockWarp,
@@ -778,6 +785,7 @@ const entityMap = {
 	StalactiteSingle,
 	Stalagmite,
 	StarMan,
+	StarManNoLR,
 	StoneFloor,
 	StonePlateau,
 	StoneSupport,

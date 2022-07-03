@@ -7,7 +7,7 @@ import { parseSimpleSprite } from './util';
 const StarMan: Entity = {
 	paletteCategory: 'power-up',
 	paletteInfo: {
-		title: 'Star Man',
+		title: 'Starman',
 	},
 
 	objectSets: ANY_OBJECT_SET,
