@@ -30,10 +30,10 @@ function ConnectedWiiUExplorerPage() {
 	useEffect(() => {
 		if (curRomData.length) {
 			const sections = [];
-			for (let i = 0x400000; i < 0x430000; i += 0x30000) {
+			for (let i = 0x400000; i < 0x430000; i += 0x400010) {
 				sections.push({
 					offset: i,
-					bytes: curRomData.slice(i, i + 0x30000),
+					bytes: curRomData.slice(i, i + 0x400010),
 				});
 			}
 			setCurSections(sections);
