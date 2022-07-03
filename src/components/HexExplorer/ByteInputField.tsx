@@ -43,6 +43,7 @@ function ByteInputField({
 			className={clsx(className, 'text-sm flex flex-row items-center', {
 				'border border-yellow-400': labelIndex !== -1 && labelIndex & 1,
 				'border border-green-400': labelIndex !== -1 && !(labelIndex & 1),
+				'bg-gray-500': value[0] === 0 && labelIndex === -1,
 			})}
 			style={style}
 		>
