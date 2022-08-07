@@ -1,5 +1,5 @@
 export const MAX_LEVEL_RECORDS = 72; // Maximum number of level records
-export const MAX_LEVEL_DATA = 33; // Maximum number of level data
+export const MAX_LEVEL_DATA = 32; // Maximum number of level data
 export const MAX_DATA_SIZE = 2024; // Max compressed level data size
 export const MAX_SAVE_SIZE = 0x20000; // Max save data size
 export const MAX_ECOIN_TABLE = 24; // e-coin tale size
