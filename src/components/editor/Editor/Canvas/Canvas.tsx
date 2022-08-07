@@ -517,7 +517,7 @@ const Canvas = memo(function Canvas({
 						if (tileMouseEl) {
 							tileMouseEl.innerHTML = `(${
 								snap(mousePoint.x, TILE_SIZE) / TILE_SIZE
-							}, ${snap(mousePoint.x, TILE_SIZE) / TILE_SIZE})`;
+							}, ${snap(mousePoint.y, TILE_SIZE) / TILE_SIZE + 1})`;
 						}
 					}
 				}}
@@ -546,7 +546,7 @@ const Canvas = memo(function Canvas({
 
 						if (tileMouseEl) {
 							tileMouseEl.innerHTML = `(${mouseOverTileCoord.x / TILE_SIZE}, ${
-								mouseOverTileCoord.y / TILE_SIZE
+								mouseOverTileCoord.y / TILE_SIZE + 1
 							})`;
 						}
 					}
