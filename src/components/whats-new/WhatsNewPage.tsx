@@ -119,18 +119,6 @@ function WhatsNewPage() {
 					</ul>
 					<p>Thanks to Bryce for adding these</p>
 				</NewEntry>
-				<NewEntry title="One mo' level" date="2022-06-19">
-					<p>
-						SMA4 save files can store up to 33 levels, so now Smaghetti honors
-						that. When making a save file on the{' '}
-						<a href="/levels">levels page</a>, you can now squeeze in one more
-						level.
-					</p>
-					<p>
-						This is also true when making a save file of your own levels from
-						within the editor.
-					</p>
-				</NewEntry>
 				<NewEntry title="New Entities" date="2022-06-05">
 					<ul>
 						<li>Boom Boom - Trap</li>
