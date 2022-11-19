@@ -112,7 +112,7 @@ function Levels2Page({
 						<p className="my-8 text-center text-sm w-full">
 							{currentCategory.subtitle.replace(
 								'{count}',
-								!totalCount ? '...' : totalCount.toString()
+								loadingState !== 'success' ? '...' : totalCount.toString()
 							)}
 						</p>
 					)}
