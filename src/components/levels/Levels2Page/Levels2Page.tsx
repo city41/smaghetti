@@ -110,7 +110,10 @@ function Levels2Page({
 					</Menu>
 					{!!currentCategory?.subtitle && (
 						<p className="my-8 text-center text-sm w-full">
-							{currentCategory.subtitle}
+							{currentCategory.subtitle.replace(
+								'{count}',
+								totalCount.toString()
+							)}
 						</p>
 					)}
 					{onTagClick && (
