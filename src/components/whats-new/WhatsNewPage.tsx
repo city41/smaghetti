@@ -96,6 +96,20 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry title="Level of the year voting" date="2022-12-26">
+					<p>
+						Happy holidays everyone! Aero on the{' '}
+						<a
+							href="https://discord.gg/wBVE4yyWhM"
+							target="_blank"
+							rel="noreferer"
+						>
+							Smaghetti Discord
+						</a>{' '}
+						has opened up voting for the level of the year. Just head to the
+						#level-of-the-year channel.
+					</p>
+				</NewEntry>
 				<NewEntry title="Water Current" date="2022-07-04">
 					<p>
 						Water current can now be configured to go up or down by clicking its
