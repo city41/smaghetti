@@ -102,7 +102,7 @@ function WhatsNewPage() {
 						<a
 							href="https://discord.gg/wBVE4yyWhM"
 							target="_blank"
-							rel="noreferer"
+							rel="noreferrer"
 						>
 							Smaghetti Discord
 						</a>{' '}
