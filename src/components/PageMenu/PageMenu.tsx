@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { IconDiscord } from '../../icons';
 
 import styles from './PageMenu.module.css';
+import { DISCORD_LINK } from '../../constants';
 
 type PublicPageMenuProps = {
 	className?: string;
@@ -72,7 +73,7 @@ function PageMenu({
 					help
 				</a>
 			</Link>
-			<Link href="https://discord.gg/wBVE4yyWhM" passHref>
+			<Link href={DISCORD_LINK} passHref>
 				<a target="_blank" rel="noreferrer" title="discord">
 					<IconDiscord className="w-5 h-5" />
 				</a>

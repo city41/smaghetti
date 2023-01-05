@@ -20,6 +20,7 @@ import giantPipeExitPointPng from './giantPipeExitPoint.png';
 import ripVanFishSleepsPng from './ripVanFishSleeps.png';
 import endOfLevelBackdropExamplePng from './endOfLevelBackdropExample.png';
 import entityListPng from './entityList.png';
+import { DISCORD_LINK } from '../../constants';
 
 function dateToHumanString(input: string): string {
 	const date = new Date(input);
@@ -99,11 +100,7 @@ function WhatsNewPage() {
 				<NewEntry title="Level of the year voting" date="2022-12-26">
 					<p>
 						Happy holidays everyone! Aero on the{' '}
-						<a
-							href="https://discord.gg/wBVE4yyWhM"
-							target="_blank"
-							rel="noreferrer"
-						>
+						<a href={DISCORD_LINK} target="_blank" rel="noreferrer">
 							Smaghetti Discord
 						</a>{' '}
 						has opened up voting for the level of the year. Just head to the
@@ -165,11 +162,7 @@ function WhatsNewPage() {
 					</p>
 					<p>
 						Want to keep chatting Smaghetti? Check out the{' '}
-						<a
-							href="https://discord.gg/wBVE4yyWhM"
-							rel="noreferrer noopener"
-							target="_blank"
-						>
+						<a href={DISCORD_LINK} rel="noreferrer noopener" target="_blank">
 							Discord server
 						</a>
 					</p>
@@ -486,11 +479,7 @@ function WhatsNewPage() {
 					</p>
 					<p>
 						Want to keep chatting Smaghetti? Check out the{' '}
-						<a
-							href="https://discord.gg/wBVE4yyWhM"
-							rel="noreferrer noopener"
-							target="_blank"
-						>
+						<a href={DISCORD_LINK} rel="noreferrer noopener" target="_blank">
 							Discord server
 						</a>
 					</p>
@@ -922,11 +911,7 @@ function WhatsNewPage() {
 				</NewEntry>
 				<NewEntry title="Unofficial Discord Server" date="2021-09-07">
 					MrSkittles420 has started{' '}
-					<a
-						href="https://discord.gg/wBVE4yyWhM"
-						target="_blank"
-						rel="nofollower noreferrer"
-					>
+					<a href={DISCORD_LINK} target="_blank" rel="nofollower noreferrer">
 						an unofficial Smaghetti Discord server
 					</a>
 					.

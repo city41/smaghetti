@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import styles from './Root.module.css';
 import logoPng from '../../images/logo.png';
+import { DISCORD_LINK } from '../../constants';
 
 type HeaderProps = {
 	className?: string;
@@ -45,7 +46,7 @@ function Header({ className }: HeaderProps) {
 					<MenuLink href="/roadmap">roadmap</MenuLink>
 					<MenuLink href="/tips">tips</MenuLink>
 					<MenuLink
-						href="https://discord.gg/wBVE4yyWhM"
+						href={DISCORD_LINK}
 						target="_blank"
 						rel="noreferrer"
 						title="Smaghetti discord"

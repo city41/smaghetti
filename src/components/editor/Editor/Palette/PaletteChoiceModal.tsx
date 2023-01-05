@@ -14,6 +14,7 @@ import {
 	PaletteSubcategory,
 } from '../../../../entities/types';
 import { IconCancel, IconExperiment } from '../../../../icons';
+import { DISCORD_LINK } from '../../../../constants';
 
 type PaletteChoiceModalProps = {
 	isOpen: boolean;
@@ -199,7 +200,7 @@ function UnfinishedDisclaimer() {
 					className="text-blue-700"
 					target="_blank"
 					rel="noreferrer"
-					href="https://discord.gg/wBVE4yyWhM"
+					href={DISCORD_LINK}
 				>
 					Discord
 				</a>

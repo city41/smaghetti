@@ -1,5 +1,6 @@
 import React from 'react';
 import screenshotPng from '../../../screenshotCropped.png';
+import { DISCORD_LINK } from '../../constants';
 
 import { Root } from '../layout/Root';
 
@@ -26,11 +27,20 @@ function IndexPage() {
 						<figcaption className="w-full text-center mt-1.5 text-sm">
 							<a
 								className="underline text-blue-400"
-								href="/editor/GsQhiP-V/A-Plumber-s-Nightmare/"
+								href="/editor/HTCbl1q6/Invaded-Beach/"
 							>
-								A Plumber&apos;s Nightmare
+								Invaded Beach
 							</a>{' '}
-							by adelani
+							by Nauts, voted level of the year on the{' '}
+							<a
+								className="text-blue-400 underline"
+								href={DISCORD_LINK}
+								target="_blank"
+								rel="noreferrer"
+							>
+								Smaghetti Discord
+							</a>{' '}
+							:)
 						</figcaption>
 					</figure>
 				</div>

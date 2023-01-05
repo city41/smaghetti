@@ -4,6 +4,7 @@ import { Root } from '../layout/Root';
 import typographyStyles from '../../styles/typography.module.css';
 import { toId } from '../whats-new/WhatsNewPage';
 import { IconAlert } from '../../icons';
+import { DISCORD_LINK } from '../../constants';
 
 function HelpEntry({
 	title,
@@ -39,7 +40,7 @@ function HelpPage() {
 						className="text-green-200 underline"
 						target="_blank"
 						rel="noreferrer"
-						href="https://discord.gg/wBVE4yyWhM"
+						href={DISCORD_LINK}
 					>
 						Discord
 					</a>{' '}
@@ -97,7 +98,7 @@ function HelpPage() {
 							className="text-blue-300"
 							target="_blank"
 							rel="noreferrer"
-							href="https://discord.gg/wBVE4yyWhM"
+							href={DISCORD_LINK}
 						>
 							Discord
 						</a>{' '}
@@ -140,7 +141,7 @@ function HelpPage() {
 							className="text-blue-300"
 							target="_blank"
 							rel="noreferrer"
-							href="https://discord.gg/wBVE4yyWhM"
+							href={DISCORD_LINK}
 						>
 							Discord
 						</a>{' '}

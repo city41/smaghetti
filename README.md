@@ -6,7 +6,7 @@ This is a web based level editor for the game Super Mario Advance 4: Super Mario
 
 ![screenshot](https://github.com/city41/smaghetti/blob/main/screenshotCropped.png?raw=true)
 
-[A Plumber's Nightmare by adelani](https://smaghetti.com/editor/GsQhiP-V/A-Plumber-s-Nightmare/)
+[Invaded Beach, by Nauts](https://smaghetti.com/editor/HTCbl1q6/Invaded-Beach/)
 
 ## Try it
 
@@ -58,7 +58,7 @@ If you want to contribute code changes, the [development guide](https://github.c
 
 ## Discord
 
-Discord server is here: https://discord.gg/wBVE4yyWhM
+Discord server is here: https://discord.gg/95W9knXe3x
 
 ## Code of Conduct
 
