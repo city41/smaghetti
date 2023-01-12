@@ -1,5 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
+import TimeAgo from 'javascript-time-ago';
+import TimeAgoEn from 'javascript-time-ago/locale/en';
 import { RoomThumbnail } from '../../../RoomThumbnail';
 import {
 	LEVEL_TAGS,
@@ -18,6 +20,9 @@ import {
 	IconCheck,
 } from '../../../../icons';
 import { makeSlug } from '../../../util';
+
+TimeAgo.addDefaultLocale(TimeAgoEn);
+const timeAgo = new TimeAgo('en-US');
 
 type PublicLevelRowProps = {
 	className?: string;
@@ -84,6 +89,8 @@ function isValidTag(tag: string | undefined): boolean {
 	return tag !== '-' && tag !== undefined && LEVEL_TAGS.includes(tag);
 }
 
+const ONE_DAY_MILLIS = 24 * 60 * 60 * 1000;
+
 function LevelRow({
 	className,
 	level,
@@ -145,6 +152,18 @@ function LevelRow({
 
 	const tag0Valid = isValidTag(level.data.settings.tag0);
 	const tag1Valid = isValidTag(level.data.settings.tag1);
+
+	const timestamp = level.updated_at ?? level.created_at;
+	const date = new Date(timestamp);
+	const timestampStr =
+		Date.now() - date.getTime() > ONE_DAY_MILLIS
+			? date.toLocaleDateString()
+			: date.toLocaleTimeString();
+	const timestampEl = (
+		<div className="text-xs text-gray-700" title={timestampStr}>
+			{timeAgo.format(date)}
+		</div>
+	);
 
 	return (
 		<div
@@ -263,13 +282,16 @@ function LevelRow({
 					style={{ gridTemplateColumns: '1fr max-content' }}
 				>
 					<p className="text-xs pb-2">{level.data.settings.description}</p>
-					<div className="text-sm self-end">
-						by{' '}
-						<a href={`/creator/${level.user?.username}`}>
-							<span className="font-bold hover:underline">
-								{level.user?.username}
-							</span>
-						</a>
+					<div className="text-sm self-end flex flex-col items-end">
+						<div>
+							by{' '}
+							<a href={`/creator/${level.user?.username}`}>
+								<span className="font-bold hover:underline">
+									{level.user?.username}
+								</span>
+							</a>
+						</div>
+						{timestampEl}
 					</div>
 				</div>
 			</div>
