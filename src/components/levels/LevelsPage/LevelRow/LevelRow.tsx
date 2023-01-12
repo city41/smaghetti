@@ -153,15 +153,27 @@ function LevelRow({
 	const tag0Valid = isValidTag(level.data.settings.tag0);
 	const tag1Valid = isValidTag(level.data.settings.tag1);
 
-	const timestamp = level.updated_at ?? level.created_at;
-	const date = new Date(timestamp);
-	const timestampStr =
-		Date.now() - date.getTime() > ONE_DAY_MILLIS
-			? date.toLocaleDateString()
-			: date.toLocaleTimeString();
+	const date = new Date(level.created_at);
+	const diff = Math.max(0, Date.now() - date.getTime());
+
+	let titleProp;
+	let timestampContents;
+
+	if (diff === 0) {
+		titleProp = {};
+		timestampContents = 'just now';
+	} else {
+		timestampContents = timeAgo.format(date);
+		if (diff < ONE_DAY_MILLIS) {
+			titleProp = { title: date.toLocaleTimeString() };
+		} else {
+			titleProp = { title: date.toLocaleDateString() };
+		}
+	}
+
 	const timestampEl = (
-		<div className="text-xs text-gray-700" title={timestampStr}>
-			{timeAgo.format(date)}
+		<div className="text-xs text-gray-700" {...titleProp}>
+			{timestampContents}
 		</div>
 	);
 
