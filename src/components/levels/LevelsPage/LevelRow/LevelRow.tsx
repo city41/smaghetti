@@ -153,7 +153,8 @@ function LevelRow({
 	const tag0Valid = isValidTag(level.data.settings.tag0);
 	const tag1Valid = isValidTag(level.data.settings.tag1);
 
-	const date = new Date(level.created_at);
+	const timestamp = level.updated_at ?? level.created_at;
+	const date = new Date(timestamp);
 	const diff = Math.max(0, Date.now() - date.getTime());
 
 	let titleProp;
