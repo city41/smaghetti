@@ -69,7 +69,7 @@ function TipsPage() {
 					<p>
 						Where Mario starts in a room has an influence on the camera. If you
 						start him down low, then the camera will bias up high. If you start
-						him about 3 or 4 files up from the bottom, the camera will be more
+						him about 3 or 4 tiles up from the bottom, the camera will be more
 						balanced.
 					</p>
 					<p>
