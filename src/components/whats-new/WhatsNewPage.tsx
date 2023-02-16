@@ -97,6 +97,21 @@ function WhatsNewPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
+				<NewEntry
+					title="Smaghetti will be taken down"
+					date="2023-02-16"
+					alertingChange
+				>
+					<p>
+						Sadly I have decided to no longer work on Smaghetti. I don&apos;t
+						have the time for it anymore and I think it is just best to be
+						honest about that.
+					</p>
+					<p className="font-bold p-2 bg-red-50 text-red-900">
+						This website will remain up for one more year, then taken down on
+						February 17, 2024.
+					</p>
+				</NewEntry>
 				<NewEntry title="Level of the year voting" date="2022-12-26">
 					<p>
 						Happy holidays everyone! Aero on the{' '}

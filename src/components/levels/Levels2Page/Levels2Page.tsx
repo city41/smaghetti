@@ -93,6 +93,10 @@ function Levels2Page({
 						Want your level to show up here? Click on the &quot;publish&quot;
 						button when looking at all your levels in the editor.
 					</p>
+					<p className="p-2 mb-8 bg-red-100 text-red-900">
+						Hey! Smaghetti is no longer being worked on. This website will be
+						taken down on February 17, 2024
+					</p>
 					<Menu>
 						{categories.map((c) => {
 							return (
