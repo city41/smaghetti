@@ -1,5 +1,5 @@
 .root {
-	--background-color: #cc5c5c;
+	--background-color: red;
 
 	display: grid;
 	place-items: center;

@@ -13,26 +13,21 @@ function EarlyModal({
 	return (
 		<Modal
 			isOpen={isOpen}
-			title="Thanks for trying out Smaghetti!"
+			title="Smaghetti is shutting down"
 			onRequestClose={onRequestClose}
 			onOkClick={onRequestClose}
 		>
-			<div className="w-full max-w-2xl space-y-4">
+			<div className="w-full max-w-2xl space-y-8">
 				<p>
-					Smaghetti is considered to be &quot;alpha&quot; quality, which means
-					there are still lots of bugs and some missing features.
+					Smaghetti is no longer being worked on. I really wish it was, but I
+					just don&apos;t have the time for it anymore. It has been languishing
+					with no real progress for months and months, which is unfair to the
+					Mario community. As much as I hate to do this, I think just being
+					honest that I can no longer work on it is better.
 				</p>
 				<p>
-					Check the{' '}
-					<a
-						className="text-blue-300"
-						href="/roadmap"
-						target="_blank"
-						rel="noreferer"
-					>
-						roadmap
-					</a>{' '}
-					for more info
+					The website will be taken down on February 17, 2024. One year from
+					this announcement.
 				</p>
 			</div>
 		</Modal>
