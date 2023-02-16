@@ -1,3 +1,13 @@
+# Archived as of Feb 16, 2023
+
+Smaghetti is no longer worked on by me (Matt Greer). I would love to, but I just don't have the time anymore.
+The remaining things that Smaghetti needs are really big and hard, and the tiny pockets of free time here and
+there I have just don't work for that, as nuch as I have tried.
+
+If you want to pick up Smaghetti, feel free to fork this repo. I will be available with any questions about its codebase.
+
+The Smaghetti website will remain up for one more year, and taken down on February 17, 2024.
+
 ![logo](https://github.com/city41/smaghetti/blob/main/illustrations/logo_140.png?raw=true)
 
 # Smaghetti - SMA4 Level Editor
