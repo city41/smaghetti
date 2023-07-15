@@ -15,12 +15,6 @@ export const categories = [
 			'These {count} levels have ace coins and/or e-coins for you to seek out',
 		slug: 'coins',
 	},
-	{
-		title: "Dev's Favs",
-		subtitle:
-			"Hi I'm Matt and I am making Smaghetti. These are some of my favorite levels.",
-		slug: 'dev-favs',
-	},
 ] as const;
 
 export const userOrders = ['newest', 'popular'] as const;
