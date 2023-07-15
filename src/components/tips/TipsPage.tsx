@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { Root } from '../layout/Root';
 import typographyStyles from '../../styles/typography.module.css';
-import { toId } from '../whats-new/WhatsNewPage';
 
 import eCoinTemplateWPalettePng from './eCoinTemplateWPalette.png';
 import pipeWarpsPng from './pipeWarps.png';
@@ -15,6 +14,7 @@ import axeSetupPng from './axeSetup.png';
 
 import styles from './TipsPage.module.css';
 import { entityMap } from '../../entities/entityMap';
+import { toId } from '../help/HelpPage';
 
 function TipEntry({ title, children }: { title: string; children: ReactNode }) {
 	const id = toId(title);

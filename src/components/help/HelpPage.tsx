@@ -2,9 +2,15 @@ import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { Root } from '../layout/Root';
 import typographyStyles from '../../styles/typography.module.css';
-import { toId } from '../whats-new/WhatsNewPage';
 import { IconAlert } from '../../icons';
 import { DISCORD_LINK } from '../../constants';
+
+function toId(s: string): string {
+	return s
+		.toLowerCase()
+		.replace(/\s/g, '-')
+		.replace(/[^a-zA-Z0-9-]/g, '');
+}
 
 function HelpEntry({
 	title,
@@ -188,4 +194,4 @@ function HelpPage() {
 	);
 }
 
-export { HelpPage };
+export { HelpPage, toId };
