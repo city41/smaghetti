@@ -1,20 +1,20 @@
 import React, { ReactElement } from 'react';
 import { Meta } from '@storybook/react';
 
-import { EarlyStarburst } from './EarlyStarburst';
-import { EarlyModal } from './EarlyModal';
+import { StaticStarburst } from './StaticStarburst';
+import { StaticModal } from './StaticModal';
 
 const meta: Meta = {
-	title: 'EarlyPreviewStarburst',
-	component: EarlyStarburst,
+	title: 'StaticStarburst',
+	component: StaticStarburst,
 };
 
 export default meta;
 
 export const EditorMode = (): ReactElement => {
-	return <EarlyStarburst />;
+	return <StaticStarburst />;
 };
 
 export const EditorModeModal = (): ReactElement => {
-	return <EarlyModal isOpen={true} />;
+	return <StaticModal isOpen={true} />;
 };

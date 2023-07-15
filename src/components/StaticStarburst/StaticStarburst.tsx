@@ -2,20 +2,20 @@ import React, { ReactElement, useState } from 'react';
 import clsx from 'clsx';
 
 import { Starburst } from './Starburst';
-import { EarlyModal } from './EarlyModal';
+import { StaticModal } from './StaticModal';
 
-type EarlyPreviewStarburstProps = {
+type StaticPreviewStarburstProps = {
 	className?: string;
 };
 
-function EarlyStarburst({
+function StaticStarburst({
 	className,
-}: EarlyPreviewStarburstProps): ReactElement {
+}: StaticPreviewStarburstProps): ReactElement {
 	const [showModal, setShowModal] = useState(false);
 
 	return (
 		<>
-			<EarlyModal
+			<StaticModal
 				isOpen={showModal}
 				onRequestClose={() => setShowModal(false)}
 			/>
@@ -25,7 +25,7 @@ function EarlyStarburst({
 					'w-20 h-20 font-bold transform -rotate-12 text-sm'
 				)}
 			>
-				Smaghetti is shutting down
+				Smaghetti is now static
 				<a
 					className="m-0 p-0 block text-blue-800 cursor-pointer text-xs"
 					title="learn more"
@@ -38,4 +38,4 @@ function EarlyStarburst({
 	);
 }
 
-export { EarlyStarburst };
+export { StaticStarburst };
