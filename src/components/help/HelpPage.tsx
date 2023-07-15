@@ -49,17 +49,7 @@ function HelpPage() {
 						href={DISCORD_LINK}
 					>
 						Discord
-					</a>{' '}
-					or{' '}
-					<a
-						className="text-green-200 underline"
-						target="_blank"
-						rel="noreferrer"
-						href="https://github.com/city41/smaghetti/discussions"
-					>
-						GitHub
 					</a>
-					, and I&apos;ll help you out.
 				</p>
 				<HelpEntry title="The game runs slowly when I test my level">
 					<p>
@@ -150,17 +140,7 @@ function HelpPage() {
 							href={DISCORD_LINK}
 						>
 							Discord
-						</a>{' '}
-						or{' '}
-						<a
-							className="text-blue-300"
-							target="_blank"
-							rel="noreferrer"
-							href="https://github.com/city41/smaghetti/discussions"
-						>
-							GitHub
-						</a>{' '}
-						and we can see if we can help figure out what is wrong.
+						</a>
 					</p>
 				</HelpEntry>
 				<HelpEntry title="Why do so many things get grayed out in the item chooser?">
