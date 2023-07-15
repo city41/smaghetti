@@ -48,8 +48,8 @@ function AboutPage() {
 					<h2>The GBA E-Reader</h2>
 					<p>
 						The E-Reader is a device that plugs into the GBA and allows you to
-						swipe cards through it loading a small chunk of data. In the case of
-						SMA4, the E-Reader was used to add 37 bonus levels to the game.
+						swipe cards through it, loading a small chunk of data. In the case
+						of SMA4, the E-Reader was used to add 37 bonus levels to the game.
 						These levels go above and beyond normal SMB3 by adding things from
 						other Mario games. All in all, these E-Reader levels are really fun
 						and a neat treasure trove of Mario goodness.
