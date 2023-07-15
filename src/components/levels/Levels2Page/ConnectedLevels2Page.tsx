@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Levels2Page } from './Levels2Page';
 import type { CategorySlug, CategoryUserOrder } from './categories';
 import type { PublicLevels2PageProps } from './Levels2Page';
-import { client } from '../../../remoteData/client';
 import { convertLevelToLatestVersion } from '../../../level/versioning/convertLevelToLatestVersion';
 import { deserialize } from '../../../level/deserialize';
 import { useSelector } from 'react-redux';
@@ -23,48 +22,18 @@ type FlatSerializedLevel = Omit<SerializedLevel, 'user'> & {
 
 const PAGE_SIZE = 20;
 
-const slugToRpc: Record<CategorySlug, string> = {
-	coins: 'get_published_levels_that_have_special_coins',
-	'dev-favs': 'get_devs_favs_published_levels',
-	all: 'get_all_published_levels',
-	'by-tag': 'get_published_levels_with_tags',
-};
-
-const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
-	newest: 'updated_at',
-	popular: 'total_vote_count',
-};
+// const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
+// 	newest: 'updated_at',
+// 	popular: 'total_vote_count',
+// };
 
 async function getLevels(
-	slug: CategorySlug,
-	order: CategoryUserOrder,
-	tags: string[] | undefined,
-	page: number,
-	userId: string | undefined
+	_slug: CategorySlug,
+	_order: CategoryUserOrder,
+	_tags: string[] | undefined,
+	_page: number
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const params: Record<string, any> = { current_user_id: userId ?? '' };
-
-	if (slug === 'by-tag') {
-		if (!tags || tags.length === 0) {
-			return { levels: [], totalCount: 0 };
-		}
-
-		params.matching_tags = tags;
-	}
-
-	const rpcFunc = slugToRpc[slug];
-
-	const { error, data, count } = await client
-		.rpc(rpcFunc, params, { count: 'exact' })
-		.range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1)
-		.order(userOrderToOrderColumn[order], { ascending: false });
-
-	if (error) {
-		throw error;
-	}
-
-	return { levels: data ?? [], totalCount: count ?? 0 };
+	return { levels: [], totalCount: 0 };
 }
 
 function ConnectedLevels2Page(props: PublicLevels2PageProps) {
@@ -72,19 +41,9 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 	const [loadingState, setLoadingState] = useState<LoadingState>('loading');
 	const [levels, setLevels] = useState<LevelWithVoting[]>([]);
 	const [totalCount, setTotalCount] = useState(0);
-	const [userId, setUserId] = useState<string | undefined>(
-		client.auth.user()?.id
-	);
-
 	const { allFilesReady, emptySaveFileState } = useSelector(
 		(state: AppState) => state.fileLoader
 	);
-
-	useEffect(() => {
-		client.auth.onAuthStateChange(() => {
-			setUserId(client.auth.user()?.id);
-		});
-	}, []);
 
 	useEffect(() => {
 		setPage(0);
@@ -94,7 +53,7 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 
 	useEffect(() => {
 		setLoadingState('loading');
-		getLevels(props.currentSlug, props.currentOrder, props.tags, page, userId)
+		getLevels(props.currentSlug, props.currentOrder, props.tags, page)
 			.then(({ levels: retrievedLevels, totalCount: retrievedTotalCount }) => {
 				const convertedLevels = retrievedLevels.reduce<LevelWithVoting[]>(
 					(building, rawLevel) => {
@@ -135,7 +94,6 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 		props.currentOrder,
 		props.tags,
 		setLoadingState,
-		userId,
 	]);
 
 	return (

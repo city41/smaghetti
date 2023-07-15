@@ -1,15 +1,7 @@
 import { createSlice, Action, PayloadAction } from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../../store';
-import { getProfile as getProfileQuery } from '../../remoteData/getProfile';
-import { deleteLevel as deleteLevelMutation } from '../../remoteData/deleteLevel';
-import type { ProfileData } from '../../remoteData/getProfile';
-import { client } from '../../remoteData/client';
-import { deserialize } from '../../level/deserialize';
-import { convertLevelToLatestVersion } from '../../level/versioning/convertLevelToLatestVersion';
-import { setLevelPublished } from '../../remoteData/setLevelPublished';
 import { isBrokenLevel } from '../editor/Editor/LevelChooserModal/util';
-import { logError } from '../../reporting/logError';
 
 type DeleteState = 'deleting' | 'error' | 'success';
 type TogglePublishState = 'toggling' | 'error' | 'success';
@@ -76,110 +68,24 @@ const profileSlice = createSlice({
 				level.published = !level.published;
 			}
 		},
-		setProfile(state: ProfileState, action: PayloadAction<ProfileData>) {
-			state.user = action.payload.user;
-			state.levels = action.payload.levels.map((l) => {
-				const latestVersion = convertLevelToLatestVersion(l);
-
-				if (!latestVersion) {
-					return {
-						...l,
-						broken: true,
-					};
-				}
-
-				try {
-					return {
-						...latestVersion,
-						data: deserialize(latestVersion.data),
-					};
-				} catch {
-					return {
-						...latestVersion,
-						broken: true,
-					};
-				}
-			});
-		},
+		setProfile() {},
 	},
 });
 
 type ProfileSliceThunk = ThunkAction<void, AppState, null, Action>;
 
-const loadProfile = (): ProfileSliceThunk => async (dispatch) => {
-	dispatch(profileSlice.actions.setLoadState('loading'));
-
-	const user = client.auth.user();
-
-	if (!user) {
-		throw new Error('loadProfile: called when there is no local user');
-	}
-
-	try {
-		const profileData = await getProfileQuery(user.id);
-		dispatch(profileSlice.actions.setProfile(profileData));
-		dispatch(profileSlice.actions.setLoadState('success'));
-	} catch (e) {
-		logError({
-			context: 'profileSlice#loadProfile',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
-		});
-		dispatch(profileSlice.actions.setLoadState('error'));
-	}
+const loadProfile = (): ProfileSliceThunk => async (_dispatch) => {
+	// TODO: delete profiles
 };
 
-const deleteLevel = (level: Level | BrokenLevel): ProfileSliceThunk => async (
-	dispatch
-) => {
-	dispatch(
-		profileSlice.actions.setDeleteState({ id: level.id, state: 'deleting' })
-	);
-	try {
-		await deleteLevelMutation(level.id);
-		dispatch(
-			profileSlice.actions.setDeleteState({ id: level.id, state: 'success' })
-		);
-		dispatch(profileSlice.actions.removeLevel(level.id));
-	} catch (e) {
-		logError({
-			context: 'profileSlice#deleteLevel',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
-		});
-		dispatch(
-			profileSlice.actions.setDeleteState({ id: level.id, state: 'error' })
-		);
-	} finally {
-		setTimeout(() => {
-			dispatch(profileSlice.actions.clearDeleteState(level.id));
-		}, 2000);
-	}
-};
+const deleteLevel = (_level: Level | BrokenLevel): ProfileSliceThunk => async (
+	_dispatch
+) => {};
 
-const togglePublishLevel = (level: Level): ProfileSliceThunk => async (
-	dispatch
+const togglePublishLevel = (_level: Level): ProfileSliceThunk => async (
+	_dispatch
 ) => {
-	try {
-		await setLevelPublished(level.id, !level.published);
-		dispatch(
-			profileSlice.actions.setPublishState({ id: level.id, state: 'success' })
-		);
-		dispatch(profileSlice.actions.togglePublished(level.id));
-	} catch (e) {
-		logError({
-			context: 'profileSlice#togglePublishLevel',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
-		});
-		dispatch(
-			profileSlice.actions.setPublishState({ id: level.id, state: 'error' })
-		);
-	} finally {
-		setTimeout(() => {
-			dispatch(profileSlice.actions.clearPublishState(level.id));
-		}, 2000);
-	}
+	// TODO: remove publishing levels
 };
 
 const reducer = profileSlice.reducer;

@@ -27,8 +27,6 @@ import {
 	MAX_WRAP_AROUND_ROOM_TILE_HEIGHT,
 } from './constants';
 import { getPlayerScaleFromWindow } from '../../util/getPlayerScaleFromWindow';
-import { saveLevel as saveLevelMutation } from '../../remoteData/saveLevel';
-import { getLevel as getLevelQuery } from '../../remoteData/getLevel';
 import { serialize as levelSerialize } from '../../level/serialize';
 import { deserialize } from '../../level/deserialize';
 import isEqual from 'lodash/isEqual';
@@ -1981,51 +1979,49 @@ const editorSlice = createSlice({
 type LevelThunk = ThunkAction<void, AppState, null, Action>;
 
 async function doSave(
-	dispatch: ThunkDispatch<AppState, null, Action>,
-	levelData: LevelData,
-	id: string | undefined,
-	name: string | undefined
+	_dispatch: ThunkDispatch<AppState, null, Action>,
+	_levelData: LevelData,
+	_id: string | undefined,
+	_name: string | undefined
 ) {
-	try {
-		dispatch(editorSlice.actions.setSaveLevelState('saving'));
-		const serializedLevelData = serialize(levelData);
-
-		try {
-			const createdLevelId = await saveLevelMutation(
-				id ?? null,
-				name ?? 'new level',
-				'auto desc',
-				serializedLevelData
-			);
-			dispatch(editorSlice.actions.setSavedLevelId(createdLevelId));
-			dispatch(editorSlice.actions.setSaveLevelState('success'));
-		} catch (e) {
-			// eslint-disable-next-line no-console
-			console.error('error saving level', console.dir(e));
-			logError({
-				context: 'editorSlice#doSave,first catch',
-				message: e?.message ?? 'no message',
-				stack: e?.stack,
-				level_data: JSON.stringify(levelData),
-			});
-
-			dispatch(editorSlice.actions.setSaveLevelState('error'));
-		}
-	} catch (e) {
-		// eslint-disable-next-line no-console
-		console.error('error saving level', e);
-		logError({
-			context: 'editorSlice#doSave,second catch',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
-			level_data: JSON.stringify(levelData),
-		});
-		dispatch(editorSlice.actions.setSaveLevelState('error'));
-	} finally {
-		setTimeout(() => {
-			dispatch(editorSlice.actions.setSaveLevelState('dormant'));
-		}, 2000);
-	}
+	// try {
+	// 	dispatch(editorSlice.actions.setSaveLevelState('saving'));
+	// 	const serializedLevelData = serialize(levelData);
+	// 	try {
+	// 		const createdLevelId = await saveLevelMutation(
+	// 			id ?? null,
+	// 			name ?? 'new level',
+	// 			'auto desc',
+	// 			serializedLevelData
+	// 		);
+	// 		dispatch(editorSlice.actions.setSavedLevelId(createdLevelId));
+	// 		dispatch(editorSlice.actions.setSaveLevelState('success'));
+	// 	} catch (e) {
+	// 		// eslint-disable-next-line no-console
+	// 		console.error('error saving level', console.dir(e));
+	// 		logError({
+	// 			context: 'editorSlice#doSave,first catch',
+	// 			message: e?.message ?? 'no message',
+	// 			stack: e?.stack,
+	// 			level_data: JSON.stringify(levelData),
+	// 		});
+	// 		dispatch(editorSlice.actions.setSaveLevelState('error'));
+	// 	}
+	// } catch (e) {
+	// 	// eslint-disable-next-line no-console
+	// 	console.error('error saving level', e);
+	// 	logError({
+	// 		context: 'editorSlice#doSave,second catch',
+	// 		message: e?.message ?? 'no message',
+	// 		stack: e?.stack,
+	// 		level_data: JSON.stringify(levelData),
+	// 	});
+	// 	dispatch(editorSlice.actions.setSaveLevelState('error'));
+	// } finally {
+	// 	setTimeout(() => {
+	// 		dispatch(editorSlice.actions.setSaveLevelState('dormant'));
+	// 	}, 2000);
+	// }
 }
 
 const saveLevel = (): LevelThunk => async (dispatch, getState) => {
@@ -2059,35 +2055,32 @@ const saveLevelCopy = (): LevelThunk => async (dispatch, getState) => {
 	dispatch(editorSlice.actions.setLevelName(levelName));
 };
 
-const loadLevel = (id: string): LevelThunk => async (dispatch) => {
-	try {
-		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
-		dispatch(editorSlice.actions.setLevelName(''));
-		dispatch(editorSlice.actions.setLoadLevelState('loading'));
-
-		const result = await getLevelQuery(id);
-
-		if (!result) {
-			dispatch(editorSlice.actions.setLoadLevelState('missing'));
-		} else {
-			const convertedLevel = convertLevelToLatestVersion(result);
-
-			if (!convertedLevel) {
-				dispatch(editorSlice.actions.setLoadLevelState('error'));
-			} else {
-				const levelData = deserialize(convertedLevel.data);
-				dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
-				dispatch(editorSlice.actions.setLevelName(result.name));
-				dispatch(
-					editorSlice.actions.setLevelCreatorName(result.user?.username)
-				);
-				dispatch(editorSlice.actions.setSavedLevelId(result.id));
-				dispatch(editorSlice.actions.setLoadLevelState('success'));
-			}
-		}
-	} catch (e) {
-		dispatch(editorSlice.actions.setLoadLevelState('error'));
-	}
+const loadLevel = (_id: string): LevelThunk => async (_dispatch) => {
+	// try {
+	// 	dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
+	// 	dispatch(editorSlice.actions.setLevelName(''));
+	// 	dispatch(editorSlice.actions.setLoadLevelState('loading'));
+	// 	const result = await getLevelQuery(id);
+	// 	if (!result) {
+	// 		dispatch(editorSlice.actions.setLoadLevelState('missing'));
+	// 	} else {
+	// 		const convertedLevel = convertLevelToLatestVersion(result);
+	// 		if (!convertedLevel) {
+	// 			dispatch(editorSlice.actions.setLoadLevelState('error'));
+	// 		} else {
+	// 			const levelData = deserialize(convertedLevel.data);
+	// 			dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
+	// 			dispatch(editorSlice.actions.setLevelName(result.name));
+	// 			dispatch(
+	// 				editorSlice.actions.setLevelCreatorName(result.user?.username)
+	// 			);
+	// 			dispatch(editorSlice.actions.setSavedLevelId(result.id));
+	// 			dispatch(editorSlice.actions.setLoadLevelState('success'));
+	// 		}
+	// 	}
+	// } catch (e) {
+	// 	dispatch(editorSlice.actions.setLoadLevelState('error'));
+	// }
 };
 
 const loadBinaryEReaderLevel = (levelFile: File): LevelThunk => async (

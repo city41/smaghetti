@@ -1,13 +1,6 @@
 import { createSlice, Action, PayloadAction } from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../../store';
-import { getPublishedLevels as getPublishedLevelsQuery } from '../../remoteData/getPublishedLevels';
-import { getAllVotes as getAllVotesQuery } from '../../remoteData/getAllVotes';
-import { convertLevelToLatestVersion } from '../../level/versioning/convertLevelToLatestVersion';
-import { deserialize } from '../../level/deserialize';
-import { insertVote } from '../../remoteData/insertVote';
-import { logError } from '../../reporting/logError';
-import { deleteVote } from '../../remoteData/deleteVote';
 
 type LoadingState = 'dormant' | 'loading' | 'error' | 'success';
 type LevelsState = {
@@ -70,105 +63,45 @@ const levelsSlice = createSlice({
 
 type LevelsSliceThunk = ThunkAction<void, AppState, null, Action>;
 
-const loadPublishedLevels = (username?: string): LevelsSliceThunk => async (
-	dispatch
+const loadPublishedLevels = (_username?: string): LevelsSliceThunk => async (
+	_dispatch
 ) => {
-	dispatch(levelsSlice.actions.setLoadState('loading'));
-
-	try {
-		const [rawLevels, votes] = await Promise.all<
-			SerializedLevel[],
-			LevelVote[]
-		>([getPublishedLevelsQuery(username), getAllVotesQuery()]);
-
-		const convertedLevels = rawLevels.reduce<Level[]>((building, rawLevel) => {
-			const convertedLevel = convertLevelToLatestVersion(rawLevel);
-
-			if (convertedLevel) {
-				const level = {
-					...convertedLevel,
-					data: deserialize(convertedLevel.data),
-				};
-				return building.concat(level);
-			} else {
-				return building;
-			}
-		}, []);
-
-		dispatch(levelsSlice.actions.setLoadedlevels(convertedLevels));
-		dispatch(levelsSlice.actions.setVotes(votes));
-		dispatch(levelsSlice.actions.setLoadState('success'));
-	} catch (e) {
-		dispatch(levelsSlice.actions.setLoadState('error'));
-	}
+	// dispatch(levelsSlice.actions.setLoadState('loading'));
+	// try {
+	// 	const [rawLevels, votes] = await Promise.all<
+	// 		SerializedLevel[],
+	// 		LevelVote[]
+	// 	>([getPublishedLevelsQuery(username), getAllVotesQuery()]);
+	// 	const convertedLevels = rawLevels.reduce<Level[]>((building, rawLevel) => {
+	// 		const convertedLevel = convertLevelToLatestVersion(rawLevel);
+	// 		if (convertedLevel) {
+	// 			const level = {
+	// 				...convertedLevel,
+	// 				data: deserialize(convertedLevel.data),
+	// 			};
+	// 			return building.concat(level);
+	// 		} else {
+	// 			return building;
+	// 		}
+	// 	}, []);
+	// 	dispatch(levelsSlice.actions.setLoadedlevels(convertedLevels));
+	// 	dispatch(levelsSlice.actions.setVotes(votes));
+	// 	dispatch(levelsSlice.actions.setLoadState('success'));
+	// } catch (e) {
+	// 	dispatch(levelsSlice.actions.setLoadState('error'));
+	// }
 };
 
-const voteForLevel = (vote: LevelVote): LevelsSliceThunk => async (
-	dispatch
+const voteForLevel = (_vote: LevelVote): LevelsSliceThunk => async (
+	_dispatch
 ) => {
-	dispatch(
-		levelsSlice.actions.setVotingState({
-			levelId: vote.levelId,
-			state: 'loading',
-		})
-	);
-
-	try {
-		await insertVote(vote);
-		dispatch(
-			levelsSlice.actions.setVotingState({
-				levelId: vote.levelId,
-				state: 'success',
-			})
-		);
-		dispatch(levelsSlice.actions.addVote(vote));
-	} catch (e) {
-		dispatch(
-			levelsSlice.actions.setVotingState({
-				levelId: vote.levelId,
-				state: 'error',
-			})
-		);
-		logError({
-			context: 'levelsSlice#voteForLevel',
-			message: 'error voting for level',
-			stack: e?.stack ?? e?.details ?? 'none',
-		});
-	}
+	// TODO: get rid of voting
 };
 
-const unvoteForLevel = (vote: LevelVote): LevelsSliceThunk => async (
-	dispatch
+const unvoteForLevel = (_vote: LevelVote): LevelsSliceThunk => async (
+	_dispatch
 ) => {
-	dispatch(
-		levelsSlice.actions.setVotingState({
-			levelId: vote.levelId,
-			state: 'loading',
-		})
-	);
-
-	try {
-		await deleteVote(vote);
-		dispatch(
-			levelsSlice.actions.setVotingState({
-				levelId: vote.levelId,
-				state: 'success',
-			})
-		);
-		dispatch(levelsSlice.actions.removeVote(vote));
-	} catch (e) {
-		dispatch(
-			levelsSlice.actions.setVotingState({
-				levelId: vote.levelId,
-				state: 'error',
-			})
-		);
-		logError({
-			context: 'levelsSlice#unvoteForLevel',
-			message: 'error unvoting for level',
-			stack: e?.stack ?? e?.details ?? 'none',
-		});
-	}
+	// TODO: get rid of voting
 };
 
 const reducer = levelsSlice.reducer;
