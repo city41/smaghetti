@@ -12,44 +12,14 @@ type PublicPageMenuProps = {
 	onLevelsClicked: () => void;
 };
 
-type InternalPageMenuProps = {
-	isLoggedIn: boolean;
-	onSignInClicked: () => void;
-	onJoinClicked: () => void;
-};
-
 function PageMenu({
 	className,
-	isLoggedIn,
 	onLevelsClicked,
-	onSignInClicked,
-	onJoinClicked,
 	children,
-}: PublicPageMenuProps & InternalPageMenuProps) {
-	const menu = isLoggedIn ? (
+}: PublicPageMenuProps) {
+	const menu = (
 		<>
 			<a onClick={onLevelsClicked}>your levels</a>
-		</>
-	) : (
-		<>
-			<a
-				onClick={(e) => {
-					e.preventDefault();
-					e.stopPropagation();
-					onSignInClicked();
-				}}
-			>
-				sign in
-			</a>
-			<a
-				onClick={(e) => {
-					e.preventDefault();
-					e.stopPropagation();
-					onJoinClicked();
-				}}
-			>
-				join
-			</a>
 		</>
 	);
 
@@ -63,11 +33,6 @@ function PageMenu({
 		>
 			{children}
 			{menu}
-			<Link href="/whats-new" passHref>
-				<a target="_blank" rel="noreferrer">
-					what&apos;s new
-				</a>
-			</Link>
 			<Link href="/help" passHref>
 				<a target="_blank" rel="noreferrer">
 					help
@@ -83,4 +48,4 @@ function PageMenu({
 }
 
 export { PageMenu };
-export type { PublicPageMenuProps, InternalPageMenuProps };
+export type { PublicPageMenuProps };
