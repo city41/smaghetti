@@ -175,15 +175,6 @@ function AboutPage() {
 						others. If you&apos;ve reported a bug, or contributed any knowledge
 						to reverse engineering SMA4, thank you!
 					</p>
-					<h2>Going forward</h2>
-					<p>
-						Smaghetti is far from done (checkout the{' '}
-						<a href="/roadmap">roadmap</a> for an overview). I have a lot of big
-						ideas for it, such as supporting Super Mario All-Stars on the SNES,
-						building entire games rather than just E-Reader levels and more.
-						Can&apos;t promise any of these things will actually happen, but who
-						knows, let&apos;s see where this all goes...
-					</p>
 				</div>
 			</div>
 		</Root>

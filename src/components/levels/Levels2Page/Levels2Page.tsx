@@ -89,14 +89,6 @@ function Levels2Page({
 			<Root metaDescription="" title="Levels">
 				<div className="max-w-2xl mx-auto pt-16 flex flex-col h-full">
 					<h1 className="font-bold text-2xl text-center">Community Levels</h1>
-					<p className="mt-2 mb-16 text-gray-400 text-sm text-center mx-24">
-						Want your level to show up here? Click on the &quot;publish&quot;
-						button when looking at all your levels in the editor.
-					</p>
-					<p className="p-2 mb-8 bg-red-100 text-red-900">
-						Hey! Smaghetti is no longer being worked on. This website will be
-						taken down on February 17, 2024
-					</p>
 					<Menu>
 						{categories.map((c) => {
 							return (

@@ -15,10 +15,6 @@ function IndexPage() {
 					<h1 className="text-2xl font-bold">
 						A level editor for Super Mario Advance 4
 					</h1>
-					<p className="p-2 bg-red-100 text-red-900">
-						Hey! Smaghetti is no longer being worked on. This website will be
-						taken down on February 17, 2024
-					</p>
 					<figure>
 						<img
 							className="shadow-lg p-4 bg-gray-500"
