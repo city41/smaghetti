@@ -16,7 +16,6 @@ import { extractResourcesToStylesheet } from '../../tiles/extractResourcesToStyl
 import { deserialize as deserializeSaveState } from '../../saveStates/serializer';
 import { resourceMap } from '../../resources/resourceMap';
 import { Resource } from '../../resources/types';
-import { logError } from '../../reporting/logError';
 
 // indicates which type of a rom we're currently using
 // some pages require v1.1, others wii-u, and some will work with either.
@@ -244,10 +243,6 @@ const loadEmptySave = (): FileLoaderThunk => async (dispatch) => {
 
 				reader.addEventListener('error', (e) => {
 					console.error('failed to load empty save', e);
-					logError({
-						context: 'fileLoaderSlice#loadEmptySave,error event listener',
-						message: (e ?? 'no error object').toString(),
-					});
 					dispatch(fileLoaderSlice.actions.emptySaveState('error'));
 				});
 
@@ -255,20 +250,10 @@ const loadEmptySave = (): FileLoaderThunk => async (dispatch) => {
 			})
 			.catch((e) => {
 				console.error('failed to load empty save', e);
-				logError({
-					context: 'fileLoaderSlice#loadEmptySave,first catch',
-					message: (e as Error)?.message ?? 'no message',
-					stack: (e as Error)?.stack,
-				});
 				dispatch(fileLoaderSlice.actions.emptySaveState('error'));
 			});
 	} catch (e) {
 		console.error('failed to load empty save', e);
-		logError({
-			context: 'fileLoaderSlice#loadEmptySave,second catch',
-			message: (e as Error)?.message ?? 'no message',
-			stack: (e as Error)?.stack,
-		});
 		dispatch(fileLoaderSlice.actions.emptySaveState('error'));
 	}
 };
@@ -290,11 +275,6 @@ const loadSaveState = (): FileLoaderThunk => async (dispatch) => {
 			});
 	} catch (e) {
 		console.error('failed to load save state json', e);
-		logError({
-			context: 'fileLoaderSlice#loadSaveState,catch',
-			message: (e as Error)?.message ?? 'no message',
-			stack: (e as Error)?.stack,
-		});
 		dispatch(fileLoaderSlice.actions.saveStateJsonState('error'));
 	}
 };
@@ -314,20 +294,10 @@ const loadExampleLevel = (): FileLoaderThunk => async (dispatch) => {
 			})
 			.catch((e) => {
 				console.error('failed to load example level', e);
-				logError({
-					context: 'fileLoaderSlice#loadExampleLevel,first catch',
-					message: (e as Error)?.message ?? 'no message',
-					stack: (e as Error)?.stack,
-				});
 				dispatch(fileLoaderSlice.actions.exampleLevelState('error'));
 			});
 	} catch (e) {
 		console.error('failed to load example level', e);
-		logError({
-			context: 'fileLoaderSlice#loadExampleLevel,second catch',
-			message: (e as Error)?.message ?? 'no message',
-			stack: (e as Error)?.stack,
-		});
 		dispatch(fileLoaderSlice.actions.exampleLevelState('error'));
 	}
 };
@@ -347,10 +317,6 @@ const loadBios = (): FileLoaderThunk => async (dispatch) => {
 
 				reader.addEventListener('error', (e) => {
 					console.error('failed to load bios', e);
-					logError({
-						context: 'fileLoaderSlice#loadBios,error event listener',
-						message: (e ?? 'no error object').toString(),
-					});
 					dispatch(fileLoaderSlice.actions.biosState('error'));
 				});
 
@@ -358,20 +324,10 @@ const loadBios = (): FileLoaderThunk => async (dispatch) => {
 			})
 			.catch((e) => {
 				console.error('failed to load bios', e);
-				logError({
-					context: 'fileLoaderSlice#loadBios,first catch',
-					message: (e as Error)?.message ?? 'no message',
-					stack: (e as Error)?.stack,
-				});
 				dispatch(fileLoaderSlice.actions.biosState('error'));
 			});
 	} catch (e) {
 		console.error('failed to load bios', e);
-		logError({
-			context: 'fileLoaderSlice#loadBios,second catch',
-			message: (e as Error)?.message ?? 'no message',
-			stack: (e as Error)?.stack,
-		});
 		dispatch(fileLoaderSlice.actions.biosState('error'));
 	}
 };

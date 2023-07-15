@@ -51,7 +51,6 @@ import {
 } from '../../level/versioning/convertLevelToLatestVersion';
 import { flattenCells } from '../../levelData/util';
 import { getEntityTileBounds, pointIsInside } from './util';
-import { logError } from '../../reporting/logError';
 import {
 	parseBinaryEReaderLevel,
 	parseBinaryInGameLevel,
@@ -2147,12 +2146,6 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 			} catch (e) {
 				// eslint-disable-next-line no-console
 				console.error('loadFromLocalStorage error', e);
-				logError({
-					context: 'editorSlice#loadFromLocalStorage,first catch',
-					message: e?.message ?? 'no message',
-					stack: e?.stack,
-					level_data: rawJson,
-				});
 				dispatch(editorSlice.actions.setLoadLevelState('error'));
 			}
 		}
@@ -2160,11 +2153,6 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 		// eslint-disable-next-line no-console
 		console.error('loadFromLocalStorage error', e);
 		dispatch(editorSlice.actions.setLoadLevelState('error'));
-		logError({
-			context: 'editorSlice#loadFromLocalStorage,second catch',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
-		});
 	}
 };
 
