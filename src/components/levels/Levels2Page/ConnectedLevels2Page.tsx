@@ -7,9 +7,6 @@ import { convertLevelToLatestVersion } from '../../../level/versioning/convertLe
 import { deserialize } from '../../../level/deserialize';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../../store';
-import { SignInJoinModal } from '../../auth/SignInJoinModal';
-import { deleteVote } from '../../../remoteData/deleteVote';
-import { insertVote } from '../../../remoteData/insertVote';
 
 type LoadingState = 'loading' | 'error' | 'success';
 type LevelWithVoting = Level & {
@@ -78,11 +75,6 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 	const [userId, setUserId] = useState<string | undefined>(
 		client.auth.user()?.id
 	);
-	const [showLoginModal, setShowLoginModal] = useState(false);
-	const [
-		pendingLevelVote,
-		setPendingLevelVote,
-	] = useState<LevelWithVoting | null>(null);
 
 	const { allFilesReady, emptySaveFileState } = useSelector(
 		(state: AppState) => state.fileLoader
@@ -146,76 +138,6 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 		userId,
 	]);
 
-	async function handleVoteClick(level: LevelWithVoting) {
-		setLevels((levels) => {
-			return levels.map((l) => {
-				if (l.id === level.id) {
-					return {
-						...l,
-						loading: true,
-					};
-				} else {
-					return l;
-				}
-			});
-		});
-
-		if (!userId) {
-			setShowLoginModal(true);
-			setPendingLevelVote(level);
-		} else {
-			const vote = { userId: userId!, levelId: level.id };
-			if (level.currentUserVoted) {
-				await deleteVote(vote);
-				setLevels((levels) => {
-					return levels.map((l) => {
-						if (l.id === level.id) {
-							return {
-								...l,
-								voteCount: l.voteCount - 1,
-								currentUserVoted: false,
-								loading: false,
-							};
-						} else {
-							return l;
-						}
-					});
-				});
-			} else {
-				await insertVote(vote);
-				setLevels((levels) => {
-					return levels.map((l) => {
-						if (l.id === level.id) {
-							return {
-								...l,
-								voteCount: l.voteCount + 1,
-								currentUserVoted: true,
-								loading: false,
-							};
-						} else {
-							return l;
-						}
-					});
-				});
-			}
-		}
-	}
-
-	const modal = showLoginModal ? (
-		<SignInJoinModal
-			initialMode="join-to-vote"
-			onClose={() => setShowLoginModal(false)}
-			onUser={(user) => {
-				setShowLoginModal(false);
-				setUserId(user.id);
-
-				if (pendingLevelVote) {
-					handleVoteClick(pendingLevelVote);
-				}
-			}}
-		/>
-	) : null;
-
 	return (
 		<>
 			<Levels2Page
@@ -234,9 +156,8 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 					// TODO: what to do when run out of pages?
 					setPage((p) => p + 1);
 				}}
-				onVoteClick={handleVoteClick}
+				onVoteClick={() => {}}
 			/>
-			{modal}
 		</>
 	);
 }
