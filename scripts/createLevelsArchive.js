@@ -33,21 +33,34 @@ const DEST_DIR = 'public/level-archive/';
 const PAGE_SIZE = 20;
 
 async function main() {
+	const fetch = (await import('node-fetch')).default;
 	const limit = PAGE_SIZE.toString();
 
-	const fetch = (await import('node-fetch')).default;
+	let levelCount = 0;
 
-	for (let i = 0; i < 10; ++i) {
+	let i = 0;
+	while (true) {
 		const offset = (i * PAGE_SIZE).toString();
 		const url = FETCH_URL.replace('{OFFSET}', offset).replace('{LIMIT}', limit);
 		const response = await fetch(url, FETCH_CONFIG);
 		const data = await response.text();
 
-		const fileName = `get_all_published_levels_offset${offset}_limit${limit}.json`;
-		const destPath = path.resolve(process.cwd(), DEST_DIR, fileName);
-		await fsp.writeFile(destPath, data);
-		console.log('wrote', destPath);
+		const pageLevelCount = JSON.parse(data).length;
+
+		if (pageLevelCount === 0) {
+			break;
+		} else {
+			levelCount += pageLevelCount;
+			const fileName = `get_all_published_levels_offset${offset}_limit${limit}.json`;
+			const destPath = path.resolve(process.cwd(), DEST_DIR, fileName);
+			await fsp.writeFile(destPath, data);
+			console.log('wrote', destPath);
+
+			++i;
+		}
 	}
+
+	console.log({ levelCount });
 }
 
 main()
