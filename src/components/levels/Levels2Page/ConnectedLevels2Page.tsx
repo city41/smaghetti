@@ -31,9 +31,15 @@ async function getLevels(
 	_slug: CategorySlug,
 	_order: CategoryUserOrder,
 	_tags: string[] | undefined,
-	_page: number
+	page: number
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
-	return { levels: [], totalCount: 0 };
+	const request = await fetch(
+		`/level-archive/get_all_published_levels_offset${
+			page * PAGE_SIZE
+		}_limit${PAGE_SIZE}.json`
+	);
+	const data = await request.json();
+	return { levels: data, totalCount: data.length };
 }
 
 function ConnectedLevels2Page(props: PublicLevels2PageProps) {
