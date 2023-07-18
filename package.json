@@ -41,7 +41,6 @@
 		"@types/react-redux": "^7.1.16",
 		"@types/react-virtualized": "^9.21.21",
 		"autoprefixer": "^9",
-		"canvas": "^2.7.0",
 		"clsx": "^1.1.1",
 		"concurrently": "^6.0.0",
 		"file-loader": "^6.2.0",
@@ -94,6 +93,7 @@
 		"@typescript-eslint/eslint-plugin": "^4.21.0",
 		"@typescript-eslint/parser": "^4.21.0",
 		"babel-loader": "^8.2.2",
+		"canvas": "^2.7.0",
 		"eslint": "^7.23.0",
 		"eslint-plugin-react": "^7.23.1"
 	}
