@@ -33,20 +33,20 @@ const FileRootMap: Record<CategorySlug, string> = {
 	coins: '',
 };
 const LevelCountMap: Record<CategorySlug, number> = {
-	all: 1073,
+	all: 1074,
 	'by-tag': 0,
 	coins: 0,
 };
 
 async function getLevels(
 	slug: CategorySlug,
-	_order: CategoryUserOrder,
+	order: CategoryUserOrder,
 	_tags: string[] | undefined,
 	page: number
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
 	const fileRoot = FileRootMap[slug];
 	const request = await fetch(
-		`/level-archive/${fileRoot}_offset${
+		`/level-archive/${fileRoot}_order${order}_offset${
 			page * PAGE_SIZE
 		}_limit${PAGE_SIZE}.json`
 	);

@@ -2,7 +2,7 @@ const path = require('node:path');
 const fsp = require('node:fs/promises');
 
 const FETCH_URL =
-	'https://cfmypkasixjnpkxfpylf.supabase.co/rest/v1/rpc/get_all_published_levels?offset={OFFSET}&limit={LIMIT}&order=updated_at.desc.nullslast';
+	'https://cfmypkasixjnpkxfpylf.supabase.co/rest/v1/rpc/get_all_published_levels?offset={OFFSET}&limit={LIMIT}&order={ORDER}';
 const FETCH_CONFIG = {
 	headers: {
 		accept: '*/*',
@@ -38,29 +38,38 @@ async function main() {
 
 	let levelCount = 0;
 
-	let i = 0;
-	while (true) {
-		const offset = (i * PAGE_SIZE).toString();
-		const url = FETCH_URL.replace('{OFFSET}', offset).replace('{LIMIT}', limit);
-		const response = await fetch(url, FETCH_CONFIG);
-		const data = await response.text();
+	const orders = [
+		{ key: 'newest', param: 'updated_at.desc.nullslast' },
+		{ key: 'popular', param: 'total_vote_count.desc.nullslast' },
+	];
 
-		const pageLevelCount = JSON.parse(data).length;
+	for (const order of orders) {
+		let i = 0;
+		while (true) {
+			const offset = (i * PAGE_SIZE).toString();
+			const url = FETCH_URL.replace('{OFFSET}', offset)
+				.replace('{LIMIT}', limit)
+				.replace('{ORDER}', order.param);
+			const response = await fetch(url, FETCH_CONFIG);
+			const data = await response.text();
 
-		if (pageLevelCount === 0) {
-			break;
-		} else {
-			levelCount += pageLevelCount;
-			const fileName = `get_all_published_levels_offset${offset}_limit${limit}.json`;
-			const destPath = path.resolve(process.cwd(), DEST_DIR, fileName);
-			await fsp.writeFile(destPath, data);
-			console.log('wrote', destPath);
+			const pageLevelCount = JSON.parse(data).length;
 
-			++i;
+			if (pageLevelCount === 0) {
+				break;
+			} else {
+				levelCount += pageLevelCount;
+				const fileName = `get_all_published_levels_order${order.key}_offset${offset}_limit${limit}.json`;
+				const destPath = path.resolve(process.cwd(), DEST_DIR, fileName);
+				await fsp.writeFile(destPath, data);
+				console.log('wrote', destPath);
+
+				++i;
+			}
 		}
-	}
 
-	console.log({ levelCount });
+		console.log({ order, levelCount });
+	}
 }
 
 main()
