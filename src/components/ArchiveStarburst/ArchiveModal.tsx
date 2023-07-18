@@ -37,7 +37,7 @@ function ArchiveModal({
 							All private levels will be deleted!
 						</em>{' '}
 						If you have a private level you want to save, please publish it. You
-						can always add "WIP" (work in progress) to its name.
+						can always add &quot;WIP&quot; (work in progress) to its name.
 					</li>
 					<li>
 						User accounts will go away. Everyone can just use Smaghetti without
