@@ -50,6 +50,10 @@ function ArchiveModal({
 					</li>
 					<li>Publishing levels will no longer be supported.</li>
 					<li>Voting on levels will no longer be supported.</li>
+					<li>
+						No new features will be added. Smaghetti will always be just like it
+						is now.
+					</li>
 				</ul>
 			</div>
 		</Modal>
