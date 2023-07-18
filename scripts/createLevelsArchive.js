@@ -1,17 +1,32 @@
 const path = require('node:path');
 const fsp = require('node:fs/promises');
 
+const SUPABASE_ROOT = 'https://cfmypkasixjnpkxfpylf.supabase.co/rest/v1/rpc/';
+
 const FETCH_URLS = [
 	{
 		fileRoot: 'get_all_published_levels',
-		url:
-			'https://cfmypkasixjnpkxfpylf.supabase.co/rest/v1/rpc/get_all_published_levels?offset={OFFSET}&limit={LIMIT}&order={ORDER}',
+		url: `${SUPABASE_ROOT}get_all_published_levels?offset={OFFSET}&limit={LIMIT}&order={ORDER}`,
+		paged: true,
+		body: '{"current_user_id":""}',
 	},
 	{
 		fileRoot: 'get_published_levels_that_have_special_coins',
-		url:
-			'https://cfmypkasixjnpkxfpylf.supabase.co/rest/v1/rpc/get_published_levels_that_have_special_coins?offset={OFFSET}&limit={LIMIT}&order={ORDER}',
+		url: `${SUPABASE_ROOT}get_published_levels_that_have_special_coins?offset={OFFSET}&limit={LIMIT}&order={ORDER}`,
+		paged: true,
+		body: '{"current_user_id":""}',
 	},
+	{
+		fileRoot: 'get_published_levels_that_have_ecoins',
+		url: `${SUPABASE_ROOT}get_published_levels_that_have_ecoins?order={ORDER}`,
+		paged: false,
+		body: '',
+	},
+];
+
+const ORDERS = [
+	{ key: 'newest', param: 'updated_at.desc.nullslast' },
+	{ key: 'popular', param: 'total_vote_count.desc.nullslast' },
 ];
 
 const FETCH_CONFIG = {
@@ -36,7 +51,6 @@ const FETCH_CONFIG = {
 		Referer: 'https://smaghetti.com/',
 		'Referrer-Policy': 'strict-origin-when-cross-origin',
 	},
-	body: '{"current_user_id":""}',
 	method: 'POST',
 };
 
@@ -47,22 +61,22 @@ async function main() {
 	const fetch = (await import('node-fetch')).default;
 	const limit = PAGE_SIZE.toString();
 
-	const orders = [
-		{ key: 'newest', param: 'updated_at.desc.nullslast' },
-		{ key: 'popular', param: 'total_vote_count.desc.nullslast' },
-	];
-
 	for (const fetchUrl of FETCH_URLS) {
-		for (const order of orders) {
+		for (const order of ORDERS) {
 			let i = 0;
 			let levelCount = 0;
 			while (true) {
 				const offset = (i * PAGE_SIZE).toString();
-				const url = fetchUrl.url
-					.replace('{OFFSET}', offset)
-					.replace('{LIMIT}', limit)
-					.replace('{ORDER}', order.param);
-				const response = await fetch(url, FETCH_CONFIG);
+				let url = fetchUrl.url.replace('{ORDER}', order.param);
+
+				if (fetchUrl.paged) {
+					url = url.replace('{LIMIT}', limit).replace('{OFFSET}', offset);
+				}
+
+				const response = await fetch(url, {
+					...FETCH_CONFIG,
+					body: fetchUrl.body,
+				});
 				const data = await response.text();
 
 				const pageLevelCount = JSON.parse(data).length;
@@ -71,12 +85,20 @@ async function main() {
 					break;
 				} else {
 					levelCount += pageLevelCount;
-					const fileName = `${fetchUrl.fileRoot}_order${order.key}_offset${offset}_limit${limit}.json`;
+					let fileName = `${fetchUrl.fileRoot}_order${order.key}`;
+					if (fetchUrl.paged) {
+						fileName += `_offset${offset}_limit${limit}`;
+					}
+					fileName += '.json';
 					const destPath = path.resolve(process.cwd(), DEST_DIR, fileName);
 					await fsp.writeFile(destPath, data);
 					console.log('wrote', destPath);
 
 					++i;
+				}
+
+				if (!fetchUrl.paged) {
+					break;
 				}
 			}
 
