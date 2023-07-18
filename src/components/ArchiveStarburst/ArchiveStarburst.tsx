@@ -2,20 +2,20 @@ import React, { ReactElement, useState } from 'react';
 import clsx from 'clsx';
 
 import { Starburst } from './Starburst';
-import { EarlyModal } from './EarlyModal';
+import { ArchiveModal } from './ArchiveModal';
 
-type EarlyPreviewStarburstProps = {
+type ArchivePreviewStarburstProps = {
 	className?: string;
 };
 
-function EarlyStarburst({
+function ArchiveStarburst({
 	className,
-}: EarlyPreviewStarburstProps): ReactElement {
+}: ArchivePreviewStarburstProps): ReactElement {
 	const [showModal, setShowModal] = useState(false);
 
 	return (
 		<>
-			<EarlyModal
+			<ArchiveModal
 				isOpen={showModal}
 				onRequestClose={() => setShowModal(false)}
 			/>
@@ -25,9 +25,9 @@ function EarlyStarburst({
 					'w-20 h-20 font-bold transform -rotate-12 text-sm'
 				)}
 			>
-				Smaghetti is shutting down
+				Smaghetti will be archived
 				<a
-					className="m-0 p-0 block text-blue-800 cursor-pointer text-xs"
+					className="m-0 p-0 block text-blue-300 cursor-pointer text-xs"
 					title="learn more"
 					onClick={() => setShowModal(true)}
 				>
@@ -38,4 +38,4 @@ function EarlyStarburst({
 	);
 }
 
-export { EarlyStarburst };
+export { ArchiveStarburst };

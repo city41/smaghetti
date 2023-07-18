@@ -19,6 +19,7 @@ import {
 } from './categories';
 import { TagPicker } from './TagPicker';
 import { MAX_LEVEL_DATA } from '../../../levelData/typesAndConstants';
+import { ArchiveModal } from '../../ArchiveStarburst/ArchiveModal';
 
 export const MAX_LEVELS_IN_SAVE = MAX_LEVEL_DATA;
 
@@ -62,6 +63,7 @@ function Levels2Page({
 	onPreviousClick,
 	onVoteClick,
 }: PublicLevels2PageProps & InternalLevels2PageProps) {
+	const [showArchiveModal, setShowArchiveModal] = useState(false);
 	const [showFileLoaderModal, setShowFileLoaderModal] = useState(false);
 	const [isBuildingSave, setIsBuildingSave] = useState(false);
 	const [chosenLevels, setChosenLevels] = useState<Level[]>([]);
@@ -93,9 +95,14 @@ function Levels2Page({
 						Want your level to show up here? Click on the &quot;publish&quot;
 						button when looking at all your levels in the editor.
 					</p>
-					<p className="p-2 mb-8 bg-red-100 text-red-900">
-						Hey! Smaghetti is no longer being worked on. This website will be
-						taken down on February 17, 2024
+					<p className="p-2 bg-red-100 text-red-900 mb-8">
+						Smaghetti will turn into a usable archive on February 17, 2024.{' '}
+						<a
+							className="underline cursor-pointer text-blue-700"
+							onClick={() => setShowArchiveModal(true)}
+						>
+							What does that mean?
+						</a>
 					</p>
 					<Menu>
 						{categories.map((c) => {
@@ -214,6 +221,10 @@ function Levels2Page({
 				}}
 				onSaveClick={() => downloadSave(chosenLevels)}
 				isBuilding={isBuildingSave}
+			/>
+			<ArchiveModal
+				isOpen={showArchiveModal}
+				onRequestClose={() => setShowArchiveModal(false)}
 			/>
 		</>
 	);

@@ -23,7 +23,7 @@ import { useFirstRender } from '../../../hooks/useFirstRender';
 
 import styles from './Editor.module.css';
 import { LoadingBar } from '../../LoadingBar';
-import { EarlyStarburst } from '../../EarlyStarburst';
+import { ArchiveStarburst } from '../../ArchiveStarburst';
 import { EntityAndProblemList } from './EntityAndProblemList';
 import { InGameLevelsChooser } from './experiments/LoadInGameLevels/InGameLevelsChooser';
 
@@ -295,7 +295,7 @@ function Editor({
 						hidden: isPlaying,
 					})}
 				>
-					<EarlyStarburst />
+					<ArchiveStarburst />
 				</div>
 			</div>
 			{loadLevelState === 'loading' && (

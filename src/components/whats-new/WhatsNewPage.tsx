@@ -98,6 +98,41 @@ function WhatsNewPage() {
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
 				<NewEntry
+					title="Smaghetti will become a usable archive"
+					date="2023-07-18"
+					alertingChange
+				>
+					<p className="font-bold p-2 bg-red-50 text-red-900">
+						This website will become a usable archive on February 17, 2024.
+					</p>
+
+					<p>What does that mean?</p>
+					<ul className="ml-4 list-disc flex flex-col gap-y-2">
+						<li>It will still be here, at smaghetti.com</li>
+						<li>
+							The levels and e-coin pages will contain all <b>published</b>{' '}
+							levels and e-coins.{' '}
+							<em className="p-2 bg-red-700 text-white font-bold">
+								All private levels will be deleted!
+							</em>{' '}
+							If you have a private level you want to save, please publish it.
+							You can always add "WIP" (work in progress) to its name.
+						</li>
+						<li>
+							User accounts will go away. Everyone can just use Smaghetti
+							without logging in.
+						</li>
+						<li>
+							You can still save new levels, but only locally to your own
+							computer. If you open Smaghetti on a different computer, those
+							levels will not be there.
+						</li>
+						<li>Publishing levels will no longer be supported.</li>
+						<li>Voting on levels will no longer be supported.</li>
+					</ul>
+					<p>The goal is to keep smaghetti.com up for as long as possible.</p>
+				</NewEntry>
+				<NewEntry
 					title="Smaghetti will be taken down"
 					date="2023-02-16"
 					alertingChange
@@ -108,8 +143,11 @@ function WhatsNewPage() {
 						honest about that.
 					</p>
 					<p className="font-bold p-2 bg-red-50 text-red-900">
-						This website will remain up for one more year, then taken down on
-						February 17, 2024.
+						<span className="line-through">
+							This website will remain up for one more year, then taken down on
+							February 17, 2024.
+						</span>
+						(this is no longer true, see above)
 					</p>
 				</NewEntry>
 				<NewEntry title="Level of the year voting" date="2022-12-26">
