@@ -30,12 +30,12 @@ const PAGE_SIZE = 20;
 const FileRootMap: Record<CategorySlug, string> = {
 	all: 'get_all_published_levels',
 	'by-tag': '',
-	coins: '',
+	coins: 'get_published_levels_that_have_special_coins',
 };
 const LevelCountMap: Record<CategorySlug, number> = {
 	all: 1074,
 	'by-tag': 0,
-	coins: 0,
+	coins: 607,
 };
 
 async function getLevels(
