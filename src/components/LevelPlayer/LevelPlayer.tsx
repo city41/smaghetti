@@ -33,7 +33,7 @@ type LevelPlayerProps = {
 };
 
 function BodyPortal({ children }: { children: ReactNode }) {
-	return ReactDOM.createPortal(children, document.body);
+	return <>{ReactDOM.createPortal(children, document.body)}</>;
 }
 
 function determineScale({

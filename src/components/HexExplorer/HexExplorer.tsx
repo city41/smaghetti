@@ -1,7 +1,18 @@
 import React, { useRef, useState } from 'react';
 import { ByteInputField } from './ByteInputField';
-import { AutoSizer, Grid, GridCellRenderer } from 'react-virtualized';
+import {
+	AutoSizer as _AutoSizer,
+	AutoSizerProps,
+	Grid as _Grid,
+	GridProps,
+	GridCellRenderer,
+} from 'react-virtualized';
 import 'react-virtualized/styles.css';
+
+// this is due to react-virtualied not fully being react@18 compatible
+// https://github.com/bvaughn/react-virtualized/issues/1739#issuecomment-1264276522
+const AutoSizer = (_AutoSizer as unknown) as React.FunctionComponent<AutoSizerProps>;
+const Grid = (_Grid as unknown) as React.FunctionComponent<GridProps>;
 
 type OnBytesChangeProps = {
 	address: number;
