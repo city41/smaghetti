@@ -51,7 +51,7 @@ function Modal({
 			closeTimeoutMS={noAnimation ? 0 : 250}
 			appElement={
 				typeof window !== 'undefined'
-					? document.querySelector('#__next')!
+					? (document.querySelector('#__next')! as HTMLElement)
 					: undefined
 			}
 		>

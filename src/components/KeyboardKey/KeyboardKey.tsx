@@ -1,10 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import clsx from 'clsx';
 
 import styles from './KeyboardKey.module.css';
 
 type KeyboardKeyProps = {
 	className?: string;
+	children: ReactNode;
 };
 
 // const Root = styled.kbd`

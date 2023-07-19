@@ -34,7 +34,7 @@ function Head({ title, metaDescription, metaImg }: HeadProps) {
 	metaDescription =
 		metaDescription || 'A level editor for Super Mario Advance 4';
 	const finalMetaImg = `${getAbsoluteUrl(
-		metaImg ?? fallbackImg
+		metaImg ?? fallbackImg.src
 	)}?t=${title.substring(0, 10)}`;
 
 	return (

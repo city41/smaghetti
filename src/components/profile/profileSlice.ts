@@ -120,10 +120,12 @@ const loadProfile = (): ProfileSliceThunk => async (dispatch) => {
 		dispatch(profileSlice.actions.setProfile(profileData));
 		dispatch(profileSlice.actions.setLoadState('success'));
 	} catch (e) {
+		const message = e instanceof Error ? e.message : String(e);
+		const stack = e instanceof Error ? e.stack : '';
 		logError({
 			context: 'profileSlice#loadProfile',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
+			message,
+			stack,
 		});
 		dispatch(profileSlice.actions.setLoadState('error'));
 	}
@@ -142,10 +144,12 @@ const deleteLevel = (level: Level | BrokenLevel): ProfileSliceThunk => async (
 		);
 		dispatch(profileSlice.actions.removeLevel(level.id));
 	} catch (e) {
+		const message = e instanceof Error ? e.message : String(e);
+		const stack = e instanceof Error ? e.stack : '';
 		logError({
 			context: 'profileSlice#deleteLevel',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
+			message,
+			stack,
 		});
 		dispatch(
 			profileSlice.actions.setDeleteState({ id: level.id, state: 'error' })
@@ -167,10 +171,12 @@ const togglePublishLevel = (level: Level): ProfileSliceThunk => async (
 		);
 		dispatch(profileSlice.actions.togglePublished(level.id));
 	} catch (e) {
+		const message = e instanceof Error ? e.message : String(e);
+		const stack = e instanceof Error ? e.stack : '';
 		logError({
 			context: 'profileSlice#togglePublishLevel',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
+			message,
+			stack,
 		});
 		dispatch(
 			profileSlice.actions.setPublishState({ id: level.id, state: 'error' })

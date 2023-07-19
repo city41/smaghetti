@@ -225,7 +225,7 @@ function WhatsNewPage() {
 					</p>
 					<img
 						className="block mx-auto pt-4"
-						src={ripVanFishSleepsPng}
+						src={ripVanFishSleepsPng.src}
 						alt="Rip Van Fish sleeping"
 					/>
 				</NewEntry>
@@ -330,7 +330,7 @@ function WhatsNewPage() {
 						</ul>
 					</p>
 					<img
-						src={entityListPng}
+						src={entityListPng.src}
 						alt="entity list screenshot"
 						width={232}
 						height={155}
@@ -441,7 +441,7 @@ function WhatsNewPage() {
 						the end of level backdrop, like this:
 					</p>
 					<img
-						src={endOfLevelBackdropExamplePng}
+						src={endOfLevelBackdropExamplePng.src}
 						alt="items on top of an end of level backdrop"
 					/>
 					<p>Still a lot more object priority changes to come.</p>
@@ -542,7 +542,7 @@ function WhatsNewPage() {
 					</p>
 					<img
 						className="block mx-auto pt-4"
-						src={ripVanFishSleepsPng}
+						src={ripVanFishSleepsPng.src}
 						alt="Rip Van Fish sleeping"
 					/>
 				</NewEntry>
@@ -648,14 +648,14 @@ function WhatsNewPage() {
 						Mario exits a bit on the left side.
 						<img
 							className="mt-4"
-							src={exitingAGiantPipePng}
+							src={exitingAGiantPipePng.src}
 							alt="Mario exiting a giant pipe"
 						/>
 					</p>
 					<p>
 						Smaghetti now allows this, be sure to set the exit point here on a
 						giant pipe
-						<img src={giantPipeExitPointPng} alt="giant pipe exit point" />
+						<img src={giantPipeExitPointPng.src} alt="giant pipe exit point" />
 					</p>
 				</NewEntry>
 				<NewEntry title="Airship pipe update" date="2021-10-27">
@@ -858,7 +858,7 @@ function WhatsNewPage() {
 					<img
 						width={480}
 						height={320}
-						src={castleCorruptECoinPng}
+						src={castleCorruptECoinPng.src}
 						alt="Screenshot showing Smaghetti not creating water correctly"
 					/>
 					<p>
@@ -1039,7 +1039,7 @@ function WhatsNewPage() {
 					<img
 						width={480}
 						height={320}
-						src={badWaterExamplePng}
+						src={badWaterExamplePng.src}
 						alt="Screenshot showing Smaghetti not creating water correctly"
 					/>
 					<p>
@@ -1049,7 +1049,7 @@ function WhatsNewPage() {
 					<img
 						width={480}
 						height={320}
-						src={goodWaterExamplePng}
+						src={goodWaterExamplePng.src}
 						alt="Screenshot showing Smaghetti now creating the water correctly"
 					/>
 					<p>
@@ -1062,7 +1062,7 @@ function WhatsNewPage() {
 					<img
 						width={582}
 						height={255}
-						src={convertedButNotFixedPng}
+						src={convertedButNotFixedPng.src}
 						alt="Screenshot showing Smaghetti has converted the entities, but not fixed the problem"
 					/>
 					<p>
@@ -1373,7 +1373,7 @@ function WhatsNewPage() {
 						<img
 							width={480}
 							height={320}
-							src={airshipExamplesPng}
+							src={airshipExamplesPng.src}
 							alt="airship platform examples"
 						/>
 					</div>

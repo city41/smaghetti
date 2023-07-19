@@ -29,7 +29,7 @@ function Header({ className }: HeaderProps) {
 						<a href="/" className={clsx(styles.logo, 'block lg:-ml-4')}>
 							<img
 								className="w-full h-full"
-								src={logoPng}
+								src={logoPng.src}
 								alt="smaghetti logo"
 								width={52}
 								height={52}

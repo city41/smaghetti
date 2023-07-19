@@ -1,10 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import clsx from 'clsx';
 
 import styles from './Starburst.module.css';
 
 type StarburstProps = {
 	className?: string;
+	children: ReactNode;
 };
 
 const Starburst: FunctionComponent<StarburstProps> = ({

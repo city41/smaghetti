@@ -172,7 +172,7 @@ function TipsPage() {
 						will also be converted to the E-Coin palette.
 					</p>
 					<img
-						src={eCoinTemplateWPalettePng}
+						src={eCoinTemplateWPalettePng.src}
 						className="w-24 h-24"
 						alt="E-Coin template image"
 					/>
@@ -229,7 +229,7 @@ function TipsPage() {
 					</p>
 					<p>Here are the correct exit locations for all pipe orientations:</p>
 					<img
-						src={pipeWarpsPng}
+						src={pipeWarpsPng.src}
 						className="h-24"
 						alt="Correct pipe exit locations"
 					/>
@@ -265,7 +265,7 @@ function TipsPage() {
 						example, the second room of Sea to Sky was built this way
 						<img
 							className="my-4 mx-auto"
-							src={seaToSkyScreenshotPng}
+							src={seaToSkyScreenshotPng.src}
 							alt="Sea to Sky level screenshot"
 						/>
 					</p>
@@ -290,7 +290,7 @@ function TipsPage() {
 						use the eraser to clear out areas you want the floor to go, then
 						drop in the floors.
 						<img
-							src={eraseForFloorPng}
+							src={eraseForFloorPng.src}
 							alt="erasing water to make room for the floor"
 						/>
 						If you don&apos;t do this, your floors will show up corrupted when
@@ -324,7 +324,7 @@ function TipsPage() {
 						to tell the player which ones they have collected.
 						<img
 							className="my-4"
-							src={advanceCoinsInHudPng}
+							src={advanceCoinsInHudPng.src}
 							alt="Advance Coins in the HUD"
 							width={204}
 							height={88}
@@ -338,7 +338,7 @@ function TipsPage() {
 						coins.
 						<img
 							className="my-4"
-							src={advanceCoinHudGapPng}
+							src={advanceCoinHudGapPng.src}
 							alt="A gap in the Advance Coin HUD"
 							width={204}
 							height={96}
@@ -348,7 +348,7 @@ function TipsPage() {
 						Just click on your Advance Coins and assign them a position
 						<img
 							className="my-4"
-							src={advanceCoinPositioningPng}
+							src={advanceCoinPositioningPng.src}
 							alt="Assigning position to an Advance Coin"
 						/>
 					</p>
@@ -373,7 +373,7 @@ function TipsPage() {
 						one setup that will work.
 						<img
 							className="my-4"
-							src={axeSetupPng}
+							src={axeSetupPng.src}
 							alt="A setup for the axe"
 							width={549}
 							height={206}

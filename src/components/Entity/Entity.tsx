@@ -96,7 +96,7 @@ function Entity({
 			style={{ ...style, ...focusedVars }}
 		>
 			{body}
-			{problem && (
+			{!!problem && (
 				<button
 					onMouseDown={(e) => {
 						e.stopPropagation();
@@ -108,7 +108,7 @@ function Entity({
 					<IconAlert className="w-full h-full" />
 				</button>
 			)}
-			{showProblem && problem && (
+			{showProblem && !!problem && (
 				<div
 					className="absolute top-1 left-1 w-full z-10 p-0.5 bg-red-600 text-white flex flex-col break-words"
 					style={{ fontSize: 2.5, maxWidth: TILE_SIZE * 4 }}

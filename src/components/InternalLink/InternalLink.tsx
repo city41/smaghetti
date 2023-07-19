@@ -1,10 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 
 type InternalLinkProps = {
 	className?: string;
 	to: string;
+	children: ReactNode;
 };
 
 const InternalLink: FunctionComponent<InternalLinkProps> = ({
