@@ -41,7 +41,6 @@
 		"@types/react-redux": "^7.1.25",
 		"@types/react-virtualized": "^9.21.22",
 		"autoprefixer": "^9",
-		"canvas": "^2.7.0",
 		"clsx": "^1.1.1",
 		"concurrently": "^6.0.0",
 		"file-loader": "^6.2.0",
@@ -84,9 +83,7 @@
 		"ts-mockery": "^1.2.0",
 		"ts-node": "^9.1.1",
 		"typescript": "^5.1.6",
-		"url-loader": "^4.1.1"
-	},
-	"devDependencies": {
+		"url-loader": "^4.1.1",
 		"@babel/core": "^7.13.10",
 		"@storybook/addon-actions": "^6.1.21",
 		"@storybook/addon-essentials": "^6.1.21",
@@ -97,6 +94,9 @@
 		"babel-loader": "^8.2.2",
 		"eslint": "^7.23.0",
 		"eslint-plugin-react": "^7.23.1"
+	},
+	"devDependencies": {
+		"canvas": "^2.7.0"
 	},
 	"resolutions": {
 		"@types/react": "^18.2.0",
