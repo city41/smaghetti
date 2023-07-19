@@ -59,7 +59,7 @@
 		"lodash": "^4.17.21",
 		"mkdirp": "^1.0.4",
 		"ndb": "^1.1.5",
-		"next": "latest",
+		"next": "^13.0.0",
 		"next-compose-plugins": "^2.2.1",
 		"next-optimized-classnames": "^1.0.1",
 		"next-optimized-images": "^2.6.2",
@@ -82,7 +82,7 @@
 		"ts-jest": "^27.0.4",
 		"ts-mockery": "^1.2.0",
 		"ts-node": "^9.1.1",
-		"typescript": "^4.2.3",
+		"typescript": "^5.1.6",
 		"url-loader": "^4.1.1"
 	},
 	"devDependencies": {

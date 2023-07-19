@@ -76,10 +76,10 @@ const loadPublishedLevels = (username?: string): LevelsSliceThunk => async (
 	dispatch(levelsSlice.actions.setLoadState('loading'));
 
 	try {
-		const [rawLevels, votes] = await Promise.all<
-			SerializedLevel[],
-			LevelVote[]
-		>([getPublishedLevelsQuery(username), getAllVotesQuery()]);
+		const [rawLevels, votes] = await Promise.all([
+			getPublishedLevelsQuery(username),
+			getAllVotesQuery(),
+		]);
 
 		const convertedLevels = rawLevels.reduce<Level[]>((building, rawLevel) => {
 			const convertedLevel = convertLevelToLatestVersion(rawLevel);
@@ -123,6 +123,8 @@ const voteForLevel = (vote: LevelVote): LevelsSliceThunk => async (
 		);
 		dispatch(levelsSlice.actions.addVote(vote));
 	} catch (e) {
+		const message = e instanceof Error ? e.message : String(e);
+		const stack = e instanceof Error ? e.stack : '';
 		dispatch(
 			levelsSlice.actions.setVotingState({
 				levelId: vote.levelId,
@@ -131,8 +133,8 @@ const voteForLevel = (vote: LevelVote): LevelsSliceThunk => async (
 		);
 		logError({
 			context: 'levelsSlice#voteForLevel',
-			message: 'error voting for level',
-			stack: e?.stack ?? e?.details ?? 'none',
+			message,
+			stack,
 		});
 	}
 };
@@ -157,6 +159,8 @@ const unvoteForLevel = (vote: LevelVote): LevelsSliceThunk => async (
 		);
 		dispatch(levelsSlice.actions.removeVote(vote));
 	} catch (e) {
+		const message = e instanceof Error ? e.message : String(e);
+		const stack = e instanceof Error ? e.stack : '';
 		dispatch(
 			levelsSlice.actions.setVotingState({
 				levelId: vote.levelId,
@@ -165,8 +169,8 @@ const unvoteForLevel = (vote: LevelVote): LevelsSliceThunk => async (
 		);
 		logError({
 			context: 'levelsSlice#unvoteForLevel',
-			message: 'error unvoting for level',
-			stack: e?.stack ?? e?.details ?? 'none',
+			message,
+			stack,
 		});
 	}
 };

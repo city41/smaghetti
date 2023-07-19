@@ -100,7 +100,7 @@ function SignInJoinModal({
 	const logoImg = (
 		<img
 			className="block w-20 mx-auto py-6"
-			src={logoPng}
+			src={logoPng.src}
 			alt="smaghetti logo"
 		/>
 	);

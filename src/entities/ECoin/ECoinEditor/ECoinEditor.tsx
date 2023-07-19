@@ -210,7 +210,7 @@ function importImage(destCanvas: HTMLCanvasElement, file: File) {
 	const fileReader = new FileReader();
 
 	fileReader.onload = async () => {
-		await placeImage(destCanvas, eCoinTemplatePng);
+		await placeImage(destCanvas, eCoinTemplatePng.src);
 
 		const imgCanvas = document.createElement('canvas') as HTMLCanvasElement;
 		imgCanvas.width = COIN_SIZE;
@@ -222,7 +222,7 @@ function importImage(destCanvas: HTMLCanvasElement, file: File) {
 
 		const imgAsCoinData = canvasToCoinData(imgCanvas);
 		setCoinData(destCanvas, imgAsCoinData);
-		placeImage(destCanvas, eCoinTemplateBorderPng, { dontClear: true });
+		placeImage(destCanvas, eCoinTemplateBorderPng.src, { dontClear: true });
 	};
 
 	fileReader.readAsDataURL(file);
@@ -246,7 +246,7 @@ function ECoinEditor({
 				setCoinData(canvasRef.current, coinData);
 			} else {
 				setLoading(true);
-				placeImage(canvasRef.current, eCoinTemplatePng).finally(() => {
+				placeImage(canvasRef.current, eCoinTemplatePng.src).finally(() => {
 					setLoading(false);
 				});
 			}
@@ -332,7 +332,7 @@ function ECoinEditor({
 
 					if (canvasRef.current) {
 						setLoading(true);
-						placeImage(canvasRef.current, smaghettiECoinPng).finally(() => {
+						placeImage(canvasRef.current, smaghettiECoinPng.src).finally(() => {
 							setLoading(false);
 						});
 					}
@@ -356,9 +356,11 @@ function ECoinEditor({
 
 						if (canvasRef.current) {
 							setLoading(true);
-							placeImage(canvasRef.current, eCoinTemplatePng).finally(() => {
-								setLoading(false);
-							});
+							placeImage(canvasRef.current, eCoinTemplatePng.src).finally(
+								() => {
+									setLoading(false);
+								}
+							);
 						}
 					}}
 				>

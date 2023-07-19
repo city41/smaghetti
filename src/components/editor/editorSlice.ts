@@ -2000,24 +2000,28 @@ async function doSave(
 			dispatch(editorSlice.actions.setSavedLevelId(createdLevelId));
 			dispatch(editorSlice.actions.setSaveLevelState('success'));
 		} catch (e) {
+			const message = e instanceof Error ? e.message : String(e);
+			const stack = e instanceof Error ? e.stack : '';
 			// eslint-disable-next-line no-console
 			console.error('error saving level', console.dir(e));
 			logError({
 				context: 'editorSlice#doSave,first catch',
-				message: e?.message ?? 'no message',
-				stack: e?.stack,
+				message,
+				stack,
 				level_data: JSON.stringify(levelData),
 			});
 
 			dispatch(editorSlice.actions.setSaveLevelState('error'));
 		}
 	} catch (e) {
+		const message = e instanceof Error ? e.message : String(e);
+		const stack = e instanceof Error ? e.stack : '';
 		// eslint-disable-next-line no-console
 		console.error('error saving level', e);
 		logError({
 			context: 'editorSlice#doSave,second catch',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
+			message,
+			stack,
 			level_data: JSON.stringify(levelData),
 		});
 		dispatch(editorSlice.actions.setSaveLevelState('error'));
@@ -2152,25 +2156,29 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 					dispatch(editorSlice.actions.setLoadLevelState('legacy'));
 				}
 			} catch (e) {
+				const message = e instanceof Error ? e.message : String(e);
+				const stack = e instanceof Error ? e.stack : '';
 				// eslint-disable-next-line no-console
 				console.error('loadFromLocalStorage error', e);
 				logError({
 					context: 'editorSlice#loadFromLocalStorage,first catch',
-					message: e?.message ?? 'no message',
-					stack: e?.stack,
+					message,
+					stack,
 					level_data: rawJson,
 				});
 				dispatch(editorSlice.actions.setLoadLevelState('error'));
 			}
 		}
 	} catch (e) {
+		const message = e instanceof Error ? e.message : String(e);
+		const stack = e instanceof Error ? e.stack : '';
 		// eslint-disable-next-line no-console
 		console.error('loadFromLocalStorage error', e);
 		dispatch(editorSlice.actions.setLoadLevelState('error'));
 		logError({
 			context: 'editorSlice#loadFromLocalStorage,second catch',
-			message: e?.message ?? 'no message',
-			stack: e?.stack,
+			message,
+			stack,
 		});
 	}
 };
