@@ -77,6 +77,7 @@
 		"react-virtualized": "^9.22.3",
 		"redux-thunk": "^2.3.0",
 		"redux-undo": "^1.0.1",
+		"sharp": "^0.32.3",
 		"storybook-css-modules-preset": "^1.0.6",
 		"tailwindcss": "npm:@tailwindcss/postcss7-compat",
 		"ts-jest": "^27.0.4",
