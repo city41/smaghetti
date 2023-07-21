@@ -17,7 +17,7 @@ function AboutPage() {
 				<h1 className="font-bold text-5xl text-center mb-8">About Smaghetti</h1>
 				<div className={typographyStyles.typography}>
 					<img
-						src={sma4BannerJpg}
+						src={sma4BannerJpg.src}
 						alt="Super Mario Advance 4 Banner Image"
 						className="flow"
 						width={800}
@@ -36,7 +36,7 @@ function AboutPage() {
 					</p>
 					<figure>
 						<img
-							src={gbaVsSnesOverlayPng}
+							src={gbaVsSnesOverlayPng.src}
 							alt="SNES and GBA screenshots overlayed to show size difference better"
 							width={256}
 							height={192}
@@ -54,7 +54,7 @@ function AboutPage() {
 						other Mario games. All in all, these E-Reader levels are really fun
 						and a neat treasure trove of Mario goodness.
 						<img
-							src={ereaderJpg}
+							src={ereaderJpg.src}
 							alt="The E-Reader plugged into a Game Boy Advance"
 							className="flow"
 							width={585}
@@ -62,7 +62,7 @@ function AboutPage() {
 						/>
 						<figure>
 							<img
-								src={levelCardsJpg}
+								src={levelCardsJpg.src}
 								alt="E-Reader bonus level cards photo"
 								width={598}
 								height={502}
@@ -118,7 +118,7 @@ function AboutPage() {
 					</p>
 					<figure>
 						<img
-							src={jumpClubPng}
+							src={jumpClubPng.src}
 							alt="Screenshot of Jump Club"
 							width={580}
 							height={431}
@@ -135,7 +135,7 @@ function AboutPage() {
 
 					<figure>
 						<img
-							src={earlySmaghettiPng}
+							src={earlySmaghettiPng.src}
 							alt="A screenshot of Smaghetti when it first started"
 							width={640}
 							height={487}

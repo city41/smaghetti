@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import clsx from 'clsx';
 
 import styles from './IconButtonGroup.module.css';
@@ -6,6 +6,7 @@ import styles from './IconButtonGroup.module.css';
 type IconButtonGroupProps = {
 	className?: string;
 	anchor?: 'top' | 'top-right' | 'left';
+	children: ReactNode;
 };
 
 // const Root = styled.div`

@@ -62,7 +62,7 @@ function HowToUseDownloadModal({
 				<div className="grid grid-cols-2 gap-x-4 justify-items-center items-start">
 					<figure className="flex flex-col items-center" style={{ margin: 0 }}>
 						<img
-							src={selectAFileScreenshotPng}
+							src={selectAFileScreenshotPng.src}
 							alt="The save file screen in SMA4"
 							width={240}
 							height={160}
@@ -74,7 +74,7 @@ function HowToUseDownloadModal({
 					</figure>
 					<figure className="flex flex-col items-center" style={{ margin: 0 }}>
 						<img
-							src={marioToPlayEReaderLevelPng}
+							src={marioToPlayEReaderLevelPng.src}
 							alt="Mario in the e-reader overworld"
 							width={240}
 							height={160}
