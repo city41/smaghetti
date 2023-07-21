@@ -27,13 +27,31 @@ const PAGE_SIZE = 20;
 // 	popular: 'total_vote_count',
 // };
 
+const FileRootMap: Record<CategorySlug, string> = {
+	all: 'get_all_published_levels',
+	'by-tag': '',
+	coins: 'get_published_levels_that_have_special_coins',
+};
+const LevelCountMap: Record<CategorySlug, number> = {
+	all: 1074,
+	'by-tag': 0,
+	coins: 607,
+};
+
 async function getLevels(
-	_slug: CategorySlug,
-	_order: CategoryUserOrder,
+	slug: CategorySlug,
+	order: CategoryUserOrder,
 	_tags: string[] | undefined,
-	_page: number
+	page: number
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
-	return { levels: [], totalCount: 0 };
+	const fileRoot = FileRootMap[slug];
+	const request = await fetch(
+		`/level-archive/${fileRoot}_order${order}_offset${
+			page * PAGE_SIZE
+		}_limit${PAGE_SIZE}.json`
+	);
+	const data = await request.json();
+	return { levels: data, totalCount: LevelCountMap[slug] };
 }
 
 function ConnectedLevels2Page(props: PublicLevels2PageProps) {

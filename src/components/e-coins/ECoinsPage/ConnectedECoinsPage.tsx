@@ -13,16 +13,14 @@ type FlatSerializedLevel = Omit<SerializedLevel, 'user'> & {
 	total_vote_count: number;
 };
 
-// const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
-// 	newest: 'updated_at',
-// 	popular: 'total_vote_count',
-// };
-
-// for now, not paging, need to figure out how to only get custom coins from the db
 async function getLevels(
-	_order: CategoryUserOrder
+	order: CategoryUserOrder
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
-	return { levels: [], totalCount: 0 };
+	const request = await fetch(
+		`/level-archive/get_published_levels_that_have_ecoins_order${order}.json`
+	);
+	const data = await request.json();
+	return { levels: data, totalCount: 310 };
 }
 
 function isCustomECoin(data: number[] | undefined): boolean {
