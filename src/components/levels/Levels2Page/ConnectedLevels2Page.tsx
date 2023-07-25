@@ -41,7 +41,7 @@ const LevelCountMap: Record<CategorySlug, number> = {
 async function getLevels(
 	slug: CategorySlug,
 	order: CategoryUserOrder,
-	_tags: string[] | undefined,
+	_tag: string | undefined,
 	page: number
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
 	const fileRoot = FileRootMap[slug];
@@ -67,11 +67,11 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 		setPage(0);
 		setLevels([]);
 		setLoadingState('loading');
-	}, [props.currentSlug, props.currentOrder, props.tags]);
+	}, [props.currentSlug, props.currentOrder, props.tag]);
 
 	useEffect(() => {
 		setLoadingState('loading');
-		getLevels(props.currentSlug, props.currentOrder, props.tags, page)
+		getLevels(props.currentSlug, props.currentOrder, props.tag, page)
 			.then(({ levels: retrievedLevels, totalCount: retrievedTotalCount }) => {
 				const convertedLevels = retrievedLevels.reduce<LevelWithVoting[]>(
 					(building, rawLevel) => {
@@ -106,13 +106,7 @@ function ConnectedLevels2Page(props: PublicLevels2PageProps) {
 			.catch(() => {
 				setLoadingState('error');
 			});
-	}, [
-		page,
-		props.currentSlug,
-		props.currentOrder,
-		props.tags,
-		setLoadingState,
-	]);
+	}, [page, props.currentSlug, props.currentOrder, props.tag, setLoadingState]);
 
 	return (
 		<>

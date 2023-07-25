@@ -1,12 +1,11 @@
 import clsx from 'clsx';
 import React, { ReactNode } from 'react';
-import { IconCheck } from '../../../icons';
 import { LEVEL_TAGS } from '../../editor/constants';
 import { LevelsButton } from './LevelsButton';
 
 type TagPickerProps = {
 	className?: string;
-	chosenTags: string[];
+	chosenTag?: string;
 	onTagClick: (tag: string) => void;
 };
 
@@ -19,8 +18,6 @@ function TagButton({
 	onClick: () => void;
 	children: ReactNode;
 }) {
-	const icon = toggled ? <IconCheck /> : null;
-
 	return (
 		<LevelsButton
 			className={clsx(
@@ -31,13 +28,12 @@ function TagButton({
 			)}
 			onClick={onClick}
 		>
-			{icon}
 			{children}
 		</LevelsButton>
 	);
 }
 
-function TagPicker({ className, chosenTags, onTagClick }: TagPickerProps) {
+function TagPicker({ className, chosenTag, onTagClick }: TagPickerProps) {
 	return (
 		<div
 			className={clsx(
@@ -53,7 +49,7 @@ function TagPicker({ className, chosenTags, onTagClick }: TagPickerProps) {
 				return (
 					<TagButton
 						key={levelTag}
-						toggled={chosenTags.includes(levelTag)}
+						toggled={chosenTag === levelTag}
 						onClick={() => onTagClick(levelTag)}
 					>
 						{levelTag}

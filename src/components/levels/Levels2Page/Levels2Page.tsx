@@ -25,7 +25,7 @@ export const MAX_LEVELS_IN_SAVE = MAX_LEVEL_DATA;
 type PublicLevels2PageProps = {
 	currentSlug: CategorySlug;
 	currentOrder: CategoryUserOrder;
-	tags?: string[];
+	tag?: string;
 	onSlugClick: (newSlug: CategorySlug) => void;
 	onUserOrderClick: (newOrder: CategoryUserOrder) => void;
 	onTagClick?: (clickedTag: string) => void;
@@ -53,7 +53,7 @@ function Levels2Page({
 	pageSize,
 	currentSlug,
 	currentOrder,
-	tags,
+	tag,
 	onSlugClick,
 	onUserOrderClick,
 	onTagClick,
@@ -115,7 +115,7 @@ function Levels2Page({
 					{onTagClick && (
 						<TagPicker
 							className="mb-8"
-							chosenTags={tags ?? []}
+							chosenTag={tag}
 							onTagClick={onTagClick}
 						/>
 					)}
@@ -173,8 +173,8 @@ function Levels2Page({
 								))}
 								{levels.length === 0 && (
 									<p className="text-center">
-										{currentSlug === 'by-tag' && (!tags || tags.length === 0)
-											? 'Please choose some tags above'
+										{currentSlug === 'by-tag' && !tag
+											? 'Please choose a tag above'
 											: 'No matching levels found'}
 									</p>
 								)}

@@ -8,47 +8,27 @@ import { CategoryUserOrder } from '../../../../components/levels/Levels2Page/cat
 
 type NextLevels2ByTagQuery = {
 	order: CategoryUserOrder;
-	tags: string | undefined;
+	tag: string | undefined;
 };
-
-function parseTagString(tagS: string): string[] {
-	if (!tagS || !tagS.trim()) {
-		return [];
-	}
-
-	return tagS.split('_').map((rawTag) => rawTag.trim().toLowerCase());
-}
 
 function NextLevels2ByTagPage() {
 	const router = useRouter();
-	const { order, tags = '' } = router.query as NextLevels2ByTagQuery;
-	const currentTags = parseTagString(tags);
+	const { order, tag = '' } = router.query as NextLevels2ByTagQuery;
 
 	return (
 		<Provider store={store}>
 			<Levels2Page
 				currentSlug="by-tag"
 				currentOrder={(order ?? 'newest') as CategoryUserOrder}
-				tags={currentTags}
+				tag={tag}
 				onSlugClick={(newSlug) => {
 					router.push(`/levels/${newSlug}/newest`);
 				}}
 				onUserOrderClick={(newOrder) => {
-					router.push(`/levels/by-tag/${newOrder}/${tags}`);
+					router.push(`/levels/by-tag/${newOrder}/${tag}`);
 				}}
 				onTagClick={(tag) => {
-					let newTagString: string;
-
-					if (currentTags.includes(tag)) {
-						newTagString = currentTags.filter((t) => t !== tag).join('_');
-					} else {
-						newTagString = currentTags
-							.concat(tag)
-							.filter((t) => !!t && !!t.trim())
-							.join('_');
-					}
-
-					router.push(`/levels/by-tag/${order}/${newTagString}`);
+					router.push(`/levels/by-tag/${order}/${tag}`);
 				}}
 			/>
 		</Provider>
