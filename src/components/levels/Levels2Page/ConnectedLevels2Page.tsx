@@ -29,7 +29,7 @@ const PAGE_SIZE = 20;
 
 const FileRootMap: Record<CategorySlug, string> = {
 	all: 'get_all_published_levels',
-	'by-tag': '',
+	'by-tag': 'get_published_levels_with_tags',
 	coins: 'get_published_levels_that_have_special_coins',
 };
 const LevelCountMap: Record<CategorySlug, number> = {
@@ -41,17 +41,21 @@ const LevelCountMap: Record<CategorySlug, number> = {
 async function getLevels(
 	slug: CategorySlug,
 	order: CategoryUserOrder,
-	_tag: string | undefined,
+	tag: string | undefined,
 	page: number
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
 	const fileRoot = FileRootMap[slug];
-	const request = await fetch(
-		`/level-archive/${fileRoot}_order${order}_offset${
-			page * PAGE_SIZE
-		}_limit${PAGE_SIZE}.json`
-	);
+
+	const url = `/level-archive/${fileRoot}_order${order}_offset${
+		page * PAGE_SIZE
+	}_limit${PAGE_SIZE}${slug === 'by-tag' ? '_tag' + tag : ''}.json`;
+
+	const request = await fetch(url);
 	const data = await request.json();
-	return { levels: data, totalCount: LevelCountMap[slug] };
+
+	const totalCount = slug === 'by-tag' ? 100000 : LevelCountMap[slug];
+
+	return { levels: data, totalCount };
 }
 
 function ConnectedLevels2Page(props: PublicLevels2PageProps) {
