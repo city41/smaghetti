@@ -9,18 +9,41 @@ const FETCH_URLS = [
 		url: `${SUPABASE_ROOT}get_all_published_levels?offset={OFFSET}&limit={LIMIT}&order={ORDER}`,
 		paged: true,
 		body: '{"current_user_id":""}',
+		tags: [''],
 	},
 	{
 		fileRoot: 'get_published_levels_that_have_special_coins',
 		url: `${SUPABASE_ROOT}get_published_levels_that_have_special_coins?offset={OFFSET}&limit={LIMIT}&order={ORDER}`,
 		paged: true,
 		body: '{"current_user_id":""}',
+		tags: [''],
 	},
 	{
 		fileRoot: 'get_published_levels_that_have_ecoins',
 		url: `${SUPABASE_ROOT}get_published_levels_that_have_ecoins?order={ORDER}`,
 		paged: false,
 		body: '',
+		tags: [''],
+	},
+	{
+		fileRoot: 'get_published_levels_with_tags',
+		url: `${SUPABASE_ROOT}get_published_levels_with_tags?offset={OFFSET}&limit={LIMIT}&order={ORDER}`,
+		paged: true,
+		body: '{"current_user_id":"", "matching_tags": ["{TAG}"]}',
+		tags: [
+			'traditional',
+			'classic',
+			'adventure',
+			'kaizo',
+			'experimental',
+			'difficult',
+			'easy',
+			'troll',
+			'puzzle',
+			'speed run',
+			'casual',
+			'tutorial',
+		],
 	},
 ];
 
@@ -63,46 +86,53 @@ async function main() {
 
 	for (const fetchUrl of FETCH_URLS) {
 		for (const order of ORDERS) {
-			let i = 0;
-			let levelCount = 0;
-			while (true) {
-				const offset = (i * PAGE_SIZE).toString();
-				let url = fetchUrl.url.replace('{ORDER}', order.param);
+			for (const tag of fetchUrl.tags) {
+				let i = 0;
+				let levelCount = 0;
+				while (true) {
+					const offset = (i * PAGE_SIZE).toString();
+					let url = fetchUrl.url.replace('{ORDER}', order.param);
 
-				if (fetchUrl.paged) {
-					url = url.replace('{LIMIT}', limit).replace('{OFFSET}', offset);
-				}
-
-				const response = await fetch(url, {
-					...FETCH_CONFIG,
-					body: fetchUrl.body,
-				});
-				const data = await response.text();
-
-				const pageLevelCount = JSON.parse(data).length;
-
-				if (pageLevelCount === 0) {
-					break;
-				} else {
-					levelCount += pageLevelCount;
-					let fileName = `${fetchUrl.fileRoot}_order${order.key}`;
 					if (fetchUrl.paged) {
-						fileName += `_offset${offset}_limit${limit}`;
+						url = url.replace('{LIMIT}', limit).replace('{OFFSET}', offset);
 					}
-					fileName += '.json';
-					const destPath = path.resolve(process.cwd(), DEST_DIR, fileName);
-					await fsp.writeFile(destPath, data);
-					console.log('wrote', destPath);
 
-					++i;
+					const body = fetchUrl.body.replace('{TAG}', tag);
+					const fetchConfig = { ...FETCH_CONFIG, body };
+
+					const response = await fetch(url, fetchConfig);
+					const data = await response.text();
+
+					const pageLevelCount = JSON.parse(data).length;
+
+					if (pageLevelCount === 0) {
+						break;
+					} else {
+						levelCount += pageLevelCount;
+						let fileName = `${fetchUrl.fileRoot}_order${order.key}`;
+						if (fetchUrl.paged) {
+							fileName += `_offset${offset}_limit${limit}`;
+						}
+
+						if (tag) {
+							fileName += `_tag${tag}`;
+						}
+
+						fileName += '.json';
+						const destPath = path.resolve(process.cwd(), DEST_DIR, fileName);
+						await fsp.writeFile(destPath, data);
+						console.log('wrote', destPath);
+
+						++i;
+					}
+
+					if (!fetchUrl.paged) {
+						break;
+					}
 				}
 
-				if (!fetchUrl.paged) {
-					break;
-				}
+				console.log({ fetchUrl, order, tag, levelCount });
 			}
-
-			console.log({ fetchUrl, order, levelCount });
 		}
 	}
 }
