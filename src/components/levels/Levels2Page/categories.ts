@@ -1,7 +1,7 @@
 export const categories = [
 	{
 		title: 'All',
-		subtitle: 'All {count} levels that have been published',
+		subtitle: 'All {count} levels that were published',
 		slug: 'all',
 	},
 	{

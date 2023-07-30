@@ -44,6 +44,10 @@ async function getLevels(
 	tag: string | undefined,
 	page: number
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
+	if (slug === 'by-tag' && !tag) {
+		return { levels: [], totalCount: 0 };
+	}
+
 	const fileRoot = FileRootMap[slug];
 
 	const url = `/level-archive/${fileRoot}_order${order}_offset${

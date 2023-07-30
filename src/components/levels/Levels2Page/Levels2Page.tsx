@@ -89,6 +89,11 @@ function Levels2Page({
 			<Root metaDescription="" title="Levels">
 				<div className="max-w-2xl mx-auto pt-16 flex flex-col h-full">
 					<h1 className="font-bold text-2xl text-center">Community Levels</h1>
+					<p className="mt-4 mb-16 text-sm p-2 bg-yellow-100 text-yellow-800">
+						Smaghetti used to be a small community of people making and sharing
+						levels. This is now an archive of all the levels that were made. No
+						new levels will be added.
+					</p>
 					<Menu>
 						{categories.map((c) => {
 							return (
