@@ -2062,6 +2062,7 @@ async function getLevelFromArchive(
 	try {
 		let page = 0;
 
+		// eslint-disable-next-line no-constant-condition
 		while (true) {
 			const url = `/level-archive/get_all_published_levels_ordernewest_offset${
 				page * PAGE_SIZE
@@ -2070,10 +2071,13 @@ async function getLevelFromArchive(
 			const request = await fetch(url);
 			const data = await request.json();
 
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const level = data.find((l: any) => l.id === id);
 
 			if (level) {
 				return level;
+			} else {
+				page += 1;
 			}
 		}
 	} catch {
