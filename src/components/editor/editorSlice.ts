@@ -2054,32 +2054,59 @@ const saveLevelCopy = (): LevelThunk => async (dispatch, getState) => {
 	dispatch(editorSlice.actions.setLevelName(levelName));
 };
 
-const loadLevel = (_id: string): LevelThunk => async (_dispatch) => {
-	// try {
-	// 	dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
-	// 	dispatch(editorSlice.actions.setLevelName(''));
-	// 	dispatch(editorSlice.actions.setLoadLevelState('loading'));
-	// 	const result = await getLevelQuery(id);
-	// 	if (!result) {
-	// 		dispatch(editorSlice.actions.setLoadLevelState('missing'));
-	// 	} else {
-	// 		const convertedLevel = convertLevelToLatestVersion(result);
-	// 		if (!convertedLevel) {
-	// 			dispatch(editorSlice.actions.setLoadLevelState('error'));
-	// 		} else {
-	// 			const levelData = deserialize(convertedLevel.data);
-	// 			dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
-	// 			dispatch(editorSlice.actions.setLevelName(result.name));
-	// 			dispatch(
-	// 				editorSlice.actions.setLevelCreatorName(result.user?.username)
-	// 			);
-	// 			dispatch(editorSlice.actions.setSavedLevelId(result.id));
-	// 			dispatch(editorSlice.actions.setLoadLevelState('success'));
-	// 		}
-	// 	}
-	// } catch (e) {
-	// 	dispatch(editorSlice.actions.setLoadLevelState('error'));
-	// }
+const PAGE_SIZE = 20;
+
+async function getLevelFromArchive(
+	id: string
+): Promise<SerializedLevel | null> {
+	try {
+		let page = 0;
+
+		while (true) {
+			const url = `/level-archive/get_all_published_levels_ordernewest_offset${
+				page * PAGE_SIZE
+			}_limit${PAGE_SIZE}.json`;
+
+			const request = await fetch(url);
+			const data = await request.json();
+
+			const level = data.find((l: any) => l.id === id);
+
+			if (level) {
+				return level;
+			}
+		}
+	} catch {
+		return null;
+	}
+}
+
+const loadLevel = (id: string): LevelThunk => async (dispatch) => {
+	try {
+		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
+		dispatch(editorSlice.actions.setLevelName(''));
+		dispatch(editorSlice.actions.setLoadLevelState('loading'));
+		const result = await getLevelFromArchive(id);
+		if (!result) {
+			dispatch(editorSlice.actions.setLoadLevelState('missing'));
+		} else {
+			const convertedLevel = convertLevelToLatestVersion(result);
+			if (!convertedLevel) {
+				dispatch(editorSlice.actions.setLoadLevelState('error'));
+			} else {
+				const levelData = deserialize(convertedLevel.data);
+				dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
+				dispatch(editorSlice.actions.setLevelName(result.name));
+				dispatch(
+					editorSlice.actions.setLevelCreatorName(result.user?.username)
+				);
+				dispatch(editorSlice.actions.setSavedLevelId(result.id));
+				dispatch(editorSlice.actions.setLoadLevelState('success'));
+			}
+		}
+	} catch (e) {
+		dispatch(editorSlice.actions.setLoadLevelState('error'));
+	}
 };
 
 const loadBinaryEReaderLevel = (levelFile: File): LevelThunk => async (
