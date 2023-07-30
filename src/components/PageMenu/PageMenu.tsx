@@ -33,12 +33,12 @@ function PageMenu({
 		>
 			{children}
 			{menu}
-			<Link href="/help" passHref>
+			<Link href="/help" passHref legacyBehavior>
 				<a target="_blank" rel="noreferrer">
 					help
 				</a>
 			</Link>
-			<Link href={DISCORD_LINK} passHref>
+			<Link href={DISCORD_LINK} passHref legacyBehavior>
 				<a target="_blank" rel="noreferrer" title="discord">
 					<IconDiscord className="w-5 h-5" />
 				</a>

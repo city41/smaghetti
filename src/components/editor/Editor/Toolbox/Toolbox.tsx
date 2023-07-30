@@ -189,7 +189,7 @@ const Toolbox = memo(function Toolbox({
 				icon={IconBomb}
 				onClick={() => onEraseLevel()}
 			/>
-			<Link href="/" passHref>
+			<Link href="/" passHref legacyBehavior>
 				<a className={styles.homeLink} />
 			</Link>
 		</div>
