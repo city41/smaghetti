@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"develop": "concurrently \"next dev\" \"yarn storybook\"",
+		"develop": "next dev",
 		"prebuild": "yarn lint && yarn ci-test",
 		"build": "next build",
 		"start": "next start",
