@@ -38,7 +38,7 @@ function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 		props.onRequestClose();
 	}
 
-	function handleDeleteLevel(level: Level | BrokenLevel) {
+	function handleDeleteLevel(level: Level) {
 		dispatch(deleteLevel(level));
 	}
 

@@ -29,9 +29,9 @@ type InternalLevelChooserModalProps = {
 	isLoggedIn: boolean;
 	isAdmin: boolean;
 	loadingLevelsState: 'none' | 'dormant' | 'loading' | 'error' | 'success';
-	savedLevels: Array<Level | BrokenLevel>;
+	savedLevels: Array<Level>;
 	onLevelChosen: (level: Level) => void;
-	onDeleteLevel: (level: Level | BrokenLevel) => void;
+	onDeleteLevel: (level: Level) => void;
 };
 
 const THUMBNAIL_SCALE = 0.5;

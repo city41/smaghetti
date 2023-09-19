@@ -8,34 +8,19 @@ import {
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { RoomThumbnail } from '../../../RoomThumbnail';
 import { PlainIconButton } from '../../../PlainIconButton';
-import { isBrokenLevel } from './util';
 import { IconCheck, IconTrash, IconUnchecked } from '../../../../icons';
 
 type SavedLevelsProps = {
 	className?: string;
 	loadingState: 'dormant' | 'loading' | 'error' | 'success';
-	levels: Array<Level | BrokenLevel>;
+	levels: Array<Level>;
 	isAdmin: boolean;
 	thumbnailScale: number;
 	isBuildingSave?: boolean;
 	chosenLevelsForSave: Level[];
 	onLevelChosen: (level: Level) => void;
-	onDeleteLevel: (level: Level | BrokenLevel) => void;
+	onDeleteLevel: (level: Level) => void;
 };
-
-function BrokenThumbnail({ scale }: { scale: number }) {
-	return (
-		<div
-			style={{
-				width: PLAY_WINDOW_TILE_WIDTH * 1.5 * TILE_SIZE * scale,
-				height: PLAY_WINDOW_TILE_HEIGHT * TILE_SIZE * scale,
-			}}
-			className="bg-red-200 text-red-700 text-xs border-2 border-red-700 grid place-items-center"
-		>
-			level no longer compatible
-		</div>
-	);
-}
 
 function DeleteLevel({ onDeleteLevel }: { onDeleteLevel: () => void }) {
 	const [showAreYouSure, setShowAreYouSure] = useState(false);
@@ -71,7 +56,7 @@ function DeleteLevel({ onDeleteLevel }: { onDeleteLevel: () => void }) {
 }
 
 type LevelRowProps = {
-	level: Level | BrokenLevel;
+	level: Level;
 	isAdmin: boolean;
 	scale: number;
 	isBuildingSave?: boolean;
@@ -91,9 +76,7 @@ function LevelRow({
 }: LevelRowProps) {
 	const CheckIcon = isChosenForSave ? IconCheck : IconUnchecked;
 
-	const thumbnail = isBrokenLevel(level) ? (
-		<BrokenThumbnail scale={scale} />
-	) : (
+	const thumbnail = (
 		<div
 			className="flex flex-col items-end"
 			style={{ width: PLAY_WINDOW_TILE_WIDTH * 1.5 * TILE_SIZE * scale + 4 }}
@@ -134,27 +117,11 @@ function LevelRow({
 				{thumbnail}
 			</div>
 			<div
-				className={clsx('w-56 h-full flex flex-row items-center pl-4', {
-					'font-bold hover:underline cursor-pointer': !isBrokenLevel(level),
-				})}
-				onClick={() => {
-					if (!isBrokenLevel(level)) {
-						onLevelChosen();
-					}
-				}}
+				className={clsx('w-56 h-full flex flex-row items-center pl-4')}
+				onClick={onLevelChosen}
 			>
 				{level.name}
 			</div>
-			{isAdmin && !isBrokenLevel(level) && (
-				<div
-					className={clsx('text-xs text-gray-400', {
-						'text-gray-400': level.user?.role !== 'sb',
-						'text-red-400': level.user?.role === 'sb',
-					})}
-				>
-					{level.user?.username}
-				</div>
-			)}
 			{!isBuildingSave && <DeleteLevel onDeleteLevel={onDeleteLevel} />}
 		</div>
 	);
@@ -196,15 +163,11 @@ function SavedLevels({
 									isAdmin={isAdmin}
 									scale={thumbnailScale}
 									onLevelChosen={() => {
-										if (!isBrokenLevel(l)) {
-											onLevelChosen(l);
-										}
+										onLevelChosen(l);
 									}}
 									onDeleteLevel={() => onDeleteLevel(l)}
-									isBuildingSave={!isBrokenLevel(l) && isBuildingSave}
-									isChosenForSave={
-										!isBrokenLevel(l) && chosenLevelsForSave.includes(l)
-									}
+									isBuildingSave={isBuildingSave}
+									isChosenForSave={chosenLevelsForSave.includes(l)}
 								/>
 							);
 						})}

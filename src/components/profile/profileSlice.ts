@@ -8,7 +8,7 @@ type ProfileState = {
 	loadState: 'dormant' | 'loading' | 'error' | 'success';
 	deleteState: Record<string, DeleteState>;
 	user: User | null;
-	levels: Array<Level | BrokenLevel>;
+	levels: Array<Level>;
 };
 
 const initialState: ProfileState = {
@@ -54,7 +54,7 @@ const loadProfile = (): ProfileSliceThunk => async (_dispatch) => {
 	// TODO: delete profiles
 };
 
-const deleteLevel = (_level: Level | BrokenLevel): ProfileSliceThunk => async (
+const deleteLevel = (_level: Level): ProfileSliceThunk => async (
 	_dispatch
 ) => {};
 
