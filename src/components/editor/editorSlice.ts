@@ -2091,10 +2091,7 @@ const loadLevelFromArchive = (id: string): LevelThunk => async (dispatch) => {
 				const levelData = deserialize(convertedLevel.data);
 				dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
 				dispatch(editorSlice.actions.setLevelName(result.name));
-				dispatch(
-					editorSlice.actions.setLevelCreatorName(result.user?.username)
-				);
-				dispatch(editorSlice.actions.setSavedLevelId(result.id));
+				dispatch(editorSlice.actions.setLevelCreatorName(result.username));
 				dispatch(editorSlice.actions.setLoadLevelState('success'));
 			}
 		}

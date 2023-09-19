@@ -32,8 +32,8 @@ export const Basic = () => {
 			onEraseLevel={noop}
 			isPlaying={false}
 			disabled={false}
-			disableSaving={false}
 			onPlayClick={() => {}}
+			onSaveClick={() => {}}
 		/>
 	);
 };

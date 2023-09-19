@@ -12,13 +12,14 @@ function ConnectedSaveButton(props: PublicSaveButtonProps) {
 
 	function handleSaveClick() {
 		dispatch(saveLevel());
+		props.onClick?.();
 	}
 
 	return (
 		<>
 			<SaveButton
 				{...props}
-				onSaveClick={handleSaveClick}
+				onClick={handleSaveClick}
 				saveLevelState={saveLevelState}
 			/>
 		</>

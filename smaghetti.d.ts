@@ -156,6 +156,7 @@ type LevelData = {
 
 type NewLevel = {
 	name: string;
+	username?: string;
 	data: LevelData;
 	created_at: string;
 	updated_at?: string;

@@ -16,7 +16,7 @@ const ConnectedEditor: FunctionComponent<ConnectedEditorProps> = (props) => {
 	);
 
 	const { allFilesReady } = useSelector((state: AppState) => state.fileLoader);
-	const { name, creatorName } = useSelector(
+	const { name, creatorName, savedLevelId } = useSelector(
 		(state: AppState) => state.editor.present
 	);
 
@@ -30,6 +30,7 @@ const ConnectedEditor: FunctionComponent<ConnectedEditorProps> = (props) => {
 			areFilesReady={allFilesReady}
 			levelName={name}
 			creatorName={creatorName}
+			savedLevelId={savedLevelId}
 			inGameBinaryLevelChooser={inGameBinaryLevelChooser}
 		/>
 	);

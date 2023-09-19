@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { useRouter } from 'next/router';
 
 import {
 	loadLevelFromArchive,
@@ -45,6 +44,7 @@ type EditorProps = {
 		| 'legacy';
 	levelName?: string;
 	creatorName?: string;
+	savedLevelId?: string;
 	inGameBinaryLevelChooser?: boolean;
 };
 
@@ -63,9 +63,9 @@ function Editor({
 	publishedLevelToLoad,
 	levelName,
 	creatorName,
+	savedLevelId,
 	inGameBinaryLevelChooser,
 }: EditorProps) {
-	const router = useRouter();
 	const [isChoosingLevel, setIsChoosingLevel] = useState(false);
 	const [isPlaying, setPlaying] = useState(false);
 	const [showKeyboardHelpModal, setShowKeyboardHelpModal] = useState(false);
@@ -175,11 +175,7 @@ function Editor({
 	}, []);
 
 	function handleLevelsClick() {
-		if (router.pathname !== '/editor' && router.pathname !== '/editor/') {
-			router.push('/editor');
-		} else {
-			setIsChoosingLevel(true);
-		}
+		setIsChoosingLevel(true);
 	}
 
 	const handleProblemClick = useCallback(() => {
@@ -240,9 +236,11 @@ function Editor({
 							<Toolbox
 								className="flex-1"
 								disabled={isPlaying || mode === 'managing-rooms'}
-								disableSaving={!!publishedLevelToLoad}
 								isPlaying={isPlaying}
 								onPlayClick={() => setPlaying((p) => !p)}
+								onSaveClick={() => {
+									history.replaceState(null, '', '/editor');
+								}}
 							/>
 						</div>
 						<div
@@ -252,24 +250,21 @@ function Editor({
 							<Palette disabled={isPlaying || mode === 'managing-rooms'} />
 							<Layers disabled={isPlaying || mode === 'managing-rooms'} />
 							<div className="grid grid-rows-3 items-stretch">
-								<MetadataMenu
-									className="row-span-2"
-									disabled={isPlaying}
-									disableSaving={!!publishedLevelToLoad}
-								/>
+								<MetadataMenu className="row-span-2" disabled={isPlaying} />
 								<PageMenu onLevelsClicked={handleLevelsClick} />
 							</div>
 						</div>
 						{publishedLevelToLoad &&
 							typeof levelName === 'string' &&
-							typeof creatorName === 'string' && (
+							typeof creatorName === 'string' &&
+							typeof savedLevelId === 'undefined' && (
 								<div className="bg-yellow-100 text-yellow-800 p-1 pl-4 text-sm">
 									You&apos;re checking out{' '}
 									<span className="underline font-bold">{levelName}</span> by{' '}
 									<span className="underline font-bold">{creatorName}</span>{' '}
-									<a className="text-blue-600" href="/editor">
-										click here to make your own level
-									</a>
+									<span className="text-blue-600">
+										If you save it, you'll save your own copy
+									</span>
 								</div>
 							)}
 					</div>

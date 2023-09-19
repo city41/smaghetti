@@ -38,9 +38,9 @@ const icons: Record<MouseMode, ElementType> = {
 type PublicToolboxProps = {
 	className?: string;
 	disabled: boolean;
-	disableSaving: boolean;
 	isPlaying: boolean;
 	onPlayClick: () => void;
+	onSaveClick: () => void;
 };
 
 type InternalToolboxProps = {
@@ -81,9 +81,9 @@ const Toolbox = memo(function Toolbox({
 	onToggleGrid,
 	onEraseLevel,
 	disabled,
-	disableSaving,
 	isPlaying,
 	onPlayClick,
+	onSaveClick,
 }: InternalToolboxProps & PublicToolboxProps) {
 	useHotkeys('g', () => onToggleGrid());
 	useHotkeys(isMac ? 'command+z' : 'ctrl+z', onUndo);
@@ -129,7 +129,7 @@ const Toolbox = memo(function Toolbox({
 					isPlaying={isPlaying}
 					onClick={onPlayClick}
 				/>
-				<SaveButton disabled={disabled} disabledExplicitly={disableSaving} />
+				<SaveButton disabled={disabled} onClick={onSaveClick} />
 				<DownloadButton disabled={disabled} />
 			</div>
 

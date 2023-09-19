@@ -8,10 +8,10 @@ type PublicSaveButtonProps = {
 	className?: string;
 	disabled?: boolean;
 	disabledExplicitly?: boolean;
+	onClick: () => void;
 };
 
 type InternalSaveButtonProps = {
-	onSaveClick: () => void;
 	saveLevelState: 'dormant' | 'saving' | 'success' | 'error';
 };
 
@@ -19,7 +19,7 @@ const SaveButton = memo(function SaveButton({
 	className,
 	disabled,
 	disabledExplicitly,
-	onSaveClick,
+	onClick,
 	saveLevelState,
 }: PublicSaveButtonProps & InternalSaveButtonProps) {
 	const toast =
@@ -46,7 +46,7 @@ const SaveButton = memo(function SaveButton({
 						? "Can't save someone else's level"
 						: 'save this level'
 				}
-				onClick={onSaveClick}
+				onClick={onClick}
 				icon={IconSave}
 				loading={saveLevelState === 'saving'}
 				disabled={disabled || disabledExplicitly}

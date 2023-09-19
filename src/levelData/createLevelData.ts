@@ -750,23 +750,6 @@ function getRoom(
 	const sprites = getSprites(allEntities, currentRoom);
 	const autoscrollMovementData = getAutoscrollEntries(currentRoom);
 
-	if (process.env.NODE_ENV !== 'production') {
-		// eslint-disable-next-line no-console
-		console.log(
-			'objects',
-			sortedPendingObjects.map((po) => po.entity.type).join(', ')
-		);
-		// eslint-disable-next-line no-console
-		console.log('objectData', objectData.map((b) => b.toString(16)).join(','));
-		// eslint-disable-next-line no-console
-		console.log('spriteData', sprites.map((b) => b.toString(16)).join(','));
-		// eslint-disable-next-line no-console
-		console.log(
-			'autoscrollMovementData',
-			autoscrollMovementData.map((b) => b.toString(16)).join(',')
-		);
-	}
-
 	return {
 		objects: objectHeader.concat(objectData, [0xff]),
 		levelSettings: levelSettingsData,

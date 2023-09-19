@@ -29,7 +29,7 @@ export async function saveLevel(
 	);
 
 	if (!levelAlreadyExists) {
-		id = id ?? window.crypto.randomUUID();
+		id = id ?? crypto.randomUUID();
 		updatedRootData.push({
 			id,
 			version: 'local',
