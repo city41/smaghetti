@@ -20,10 +20,6 @@ import {
 	PalettesState,
 } from './components/palettes/palettesSlice';
 import {
-	reducer as profileReducer,
-	ProfileState,
-} from './components/profile/profileSlice';
-import {
 	reducer as hexTreeReducer,
 	HexTreeState,
 } from './components/hex-tree/hexTreeSlice';
@@ -45,7 +41,6 @@ type AppState = {
 	fileLoader: FileLoaderState;
 	tiles: TilesState;
 	palettes: PalettesState;
-	profile: ProfileState;
 	hexTree: HexTreeState;
 	levels: LevelsState;
 	romLayout: RomLayoutState;
@@ -57,7 +52,6 @@ const rootReducer = combineReducers({
 	fileLoader: fileLoaderReducer,
 	tiles: tilesReducer,
 	palettes: palettesReducer,
-	profile: profileReducer,
 	hexTree: hexTreeReducer,
 	levels: levelsReducer,
 	romLayout: romLayoutReducer,

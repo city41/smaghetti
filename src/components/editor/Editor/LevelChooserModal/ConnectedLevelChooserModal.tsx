@@ -10,8 +10,8 @@ import {
 	loadFromLocalStorage,
 } from '../../editorSlice';
 import { dispatch } from '../../../../store';
-import { deleteLevel } from '../../../profile/profileSlice';
 import { getAllLevels } from '../../../../localData/getAllLevels';
+import { deleteLevel } from '../../../../localData/deleteLevel';
 import { deserialize } from '../../../../level/deserialize';
 
 type LoadingLevelState = 'loading' | 'success' | 'error';
@@ -62,8 +62,18 @@ function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 		props.onRequestClose();
 	}
 
-	function handleDeleteLevel(level: Level) {
-		dispatch(deleteLevel(level));
+	async function handleDeleteLevel(level: Level) {
+		await deleteLevel(level.id);
+		const serializedLevels = await getAllLevels();
+		const allLevels = serializedLevels.map((serializedLevel) => {
+			const deserializedData = deserialize(serializedLevel.data);
+			return {
+				...serializedLevel,
+				data: deserializedData,
+			};
+		});
+
+		setLevels(allLevels);
 	}
 
 	return (

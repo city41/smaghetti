@@ -12,7 +12,7 @@ export async function saveLevel(
 			LOCAL_DATA_ROOT_KEY
 		)) ?? [];
 
-	const updatedRootData = localLevels.map<SerializedLevel>((savedLevel) => {
+	const updatedLocalLevels = localLevels.map<SerializedLevel>((savedLevel) => {
 		if (savedLevel.id === id) {
 			return {
 				...savedLevel,
@@ -24,13 +24,13 @@ export async function saveLevel(
 		}
 	});
 
-	const levelAlreadyExists = !!updatedRootData.find(
+	const levelAlreadyExists = !!updatedLocalLevels.find(
 		(savedLevel) => savedLevel.id === id
 	);
 
 	if (!levelAlreadyExists) {
 		id = id ?? crypto.randomUUID();
-		updatedRootData.push({
+		updatedLocalLevels.push({
 			id,
 			version: 'local',
 			name,
@@ -41,7 +41,7 @@ export async function saveLevel(
 
 	await localForage.setItem<SerializedLevel[]>(
 		LOCAL_DATA_ROOT_KEY,
-		updatedRootData
+		updatedLocalLevels
 	);
 
 	return id!;
