@@ -263,7 +263,7 @@ function Editor({
 									<span className="underline font-bold">{levelName}</span> by{' '}
 									<span className="underline font-bold">{creatorName}</span>{' '}
 									<span className="text-blue-600">
-										If you save it, you'll save your own copy
+										If you save it, you will save your own copy
 									</span>
 								</div>
 							)}
