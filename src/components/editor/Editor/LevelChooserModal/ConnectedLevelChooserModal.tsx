@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	LevelChooserModal,
 	PublicLevelChooserModalProps,
@@ -9,14 +9,38 @@ import {
 	setLevel,
 	loadFromLocalStorage,
 } from '../../editorSlice';
-import { AppState, dispatch } from '../../../../store';
-import { useSelector } from 'react-redux';
+import { dispatch } from '../../../../store';
 import { deleteLevel } from '../../../profile/profileSlice';
+import { getAllLevels } from '../../../../localData/getAllLevels';
+import { deserialize } from '../../../../level/deserialize';
+
+type LoadingLevelState = 'loading' | 'success' | 'error';
 
 function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
-	const { levels, user: loadedUser } = useSelector(
-		(state: AppState) => state.profile
+	const [levels, setLevels] = useState<Level[]>([]);
+	const [loadingLevelState, setLoadingLevelState] = useState<LoadingLevelState>(
+		'loading'
 	);
+
+	useEffect(() => {
+		getAllLevels()
+			.then((serializedLevels) => {
+				const allLevels = serializedLevels.map((serializedLevel) => {
+					const deserializedData = deserialize(serializedLevel.data);
+					return {
+						...serializedLevel,
+						data: deserializedData,
+					};
+				});
+
+				setLevels(allLevels);
+				setLoadingLevelState('success');
+			})
+			.catch((e) => {
+				console.error('error from getAllLevels', e);
+				setLoadingLevelState('error');
+			});
+	}, []);
 
 	function handleExampleLevelChosen() {
 		dispatch(loadExampleLevel());
@@ -50,10 +74,8 @@ function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 			onLocalStorageLevelChosen={handleLocalStorageLevelChosen}
 			onLevelChosen={handleLevelChosen}
 			onDeleteLevel={handleDeleteLevel}
-			loadingLevelsState={'none'}
+			loadingLevelsState={loadingLevelState}
 			savedLevels={levels}
-			isLoggedIn={false}
-			isAdmin={loadedUser?.role === 'admin'}
 		/>
 	);
 }

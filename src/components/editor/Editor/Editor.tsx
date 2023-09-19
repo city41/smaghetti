@@ -4,7 +4,11 @@ import { useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useRouter } from 'next/router';
 
-import { loadLevel, loadBlankLevel, saveToLocalStorage } from '../editorSlice';
+import {
+	loadLevelFromArchive,
+	loadBlankLevel,
+	saveToLocalStorage,
+} from '../editorSlice';
 
 import { Palette } from './Palette';
 import { Layers } from './Layers';
@@ -109,7 +113,7 @@ function Editor({
 		if (!publishedLevelToLoad) {
 			dispatch(loadBlankLevel());
 		} else {
-			dispatch(loadLevel(publishedLevelToLoad));
+			dispatch(loadLevelFromArchive(publishedLevelToLoad));
 		}
 	}, [publishedLevelToLoad]);
 

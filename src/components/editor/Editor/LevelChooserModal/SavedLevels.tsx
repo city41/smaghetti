@@ -14,7 +14,6 @@ type SavedLevelsProps = {
 	className?: string;
 	loadingState: 'dormant' | 'loading' | 'error' | 'success';
 	levels: Array<Level>;
-	isAdmin: boolean;
 	thumbnailScale: number;
 	isBuildingSave?: boolean;
 	chosenLevelsForSave: Level[];
@@ -57,7 +56,6 @@ function DeleteLevel({ onDeleteLevel }: { onDeleteLevel: () => void }) {
 
 type LevelRowProps = {
 	level: Level;
-	isAdmin: boolean;
 	scale: number;
 	isBuildingSave?: boolean;
 	isChosenForSave: boolean;
@@ -67,7 +65,6 @@ type LevelRowProps = {
 
 function LevelRow({
 	level,
-	isAdmin,
 	scale,
 	onLevelChosen,
 	onDeleteLevel,
@@ -100,8 +97,7 @@ function LevelRow({
 		</div>
 	);
 
-	const repeatCount = isAdmin ? 3 : 2;
-	const gridTemplateColumns = `min-content 1fr repeat(${repeatCount}, max-content)`;
+	const gridTemplateColumns = 'min-content 1fr repeat(2, max-content)';
 
 	return (
 		<div
@@ -131,7 +127,6 @@ function SavedLevels({
 	className,
 	loadingState,
 	levels,
-	isAdmin,
 	thumbnailScale,
 	isBuildingSave,
 	chosenLevelsForSave,
@@ -160,7 +155,6 @@ function SavedLevels({
 								<LevelRow
 									key={l.id}
 									level={l}
-									isAdmin={isAdmin}
 									scale={thumbnailScale}
 									onLevelChosen={() => {
 										onLevelChosen(l);

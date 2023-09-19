@@ -26,9 +26,7 @@ type InternalLevelChooserModalProps = {
 	onLocalStorageLevelChosen: () => void;
 	onExampleLevelChosen: () => void;
 	onBlankLevelChosen: () => void;
-	isLoggedIn: boolean;
-	isAdmin: boolean;
-	loadingLevelsState: 'none' | 'dormant' | 'loading' | 'error' | 'success';
+	loadingLevelsState: 'loading' | 'error' | 'success';
 	savedLevels: Array<Level>;
 	onLevelChosen: (level: Level) => void;
 	onDeleteLevel: (level: Level) => void;
@@ -38,14 +36,7 @@ const THUMBNAIL_SCALE = 0.5;
 
 const EMPTY_ROOM = initialRoomState;
 
-function getLocalStorageCaption(
-	level: SerializedLevel,
-	isLoggedIn: boolean
-): ReactNode {
-	if (!isLoggedIn) {
-		return 'last session';
-	}
-
+function getLocalStorageCaption(level: SerializedLevel): ReactNode {
 	const subLabel = level.id ? level.name : 'never saved';
 	return (
 		<>
@@ -92,8 +83,6 @@ function LevelChooserModal({
 	onLocalStorageLevelChosen,
 	onExampleLevelChosen,
 	onBlankLevelChosen,
-	isLoggedIn,
-	isAdmin,
 	loadingLevelsState,
 	savedLevels,
 	onLevelChosen,
@@ -131,16 +120,14 @@ function LevelChooserModal({
 
 	return (
 		<Modal
-			className={clsx(styles.modal, {
-				'relative pb-12': isLoggedIn,
-			})}
+			className={clsx(styles.modal, 'relative pb-12')}
 			title="Choose what to work on"
 			isOpen={isOpen}
 			onXClick={onRequestClose}
 			onRequestClose={onRequestClose}
 		>
 			<div
-				style={{ height: isLoggedIn ? '60vh' : 'auto' }}
+				style={{ height: '60vh' }}
 				className="thinScrollbar overflow-y-auto pr-4 -mr-4"
 			>
 				<div
@@ -166,10 +153,7 @@ function LevelChooserModal({
 					</LevelButton>
 					{localStorageData && convertedLocalStorage && (
 						<LevelButton
-							caption={getLocalStorageCaption(
-								convertedLocalStorage,
-								isLoggedIn
-							)}
+							caption={getLocalStorageCaption(convertedLocalStorage)}
 							onClick={onLocalStorageLevelChosen}
 						>
 							<RoomThumbnail
@@ -199,36 +183,33 @@ function LevelChooserModal({
 						)}
 					</LevelButton>
 				</div>
-				{loadingLevelsState !== 'none' && (
-					<>
-						<hr className="mt-6 mb-8" />
-						<SavedLevels
-							loadingState={loadingLevelsState}
-							levels={savedLevels}
-							isAdmin={isAdmin}
-							thumbnailScale={THUMBNAIL_SCALE}
-							onLevelChosen={(level) => {
-								if (isBuildingSave) {
-									setChosenLevels((curLevels) => {
-										if (curLevels.includes(level)) {
-											return curLevels.filter((cl) => cl !== level);
-										} else if (curLevels.length < MAX_LEVELS_IN_SAVE) {
-											return curLevels.concat(level);
-										} else {
-											return curLevels;
-										}
-									});
-								} else {
-									onLevelChosen(level);
-								}
-							}}
-							onDeleteLevel={onDeleteLevel}
-							isBuildingSave={isBuildingSave}
-							chosenLevelsForSave={chosenLevels}
-						/>
-					</>
-				)}
-				{isLoggedIn && loadingLevelsState === 'success' && (
+				<>
+					<hr className="mt-6 mb-8" />
+					<SavedLevels
+						loadingState={loadingLevelsState}
+						levels={savedLevels}
+						thumbnailScale={THUMBNAIL_SCALE}
+						onLevelChosen={(level) => {
+							if (isBuildingSave) {
+								setChosenLevels((curLevels) => {
+									if (curLevels.includes(level)) {
+										return curLevels.filter((cl) => cl !== level);
+									} else if (curLevels.length < MAX_LEVELS_IN_SAVE) {
+										return curLevels.concat(level);
+									} else {
+										return curLevels;
+									}
+								});
+							} else {
+								onLevelChosen(level);
+							}
+						}}
+						onDeleteLevel={onDeleteLevel}
+						isBuildingSave={isBuildingSave}
+						chosenLevelsForSave={chosenLevels}
+					/>
+				</>
+				{loadingLevelsState === 'success' && (
 					<SaveFileList
 						emptySaveFileState="success"
 						className="absolute bottom-0 left-4 py-2"
