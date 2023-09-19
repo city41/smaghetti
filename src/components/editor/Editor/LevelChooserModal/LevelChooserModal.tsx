@@ -209,7 +209,7 @@ function LevelChooserModal({
 						chosenLevelsForSave={chosenLevels}
 					/>
 				</>
-				{loadingLevelsState === 'success' && (
+				{loadingLevelsState === 'success' && savedLevels.length > 0 && (
 					<SaveFileList
 						emptySaveFileState="success"
 						className="absolute bottom-0 left-4 py-2"
