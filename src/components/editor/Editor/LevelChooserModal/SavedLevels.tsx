@@ -8,7 +8,6 @@ import {
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { RoomThumbnail } from '../../../RoomThumbnail';
 import { PlainIconButton } from '../../../PlainIconButton';
-import { Button } from '../../../Button';
 import { isBrokenLevel } from './util';
 import { IconCheck, IconTrash, IconUnchecked } from '../../../../icons';
 
@@ -22,7 +21,6 @@ type SavedLevelsProps = {
 	chosenLevelsForSave: Level[];
 	onLevelChosen: (level: Level) => void;
 	onDeleteLevel: (level: Level | BrokenLevel) => void;
-	onTogglePublishLevel: (level: Level) => void;
 };
 
 function BrokenThumbnail({ scale }: { scale: number }) {
@@ -80,7 +78,6 @@ type LevelRowProps = {
 	isChosenForSave: boolean;
 	onLevelChosen: () => void;
 	onDeleteLevel: () => void;
-	onTogglePublishLevel: () => void;
 };
 
 function LevelRow({
@@ -89,7 +86,6 @@ function LevelRow({
 	scale,
 	onLevelChosen,
 	onDeleteLevel,
-	onTogglePublishLevel,
 	isBuildingSave,
 	isChosenForSave,
 }: LevelRowProps) {
@@ -159,18 +155,7 @@ function LevelRow({
 					{level.user?.username}
 				</div>
 			)}
-			{!isBuildingSave && (
-				<>
-					{isBrokenLevel(level) ? (
-						<div />
-					) : (
-						<Button onClick={onTogglePublishLevel}>
-							{level.published ? 'unpublish' : 'publish'}
-						</Button>
-					)}
-					<DeleteLevel onDeleteLevel={onDeleteLevel} />
-				</>
-			)}
+			{!isBuildingSave && <DeleteLevel onDeleteLevel={onDeleteLevel} />}
 		</div>
 	);
 }
@@ -185,7 +170,6 @@ function SavedLevels({
 	chosenLevelsForSave,
 	onLevelChosen,
 	onDeleteLevel,
-	onTogglePublishLevel,
 }: SavedLevelsProps) {
 	let body = null;
 
@@ -217,7 +201,6 @@ function SavedLevels({
 										}
 									}}
 									onDeleteLevel={() => onDeleteLevel(l)}
-									onTogglePublishLevel={() => onTogglePublishLevel(l as Level)}
 									isBuildingSave={!isBrokenLevel(l) && isBuildingSave}
 									isChosenForSave={
 										!isBrokenLevel(l) && chosenLevelsForSave.includes(l)

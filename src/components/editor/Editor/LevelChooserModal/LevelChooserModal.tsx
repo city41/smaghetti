@@ -13,7 +13,6 @@ import { convertLevelToLatestVersion } from '../../../../level/versioning/conver
 import { SavedLevels } from './SavedLevels';
 
 import styles from './LevelChooserModal.module.css';
-import { useLocalStorage } from '../../../../hooks/useLocalStorage';
 import { SaveFileList } from '../../../levels/Levels2Page/SaveFileList';
 import { downloadSetOfLevelsAsSaveFile } from '../../../../levelData/downloadLevelAsSaveFile';
 import { MAX_LEVELS_IN_SAVE } from '../../../levels/Levels2Page/Levels2Page';
@@ -33,13 +32,11 @@ type InternalLevelChooserModalProps = {
 	savedLevels: Array<Level | BrokenLevel>;
 	onLevelChosen: (level: Level) => void;
 	onDeleteLevel: (level: Level | BrokenLevel) => void;
-	onTogglePublishLevel: (level: Level) => void;
 };
 
 const THUMBNAIL_SCALE = 0.5;
 
 const EMPTY_ROOM = initialRoomState;
-const PUBLISH_BLURB_KEY = 'smaghetti_LevelChooserModal_hidePublishBlurb';
 
 function getLocalStorageCaption(
 	level: SerializedLevel,
@@ -101,16 +98,11 @@ function LevelChooserModal({
 	savedLevels,
 	onLevelChosen,
 	onDeleteLevel,
-	onTogglePublishLevel,
 	onRequestClose,
 }: PublicLevelChooserModalProps & InternalLevelChooserModalProps) {
 	const [isBuildingSave, setIsBuildingSave] = useState(false);
 	const [chosenLevels, setChosenLevels] = useState<Level[]>([]);
 
-	const [hidePublishBlurb, setHidePublishBlurb] = useLocalStorage(
-		PUBLISH_BLURB_KEY,
-		'false'
-	);
 	const serializedExampleLevel = getExampleLevel();
 
 	const exampleRoom = serializedExampleLevel
@@ -207,41 +199,6 @@ function LevelChooserModal({
 						)}
 					</LevelButton>
 				</div>
-				{isLoggedIn && hidePublishBlurb !== 'true' && (
-					<div className="mt-4 bg-green-200 text-green-900 p-2 text-sm flex flex-col">
-						<p>
-							Publishing a level lists it on the{' '}
-							<a
-								className="text-blue-500"
-								target="_blank"
-								rel="noreferrer"
-								href="/levels"
-							>
-								levels page
-							</a>
-							. Anyone can load your published levels into the editor to try
-							them, but they can not save them (not even a copy). Published
-							levels need to abide by the{' '}
-							<a
-								className="text-blue-500"
-								target="_blank"
-								rel="noreferrer"
-								href="/tos"
-							>
-								terms of service
-							</a>
-							.
-						</p>
-						<button
-							className="text-blue-500 self-center"
-							onClick={() => {
-								setHidePublishBlurb('true');
-							}}
-						>
-							got it
-						</button>
-					</div>
-				)}
 				{loadingLevelsState !== 'none' && (
 					<>
 						<hr className="mt-6 mb-8" />
@@ -266,7 +223,6 @@ function LevelChooserModal({
 								}
 							}}
 							onDeleteLevel={onDeleteLevel}
-							onTogglePublishLevel={onTogglePublishLevel}
 							isBuildingSave={isBuildingSave}
 							chosenLevelsForSave={chosenLevels}
 						/>

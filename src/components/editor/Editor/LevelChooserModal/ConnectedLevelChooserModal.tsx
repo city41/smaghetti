@@ -11,7 +11,7 @@ import {
 } from '../../editorSlice';
 import { AppState, dispatch } from '../../../../store';
 import { useSelector } from 'react-redux';
-import { deleteLevel, togglePublishLevel } from '../../../profile/profileSlice';
+import { deleteLevel } from '../../../profile/profileSlice';
 
 function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 	const { levels, user: loadedUser } = useSelector(
@@ -42,10 +42,6 @@ function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 		dispatch(deleteLevel(level));
 	}
 
-	function handleTogglePublishLevel(level: Level) {
-		dispatch(togglePublishLevel(level));
-	}
-
 	return (
 		<LevelChooserModal
 			{...props}
@@ -54,7 +50,6 @@ function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 			onLocalStorageLevelChosen={handleLocalStorageLevelChosen}
 			onLevelChosen={handleLevelChosen}
 			onDeleteLevel={handleDeleteLevel}
-			onTogglePublishLevel={handleTogglePublishLevel}
 			loadingLevelsState={'none'}
 			savedLevels={levels}
 			isLoggedIn={false}

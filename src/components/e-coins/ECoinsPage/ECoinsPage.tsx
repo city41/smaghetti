@@ -29,11 +29,6 @@ function ECoinsPage({
 		<Root metaDescription="Smaghetti's art gallery :)" title="Custom E-Coins">
 			<div className="max-w-2xl mx-auto pt-16 flex flex-col h-full">
 				<h1 className="font-bold text-2xl text-center">Community E-Coins</h1>
-				<p className="mt-2 mb-16 text-gray-400 text-sm text-center mx-24">
-					Want your coin to show up here? Make a level with a custom E-Coin in
-					it (you gotta draw something!) then click on the &quot;publish&quot;
-					button when looking at all your levels in the editor.
-				</p>
 				{!!currentOrder && levels.length > 0 && (
 					<Menu className="grid grid-cols-2 w-1/2 mx-auto mb-12">
 						{userOrders.map((c) => {
