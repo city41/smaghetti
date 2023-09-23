@@ -27,17 +27,17 @@ const MoreMenu = memo(function MoreMenu({
 	const menu = open ? (
 		<div
 			className={clsx(
-				'absolute -bottom-16 w-40 h-16 z-30 bg-yellow-600 text-white flex flex-col justify-around text-sm shadow-2xl'
+				'fixed top-10 left-32 w-40 h-16 z-30 bg-yellow-700 text-white flex flex-col justify-around text-sm shadow-2xl'
 			)}
 		>
 			<div
-				className="hover:underline hover:bg-yellow-500 px-2 cursor-pointer"
+				className="hover:underline hover:bg-yellow-600 px-2 cursor-pointer"
 				onClick={() => handleClick('export')}
 			>
 				Export level to file
 			</div>
 			<div
-				className="hover:underline hover:bg-yellow-500 px-2 cursor-pointer"
+				className="hover:underline hover:bg-yellow-600 px-2 cursor-pointer"
 				onClick={() => handleClick('load')}
 			>
 				Load level from file
@@ -45,8 +45,16 @@ const MoreMenu = memo(function MoreMenu({
 		</div>
 	) : null;
 
+	const backdrop = open ? (
+		<div
+			className="fixed top-0 left-0 w-screen h-screen z-20 bg-black opacity-50"
+			onClick={() => setOpen(false)}
+		/>
+	) : null;
+
 	return (
-		<div className="relative">
+		<>
+			{backdrop}
 			{menu}
 			<PlainIconButton
 				className={className}
@@ -58,7 +66,7 @@ const MoreMenu = memo(function MoreMenu({
 				icon={IconMore}
 				disabled={disabled}
 			></PlainIconButton>
-		</div>
+		</>
 	);
 });
 
