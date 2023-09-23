@@ -26,6 +26,7 @@ import {
 } from '../../../../icons';
 
 import styles from './Toolbox.module.css';
+import { MoreMenu } from '../MoreMenu';
 
 const icons: Record<MouseMode, ElementType> = {
 	select: IconArrow,
@@ -41,6 +42,7 @@ type PublicToolboxProps = {
 	isPlaying: boolean;
 	onPlayClick: () => void;
 	onSaveClick: () => void;
+	onMoreMenuClick: () => void;
 };
 
 type InternalToolboxProps = {
@@ -84,6 +86,7 @@ const Toolbox = memo(function Toolbox({
 	isPlaying,
 	onPlayClick,
 	onSaveClick,
+	onMoreMenuClick,
 }: InternalToolboxProps & PublicToolboxProps) {
 	useHotkeys('g', () => onToggleGrid());
 	useHotkeys(isMac ? 'command+z' : 'ctrl+z', onUndo);
@@ -123,7 +126,7 @@ const Toolbox = memo(function Toolbox({
 				'bg-gray-700 flex flex-row flex-wrap items-center space-x-12 px-2 py-2'
 			)}
 		>
-			<div className="w-32 flex flex-row items-center space-x-2 bg-yellow-600 -my-2 py-2 -ml-2 px-2">
+			<div className="w-44 flex flex-row items-center justify-between bg-yellow-600 -my-2 py-2 -ml-2 px-2">
 				<PlayButton
 					disabled={disabled && !isPlaying}
 					isPlaying={isPlaying}
@@ -131,6 +134,7 @@ const Toolbox = memo(function Toolbox({
 				/>
 				<SaveButton disabled={disabled} onClick={onSaveClick} />
 				<DownloadButton disabled={disabled} />
+				<MoreMenu disabled={disabled} onClick={onMoreMenuClick} />
 			</div>
 
 			<div className="flex flex-row items-center space-x-2">{buttons}</div>

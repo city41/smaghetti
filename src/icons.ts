@@ -107,6 +107,7 @@ export {
 	RiCloseFill as IconClose,
 	RiPencilFill as IconPencil,
 	RiPaintFill as IconPaintBucket,
+	RiMoreFill as IconMore,
 } from 'react-icons/ri';
 
 export {

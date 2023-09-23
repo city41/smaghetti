@@ -2075,6 +2075,47 @@ async function getLevelFromArchive(
 	}
 }
 
+async function getLevelFromFile(file: File): Promise<SerializedLevel | null> {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+
+		reader.onloadend = () => {
+			try {
+				resolve(JSON.parse(reader.result as string) as SerializedLevel);
+			} catch (e) {
+				reject(e);
+			}
+		};
+
+		reader.readAsText(file);
+	});
+}
+
+const loadLevelFromFile = (file: File): LevelThunk => async (dispatch) => {
+	try {
+		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
+		dispatch(editorSlice.actions.setLevelName(''));
+		dispatch(editorSlice.actions.setLoadLevelState('loading'));
+		const result = await getLevelFromFile(file);
+		if (!result) {
+			dispatch(editorSlice.actions.setLoadLevelState('error'));
+		} else {
+			const convertedLevel = convertLevelToLatestVersion(result);
+			if (!convertedLevel) {
+				dispatch(editorSlice.actions.setLoadLevelState('error'));
+			} else {
+				const levelData = deserialize(convertedLevel.data);
+				dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
+				dispatch(editorSlice.actions.setLevelName(result.name));
+				dispatch(editorSlice.actions.setLevelCreatorName(result.username));
+				dispatch(editorSlice.actions.setLoadLevelState('success'));
+			}
+		}
+	} catch (e) {
+		dispatch(editorSlice.actions.setLoadLevelState('error'));
+	}
+};
+
 const loadLevelFromArchive = (id: string): LevelThunk => async (dispatch) => {
 	try {
 		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
@@ -2523,6 +2564,7 @@ export {
 	saveLevel,
 	saveLevelCopy,
 	loadLevelFromArchive,
+	loadLevelFromFile,
 	loadBinaryEReaderLevel,
 	loadBinaryInGameLevel,
 	loadFromLocalStorage,

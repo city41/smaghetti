@@ -241,6 +241,9 @@ function Editor({
 								onSaveClick={() => {
 									history.replaceState(null, '', '/editor');
 								}}
+								onMoreMenuClick={() => {
+									history.replaceState(null, '', '/editor');
+								}}
 							/>
 						</div>
 						<div

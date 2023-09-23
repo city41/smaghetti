@@ -34,6 +34,7 @@ export const Basic = () => {
 			disabled={false}
 			onPlayClick={() => {}}
 			onSaveClick={() => {}}
+			onMoreMenuClick={() => {}}
 		/>
 	);
 };
