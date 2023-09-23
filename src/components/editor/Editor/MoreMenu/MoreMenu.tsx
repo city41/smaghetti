@@ -27,8 +27,9 @@ const MoreMenu = memo(function MoreMenu({
 	const menu = open ? (
 		<div
 			className={clsx(
-				'fixed top-10 left-32 w-40 h-16 z-30 bg-yellow-700 text-white flex flex-col justify-around text-sm shadow-2xl'
+				'fixed top-10 w-40 h-16 z-20 bg-yellow-700 text-white flex flex-col justify-around text-sm shadow-2xl'
 			)}
+			style={{ left: 150 }}
 		>
 			<div
 				className="hover:underline hover:bg-yellow-600 px-2 cursor-pointer"
