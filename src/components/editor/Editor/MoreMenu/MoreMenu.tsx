@@ -46,27 +46,19 @@ const MoreMenu = memo(function MoreMenu({
 	) : null;
 
 	return (
-		<>
-			{open && (
-				<div
-					className="fixed top-0 left-0 z-20 w-screen h-screen bg-black opacity-50"
-					onClick={() => setOpen(false)}
-				/>
-			)}
-			<div className="relative">
-				{menu}
-				<PlainIconButton
-					className={className}
-					size="large"
-					label={'more options'}
-					onClick={() => {
-						setOpen((o) => !o);
-					}}
-					icon={IconMore}
-					disabled={disabled}
-				></PlainIconButton>
-			</div>
-		</>
+		<div className="relative">
+			{menu}
+			<PlainIconButton
+				className={className}
+				size="large"
+				label={'more options'}
+				onClick={() => {
+					setOpen((o) => !o);
+				}}
+				icon={IconMore}
+				disabled={disabled}
+			></PlainIconButton>
+		</div>
 	);
 });
 
