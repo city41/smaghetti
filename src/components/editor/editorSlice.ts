@@ -139,6 +139,7 @@ type InternalEditorState = {
 		| 'dormant'
 		| 'loading'
 		| 'error'
+		| 'local-file-error'
 		| 'missing'
 		| 'success'
 		| 'legacy';
@@ -2098,11 +2099,11 @@ const loadLevelFromFile = (file: File): LevelThunk => async (dispatch) => {
 		dispatch(editorSlice.actions.setLoadLevelState('loading'));
 		const result = await getLevelFromFile(file);
 		if (!result) {
-			dispatch(editorSlice.actions.setLoadLevelState('error'));
+			dispatch(editorSlice.actions.setLoadLevelState('local-file-error'));
 		} else {
 			const convertedLevel = convertLevelToLatestVersion(result);
 			if (!convertedLevel) {
-				dispatch(editorSlice.actions.setLoadLevelState('error'));
+				dispatch(editorSlice.actions.setLoadLevelState('local-file-error'));
 			} else {
 				const levelData = deserialize(convertedLevel.data);
 				dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
@@ -2112,7 +2113,7 @@ const loadLevelFromFile = (file: File): LevelThunk => async (dispatch) => {
 			}
 		}
 	} catch (e) {
-		dispatch(editorSlice.actions.setLoadLevelState('error'));
+		dispatch(editorSlice.actions.setLoadLevelState('local-file-error'));
 	}
 };
 

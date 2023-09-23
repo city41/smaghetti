@@ -41,6 +41,7 @@ type EditorProps = {
 		| 'success'
 		| 'missing'
 		| 'error'
+		| 'local-file-error'
 		| 'legacy';
 	levelName?: string;
 	creatorName?: string;
@@ -321,6 +322,23 @@ function Editor({
 						<p className="font-bold">
 							try refreshing the browser, might have just been a network error
 						</p>
+						<a
+							className="block mt-4 text-blue-700 cursor-pointer"
+							onClick={() => {
+								toFreshEditor();
+							}}
+						>
+							start a fresh level instead
+						</a>
+					</div>
+				</>
+			)}
+			{loadLevelState === 'local-file-error' && (
+				<>
+					<div className="fixed top-0 left-0 w-screen h-screen opacity-75 bg-gray-700 z-10" />
+					<div className="fixed top-1/3 left-1/3 w-1/3 grid place-items-center z-10 p-4 bg-red-200 text-black space-y-4">
+						<h1 className="text-xl font-bold">Failed to load the level</h1>
+						<p>This file may not be a smaghetti file</p>
 						<a
 							className="block mt-4 text-blue-700 cursor-pointer"
 							onClick={() => {
