@@ -9,10 +9,13 @@ import { serialize } from '../../../../level/serialize';
 import { downloadLevelAsJson } from '../../../../levelData/downloadLevelAsSaveFile';
 import { loadLevelFromFile } from '../../editorSlice';
 
-async function getFileToUpload(): Promise<File | null> {
+const FILE_EXTENSION = 'smaghetti';
+
+async function getFileToUpload(ext: string): Promise<File | null> {
 	return new Promise((resolve) => {
 		const fileSelector = document.createElement('input');
 		fileSelector.setAttribute('type', 'file');
+		fileSelector.setAttribute('accept', `.${ext}`);
 
 		fileSelector.onchange = () => {
 			resolve(fileSelector.files?.[0] ?? null);
@@ -44,9 +47,9 @@ function ConnectedMoreMenu(props: PublicMoreMenuProps) {
 				version: CURRENT_VERSION,
 				data: serialize(level.data),
 			};
-			downloadLevelAsJson(serializedLevel);
+			downloadLevelAsJson(serializedLevel, FILE_EXTENSION);
 		} else if (action === 'load') {
-			const file = await getFileToUpload();
+			const file = await getFileToUpload(FILE_EXTENSION);
 
 			if (file) {
 				dispatch(loadLevelFromFile(file));
