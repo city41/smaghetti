@@ -15,6 +15,10 @@ function IndexPage() {
 					<h1 className="text-2xl font-bold">
 						A level editor for Super Mario Advance 4
 					</h1>
+					<p className="mt-4 mb-16 text-sm p-2 bg-yellow-100 text-yellow-800">
+						I am no longer working on Smaghetti. This site is now an
+						&quot;archive&quot;
+					</p>
 					<figure>
 						<img
 							className="shadow-lg p-4 bg-gray-500"
