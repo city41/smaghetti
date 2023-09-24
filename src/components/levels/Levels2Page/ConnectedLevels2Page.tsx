@@ -6,6 +6,7 @@ import { convertLevelToLatestVersion } from '../../../level/versioning/convertLe
 import { deserialize } from '../../../level/deserialize';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../../store';
+import { TOTAL_COUNT_MAP } from '../_totalCountMap';
 
 type LoadingState = 'loading' | 'error' | 'success';
 type LevelWithVoting = Level & {
@@ -22,20 +23,10 @@ type FlatSerializedLevel = Omit<SerializedLevel, 'user'> & {
 
 const PAGE_SIZE = 20;
 
-// const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
-// 	newest: 'updated_at',
-// 	popular: 'total_vote_count',
-// };
-
 const FileRootMap: Record<CategorySlug, string> = {
 	all: 'get_all_published_levels',
 	'by-tag': 'get_published_levels_with_tags',
 	coins: 'get_published_levels_that_have_special_coins',
-};
-const LevelCountMap: Record<CategorySlug, number> = {
-	all: 1074,
-	'by-tag': 0,
-	coins: 607,
 };
 
 async function getLevels(
@@ -57,7 +48,7 @@ async function getLevels(
 	const request = await fetch(url);
 	const data = await request.json();
 
-	const totalCount = slug === 'by-tag' ? 100000 : LevelCountMap[slug];
+	const totalCount = tag ? TOTAL_COUNT_MAP[tag] : TOTAL_COUNT_MAP[fileRoot];
 
 	return { levels: data, totalCount };
 }
