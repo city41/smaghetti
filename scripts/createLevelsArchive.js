@@ -80,9 +80,11 @@ const FETCH_CONFIG = {
 const DEST_DIR = 'public/level-archive/';
 const PAGE_SIZE = 20;
 
-async function main() {
+async function getMainPublishedLevels() {
 	const fetch = (await import('node-fetch')).default;
 	const limit = PAGE_SIZE.toString();
+
+	const creators = new Set();
 
 	for (const fetchUrl of FETCH_URLS) {
 		for (const order of ORDERS) {
@@ -102,8 +104,13 @@ async function main() {
 
 					const response = await fetch(url, fetchConfig);
 					const data = await response.text();
+					const parsedData = JSON.parse(data);
 
-					const pageLevelCount = JSON.parse(data).length;
+					const pageLevelCount = parsedData.length;
+
+					parsedData.forEach((l) => {
+						creators.add(l.username);
+					});
 
 					if (pageLevelCount === 0) {
 						break;
@@ -135,6 +142,31 @@ async function main() {
 			}
 		}
 	}
+
+	return Array.from(creators);
+}
+
+async function getCreatorPages(creators) {
+	const fetch = (await import('node-fetch')).default;
+	const URL_TEMPLATE =
+		'https://cfmypkasixjnpkxfpylf.supabase.co/rest/v1/levels?select=*%2Cuser%3Auser_id%21inner%28username%29&published=eq.true&order=updated_at.desc.nullslast&limit=2000&user.username=eq.{CREATOR}';
+
+	for (const creator of creators) {
+		const url = URL_TEMPLATE.replace('{CREATOR}', creator);
+		const fileName = `creator_levels_${creator}.json`;
+
+		const response = await fetch(url, { ...FETCH_CONFIG, method: 'GET' });
+		const data = await response.text();
+
+		const destPath = path.resolve(process.cwd(), DEST_DIR, fileName);
+		await fsp.writeFile(destPath, data);
+		console.log('wrote', destPath);
+	}
+}
+
+async function main() {
+	const creators = await getMainPublishedLevels();
+	await getCreatorPages(creators);
 }
 
 main()

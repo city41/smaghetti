@@ -30,6 +30,7 @@ type PublicLevelRowProps = {
 	areFilesReady: boolean;
 	isBuildingSave: boolean;
 	isChosen: boolean;
+	hideVotes?: boolean;
 	onChosenChange: (newChosen: boolean) => void;
 	onLoadRomClick: () => void;
 };
@@ -103,6 +104,7 @@ function LevelRow({
 	isVoting,
 	onVoteClick,
 	onLoadRomClick,
+	hideVotes,
 }: PublicLevelRowProps & InternalLevelRowProps) {
 	const href = `/editor/${level.id}/${makeSlug(level.name)}`;
 
@@ -192,29 +194,31 @@ function LevelRow({
 				}
 			}}
 		>
-			<div
-				className="absolute z-10 sm:right-0 top-0 bg-white p-1 flex flex-row gap-x-1 items-center cursor-pointer"
-				style={{
-					width: `calc(${
-						PLAY_WINDOW_TILE_WIDTH * TILE_SIZE * 0.75 * 0.5
-					}px - 1rem)`,
-				}}
-				onClick={(e) => {
-					e.stopPropagation();
-					e.preventDefault();
+			{!hideVotes && (
+				<div
+					className="absolute z-10 sm:right-0 top-0 bg-white p-1 flex flex-row gap-x-1 items-center cursor-pointer"
+					style={{
+						width: `calc(${
+							PLAY_WINDOW_TILE_WIDTH * TILE_SIZE * 0.75 * 0.5
+						}px - 1rem)`,
+					}}
+					onClick={(e) => {
+						e.stopPropagation();
+						e.preventDefault();
 
-					if (!isVoting) {
-						onVoteClick();
-					}
-				}}
-			>
-				<VoteIcon
-					className={clsx('w-6 h-6', {
-						'text-red-600': currentUserVoted && !isVoting,
-					})}
-				/>
-				<div className="text-lg">{voteCount}</div>
-			</div>
+						if (!isVoting) {
+							onVoteClick();
+						}
+					}}
+				>
+					<VoteIcon
+						className={clsx('w-6 h-6', {
+							'text-red-600': currentUserVoted && !isVoting,
+						})}
+					/>
+					<div className="text-lg">{voteCount}</div>
+				</div>
+			)}
 			<a
 				className={clsx('relative flex flex-row items-center self-start', {
 					'space-x-2 ml-2': isBuildingSave,

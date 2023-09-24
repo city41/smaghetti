@@ -7,20 +7,17 @@ import { SaveFileList } from './SaveFileList';
 import { downloadSetOfLevelsAsSaveFile } from '../../../levelData/downloadLevelAsSaveFile';
 import { HowToUseDownloadModal } from '../../HowToUseDownloadModal';
 import { OtherFilesState } from '../../FileLoader/fileLoaderSlice';
-import { Button } from '../../Button';
-import clsx from 'clsx';
 
 type InternalLevelsPageProps = {
 	allFilesReady: boolean;
 	emptySaveFileState: OtherFilesState;
 	loadState: 'dormant' | 'loading' | 'success' | 'error';
 	levels: Level[];
-	sortType: 'likes' | 'new';
 	headerTitle: string;
 	pageTitle: string;
 	hideHelpCallout?: boolean;
+	hideVotes?: boolean;
 	noPublishedLevelsNode: ReactNode;
-	onSortTypeChange: () => void;
 };
 
 const MAX_LEVELS_IN_SAVE = 32;
@@ -30,11 +27,10 @@ function LevelsPage({
 	emptySaveFileState,
 	loadState,
 	levels,
-	sortType,
 	headerTitle,
 	pageTitle,
 	noPublishedLevelsNode,
-	onSortTypeChange,
+	hideVotes,
 }: InternalLevelsPageProps) {
 	const [showFileLoaderModal, setShowFileLoaderModal] = useState(false);
 	const [isBuildingSave, setIsBuildingSave] = useState(false);
@@ -49,38 +45,6 @@ function LevelsPage({
 		setIsBuildingSave(false);
 		setChosenLevels([]);
 	}
-
-	const newestLevel =
-		levels.length > 2 &&
-		levels.reduce<Level>((champ, contender) => {
-			if (champ.created_at > contender.created_at) {
-				return champ;
-			} else {
-				return contender;
-			}
-		}, levels[0]);
-
-	const mostRecentlyUpdatedLevel =
-		levels.length > 2 &&
-		levels.reduce<Level>((champ, contender) => {
-			if (!contender.updated_at) {
-				return champ;
-			}
-
-			if (!champ.updated_at) {
-				return contender;
-			}
-
-			if (champ.updated_at > contender.updated_at) {
-				return champ;
-			} else {
-				return contender;
-			}
-		}, levels[0]);
-
-	const restOfLevels = levels.filter(
-		(l) => l !== newestLevel && l !== mostRecentlyUpdatedLevel
-	);
 
 	switch (loadState) {
 		case 'dormant':
@@ -119,93 +83,12 @@ function LevelsPage({
 								onSaveClick={() => downloadSave(chosenLevels)}
 								isBuilding={isBuildingSave}
 							/>
-							{(newestLevel || mostRecentlyUpdatedLevel) && (
-								<div className="bg-gray-600 -mx-4 p-4 my-10">
-									{newestLevel && (
-										<>
-											<h3 className="m-0 mb-2 text-xl font-bold">
-												Newest Level
-											</h3>
-											<LevelRow
-												level={newestLevel}
-												isBuildingSave={isBuildingSave}
-												isChosen={chosenLevels.includes(newestLevel)}
-												areFilesReady={allFilesReady}
-												onChosenChange={(newChosen) => {
-													if (
-														newChosen &&
-														chosenLevels.length < MAX_LEVELS_IN_SAVE
-													) {
-														setChosenLevels((cl) => cl.concat(newestLevel));
-													} else {
-														setChosenLevels((cl) =>
-															cl.filter((cll) => cll !== newestLevel)
-														);
-													}
-												}}
-												onLoadRomClick={() => setShowFileLoaderModal(true)}
-											/>
-										</>
-									)}
-									{mostRecentlyUpdatedLevel &&
-										mostRecentlyUpdatedLevel !== newestLevel && (
-											<>
-												<h3
-													className={clsx('m-0 mb-2 text-xl font-bold', {
-														'mt-4': !!newestLevel,
-													})}
-												>
-													Recently Updated
-												</h3>
-												<LevelRow
-													level={mostRecentlyUpdatedLevel}
-													isBuildingSave={isBuildingSave}
-													isChosen={chosenLevels.includes(
-														mostRecentlyUpdatedLevel
-													)}
-													areFilesReady={allFilesReady}
-													onChosenChange={(newChosen) => {
-														if (
-															newChosen &&
-															chosenLevels.length < MAX_LEVELS_IN_SAVE
-														) {
-															setChosenLevels((cl) =>
-																cl.concat(mostRecentlyUpdatedLevel)
-															);
-														} else {
-															setChosenLevels((cl) =>
-																cl.filter(
-																	(cll) => cll !== mostRecentlyUpdatedLevel
-																)
-															);
-														}
-													}}
-													onLoadRomClick={() => setShowFileLoaderModal(true)}
-												/>
-											</>
-										)}
-								</div>
-							)}
-							<div className="flex flex-row gap-x-2 items-center mb-4 mt-12">
-								<div>Sort by: </div>
-								<Button
-									disabled={sortType === 'likes'}
-									onClick={onSortTypeChange}
-								>
-									Most liked
-								</Button>{' '}
-								<Button
-									disabled={sortType === 'new'}
-									onClick={onSortTypeChange}
-								>
-									Newest
-								</Button>
-							</div>
-							<div className="space-y-8">
-								{restOfLevels.map((l) => (
+							<div className="space-y-8 mt-8">
+								{levels.map((l) => (
 									<LevelRow
 										key={l.id}
 										level={l}
+										hideVotes={hideVotes}
 										isBuildingSave={isBuildingSave}
 										isChosen={chosenLevels.includes(l)}
 										areFilesReady={allFilesReady}
