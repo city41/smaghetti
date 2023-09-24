@@ -2045,35 +2045,34 @@ const saveLevelCopy = (): LevelThunk => async (dispatch, getState) => {
 	dispatch(editorSlice.actions.setLevelName(levelName));
 };
 
-const PAGE_SIZE = 20;
+let _levelArchiveIndex: Record<string, string> | null = null;
+async function getLevelArchiveIndex(): Promise<Record<string, string>> {
+	if (!_levelArchiveIndex) {
+		const url = '/level-archive/levelIndex.json';
+		const request = await fetch(url);
+		_levelArchiveIndex = await request.json();
+	}
+
+	return _levelArchiveIndex!;
+}
 
 async function getLevelFromArchive(
 	id: string
 ): Promise<SerializedLevel | null> {
-	try {
-		let page = 0;
+	const levelArchiveIndex = await getLevelArchiveIndex();
 
-		// eslint-disable-next-line no-constant-condition
-		while (true) {
-			const url = `/level-archive/get_all_published_levels_ordernewest_offset${
-				page * PAGE_SIZE
-			}_limit${PAGE_SIZE}.json`;
+	const fileName = levelArchiveIndex[id];
 
-			const request = await fetch(url);
-			const data = await request.json();
+	if (fileName) {
+		const url = `/level-archive/${fileName}`;
+		const request = await fetch(url);
+		const data = await request.json();
 
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const level = data.find((l: any) => l.id === id);
-
-			if (level) {
-				return level;
-			} else {
-				page += 1;
-			}
-		}
-	} catch {
-		return null;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		return data.find((l: any) => l.id === id) ?? null;
 	}
+
+	return null;
 }
 
 async function getLevelFromFile(file: File): Promise<SerializedLevel | null> {

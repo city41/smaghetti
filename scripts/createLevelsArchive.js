@@ -85,6 +85,7 @@ async function getMainPublishedLevels() {
 	const limit = PAGE_SIZE.toString();
 
 	const creators = new Set();
+	const levelIndex = {};
 
 	for (const fetchUrl of FETCH_URLS) {
 		for (const order of ORDERS) {
@@ -108,10 +109,6 @@ async function getMainPublishedLevels() {
 
 					const pageLevelCount = parsedData.length;
 
-					parsedData.forEach((l) => {
-						creators.add(l.username);
-					});
-
 					if (pageLevelCount === 0) {
 						break;
 					} else {
@@ -131,6 +128,13 @@ async function getMainPublishedLevels() {
 						console.log('wrote', destPath);
 
 						++i;
+
+						parsedData.forEach((l) => {
+							creators.add(l.username);
+							if (!levelIndex[l.id]) {
+								levelIndex[l.id] = fileName;
+							}
+						});
 					}
 
 					if (!fetchUrl.paged) {
@@ -142,6 +146,14 @@ async function getMainPublishedLevels() {
 			}
 		}
 	}
+
+	const levelIndexDestPath = path.resolve(
+		process.cwd(),
+		DEST_DIR,
+		'levelIndex.json'
+	);
+	await fsp.writeFile(levelIndexDestPath, JSON.stringify(levelIndex));
+	console.log('wrote', levelIndexDestPath);
 
 	return Array.from(creators);
 }
