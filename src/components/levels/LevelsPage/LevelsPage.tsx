@@ -18,6 +18,7 @@ type InternalLevelsPageProps = {
 	hideHelpCallout?: boolean;
 	hideVotes?: boolean;
 	noPublishedLevelsNode: ReactNode;
+	titleAddendum?: ReactNode;
 };
 
 const MAX_LEVELS_IN_SAVE = 32;
@@ -31,6 +32,7 @@ function LevelsPage({
 	pageTitle,
 	noPublishedLevelsNode,
 	hideVotes,
+	titleAddendum,
 }: InternalLevelsPageProps) {
 	const [showFileLoaderModal, setShowFileLoaderModal] = useState(false);
 	const [isBuildingSave, setIsBuildingSave] = useState(false);
@@ -124,6 +126,7 @@ function LevelsPage({
 			<Root title={headerTitle} metaDescription="">
 				<div className="max-w-2xl mx-auto pt-16">
 					<h1 className="font-bold text-5xl text-center mb-8">{pageTitle}</h1>
+					{titleAddendum}
 					{body}
 				</div>
 			</Root>

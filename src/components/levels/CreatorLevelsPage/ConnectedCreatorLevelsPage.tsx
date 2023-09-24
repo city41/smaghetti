@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import { LevelWithVoting } from '../Levels2Page/ConnectedLevels2Page';
 import { convertLevelToLatestVersion } from '../../../level/versioning/convertLevelToLatestVersion';
 import { deserialize } from '../../../level/deserialize';
+import { saveLevel } from '../../../localData/saveLevel';
+import { serialize } from '../../../level/serialize';
 
 type ConnectedCreatorLevelsPageProps = {
 	creator: string;
@@ -80,6 +82,29 @@ function ConnectedCreatorLevelsPage({
 	const title =
 		loadingState === 'success' ? `${creator}'s levels` : 'loading...';
 
+	async function handleAddAllLevelsToEditor() {
+		// this must be serial, as saveLevels is not pure,
+		// if done in parallel, each invocation will clobber the other
+		// invocation's update
+		for (const l of levels) {
+			await saveLevel(l.id, l.name, '', serialize(l.data));
+		}
+
+		location.href = '/editor';
+	}
+
+	const titleAddendum =
+		loadingState === 'success' ? (
+			<div className="grid place-items-center mb-4">
+				<a
+					className="text-blue-500 hover:underline cursor-pointer"
+					onClick={handleAddAllLevelsToEditor}
+				>
+					Add all levels to editor
+				</a>
+			</div>
+		) : null;
+
 	return (
 		<LevelsPage
 			allFilesReady={allFilesReady}
@@ -88,6 +113,7 @@ function ConnectedCreatorLevelsPage({
 			levels={levels}
 			headerTitle={title}
 			pageTitle={title}
+			titleAddendum={titleAddendum}
 			hideHelpCallout
 			hideVotes
 			noPublishedLevelsNode={
