@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import clsx from 'clsx';
 import { LevelsPage } from '../LevelsPage/LevelsPage';
 import { AppState } from '../../../store';
 import { useSelector } from 'react-redux';
@@ -25,6 +26,37 @@ async function getLevels(creator: string): Promise<FlatSerializedLevel[]> {
 
 	const request = await fetch(url);
 	return request.json();
+}
+
+function AddAllLevelsToEditor({ levels }: { levels: Level[] }) {
+	const [adding, setAdding] = useState(false);
+
+	async function handleAddAllLevelsToEditor() {
+		setAdding(true);
+
+		// this must be serial, as saveLevels is not pure,
+		// if done in parallel, each invocation will clobber the other
+		// invocation's update
+		for (const l of levels) {
+			await saveLevel(l.id, l.name, '', serialize(l.data));
+		}
+
+		location.href = '/editor';
+	}
+
+	return (
+		<div className="grid place-items-center mb-4">
+			<a
+				className={clsx({
+					'text-blue-500 hover:underline cursor-pointer': !adding,
+					'text-white': adding,
+				})}
+				onClick={handleAddAllLevelsToEditor}
+			>
+				{adding ? 'adding... one moment...' : 'Add all levels to editor'}
+			</a>
+		</div>
+	);
 }
 
 function ConnectedCreatorLevelsPage({
@@ -82,27 +114,9 @@ function ConnectedCreatorLevelsPage({
 	const title =
 		loadingState === 'success' ? `${creator}'s levels` : 'loading...';
 
-	async function handleAddAllLevelsToEditor() {
-		// this must be serial, as saveLevels is not pure,
-		// if done in parallel, each invocation will clobber the other
-		// invocation's update
-		for (const l of levels) {
-			await saveLevel(l.id, l.name, '', serialize(l.data));
-		}
-
-		location.href = '/editor';
-	}
-
 	const titleAddendum =
 		loadingState === 'success' ? (
-			<div className="grid place-items-center mb-4">
-				<a
-					className="text-blue-500 hover:underline cursor-pointer"
-					onClick={handleAddAllLevelsToEditor}
-				>
-					Add all levels to editor
-				</a>
-			</div>
+			<AddAllLevelsToEditor levels={levels} />
 		) : null;
 
 	return (
