@@ -98,6 +98,16 @@ function WhatsNewPage() {
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">What&apos;s new</h1>
 				<NewEntry
+					title="Smaghetti's database will be upgraded Wednesday morning"
+					date="2023-11-27"
+					alertingChange
+				>
+					<p>
+						On Wednesday, November 29th, starting about 9am Eastern time, the Smaghetti database will be upgraded.
+						You won&apos;t be able to load or save levels while the upgrade is happening. The upgrade will take about 1 to 4 hours.
+					</p>
+				</NewEntry>
+				<NewEntry
 					title="Smaghetti will become a usable archive"
 					date="2023-07-18"
 					alertingChange
