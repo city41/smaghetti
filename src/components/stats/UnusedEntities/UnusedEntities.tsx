@@ -33,7 +33,7 @@ function UnusedEntities({ className, entitiesByCount }: UnusedEntitiesProps) {
 		let curEntities = entitiesByCount.filter(e => e.type !== 'PlayerGhost');
 
 		if (hideObjects) {
-			curEntities = entitiesByCount.filter(
+			curEntities = curEntities.filter(
 				(e) => !entityMap[e.type].toObjectBinary
 			);
 		}
