@@ -16,10 +16,6 @@ function StatsPage({ allFilesReady }: InternalStatsPageProps) {
 			<FileLoaderModal isOpen={!allFilesReady} />
 			<Root title="Level Statistics" metaDescription="">
 				<div className="max-w-2xl mx-auto pt-16">
-					<p className="bg-red-200 -mx-4 p-4 mb-24 text-gray-900">
-						This is a new page, pretty raw and simple so far, but it will get
-						better
-					</p>
 					{allFilesReady && (
 						<div>
 							<div className="mt-16 pb-16 px-4 sm:px-0 border-b border-dotted border-gray-500 last:border-0">
