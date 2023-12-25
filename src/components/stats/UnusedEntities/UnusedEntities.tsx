@@ -29,7 +29,8 @@ function UnusedEntities({ className, entitiesByCount }: UnusedEntitiesProps) {
 	const [curEntitiesByCount, setCurEntitiesByCount] = useState(entitiesByCount);
 
 	useEffect(() => {
-		let curEntities = entitiesByCount;
+		// remove the ghost, as it can never actually get into a level
+		let curEntities = entitiesByCount.filter(e => e.type !== 'PlayerGhost');
 
 		if (hideObjects) {
 			curEntities = entitiesByCount.filter(
