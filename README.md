@@ -6,7 +6,7 @@ there I have just don't work for that, as much as I have tried.
 
 If you want to pick up Smaghetti, feel free to fork this repo. I will be available with any questions about its codebase.
 
-The Smaghetti website will remain up for one more year, and taken down on February 17, 2024.
+The Smaghetti website will remain up for one more year, and taken down on February 24, 2024.
 
 ![logo](https://github.com/city41/smaghetti/blob/main/illustrations/logo_140.png?raw=true)
 

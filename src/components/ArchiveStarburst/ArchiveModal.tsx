@@ -25,7 +25,7 @@ function ArchiveModal({
 					Mario community.
 				</p>
 				<p className="p-4 bg-green-600">
-					The website will be archived on February 17, 2024.
+					The website will be archived on February 24, 2024.
 				</p>
 				<p>What does that mean?</p>
 				<ul className="ml-4 list-disc flex flex-col gap-y-2">

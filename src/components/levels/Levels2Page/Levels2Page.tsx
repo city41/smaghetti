@@ -99,7 +99,7 @@ function Levels2Page({
 						button when looking at all your levels in the editor.
 					</p>
 					<p className="p-2 bg-red-100 text-red-900 mb-8">
-						Smaghetti will turn into a usable archive on February 17, 2024.{' '}
+						Smaghetti will turn into a usable archive on February 24, 2024.{' '}
 						<a
 							className="underline cursor-pointer text-blue-700"
 							onClick={() => setShowArchiveModal(true)}

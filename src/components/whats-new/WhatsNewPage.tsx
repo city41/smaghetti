@@ -103,8 +103,10 @@ function WhatsNewPage() {
 					alertingChange
 				>
 					<p>
-						On Wednesday, November 29th, starting about 9am Eastern time, the Smaghetti database will be upgraded.
-						You won&apos;t be able to load or save levels while the upgrade is happening. The upgrade will take about 1 to 4 hours.
+						On Wednesday, November 29th, starting about 9am Eastern time, the
+						Smaghetti database will be upgraded. You won&apos;t be able to load
+						or save levels while the upgrade is happening. The upgrade will take
+						about 1 to 4 hours.
 					</p>
 				</NewEntry>
 				<NewEntry
@@ -113,7 +115,7 @@ function WhatsNewPage() {
 					alertingChange
 				>
 					<p className="font-bold p-2 bg-red-50 text-red-900">
-						This website will become a usable archive on February 17, 2024.
+						This website will become a usable archive on February 24, 2024.
 					</p>
 
 					<p>What does that mean?</p>
@@ -159,7 +161,7 @@ function WhatsNewPage() {
 					<p className="font-bold p-2 bg-red-50 text-red-900">
 						<span className="line-through">
 							This website will remain up for one more year, then taken down on
-							February 17, 2024.
+							February 24, 2024.
 						</span>
 						(this is no longer true, see above)
 					</p>
