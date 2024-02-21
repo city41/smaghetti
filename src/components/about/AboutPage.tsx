@@ -16,7 +16,7 @@ function AboutPage() {
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">About Smaghetti</h1>
 				<p className="mt-4 mb-16 text-sm p-2 bg-yellow-100 text-yellow-800">
-					I am no longer working on Smaghetti. This site is now an
+					Smaghetti is no longer updated. This site is now an
 					&quot;archive&quot;
 				</p>
 				<div className={typographyStyles.typography}>
