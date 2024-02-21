@@ -32,14 +32,6 @@ function Footer({ className }: FooterProps) {
 					>
 						GitHub repo
 					</a>
-					<span className="mx-2">&#124;</span>
-					<a className="text-link hover:underline" href="/privacy">
-						Privacy Policy
-					</a>
-					<span className="mx-2">&#124;</span>
-					<a className="text-link hover:underline" href="/tos">
-						Terms of Service
-					</a>
 				</div>
 			</div>
 		</footer>

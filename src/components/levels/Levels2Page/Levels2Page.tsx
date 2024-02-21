@@ -19,7 +19,6 @@ import {
 } from './categories';
 import { TagPicker } from './TagPicker';
 import { MAX_LEVEL_DATA } from '../../../levelData/typesAndConstants';
-import { ArchiveModal } from '../../ArchiveStarburst/ArchiveModal';
 import { Shergiok } from './Shergiok';
 
 export const MAX_LEVELS_IN_SAVE = MAX_LEVEL_DATA;
@@ -27,7 +26,7 @@ export const MAX_LEVELS_IN_SAVE = MAX_LEVEL_DATA;
 type PublicLevels2PageProps = {
 	currentSlug: CategorySlug;
 	currentOrder: CategoryUserOrder;
-	tags?: string[];
+	tag?: string;
 	onSlugClick: (newSlug: CategorySlug) => void;
 	onUserOrderClick: (newOrder: CategoryUserOrder) => void;
 	onTagClick?: (clickedTag: string) => void;
@@ -55,7 +54,7 @@ function Levels2Page({
 	pageSize,
 	currentSlug,
 	currentOrder,
-	tags,
+	tag,
 	onSlugClick,
 	onUserOrderClick,
 	onTagClick,
@@ -64,7 +63,6 @@ function Levels2Page({
 	onPreviousClick,
 	onVoteClick,
 }: PublicLevels2PageProps & InternalLevels2PageProps) {
-	const [showArchiveModal, setShowArchiveModal] = useState(false);
 	const [showFileLoaderModal, setShowFileLoaderModal] = useState(false);
 	const [isBuildingSave, setIsBuildingSave] = useState(false);
 	const [chosenLevels, setChosenLevels] = useState<Level[]>([]);
@@ -91,21 +89,13 @@ function Levels2Page({
 			/>
 			<Shergiok className="invisible sm:visible fixed bottom-0 z-20 right-32 w-44 pb-2 rounded-t-xl overflow-hidden" />
 			<Root metaDescription="" title="Levels">
-				<Shergiok className="block sm:hidden -mx-4 mb-4" />
-				<div className="max-w-2xl mx-auto pt-4 sm:pt-16 flex flex-col h-full">
+				<div className="max-w-2xl mx-auto sm:pt-16 flex flex-col h-full">
+					<Shergiok className="block sm:hidden -mx-4 mb-4" />
 					<h1 className="font-bold text-2xl text-center">Community Levels</h1>
-					<p className="mt-2 mb-4 sm:mb-16 text-gray-400 text-sm text-center mx-24">
-						Want your level to show up here? Click on the &quot;publish&quot;
-						button when looking at all your levels in the editor.
-					</p>
-					<p className="p-2 bg-red-100 text-red-900 mb-8">
-						Smaghetti will turn into a usable archive on February 24, 2024.{' '}
-						<a
-							className="underline cursor-pointer text-blue-700"
-							onClick={() => setShowArchiveModal(true)}
-						>
-							What does that mean?
-						</a>
+					<p className="mt-4 mb-16 text-sm p-2 bg-yellow-100 text-yellow-800">
+						Smaghetti used to be a small community of people making and sharing
+						levels. This is now an archive of all the levels that were made. No
+						new levels will be added.
 					</p>
 					<Menu>
 						{categories.map((c) => {
@@ -133,7 +123,7 @@ function Levels2Page({
 					{onTagClick && (
 						<TagPicker
 							className="mb-8"
-							chosenTags={tags ?? []}
+							chosenTag={tag}
 							onTagClick={onTagClick}
 						/>
 					)}
@@ -191,8 +181,8 @@ function Levels2Page({
 								))}
 								{levels.length === 0 && (
 									<p className="text-center">
-										{currentSlug === 'by-tag' && (!tags || tags.length === 0)
-											? 'Please choose some tags above'
+										{currentSlug === 'by-tag' && !tag
+											? 'Please choose a tag above'
 											: 'No matching levels found'}
 									</p>
 								)}
@@ -224,10 +214,6 @@ function Levels2Page({
 				}}
 				onSaveClick={() => downloadSave(chosenLevels)}
 				isBuilding={isBuildingSave}
-			/>
-			<ArchiveModal
-				isOpen={showArchiveModal}
-				onRequestClose={() => setShowArchiveModal(false)}
 			/>
 		</>
 	);

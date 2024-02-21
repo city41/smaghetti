@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { LevelsPage } from './LevelsPage';
@@ -49,7 +49,6 @@ function ConnectedLevelsPage() {
 	const { allFilesReady, emptySaveFileState } = useSelector(
 		(state: AppState) => state.fileLoader
 	);
-	const [sortType, setSortType] = useState<SortType>('likes');
 
 	const { levels, votes, loadState } = useSelector(
 		(state: AppState) => state.levels
@@ -64,13 +63,9 @@ function ConnectedLevelsPage() {
 			allFilesReady={allFilesReady}
 			emptySaveFileState={emptySaveFileState}
 			loadState={loadState}
-			levels={sortLevels(levels, votes, sortType)}
-			sortType={sortType}
+			levels={sortLevels(levels, votes, 'likes')}
 			headerTitle="Levels"
 			pageTitle="Community Made Levels"
-			onSortTypeChange={() =>
-				setSortType(sortType === 'likes' ? 'new' : 'likes')
-			}
 			noPublishedLevelsNode={
 				<>
 					No published levels yet, why not{' '}

@@ -156,6 +156,7 @@ type LevelData = {
 
 type NewLevel = {
 	name: string;
+	username?: string;
 	data: LevelData;
 	created_at: string;
 	updated_at?: string;
@@ -172,13 +173,6 @@ type SerializedLevelData = {
 };
 
 type Level = NewLevel & { id: string };
-type BrokenLevel = {
-	id: string;
-	name: string;
-	created_at: string;
-	updated_at?: string;
-	broken: true;
-};
 
 type SerializedLevel = Omit<Level, 'data'> & {
 	data: SerializedLevelData;

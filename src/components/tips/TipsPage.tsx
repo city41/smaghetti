@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import clsx from 'clsx';
 import { Root } from '../layout/Root';
 import typographyStyles from '../../styles/typography.module.css';
-import { toId } from '../whats-new/WhatsNewPage';
 
 import eCoinTemplateWPalettePng from './eCoinTemplateWPalette.png';
 import pipeWarpsPng from './pipeWarps.png';
@@ -15,6 +14,7 @@ import axeSetupPng from './axeSetup.png';
 
 import styles from './TipsPage.module.css';
 import { entityMap } from '../../entities/entityMap';
+import { toId } from '../help/HelpPage';
 
 function TipEntry({ title, children }: { title: string; children: ReactNode }) {
 	const id = toId(title);
@@ -47,10 +47,6 @@ function TipsPage() {
 		>
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">Editor Tips</h1>
-				<p className="bg-red-200 -mx-4 p-4 mb-24 text-gray-900">
-					Really simple so far. I plan to expand this page into nice advanced
-					usage docs. Stay tuned.
-				</p>
 				<TipEntry title="You can't trust the editor">
 					<p>
 						What you see in the editor might not match what happens in the real

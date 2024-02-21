@@ -14,7 +14,7 @@ const InternalLink: FunctionComponent<InternalLinkProps> = ({
 	children,
 }) => {
 	return (
-		<Link href={to} passHref>
+		<Link href={to} passHref legacyBehavior>
 			<a
 				className={clsx(
 					className,

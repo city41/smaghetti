@@ -1,7 +1,7 @@
 export const categories = [
 	{
 		title: 'All',
-		subtitle: 'All {count} levels that have been published',
+		subtitle: 'All {count} levels that were published',
 		slug: 'all',
 	},
 	{
@@ -14,12 +14,6 @@ export const categories = [
 		subtitle:
 			'These {count} levels have ace coins and/or e-coins for you to seek out',
 		slug: 'coins',
-	},
-	{
-		title: "Dev's Favs",
-		subtitle:
-			"Hi I'm Matt and I am making Smaghetti. These are some of my favorite levels.",
-		slug: 'dev-favs',
 	},
 ] as const;
 

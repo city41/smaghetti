@@ -11,17 +11,17 @@ const meta: Meta = {
 export default meta;
 
 export const Basic = () => {
-	return <SaveButton onSaveClick={() => {}} saveLevelState="dormant" />;
+	return <SaveButton onClick={() => {}} saveLevelState="dormant" />;
 };
 
 export const Saving = () => {
-	return <SaveButton onSaveClick={() => {}} saveLevelState="saving" />;
+	return <SaveButton onClick={() => {}} saveLevelState="saving" />;
 };
 
 export const SaveSuccess = () => {
-	return <SaveButton onSaveClick={() => {}} saveLevelState="success" />;
+	return <SaveButton onClick={() => {}} saveLevelState="success" />;
 };
 
 export const SaveError = () => {
-	return <SaveButton onSaveClick={() => {}} saveLevelState="error" />;
+	return <SaveButton onClick={() => {}} saveLevelState="error" />;
 };

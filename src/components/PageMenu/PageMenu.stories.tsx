@@ -11,12 +11,5 @@ const meta: Meta = {
 export default meta;
 
 export const Basic = () => {
-	return (
-		<PageMenu
-			isLoggedIn={false}
-			onSignInClicked={() => {}}
-			onJoinClicked={() => {}}
-			onLevelsClicked={() => {}}
-		/>
-	);
+	return <PageMenu onLevelsClicked={() => {}} />;
 };

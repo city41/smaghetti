@@ -57,11 +57,14 @@ function downloadLevelAsSaveFile(level: LevelToLoadInGBA) {
 	downloadSetOfLevelsAsSaveFile([level], level.name);
 }
 
-function downloadLevelAsJson(level: LevelToLoadInGBA | SerializedLevel) {
+function downloadLevelAsJson(
+	level: LevelToLoadInGBA | SerializedLevel,
+	ext = 'json'
+) {
 	const levelString = JSON.stringify(level);
 	const fileBlob = new Blob([levelString], { type: 'text/json' });
 
-	sendBlobToAnchorTag(fileBlob, getSafeFileName(level.name, 'json'));
+	sendBlobToAnchorTag(fileBlob, getSafeFileName(level.name, ext));
 }
 
 function downloadLevelAsLevelFile(level: LevelToLoadInGBA) {

@@ -13,7 +13,6 @@ import { convertLevelToLatestVersion } from '../../../../level/versioning/conver
 import { SavedLevels } from './SavedLevels';
 
 import styles from './LevelChooserModal.module.css';
-import { useLocalStorage } from '../../../../hooks/useLocalStorage';
 import { SaveFileList } from '../../../levels/Levels2Page/SaveFileList';
 import { downloadSetOfLevelsAsSaveFile } from '../../../../levelData/downloadLevelAsSaveFile';
 import { MAX_LEVELS_IN_SAVE } from '../../../levels/Levels2Page/Levels2Page';
@@ -27,28 +26,17 @@ type InternalLevelChooserModalProps = {
 	onLocalStorageLevelChosen: () => void;
 	onExampleLevelChosen: () => void;
 	onBlankLevelChosen: () => void;
-	isLoggedIn: boolean;
-	isAdmin: boolean;
-	loadingLevelsState: 'none' | 'dormant' | 'loading' | 'error' | 'success';
-	savedLevels: Array<Level | BrokenLevel>;
+	loadingLevelsState: 'loading' | 'error' | 'success';
+	savedLevels: Array<Level>;
 	onLevelChosen: (level: Level) => void;
-	onDeleteLevel: (level: Level | BrokenLevel) => void;
-	onTogglePublishLevel: (level: Level) => void;
+	onDeleteLevel: (level: Level) => void;
 };
 
 const THUMBNAIL_SCALE = 0.5;
 
 const EMPTY_ROOM = initialRoomState;
-const PUBLISH_BLURB_KEY = 'smaghetti_LevelChooserModal_hidePublishBlurb';
 
-function getLocalStorageCaption(
-	level: SerializedLevel,
-	isLoggedIn: boolean
-): ReactNode {
-	if (!isLoggedIn) {
-		return 'last session';
-	}
-
+function getLocalStorageCaption(level: SerializedLevel): ReactNode {
 	const subLabel = level.id ? level.name : 'never saved';
 	return (
 		<>
@@ -95,22 +83,15 @@ function LevelChooserModal({
 	onLocalStorageLevelChosen,
 	onExampleLevelChosen,
 	onBlankLevelChosen,
-	isLoggedIn,
-	isAdmin,
 	loadingLevelsState,
 	savedLevels,
 	onLevelChosen,
 	onDeleteLevel,
-	onTogglePublishLevel,
 	onRequestClose,
 }: PublicLevelChooserModalProps & InternalLevelChooserModalProps) {
 	const [isBuildingSave, setIsBuildingSave] = useState(false);
 	const [chosenLevels, setChosenLevels] = useState<Level[]>([]);
 
-	const [hidePublishBlurb, setHidePublishBlurb] = useLocalStorage(
-		PUBLISH_BLURB_KEY,
-		'false'
-	);
 	const serializedExampleLevel = getExampleLevel();
 
 	const exampleRoom = serializedExampleLevel
@@ -139,16 +120,14 @@ function LevelChooserModal({
 
 	return (
 		<Modal
-			className={clsx(styles.modal, {
-				'relative pb-12': isLoggedIn,
-			})}
+			className={clsx(styles.modal, 'relative pb-12')}
 			title="Choose what to work on"
 			isOpen={isOpen}
 			onXClick={onRequestClose}
 			onRequestClose={onRequestClose}
 		>
 			<div
-				style={{ height: isLoggedIn ? '60vh' : 'auto' }}
+				style={{ height: '60vh' }}
 				className="thinScrollbar overflow-y-auto pr-4 -mr-4"
 			>
 				<div
@@ -174,10 +153,7 @@ function LevelChooserModal({
 					</LevelButton>
 					{localStorageData && convertedLocalStorage && (
 						<LevelButton
-							caption={getLocalStorageCaption(
-								convertedLocalStorage,
-								isLoggedIn
-							)}
+							caption={getLocalStorageCaption(convertedLocalStorage)}
 							onClick={onLocalStorageLevelChosen}
 						>
 							<RoomThumbnail
@@ -207,72 +183,33 @@ function LevelChooserModal({
 						)}
 					</LevelButton>
 				</div>
-				{isLoggedIn && hidePublishBlurb !== 'true' && (
-					<div className="mt-4 bg-green-200 text-green-900 p-2 text-sm flex flex-col">
-						<p>
-							Publishing a level lists it on the{' '}
-							<a
-								className="text-blue-500"
-								target="_blank"
-								rel="noreferrer"
-								href="/levels"
-							>
-								levels page
-							</a>
-							. Anyone can load your published levels into the editor to try
-							them, but they can not save them (not even a copy). Published
-							levels need to abide by the{' '}
-							<a
-								className="text-blue-500"
-								target="_blank"
-								rel="noreferrer"
-								href="/tos"
-							>
-								terms of service
-							</a>
-							.
-						</p>
-						<button
-							className="text-blue-500 self-center"
-							onClick={() => {
-								setHidePublishBlurb('true');
-							}}
-						>
-							got it
-						</button>
-					</div>
-				)}
-				{loadingLevelsState !== 'none' && (
-					<>
-						<hr className="mt-6 mb-8" />
-						<SavedLevels
-							loadingState={loadingLevelsState}
-							levels={savedLevels}
-							isAdmin={isAdmin}
-							thumbnailScale={THUMBNAIL_SCALE}
-							onLevelChosen={(level) => {
-								if (isBuildingSave) {
-									setChosenLevels((curLevels) => {
-										if (curLevels.includes(level)) {
-											return curLevels.filter((cl) => cl !== level);
-										} else if (curLevels.length < MAX_LEVELS_IN_SAVE) {
-											return curLevels.concat(level);
-										} else {
-											return curLevels;
-										}
-									});
-								} else {
-									onLevelChosen(level);
-								}
-							}}
-							onDeleteLevel={onDeleteLevel}
-							onTogglePublishLevel={onTogglePublishLevel}
-							isBuildingSave={isBuildingSave}
-							chosenLevelsForSave={chosenLevels}
-						/>
-					</>
-				)}
-				{isLoggedIn && loadingLevelsState === 'success' && (
+				<>
+					<hr className="mt-6 mb-8" />
+					<SavedLevels
+						loadingState={loadingLevelsState}
+						levels={savedLevels}
+						thumbnailScale={THUMBNAIL_SCALE}
+						onLevelChosen={(level) => {
+							if (isBuildingSave) {
+								setChosenLevels((curLevels) => {
+									if (curLevels.includes(level)) {
+										return curLevels.filter((cl) => cl !== level);
+									} else if (curLevels.length < MAX_LEVELS_IN_SAVE) {
+										return curLevels.concat(level);
+									} else {
+										return curLevels;
+									}
+								});
+							} else {
+								onLevelChosen(level);
+							}
+						}}
+						onDeleteLevel={onDeleteLevel}
+						isBuildingSave={isBuildingSave}
+						chosenLevelsForSave={chosenLevels}
+					/>
+				</>
+				{loadingLevelsState === 'success' && savedLevels.length > 0 && (
 					<SaveFileList
 						emptySaveFileState="success"
 						className="absolute bottom-0 left-4 py-2"

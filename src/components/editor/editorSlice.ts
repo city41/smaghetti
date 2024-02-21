@@ -27,8 +27,6 @@ import {
 	MAX_WRAP_AROUND_ROOM_TILE_HEIGHT,
 } from './constants';
 import { getPlayerScaleFromWindow } from '../../util/getPlayerScaleFromWindow';
-import { saveLevel as saveLevelMutation } from '../../remoteData/saveLevel';
-import { getLevel as getLevelQuery } from '../../remoteData/getLevel';
 import { serialize as levelSerialize } from '../../level/serialize';
 import { deserialize } from '../../level/deserialize';
 import isEqual from 'lodash/isEqual';
@@ -53,13 +51,14 @@ import {
 } from '../../level/versioning/convertLevelToLatestVersion';
 import { flattenCells } from '../../levelData/util';
 import { getEntityTileBounds, pointIsInside } from './util';
-import { logError } from '../../reporting/logError';
 import {
 	parseBinaryEReaderLevel,
 	parseBinaryInGameLevel,
 	parseSprites,
 } from '../../levelData/parseBinaryLevel';
 import { PendingObject } from '../../levelData/createLevelData';
+
+import { saveLevel as saveLevelMutation } from '../../localData/saveLevel';
 
 type MouseMode = 'select' | 'draw' | 'fill' | 'erase' | 'pan';
 
@@ -140,6 +139,7 @@ type InternalEditorState = {
 		| 'dormant'
 		| 'loading'
 		| 'error'
+		| 'local-file-error'
 		| 'missing'
 		| 'success'
 		| 'legacy';
@@ -1989,7 +1989,6 @@ async function doSave(
 	try {
 		dispatch(editorSlice.actions.setSaveLevelState('saving'));
 		const serializedLevelData = serialize(levelData);
-
 		try {
 			const createdLevelId = await saveLevelMutation(
 				id ?? null,
@@ -2000,30 +1999,13 @@ async function doSave(
 			dispatch(editorSlice.actions.setSavedLevelId(createdLevelId));
 			dispatch(editorSlice.actions.setSaveLevelState('success'));
 		} catch (e) {
-			const message = e instanceof Error ? e.message : String(e);
-			const stack = e instanceof Error ? e.stack : '';
 			// eslint-disable-next-line no-console
 			console.error('error saving level', console.dir(e));
-			logError({
-				context: 'editorSlice#doSave,first catch',
-				message,
-				stack,
-				level_data: JSON.stringify(levelData),
-			});
-
 			dispatch(editorSlice.actions.setSaveLevelState('error'));
 		}
 	} catch (e) {
-		const message = e instanceof Error ? e.message : String(e);
-		const stack = e instanceof Error ? e.stack : '';
 		// eslint-disable-next-line no-console
 		console.error('error saving level', e);
-		logError({
-			context: 'editorSlice#doSave,second catch',
-			message,
-			stack,
-			level_data: JSON.stringify(levelData),
-		});
 		dispatch(editorSlice.actions.setSaveLevelState('error'));
 	} finally {
 		setTimeout(() => {
@@ -2063,29 +2045,94 @@ const saveLevelCopy = (): LevelThunk => async (dispatch, getState) => {
 	dispatch(editorSlice.actions.setLevelName(levelName));
 };
 
-const loadLevel = (id: string): LevelThunk => async (dispatch) => {
+let _levelArchiveIndex: Record<string, string> | null = null;
+async function getLevelArchiveIndex(): Promise<Record<string, string>> {
+	if (!_levelArchiveIndex) {
+		const url = '/level-archive/levelIndex.json';
+		const request = await fetch(url);
+		_levelArchiveIndex = await request.json();
+	}
+
+	return _levelArchiveIndex!;
+}
+
+async function getLevelFromArchive(
+	id: string
+): Promise<SerializedLevel | null> {
+	const levelArchiveIndex = await getLevelArchiveIndex();
+
+	const fileName = levelArchiveIndex[id];
+
+	if (fileName) {
+		const url = `/level-archive/${fileName}`;
+		const request = await fetch(url);
+		const data = await request.json();
+
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		return data.find((l: any) => l.id === id) ?? null;
+	}
+
+	return null;
+}
+
+async function getLevelFromFile(file: File): Promise<SerializedLevel | null> {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+
+		reader.onloadend = () => {
+			try {
+				resolve(JSON.parse(reader.result as string) as SerializedLevel);
+			} catch (e) {
+				reject(e);
+			}
+		};
+
+		reader.readAsText(file);
+	});
+}
+
+const loadLevelFromFile = (file: File): LevelThunk => async (dispatch) => {
 	try {
 		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
 		dispatch(editorSlice.actions.setLevelName(''));
 		dispatch(editorSlice.actions.setLoadLevelState('loading'));
+		const result = await getLevelFromFile(file);
+		if (!result) {
+			dispatch(editorSlice.actions.setLoadLevelState('local-file-error'));
+		} else {
+			const convertedLevel = convertLevelToLatestVersion(result);
+			if (!convertedLevel) {
+				dispatch(editorSlice.actions.setLoadLevelState('local-file-error'));
+			} else {
+				const levelData = deserialize(convertedLevel.data);
+				dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
+				dispatch(editorSlice.actions.setLevelName(result.name));
+				dispatch(editorSlice.actions.setLevelCreatorName(result.username));
+				dispatch(editorSlice.actions.setLoadLevelState('success'));
+			}
+		}
+	} catch (e) {
+		dispatch(editorSlice.actions.setLoadLevelState('local-file-error'));
+	}
+};
 
-		const result = await getLevelQuery(id);
-
+const loadLevelFromArchive = (id: string): LevelThunk => async (dispatch) => {
+	try {
+		dispatch(editorSlice.actions.setLevelDataFromLoad(EMPTY_LEVEL));
+		dispatch(editorSlice.actions.setLevelName(''));
+		dispatch(editorSlice.actions.setLoadLevelState('loading'));
+		const result = await getLevelFromArchive(id);
 		if (!result) {
 			dispatch(editorSlice.actions.setLoadLevelState('missing'));
 		} else {
 			const convertedLevel = convertLevelToLatestVersion(result);
-
 			if (!convertedLevel) {
 				dispatch(editorSlice.actions.setLoadLevelState('error'));
 			} else {
 				const levelData = deserialize(convertedLevel.data);
 				dispatch(editorSlice.actions.setLevelDataFromLoad(levelData));
 				dispatch(editorSlice.actions.setLevelName(result.name));
-				dispatch(
-					editorSlice.actions.setLevelCreatorName(result.user?.username)
-				);
-				dispatch(editorSlice.actions.setSavedLevelId(result.id));
+				dispatch(editorSlice.actions.setLevelCreatorName(result.username));
 				dispatch(editorSlice.actions.setLoadLevelState('success'));
 			}
 		}
@@ -2156,30 +2203,15 @@ const loadFromLocalStorage = (): LevelThunk => (dispatch) => {
 					dispatch(editorSlice.actions.setLoadLevelState('legacy'));
 				}
 			} catch (e) {
-				const message = e instanceof Error ? e.message : String(e);
-				const stack = e instanceof Error ? e.stack : '';
 				// eslint-disable-next-line no-console
 				console.error('loadFromLocalStorage error', e);
-				logError({
-					context: 'editorSlice#loadFromLocalStorage,first catch',
-					message,
-					stack,
-					level_data: rawJson,
-				});
 				dispatch(editorSlice.actions.setLoadLevelState('error'));
 			}
 		}
 	} catch (e) {
-		const message = e instanceof Error ? e.message : String(e);
-		const stack = e instanceof Error ? e.stack : '';
 		// eslint-disable-next-line no-console
 		console.error('loadFromLocalStorage error', e);
 		dispatch(editorSlice.actions.setLoadLevelState('error'));
-		logError({
-			context: 'editorSlice#loadFromLocalStorage,second catch',
-			message,
-			stack,
-		});
 	}
 };
 
@@ -2531,7 +2563,8 @@ export {
 	applyPotentialSpriteStart,
 	saveLevel,
 	saveLevelCopy,
-	loadLevel,
+	loadLevelFromArchive,
+	loadLevelFromFile,
 	loadBinaryEReaderLevel,
 	loadBinaryInGameLevel,
 	loadFromLocalStorage,

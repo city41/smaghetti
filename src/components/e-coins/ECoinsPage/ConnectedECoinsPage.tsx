@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { ECoinsPage, PublicECoinsPageProps } from './ECoinsPage';
-import { client } from '../../../remoteData/client';
 import { convertLevelToLatestVersion } from '../../../level/versioning/convertLevelToLatestVersion';
 import { deserialize } from '../../../level/deserialize';
 import { CategoryUserOrder } from '../../levels/Levels2Page/categories';
@@ -14,24 +13,14 @@ type FlatSerializedLevel = Omit<SerializedLevel, 'user'> & {
 	total_vote_count: number;
 };
 
-const userOrderToOrderColumn: Record<CategoryUserOrder, string> = {
-	newest: 'updated_at',
-	popular: 'total_vote_count',
-};
-
-// for now, not paging, need to figure out how to only get custom coins from the db
 async function getLevels(
 	order: CategoryUserOrder
 ): Promise<{ levels: FlatSerializedLevel[]; totalCount: number }> {
-	const { error, data, count } = await client
-		.rpc('get_published_levels_that_have_ecoins')
-		.order(userOrderToOrderColumn[order], { ascending: false });
-
-	if (error) {
-		throw error;
-	}
-
-	return { levels: data ?? [], totalCount: count ?? 0 };
+	const request = await fetch(
+		`/level-archive/get_published_levels_that_have_ecoins_order${order}.json`
+	);
+	const data = await request.json();
+	return { levels: data, totalCount: 310 };
 }
 
 function isCustomECoin(data: number[] | undefined): boolean {
