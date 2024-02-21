@@ -128,7 +128,7 @@ async function getMainPublishedLevels() {
 
 					const pageLevelCount = parsedData.length;
 
-					if (pageLevelCount === 0) {
+					if (!pageLevelCount) {
 						break;
 					} else {
 						levelCount += pageLevelCount;
