@@ -19,7 +19,7 @@ function IndexPage() {
 						<img
 							className="shadow-lg p-4 bg-gray-500"
 							style={{ imageRendering: 'initial' }}
-							src={screenshotPng}
+							src={screenshotPng.src}
 							width={1259}
 							height={930}
 							alt="screenshot of the editor"
