@@ -81,7 +81,7 @@ async function main() {
 
 				const pageLevelCount = JSON.parse(data).length;
 
-				if (pageLevelCount === 0) {
+				if (!pageLevelCount) {
 					break;
 				} else {
 					levelCount += pageLevelCount;
