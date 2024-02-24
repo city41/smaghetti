@@ -2,9 +2,12 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { useRouter } from 'next/router';
 
-import { loadLevel, loadBlankLevel, saveToLocalStorage } from '../editorSlice';
+import {
+	loadLevelFromArchive,
+	loadBlankLevel,
+	saveToLocalStorage,
+} from '../editorSlice';
 
 import { Palette } from './Palette';
 import { Layers } from './Layers';
@@ -23,7 +26,7 @@ import { useFirstRender } from '../../../hooks/useFirstRender';
 
 import styles from './Editor.module.css';
 import { LoadingBar } from '../../LoadingBar';
-import { ArchiveStarburst } from '../../ArchiveStarburst';
+import { StaticStarburst } from '../../StaticStarburst';
 import { EntityAndProblemList } from './EntityAndProblemList';
 import { InGameLevelsChooser } from './experiments/LoadInGameLevels/InGameLevelsChooser';
 
@@ -38,9 +41,11 @@ type EditorProps = {
 		| 'success'
 		| 'missing'
 		| 'error'
+		| 'local-file-error'
 		| 'legacy';
 	levelName?: string;
 	creatorName?: string;
+	savedLevelId?: string;
 	inGameBinaryLevelChooser?: boolean;
 };
 
@@ -59,9 +64,9 @@ function Editor({
 	publishedLevelToLoad,
 	levelName,
 	creatorName,
+	savedLevelId,
 	inGameBinaryLevelChooser,
 }: EditorProps) {
-	const router = useRouter();
 	const [isChoosingLevel, setIsChoosingLevel] = useState(false);
 	const [isPlaying, setPlaying] = useState(false);
 	const [showKeyboardHelpModal, setShowKeyboardHelpModal] = useState(false);
@@ -109,7 +114,7 @@ function Editor({
 		if (!publishedLevelToLoad) {
 			dispatch(loadBlankLevel());
 		} else {
-			dispatch(loadLevel(publishedLevelToLoad));
+			dispatch(loadLevelFromArchive(publishedLevelToLoad));
 		}
 	}, [publishedLevelToLoad]);
 
@@ -171,11 +176,7 @@ function Editor({
 	}, []);
 
 	function handleLevelsClick() {
-		if (router.pathname !== '/editor' && router.pathname !== '/editor/') {
-			router.push('/editor');
-		} else {
-			setIsChoosingLevel(true);
-		}
+		setIsChoosingLevel(true);
 	}
 
 	const handleProblemClick = useCallback(() => {
@@ -236,9 +237,14 @@ function Editor({
 							<Toolbox
 								className="flex-1"
 								disabled={isPlaying || mode === 'managing-rooms'}
-								disableSaving={!!publishedLevelToLoad}
 								isPlaying={isPlaying}
 								onPlayClick={() => setPlaying((p) => !p)}
+								onSaveClick={() => {
+									history.replaceState(null, '', '/editor');
+								}}
+								onMoreMenuClick={() => {
+									history.replaceState(null, '', '/editor');
+								}}
 							/>
 						</div>
 						<div
@@ -248,24 +254,21 @@ function Editor({
 							<Palette disabled={isPlaying || mode === 'managing-rooms'} />
 							<Layers disabled={isPlaying || mode === 'managing-rooms'} />
 							<div className="grid grid-rows-3 items-stretch">
-								<MetadataMenu
-									className="row-span-2"
-									disabled={isPlaying}
-									disableSaving={!!publishedLevelToLoad}
-								/>
+								<MetadataMenu className="row-span-2" disabled={isPlaying} />
 								<PageMenu onLevelsClicked={handleLevelsClick} />
 							</div>
 						</div>
 						{publishedLevelToLoad &&
 							typeof levelName === 'string' &&
-							typeof creatorName === 'string' && (
+							typeof creatorName === 'string' &&
+							typeof savedLevelId === 'undefined' && (
 								<div className="bg-yellow-100 text-yellow-800 p-1 pl-4 text-sm">
 									You&apos;re checking out{' '}
 									<span className="underline font-bold">{levelName}</span> by{' '}
 									<span className="underline font-bold">{creatorName}</span>{' '}
-									<a className="text-blue-600" href="/editor">
-										click here to make your own level
-									</a>
+									<span className="text-blue-600">
+										If you save it, you will save your own copy
+									</span>
 								</div>
 							)}
 					</div>
@@ -295,7 +298,7 @@ function Editor({
 						hidden: isPlaying,
 					})}
 				>
-					<ArchiveStarburst />
+					<StaticStarburst />
 				</div>
 			</div>
 			{loadLevelState === 'loading' && (
@@ -319,6 +322,23 @@ function Editor({
 						<p className="font-bold">
 							try refreshing the browser, might have just been a network error
 						</p>
+						<a
+							className="block mt-4 text-blue-700 cursor-pointer"
+							onClick={() => {
+								toFreshEditor();
+							}}
+						>
+							start a fresh level instead
+						</a>
+					</div>
+				</>
+			)}
+			{loadLevelState === 'local-file-error' && (
+				<>
+					<div className="fixed top-0 left-0 w-screen h-screen opacity-75 bg-gray-700 z-10" />
+					<div className="fixed top-1/3 left-1/3 w-1/3 grid place-items-center z-10 p-4 bg-red-200 text-black space-y-4">
+						<h1 className="text-xl font-bold">Failed to load the level</h1>
+						<p>This file may not be a smaghetti file</p>
 						<a
 							className="block mt-4 text-blue-700 cursor-pointer"
 							onClick={() => {

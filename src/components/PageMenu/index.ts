@@ -1,1 +1,1 @@
-export { ConnectedPageMenu as PageMenu } from './ConnectedPageMenu';
+export * from './PageMenu';

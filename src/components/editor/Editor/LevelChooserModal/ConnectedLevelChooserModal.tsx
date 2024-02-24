@@ -9,33 +9,38 @@ import {
 	setLevel,
 	loadFromLocalStorage,
 } from '../../editorSlice';
-import { AppState, dispatch } from '../../../../store';
-import { client } from '../../../../remoteData/client';
-import { useSelector } from 'react-redux';
-import {
-	deleteLevel,
-	loadProfile,
-	togglePublishLevel,
-} from '../../../profile/profileSlice';
+import { dispatch } from '../../../../store';
+import { getAllLevels } from '../../../../localData/getAllLevels';
+import { deleteLevel } from '../../../../localData/deleteLevel';
+import { deserialize } from '../../../../level/deserialize';
+
+type LoadingLevelState = 'loading' | 'success' | 'error';
 
 function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
-	const [localUser, setLocalUser] = useState(client.auth.user());
-
-	const { loadState, levels, user: loadedUser } = useSelector(
-		(state: AppState) => state.profile
+	const [levels, setLevels] = useState<Level[]>([]);
+	const [loadingLevelState, setLoadingLevelState] = useState<LoadingLevelState>(
+		'loading'
 	);
 
 	useEffect(() => {
-		client.auth.onAuthStateChange(() => {
-			setLocalUser(client.auth.user());
-		});
-	}, []);
+		getAllLevels()
+			.then((serializedLevels) => {
+				const allLevels = serializedLevels.map((serializedLevel) => {
+					const deserializedData = deserialize(serializedLevel.data);
+					return {
+						...serializedLevel,
+						data: deserializedData,
+					};
+				});
 
-	useEffect(() => {
-		if (localUser && props.isOpen) {
-			dispatch(loadProfile());
-		}
-	}, [localUser, dispatch, props.isOpen]);
+				setLevels(allLevels);
+				setLoadingLevelState('success');
+			})
+			.catch((e) => {
+				console.error('error from getAllLevels', e);
+				setLoadingLevelState('error');
+			});
+	}, []);
 
 	function handleExampleLevelChosen() {
 		dispatch(loadExampleLevel());
@@ -57,12 +62,18 @@ function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 		props.onRequestClose();
 	}
 
-	function handleDeleteLevel(level: Level | BrokenLevel) {
-		dispatch(deleteLevel(level));
-	}
+	async function handleDeleteLevel(level: Level) {
+		await deleteLevel(level.id);
+		const serializedLevels = await getAllLevels();
+		const allLevels = serializedLevels.map((serializedLevel) => {
+			const deserializedData = deserialize(serializedLevel.data);
+			return {
+				...serializedLevel,
+				data: deserializedData,
+			};
+		});
 
-	function handleTogglePublishLevel(level: Level) {
-		dispatch(togglePublishLevel(level));
+		setLevels(allLevels);
 	}
 
 	return (
@@ -73,11 +84,8 @@ function ConnectedLevelChooserModal(props: PublicLevelChooserModalProps) {
 			onLocalStorageLevelChosen={handleLocalStorageLevelChosen}
 			onLevelChosen={handleLevelChosen}
 			onDeleteLevel={handleDeleteLevel}
-			onTogglePublishLevel={handleTogglePublishLevel}
-			loadingLevelsState={localUser ? loadState : 'none'}
+			loadingLevelsState={loadingLevelState}
 			savedLevels={levels}
-			isLoggedIn={!!localUser}
-			isAdmin={loadedUser?.role === 'admin'}
 		/>
 	);
 }

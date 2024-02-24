@@ -9,8 +9,6 @@ import {
 } from 'react-virtualized';
 import 'react-virtualized/styles.css';
 
-// this is due to react-virtualied not fully being react@18 compatible
-// https://github.com/bvaughn/react-virtualized/issues/1739#issuecomment-1264276522
 const AutoSizer = (_AutoSizer as unknown) as React.FunctionComponent<AutoSizerProps>;
 const Grid = (_Grid as unknown) as React.FunctionComponent<GridProps>;
 

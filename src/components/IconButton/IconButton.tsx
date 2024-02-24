@@ -88,7 +88,7 @@ function IconButton({
 			>
 				{(Icon && <Icon />) ||
 					(href && (
-						<Link href={href!} passHref>
+						<Link href={href!} passHref legacyBehavior>
 							<a>{label}</a>
 						</Link>
 					)) ||

@@ -15,6 +15,10 @@ function AboutPage() {
 		<Root title="About" metaDescription="About SMA4 and Smaghetti">
 			<div className="max-w-2xl mx-auto pt-16">
 				<h1 className="font-bold text-5xl text-center mb-8">About Smaghetti</h1>
+				<p className="mt-4 mb-16 text-sm p-2 bg-yellow-100 text-yellow-800">
+					Smaghetti is no longer updated. This site is now an
+					&quot;archive&quot;
+				</p>
 				<div className={typographyStyles.typography}>
 					<img
 						src={sma4BannerJpg.src}
@@ -48,8 +52,8 @@ function AboutPage() {
 					<h2>The GBA E-Reader</h2>
 					<p>
 						The E-Reader is a device that plugs into the GBA and allows you to
-						swipe cards through it loading a small chunk of data. In the case of
-						SMA4, the E-Reader was used to add 37 bonus levels to the game.
+						swipe cards through it, loading a small chunk of data. In the case
+						of SMA4, the E-Reader was used to add 37 bonus levels to the game.
 						These levels go above and beyond normal SMB3 by adding things from
 						other Mario games. All in all, these E-Reader levels are really fun
 						and a neat treasure trove of Mario goodness.
@@ -174,15 +178,6 @@ function AboutPage() {
 						Smaghetti such as nintyalex, bumptytobumpty, mariomadproductions and
 						others. If you&apos;ve reported a bug, or contributed any knowledge
 						to reverse engineering SMA4, thank you!
-					</p>
-					<h2>Going forward</h2>
-					<p>
-						Smaghetti is far from done (checkout the{' '}
-						<a href="/roadmap">roadmap</a> for an overview). I have a lot of big
-						ideas for it, such as supporting Super Mario All-Stars on the SNES,
-						building entire games rather than just E-Reader levels and more.
-						Can&apos;t promise any of these things will actually happen, but who
-						knows, let&apos;s see where this all goes...
 					</p>
 				</div>
 			</div>

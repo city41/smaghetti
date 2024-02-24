@@ -14,7 +14,6 @@ import {
 	PaletteSubcategory,
 } from '../../../../entities/types';
 import { IconCancel, IconExperiment } from '../../../../icons';
-import { DISCORD_LINK } from '../../../../constants';
 
 type PaletteChoiceModalProps = {
 	isOpen: boolean;
@@ -193,36 +192,6 @@ function UnfinishedDisclaimer() {
 			<p className="font-bold text-red-800">
 				You can add them to your level and try them out, but they will only be
 				temporary. They get removed when you save your level.
-			</p>
-			<p>
-				Want to help get these working? Let me know on{' '}
-				<a
-					className="text-blue-700"
-					target="_blank"
-					rel="noreferrer"
-					href={DISCORD_LINK}
-				>
-					Discord
-				</a>
-				,{' '}
-				<a
-					className="text-blue-700"
-					target="_blank"
-					rel="noreferrer"
-					href="https://github.com/city41/smaghetti/discussions"
-				>
-					GitHub
-				</a>
-				, or{' '}
-				<a
-					className="text-blue-700"
-					target="_blank"
-					rel="noreferrer"
-					href="mailto:matt.e.greer@gmail.com"
-				>
-					email me
-				</a>
-				.
 			</p>
 		</div>
 	);

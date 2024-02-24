@@ -8,36 +8,18 @@ import {
 import { TILE_SIZE } from '../../../../tiles/constants';
 import { RoomThumbnail } from '../../../RoomThumbnail';
 import { PlainIconButton } from '../../../PlainIconButton';
-import { Button } from '../../../Button';
-import { isBrokenLevel } from './util';
 import { IconCheck, IconTrash, IconUnchecked } from '../../../../icons';
 
 type SavedLevelsProps = {
 	className?: string;
 	loadingState: 'dormant' | 'loading' | 'error' | 'success';
-	levels: Array<Level | BrokenLevel>;
-	isAdmin: boolean;
+	levels: Array<Level>;
 	thumbnailScale: number;
 	isBuildingSave?: boolean;
 	chosenLevelsForSave: Level[];
 	onLevelChosen: (level: Level) => void;
-	onDeleteLevel: (level: Level | BrokenLevel) => void;
-	onTogglePublishLevel: (level: Level) => void;
+	onDeleteLevel: (level: Level) => void;
 };
-
-function BrokenThumbnail({ scale }: { scale: number }) {
-	return (
-		<div
-			style={{
-				width: PLAY_WINDOW_TILE_WIDTH * 1.5 * TILE_SIZE * scale,
-				height: PLAY_WINDOW_TILE_HEIGHT * TILE_SIZE * scale,
-			}}
-			className="bg-red-200 text-red-700 text-xs border-2 border-red-700 grid place-items-center"
-		>
-			level no longer compatible
-		</div>
-	);
-}
 
 function DeleteLevel({ onDeleteLevel }: { onDeleteLevel: () => void }) {
 	const [showAreYouSure, setShowAreYouSure] = useState(false);
@@ -73,31 +55,25 @@ function DeleteLevel({ onDeleteLevel }: { onDeleteLevel: () => void }) {
 }
 
 type LevelRowProps = {
-	level: Level | BrokenLevel;
-	isAdmin: boolean;
+	level: Level;
 	scale: number;
 	isBuildingSave?: boolean;
 	isChosenForSave: boolean;
 	onLevelChosen: () => void;
 	onDeleteLevel: () => void;
-	onTogglePublishLevel: () => void;
 };
 
 function LevelRow({
 	level,
-	isAdmin,
 	scale,
 	onLevelChosen,
 	onDeleteLevel,
-	onTogglePublishLevel,
 	isBuildingSave,
 	isChosenForSave,
 }: LevelRowProps) {
 	const CheckIcon = isChosenForSave ? IconCheck : IconUnchecked;
 
-	const thumbnail = isBrokenLevel(level) ? (
-		<BrokenThumbnail scale={scale} />
-	) : (
+	const thumbnail = (
 		<div
 			className="flex flex-col items-end"
 			style={{ width: PLAY_WINDOW_TILE_WIDTH * 1.5 * TILE_SIZE * scale + 4 }}
@@ -121,8 +97,7 @@ function LevelRow({
 		</div>
 	);
 
-	const repeatCount = isAdmin ? 3 : 2;
-	const gridTemplateColumns = `min-content 1fr repeat(${repeatCount}, max-content)`;
+	const gridTemplateColumns = 'min-content 1fr repeat(2, max-content)';
 
 	return (
 		<div
@@ -138,39 +113,12 @@ function LevelRow({
 				{thumbnail}
 			</div>
 			<div
-				className={clsx('w-56 h-full flex flex-row items-center pl-4', {
-					'font-bold hover:underline cursor-pointer': !isBrokenLevel(level),
-				})}
-				onClick={() => {
-					if (!isBrokenLevel(level)) {
-						onLevelChosen();
-					}
-				}}
+				className={clsx('w-56 h-full flex flex-row items-center pl-4')}
+				onClick={onLevelChosen}
 			>
 				{level.name}
 			</div>
-			{isAdmin && !isBrokenLevel(level) && (
-				<div
-					className={clsx('text-xs text-gray-400', {
-						'text-gray-400': level.user?.role !== 'sb',
-						'text-red-400': level.user?.role === 'sb',
-					})}
-				>
-					{level.user?.username}
-				</div>
-			)}
-			{!isBuildingSave && (
-				<>
-					{isBrokenLevel(level) ? (
-						<div />
-					) : (
-						<Button onClick={onTogglePublishLevel}>
-							{level.published ? 'unpublish' : 'publish'}
-						</Button>
-					)}
-					<DeleteLevel onDeleteLevel={onDeleteLevel} />
-				</>
-			)}
+			{!isBuildingSave && <DeleteLevel onDeleteLevel={onDeleteLevel} />}
 		</div>
 	);
 }
@@ -179,13 +127,11 @@ function SavedLevels({
 	className,
 	loadingState,
 	levels,
-	isAdmin,
 	thumbnailScale,
 	isBuildingSave,
 	chosenLevelsForSave,
 	onLevelChosen,
 	onDeleteLevel,
-	onTogglePublishLevel,
 }: SavedLevelsProps) {
 	let body = null;
 
@@ -209,19 +155,13 @@ function SavedLevels({
 								<LevelRow
 									key={l.id}
 									level={l}
-									isAdmin={isAdmin}
 									scale={thumbnailScale}
 									onLevelChosen={() => {
-										if (!isBrokenLevel(l)) {
-											onLevelChosen(l);
-										}
+										onLevelChosen(l);
 									}}
 									onDeleteLevel={() => onDeleteLevel(l)}
-									onTogglePublishLevel={() => onTogglePublishLevel(l as Level)}
-									isBuildingSave={!isBrokenLevel(l) && isBuildingSave}
-									isChosenForSave={
-										!isBrokenLevel(l) && chosenLevelsForSave.includes(l)
-									}
+									isBuildingSave={isBuildingSave}
+									isChosenForSave={chosenLevelsForSave.includes(l)}
 								/>
 							);
 						})}

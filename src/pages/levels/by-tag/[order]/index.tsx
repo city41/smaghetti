@@ -1,3 +1,3 @@
-import tagsRouteFunction from './[tags]';
+import tagsRouteFunction from './[tag]';
 
 export default tagsRouteFunction;
