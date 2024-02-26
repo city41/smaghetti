@@ -29,6 +29,9 @@ function ECoinsPage({
 		<Root metaDescription="Smaghetti's art gallery :)" title="Custom E-Coins">
 			<div className="max-w-2xl mx-auto pt-16 flex flex-col h-full">
 				<h1 className="font-bold text-2xl text-center">Community E-Coins</h1>
+				<p className="text-center my-4">
+					(The coins can take a while to show up, especially on mobile)
+				</p>
 				{!!currentOrder && levels.length > 0 && (
 					<Menu className="grid grid-cols-2 w-1/2 mx-auto mb-12">
 						{userOrders.map((c) => {
