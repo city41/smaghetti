@@ -68,6 +68,7 @@ class MyDocument extends Document {
 					<script type="text/javascript" src="/gbajs/gba.js"></script>
 					<script type="text/javascript" src="/gbajs/xhr.js"></script>
 					<script type="text/javascript" src="/gbajs/instance.js"></script>
+					<script src="/_vercel/insights/script.js" defer />
 				</Head>
 				<body>
 					<Main />
