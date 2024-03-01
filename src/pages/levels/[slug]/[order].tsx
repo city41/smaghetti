@@ -47,7 +47,7 @@ export function getStaticProps(
 ): GetStaticPropsResult<NextLevels2PageProps> {
 	const { params } = context;
 	const slug = params?.slug as CategorySlug;
-	const order = (params?.order ?? 'newest') as CategoryUserOrder;
+	const order = (params?.order ?? 'popular') as CategoryUserOrder;
 
 	return {
 		props: { slug, order },
@@ -59,9 +59,9 @@ function NextLevels2Page({ slug, order }: NextLevels2PageProps) {
 
 	useEffect(() => {
 		if (typeof slug !== 'string') {
-			router.replace('/levels/all/newest');
+			router.replace('/levels/all/popular');
 		} else if (typeof order !== 'string') {
-			router.replace(`/levels/${slug}/newest`);
+			router.replace(`/levels/${slug}/popular`);
 		}
 	}, [slug, order]);
 
@@ -71,7 +71,7 @@ function NextLevels2Page({ slug, order }: NextLevels2PageProps) {
 				currentSlug={slug as CategorySlug}
 				currentOrder={order as CategoryUserOrder}
 				onSlugClick={(newSlug) => {
-					router.push(`/levels/${newSlug}/newest`);
+					router.push(`/levels/${newSlug}/popular`);
 				}}
 				onUserOrderClick={(newOrder) => {
 					router.push(`/levels/${slug}/${newOrder}`);

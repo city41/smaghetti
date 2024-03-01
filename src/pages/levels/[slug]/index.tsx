@@ -5,7 +5,7 @@ function NextLevels2SlugIndexPage() {
 	const router = useRouter();
 
 	useEffect(() => {
-		router.replace('/levels/all/newest');
+		router.replace('/levels/all/popular');
 	}, []);
 
 	return null;

@@ -6,62 +6,62 @@ module.exports = withPlugins([withOptimizedClassnames], {
 		return [
 			{
 				source: '/e-coins',
-				destination: '/e-coins/newest',
+				destination: '/e-coins/popular',
 				permanent: true,
 			},
 			{
 				source: '/e-coins/',
-				destination: '/e-coins/newest',
+				destination: '/e-coins/popular',
 				permanent: true,
 			},
 			{
 				source: '/levels2',
-				destination: '/levels/all/newest',
+				destination: '/levels/all/popular',
 				permanent: true,
 			},
 			{
 				source: '/levels2/',
-				destination: '/levels/all/newest',
+				destination: '/levels/all/popular',
 				permanent: true,
 			},
 			{
 				source: '/levels',
-				destination: '/levels/all/newest',
+				destination: '/levels/all/popular',
 				permanent: true,
 			},
 			{
 				source: '/levels/',
-				destination: '/levels/all/newest',
+				destination: '/levels/all/popular',
 				permanent: true,
 			},
 			{
 				source: '/levels/by-tag',
-				destination: '/levels/by-tag/newest',
+				destination: '/levels/by-tag/popular',
 				permanent: true,
 			},
 			{
 				source: '/levels/by-tag/',
-				destination: '/levels/by-tag/newest',
+				destination: '/levels/by-tag/popular',
 				permanent: true,
 			},
 			{
 				source: '/levels/coins',
-				destination: '/levels/coins/newest',
+				destination: '/levels/coins/popular',
 				permanent: true,
 			},
 			{
 				source: '/levels/coins/',
-				destination: '/levels/coins/newest',
+				destination: '/levels/coins/popular',
 				permanent: true,
 			},
 			/*  */ {
 				source: '/levels/dev-favs',
-				destination: '/levels/dev-favs/newest',
+				destination: '/levels/dev-favs/popular',
 				permanent: true,
 			},
 			{
 				source: '/levels/dev-favs/',
-				destination: '/levels/dev-favs/newest',
+				destination: '/levels/dev-favs/popular',
 				permanent: true,
 			},
 			{

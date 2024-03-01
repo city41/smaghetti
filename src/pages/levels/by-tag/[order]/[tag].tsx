@@ -19,10 +19,10 @@ function NextLevels2ByTagPage() {
 		<Provider store={store}>
 			<Levels2Page
 				currentSlug="by-tag"
-				currentOrder={(order ?? 'newest') as CategoryUserOrder}
+				currentOrder={(order ?? 'popular') as CategoryUserOrder}
 				tag={tag}
 				onSlugClick={(newSlug) => {
-					router.push(`/levels/${newSlug}/newest`);
+					router.push(`/levels/${newSlug}/popular`);
 				}}
 				onUserOrderClick={(newOrder) => {
 					router.push(`/levels/by-tag/${newOrder}/${tag}`);

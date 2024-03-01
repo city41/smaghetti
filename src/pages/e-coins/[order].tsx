@@ -34,7 +34,7 @@ export function getStaticProps(
 	context: GetStaticPropsContext
 ): GetStaticPropsResult<NextECoinsPageProps> {
 	const { params } = context;
-	const order = (params?.order ?? 'newest') as CategoryUserOrder;
+	const order = (params?.order ?? 'popular') as CategoryUserOrder;
 
 	return {
 		props: { order },
@@ -46,7 +46,7 @@ function NextECoinsPage({ order }: NextECoinsPageProps) {
 
 	useEffect(() => {
 		if (typeof order !== 'string') {
-			router.replace(`/e-coins/newest`);
+			router.replace(`/e-coins/popular`);
 		}
 	}, [order]);
 

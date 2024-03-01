@@ -17,7 +17,7 @@ export const categories = [
 	},
 ] as const;
 
-export const userOrders = ['newest', 'popular'] as const;
+export const userOrders = ['popular', 'newest'] as const;
 
 export type CategorySlug = typeof categories[number]['slug'];
 export type CategoryUserOrder = typeof userOrders[number];
