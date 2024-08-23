@@ -3,6 +3,7 @@ import screenshotPng from '../../../screenshotCropped.png';
 import { DISCORD_LINK } from '../../constants';
 
 import { Root } from '../layout/Root';
+import { IconAlert } from '../../icons';
 
 function IndexPage() {
 	return (
@@ -15,6 +16,10 @@ function IndexPage() {
 					<h1 className="text-2xl font-bold">
 						A level editor for Super Mario Advance 4
 					</h1>
+					<p className="my-4 p-2 bg-yellow-100 text-green-800 font-bold text-lg flex flex-row">
+						<IconAlert className="w-8 h-8 text-green-300 mr-4" />
+						Smaghetti has moved to smaghetti.mattgreer.dev
+					</p>
 					<p className="mt-4 mb-16 text-sm p-2 bg-yellow-100 text-yellow-800">
 						Smaghetti is no longer updated. This site is now an
 						&quot;archive&quot;

@@ -20,6 +20,7 @@ import {
 import { TagPicker } from './TagPicker';
 import { MAX_LEVEL_DATA } from '../../../levelData/typesAndConstants';
 import { Shergiok } from './Shergiok';
+import { IconAlert } from '../../../icons';
 
 export const MAX_LEVELS_IN_SAVE = MAX_LEVEL_DATA;
 
@@ -92,6 +93,10 @@ function Levels2Page({
 				<div className="max-w-2xl mx-auto sm:pt-16 flex flex-col h-full">
 					<Shergiok className="block sm:hidden -mx-4 mb-4" />
 					<h1 className="font-bold text-2xl text-center">Community Levels</h1>
+					<p className="my-4 p-2 bg-yellow-100 text-green-800 font-bold text-lg flex flex-row">
+						<IconAlert className="w-8 h-8 text-green-300 mr-4" />
+						Smaghetti has moved to smaghetti.mattgreer.dev
+					</p>
 					<p className="mt-4 mb-16 text-sm p-2 bg-yellow-100 text-yellow-800">
 						Smaghetti used to be a small community of people making and sharing
 						levels. This is now an archive of all the levels that were made. No

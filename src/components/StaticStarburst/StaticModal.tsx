@@ -13,11 +13,14 @@ function StaticModal({
 	return (
 		<Modal
 			isOpen={isOpen}
-			title="Smaghetti is now static"
+			title="Smaghetti has moved"
 			onRequestClose={onRequestClose}
 			onOkClick={onRequestClose}
 		>
 			<div className="w-full max-w-2xl space-y-8">
+				<p className="p-4 bg-yellow-100 text-green-600">
+					Smaghetti has moved to <b>smaghetti.mattgreer.dev</b>.
+				</p>
 				<p>
 					Smaghetti is no longer being worked on. I really wish it was, but I
 					just don&apos;t have the time for it anymore. So now Smaghetti is a
