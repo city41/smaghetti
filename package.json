@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"develop": "next dev",
-		"prebuild": "yarn lint && yarn ci-test",
+		"prebuild": "yarn type-check && yarn ci-test",
 		"build": "next build",
 		"start": "next start",
 		"storybook": "start-storybook -p 6006",
