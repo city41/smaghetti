@@ -26,7 +26,6 @@ import { useFirstRender } from '../../../hooks/useFirstRender';
 
 import styles from './Editor.module.css';
 import { LoadingBar } from '../../LoadingBar';
-import { StaticStarburst } from '../../StaticStarburst';
 import { EntityAndProblemList } from './EntityAndProblemList';
 import { InGameLevelsChooser } from './experiments/LoadInGameLevels/InGameLevelsChooser';
 
@@ -297,9 +296,7 @@ function Editor({
 					className={clsx('fixed right-0 top-40 pointer-events-auto z-10', {
 						hidden: isPlaying,
 					})}
-				>
-					<StaticStarburst />
-				</div>
+				></div>
 			</div>
 			{loadLevelState === 'loading' && (
 				<>
